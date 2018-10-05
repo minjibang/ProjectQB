@@ -59,6 +59,13 @@ public class HomeController {
 	   }
 	
 
+	@RequestMapping("adminMember.do")
+	   public String adminMember() {
+	     
+	      return "admin.adminMember";
+	   }
+	
+
 	@RequestMapping("mypage.do")
 		public String mypage() {
 		
@@ -89,5 +96,6 @@ public class HomeController {
 	     
 	      return "teacher.teacherNoticeWrite";
 	   }
+
 
 }
