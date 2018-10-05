@@ -26,7 +26,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="adminClassInfo.do">
+            <a href="javascript:;">
               <i class="fa fa-desktop"></i>
               <span>클래스 관리</span>
               </a>

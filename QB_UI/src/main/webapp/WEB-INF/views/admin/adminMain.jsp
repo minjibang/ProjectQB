@@ -4,6 +4,12 @@
 <!DOCTYPE html>
 <html>
 
+<!-- 
+18/10/05
+양회준 
+클래스 목록 UI 작업
+-->
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -169,7 +175,7 @@
         <div class="col-lg-12">
           <!-- weather-4 PANEL -->
               <div class="col-lg-3 col-md-3 col-sm-3 mb">
-                <a href="index.html">
+                <a href="adminClassInfo.do">
                 <div class="weather-4 pn-big centered">
                   <i class="fa fa-desktop"></i>
                   <h1>JAVA</h1>
@@ -188,7 +194,7 @@
               </div>
         <!-- weather-4 PANEL -->
             <div class="col-lg-3 col-md-3 col-sm-3 mb">
-              <a href="index.html">
+              <a href="adminClassInfo.do">
               <div class="weather-4 pn-big centered">
                 <i class="fa fa-cog"></i>
                 <h1>빅데이터</h1>
@@ -207,7 +213,7 @@
             </div>
           <!-- weather-4 PANEL -->
               <div class="col-lg-3 col-md-3 col-sm-3 mb">
-                <a href="index.html">
+                <a href="adminClassInfo.do">
                 <div class="weather-4 pn-big centered">
                   <i class="fa fa-gamepad"></i>
                   <h1>AR/VR</h1>
@@ -226,7 +232,7 @@
               </div>
           <!-- weather-4 PANEL -->
               <div class="col-lg-3 col-md-3 col-sm-3 mb">
-                <a href="index.html">
+                <a href="adminClassInfo.do">
                 <div class="weather-4 pn-big centered">
                   <i class="fa fa-keyboard-o"></i>
                   <h1>임베디드</h1>
@@ -247,7 +253,7 @@
 <!-- row -->
 <!-- weather-4 PANEL -->
     <div class="col-lg-3 col-md-3 col-sm-3 mb">
-      <a href="index.html">
+      <a href="adminClassInfo.do">
       <div class="weather-4 pn-big centered">
         <i class="fa fa-desktop"></i>
         <h1>JAVA</h1>
@@ -266,7 +272,7 @@
     </div>
 <!-- weather-4 PANEL -->
   <div class="col-lg-3 col-md-3 col-sm-3 mb">
-    <a href="index.html">
+    <a href="adminClassInfo.do">
     <div class="weather-4 pn-big centered">
       <i class="fa fa-cog"></i>
       <h1>빅데이터</h1>
@@ -285,7 +291,7 @@
   </div>
 <!-- weather-4 PANEL -->
     <div class="col-lg-3 col-md-3 col-sm-3 mb">
-      <a href="index.html">
+      <a href="adminClassInfo.do">
       <div class="weather-4 pn-big centered">
         <i class="fa fa-gamepad"></i>
         <h1>AR/VR</h1>
@@ -304,7 +310,7 @@
     </div>
 <!-- weather-4 PANEL -->
     <div class="col-lg-3 col-md-3 col-sm-3 mb">
-      <a href="index.html">
+      <a href="adminClassInfo.do">
       <div class="weather-4 pn-big centered">
         <i class="fa fa-keyboard-o"></i>
         <h1>임베디드</h1>
@@ -325,7 +331,7 @@
     <!-- row -->
     <!-- weather-4 PANEL -->
         <div class="col-lg-3 col-md-3 col-sm-3 mb">
-          <a href="index.html">
+          <a href="adminClassInfo.do">
           <div class="weather-4 pn-big centered">
             <i class="fa fa-desktop"></i>
             <h1>JAVA</h1>
@@ -344,7 +350,7 @@
         </div>
     <!-- weather-4 PANEL -->
       <div class="col-lg-3 col-md-3 col-sm-3 mb">
-        <a href="index.html">
+        <a href="adminClassInfo.do">
         <div class="weather-4 pn-big centered">
           <i class="fa fa-cog"></i>
           <h1>빅데이터</h1>
@@ -363,7 +369,7 @@
       </div>
     <!-- weather-4 PANEL -->
         <div class="col-lg-3 col-md-3 col-sm-3 mb">
-          <a href="index.html">
+          <a href="adminClassInfo.do">
           <div class="weather-4 pn-big centered">
             <i class="fa fa-gamepad"></i>
             <h1>AR/VR</h1>
@@ -382,7 +388,7 @@
         </div>
     <!-- weather-4 PANEL -->
         <div class="col-lg-3 col-md-3 col-sm-3 mb">
-          <a href="index.html">
+          <a href="adminClassInfo.do">
           <div class="weather-4 pn-big centered">
             <i class="fa fa-keyboard-o"></i>
             <h1>임베디드</h1>
