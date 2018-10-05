@@ -30,18 +30,35 @@ public class HomeController {
 	      return "admin.adminCategory";
 	   }
 	
-	
-	@RequestMapping("admin_management.do")
-	   public String admin_management() {
+
+	//10.05 ���� �߰�
+	@RequestMapping("adminClassInfo.do")
+	   public String adminClassInfo() {
 	     
-	      return "admin.admin_management";
+	      return "admin.adminClassInfo";
 	   }
+
+	//���� �߰� ��
+
 	@RequestMapping("memberjoin.do")
 	   public String memberjoin() {
 	     
 	      return "home.memberJoin";
 	   }
+
+	@RequestMapping("adminMain.do")
+	   public String adminMain() {
+	     
+	      return "admin.adminMain";
+	   }
 	
+	@RequestMapping("afterLogin_main.do")
+	   public String afterLogin_main() {
+	     
+	      return "common.teacherMain";
+	   }
+	
+
 	// 관리자 회원관리(영준)
 	@RequestMapping("adminMember.do")
 	   public String adminMember() {
@@ -49,4 +66,30 @@ public class HomeController {
 	      return "admin.adminMember";
 	   }
 	
+
+	@RequestMapping("idSearch.do")
+	   public String idSearch() {
+	     
+		return "home.findId";
+	   }
+	
+	@RequestMapping("pwdSearch.do")
+	   public String pwdSearch() {
+	     
+		return "home.findPw";
+	   }
+	
+	@RequestMapping("noAuth.do")
+	   public String noAuth() {
+	     
+		return "noAuth.noAuth";
+	   }
+
+	@RequestMapping("teacherNoticeWrite.do")
+	   public String teacherNoticeWrite() {
+	     
+	      return "teacher.teacherNoticeWrite";
+	   }
+
+
 }

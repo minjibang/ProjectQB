@@ -4,7 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -27,18 +26,12 @@
   <link href="css/style-responsive.css" rel="stylesheet">
   <script src="lib/chart-master/Chart.js"></script>
 
-<!-- DataTables 관련 -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
   <!-- =======================================================
     Template Name: Dashio
     Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
     Author: TemplateMag.com
     License: https://templatemag.com/license/
   ======================================================= -->
-  
-
 </head>
 <body>
  <section id="container">
@@ -54,19 +47,19 @@
         *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
     <!-- 사이드바 부분 -->
-    <tiles:insertAttribute name="sidebar" />
+   
     <!--sidebar end-->
     <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
     <!--main content start-->
     <!-- 컨텐츠 부분 -->
-    <tiles:insertAttribute name="content" />
+	<tiles:insertAttribute name="content" />
      
     <!--main content end-->
     <!--footer start-->
-<!-- 푸터부분 -->
-<tiles:insertAttribute name="footer" />
+	<!-- 푸터부분 -->
+	<tiles:insertAttribute name="footer" />
     <!--footer end-->
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
@@ -146,24 +139,5 @@
       console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
   </script>
-  <!-- 테이블 관련  -->
-
-	<script>
-		$(document).ready(function() {
-			$('#myTable').DataTable({
-				"columnDefs" : [ {
-					"width" : "15%",
-					"targets" : 3
-				} ]
-			});
-			$('table.display').DataTable({
-				
-			});
-		});
-	</script>
-
-	<script type="text/javascript" charset="utf8"
-		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-	<!-- 테이블 관련 end -->
 </body>
 </html>
