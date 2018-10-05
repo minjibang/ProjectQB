@@ -36,5 +36,10 @@ public class HomeController {
 	     
 	      return "admin.admin_management";
 	   }
+	@RequestMapping("memberjoin.do")
+	   public String memberjoin() {
+	     
+	      return "home.memberJoin";
+	   }
 	
 }
