@@ -170,6 +170,49 @@ a, a:hover, a:focus {
   border-color: #da4453;
 }
 
+/*성태용*/
+.btn-theme05 {
+  color: #fff;
+  background-color: #6E6E6E;
+  border-color: #6E6E6E;
+}
+
+.btn-theme05:hover,
+.btn-theme05:focus,
+.btn-theme05:active,
+.btn-theme05.active,
+.open .dropdown-toggle.btn-theme05 {
+  color: #fff;
+  background-color: #37bc9b;
+  border-color: #37bc9b;
+}
+
+.btn2 {
+	height: 30px;
+	border-radius: 5px;
+}
+
+.form-signup {
+	max-width: 530px;
+	margin: 80px auto 0;
+	background: #fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.form-signup h2.form-login-heading {
+	margin: 0;
+	padding: 25px 20px;
+	text-align: center;
+	background: #4ecdc4;
+	border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+/*****************/
+
 .btn-clear-g {
 	color: #48bcb4;
 	background: transparent;
@@ -1964,8 +2007,8 @@ ul li {
 
 /*LOGIN CONFIGURATION PAGE*/
 .form-login {
-	max-width: 330px;
-	margin: 100px auto 0;
+	max-width: 530px;
+	margin: 300px auto 0;
 	background: #fff;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;

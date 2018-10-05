@@ -37,6 +37,14 @@ public class HomeController {
 	     
 	      return "admin.adminClassInfo";
 	   }
+
 	//민지 추가 끝
+
+	@RequestMapping("memberjoin.do")
+	   public String memberjoin() {
+	     
+	      return "home.memberJoin";
+	   }
+
 	
 }
