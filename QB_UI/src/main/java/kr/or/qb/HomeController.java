@@ -21,7 +21,7 @@ public class HomeController {
 	@RequestMapping("index.do")
 	   public String getlist() {
 	     
-	      return "join.deptJoin";
+	      return "join.login";
 	   }
 	@RequestMapping("admin_management.do")
 	   public String admin_management() {
