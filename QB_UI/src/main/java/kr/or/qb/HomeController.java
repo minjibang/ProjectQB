@@ -37,4 +37,10 @@ public class HomeController {
 	      return "admin.admin_management";
 	   }
 	
+	@RequestMapping("adminMain.do")
+	   public String adminMain() {
+	     
+	      return "admin.adminMain";
+	   }
+	
 }
