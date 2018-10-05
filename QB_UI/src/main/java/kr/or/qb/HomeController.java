@@ -37,4 +37,11 @@ public class HomeController {
 	      return "admin.admin_management";
 	   }
 	
+	// 관리자 회원관리(영준)
+	@RequestMapping("adminMember.do")
+	   public String adminMember() {
+	     
+	      return "admin.adminMember";
+	   }
+	
 }
