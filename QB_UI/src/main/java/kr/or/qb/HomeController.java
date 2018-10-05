@@ -19,10 +19,18 @@ public class HomeController {
 	
 	
 	@RequestMapping("index.do")
-	   public String getlist() {
+	   public String login() {
 	     
 	      return "join.login";
 	   }
+	
+	@RequestMapping("adminCategory.do")
+	   public String adminCategory() {
+	     
+	      return "admin.adminCategory";
+	   }
+	
+	
 	@RequestMapping("admin_management.do")
 	   public String admin_management() {
 	     

@@ -13,8 +13,8 @@
               <span>학생&성적 관리</span>
               </a>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
+          <li class="sub-menu" >
+            <a href="adminCategory.do">
               <i class="fa fa-desktop"></i>
               <span>문제 관리</span>
               </a>

@@ -3,13 +3,21 @@
     pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>Home</title>
+	<!-- head영억 --> 
 </head>
 <body>
-<h1>
-	<!-- 관리자 문제 분류 관리  -->
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		test test test test test test <br>
+		test test test test test test <br>
+		test test test test test test <br>
+		test test test test test test <br>
+		test test test test test test <br>
+		<!-- /container -->
+	</section>
+	<!-- /wrapper -->
+</section>
+<!-- /MAIN CONTENT -->
+<!--main content end-->
 </body>
 </html>
