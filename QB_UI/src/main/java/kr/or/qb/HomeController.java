@@ -42,4 +42,28 @@ public class HomeController {
 	      return "home.memberJoin";
 	   }
 	
+	@RequestMapping("idSearch.do")
+	   public String idSearch() {
+	     
+		return "home.findId";
+	   }
+	
+	@RequestMapping("pwdSearch.do")
+	   public String pwdSearch() {
+	     
+		return "home.findPw";
+	   }
+	
+	@RequestMapping("noAuth.do")
+	   public String noAuth() {
+	     
+		return "noAuth.noAuth";
+	   }
+
+	
+	
+	
+	
+	
+	
 }

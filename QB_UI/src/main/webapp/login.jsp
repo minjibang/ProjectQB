@@ -39,9 +39,17 @@
             <label>PASSWORD</label>
           <input type="password" class="form-control" placeholder="Password">
             <br>
+            <!-- 정원 (나중에 삭제) -->
           <label class="pull-right">
-            <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
+            <a href="idSearch.do"> Forgot id?</a>
           </label>
+          <label class="pull-right">
+            <a href="pwdSearch.do"> Forgot Password?</a>
+          </label>
+          <label class="pull-right">
+            <a href="noAuth.do"> 인증안된 회원</a>
+          </label>
+          <!-- ********************** -->
           <button class="btn btn-theme02 btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i>LOGIN</button>
           <br>
           <a href="memberjoin.do"><button type="button" class="btn btn-theme btn-block"><i class="fa fa-lock"></i> SIGN UP</button></a>

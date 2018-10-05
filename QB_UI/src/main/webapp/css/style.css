@@ -15,6 +15,39 @@ Website: http://Alvarez.is/
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
 /* BASIC THEME CONFIGURATION */
+
+/*****************************정원 */
+#modal_confirm {
+	width: 100%;
+}
+
+#remember {
+	text-align: center;
+}
+
+.form-login2 {
+	max-width: 700px;
+	margin: 250px auto 0;
+	background: #fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.form-login2 h2.form-login-heading {
+	margin: 0;
+	padding: 25px 20px;
+	text-align: center;
+	background: #4ecdc4;
+	border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
+/********************************/
+
 body {
     color: #797979;
 	background: #eaeaea;
