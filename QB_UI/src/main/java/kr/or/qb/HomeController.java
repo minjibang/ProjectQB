@@ -46,11 +46,21 @@ public class HomeController {
 	      return "home.memberJoin";
 	   }
 
-	
 	@RequestMapping("adminMain.do")
 	   public String adminMain() {
 	     
 	      return "admin.adminMain";
 	   }
 	
+	@RequestMapping("afterLogin_main.do")
+	   public String afterLogin_main() {
+	     
+	      return "common.teacherMain";
+	   }
+	
+	@RequestMapping("teacherNoticeWrite.do")
+	   public String teacherNoticeWrite() {
+	     
+	      return "teacher.teacherNoticeWrite";
+	   }
 }
