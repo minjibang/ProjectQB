@@ -59,13 +59,19 @@ public class HomeController {
 	   }
 	
 
-	// 관리자 회원관리(영준)
 	@RequestMapping("adminMember.do")
 	   public String adminMember() {
 	     
 	      return "admin.adminMember";
 	   }
 	
+
+	@RequestMapping("mypage.do")
+		public String mypage() {
+		
+		return "common.myPage";
+	}
+
 
 	@RequestMapping("idSearch.do")
 	   public String idSearch() {

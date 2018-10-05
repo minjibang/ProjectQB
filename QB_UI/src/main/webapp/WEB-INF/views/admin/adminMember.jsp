@@ -1,9 +1,24 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<script>
-
-</script>
+<html>
+<head>
+<!-- 데이터 테이블 -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+	
+<!-- 모달창 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+</head>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -45,7 +60,9 @@
 										<table id="myTable">
 
 											<thead>
+											
 												<tr>
+													<th><input type="checkbox" name="all-selected">전체 선택</th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>
@@ -58,6 +75,7 @@
 											<tbody>
 												
 													<tr>
+														<td><input type="checkbox" name="selected" value="row_1"></td>
 														<td class="classname">자바 109기</td>
 														<td class="id">af1982</td>
 														<td class="name">김샘플</td>
@@ -70,6 +88,7 @@
 															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
 													</tr>
 													<tr>
+														<td><input type="checkbox" name="selected" value="row_2"></td>
 														<td class="classname">자바 109기</td>
 														<td class="id">slei1</td>
 														<td class="name">이샘플</td>
@@ -82,6 +101,7 @@
 															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
 													</tr>
 													<tr>
+														<td><input type="checkbox" name="selected" value="row_3"></td>
 														<td class="classname">아두이노 111기</td>
 														<td class="id">ekkuying</td>
 														<td class="name">박샘플</td>
@@ -152,5 +172,20 @@
 	</section>
 	<!-- /wrapper -->
 </section>
+<script>
+	// DataTable 구현
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } 
+    );
+	// ckechbox 전체선택/해제하기
+    $('input[name=all-selected]').on('change', function(){
+    	  $('input[name=selected]').prop('checked', this.checked);
+    	});
+   // 선택한 checkbox 값 가져오기
+   var arr = $('input[name=_selected_]:checked').serializeArray().map(function(item) 
+    		{ return item.value });
+</script>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
+</html>
