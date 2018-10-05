@@ -30,16 +30,21 @@ public class HomeController {
 	      return "admin.adminCategory";
 	   }
 	
-	
-	@RequestMapping("admin_management.do")
-	   public String admin_management() {
+
+	//10.05 ¹ÎÁö Ãß°¡
+	@RequestMapping("adminClassInfo.do")
+	   public String adminClassInfo() {
 	     
-	      return "admin.admin_management";
+	      return "admin.adminClassInfo";
 	   }
+
+	//¹ÎÁö Ãß°¡ ³¡
+
 	@RequestMapping("memberjoin.do")
 	   public String memberjoin() {
 	     
 	      return "home.memberJoin";
 	   }
+
 	
 }
