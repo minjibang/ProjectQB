@@ -30,18 +30,35 @@ public class HomeController {
 	      return "admin.adminCategory";
 	   }
 	
-	
-	@RequestMapping("admin_management.do")
-	   public String admin_management() {
+
+	//10.05 ���� �߰�
+	@RequestMapping("adminClassInfo.do")
+	   public String adminClassInfo() {
 	     
-	      return "admin.admin_management";
+	      return "admin.adminClassInfo";
 	   }
+
+	//���� �߰� ��
+
 	@RequestMapping("memberjoin.do")
 	   public String memberjoin() {
 	     
 	      return "home.memberJoin";
 	   }
+
+	@RequestMapping("adminMain.do")
+	   public String adminMain() {
+	     
+	      return "admin.adminMain";
+	   }
 	
+	@RequestMapping("afterLogin_main.do")
+	   public String afterLogin_main() {
+	     
+	      return "common.teacherMain";
+	   }
+	
+
 	@RequestMapping("idSearch.do")
 	   public String idSearch() {
 	     
@@ -60,10 +77,10 @@ public class HomeController {
 		return "noAuth.noAuth";
 	   }
 
-	
-	
-	
-	
-	
-	
+	@RequestMapping("teacherNoticeWrite.do")
+	   public String teacherNoticeWrite() {
+	     
+	      return "teacher.teacherNoticeWrite";
+	   }
+
 }

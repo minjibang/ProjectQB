@@ -14,6 +14,21 @@ Website: http://Alvarez.is/
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
+
+
+/*minji*/
+#class_update_form{
+	  padding-left: 15%;
+      padding-right: 10%;
+}
+#AdminUpdateBtn{
+	text-align: right;
+}
+
+#AdminTableForm{
+	  padding-left: 15%;
+      padding-right: 10%;
+}
 /* BASIC THEME CONFIGURATION */
 
 /*****************************정원 */

@@ -54,6 +54,7 @@
           <br>
           <a href="memberjoin.do"><button type="button" class="btn btn-theme btn-block"><i class="fa fa-lock"></i> SIGN UP</button></a>
         </div>
+        <a href="adminClassInfo.do">admin</a>
       </form>
     </div>
   </div>
