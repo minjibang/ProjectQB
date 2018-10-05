@@ -42,4 +42,19 @@ public class HomeController {
 	      return "home.memberJoin";
 	   }
 	
+	@RequestMapping("mypage.do")
+		public String mypage() {
+		
+		return "common.myPage";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
