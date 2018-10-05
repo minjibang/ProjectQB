@@ -47,4 +47,15 @@ public class HomeController {
 	   }
 
 	
+	@RequestMapping("afterLogin_main.do")
+	   public String afterLogin_main() {
+	     
+	      return "common.teacherMain";
+	   }
+	
+	@RequestMapping("teacherNoticeWrite.do")
+	   public String teacherNoticeWrite() {
+	     
+	      return "teacher.teacherNoticeWrite";
+	   }
 }

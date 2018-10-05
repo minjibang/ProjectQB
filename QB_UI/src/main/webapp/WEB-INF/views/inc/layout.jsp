@@ -156,6 +156,9 @@
 					"targets" : 3
 				} ]
 			});
+			$('table.display').DataTable({
+				
+			});
 		});
 	</script>
 
