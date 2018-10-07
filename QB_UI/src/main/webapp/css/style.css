@@ -52,7 +52,7 @@ Website: http://Alvarez.is/
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #4ecdc4;
+	background: #ef6c00;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -81,13 +81,13 @@ a, a:hover, a:focus {
 	outline: none;
 }
 
-::selection {
-	background: #4ECDC4;
+/* ::selection {
+	background: #ef6c00;
 	color: #fff;
-}
+} */
 
 ::-moz-selection {
-	background: #4ECDC4;
+	background: #ef6c00;
 	color: #fff;
 }
 
@@ -98,7 +98,7 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #4ECDC4;
+	background: #ef6c00;
 }
 
 .modal-title {
@@ -125,7 +125,7 @@ a, a:hover, a:focus {
 
 /*Theme Backgrounds*/
 .bg-theme {
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 }
 
 .bg-theme02 {
@@ -133,7 +133,7 @@ a, a:hover, a:focus {
 }
 
 .bg-theme03 {
-	background-color: #48cfad;
+	background-color: #797979;
 }
 
 .bg-theme04 {
@@ -142,15 +142,15 @@ a, a:hover, a:focus {
 /*Theme Buttons*/
 .btn-theme {
 	color: #fff;
-	background-color: #4ECDC4;
-	border-color: #48bcb4;
+	background-color: #ef6c00;
+	border-color: #ef6c00;
 }
 
 .btn-theme:hover, .btn-theme:focus, .btn-theme:active, .btn-theme.active,
 	.open .dropdown-toggle.btn-theme {
 	color: #fff;
-	background-color: #48bcb4;
-	border-color: #48bcb4;
+	background-color: #ef6c00;
+	border-color: #ef6c00;
 }
 
 .btn-theme02 {
@@ -168,7 +168,7 @@ a, a:hover, a:focus {
 
 .btn-theme03 {
 	color: #fff;
-	background-color: #48cfad;
+	background-color: #797979;
 	border-color: #37bc9b;
 }
 
@@ -223,7 +223,7 @@ a, a:hover, a:focus {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #4ecdc4;
+	background: #ef6c00;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -233,9 +233,9 @@ a, a:hover, a:focus {
 }
 /*****************/
 .btn-clear-g {
-	color: #48bcb4;
+	color: #ef6c00;
 	background: transparent;
-	border-color: #48bcb4;
+	border-color: #ef6c00;
 }
 
 .btn-clear-g:hover {
@@ -280,11 +280,11 @@ hr {
 
 /*Exclusive Theme Colors Configuration*/
 .label-theme {
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 }
 
 .bg-theme {
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 }
 
 ul.top-menu>li>.logout {
@@ -292,10 +292,10 @@ ul.top-menu>li>.logout {
 	font-size: 12px;
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border: 1px solid #64c3c2 !important;
+	border: 1px solid #ef6c00 !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #4ECDC4;
+	background: #ef6c00;
 	margin-top: 15px;
 }
 
@@ -397,7 +397,7 @@ ul.sidebar-menu li ul.sub li a:hover {
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-	color: #4ECDC4;
+	color: #ef6c00;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
@@ -437,7 +437,7 @@ ul.sidebar-menu li a {
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus
 	{
-	background: #4ECDC4;
+	background: #ef6c00;
 	color: #fff;
 	display: block;
 	-webkit-transition: all 0.3s ease;
@@ -483,8 +483,7 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-	background: #22242a;
-	border-bottom: 1px solid #393d46;
+	background: #fff;
 }
 
 .wrapper {
@@ -499,7 +498,7 @@ ul.sidebar-menu li a.active i {
 
 a.logo {
 	font-size: 24px;
-	color: #f2f2f2;
+	color: #797979;
 	float: left;
 	margin-top: 15px;
 	text-transform: uppercase;
@@ -515,7 +514,7 @@ a.logo:hover, a.logo:focus {
 }
 
 a.logo span {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 /*notification*/
@@ -593,7 +592,7 @@ ul.top-menu>li>a:hover, ul.top-menu>li>a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 	color: #fff;
 }
 
@@ -798,9 +797,9 @@ ul.top-menu>li>a:hover, ul.top-menu>li>a:focus {
 }
 
 .notify-arrow-green {
-	border-color: transparent transparent #4ECDC4;
-	border-bottom-color: #4ECDC4 !important;
-	border-top-color: #4ECDC4 !important;
+	border-color: transparent transparent #ef6c00;
+	border-bottom-color: #ef6c00 !important;
+	border-top-color: #ef6c00 !important;
 }
 
 /*--sidebar toggle---*/
@@ -878,7 +877,7 @@ ul.top-menu>li>a:hover, ul.top-menu>li>a:focus {
 }
 
 .ds a {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 /* MAIN CHART CONFIGURATION */
@@ -927,8 +926,8 @@ ul.top-menu>li>a:hover, ul.top-menu>li>a:focus {
 .custom-bar-chart .bar .value {
 	position: absolute;
 	bottom: 0;
-	background: #4ECDC4;
-	color: #4ECDC4;
+	background: #ef6c00;
+	color: #ef6c00;
 	width: 100%;
 	-webkit-border-radius: 5px 5px 0 0;
 	-moz-border-radius: 5px 5px 0 0;
@@ -1060,7 +1059,7 @@ PANELS CONFIGURATIONS
 /*Green Panel*/
 .green-panel {
 	text-align: center;
-	background: #4ECDC4;
+	background: #ef6c00;
 }
 
 .green-panel .green-header {
@@ -1610,7 +1609,7 @@ PANELS CONFIGURATIONS
 }
 
 .profile-01 {
-	background: #4ECDC4;
+	background: #ef6c00;
 	height: 50px;
 }
 
@@ -1664,7 +1663,7 @@ PANELS CONFIGURATIONS
 }
 
 .pr2-social a:hover {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 .pr2-social i {
@@ -1731,7 +1730,7 @@ PANELS CONFIGURATIONS
 
 .panel.terques-chart .chart-tittle .value a:hover, .panel.terques-chart .chart-tittle .value a.active
 	{
-	color: #4ECDC4;
+	color: #ef6c00;
 	font-size: 12px;
 }
 
@@ -1821,7 +1820,7 @@ px
 	display: block;
 	position: relative;
 	overflow: hidden;
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 	-webkit-transition: background-color 0.4s;
 	-moz-transition: background-color 0.4s;
 	-o-transition: background-color 0.4s;
@@ -1841,7 +1840,7 @@ px
 }
 
 .project:hover .photo-wrapper {
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 	background-image: url(../img/zoom.png);
 	background-repeat: no-repeat;
 	background-position: center;
@@ -2120,7 +2119,7 @@ ul li {
 .dataTables_paginate.paging_bootstrap.pagination li:hover a,
 	.dataTables_paginate.paging_bootstrap.pagination li.active a {
 	color: #fff;
-	background: #4ECDC4;
+	background: #ef6c00;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 }
@@ -2138,7 +2137,7 @@ ul li {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #4ecdc4;
+	background: #ef6c00;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -2182,7 +2181,7 @@ ul li {
 }
 
 .lock-screen a:hover {
-	color: #48cfad
+	color: #797979
 }
 
 .lock-screen i {
@@ -2216,11 +2215,11 @@ ul li {
 
 .profile-text h3 {
 	font-weight: 700;
-	color: #48cfad;
+	color: #797979;
 }
 
 .profile-text h4 {
-	color: #48cfad;
+	color: #797979;
 }
 
 profile-text p {
@@ -2259,7 +2258,7 @@ profile-text p {
 	text-transform: uppercase;
 	border-bottom: 1px solid #e2e2e2;
 	font-weight: 700;
-	color: #48cfad;
+	color: #797979;
 }
 
 ul.my-friends {
@@ -2323,7 +2322,7 @@ ul.my-friends li .friends-pic {
 
 /* INVOICE CONF */
 .well.green {
-	background-color: #48cfad;
+	background-color: #797979;
 	color: #fff;
 	border: none;
 }
@@ -2365,7 +2364,7 @@ ul.my-friends li .friends-pic {
 	height: 3px;
 	margin: 10px auto;
 	width: 80px;
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 }
 
 .icn-main-container {
@@ -2383,7 +2382,7 @@ ul.my-friends li .friends-pic {
 	font-size: 2.4em;
 	line-height: 100px;
 	color: #fff;
-	background-color: #4ECDC4;
+	background-color: #ef6c00;
 	-webkit-transition: all 0.6s ease-in-out;
 	transition: all 0.6s ease-in-out;
 }
@@ -2470,7 +2469,7 @@ ul.my-friends li .friends-pic {
 }
 
 .dm-icon:active, .dm-icon:hover {
-	background: #4ECDC4
+	background: #ef6c00
 }
 
 /* 404 & 500 Error Pages Conf*/
@@ -2498,15 +2497,15 @@ ul.my-friends li .friends-pic {
 
 .mail-nav>li>a:hover, .mail-nav>li>a:focus {
 	background: #fafafa;
-	color: #4ECDC4;
+	color: #ef6c00;
 	border-right: 3px solid #1fb5ad;
 }
 
 .mail-nav>li.active>a, .mail-nav>li.active>a:hover, .mail-nav>li.active>a:focus
 	{
 	background: #fafafa;
-	color: #4ECDC4;
-	border-right: 3px solid #4ECDC4;
+	color: #ef6c00;
+	border-right: 3px solid #ef6c00;
 }
 
 .mail-nav>li+li {
@@ -2568,7 +2567,7 @@ a.mail-dropdown {
 }
 
 .btn-compose {
-	background: #4ECDC4;
+	background: #ef6c00;
 	padding: 12px 0;
 	text-align: center;
 	width: 100%;
@@ -2947,11 +2946,11 @@ ul.inbox-pagination li {
 }
 
 .view-mail a, .attachment-mail a:hover {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 .attachment-mail a {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 .attachment-mail ul li {
@@ -3027,7 +3026,7 @@ ul.inbox-pagination li {
 }
 
 .chat-room-head {
-	background: #4ECDC4;
+	background: #ef6c00;
 	color: #FFFFFF;
 	min-height: 70px;
 	padding: 15px;
@@ -3184,7 +3183,7 @@ ul.chat-user li a:hover {
 }
 
 .room-box h5 a {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 .chat-tools {
@@ -3232,7 +3231,7 @@ ul.chat-available-user li a {
 }
 
 ul.chat-available-user li a:hover {
-	color: #4ECDC4;
+	color: #ef6c00;
 }
 
 .group-rom {
@@ -3580,7 +3579,7 @@ ul.chat-available-user li a:hover {
 
 /*footer*/
 .site-footer {
-	background: #4ECDC4;
+	background: #ef6c00;
 	color: #fff;
 	padding: 15px 0;
 }
@@ -3638,7 +3637,7 @@ ul.chat-available-user li a:hover {
 }
 
 .contact-form .form-send button {
-	background: #4ECDC4;
+	background: #ef6c00;
 	border: 0;
 	padding: 10px 30px;
 	color: #fff;
