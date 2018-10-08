@@ -7,15 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html>
-<head>
-<!-- 데이터 테이블 -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-	
-</head>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -193,4 +184,3 @@
 </script>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
-</html>

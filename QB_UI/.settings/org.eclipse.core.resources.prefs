@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/admin/adminMessage.jsp=UTF-8
+=======
+encoding//src/main/java/onet/com/teacher/controller/TeacherController.java=UTF-8
+>>>>>>> master
 encoding//src/main/webapp/css/style.css=UTF-8

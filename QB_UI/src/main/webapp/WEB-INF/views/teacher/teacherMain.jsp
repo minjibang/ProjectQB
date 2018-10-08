@@ -55,19 +55,19 @@
 								<tbody>
 									<tr>
 										<td class="notice_num">3</td>
-										<td class="notice_name">추석 연휴 후 강의 일정</td>
+										<td class="notice_name"><a href="noticeView.do">추석 연휴 후 강의 일정</a></td>
 										<td class="notice_date">2018.09.17</td>
 										<td class="member_id">강사 홍길동</td>
 									</tr>
 									<tr>
 										<td class="notice_num">2</td>
-										<td class="notice_name">조별과제 공지입니다.</td>
+										<td class="notice_name"><a href="noticeView.do">조별과제 공지입니다.</a></td>
 										<td class="notice_date">2018.09.10</td>
 										<td class="member_id">강사 홍길동</td>
 									</tr>
 									<tr>
 										<td class="notice_num">1</td>
-										<td class="notice_name">공지사항</td>
+										<td class="notice_name"><a href="noticeView.do">공지사항</a></td>
 										<td class="notice_date">2018.09.01</td>
 										<td class="member_id">강사 홍길동</td>
 									</tr>

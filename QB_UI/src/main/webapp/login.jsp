@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>Dashio - Bootstrap Admin Template</title>
+  <title>Welcome BitCamp</title>
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -46,10 +46,10 @@
 
           <!-- 헤더 완료 후 링크 옮기기 -->
           <br><br>
-          <a href="mypage.do">마이페이지로 이동</a>&nbsp;&nbsp;&nbsp;
+          <a href="common/mypage.do">마이페이지로 이동</a>&nbsp;&nbsp;&nbsp;
           <br><br>
           <br><br>
-          <a href="teacherMain.do">강사 메인</a>
+          <a href="teacher/teacherMain.do">강사 메인</a>
           <!-- 헤더 완료 후 링크 옮기기 -->
            
 
@@ -63,9 +63,9 @@
 
           <button class="btn btn-theme02 btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i>LOGIN</button>
           <br>
-          <a href="memberjoin.do"><button type="button" class="btn btn-theme btn-block"><i class="fa fa-lock"></i> SIGN UP</button></a>
+          <a href="index/memberjoin.do"><button type="button" class="btn btn-theme btn-block"><i class="fa fa-lock"></i> SIGN UP</button></a>
         </div>
-        <a href="adminClassInfo.do">admin</a>
+        <a href="admin/adminClassInfo.do">admin</a>
       </form>
     </div>
   </div>

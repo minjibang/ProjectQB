@@ -1,22 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
-
-<head>
-<!-- 데이터테이블관련 -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
-<!-- 모달창관련 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
 #main-content {
@@ -62,9 +46,9 @@ button.modalButton {
 }
 
 </style>
-</head>
 
-<body>
+
+
 	<section id="main-content">
 		<section class="wrapper site-min-height">
 <!--############     모달창 시작          #############-->
@@ -287,6 +271,3 @@ $(document).ready( function () {
     
 });
 </script>
-
-</body>
-</html>

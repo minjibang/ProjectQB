@@ -7,37 +7,21 @@
 		<put-attribute name="title" value="3TEAM"/>
 		<put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp"/>
 	</definition>
-	
-	<definition name="noAuth.*" template="/WEB-INF/views/noAuth/layout.jsp">
-		    <put-attribute name="title"   value="3Team" />
-		    <put-attribute name="header"  value="/WEB-INF/views/noAuth/header.jsp"/>
-		    <put-attribute name="footer"  value="/WEB-INF/views/noAuth/footer.jsp"/>
-		    <put-attribute name="content" value="/WEB-INF/views/noAuth/{1}.jsp" />
-	</definition>
-	
-	<definition name="admin.*" template="/WEB-INF/views/admin/inc/layout.jsp">
-		    <put-attribute name="title"   value="welcome bitcamp" />
-		    <put-attribute name="header"  value="/WEB-INF/views/admin/inc/header.jsp" />
-		    <put-attribute name="footer"  value="/WEB-INF/views/admin/inc/footer.jsp" />
-		     <put-attribute name="sidebar"  value="/WEB-INF/views/admin/inc/sidebar.jsp" />			    
-		    <put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp" />
-	</definition> 
-	
-		<definition name="teacher.*" template="/WEB-INF/views/teacher/inc/layout.jsp">
-		    <put-attribute name="title"   value="welcome bitcamp" />
-		    <put-attribute name="header"  value="/WEB-INF/views/teacher/inc/header.jsp" />
-		    <put-attribute name="footer"  value="/WEB-INF/views/teacher/inc/footer.jsp" />
-		     <put-attribute name="sidebar"  value="/WEB-INF/views/teacher/inc/sidebar.jsp" />			    
-		    <put-attribute name="content" value="/WEB-INF/views/teacher/{1}.jsp" />
-	</definition> 
-	
- 	<definition name="*.*" template="/WEB-INF/views/inc/layout.jsp">
+
+	<definition name="common.*" template="/WEB-INF/views/inc/layout.jsp">
 		    <put-attribute name="title"   value="welcome bitcamp" />
 		    <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
 		    <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
-		     <put-attribute name="sidebar"  value="/WEB-INF/views/inc/sidebar.jsp" />			    
-		    <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+		    <put-attribute name="sidebar"  value="/WEB-INF/views/inc/sidebar.jsp" />			    
+		    <put-attribute name="content" value="/WEB-INF/views/common/{1}.jsp" />   
+	</definition>
 
+ 	<definition name="*.*" template="/WEB-INF/views/{1}/inc/layout.jsp">
+		    <put-attribute name="title"   value="welcome bitcamp" />
+		    <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
+		    <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
+		    <put-attribute name="sidebar"  value="/WEB-INF/views/inc/sidebar.jsp" />			    
+		    <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />   
 	</definition>
 	
 	
