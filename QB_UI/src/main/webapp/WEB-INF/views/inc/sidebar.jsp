@@ -26,12 +26,19 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="adminClassInfo.do">
+            <a href="javascript:;">
               <i class="fa fa-desktop"></i>
               <span>클래스 관리</span>
               </a>
           </li>
-          
+          <!-- 영준 관리자 회원관리 start -->
+          <li class="sub-menu">
+            <a href="adminMember.do">
+              <i class="fa fa-desktop"></i>
+              <span>회원 관리</span>
+              </a>
+          </li>
+           <!-- 영준 관리자 회원관리 end -->
         <!-- sidebar menu end-->
       </div>
     </aside>
