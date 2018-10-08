@@ -15,7 +15,7 @@
 		    <put-attribute name="sidebar"  value="/WEB-INF/views/inc/sidebar.jsp" />			    
 		    <put-attribute name="content" value="/WEB-INF/views/common/{1}.jsp" />   
 	</definition>
-	
+
  	<definition name="*.*" template="/WEB-INF/views/{1}/inc/layout.jsp">
 		    <put-attribute name="title"   value="welcome bitcamp" />
 		    <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />

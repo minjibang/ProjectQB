@@ -12,5 +12,18 @@ public class TeacherController {
 
 		return "teacher.teacherNoticeWrite";
 	}
+
+	/* 민지:10.08 강사 메인추가 */
+	@RequestMapping("teacherMain.do")
+	public String teacherMain() {
+
+		return "teacher.teacherMain";
+	}
+
+	@RequestMapping("teacherMyPage.do")
+	public String teacherMypage() {
+	
+	return "teacher.teacherMyPage";
+	}
 	
 }

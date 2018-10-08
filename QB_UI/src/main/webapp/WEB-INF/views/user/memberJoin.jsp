@@ -77,7 +77,7 @@
   <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
  
   <script>
-    $.backstretch("img/login-bg.jpg", {
+    $.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
       speed: 500
     });
   </script>

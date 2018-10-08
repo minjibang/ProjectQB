@@ -28,4 +28,12 @@ public class AdminController {
 		return "admin.adminMember";
 	}	
 	
+	/*민지*/
+	@RequestMapping("adminMyPage.do")
+	public String adminMyPage() {
+	
+	return "admin.adminMyPage";
+	/*민지 추가 끝*/
+}
+	
 }

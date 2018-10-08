@@ -49,6 +49,7 @@
           <a href="common/mypage.do">마이페이지로 이동</a>&nbsp;&nbsp;&nbsp;
           <br><br>
           <br><br>
+          <a href="teacher/teacherMain.do">강사 메인</a>
           <!-- 헤더 완료 후 링크 옮기기 -->
            
 

@@ -42,7 +42,6 @@
 	<tiles:insertAttribute name="footer" /> 
 	</section>
 	<!-- js placed at the end of the document so the pages load faster -->
-
 	  <script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
 	  <script class="include" type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery.dcjqaccordion.2.7.js"></script>
 	  <script src="${pageContext.request.contextPath}/lib/jquery.scrollTo.min.js"></script>
@@ -55,9 +54,9 @@
 	  <!--script for this page-->
 	  <script src="${pageContext.request.contextPath}/lib/sparkline-chart.js"></script>
 	  <script src="${pageContext.request.contextPath}/lib/zabuto_calendar.js"></script>
-
 	<script type="application/javascript">
-		
+
+  
     $(document).ready(function() {
       $("#date-popover").popover({
         html: true,
@@ -98,18 +97,20 @@
       var to = $("#" + id).data("to");
       console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
-  
 	</script>
 	<!-- 테이블 관련  -->
 
 	<script>
 		$(document).ready(function() {
 			$('#AdminTable').DataTable({
+
 				"columnDefs" : [ {
 					"width" : "15%",
 					"targets" : 3
 				} ]
 			});
+			/* $('table.display').DataTable({			
+			}); */
 		});
 	</script>
 
