@@ -23,6 +23,16 @@ public class AdminService {
 		List<CategoryDto> result = dao.lgCategoryList();
 		return result;
 	}
+	public List<CategoryDto> mdCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.mdCategoryList();
+		return result;
+	}
+	public List<CategoryDto> smCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.smCategoryList();
+		return result;
+	}
 	/*재훈 - 10.08 문제분류관련 끝*/
 	
 }

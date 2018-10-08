@@ -4,6 +4,10 @@ public class CategoryDto {
 
 	private String lg_category_code;
 	private String lg_category_name;
+	private String md_category_code;
+	private String md_category_name;
+	private String sm_category_code;
+	private String sm_category_name;
 	
 	public String getLg_category_code() {
 		return lg_category_code;
@@ -16,6 +20,30 @@ public class CategoryDto {
 	}
 	public void setLg_category_name(String lg_category_name) {
 		this.lg_category_name = lg_category_name;
+	}
+	public String getMd_category_code() {
+		return md_category_code;
+	}
+	public void setMd_category_code(String md_category_code) {
+		this.md_category_code = md_category_code;
+	}
+	public String getMd_category_name() {
+		return md_category_name;
+	}
+	public void setMd_category_name(String md_category_name) {
+		this.md_category_name = md_category_name;
+	}
+	public String getSm_category_code() {
+		return sm_category_code;
+	}
+	public void setSm_category_code(String sm_category_code) {
+		this.sm_category_code = sm_category_code;
+	}
+	public String getSm_category_name() {
+		return sm_category_name;
+	}
+	public void setSm_category_name(String sm_category_name) {
+		this.sm_category_name = sm_category_name;
 	}
 	
 }

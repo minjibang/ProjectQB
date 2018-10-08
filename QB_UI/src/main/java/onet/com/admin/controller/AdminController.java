@@ -20,13 +20,19 @@ public class AdminController {
 
 	@RequestMapping("adminCategory.do")
 	public String adminCategory(Model model) throws Exception {
-		List<CategoryDto> list;
-		list=adminService.lgCategoryList();
-		System.out.println(list + "***** 컨트롤러 테스트 *****");
-		model.addAttribute("list",list);
+		List<CategoryDto> list1;
 		
+		list1=adminService.lgCategoryList();
+		model.addAttribute("list1",list1);
 		
-		System.out.println(model + "#### 컨트롤러 테스트 2 ####");
+		List<CategoryDto> list2;
+		list2=adminService.mdCategoryList();
+		model.addAttribute("list2",list2);
+		
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
 		
 		return "admin.adminCategory";
 	}
