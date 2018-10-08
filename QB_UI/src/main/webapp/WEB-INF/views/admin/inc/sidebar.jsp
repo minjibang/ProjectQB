@@ -18,8 +18,11 @@
               <li><a href="adminClassInfo.do">클래스 관리</a></li>
             </ul>
           </li>
+          
           <li class="sub-menu">
+
             <a href="adminMember.do">
+
               <i class="fa fa-users"></i>
               <span>회원 관리</span>
               </a>

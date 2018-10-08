@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 </head>
 <body>
 <!-- 강사, 학생 공지사항 글 상세보기-->
