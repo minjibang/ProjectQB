@@ -97,5 +97,25 @@ public class HomeController {
 	      return "teacher.teacherNoticeWrite";
 	   }
 
+	
+	/*민지:10.08 강사 메인추가*/
+	@RequestMapping("teacherMain.do")
+	   public String teacherMain() {
+	     
+	      return "teacher.teacherMain";
+	   }
+	@RequestMapping("teacherMyPage.do")
+	public String teacherMypage() {
+	
+	return "teacher.teacherMyPage";
+}
+	@RequestMapping("adminMyPage.do")
+	public String adminMyPage() {
+	
+	return "admin.adminMyPage";
+	
+	
+	/*민지 추가 끝*/
+}
 
 }
