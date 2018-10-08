@@ -4,7 +4,7 @@
 	<section class="wrapper">
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-2 p404 centered">
-				<img src="img/500.png" alt="">
+				<img src="${pageContext.request.contextPath}/img/500.png" alt="">
 				<h1>아직 등록된 클래스가 없습니다 !</h1>
 				<h3>클래스가 등록될 때까지 기다려 주세요 !</h3>
 				<br>
