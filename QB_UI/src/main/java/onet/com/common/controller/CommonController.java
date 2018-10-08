@@ -13,4 +13,10 @@ public class CommonController {
 		return "common.myPage";
 	}
 	
+	@RequestMapping("noticeView.do")
+	public String noticeView() {
+
+		return "common.noticeView";
+	}
+	
 }
