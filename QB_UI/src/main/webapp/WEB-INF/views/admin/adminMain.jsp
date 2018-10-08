@@ -1,3 +1,10 @@
+<%-- 
+	@JSP:adminMain.jsp
+	@DATE:2018-10-06
+	@Author:양회준
+	@Desc:클래스 목록 페이지(스토리보드 7 of 41)
+ --%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -51,9 +58,7 @@
 		font-weight: 700;
 	}
   </style>
-</head>
 
-<body>
   <section id="main-content">
     <section class="wrapper">
       <div class="row mt">
