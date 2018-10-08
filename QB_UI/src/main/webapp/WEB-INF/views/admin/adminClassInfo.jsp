@@ -145,7 +145,7 @@
 						<div class="tab-content" >
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-									<div class="col-md-10" id="AdminTableForm">
+									<div class="col-md-12" id="AdminTableForm">
 										<table id="AdminTable" >
 
 											<thead>

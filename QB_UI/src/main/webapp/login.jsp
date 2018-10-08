@@ -30,14 +30,14 @@
 <body>
   <div id="login-page">
     <div class="container">
-      <form class="form-login" action="join.html">
+      <form class="form-login" action="index/login.do">
         <h2 class="form-login-heading">login now</h2>
         <div class="login-wrap">
             <label>ID</label>
-          <input type="text" class="form-control" placeholder="User ID" autofocus>
+          <input type="text" class="form-control" name="member_id" placeholder="User ID" autofocus>
           <br>
             <label>PASSWORD</label>
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" name="member_pwd" placeholder="Password">
             <br>
             <!-- 정원 (나중에 삭제) -->
           <label class="pull-right">
@@ -61,7 +61,7 @@
           </label>
           <!-- ********************** -->
 
-          <button class="btn btn-theme02 btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i>LOGIN</button>
+          <button class="btn btn-theme02 btn-block" type="submit"><i class="fa fa-lock"></i>LOGIN</button>
           <br>
           <a href="index/memberjoin.do"><button type="button" class="btn btn-theme btn-block"><i class="fa fa-lock"></i> SIGN UP</button></a>
         </div>
