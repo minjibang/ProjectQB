@@ -84,8 +84,8 @@ button.buttonGroup {
 										<table id="myExamTable">
 											<tbody>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4></td>
-													<td class="question_category">변수|배열|FOR문|IF문</td>
+													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4><br>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
 													<td class="pdf_download">PDF 다운로드
 													<img src="img/file-download.png"></td>
 													<td><button class="btn btn-danger buttonGroup">
@@ -98,8 +98,8 @@ button.buttonGroup {
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4></td>
-													<td class="question_category">변수|배열|FOR문|IF문</td>
+													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4><br>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
 													<td class="pdf_download">PDF 다운로드
 													<img src="img/file-download.png"></td>
 													<td><button class="btn btn-danger buttonGroup">
@@ -112,8 +112,8 @@ button.buttonGroup {
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4></td>
-													<td class="question_category">변수|배열|FOR문|IF문</td>
+													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4><br>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
 													<td class="pdf_download">PDF 다운로드
 													<img src="img/file-download.png"></td>
 											<td><button class="btn btn-danger buttonGroup">
