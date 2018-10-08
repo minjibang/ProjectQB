@@ -68,7 +68,7 @@
     <!--footer end-->
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
-  <script src="${pageContext.request.contextPath}lib/jquery/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script>
 
   <script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
   <script class="include" type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery.dcjqaccordion.2.7.js"></script>
