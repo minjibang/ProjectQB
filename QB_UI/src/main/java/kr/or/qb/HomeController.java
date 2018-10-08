@@ -96,6 +96,13 @@ public class HomeController {
 	     
 	      return "teacher.teacherNoticeWrite";
 	   }
-
+	
+	// 10.08 영준 start
+	@RequestMapping("teacherMyExamPaper.do")
+	   public String teacherMyExamPaper() {
+	     
+	      return "teacher.teacherMyExamPaper";
+	   }
+	// 10.08 영준 end
 
 }
