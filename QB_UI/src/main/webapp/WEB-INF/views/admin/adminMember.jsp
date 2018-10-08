@@ -24,6 +24,7 @@
 		<div class="row mt">
 			<div class="col-lg-12"></div>
 			<!-- /col-lg-12 -->
+			
 			<div class="col-lg-12 mt">
 				<div class="row content-panel">
 					<div class="panel-heading">
@@ -76,11 +77,11 @@
 												
 													<tr>
 														<td><input type="checkbox" name="selected" value="row_1"></td>
-														<td class="classname">자바 109기</td>
-														<td class="id">af1982</td>
-														<td class="name">김샘플</td>
-														<td class="email">a@a.com</td>
-														<td class="phone">010-1111-1111</td>
+														<td class="class_name">자바 109기</td>
+														<td class="member_id">af1982</td>
+														<td class="member_name">김샘플</td>
+														<td class="member_email">a@a.com</td>
+														<td class="member_phone">010-1111-1111</td>
 														<td class="autho">일반회원</td>
 														<td><button class="edit-modal btn btn-info">
 														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
@@ -89,11 +90,11 @@
 													</tr>
 													<tr>
 														<td><input type="checkbox" name="selected" value="row_2"></td>
-														<td class="classname">자바 109기</td>
-														<td class="id">slei1</td>
-														<td class="name">이샘플</td>
-														<td class="email">b@b.com</td>
-														<td class="phone">010-2222-2222</td>
+														<td class="class_name">자바 109기</td>
+														<td class="member_id">slei1</td>
+														<td class="member_name">이샘플</td>
+														<td class="member_email">b@b.com</td>
+														<td class="member_phone">010-2222-2222</td>
 														<td class="autho">일반회원</td>
 														<td><button class="edit-modal btn btn-info">
 														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
@@ -102,11 +103,11 @@
 													</tr>
 													<tr>
 														<td><input type="checkbox" name="selected" value="row_3"></td>
-														<td class="classname">아두이노 111기</td>
-														<td class="id">ekkuying</td>
-														<td class="name">박샘플</td>
-														<td class="email">c@c.com</td>
-														<td class="phone">010-3333-3333</td>
+														<td class="class_name">아두이노 111기</td>
+														<td class="member_id">ekkuying</td>
+														<td class="member_name">박샘플</td>
+														<td class="member_email">c@c.com</td>
+														<td class="member_phone">010-3333-3333</td>
 														<td class="autho">학생</td>
 														<td><button class="edit-modal btn btn-info">
 														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
