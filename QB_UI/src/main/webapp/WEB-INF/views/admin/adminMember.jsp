@@ -7,6 +7,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+<style>
+.dataTables_length, .dataTables_info{
+	display: none;
+}
+.dataTables_paginate, .dataTables_filter{
+	display: none;
+}
+
+}
+</style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -59,7 +70,7 @@
 											<thead>
 											
 												<tr>
-													<th><input type="checkbox" name="all-selected">전체 선택</th>
+													<th><input type="checkbox" value="">전체 선택</th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>
@@ -72,7 +83,7 @@
 											<tbody>
 												
 													<tr>
-														<td><input type="checkbox" name="selected" value="row_1"></td>
+														<td><input type="checkbox" name="chk"></td>
 														<td class="class_name">자바 109기</td>
 														<td class="member_id">af1982</td>
 														<td class="member_name">김샘플</td>
@@ -85,7 +96,7 @@
 															<span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
 													</tr>
 													<tr>
-														<td><input type="checkbox" name="selected" value="row_2"></td>
+														<td><input type="checkbox" name="chk"></td>
 														<td class="class_name">자바 109기</td>
 														<td class="member_id">slei1</td>
 														<td class="member_name">이샘플</td>
@@ -98,7 +109,7 @@
 															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
 													</tr>
 													<tr>
-														<td><input type="checkbox" name="selected" value="row_3"></td>
+														<td><input type="checkbox" name="chk"></td>
 														<td class="class_name">아두이노 111기</td>
 														<td class="member_id">ekkuying</td>
 														<td class="member_name">박샘플</td>
@@ -170,17 +181,20 @@
 </section>
 <script>
 	// DataTable 구현
-    $(document).ready( function () {
-        $('#adminMemberTable').DataTable();
-    } 
-    );
-	// ckechbox 전체선택/해제하기
-    $('input[name=all-selected]').on('change', function(){
-    	  $('input[name=selected]').prop('checked', this.checked);
-    	});
-   // 선택한 checkbox 값 가져오기
-   var arr = $('input[name=_selected_]:checked').serializeArray().map(function(item) 
-    		{ return item.value });
+    $(document).ready(function(){
+    
+    	$("#checkall").click(function(){
+            //클릭되었으면
+            if($("#checkall").prop("checked")){
+                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                $("input[name=chk]").prop("checked",true);
+                //클릭이 안되있으면
+            }else{
+                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                $("input[name=chk]").prop("checked",false);
+            }
+        });
+    });
 </script>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
