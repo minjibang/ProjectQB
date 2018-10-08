@@ -54,7 +54,7 @@
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div class="col-md-12">
-										<table id="myTable">
+										<table id="adminMemberTable">
 
 											<thead>
 											
@@ -171,7 +171,7 @@
 <script>
 	// DataTable 구현
     $(document).ready( function () {
-        $('#myTable').DataTable();
+        $('#adminMemberTable').DataTable();
     } 
     );
 	// ckechbox 전체선택/해제하기
