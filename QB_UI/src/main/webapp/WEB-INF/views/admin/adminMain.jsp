@@ -1,38 +1,13 @@
+<%-- 
+	@JSP:adminMain.jsp
+	@DATE:2018-10-06
+	@Author:양회준
+	@Desc:클래스 목록 페이지(스토리보드 7 of 41)
+ --%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-
-<!-- 
-18/10/05
-양회준 
-클래스 목록 UI 작업
--->
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Dashboard">
-  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>QB Admin Main Page</title>
-
-  <!-- Favicons -->
-  <link href="../../../img/favicon.png" rel="icon">
-  <link href="../../../img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Bootstrap core CSS -->
-  <link href="../../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!--external css-->
-  <link href="../../../lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="../../../lib/gritter/css/jquery.gritter.css" />
-  <link rel="stylesheet" type="text/css" href="../../../lib/bootstrap-datepicker/css/datepicker.css" />
-  <link rel="stylesheet" type="text/css" href="../../../lib/bootstrap-daterangepicker/daterangepicker.css" />
-  <!-- Custom styles for this template -->
-  <link href="../../../css/style.css" rel="stylesheet">
-  <link href="../../../css/style-responsive.css" rel="stylesheet">
-  
   <style>
   	/*회준*/
 	.wrapper-low {
@@ -83,9 +58,7 @@
 		font-weight: 700;
 	}
   </style>
-</head>
 
-<body>
   <section id="main-content">
     <section class="wrapper">
       <div class="row mt">
@@ -410,24 +383,3 @@
         </section>
         <!-- /wrapper-low -->
       </section>
-
-    <script src="../../../lib/jquery/jquery.min.js"></script>
-    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="../../../lib/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="../../../lib/jquery.scrollTo.min.js"></script>
-    <script src="../../../lib/jquery.nicescroll.js" type="text/javascript"></script>
-    <!--common script for all pages-->
-    <script src="../../../lib/common-scripts.js"></script>
-    <!--script for this page-->
-    <script src="../../../lib/jquery-ui-1.9.2.custom.min.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-daterangepicker/date.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-daterangepicker/moment.min.js"></script>
-    <script type="text/javascript" src="../../../lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-    <script src="../../../lib/advanced-form-components.js"></script>
-
-  </body>
-</html>
