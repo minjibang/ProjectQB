@@ -15,8 +15,11 @@
 
 
 	
-	<context:component-scan base-package="kr.or.qb" />
-	
+	<context:component-scan base-package="onet.com.index.controller" />
+	<context:component-scan base-package="onet.com.common.controller" />
+	<context:component-scan base-package="onet.com.admin.controller" />
+	<context:component-scan base-package="onet.com.teacher.controller" />
+	<context:component-scan base-package="onet.com.student.controller" />
 	
 	
 </beans:beans>

@@ -16,86 +16,74 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-	
-	
-	@RequestMapping("index.do")
-	   public String login() {
-	     
-	      return "join.login";
-	   }
-	
-	@RequestMapping("adminCategory.do")
-	   public String adminCategory() {
-	     
-	      return "admin.adminCategory";
-	   }
-	
 
-	//10.05 ���� �߰�
-	@RequestMapping("adminClassInfo.do")
-	   public String adminClassInfo() {
-	     
-	      return "admin.adminClassInfo";
-	   }
+	/*@RequestMapping("adminCategory.do")
+	public String adminCategory() {
 
-	//���� �߰� ��
+		return "admin.adminCategory";
+	}*/
 
-	@RequestMapping("memberjoin.do")
-	   public String memberjoin() {
-	     
-	      return "home.memberJoin";
-	   }
+	// 10.05 ���� �߰�
+/*	@RequestMapping("adminClassInfo.do")
+	public String adminClassInfo() {
 
-	@RequestMapping("adminMain.do")
-	   public String adminMain() {
-	     
-	      return "admin.adminMain";
-	   }
-	
+		return "admin.adminClassInfo";
+	}*/
+
+	// ���� �߰� ��
+	// index controller로 옮김
+	/*
+	 * @RequestMapping("memberjoin.do") public String memberjoin() {
+	 * 
+	 * return "home.memberJoin"; }
+	 */
+
+/*	@RequestMapping("adminMain.do")
+	public String adminMain() {
+
+		return "admin.adminMain";
+	}*/
+
 	@RequestMapping("afterLogin_main.do")
-	   public String afterLogin_main() {
-	     
-	      return "common.teacherMain";
-	   }
-	
+	public String afterLogin_main() {
 
-	@RequestMapping("adminMember.do")
-	   public String adminMember() {
-	     
-	      return "admin.adminMember";
-	   }
-	
-
-	@RequestMapping("mypage.do")
-		public String mypage() {
-		
-		return "common.myPage";
+		return "common.teacherMain";
 	}
 
+/*	@RequestMapping("adminMember.do")
+	public String adminMember() {
 
-	@RequestMapping("idSearch.do")
-	   public String idSearch() {
-	     
-		return "home.findId";
-	   }
-	
-	@RequestMapping("pwdSearch.do")
-	   public String pwdSearch() {
-	     
-		return "home.findPw";
-	   }
-	
+		return "admin.adminMember";
+	}*/
+
+	/*
+	 * @RequestMapping("mypage.do") public String mypage() {
+	 * 
+	 * return "common.myPage"; }
+	 */
+
+	/*
+	 * @RequestMapping("idSearch.do") public String idSearch() {
+	 * 
+	 * return "home.findId"; }
+	 */
+
+	/*
+	 * @RequestMapping("pwdSearch.do") public String pwdSearch() {
+	 * 
+	 * return "home.findPw"; }
+	 */
+
 	@RequestMapping("noAuth.do")
-	   public String noAuth() {
-	     
+	public String noAuth() {
+
 		return "noAuth.noAuth";
-	   }
+	}
 
-	@RequestMapping("teacherNoticeWrite.do")
-	   public String teacherNoticeWrite() {
-	     
-	      return "teacher.teacherNoticeWrite";
-	   }
+/*	@RequestMapping("teacherNoticeWrite.do")
+	public String teacherNoticeWrite() {
 
+		return "teacher.teacherNoticeWrite";
+	}*/
 
 }
