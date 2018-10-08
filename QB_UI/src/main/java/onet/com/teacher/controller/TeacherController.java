@@ -26,4 +26,12 @@ public class TeacherController {
 	return "teacher.teacherMyPage";
 	}
 	
+	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
+	@RequestMapping("noticeView.do")
+	public String noticeView() {
+
+		return "common.noticeView";
+	}
+	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
+	
 }
