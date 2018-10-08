@@ -34,8 +34,8 @@
 	background: #3cb371;
 	}
 .img{
-	width: 16px;
-	height: 16px;
+	width: 32px;
+	height: 32px;
 	display: inline-block;
 }	
 button.add {
@@ -86,8 +86,7 @@ button.buttonGroup {
 												<tr>
 													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4></td>
 													<td class="question_category">변수|배열|FOR문|IF문</td>
-													<td class="pdf_download" onClick="window.open('http://www.naver.com/')"
-													style="cursor:pointer;">PDF 다운로드
+													<td class="pdf_download">PDF 다운로드
 													<img src="img/file-download.png"></td>
 													<td><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
