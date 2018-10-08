@@ -227,35 +227,6 @@
 													</div>
 													
 												</form>
-
-
-												<!--  <form class="form-horizontal  style-form" action="#">
-               <div class="form-group">
-                  <label class="control-label col-md-3">클래스</label>
-                  <div class="col-md-4 col-xs-12">
-                      <input class="form-control" id="" type="text"/>
-                  </div>
-                </div>
-              
-                <div class="form-group">
-                  <label class="control-label col-md-3">교육 기간</label>
-                  <div class="col-md-4">
-                    <div class="input-group input-large" data-date="01/01/2014" data-date-format="mm/dd/yyyy">
-                      <input type="text" class="form-control dpd1" name="from">
-                      <span class="input-group-addon">To</span>
-                      <input type="text" class="form-control dpd2" name="to">
-                    </div>
-                    <span class="help-block">Select date range</span>
-                  </div>
-                </div>
-                
-                  <div class="form-group">
-                  <label class="control-label col-md-3">강사</label>
-                  <div class="col-md-4 col-xs-12">
-                      <input class="form-control" id="" type="text"/>
-                  </div>
-                </div>
-              </form> -->
 											</div>
 
 										</div>

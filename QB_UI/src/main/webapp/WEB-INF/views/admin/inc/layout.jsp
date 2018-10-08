@@ -37,8 +37,7 @@
 <!-- DataTables 관련 -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-	
-<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+
 
 
 
@@ -59,47 +58,23 @@
 	<!--main content start--> <!-- 컨텐츠 부분 --> <tiles:insertAttribute
 		name="content" /> <!--main content end--> <!--footer start--> <!-- 푸터부분 -->
 	<tiles:insertAttribute name="footer" /> <!--footer end--> </section>
-	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="lib/jquery/jquery.min.js"></script>
 
-	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-	<script class="include" type="text/javascript"
-		src="lib/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="lib/jquery.scrollTo.min.js"></script>
-	<script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
-	<script src="lib/jquery.sparkline.js"></script>
-	<!--common script for all pages-->
-	<script src="lib/common-scripts.js"></script>
-	<script type="text/javascript" src="lib/gritter/js/jquery.gritter.js"></script>
-	<script type="text/javascript" src="lib/gritter-conf.js"></script>
-	<!--script for this page-->
-	<script src="lib/sparkline-chart.js"></script>
-	<script src="lib/zabuto_calendar.js"></script>
-	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							var unique_id = $.gritter
-									.add({
-										// (string | mandatory) the heading of the notification
-										title : 'Welcome to Dashio!',
-										// (string | mandatory) the text inside the notification
-										text : 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo.',
-										// (string | optional) the image to display on the left
-										image : 'img/ui-sam.jpg',
-										// (bool | optional) if you want it to fade out on its own or just sit there
-										sticky : false,
-										// (int | optional) the time you want it to be alive for before fading out
-										time : 8000,
-										// (string | optional) the class name you want to apply to that specific message
-										class_name : 'my-sticky-class'
-									});
 
-							return false;
-						});
-	</script>
-	
-	
+<!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+  <script type="text/javascript" src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="lib/bootstrap-daterangepicker/moment.min.js"></script>
+  <script src="lib/advanced-form-components.js"></script>
+  
+	<!-- 테이블 관련  -->
 
 	<script>
 		$(document).ready(function() {
@@ -115,6 +90,5 @@
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<!-- 테이블 관련 end -->
-  
 </body>
 </html>

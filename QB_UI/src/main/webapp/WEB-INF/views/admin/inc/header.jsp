@@ -18,7 +18,7 @@
 				<ul class="nav top-menu">
 
 					<li id="header_inbox_bar">
-					<a href=""> 
+					<a href="adminMessage.do"> 
 					<i class="fa fa-envelope-o"></i>
 					</a>
 					<li id="header_inbox_bar"><a href="adminMyPage.do"> <i
