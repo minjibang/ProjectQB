@@ -1,3 +1,9 @@
+<%-- 
+	@JSP:adminMember.jsp
+	@DATE:2018-10-08
+	@Author:유영준
+	@Desc:회원 관리 페이지(스토리보드 10 of 41)
+ --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,23 +15,13 @@
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	
-<!-- 모달창 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	
 </head>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
 			<div class="col-lg-12"></div>
 			<!-- /col-lg-12 -->
-			
-			<div class="col-lg-12 mt">
+			<div class="showback">
 				<div class="row content-panel">
 					<div class="panel-heading">
 					<h3><span>회원 검색</span></h3>
@@ -49,9 +45,18 @@
 							<option value="member_id">아이디</option>
 							<option value="member_email">이메일</option>
 						</select>
-				
+						<div class="col-sm-2 col-xs-2 pull-right">
+						<input type="text" class="form-control" placeholder="검색어를 입력">
+						</div>
 					</div>
-					
+					<div class="col-sm-4 col-xs-4 pull-right">
+					<div class="col-sm-4 col-xs-4 pull-right">
+                  <button class="btn btn-info btn-block">
+                   		 검색
+                  </button>
+                </div>
+                </div>
+                
 					<!-- /panel-heading -->
 					<div class="panel-body">
 						<div class="tab-content">
@@ -84,9 +89,9 @@
 														<td class="member_phone">010-1111-1111</td>
 														<td class="autho">일반회원</td>
 														<td><button class="edit-modal btn btn-info">
-														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
+														<span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#UpdateModal"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
 															<button class="delete-modal btn btn-danger">
-															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
+															<span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
 													</tr>
 													<tr>
 														<td><input type="checkbox" name="selected" value="row_2"></td>
@@ -170,7 +175,6 @@
 			<!-- /row -->
 		</div>
 		<!-- /container -->
-	</section>
 	<!-- /wrapper -->
 </section>
 <script>

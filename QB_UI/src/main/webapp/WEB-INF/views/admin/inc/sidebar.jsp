@@ -11,8 +11,9 @@
               <span>클래스 관리</span>
               </a>
           </li>
+          
           <li class="sub-menu">
-            <a href="adminCategory.do">
+            <a href="adminMember.do"><!-- 영준 adminCategory => adminMember로 수정하였습니다-->
               <i class="fa fa-users"></i>
               <span>회원 관리</span>
               </a>
