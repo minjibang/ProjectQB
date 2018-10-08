@@ -1,8 +1,11 @@
 package onet.com.index.controller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import onet.com.index.service.IndexService;
 import onet.com.vo.MemberDto;
@@ -13,7 +16,7 @@ public class IndexController {
 
 	@Autowired
 	private IndexService indexService;
-	
+
 	@RequestMapping("memberjoin.do")
 	public String memberjoin() {
 
@@ -31,27 +34,21 @@ public class IndexController {
 
 		return "home.findPw";
 	}
-	
+
 	@RequestMapping("login.do")
-	public String join(MemberDto dto) {
-		System.out.println(dto.getMember_id());
+	public String join(MemberDto dto){
 		int result = indexService.loginCheck(dto);
 		String auth = indexService.authCheck(dto);
-		System.out.println(result);
-		System.out.println(auth);
 		if (result == 0) {
 			return "redirect:/login.jsp";
-		}else if(auth.equals("role_teacher")) {
+		} else if (auth.equals("role_teacher")) {
 			return "teacher.teacherMain";
-		}else if(auth.equals("role_student")){
+		} else if (auth.equals("role_student")) {
 			return "";
-		}else if(auth.equals("role_admin")) {
+		} else if (auth.equals("role_admin")) {
 			return "admin.adminMain";
 		}
-			return "noAuth.noAuth";
+		return "noAuth.noAuth";
 	}
-	
-	
-	
-	
+
 }

@@ -34,10 +34,10 @@
         <h2 class="form-login-heading">login now</h2>
         <div class="login-wrap">
             <label>ID</label>
-          <input type="text" class="form-control" name="member_id" placeholder="User ID" autofocus>
+          <input type="text" class="form-control" name="member_id" placeholder="User ID" autofocus required>
           <br>
             <label>PASSWORD</label>
-          <input type="password" class="form-control" name="member_pwd" placeholder="Password">
+          <input type="password" class="form-control" name="member_pwd" placeholder="Password" required>
             <br>
             <!-- 정원 (나중에 삭제) -->
           <label class="pull-right">
