@@ -20,4 +20,10 @@ public class CommonController {
 		return "common.noticeView";
 	}
 	
+	@RequestMapping("examDetailView.do")
+	public String examDetailView() {
+		System.out.println("Common controller를 탄다");
+		return "common.examDetailView";
+	}
+	
 }
