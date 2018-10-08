@@ -41,8 +41,8 @@ Website: http://Alvarez.is/
 }
 
 .form-login2 {
-	max-width: 700px;
-	margin: 250px auto 0;
+	max-width: 530px;
+	margin: 200px auto 0;
 	background: #fff;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -2128,7 +2128,7 @@ ul li {
 /*LOGIN CONFIGURATION PAGE*/
 .form-login {
 	max-width: 530px;
-	margin: 300px auto 0;
+	margin: 200px auto 0;
 	background: #fff;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
