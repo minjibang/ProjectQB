@@ -1,8 +1,11 @@
 package onet.com.index.controller;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import onet.com.index.service.IndexService;
 import onet.com.vo.MemberDto;
@@ -41,17 +44,30 @@ public class IndexController {
 		System.out.println(auth);
 		if (result == 0) {
 			return "redirect:/login.jsp";
-		}else if(auth.equals("role_teacher")) {
+		}else if(auth.equals("ROLE_TAECHER")) {
 			return "teacher.teacherMain";
-		}else if(auth.equals("role_student")){
+		}else if(auth.equals("ROLE_MEMBER")){
 			return "";
-		}else if(auth.equals("role_admin")) {
+		}else if(auth.equals("ROLE_ADMIN")) {
 			return "admin.adminMain";
 		}
 			return "noAuth.noAuth";
 	}
-	
-	
-	
-	
+	@RequestMapping(value="insertmember.do", method=RequestMethod.POST)
+	public String  memberInsert(MemberDto dto) throws ClassNotFoundException, SQLException {
+		
+		int result = 0;
+		String viewpage="";
+		
+		result = indexService.insertMember(dto);
+		
+		if(result > 0) {
+			System.out.println("가입성공");
+			viewpage = "redirect:/login.jsp";
+		}else {
+			System.out.println("가입실패");
+			 viewpage = "memberjoin.do";
+		}
+		return viewpage;
+	}
 }
