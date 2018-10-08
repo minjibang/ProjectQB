@@ -12,4 +12,5 @@ public class CommonController {
 
 		return "common.myPage";
 	}
+	
 }
