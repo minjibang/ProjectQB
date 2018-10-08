@@ -31,14 +31,14 @@ public class HomeController {
 	   }
 	
 
-	//10.05 ¹ÎÁö Ãß°¡
+	//10.05 ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	@RequestMapping("adminClassInfo.do")
 	   public String adminClassInfo() {
 	     
 	      return "admin.adminClassInfo";
 	   }
 
-	//¹ÎÁö Ãß°¡ ³¡
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½
 
 	@RequestMapping("memberjoin.do")
 	   public String memberjoin() {
@@ -46,5 +46,56 @@ public class HomeController {
 	      return "home.memberJoin";
 	   }
 
+	@RequestMapping("adminMain.do")
+	   public String adminMain() {
+	     
+	      return "admin.adminMain";
+	   }
 	
+	@RequestMapping("afterLogin_main.do")
+	   public String afterLogin_main() {
+	     
+	      return "common.teacherMain";
+	   }
+	
+
+	@RequestMapping("adminMember.do")
+	   public String adminMember() {
+	     
+	      return "admin.adminMember";
+	   }
+	
+
+	@RequestMapping("mypage.do")
+		public String mypage() {
+		
+		return "common.myPage";
+	}
+
+
+	@RequestMapping("idSearch.do")
+	   public String idSearch() {
+	     
+		return "home.findId";
+	   }
+	
+	@RequestMapping("pwdSearch.do")
+	   public String pwdSearch() {
+	     
+		return "home.findPw";
+	   }
+	
+	@RequestMapping("noAuth.do")
+	   public String noAuth() {
+	     
+		return "noAuth.noAuth";
+	   }
+
+	@RequestMapping("teacherNoticeWrite.do")
+	   public String teacherNoticeWrite() {
+	     
+	      return "teacher.teacherNoticeWrite";
+	   }
+
+
 }
