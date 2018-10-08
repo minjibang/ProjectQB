@@ -22,7 +22,7 @@
 					<i class="fa fa-envelope-o"></i>
 					<span class="badge bg-theme">5</span>
 					</a>
-					<li id="header_inbox_bar"><a href="common/mypage.do"> <i
+					<li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/common/mypage.do"> <i
 							class="fa fa-user"></i>
 					</a></li>
 
