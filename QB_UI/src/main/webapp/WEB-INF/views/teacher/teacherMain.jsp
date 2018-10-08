@@ -30,6 +30,14 @@
 #exam_info_Table {
 	text-align: center;
 }
+/* datatables 수정 */
+.dataTables_length, .dataTables_info {
+	display: none;
+}
+.dataTables_paginate {
+
+	margin:0 auto;
+}
 </style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 <section id="main-content">
@@ -75,8 +83,8 @@
 							</table>
 							<!-- Security 또는 Session에서 권한이 강사일 경우만 글쓰기 활성화 -->
 							<div>
-								<button id="noticebtn"
-									onclick="location.href='teacherNoticeWrite.do'">글쓰기</button>
+								<button id="noticebtn" class="btn btn-info"
+									onclick="location.href='teacherNoticeWrite.do'" >글쓰기</button>
 							</div>
 						</div>
 

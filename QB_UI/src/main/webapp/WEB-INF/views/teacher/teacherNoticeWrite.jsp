@@ -3,12 +3,6 @@
 	pageEncoding="UTF-8"%>
 
 <!-- 강사 공지사항 글쓰기 -->
-<script>
-function btn_cancel() {
-	location.href="redirect:teacherMain.do";
-	alert("r");
-};
-</script>
 <style>
 table {
 	text-align: center;
@@ -32,7 +26,7 @@ table {
 					<div class="row content-panel div_table">
 						<!-- 클래스 공지사항 -->
 						<div id="noticeWrite_div" class="col-md-12">
-							<form action="noticeView.do" method="post" enctype="multipart/">
+							<form action="noticeView.do" method="post" enctype="multipart/form-data">
 								<table class="table">
 									<tr>
 										<td class="fst_td">제목</td>
