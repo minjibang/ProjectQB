@@ -72,7 +72,7 @@
 	<!-- 테이블 관련  -->
 
 	<script>
-		$(document).ready(function() {
+	 	$(document).ready(function() {
 			$('#AdminTable').DataTable({
 				"columnDefs" : [ {
 					"width" : "15%",
@@ -80,7 +80,30 @@
 				} ]
 			});
 		});
+	
+	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
+	 	$(document).ready( function () {
+	 	    $('table.display').DataTable({
+	 	    	"columnDefs": [
+	 	    	    { "width": "20%", "targets": 0,
+	 	    	      "width": "50%", "targets": 1,
+	 	    	      "width": "30%", "targets": 2
+	 	    	    }
+	 	    	  ]
+	 	    });
+	 	});
+	 
+	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
+	 
+	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 시작 -->
+	 $(document).ready( function () {
+	        $('#adminMemberTable').DataTable();
+	    } 
+	    );
+	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
 	</script>
+	
+	
 
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>

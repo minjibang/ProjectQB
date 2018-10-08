@@ -35,4 +35,27 @@ public class TeacherController {
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
+	/*영준:10.08 내 시험지 보기 페이지 시작 */
+	@RequestMapping("teacherMyExamPaper.do")
+	public String teacherMyExamPaper() {
+
+		return "teacher.teacherMyExamPaper";
+	}
+	/*영준:10.08 내 시험지 보기 페이지 끝 */
+	
+	/*영준:10.08 임시 저장된 시험지 보기 페이지 시작 */
+	@RequestMapping("teacherTempExamPaper.do")
+	public String teacherTempExamPaper() {
+
+		return "teacher.teacherTempExamPaper";
+	}
+	/*영준:10.08 임시 저장된 시험지 보기 페이지 끝 */
+	
+	/*영준:10.08 시험 일정보기 페이지 시작 */
+	@RequestMapping("teacherExamSchedule.do")
+	public String teacherExamSchedule() {
+
+		return "teacher.teacherExamSchedule";
+	}
+	/*영준:10.08 시험 일정보기 페이지 끝 */
 }
