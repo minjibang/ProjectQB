@@ -25,6 +25,11 @@
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
   <script src="lib/chart-master/Chart.js"></script>
+  <script src="lib/jquery/jquery.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<!--BACKSTRETCH-->
+	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+	<script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
 
   <!-- =======================================================
     Template Name: Dashio
