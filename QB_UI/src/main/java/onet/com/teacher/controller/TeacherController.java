@@ -1,12 +1,22 @@
 package onet.com.teacher.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import onet.com.teacher.service.TeacherService;
+import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping("/teacher/")
 public class TeacherController {
-
+	
+	@Autowired
+	private TeacherService teacherService;
+	
 	@RequestMapping("teacherNoticeWrite.do")
 	public String teacherNoticeWrite() {
 
@@ -15,8 +25,8 @@ public class TeacherController {
 
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain() {
-
+	public String teacherMain(Model model, NoticeDto dto) {
+		List<NoticeDto> str = teacherService.teacherMain(dto);
 		return "teacher.teacherMain";
 	}
 

@@ -41,11 +41,11 @@ public class IndexController {
 		System.out.println(auth);
 		if (result == 0) {
 			return "redirect:/login.jsp";
-		}else if(auth.equals("role_teacher")) {
+		}else if(auth.equals("ROLE_TEACHER")) { 
 			return "teacher.teacherMain";
-		}else if(auth.equals("role_student")){
+		}else if(auth.equals("ROLE_STUDENT")){
 			return "";
-		}else if(auth.equals("role_admin")) {
+		}else if(auth.equals("ROLE_ADMIN")) {
 			return "admin.adminMain";
 		}
 			return "noAuth.noAuth";
