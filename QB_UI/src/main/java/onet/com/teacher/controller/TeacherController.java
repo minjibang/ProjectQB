@@ -68,4 +68,12 @@ public class TeacherController {
 		return "teacher.teacherExamSchedule";
 	}
 	/*영준:10.08 시험 일정보기 페이지 끝 */
+	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	@RequestMapping("teacherExamPaperUpdate.do")
+	public String teacherExamPaperUpdate() {
+
+		return "teacher.teacherExamPaperUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 }

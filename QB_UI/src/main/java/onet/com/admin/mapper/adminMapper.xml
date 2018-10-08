@@ -1,1 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="onet.com.admin.dao.AdminDao">
+
+<!-- 재훈 - 10.08 문제분류관련 시작 -->
+
+<select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_lg_category
+</select>
+<select id="mdCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_md_category
+</select>
+<select id="smCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_sm_category
+</select>
+
+<!-- 재훈 - 10.08 문제분류관련 끝 -->
+
+</mapper>
