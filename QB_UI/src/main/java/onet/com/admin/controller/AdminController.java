@@ -33,6 +33,14 @@ public class AdminController {
 	public String adminMyPage() {
 	
 	return "admin.adminMyPage";
+	
+	}
+	
+	@RequestMapping("adminMessage.do")
+	public String adminMessage() {
+	
+	return "admin.adminMessage";
+
 	/*민지 추가 끝*/
 }
 	

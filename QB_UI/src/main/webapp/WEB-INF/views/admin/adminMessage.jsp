@@ -1,15 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE>
-<html>
-<head>
-<meta content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<!-- 쪽지함 화면 -->
-<div class="col-lg-12 mt">
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+ <section id="main-content">
+ <section class="wrapper site-min-height">
+		<div class="row mt">
+ 			<!-- /col-lg-12 -->
+			<div class="col-lg-12 mt">
 				<div class="row content-panel">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
@@ -22,20 +17,10 @@
 						<div class="tab-content" >
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-									<div class="col-md-10" id="AdminTableForm">
-									
-									
-										 <section class="panel">
-              <header class="panel-heading wht-bg">
-                <h4 class="gen-case">
-                    Inbox (3)
-                    <form action="#" class="pull-right mail-src-position">
-                      <div class="input-append">
-                        <input type="text" class="form-control " placeholder="Search Mail">
-                      </div>
-                    </form>
-                  </h4>
-              </header>
+								 <section>
+        <!-- page start-->
+  
+          <div class="col-sm-9">
               <div class="panel-body minimal">
                 <div class="mail-option">
                   <div class="chk-all">
@@ -54,37 +39,17 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="btn-group">
-                    <a data-original-title="Refresh" data-placement="top" data-toggle="dropdown" href="#" class="btn mini tooltips">
-                      <i class=" fa fa-refresh"></i>
-                      </a>
-                  </div>
-                  <div class="btn-group hidden-phone">
-                    <a data-toggle="dropdown" href="#" class="btn mini blue">
-                      More
-                      <i class="fa fa-angle-down "></i>
-                      </a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                      <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
-                    </ul>
-                  </div>
+
                   <div class="btn-group">
                     <a data-toggle="dropdown" href="#" class="btn mini blue">
                       Move to
                       <i class="fa fa-angle-down "></i>
                       </a>
                     <ul class="dropdown-menu">
-                      <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                      <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
-                      <li class="divider"></li>
                       <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
                     </ul>
                   </div>
                   <ul class="unstyled inbox-pagination">
-                    <li><span>1-50 of 99</span></li>
                     <li>
                       <a class="np-btn" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
                     </li>
@@ -101,7 +66,7 @@
                           <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                        <td class="view-message  dont-show"><a href="mail_view.html">Google Inc.</a></td>
+                        <td class="view-message "><a href="mail_view.html">Google Inc.</a></td>
                         <td class="view-message "><a href="mail_view.html">Your new account is ready.</a></td>
                         <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
                         <td class="view-message  text-right">08:10 AM</td>
@@ -141,7 +106,7 @@
                           <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
-                        <td class="view-message dont-show"><a href="mail_view.html">Mark Webber <span class="label label-danger pull-right">urgent</span></a></td>
+                        <td class="view-message dont-show"><a href="mail_view.html">Mark Webber</a></td>
                         <td class="view-message"><a href="mail_view.html">The server is down</a></td>
                         <td class="view-message inbox-small-cells"></td>
                         <td class="view-message text-right">March 09</td>
@@ -171,7 +136,7 @@
                           <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                        <td class="view-message dont-show">Andrea <span class="label label-success pull-right">girlfriend</span></td>
+                        <td class="view-message dont-show">Andrea</td>
                         <td class="view-message view-message">Weekend plans</td>
                         <td class="view-message inbox-small-cells"></td>
                         <td class="view-message text-right">March 04</td>
@@ -191,7 +156,7 @@
                           <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                        <td class="view-message dont-show">Evelyn <span class="label label-info pull-right">family</span></td>
+                        <td class="view-message dont-show">Evelyn</td>
                         <td class="view-message view-message">Surprise party</td>
                         <td class="view-message inbox-small-cells"></td>
                         <td class="view-message text-right">February 19</td>
@@ -260,11 +225,9 @@
                   </table>
                 </div>
               </div>
-            </section>
-										
-										
-										
-									</div>
+          </div>
+      </section>
+      <!-- /wrapper -->
 									<!-- /col-md-6 -->
 								</div>
 								<!-- /OVERVIEW -->
@@ -276,10 +239,39 @@
 										<div class="row mt">
 
 
-											<!-- 탭내용 -->
-							
-
-
+											<div class="col-lg-8 col-lg-offset-2 detailed mt">
+												<h4 class="mb">클래스 수정</h4>
+												<form role="form" class="form-horizontal"
+													id="class_update_form">
+													<div class="form-group">
+														<label class="control-label col-md-3">클래스</label>
+														<div class="col-md-6">
+															<input class="form-control" id="" type="text" />
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3">교육 기간</label>
+														<div class="col-md-6">
+															<div class="input-group input-large"
+																data-date="01/01/2014" data-date-format="mm/dd/yyyy">
+																<input type="text" class="form-control dpd1" name="from">
+																<span class="input-group-addon">To</span> <input
+																	type="text" class="form-control dpd2" name="to">
+															</div>
+															<span class="help-block">Select date range</span>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3">강사</label>
+														<div class="col-md-6 col-xs-12">
+															<input class="form-control" id="" type="text" />
+														</div>
+													</div>
+													<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
+													<button class="btn btn-theme" type="button" data-toggle="modal" data-target="#ClassUpdateModal">수정</button>
+													</div>
+													
+												</form>
 											</div>
 
 										</div>
@@ -293,9 +285,9 @@
 					</div>
 					<!-- /panel-body -->
 				</div>
-				</div>
 				<!-- /col-lg-12 -->
-
-
-</body>
-</html>
+			</div>
+</div>
+</section>
+    </section>
+    <!-- /MAIN CONTENT -->
