@@ -6,17 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/common/")
 public class CommonController {
-
-	@RequestMapping("mypage.do")
-	public String mypage() {
-
-		return "common.myPage";
-	}
 	
 	@RequestMapping("noticeView.do")
 	public String noticeView() {
 
 		return "common.noticeView";
 	}
+	
+
 	
 }

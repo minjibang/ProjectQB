@@ -46,7 +46,8 @@
 
           <!-- 헤더 완료 후 링크 옮기기 -->
           <br><br>
-          <a href="common/mypage.do">마이페이지로 이동</a>&nbsp;&nbsp;&nbsp;
+          <a href="common/mypage.do">마이페이지로 이동</a>&nbsp;&nbsp;&nbsp;<br>
+          <a href="teacher/examDetailView.do">강사 시험 상세보기 페이지로 이동</a>
           <br><br>
           <br><br>
           <a href="teacher/teacherMain.do">강사 메인</a>
