@@ -1,24 +1,36 @@
 package onet.com.teacher.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import onet.com.teacher.service.TeacherService;
+import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping("/teacher/")
 public class TeacherController {
-
+	
+	@Autowired
+	TeacherService teacherService;
+	
 	@RequestMapping("teacherNoticeWrite.do")
 	public String teacherNoticeWrite() {
 
 		return "teacher.teacherNoticeWrite";
 	}
 
+	/*한결 10.09 공지사항 데이터값 뿌리기*/
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain() {
-
+	public String teacherMain(Model model) {
+		List<NoticeDto> list;
 		return "teacher.teacherMain";
 	}
+	/*한결 끝*/
 
 	@RequestMapping("teacherMyPage.do")
 	public String teacherMypage() {
