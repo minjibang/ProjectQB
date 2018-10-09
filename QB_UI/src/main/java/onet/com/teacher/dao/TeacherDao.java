@@ -1,5 +1,10 @@
 package onet.com.teacher.dao;
 
-public interface TeacherDao {
+import java.util.List;
 
+import onet.com.vo.NoticeDto;
+
+public interface TeacherDao {
+	
+	public List<NoticeDto> notice();
 }
