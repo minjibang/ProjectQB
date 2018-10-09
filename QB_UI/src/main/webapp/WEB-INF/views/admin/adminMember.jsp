@@ -1,30 +1,29 @@
+<%-- 
+	@JSP:adminMember.jsp
+	@DATE:2018-10-08
+	@Author:유영준
+	@Desc:회원 관리 페이지(스토리보드 10 of 41)
+ --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html>
-<head>
-<!-- 데이터 테이블 -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-	
-<!-- 모달창 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	
-</head>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+<style>
+.dataTables_length, .dataTables_info{
+	display: none;
+}
+.dataTables_paginate, .dataTables_filter{
+	display: none;
+}
+
+}
+</style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
 			<div class="col-lg-12"></div>
 			<!-- /col-lg-12 -->
-			<div class="col-lg-12 mt">
+			<div class="showback">
 				<div class="row content-panel">
 					<div class="panel-heading">
 					<h3><span>회원 검색</span></h3>
@@ -48,21 +47,30 @@
 							<option value="member_id">아이디</option>
 							<option value="member_email">이메일</option>
 						</select>
-				
+						<div class="col-sm-2 col-xs-2 pull-right">
+						<input type="text" class="form-control" placeholder="검색어를 입력">
+						</div>
 					</div>
-					
+					<div class="col-sm-4 col-xs-4 pull-right">
+					<div class="col-sm-4 col-xs-4 pull-right">
+                  <button class="btn btn-info btn-block">
+                   		 검색
+                  </button>
+                </div>
+                </div>
+                
 					<!-- /panel-heading -->
 					<div class="panel-body">
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div class="col-md-12">
-										<table id="myTable">
+										<table id="adminMemberTable">
 
 											<thead>
 											
 												<tr>
-													<th><input type="checkbox" name="all-selected">전체 선택</th>
+													<th><input type="checkbox" value="">전체 선택</th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>
@@ -75,12 +83,25 @@
 											<tbody>
 												
 													<tr>
-														<td><input type="checkbox" name="selected" value="row_1"></td>
-														<td class="classname">자바 109기</td>
-														<td class="id">af1982</td>
-														<td class="name">김샘플</td>
-														<td class="email">a@a.com</td>
-														<td class="phone">010-1111-1111</td>
+														<td><input type="checkbox" name="chk"></td>
+														<td class="class_name">자바 109기</td>
+														<td class="member_id">af1982</td>
+														<td class="member_name">김샘플</td>
+														<td class="member_email">a@a.com</td>
+														<td class="member_phone">010-1111-1111</td>
+														<td class="autho">일반회원</td>
+														<td><button class="edit-modal btn btn-info">
+														<span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#UpdateModal"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
+															<button class="delete-modal btn btn-danger">
+															<span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox" name="chk"></td>
+														<td class="class_name">자바 109기</td>
+														<td class="member_id">slei1</td>
+														<td class="member_name">이샘플</td>
+														<td class="member_email">b@b.com</td>
+														<td class="member_phone">010-2222-2222</td>
 														<td class="autho">일반회원</td>
 														<td><button class="edit-modal btn btn-info">
 														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
@@ -88,25 +109,12 @@
 															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
 													</tr>
 													<tr>
-														<td><input type="checkbox" name="selected" value="row_2"></td>
-														<td class="classname">자바 109기</td>
-														<td class="id">slei1</td>
-														<td class="name">이샘플</td>
-														<td class="email">b@b.com</td>
-														<td class="phone">010-2222-2222</td>
-														<td class="autho">일반회원</td>
-														<td><button class="edit-modal btn btn-info">
-														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
-															<button class="delete-modal btn btn-danger">
-															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
-													</tr>
-													<tr>
-														<td><input type="checkbox" name="selected" value="row_3"></td>
-														<td class="classname">아두이노 111기</td>
-														<td class="id">ekkuying</td>
-														<td class="name">박샘플</td>
-														<td class="email">c@c.com</td>
-														<td class="phone">010-3333-3333</td>
+														<td><input type="checkbox" name="chk"></td>
+														<td class="class_name">아두이노 111기</td>
+														<td class="member_id">ekkuying</td>
+														<td class="member_name">박샘플</td>
+														<td class="member_email">c@c.com</td>
+														<td class="member_phone">010-3333-3333</td>
 														<td class="autho">학생</td>
 														<td><button class="edit-modal btn btn-info">
 														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
@@ -169,23 +177,24 @@
 			<!-- /row -->
 		</div>
 		<!-- /container -->
-	</section>
 	<!-- /wrapper -->
 </section>
 <script>
 	// DataTable 구현
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } 
-    );
-	// ckechbox 전체선택/해제하기
-    $('input[name=all-selected]').on('change', function(){
-    	  $('input[name=selected]').prop('checked', this.checked);
-    	});
-   // 선택한 checkbox 값 가져오기
-   var arr = $('input[name=_selected_]:checked').serializeArray().map(function(item) 
-    		{ return item.value });
+    $(document).ready(function(){
+    
+    	$("#checkall").click(function(){
+            //클릭되었으면
+            if($("#checkall").prop("checked")){
+                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                $("input[name=chk]").prop("checked",true);
+                //클릭이 안되있으면
+            }else{
+                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                $("input[name=chk]").prop("checked",false);
+            }
+        });
+    });
 </script>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
-</html>

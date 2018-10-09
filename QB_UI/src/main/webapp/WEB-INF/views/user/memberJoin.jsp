@@ -1,27 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-  <!-- Favicons -->
-
-
-
   <div id="login-page">
     <div class="container">
-      <form class="form-signup" action="index.html">
+      <form class="form-signup" action="insertmember.do" method="post">
         <h2 class="form-login-heading">SIGN UP</h2>
         <div class="login-wrap">
           <label>ID</label>
-          <input type="text" class="form-control" placeholder="User ID" autofocus>
+          <input type="text" class="form-control" placeholder="User ID" autofocus name="member_id">
             <span class="pull-right"><button class="btn2 btn-theme05">중복 확인</button></span>
           <p>가입가능한 아이디 입니다.</p>
             <label>PASSWORD</label>
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="member_pwd">
           <br>
             <label>CHECK PASSWORD</label>
           <input type="password" class="form-control" placeholder="Password" autofocus>
           <p style="color:red">비밀번호가 일치하지 않습니다</p>
             <label>CLASS</label>
-          <select class="form-control">
+          <select class="form-control" name="class_name">
                   <option>109기</option>
                   <option>110기</option>
                   <option>111기</option>
@@ -30,21 +26,21 @@
                 </select>
           <br>
             <label>NAME</label>
-          <input type="text" class="form-control" placeholder="Class" autofocus>
+          <input type="text" class="form-control" placeholder="Class" autofocus name="member_name">
           <br>
             <label>E-mail</label>
-          <input type="text" class="form-control" placeholder="Class" autofocus>
+          <input type="text" class="form-control" placeholder="Class" autofocus name="member_email">
           <span class="pull-right"><button class="btn2 btn-theme05">인증번호 발송</button></span>
             <label>Certification Number</label>
           <input type="text" class="form-control" placeholder="Class" autofocus>
           <br>
             <label>PHONE</label>
-          <input type="text" class="form-control" placeholder="Class" autofocus>
+          <input type="text" class="form-control" placeholder="Class" autofocus name="member_phone">
           <br>
             
             
           
-            <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+            <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
             <a class="pull-right" href="login.jsp">로그인 페이지</a>
           
         </div>
@@ -75,9 +71,9 @@
  
   <!--BACKSTRETCH-->
   <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-  
+ 
   <script>
-    $.backstretch("img/login-bg.jpg", {
+    $.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
       speed: 500
     });
   </script>

@@ -104,6 +104,31 @@
 					</div>
 				</div>
 			</div>
+			<!-- ClassUpdateModal -->
+			<div class="modal fade" id="ClassUpdateModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">수정 확인</h4>
+						</div>
+						<div class="modal-body">정말 수정하겠습니까?</div>
+						<div class="modal-footer">
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button class="btn btn-theme" data-toggle="modal"
+										data-dismiss="modal">Yes</button>
+									<button class="btn btn-theme04" type="button"
+										data-dismiss="modal">No</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 			<!-- /col-lg-12 -->
 			<div class="col-lg-12 mt">
 				<div class="row content-panel">
@@ -120,7 +145,7 @@
 						<div class="tab-content" >
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-									<div class="col-md-10" id="AdminTableForm">
+									<div class="col-md-12" id="AdminTableForm">
 										<table id="AdminTable" >
 
 											<thead>
@@ -198,39 +223,10 @@
 														</div>
 													</div>
 													<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
-													<button class="btn btn-theme" type="button" >수정</button>
+													<button class="btn btn-theme" type="button" data-toggle="modal" data-target="#ClassUpdateModal">수정</button>
 													</div>
 													
 												</form>
-
-
-												<!--  <form class="form-horizontal  style-form" action="#">
-               <div class="form-group">
-                  <label class="control-label col-md-3">클래스</label>
-                  <div class="col-md-4 col-xs-12">
-                      <input class="form-control" id="" type="text"/>
-                  </div>
-                </div>
-              
-                <div class="form-group">
-                  <label class="control-label col-md-3">교육 기간</label>
-                  <div class="col-md-4">
-                    <div class="input-group input-large" data-date="01/01/2014" data-date-format="mm/dd/yyyy">
-                      <input type="text" class="form-control dpd1" name="from">
-                      <span class="input-group-addon">To</span>
-                      <input type="text" class="form-control dpd2" name="to">
-                    </div>
-                    <span class="help-block">Select date range</span>
-                  </div>
-                </div>
-                
-                  <div class="form-group">
-                  <label class="control-label col-md-3">강사</label>
-                  <div class="col-md-4 col-xs-12">
-                      <input class="form-control" id="" type="text"/>
-                  </div>
-                </div>
-              </form> -->
 											</div>
 
 										</div>
