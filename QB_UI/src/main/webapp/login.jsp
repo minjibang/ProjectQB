@@ -31,6 +31,7 @@
 </head>
 
 <body>
+
 	<div id="login-page">
 		<div class="container">
 			<form class="form-login" action="index/login.do">
@@ -90,10 +91,6 @@
 		</c:when>
 		</c:choose>
 	</script>
-
-
-
-
 
 </body>
 

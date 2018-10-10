@@ -162,22 +162,16 @@ button.modalButton {
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${list1}" var="lgCategoryList">
 						<tr>
-							<td>Row 1 Data 1</td>
-							<td>Row 1 Data 2</td>
+							<td>${lgCategoryList.lg_category_code}</td>
+							<td>${lgCategoryList.lg_category_name}</td>
 							<td>
 								<button type="button" class="btn btn-info">수정</button>
 								<button type="button" class="btn btn-danger">삭제</button>
 							</td>
 						</tr>
-						<tr>
-							<td>Row 2 Data 1</td>
-							<td>Row 2 Data 2</td>
-							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
-							</td>
-						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 
@@ -198,22 +192,16 @@ button.modalButton {
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${list2}" var="mdCategoryList">
 						<tr>
-							<td>Row 1 Data 1</td>
-							<td>Row 1 Data 2</td>
+							<td>${mdCategoryList.md_category_code}</td>
+							<td>${mdCategoryList.md_category_name}</td>
 							<td>
 								<button type="button" class="btn btn-info">수정</button>
 								<button type="button" class="btn btn-danger">삭제</button>
 							</td>
 						</tr>
-						<tr>
-							<td>Row 2 Data 1</td>
-							<td>Row 2 Data 2</td>
-							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
-							</td>
-						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -232,22 +220,16 @@ button.modalButton {
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${list3}" var="smCategoryList">
 						<tr>
-							<td>Row 1 Data 1</td>
-							<td>Row 1 Data 2</td>
+							<td>${smCategoryList.sm_category_code}</td>
+							<td>${smCategoryList.sm_category_name}</td>
 							<td>
 								<button type="button" class="btn btn-info">수정</button>
 								<button type="button" class="btn btn-danger">삭제</button>
 							</td>
 						</tr>
-						<tr>
-							<td>Row 2 Data 1</td>
-							<td>Row 2 Data 2</td>
-							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
-							</td>
-						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>
