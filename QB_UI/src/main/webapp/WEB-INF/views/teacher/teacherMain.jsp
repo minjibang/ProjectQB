@@ -1,8 +1,15 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- 
+teacherMain.jsp
+한결
+2018.10.10 
+-->
 <style>
 #div_notice {
-	width: 90%;
+	width: 80%;
 	margin: 0 auto;
 }
 
@@ -19,7 +26,7 @@
 }
 
 #div_examinfo {
-	width: 90%;
+	width: 80%;
 	margin: 0 auto;
 }
 
@@ -45,9 +52,10 @@
 		<div class="row mt">
 			<div class="col-lg-12"></div>
 			<!-- /col-lg-12 -->
-			<div class="col-lg-12 mt">
+			<div class="col-lg-12 mt fluid-container">
 				<div class="row content-panel div_table">
 					<!-- 클래스 공지사항 -->
+					
 					<div id="div_noticePannel" class="col-md-12">
 						<h2 id="notice_H2">클래스 공지사항</h2>
 						<div id="div_notice">
@@ -61,26 +69,17 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach items="${notice}" var="notice">
 									<tr>
-										<td class="notice_num">3</td>
-										<td class="notice_name"><a href="noticeView.do">추석 연휴 후 강의 일정</a></td>
-										<td class="notice_date">2018.09.17</td>
-										<td class="member_id">강사 홍길동</td>
+										<td class="notice_num">${notice.notice_num}</td>
+										<td class="notice_name"><a href="noticeView.do">${notice.notice_name }</a></td>
+										<td class="notice_date">${notice.notice_date }</td>
+										<td class="notice_id">${notice.member_id }</td>
 									</tr>
-									<tr>
-										<td class="notice_num">2</td>
-										<td class="notice_name"><a href="noticeView.do">조별과제 공지입니다.</a></td>
-										<td class="notice_date">2018.09.10</td>
-										<td class="member_id">강사 홍길동</td>
-									</tr>
-									<tr>
-										<td class="notice_num">1</td>
-										<td class="notice_name"><a href="noticeView.do">공지사항</a></td>
-										<td class="notice_date">2018.09.01</td>
-										<td class="member_id">강사 홍길동</td>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
+							
 							<!-- Security 또는 Session에서 권한이 강사일 경우만 글쓰기 활성화 -->
 							<div>
 								<button id="noticebtn" class="btn btn-info"
@@ -90,45 +89,32 @@
 
 					</div>
 					<!-- /클래스 공지사항 -->
-
 					<!-- 시험일정 -->
 					<div id="" class="col-md-12">
 						<h2 id="examinfo_H2">시험 일정</h2>
 						<div id="div_examinfo">
 							<table id="exam_info_Table" class="display">
 								<thead>
+									
 									<tr>
 										<th class="exam_info_num">시험 번호</th>
 										<th class="exam_info_name">시험 이름</th>
 										<th class="exam_info">시험 시간</th>
 										<th class="exam_info_member">응시 대상</th>
 									</tr>
+									
 								</thead>
 								<tbody>
+									<c:forEach items="${exam_info}" var="exam_info">
 									<tr>
-										<td class="exam_info_num">1</td>
-										<td class="exam_info_name">JAVA의 기초와 이해</td>
-										<td class="exam_info">2018.08.15<br>14:00:00 ~
-											14:50:00<br>50분
+										<td class="exam_info_num">${exam_info.exam_info_num }</td>
+										<td class="exam_info_name"><a href="examScheduleDetail.do">${exam_info.exam_info_name }</a></td>
+										<td class="exam_info">${exam_info.exam_info_date } <br>
+											${exam_info.exam_info_start } ~ ${exam_info.exam_info_end }<br>${exam_info.exam_info_time }분
 										</td>
-										<td class="exam_info_member">전체</td>
+										<td class="exam_info_member">${exam_info.exam_info_member}</td>
 									</tr>
-									<tr>
-										<td class="exam_info_num">2</td>
-										<td class="exam_info_name">JAVA의 기초와 이해 - 재시험</td>
-										<td class="exam_info">2018.08.22<br>17:00:00 ~
-											17:50:00<br>50분
-										</td>
-										<td class="exam_info_member">JAVA 1차시험 60점 미만</td>
-									</tr>
-									<tr>
-										<td class="exam_info_num">3</td>
-										<td class="exam_info_name">오라클 DB</td>
-										<td class="exam_info">2018.09.15<br>14:00:00 ~
-											15:30:00<br>90분
-										</td>
-										<td class="exam_info_member">전체</td>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

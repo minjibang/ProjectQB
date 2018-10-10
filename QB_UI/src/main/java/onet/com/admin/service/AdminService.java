@@ -34,7 +34,7 @@ public class AdminService {
 		return result;
 	}
 	/*���� - 10.08 �����з����� ��*/
-	
+
 	/*영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
@@ -42,5 +42,6 @@ public class AdminService {
 		return result;
 	}
 	/*영준 - 10.10 회원관리 관련 끝 */
+
 	
 }

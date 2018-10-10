@@ -34,7 +34,6 @@ public class AdminController {
 		list3=adminService.smCategoryList();
 		model.addAttribute("list3",list3);
 		
-		
 		return "admin.adminCategory";
 	}
 	/*재훈 10.08 문제분류관련 end*/
