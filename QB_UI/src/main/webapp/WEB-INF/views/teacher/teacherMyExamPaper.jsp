@@ -1,57 +1,14 @@
 <%-- 
 	@JSP:teacherMyExamPaper.jsp
-	@DATE:2018-10-08
+	@DATE:2018-10-10
 	@Author:유영준
 	@Desc:강사-내 시험지 페이지(스토리보드 23 of 41)
  --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style>
-.wrapper-low {
-	    display: inline-block;
-	    margin-top: 20px;
-	    padding-left: 15px;
-	    padding-right: 15px;
-	    padding-bottom: 0px;
-	    padding-top: 0px;
-	    width: 100%;
-	}
-.pn-big {
-	height: 300px;
-	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
-	}
-	.weather-4 {
-	background: #3cb371;
-	}
-.img{
-	width: 32px;
-	height: 32px;
-	display: inline-block;
-}	
-button.add {
-	float: left;
-	right: 15px;
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-button.buttonGroup {
-	float: right;
-	right: 15px;
-	margin-top: 5px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-}
-/* datatables 수정 */
-.dataTables_length, .dataTables_info {
-	display: none;
-}
-.dataTables_paginate {
 
-	margin:0 auto;
-}
-</style>
+<link href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css" rel="stylesheet">
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -80,7 +37,7 @@ button.buttonGroup {
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_myExam" class="col-md-12">
-										<table id="myExam_table" class="display" style="100%">
+										<table id="myExam_table" class="display">
 											<tbody>
 												<tr>
 													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4>
