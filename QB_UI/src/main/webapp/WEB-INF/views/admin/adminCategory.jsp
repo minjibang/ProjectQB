@@ -156,7 +156,7 @@ button.modalButton {
 
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>대분류코드</th>
 							<th>대분류 [언어]</th>
 							<th>관리</th>
 						</tr>
@@ -167,8 +167,8 @@ button.modalButton {
 							<td>${lgCategoryList.lg_category_code}</td>
 							<td>${lgCategoryList.lg_category_name}</td>
 							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
+								<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								<button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -186,7 +186,8 @@ button.modalButton {
 
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>대분류코드</th>
+							<th>중분류코드</th>
 							<th>중분류 [과목]</th>
 							<th>관리</th>
 						</tr>
@@ -194,11 +195,12 @@ button.modalButton {
 					<tbody>
 					<c:forEach items="${list2}" var="mdCategoryList">
 						<tr>
+							<td>${mdCategoryList.lg_category_code}</td>
 							<td>${mdCategoryList.md_category_code}</td>
 							<td>${mdCategoryList.md_category_name}</td>
 							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
+								<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								<button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -214,7 +216,8 @@ button.modalButton {
 
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>중분류코드</th>
+							<th>소분류코드</th>
 							<th>소분류 [주제]</th>
 							<th>관리</th>
 						</tr>
@@ -222,11 +225,12 @@ button.modalButton {
 					<tbody>
 					<c:forEach items="${list3}" var="smCategoryList">
 						<tr>
+							<td>${smCategoryList.md_category_code}</td>
 							<td>${smCategoryList.sm_category_code}</td>
 							<td>${smCategoryList.sm_category_name}</td>
 							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
+								<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								<button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 							</td>
 						</tr>
 					</c:forEach>
