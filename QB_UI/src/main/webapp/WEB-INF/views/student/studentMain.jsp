@@ -7,45 +7,8 @@ teacherMain.jsp
 한결
 2018.10.10 
 -->
-<style>
-#div_notice {
-	width: 80%;
-	margin: 0 auto;
-}
+<link href="${pageContext.request.contextPath}/css/teacherMain.css" rel="stylesheet">
 
-#notice_H2 {
-	text-align: center;
-}
-
-#notice_Table {
-	text-align: center;
-}
-
-#noticebtn {
-	float: right;
-}
-
-#div_examinfo {
-	width: 80%;
-	margin: 0 auto;
-}
-
-#examinfo_H2 {
-	text-align: center;
-}
-
-#exam_info_Table {
-	text-align: center;
-}
-/* datatables 수정 */
-.dataTables_length, .dataTables_info {
-	display: none;
-}
-.dataTables_paginate {
-
-	margin:0 auto;
-}
-</style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
