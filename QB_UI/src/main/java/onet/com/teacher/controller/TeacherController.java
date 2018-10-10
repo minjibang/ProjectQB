@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
@@ -17,6 +18,8 @@ public class TeacherController {
 	
 	@Autowired
 	private TeacherService teacherService;
+	@Autowired
+	private CommonService commonService;
 	
 	@RequestMapping("teacherNoticeWrite.do")
 	public String teacherNoticeWrite() {
@@ -28,13 +31,12 @@ public class TeacherController {
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
 	public String teacherMain(Model model) throws Exception  {
-		List<NoticeDto> notice = teacherService.teacherMain();
+		List<NoticeDto> notice = commonService.teacher_student_Main();
 		model.addAttribute("notice", notice);
-		
-		List<Exam_infoDto> exam_info = teacherService.exam_info();
+		List<Exam_infoDto> exam_info = commonService.exam_info();
 		model.addAttribute("exam_info", exam_info);
 		
-		return "teacher.teacherMain";
+		return "common.teacher.teacher_student_Main";
 	}
 	/*한결 끝*/
 
