@@ -1,0 +1,69 @@
+@charset "UTF-8";
+#totalCheckbox 
+        {
+            height: -10px;
+            vertical-align:text-top
+        }
+        #totalCheckLabel
+        {
+            font-size:1.2em;
+        }
+        .myQuestionImg{
+            width:300px; height: 200px;
+        }
+        
+        .myQuestionSelectCategory {
+            width: 10%;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+        
+        .myQuestionSelectCategory2{
+            width: 37%;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+        
+        .myQuestionFont{
+            font-size: 15px;
+        }
+        
+        .myQuestionSelectBtn {
+            width: 10%;
+        }
+        
+        .myQuestionDiv { 
+            margin-bottom: 30px;
+        }
+        
+        
+        #h3id{
+            text-align: center;
+        }
+        
+        #myQuestionPanel{
+            height: 500px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        .myQuestionCheck{
+            padding-left: 30px;
+        }
+        .hr{
+            width:98%;
+        }
+        .btnDeIn{
+            text-align: center;
+        }
+        .myQuestionCategory{
+            background: #eaeaea;
+            font-size:15px;
+        }
+        .hrRow{
+            margin-top: -20px;
+        }
+        .btnUpDe{
+            margin-top: 60px;
+        }

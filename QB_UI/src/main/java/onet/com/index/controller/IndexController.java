@@ -50,7 +50,7 @@ public class IndexController {
 		} else if (auth.equals("ROLE_STUDENT")) {
 			return "redirect:/student/studentMain.do";
 		} else if (auth.equals("ROLE_ADMIN")) {
-			return "admin.adminMain";
+			return "redirect:/admin/adminMain.do";
 		} else {
 		return "home.noAuth";
 		}
