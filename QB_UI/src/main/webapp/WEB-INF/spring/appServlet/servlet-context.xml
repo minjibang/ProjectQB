@@ -14,12 +14,14 @@
 	<beans:bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
 
 
-	
+	<!-- controller -->
 	<context:component-scan base-package="onet.com.index.controller" />
 	<context:component-scan base-package="onet.com.common.controller" />
 	<context:component-scan base-package="onet.com.admin.controller" />
 	<context:component-scan base-package="onet.com.teacher.controller" />
 	<context:component-scan base-package="onet.com.student.controller" />
-	
+	<!-- service -->
+	<context:component-scan base-package="onet.com.index.service"/>
+	<context:component-scan base-package="onet.com.admin.service"/>
 	
 </beans:beans>

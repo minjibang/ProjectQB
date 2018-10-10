@@ -1,13 +1,29 @@
+
+
+
+
+<!-- 
+	2018.10.10 김현이 
+	사용하지 않는 페이지입니다. 
+	공통 inc 폴더 밑의 layout.jsp 파일에서 작업해주세요. 
+-->
+
+
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
   <title>Dashio - Bootstrap Admin Template</title>
 
   <!-- Favicons -->
@@ -18,6 +34,12 @@
   <link href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!--external css-->
   <link href="${pageContext.request.contextPath}/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <%-- 회준 css 시작 --%>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-datepicker/css/datepicker.css" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-timepicker/compiled/timepicker.css" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/datertimepicker.css" />
+  <%-- 회준 css 끝 --%>
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/zabuto_calendar.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" />
   <link href="${pageContext.request.contextPath}/css/style.css" type="text/css" rel="stylesheet" />
@@ -42,6 +64,7 @@
 	<tiles:insertAttribute name="footer" /> 
 	</section>
 	<!-- js placed at the end of the document so the pages load faster -->
+	
 	  <script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
 	  <script class="include" type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery.dcjqaccordion.2.7.js"></script>
 	  <script src="${pageContext.request.contextPath}/lib/jquery.scrollTo.min.js"></script>
@@ -126,7 +149,10 @@
   <script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/date.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/moment.min.js"></script>
-
+  <%-- 회준 js 시작 --%>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+  <%-- 회준 js 끝 --%>
   <script src="${pageContext.request.contextPath}/lib/advanced-form-components.js"></script>
 </body>
 </html>

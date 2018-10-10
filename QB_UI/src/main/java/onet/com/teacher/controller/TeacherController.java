@@ -19,13 +19,6 @@ public class TeacherController {
 
 		return "teacher.teacherMain";
 	}
-
-	@RequestMapping("teacherMyPage.do")
-	public String teacherMypage() {
-	
-	return "teacher.teacherMyPage";
-	}
-	
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
 	@RequestMapping("noticeView.do")
@@ -58,4 +51,29 @@ public class TeacherController {
 		return "teacher.teacherExamSchedule";
 	}
 	/*영준:10.08 시험 일정보기 페이지 끝 */
+	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	@RequestMapping("teacherExamPaperUpdate.do")
+	public String teacherExamPaperUpdate() {
+
+		return "teacher.teacherExamPaperUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
+	
+	/*현이:10.09 시험 일정 상세보기 페이지 시작*/
+	@RequestMapping("examScheduleDetail.do")
+	public String examDetailView() {
+		
+		return "common.teacher.examScheduleDetail";
+	}  
+	/*현이:10.09 시험 상세보기 페이지 끝*/
+	
+	/*현이 18.10.09 관리자 마이페이지 시작*/
+	@RequestMapping("myPage.do")
+	public String mypage() {
+
+		return "common.teacher.myPage";
+	}
+	/*현이 18.10.09 관리자 마이페이지 끝*/
+	
 }

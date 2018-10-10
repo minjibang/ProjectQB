@@ -78,6 +78,12 @@
              </a>
           </li>
           <li class="sub-menu">
+            <a href="${pageContext.request.contextPath}/teacher/teacherMain.do">
+              <i class="fa fa-desktop"></i>
+              <span>공지사항 & 시험일정</span>
+              </a>
+          </li>
+          <li class="sub-menu">
             <a href="#">
               <i class="fa fa-desktop"></i>
               <span>성적 관리</span>
@@ -95,6 +101,7 @@
               <span>오답노트</span>
               </a>
           </li>
+         </ul>
           <!-- 학생 end -->
         <!-- sidebar menu end-->
       </div>

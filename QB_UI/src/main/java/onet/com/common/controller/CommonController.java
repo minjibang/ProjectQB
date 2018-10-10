@@ -7,16 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/common/")
 public class CommonController {
 
-	@RequestMapping("mypage.do")
-	public String mypage() {
-
-		return "common.myPage";
+	@RequestMapping("examDetailView.do")
+	public String examDetailView() {
+		System.out.println("Common controller를 탄다");
+		return "common.examDetailView";
 	}
-	
-	@RequestMapping("noticeView.do")
-	public String noticeView() {
 
-		return "common.noticeView";
-	}
-	
 }
