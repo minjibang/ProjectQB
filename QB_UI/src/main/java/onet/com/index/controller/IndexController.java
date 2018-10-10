@@ -45,7 +45,7 @@ public class IndexController {
 		
 		if (result == 0) {
 			return "redirect:/login.jsp?result=0";
-		} else if (auth.equals("ROLE_TAECHER")) {
+		} else if (auth.equals("ROLE_TEACHER")) {
 			return "teacher.teacherMain";
 		} else if (auth.equals("ROLE_STUDENT")) {
 			return "";

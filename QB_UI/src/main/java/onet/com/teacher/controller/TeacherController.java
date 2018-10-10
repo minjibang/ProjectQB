@@ -8,10 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
 
 @Controller
-@RequestMapping("/teacher/")
+@RequestMapping(value="/teacher/")
 public class TeacherController {
 	
 	@Autowired
@@ -23,12 +24,16 @@ public class TeacherController {
 		return "teacher.teacherNoticeWrite";
 	}
 
-	/*한결 10.09 공지사항 데이터값 뿌리기*/
+	/*한결 10.09 메인페이지 데이터값 뿌리기*/
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model,NoticeDto dto) {
-		List<NoticeDto> notice;
-		notice=teacherService.teacherMain(dto);
+	public String teacherMain(Model model) throws Exception  {
+		List<NoticeDto> notice = teacherService.teacherMain();
+		model.addAttribute("notice", notice);
+		
+		List<Exam_infoDto> exam_info = teacherService.exam_info();
+		model.addAttribute("exam_info", exam_info);
+		
 		return "teacher.teacherMain";
 	}
 	/*한결 끝*/
@@ -44,7 +49,7 @@ public class TeacherController {
 	@RequestMapping("noticeView.do")
 	public String noticeView() {
 
-		return "common.noticeView";
+		return "common.teacher.noticeView";
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
@@ -83,6 +88,7 @@ public class TeacherController {
 	/*현이:10.09 시험 일정 상세보기 페이지 시작*/
 	@RequestMapping("examScheduleDetail.do")
 	public String examDetailView() {
+		
 		
 		return "common.teacher.examScheduleDetail";
 	}  

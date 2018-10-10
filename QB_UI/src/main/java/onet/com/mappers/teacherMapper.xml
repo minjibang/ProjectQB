@@ -3,8 +3,13 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.teacher.dao.TeacherDao">
-<select id="notice" resultType="NoticeDto">
-	select * from notice;
-</select> 
+
+<select id="notice" parameterType="hashmap" resultType="onet.com.vo.NoticeDto">
+	select * from notice
+</select>
+<select id="exam_info" parameterType="hashmap" resultType="onet.com.vo.Exam_infoDto">
+	select * from exam_info
+</select>
+
 </mapper>
 
