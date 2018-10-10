@@ -7,16 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import onet.com.teacher.service.TeacherService;
+import onet.com.common.service.CommonService;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
 
 @Controller
-@RequestMapping(value="/teacher/")
+@RequestMapping("/teacher/")
 public class TeacherController {
-	
+
 	@Autowired
-	private TeacherService teacherService;
+	private CommonService commonService;
 	
 	@RequestMapping("teacherNoticeWrite.do")
 	public String teacherNoticeWrite() {
@@ -24,31 +24,21 @@ public class TeacherController {
 		return "teacher.teacherNoticeWrite";
 	}
 
-	/*한결 10.09 메인페이지 데이터값 뿌리기*/
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model) throws Exception  {
-		List<NoticeDto> notice = teacherService.teacherMain();
+	public String teacherMain(Model model) {
+		List<NoticeDto> notice = commonService.teacher_student_Main();
 		model.addAttribute("notice", notice);
-		
-		List<Exam_infoDto> exam_info = teacherService.exam_info();
+		List<Exam_infoDto> exam_info = commonService.exam_info();
 		model.addAttribute("exam_info", exam_info);
-		
-		return "teacher.teacherMain";
-	}
-	/*한결 끝*/
-
-	@RequestMapping("teacherMyPage.do")
-	public String teacherMypage() {
-	
-	return "teacher.teacherMyPage";
+		return "common.teacher.teacher_student_Main";
 	}
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
 	@RequestMapping("noticeView.do")
 	public String noticeView() {
 
-		return "common.teacher.noticeView";
+		return "common.noticeView";
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
@@ -88,26 +78,41 @@ public class TeacherController {
 	@RequestMapping("examScheduleDetail.do")
 	public String examDetailView() {
 		
-		
 		return "common.teacher.examScheduleDetail";
 	}  
 	/*현이:10.09 시험 상세보기 페이지 끝*/
 	
-	/*현이 18.10.09 관리자 마이페이지 시작*/
+	/*현이 18.10.09 강사 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
 
 		return "common.teacher.myPage";
 	}
-	/*현이 18.10.09 관리자 마이페이지 끝*/
+	/*현이 18.10.09 강사 마이페이지 끝*/
 	
-	/*정원 18.10.10 강사 내 문제함 시작 */
+	/*민지 18.10.10 강사 시험감독 페이지 시작*/
+	@RequestMapping("teacherExamPaper.do")
+	public String teacherExamPaper() {
+
+		return "teacher.teacherExamPaper";
+	}
+	/*민지 18.10.10 강사 시험감독 페이지 끝*/
+	
+	/*민지 18.10.10 메시지 페이지 시작*/
+	@RequestMapping("myMessage.do")
+	public String myMessage() {
+
+		return "common.teacher.myMessage";
+	}
+	/*민지 18.10.10 메시지 페이지 끝*/
+	
+	/*정원 18.10.10 내 문제함 추가 */
 	@RequestMapping("myQuestion.do")
-	public String myQuestion() {
+	public String teacherMyQuestion(){
 		
 		return "teacher.teacherMyQuestions";
 	}
-	/*정원 18.10.10 강사 내 문제함 끝 */
+	/*정원 18.10.10 내 문제함 끝 */
 	
-
+	
 }
