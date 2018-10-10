@@ -44,6 +44,12 @@ public class StudentController {
 		model.addAttribute("exam_info", exam_info);
 		return "common.student.teacher_student_Main";
 	}
+	
+	@RequestMapping("noticeView.do")
+	public String noticeView() {
+		
+		return "common.student.noticeView";
+	}  
 	/* 한결 18.10.10 메인페이지 끝 */
 
 }
