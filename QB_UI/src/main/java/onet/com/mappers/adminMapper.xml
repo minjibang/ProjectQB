@@ -18,4 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
 
+<!-- 영준 - 10.10 회원관리 관련 시작 -->
+<select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
+	select class_name, member_id, member_name, member_email,
+	member_phone, member_enable from member
+</select>
+
+<!-- 영준 - 10.10 회원관리 관련 끝 -->
 </mapper>

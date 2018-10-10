@@ -17,7 +17,7 @@ public class AdminService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	/*ÀçÈÆ - 10.08 ¹®Á¦ºĞ·ù°ü·Ã ½ÃÀÛ*/ 
+	/*ï¿½ï¿½ï¿½ï¿½ - 10.08 ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/ 
 	public List<CategoryDto> lgCategoryList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.lgCategoryList();
@@ -33,6 +33,14 @@ public class AdminService {
 		List<CategoryDto> result = dao.smCategoryList();
 		return result;
 	}
-	/*ÀçÈÆ - 10.08 ¹®Á¦ºĞ·ù°ü·Ã ³¡*/
+	/*ï¿½ï¿½ï¿½ï¿½ - 10.08 ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½*/
+	
+	/*ì˜ì¤€ - 10.10 íšŒì›ê´€ë¦¬ ê´€ë ¨ ì‹œì‘ */
+	public List<MemberDto> memberList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<MemberDto> result = dao.memberList();
+		return result;
+	}
+	/*ì˜ì¤€ - 10.10 íšŒì›ê´€ë¦¬ ê´€ë ¨ ë */
 	
 }
