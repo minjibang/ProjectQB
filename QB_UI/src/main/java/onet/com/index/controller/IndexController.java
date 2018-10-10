@@ -39,8 +39,9 @@ public class IndexController {
 	public String join(MemberDto dto){
 		int result = indexService.loginCheck(dto);
 		String auth = indexService.authCheck(dto);
+		
 		if (result == 0) {
-			return "redirect:/login.jsp";
+			return "redirect:/login.jsp?result=0";
 		} else if (auth.equals("role_teacher")) {
 			return "teacher.teacherMain";
 		} else if (auth.equals("role_student")) {
