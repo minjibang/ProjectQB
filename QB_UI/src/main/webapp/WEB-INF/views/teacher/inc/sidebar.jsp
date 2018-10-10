@@ -26,7 +26,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/teacher/myQuestion.do">
               <i class="fa fa-desktop"></i>
               <span>문제 관리</span>
               </a>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import onet.com.admin.service.AdminService;
 import onet.com.vo.CategoryDto;
+import onet.com.vo.MemberDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -49,18 +50,13 @@ public class AdminController {
 		return "admin.adminMain";
 	}
 	@RequestMapping("adminMember.do")
-	public String adminMember() {
-
+	public String adminMember(Model model) throws Exception {
+		List<MemberDto> memberList;
+		memberList=adminService.memberList();
+		model.addAttribute("memberList", memberList);
+		
 		return "admin.adminMember";
 	}	
-	
-	/*誘쇱�*/
-	@RequestMapping("adminMyPage.do")
-	public String adminMyPage() {
-	
-	return "admin.adminMyPage";
-	
-	}
 	
 	@RequestMapping("adminMessage.do")
 	public String adminMessage() {

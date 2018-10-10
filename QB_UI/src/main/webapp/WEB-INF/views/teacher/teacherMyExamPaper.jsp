@@ -7,15 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html>
-<head>
-<!-- 데이터 테이블 -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-	
-</head>
 <style>
 .wrapper-low {
 	    display: inline-block;
@@ -52,6 +43,14 @@ button.buttonGroup {
 	margin-right: 5px;
 	margin-bottom: 5px;
 }
+/* datatables 수정 */
+.dataTables_length, .dataTables_info {
+	display: none;
+}
+.dataTables_paginate {
+
+	margin:0 auto;
+}
 </style>
 <!--main content start-->
 <section id="main-content">
@@ -60,7 +59,7 @@ button.buttonGroup {
 			<div class="col-lg-12"></div>
 			<!-- /col-lg-12 -->
 			<div class="col-lg-12 mt">
-				<div class="row content-panel">
+				<div class="row content-panel div_table">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active"><a data-toggle="tab" href="#overview">내 시험지
@@ -80,8 +79,8 @@ button.buttonGroup {
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-									<div class="col-md-12">
-										<table id="myExamTable">
+									<div id="div_myExam" class="col-md-12">
+										<table id="myExam_table" class="display">
 											<tbody>
 												<tr>
 													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4><br>
@@ -153,12 +152,3 @@ button.buttonGroup {
 	</section>
 	<!-- /wrapper -->
 </section>
-<script>
-	// DataTable 구현
-	$(document).ready( function () {
-        $('#myExamTable').DataTable();
-    } 
-    );
-
-</script>
-</html>

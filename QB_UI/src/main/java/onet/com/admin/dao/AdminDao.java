@@ -3,12 +3,19 @@ package onet.com.admin.dao;
 import java.util.List;
 
 import onet.com.vo.CategoryDto;
+import onet.com.vo.MemberDto;
 
 public interface AdminDao {
-	/*ÀçÈÆ - 10.08 ¹®Á¦ºĞ·ù°ü·Ã ½ÃÀÛ*/
+	/*ï¿½ï¿½ï¿½ï¿½ - 10.08 ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 	public List<CategoryDto> lgCategoryList();
 	public List<CategoryDto> mdCategoryList();
 	public List<CategoryDto> smCategoryList();
 	
-	/*ÀçÈÆ - 10.08 ¹®Á¦ºĞ·ù°ü·Ã ½ÃÀÛ*/
+	/*ï¿½ï¿½ï¿½ï¿½ - 10.08 ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
+	
+	/* ì˜ì¤€ - 10.10 íšŒì›ê´€ë¦¬ ê´€ë ¨ ì‹œì‘ */
+	public List<MemberDto> memberList();
+	
+	/* ì˜ì¤€ - 10.10 íšŒì›ê´€ë¦¬ ê´€ë ¨ ë */
 }
+

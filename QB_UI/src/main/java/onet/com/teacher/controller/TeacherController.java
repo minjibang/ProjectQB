@@ -29,13 +29,6 @@ public class TeacherController {
 		List<NoticeDto> str = teacherService.teacherMain(dto);
 		return "teacher.teacherMain";
 	}
-
-	@RequestMapping("teacherMyPage.do")
-	public String teacherMypage() {
-	
-	return "teacher.teacherMyPage";
-	}
-	
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
 	@RequestMapping("noticeView.do")
@@ -93,4 +86,13 @@ public class TeacherController {
 	}
 	/*현이 18.10.09 관리자 마이페이지 끝*/
 	
+	/*정원 18.10.10 강사 내 문제함 시작 */
+	@RequestMapping("myQuestion.do")
+	public String myQuestion() {
+		
+		return "teacher.teacherMyQuestions";
+	}
+	/*정원 18.10.10 강사 내 문제함 끝 */
+	
+
 }

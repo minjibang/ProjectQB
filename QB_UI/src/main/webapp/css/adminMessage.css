@@ -1,0 +1,26 @@
+
+/*****민지*******/
+#messagebox {
+	margin-top: 0px;
+}
+
+#messageTable {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+#sendMessageform {
+	padding-left: 15%;
+	padding-right: 5%;
+}
+.checkName {
+	height: 350px;
+	overflow: auto;
+}
+#messageform {
+	padding-left: 10%;
+	padding-right: 5%;
+}
+#messageBtn{
+	    text-align: right;
+}
+/****************/

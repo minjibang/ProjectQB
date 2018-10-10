@@ -2,51 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<style>
-#main-content {
-	padding: 100px;
-}
-
-.table_heading {
-	padding: 25px;
-	background-color: #60EEEE;
-}
-
-button.add {
-	float: right;
-	right: 15px;
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
-button.modalButton {
-	float: right;
-	right: 15px;
-	margin-top: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
-#lgCatModalPop {
-	height: 250px;
-}
-
-#mdCatModalPop, #smCatModalPop {
-	height: 300px;
-}
-
-
-#lgCatAddForm, #mdCatAddForm, #smCatAddForm {
-	margin-top: 10px;
-}
-
-.form-control{
-	width:100%;
-}
-
-</style>
-
+<link href="${pageContext.request.contextPath}/css/adminCategory.css" rel="stylesheet">
 
 
 	<section id="main-content">
@@ -156,7 +112,7 @@ button.modalButton {
 
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>대분류코드</th>
 							<th>대분류 [언어]</th>
 							<th>관리</th>
 						</tr>
@@ -167,8 +123,8 @@ button.modalButton {
 							<td>${lgCategoryList.lg_category_code}</td>
 							<td>${lgCategoryList.lg_category_name}</td>
 							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
+								<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								<button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -186,7 +142,8 @@ button.modalButton {
 
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>대분류코드</th>
+							<th>중분류코드</th>
 							<th>중분류 [과목]</th>
 							<th>관리</th>
 						</tr>
@@ -194,11 +151,12 @@ button.modalButton {
 					<tbody>
 					<c:forEach items="${list2}" var="mdCategoryList">
 						<tr>
+							<td>${mdCategoryList.lg_category_code}</td>
 							<td>${mdCategoryList.md_category_code}</td>
 							<td>${mdCategoryList.md_category_name}</td>
 							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
+								<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								<button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -214,7 +172,8 @@ button.modalButton {
 
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>중분류코드</th>
+							<th>소분류코드</th>
 							<th>소분류 [주제]</th>
 							<th>관리</th>
 						</tr>
@@ -222,11 +181,12 @@ button.modalButton {
 					<tbody>
 					<c:forEach items="${list3}" var="smCategoryList">
 						<tr>
+							<td>${smCategoryList.md_category_code}</td>
 							<td>${smCategoryList.sm_category_code}</td>
 							<td>${smCategoryList.sm_category_name}</td>
 							<td>
-								<button type="button" class="btn btn-info">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button>
+								<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								<button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 							</td>
 						</tr>
 					</c:forEach>
