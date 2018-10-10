@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#main-content {
+	padding: 100px;
+}
+
+.table_heading {
+	padding: 25px;
+	background-color: #60EEEE;
+}
+
+button.add {
+	float: right;
+	right: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+button.modalButton {
+	float: right;
+	right: 15px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+#lgCatModalPop {
+	height: 250px;
+}
+
+#mdCatModalPop, #smCatModalPop {
+	height: 300px;
+}
+
+
+#lgCatAddForm, #mdCatAddForm, #smCatAddForm {
+	margin-top: 10px;
+}
+
+.form-control{
+	width:100%;
+}

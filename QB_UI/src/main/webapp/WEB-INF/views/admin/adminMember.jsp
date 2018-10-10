@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <style>
 .dataTables_length, .dataTables_info{
 	display: none;
@@ -16,7 +15,7 @@
 	display: none;
 }
 
-}
+
 </style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -64,8 +63,8 @@
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-									<div class="col-md-12">
-										<table id="adminMemberTable">
+									<div id="div_adminMember" class="col-md-12">
+										<table id="adminMember_table" class="display">
 
 											<thead>
 											
@@ -76,53 +75,26 @@
 													<th class="member_name">이름</th>
 													<th class="member_email">이메일</th>
 													<th class="member_phone">핸드폰</th>
-													<th class="role_code">권한</th>
-													<th class="management">관리</th>
+													<th class="member_enable">관리</th>
 												</tr>
 											</thead>
 											<tbody>
-												
+												<c:forEach items="${memberList}" var="memberList">
 													<tr>
 														<td><input type="checkbox" name="chk"></td>
-														<td class="class_name">자바 109기</td>
-														<td class="member_id">af1982</td>
-														<td class="member_name">김샘플</td>
-														<td class="member_email">a@a.com</td>
-														<td class="member_phone">010-1111-1111</td>
-														<td class="autho">일반회원</td>
+														<td class="class_name">${memberList.class_name}</td>
+														<td class="member_id">${memberList.member_id}</td>
+														<td class="member_name">${memberList.member_name}</td>
+														<td class="member_email">${memberList.member_email}</td>
+														<td class="member_phone">${memberList.member_phone}</td>
+														<td class="member_enable">${memberList.member_enable}</td>
 														<td><button class="edit-modal btn btn-info">
-														<span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#UpdateModal"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
+														<span data-toggle="modal" data-target="#UpdateModal"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
 															<button class="delete-modal btn btn-danger">
-															<span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
+															<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
 													</tr>
-													<tr>
-														<td><input type="checkbox" name="chk"></td>
-														<td class="class_name">자바 109기</td>
-														<td class="member_id">slei1</td>
-														<td class="member_name">이샘플</td>
-														<td class="member_email">b@b.com</td>
-														<td class="member_phone">010-2222-2222</td>
-														<td class="autho">일반회원</td>
-														<td><button class="edit-modal btn btn-info">
-														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
-															<button class="delete-modal btn btn-danger">
-															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
-													</tr>
-													<tr>
-														<td><input type="checkbox" name="chk"></td>
-														<td class="class_name">아두이노 111기</td>
-														<td class="member_id">ekkuying</td>
-														<td class="member_name">박샘플</td>
-														<td class="member_email">c@c.com</td>
-														<td class="member_phone">010-3333-3333</td>
-														<td class="autho">학생</td>
-														<td><button class="edit-modal btn btn-info">
-														<span class="glyphicon glyphicon-edit"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
-															<button class="delete-modal btn btn-danger">
-															<span class="glyphicon glyphicon-trash"></span>삭제</button></td>
-													</tr>
-											
-											</tbody>
+													</c:forEach>
+													</tbody>
 										</table>
 										<button class="insert-member btn btn-info">선택 회원 일괄 학생 등록</button>
 										<button class="delete-member btn btn-danger">선택 회원 일괄 삭제</button>
@@ -179,22 +151,6 @@
 		<!-- /container -->
 	<!-- /wrapper -->
 </section>
-<script>
-	// DataTable 구현
-    $(document).ready(function(){
-    
-    	$("#checkall").click(function(){
-            //클릭되었으면
-            if($("#checkall").prop("checked")){
-                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-                $("input[name=chk]").prop("checked",true);
-                //클릭이 안되있으면
-            }else{
-                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-                $("input[name=chk]").prop("checked",false);
-            }
-        });
-    });
-</script>
+</section>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
