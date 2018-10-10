@@ -132,7 +132,14 @@
 					"targets" : 3
 				} ]
 			});
-			$('table.display').DataTable({			
+			/* 영준 (10/10) - 내 시험지, 임시저장된 시험지,
+							시험 일정 DataTable 수정
+			*/
+			$('#div_myExam').DataTable({
+			});
+			$('#div_tempExam').DataTable({
+			});
+			$('#div_examSchedule').DataTable({
 			});
 		});
 	</script>
