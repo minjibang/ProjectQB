@@ -62,15 +62,15 @@ button.buttonGroup {
 				<div class="row content-panel div_table">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a data-toggle="tab" href="#teacherMyExamPaper" class="contact-map">내 시험지
+							<li class="active"><a data-toggle="tab" href="#overview">내 시험지
 									</a></li>
-							<li><a data-toggle="tab" href="#contact">시험지 만들기
+							<li><a data-toggle="tab" href="#contact" class="contact-map">시험지 만들기
 									</a></li>
-							<li><a data-toggle="tab" href="#teacherTempExamPaper">임시 저장된 시험지
+							<li><a data-toggle="tab" href="#tempExamPaper" class="contact-map">임시 저장된 시험지
 									</a></li>
-							<li><a data-toggle="tab" href="#contact">시험 등록
+							<li><a data-toggle="tab" href="#contact" class="contact-map">시험 등록
 									</a></li>
-							<li><a data-toggle="tab" href="#teacherExamSchedule">시험 일정
+							<li><a data-toggle="tab" href="#examSchedule" class="contact-map">시험 일정
 									</a></li>
 						</ul>
 					</div>
@@ -80,7 +80,7 @@ button.buttonGroup {
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_myExam" class="col-md-12">
-										<table id="myExam_table" class="display">
+										<table id="myExam_table" class="display" style="100%">
 											<tbody>
 												<tr>
 													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4>
@@ -129,40 +129,124 @@ button.buttonGroup {
 												</tr>
 										
 										</tbody>
+								<!-- 내 시험지 table 끝 -->
 								</table>
 								<form>
 								<a href="" class="exam-insert">
 								<img src="img/material-icon.png">
 								<strong>새 시험지 만들기</strong></a>
 								</form>
+							<!-- /col-md-12 -->
+							</div>	
+						<!-- /row -->
 						</div>
-						
-				<!-- /col-md-6 -->
+				<!-- /overview -->
 				</div>
-				<!-- /OVERVIEW -->
-				</div>
-				
+					<!-- 임시 저장된 시험지 tab 시작-->
+					<div id="tempExamPaper" class="tab-pane">
+						<div class="row">
+							<div id="div_tempExam" class="col-md-12">
+								<table id="tempExam_table" class="display">
+									<tbody>
+										<tr>
+											<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4>
+											<p>HTML + CSS 개념 및 활용</p></td>
+											<td class="pdf_download text-right"><h5>PDF 다운로드
+											<img src="img/file-download.png"></h5>
+											<p><button class="btn btn-danger buttonGroup">
+												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+											</p>
+											</td>
+										</tr>
+												
+										<tr>
+											<td class="exam_paper_name"><h4><strong>NCS JAVASCRIPT 시험(10/30까지 완성할 것)</strong></h4>
+											<p>자바스크립트 개념 및 활용</p></td>
+											<td class="pdf_download text-right"><h5>PDF 다운로드
+											<img src="img/file-download.png"></h5>
+											<p><button class="btn btn-danger buttonGroup">
+												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+											</p>
+											</td>
+										</tr>
+								</tbody>
+								<!-- /table end -->
+								</table>
+									<form>
+										<a href="" class="exam-insert">
+										<img src="img/material-icon.png">
+										<strong>새 시험지 만들기</strong></a>
+									</form>
+								</div>
+							</div>
+						<!-- 임시 저장된 시험지 tab 끝 -->
 						</div>
-						<!-- /tab-content -->
-					</div>
-					<!-- 임시 저장된 시험지 tab -->
-					<div id="teacherTempExamPaper" class="tab-content">
 					
-					
-					
-					
-					
-					
+	
+					<!-- 시험 일정 tab 시작 -->
+					<div id="examSchedule" class="tab-pane">
+						<div class="row">
+							<div id="div_examSchedule" class="col-md-12">
+								<table id="examSchedule_table" class="display">
+									<tbody>
+												<tr>
+													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용</strong></h4>
+																			<p>정의|개념|클래스|메소드</p></td>
+													<td class="exam_schedule"><p>시험 날짜 : 2018.08.15</p>
+																			  <p>시험 시간 : 14:00:00 ~ 14:50:00 [50분]</p>
+																			  <p>응시 대상 : 전체</p>
+													<td><button class="btn btn-danger buttonGroup">
+														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+														<button class="btn btn-info buttonGroup">
+														<span data-toggle="modal" data-target="#UpdateModal"></span>시험 일정 수정</button>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용<br>(재시험)</strong></h4>
+																			<p>정의|개념|클래스|메소드</p></td>
+													<td class="exam_schedule"><p>시험 날짜 : 2018.08.22</p>
+																			  <p>시험 시간 : 17:00:00 ~ 17:50:00 [50분]</p>
+																			  <p>응시 대상 : JAVA 1차 60점 미만</p></td>
+													<td><button class="btn btn-danger buttonGroup">
+														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+														<button class="btn btn-info buttonGroup">
+														<span data-toggle="modal" data-target="#UpdateModal"></span>시험 일정 수정</button>
+													</td>
+												</tr>				
+										</tbody>
+									<!-- /table -->
+									</table>
+									<form>
+									<a href="" class="exam-insert">
+									<img src="img/material-icon.png">
+									<strong>새 시험 일정 등록</strong></a>
+									</form>
+								<!-- /col-md-12 -->
+								</div>
+							<!-- /row -->
+							</div>
+						<!-- 시험 일정 tab 끝 -->
+						</div>
 					<!-- /tab-content -->
 					</div>
-					
-					<!-- /panel-body -->
+				<!-- /panel-body -->
 				</div>
-				<!-- /col-lg-12 -->
+			<!-- /row content-panel div_table -->
 			</div>
-			<!-- /row -->
+		<!-- /col-lg-12 mt -->
 		</div>
-		<!-- /container -->
-	</section>
-	<!-- /wrapper -->
+	<!-- /row mt -->
+	</div>
+<!-- /wrapper -->
+</section>
+<!-- /main-content -->
 </section>
