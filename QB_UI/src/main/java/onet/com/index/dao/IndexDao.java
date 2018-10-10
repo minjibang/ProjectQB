@@ -9,5 +9,7 @@ public interface IndexDao {
 	public String authCheck(MemberDto dto);
 	
 	public int insertMember(MemberDto dto);
+	
+	public String joinCheckId(String memeberid);
 
 }
