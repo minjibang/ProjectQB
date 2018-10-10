@@ -1,68 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>	
-<!DOCTYPE>
-<html>
-<head>
-<meta content="text/html; charset=UTF-8">
 
-<style>
-#noticeViewBox{
-margin-top:50px;
-margin-left:200px;
-margin-right:200px;
-margin-bottom:50px;
-}
+<link href="${pageContext.request.contextPath}/css/noticeView.css" rel="stylesheet">
 
-div.noticeContent{
-padding-top:20px;
-padding-left:40px;
-padding-right:40px;
-padding-bottom:20px;
-}
-
-#commentSubmit{
-margin-top:10px;
-margin-left:10px;
-margin-right:10px;
-margin-bottom:10px;
-}
-
-#commentWriter{
-margin-top:10px;
-margin-left:10px;
-margin-right:10px;
-margin-bottom:10px;
-}
-
-div.noticeView_Comments_1{
-height:50px;
-margin-top:10px;
-margin-bottom:10px;
-}
-
-div.noticeView_Comments_2{
-height:50px;
-margin-top:5px;
-margin-left:15px;
-margin-bottom:10px;
-}
-
-div.noticeView_CommentsWrite{
-margin-top:50px;
-margin-bottom:20px;
-height:100px;
-border:gray 1px solid;
-}
-
-textarea {
-    resize: none;
-}
-
-</style>
-
-</head>
-<body>
  <section id="main-content">
  <section class="wrapper site-min-height">
       <section id="noticeViewBox" class="panel">
@@ -211,5 +152,3 @@ textarea {
               </section>
             </section>
         </section>
-</body>
-</html>
