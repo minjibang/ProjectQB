@@ -62,15 +62,15 @@ button.buttonGroup {
 				<div class="row content-panel div_table">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a data-toggle="tab" href="#overview">내 시험지
+							<li class="active"><a data-toggle="tab" href="#teacherMyExamPaper" class="contact-map">내 시험지
 									</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">시험지 만들기
+							<li><a data-toggle="tab" href="#contact">시험지 만들기
 									</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">임시 저장된 시험지
+							<li><a data-toggle="tab" href="#teacherTempExamPaper">임시 저장된 시험지
 									</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">시험 등록
+							<li><a data-toggle="tab" href="#contact">시험 등록
 									</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">시험 일정
+							<li><a data-toggle="tab" href="#teacherExamSchedule">시험 일정
 									</a></li>
 						</ul>
 					</div>
@@ -83,44 +83,47 @@ button.buttonGroup {
 										<table id="myExam_table" class="display">
 											<tbody>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-													<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4>
+													<p>변수|배열|FOR문|IF문</p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-													<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4>
+													<p>변수|배열|FOR문|IF문</p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-											<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4>
+													<p>변수|배열|FOR문|IF문<p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 								
 												</tr>
@@ -138,10 +141,21 @@ button.buttonGroup {
 				</div>
 				<!-- /OVERVIEW -->
 				</div>
-
+				
 						</div>
 						<!-- /tab-content -->
 					</div>
+					<!-- 임시 저장된 시험지 tab -->
+					<div id="teacherTempExamPaper" class="tab-content">
+					
+					
+					
+					
+					
+					
+					<!-- /tab-content -->
+					</div>
+					
 					<!-- /panel-body -->
 				</div>
 				<!-- /col-lg-12 -->

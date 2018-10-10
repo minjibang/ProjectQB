@@ -76,11 +76,11 @@ button.buttonGroup {
 										<table id="examScheduleTable" class="display">
 											<tbody>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용</strong></h4><br>
-																			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정의|개념|클래스|메소드</td>
-													<td class="exam_schedule">시험 날짜 : 2018.08.15<br>
-																			    시험 시간 : 14:00:00 ~ 14:50:00 [50분]<br>
-																			    응시 대상 : 전체</td>
+													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용</strong></h4>
+																			<p>정의|개념|클래스|메소드</p></td>
+													<td class="exam_schedule"><p>시험 날짜 : 2018.08.15</p>
+																			  <p>시험 시간 : 14:00:00 ~ 14:50:00 [50분]</p>
+																			  <p>응시 대상 : 전체</p>
 													<td><button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험 일정 수정</button>
 														<button class="btn btn-danger buttonGroup">
@@ -90,11 +90,11 @@ button.buttonGroup {
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용<br>(재시험)</strong></h4><br>
-																			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정의|개념|클래스|메소드</td>
-													<td class="exam_schedule">시험 날짜 : 2018.08.22<br>
-																			    시험 시간 : 17:00:00 ~ 17:50:00 [50분]<br>
-																			    응시 대상 : JAVA 1차 60점 미만</td>
+													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용<br>(재시험)</strong></h4>
+																			<p>정의|개념|클래스|메소드</p></td>
+													<td class="exam_schedule"><p>시험 날짜 : 2018.08.22</p>
+																			  <p>시험 시간 : 17:00:00 ~ 17:50:00 [50분]</p>
+																			  <p>응시 대상 : JAVA 1차 60점 미만</p></td>
 													<td><button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험 일정 수정</button>
 														<button class="btn btn-danger buttonGroup">
