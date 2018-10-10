@@ -4,7 +4,7 @@
 <header class="header black-bg">
 	
 	<!--logo start-->
-	<a href="admin/adminMain.do" class="logo"><b>QB<span>QB</span></b></a>
+	<a href="${pageContext.request.contextPath}/teacher/teacherMain.do" class="logo"><b>QB<span>QB</span></b></a>
 	<!--logo end-->
 
 	<div class="top-menu">
@@ -18,7 +18,7 @@
 					<i class="fa fa-envelope-o"></i>
 					<span class="badge bg-theme">5</span>
 					</a>
-					<li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/admin/myPage.do"> <i
+					<li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/teacher/myPage.do"> <i
 							class="fa fa-user"></i>
 					</a></li>
 

@@ -68,6 +68,14 @@ public class AdminController {
 	return "admin.adminMessage";
 
 	/*誘쇱� 異붽� �걹*/
-}
+	}
+	
+	/*현이 18.10.09 관리자 마이페이지 시작*/
+	@RequestMapping("myPage.do")
+	public String mypage() {
+
+		return "common.admin.myPage";
+	}
+	/*현이 18.10.09 관리자 마이페이지 끝*/
 	
 }

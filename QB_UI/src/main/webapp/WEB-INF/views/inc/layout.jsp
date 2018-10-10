@@ -29,46 +29,21 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
-  <!-- =======================================================
-    Template Name: Dashio
-    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
-    Author: TemplateMag.com
-    License: https://templatemag.com/license/
-  ======================================================= -->
-  
 
 </head>
 <body>
  <section id="container">
-    <!-- **********************************************************************************************************************************************************
-        TOP BAR CONTENT & NOTIFICATIONS
-        *********************************************************************************************************************************************************** -->
-    <!--header start-->
     <!-- 헤더 부분 -->
     <tiles:insertAttribute name="header" />
-    <!--header end-->
-    <!-- **********************************************************************************************************************************************************
-        MAIN SIDEBAR MENU
-        *********************************************************************************************************************************************************** -->
-    <!--sidebar start-->
     <!-- 사이드바 부분 -->
     <tiles:insertAttribute name="sidebar" />
-    <!--sidebar end-->
-    <!-- **********************************************************************************************************************************************************
-        MAIN CONTENT
-        *********************************************************************************************************************************************************** -->
-    <!--main content start-->
     <!-- 컨텐츠 부분 -->
     <tiles:insertAttribute name="content" />
-     
-    <!--main content end-->
-    <!--footer start-->
-<!-- 푸터부분 -->
-<tiles:insertAttribute name="footer" />
-    <!--footer end-->
+	<!-- 푸터부분 -->
+	<tiles:insertAttribute name="footer" />
   </section>
   <!-- js placed at the end of the document so the pages load faster -->
-  <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script>
+ <%--  <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script> --%>
 
   <script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
   <script class="include" type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery.dcjqaccordion.2.7.js"></script>
@@ -127,7 +102,6 @@
   </script>
   
   <!-- 테이블 관련  -->
-
 	<script>
 		$(document).ready(function() {
 			$('#myTable').DataTable({
@@ -136,11 +110,39 @@
 					"targets" : 3
 				} ]
 			});
-			$('table.display').DataTable({
-				
+		});
+	
+	 	$(document).ready(function() {
+			$('#AdminTable').DataTable({
+				"columnDefs" : [ {
+					"width" : "15%",
+					"targets" : 3
+				} ]
 			});
 		});
+	
+	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
+	 	$(document).ready( function () {
+	 	    $('table.display').DataTable({
+	 	    	"columnDefs": [
+	 	    	    { "width": "20%", "targets": 0,
+	 	    	      "width": "50%", "targets": 1,
+	 	    	      "width": "30%", "targets": 2
+	 	    	    }
+	 	    	  ]
+	 	    });
+	 	});
+	 
+	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
+	 
+	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 시작 -->
+	 $(document).ready( function () {
+	        $('#adminMemberTable').DataTable();
+	    } 
+	    );
+	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
 	</script>
+	
 
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
