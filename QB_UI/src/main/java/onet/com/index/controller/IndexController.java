@@ -1,11 +1,14 @@
 package onet.com.index.controller;
 
+
 import java.sql.SQLException;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import onet.com.index.service.IndexService;
 import onet.com.vo.MemberDto;
@@ -16,7 +19,7 @@ public class IndexController {
 
 	@Autowired
 	private IndexService indexService;
-	
+
 	@RequestMapping("memberjoin.do")
 	public String memberjoin() {
 
@@ -34,26 +37,25 @@ public class IndexController {
 
 		return "home.findPw";
 	}
-	
+
 	@RequestMapping("login.do")
-	public String join(MemberDto dto) {
-		System.out.println(dto.getMember_id());
+	public String join(MemberDto dto){
 		int result = indexService.loginCheck(dto);
 		String auth = indexService.authCheck(dto);
-		System.out.println(result);
-		System.out.println(auth);
+		
 		if (result == 0) {
-			return "redirect:/login.jsp";
-
-		}else if(auth.equals("ROLE_TEACHER")) { 
+			return "redirect:/login.jsp?result=0";
+		} else if (auth.equals("ROLE_TAECHER")) {
 			return "teacher.teacherMain";
-		}else if(auth.equals("ROLE_STUDENT")){
+		} else if (auth.equals("ROLE_STUDENT")) {
 			return "";
-		}else if(auth.equals("ROLE_ADMIN")) {
+		} else if (auth.equals("ROLE_ADMIN")) {
 			return "admin.adminMain";
+		} else {
+		return "noAuth.noAuth";
 		}
-			return "noAuth.noAuth";
 	}
+
 	@RequestMapping(value="insertmember.do", method=RequestMethod.POST)
 	public String  memberInsert(MemberDto dto) throws ClassNotFoundException, SQLException {
 		
@@ -71,4 +73,5 @@ public class IndexController {
 		}
 		return viewpage;
 	}
+
 }
