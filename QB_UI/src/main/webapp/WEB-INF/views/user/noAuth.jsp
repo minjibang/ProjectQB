@@ -10,7 +10,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
-						<button class="btn btn-theme mt">관리자에게 문의하기</button>
+						<button class="btn btn-theme mt">로그아웃</button>
 					</div>
 				</div>
 				<h5 class="mt">Hey, maybe you don't have class</h5>

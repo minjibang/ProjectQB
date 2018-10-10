@@ -42,17 +42,17 @@ public class IndexController {
 	public String join(MemberDto dto){
 		int result = indexService.loginCheck(dto);
 		String auth = indexService.authCheck(dto);
-		
+		System.out.println(auth);
 		if (result == 0) {
 			return "redirect:/login.jsp?result=0";
-		} else if (auth.equals("ROLE_TAECHER")) {
+		} else if (auth.equals("ROLE_TEACHER")) {
 			return "teacher.teacherMain";
 		} else if (auth.equals("ROLE_STUDENT")) {
 			return "";
 		} else if (auth.equals("ROLE_ADMIN")) {
 			return "admin.adminMain";
 		} else {
-		return "noAuth.noAuth";
+		return "home.noAuth";
 		}
 	}
 
