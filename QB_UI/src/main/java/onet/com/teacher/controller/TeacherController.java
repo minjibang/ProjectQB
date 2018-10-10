@@ -68,21 +68,21 @@ public class TeacherController {
 	}  
 	/*현이:10.09 시험 상세보기 페이지 끝*/
 	
-	/*현이 18.10.09 관리자 마이페이지 시작*/
+	/*현이 18.10.09 강사 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
 
 		return "common.teacher.myPage";
 	}
-	/*현이 18.10.09 관리자 마이페이지 끝*/
+	/*현이 18.10.09 강사 마이페이지 끝*/
 	
-	/*현이 18.10.09 관리자 마이페이지 시작*/
+	/*민지 18.10.10 강사 시험감독 페이지 시작*/
 	@RequestMapping("teacherExamPaper.do")
 	public String teacherExamPaper() {
 
 		return "teacher.teacherExamPaper";
 	}
-	/*현이 18.10.09 관리자 마이페이지 끝*/
+	/*민지 18.10.10 강사 시험감독 페이지 끝*/
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
