@@ -7,5 +7,7 @@ public interface IndexDao {
 	public int loginCheck(MemberDto dto);
 
 	public String authCheck(MemberDto dto);
+	
+	public int insertMember(MemberDto dto);
 
 }

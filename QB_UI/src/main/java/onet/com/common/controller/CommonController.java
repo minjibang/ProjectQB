@@ -13,17 +13,11 @@ public class CommonController {
 		// 권한을 받을 수 있을까? --> 로그인 시 세션에 권한을 저장하면 된다 
 		return "common.myPage";
 	}
-	
-	@RequestMapping("noticeView.do")
-	public String noticeView() {
 
-		return "common.noticeView";
-	}
-	
 	@RequestMapping("examDetailView.do")
 	public String examDetailView() {
 		System.out.println("Common controller를 탄다");
 		return "common.examDetailView";
 	}
-	
+
 }

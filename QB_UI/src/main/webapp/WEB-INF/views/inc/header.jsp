@@ -1,15 +1,14 @@
+<!-- 공통 inc 폴더 밑의 header가 아니라, 각 권한별 inc 폴더 밑의 header.jsp 를 사용할 예정 -->
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!--header start-->
 <header class="header black-bg">
 	
 	<!--logo start-->
-	<a href="studentMain.do" class="logo"><b>QB<span>QB</span></b></a>
+	<a href="#" class="logo"><b>QB<span>QB</span></b></a>
 	<!--logo end-->
-
-	<!-- notification dropdown end -->
-
-	<!--  notification end -->
 
 	<div class="top-menu">
 		<ul class="nav pull-right top-menu">
@@ -18,7 +17,7 @@
 				<ul class="nav top-menu">
 
 					<li id="header_inbox_bar">
-					<a href="adminMessage.do"> 
+					<a href="#"> 
 					<i class="fa fa-envelope-o"></i>
 					<span class="badge bg-theme">5</span>
 					</a>
@@ -29,7 +28,6 @@
 				</ul>
 			</div>
 			<li><a class="logout" href="">Logout</a></li>
-			<!--  -->
 		</ul>
 	</div>
 </header>
