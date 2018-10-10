@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <style>
 .dataTables_length, .dataTables_info{
 	display: none;
@@ -16,7 +15,7 @@
 	display: none;
 }
 
-}
+
 </style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -76,8 +75,7 @@
 													<th class="member_name">이름</th>
 													<th class="member_email">이메일</th>
 													<th class="member_phone">핸드폰</th>
-													<th class="role_code">권한</th>
-													<th class="management">관리</th>
+													<th class="member_enable">관리</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -91,9 +89,9 @@
 														<td class="member_phone">${memberList.member_phone}</td>
 														<td class="member_enable">${memberList.member_enable}</td>
 														<td><button class="edit-modal btn btn-info">
-														<span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#UpdateModal"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
+														<span data-toggle="modal" data-target="#UpdateModal"></span>수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
 															<button class="delete-modal btn btn-danger">
-															<span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
+															<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button></td>
 													</tr>
 													</c:forEach>
 													</tbody>
@@ -152,6 +150,7 @@
 		</div>
 		<!-- /container -->
 	<!-- /wrapper -->
+</section>
 </section>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
