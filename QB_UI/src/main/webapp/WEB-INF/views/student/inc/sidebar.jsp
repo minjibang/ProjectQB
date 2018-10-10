@@ -14,7 +14,7 @@
              </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/student/studentMain.do">
               <i class="fa fa-desktop"></i>
               <span>공지사항 & 시험일정</span>
               </a>

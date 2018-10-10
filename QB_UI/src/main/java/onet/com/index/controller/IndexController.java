@@ -46,11 +46,11 @@ public class IndexController {
 		if (result == 0) {
 			return "redirect:/login.jsp?result=0";
 		} else if (auth.equals("ROLE_TEACHER")) {
-			return "teacher.teacherMain";
+			return "redirect:/teacher/teacherMain.do";
 		} else if (auth.equals("ROLE_STUDENT")) {
-			return "";
+			return "redirect:/student/studentMain.do";
 		} else if (auth.equals("ROLE_ADMIN")) {
-			return "admin.adminMain";
+			return "redirect:/admin/adminMain.do";
 		} else {
 		return "home.noAuth";
 		}

@@ -83,30 +83,32 @@ button.buttonGroup {
 										<table id="tempExam_table" class="display">
 											<tbody>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML + CSS 개념 및 활용</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png">
-													<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4>
+													<p>HTML + CSS 개념 및 활용</p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>NCS JAVASCRIPT 시험(10/30까지 완성할 것)</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자바스크립트 개념 및 활용</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-													<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>NCS JAVASCRIPT 시험(10/30까지 완성할 것)</strong></h4>
+													<p>자바스크립트 개념 및 활용</p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 												</tr>
 										</tbody>

@@ -1,5 +1,9 @@
 package onet.com.teacher.service;
 
-public class TeacherService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class TeacherService {
+	
+	
 }

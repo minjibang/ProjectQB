@@ -1,57 +1,14 @@
 <%-- 
 	@JSP:teacherMyExamPaper.jsp
-	@DATE:2018-10-08
+	@DATE:2018-10-10
 	@Author:유영준
 	@Desc:강사-내 시험지 페이지(스토리보드 23 of 41)
  --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style>
-.wrapper-low {
-	    display: inline-block;
-	    margin-top: 20px;
-	    padding-left: 15px;
-	    padding-right: 15px;
-	    padding-bottom: 0px;
-	    padding-top: 0px;
-	    width: 100%;
-	}
-.pn-big {
-	height: 300px;
-	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
-	}
-	.weather-4 {
-	background: #3cb371;
-	}
-.img{
-	width: 32px;
-	height: 32px;
-	display: inline-block;
-}	
-button.add {
-	float: left;
-	right: 15px;
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-button.buttonGroup {
-	float: right;
-	right: 15px;
-	margin-top: 5px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-}
-/* datatables 수정 */
-.dataTables_length, .dataTables_info {
-	display: none;
-}
-.dataTables_paginate {
 
-	margin:0 auto;
-}
-</style>
+<link href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css" rel="stylesheet">
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -66,11 +23,11 @@ button.buttonGroup {
 									</a></li>
 							<li><a data-toggle="tab" href="#contact" class="contact-map">시험지 만들기
 									</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">임시 저장된 시험지
+							<li><a data-toggle="tab" href="#tempExamPaper" class="contact-map">임시 저장된 시험지
 									</a></li>
 							<li><a data-toggle="tab" href="#contact" class="contact-map">시험 등록
 									</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">시험 일정
+							<li><a data-toggle="tab" href="#examSchedule" class="contact-map">시험 일정
 									</a></li>
 						</ul>
 					</div>
@@ -83,72 +40,170 @@ button.buttonGroup {
 										<table id="myExam_table" class="display">
 											<tbody>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-													<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>JAVA 기본</strong></h4>
+													<p>변수|배열|FOR문|IF문</p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-													<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4>
+													<p>변수|배열|FOR문|IF문</p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 												</tr>
 												
 												<tr>
-													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4><br>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수|배열|FOR문|IF문</td>
-													<td class="pdf_download">PDF 다운로드
-													<img src="img/file-download.png"></td>
-											<td><button class="btn btn-danger buttonGroup">
+													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4>
+													<p>변수|배열|FOR문|IF문<p></td>
+													<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-danger buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-info buttonGroup">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
 													</td>
 								
 												</tr>
 										
 										</tbody>
+								<!-- 내 시험지 table 끝 -->
 								</table>
 								<form>
 								<a href="" class="exam-insert">
 								<img src="img/material-icon.png">
 								<strong>새 시험지 만들기</strong></a>
 								</form>
+							<!-- /col-md-12 -->
+							</div>	
+						<!-- /row -->
 						</div>
-						
-				<!-- /col-md-6 -->
+				<!-- /overview -->
 				</div>
-				<!-- /OVERVIEW -->
-				</div>
-
+					<!-- 임시 저장된 시험지 tab 시작-->
+					<div id="tempExamPaper" class="tab-pane">
+						<div class="row">
+							<div id="div_tempExam" class="col-md-12">
+								<table id="tempExam_table" class="display">
+									<tbody>
+										<tr>
+											<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4>
+											<p>HTML + CSS 개념 및 활용</p></td>
+											<td class="pdf_download text-right"><h5>PDF 다운로드
+											<img src="img/file-download.png"></h5>
+											<p><button class="btn btn-danger buttonGroup">
+												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+											</p>
+											</td>
+										</tr>
+												
+										<tr>
+											<td class="exam_paper_name"><h4><strong>NCS JAVASCRIPT 시험(10/30까지 완성할 것)</strong></h4>
+											<p>자바스크립트 개념 및 활용</p></td>
+											<td class="pdf_download text-right"><h5>PDF 다운로드
+											<img src="img/file-download.png"></h5>
+											<p><button class="btn btn-danger buttonGroup">
+												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
+												<button class="btn btn-info buttonGroup">
+												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+											</p>
+											</td>
+										</tr>
+								</tbody>
+								<!-- /table end -->
+								</table>
+									<form>
+										<a href="" class="exam-insert">
+										<img src="img/material-icon.png">
+										<strong>새 시험지 만들기</strong></a>
+									</form>
+								</div>
+							</div>
+						<!-- 임시 저장된 시험지 tab 끝 -->
 						</div>
-						<!-- /tab-content -->
+					
+	
+					<!-- 시험 일정 tab 시작 -->
+					<div id="examSchedule" class="tab-pane">
+						<div class="row">
+							<div id="div_examSchedule" class="col-md-12">
+								<table id="examSchedule_table" class="display">
+									<tbody>
+												<tr>
+													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용</strong></h4>
+																			<p>정의|개념|클래스|메소드</p></td>
+													<td class="exam_schedule"><p>시험 날짜 : 2018.08.15</p>
+																			  <p>시험 시간 : 14:00:00 ~ 14:50:00 [50분]</p>
+																			  <p>응시 대상 : 전체</p>
+													<td><button class="btn btn-danger buttonGroup">
+														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+														<button class="btn btn-info buttonGroup">
+														<span data-toggle="modal" data-target="#UpdateModal"></span>시험 일정 수정</button>
+													</td>
+												</tr>
+												
+												<tr>
+													<td class="exam_paper_name"><h4><strong>자바의 기본 개념과 활용<br>(재시험)</strong></h4>
+																			<p>정의|개념|클래스|메소드</p></td>
+													<td class="exam_schedule"><p>시험 날짜 : 2018.08.22</p>
+																			  <p>시험 시간 : 17:00:00 ~ 17:50:00 [50분]</p>
+																			  <p>응시 대상 : JAVA 1차 60점 미만</p></td>
+													<td><button class="btn btn-danger buttonGroup">
+														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+														<button class="btn btn-info buttonGroup">
+														<span data-toggle="modal" data-target="#UpdateModal"></span>시험 일정 수정</button>
+													</td>
+												</tr>				
+										</tbody>
+									<!-- /table -->
+									</table>
+									<form>
+									<a href="" class="exam-insert">
+									<img src="img/material-icon.png">
+									<strong>새 시험 일정 등록</strong></a>
+									</form>
+								<!-- /col-md-12 -->
+								</div>
+							<!-- /row -->
+							</div>
+						<!-- 시험 일정 tab 끝 -->
+						</div>
+					<!-- /tab-content -->
 					</div>
-					<!-- /panel-body -->
+				<!-- /panel-body -->
 				</div>
-				<!-- /col-lg-12 -->
+			<!-- /row content-panel div_table -->
 			</div>
-			<!-- /row -->
+		<!-- /col-lg-12 mt -->
 		</div>
-		<!-- /container -->
-	</section>
-	<!-- /wrapper -->
+	<!-- /row mt -->
+	</div>
+<!-- /wrapper -->
+</section>
+<!-- /main-content -->
 </section>
