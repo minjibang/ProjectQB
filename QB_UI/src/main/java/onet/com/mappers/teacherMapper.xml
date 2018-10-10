@@ -1,1 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="onet.com.admin.dao.AdminDao"/><!--임시 매핑. 작업시 필히 수정 요망 -->
