@@ -17,7 +17,7 @@
 				<ul class="nav top-menu">
 
 					<li id="header_inbox_bar">
-					<a href="#"> 
+					<a href="${pageContext.request.contextPath}/common/myMessage.do"> 
 					<i class="fa fa-envelope-o"></i>
 					<span class="badge bg-theme">5</span>
 					</a>
