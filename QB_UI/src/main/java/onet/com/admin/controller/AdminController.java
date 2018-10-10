@@ -54,14 +54,6 @@ public class AdminController {
 		return "admin.adminMember";
 	}	
 	
-	/*誘쇱�*/
-	@RequestMapping("adminMyPage.do")
-	public String adminMyPage() {
-	
-	return "admin.adminMyPage";
-	
-	}
-	
 	@RequestMapping("adminMessage.do")
 	public String adminMessage() {
 	

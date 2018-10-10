@@ -19,13 +19,6 @@ public class TeacherController {
 
 		return "teacher.teacherMain";
 	}
-
-	@RequestMapping("teacherMyPage.do")
-	public String teacherMypage() {
-	
-	return "teacher.teacherMyPage";
-	}
-	
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
 	@RequestMapping("noticeView.do")
