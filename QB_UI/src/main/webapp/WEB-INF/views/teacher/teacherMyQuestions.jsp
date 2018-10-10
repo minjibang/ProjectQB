@@ -10,10 +10,8 @@
 				<div class="row content-panel">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a data-toggle="tab" href="#overview">클래스
-									구성원</a></li>
-							<li><a data-toggle="tab" href="#contact" class="contact-map">클래스
-									관리</a></li>
+							<li class="active"><a data-toggle="tab" href="#overview">내 문제함</a></li>
+							<li><a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a></li>
 						</ul>
 					</div>
 					<!-- /panel-heading -->
@@ -27,9 +25,11 @@
 								<!-- /OVERVIEW -->
 							</div>
 							<!-- /tab-pane -->
-							<div id="contact" class="tab-pane ">
+							<div id="newQuestion" class="tab-pane ">
 								<div class="row">
-										<div class="col-md-12"></div>
+										<div class="col-md-12">
+										
+										</div>
 									</div>
 								</div>
 								<!-- /row -->
