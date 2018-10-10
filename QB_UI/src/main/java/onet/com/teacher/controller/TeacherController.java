@@ -1,12 +1,23 @@
 package onet.com.teacher.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import onet.com.common.service.CommonService;
+import onet.com.vo.Exam_infoDto;
+import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping("/teacher/")
 public class TeacherController {
 
+	@Autowired
+	private CommonService commonService;
+	
 	@RequestMapping("teacherNoticeWrite.do")
 	public String teacherNoticeWrite() {
 
@@ -15,9 +26,12 @@ public class TeacherController {
 
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain() {
-
-		return "teacher.teacherMain";
+	public String teacherMain(Model model) {
+		List<NoticeDto> notice = commonService.teacher_student_Main();
+		model.addAttribute("notice", notice);
+		List<Exam_infoDto> exam_info = commonService.exam_info();
+		model.addAttribute("exam_info", exam_info);
+		return "common.teacher.teacher_student_Main";
 	}
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
@@ -92,6 +106,13 @@ public class TeacherController {
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
+	/*정원 18.10.10 내 문제함 추가 */
+	@RequestMapping("myQuestion.do")
+	public String teacherMyQuestion(){
+		
+		return "teacher.teacherMyQuestions";
+	}
+	/*정원 18.10.10 내 문제함 끝 */
 	
 	
 }
