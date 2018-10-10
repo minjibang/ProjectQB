@@ -14,31 +14,26 @@ Website: http://Alvarez.is/
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
-
-
 /*minji*/
-#class_update_form{
-	  padding-left: 15%;
-      padding-right: 10%;
+#class_update_form {
+	padding-left: 15%;
+	padding-right: 10%;
 }
-#AdminUpdateBtn{
+
+#AdminUpdateBtn {
 	text-align: right;
 }
 
-#AdminTableForm{
-	  padding-left: 10%;
-      padding-right: 10%;
-}
-
-#messagebox{
-	margin-top:0px;
-}
-
-#messageTable{
+#AdminTableForm {
 	padding-left: 10%;
-    padding-right: 10%;
+	padding-right: 10%;
 }
+
+
+
+
 /****/
+
 /* BASIC THEME CONFIGURATION */
 
 /*****************************정원 */
@@ -72,7 +67,6 @@ Website: http://Alvarez.is/
 }
 
 /********************************/
-
 body {
 	color: #797979;
 	background: #eaeaea;
@@ -1784,13 +1778,17 @@ PANELS CONFIGURATIONS
 
 /* Grid Showcase*/
 margin-bottom
+
+
 :
+
  
+
 15
 px
+
+
 ;
-
-
 }
 .show-grid [class^=col-] {
 	padding-top: 10px;
@@ -3712,7 +3710,6 @@ ul.chat-available-user li a:hover {
 #copyrights a {
 	color: #fff;
 }
-
 
 /* 현이 mypage css */
 .inlineTextField {
