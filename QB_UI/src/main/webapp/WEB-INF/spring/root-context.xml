@@ -38,7 +38,6 @@
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="driverManagerDataSource"></property>
 		<property name="mapperLocations" value="classpath*:onet/com/mappers/*xml" /> 
-		<!-- <property name="mapperLocations" value="classpath*:onet/com/admin/**/*xml" /> --> <!-- 나중에 mapper 전부 추가되면 "classpath*:onet/com/*/*/*xml" 로 바꿔줘야함 -->
 	</bean>
 
 	<bean id="sqlSession"

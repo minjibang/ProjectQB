@@ -82,14 +82,10 @@
 		});
 	
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
+	 
 	 	$(document).ready( function () {
 	 	    $('table.display').DataTable({
-	 	    	"columnDefs": [
-	 	    	    { "width": "20%", "targets": 0,
-	 	    	      "width": "50%", "targets": 1,
-	 	    	      "width": "30%", "targets": 2
-	 	    	    }
-	 	    	  ]
+	 	    	
 	 	    });
 	 	});
 	 
