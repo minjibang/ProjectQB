@@ -76,4 +76,13 @@ public class TeacherController {
 	}
 	/*현이 18.10.09 관리자 마이페이지 끝*/
 	
+	/*정원 18.10.10 강사 내 문제함 시작 */
+	@RequestMapping("myQuestion.do")
+	public String myQuestion() {
+		
+		return "teacher.teacherMyQuestions";
+	}
+	/*정원 18.10.10 강사 내 문제함 끝 */
+	
+
 }

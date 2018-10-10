@@ -43,7 +43,7 @@
 						class="form-control" name="member_pwd" placeholder="Password"
 						required> <br>
 					<!-- 정원 (나중에 삭제) -->
-					<label class="pull-right"> <a href="idSearch.do">
+					<label class="pull-right"> <a href="index/idSearch.do">
 							Forgot id?</a>
 					</label>
 				
@@ -55,7 +55,7 @@
 					<br> <a href="teacher/teacherMain.do">강사 메인</a>
 					<!-- 헤더 완료 후 링크 옮기기 -->
 
-					<label class="pull-right"> <a href="pwdSearch.do">
+					<label class="pull-right"> <a href="index/pwdSearch.do">
 							Forgot Password?</a>
 					</label> <label class="pull-right"> <a href="noAuth.do"> 인증안된
 							회원</a>
