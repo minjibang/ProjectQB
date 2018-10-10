@@ -1,52 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%-- <link href="${pageContext.request.contextPath}/css/teacherMyQuesion_newQuestion.css" rel="stylesheet">
  --%>
 <style>
+#categorySelect {
+	width: 100%;
 
-#categorySelect{
- width:100%;
- text-align:center;
+	border-bottom: 1px solid #e2e2e2;
 }
 
-button.categorySelectButton{
-	margin:10px;
-	width:150px;
+button.categorySelectButton {
+	margin: 10px;
+	width: 150px;
 	display: inline-block;
 }
 
-#questionMoonjeLabel{
-	margin-bottom:20px;
+#questionTypeSelect{
+	width: 100%;
+	
+	border-bottom: 1px solid #e2e2e2;
+}
+
+label.questionTypeRadioButton{
+	margin-top: 10px;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-bottom: 10px;
+}
+
+#questionMoonje{
+	width: 100%;
+	padding-bottom:40px;
+	
+	border-bottom: 1px solid #e2e2e2;
 }
 
 #questionMoonjeText{
-	margin-left:20px;
-}
-#questionMoonje{
-	width:100%;
-	text-align:right;
+	display:inline-block;
+	width: 100%;
 }
 
-#questionMoonjeFile{
-	margin:5px;
-	display: inline-block;
+#moonjeTextArea{
+	display:inline-block;
+	width:80%;
+	resize: none;
+	margin-bottom: 15px;
 }
+
+#moonjeImage{
+	display:inline-block;
+}
+
+#questionChoice{
+	width: 100%;
+	
+	border-bottom: 1px solid #e2e2e2;
+	padding-bottom: 40px;
+}
+
 
 </style>
- 
+
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="row mt">
+		
 			<div class="col-lg-12"></div>
 			<!-- /col-lg-12 -->
 			<div class="col-lg-12 mt">
 				<div class="row content-panel">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a data-toggle="tab" href="#overview">내 문제함</a></li>
-							<li><a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a></li>
+							<li class="active"><a data-toggle="tab" href="#overview">내
+									문제함</a></li>
+							<li><a data-toggle="tab" href="#newQuestion"
+								class="contact-map">새 문제 만들기</a></li>
 						</ul>
 					</div>
 					<!-- /panel-heading -->
@@ -60,18 +89,15 @@ button.categorySelectButton{
 								<!-- /OVERVIEW -->
 							</div>
 							<!-- /tab-pane -->
-							<div id="newQuestion" class="tab-pane ">
+							<div id="newQuestion" class="tab-pane">
 								<div class="row">
-								<div class="col-lg-1"></div>
-									<div class="col-md-10">
-										<div class="col-lg-2">
-										</div>
-										<div class="col-lg-8 detailed mt">
-												<h4 class="mb">새 문제 만들기</h4>
-												<form role="form" class="form-horizontal"
-													id="newQuestion_form">
-													<div id="categorySelect" class="form-group">
-													
+									<div class="col-md-2">
+									</div>
+										<div class="col-md-8">
+											
+											<form role="form" class="" id="newQuestion_form">
+												<div id="categorySelect" class="form-group">
+													<h4>Step1. 문제 분류 및 난이도 선택</h4>
 													<div class="btn-group">
 														<button type="button"
 															class="btn btn-default dropdown-toggle categorySelectButton"
@@ -112,82 +138,118 @@ button.categorySelectButton{
 															난이도 선택 <span class="caret"></span>
 														</button>
 														<ul class="dropdown-menu">
-															<li><a href="#">Dropdown link</a></li>
-															<li><a href="#">Dropdown link</a></li>
+															<li><a href="#">상</a></li>
+															<li><a href="#">중</a></li>
+															<li><a href="#">하</a></li>
 														</ul>
 													</div>
 													
-
+													
+													
 												</div>
+											</form>
+											
+											<div id="questionTypeSelect" class="form-group">
+											<h4>Step2. 문제 유형 선택</h4>
+												<div class="radio">
+													<label class="questionTypeRadioButton"> <input type="radio" class="questionTypeRadioButton" name="optionsRadios"
+														id="optionsRadios1" value="option1" checked>
+														객관식
+													</label>
 													
-													<span>
-													<label id="questionMoonjeLabel" class="control-label col-md-12">문제 입력:</label>
-													</span>
-													
-													<div id="questionMoonje" class="form-group">
-												
-														<div class="col-md-12">
-                    										<textarea id="questionMoonjeText" class="wysihtml5 form-control" rows="2" placeholder="문제 내용을 입력해주세요. 문제를 이미지로 대체하길 원하는 경우, 이미지 파일을 첨부해주세요."></textarea>
-														</div>
-														
-													<div class="form-group last">
-														<label class="control-label col-md-3">Image Upload</label>
-														<div class="col-md-9">
-															<div class="fileupload fileupload-new"
-																data-provides="fileupload">
-																<div class="fileupload-new thumbnail"
-																	style="width: 200px; height: 150px;">
-																	<img
-																		src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"
-																		alt="" />
-																</div>
-																<div
-																	class="fileupload-preview fileupload-exists thumbnail"
-																	style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-																<div>
-																	<span class="btn btn-theme02 btn-file"> <span
-																		class="fileupload-new"><i
-																			class="fa fa-paperclip"></i> Select image</span> <span
-																		class="fileupload-exists"><i class="fa fa-undo"></i>
-																			Change</span> <input type="file" class="default" />
-																	</span> <a href="advanced_form_components.html#"
-																		class="btn btn-theme04 fileupload-exists"
-																		data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																		Remove</a>
-																</div>
-															</div>
-															<span class="label label-info">NOTE!</span> <span>
-																Attached image thumbnail is supported in Latest Firefox,
-																Chrome, Opera, Safari and Internet Explorer 10 only </span>
-														</div>
-													</div>
-
+													<label class="questionTypeRadioButton"> <input type="radio"  name="optionsRadios"
+														id="optionsRadios2" value="option2"> 
+														단답형
+													</label>
 												</div>
-													
-													
-													
-													<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
-													<button class="btn btn-theme" type="button" data-toggle="modal" data-target="#ClassUpdateModal">수정</button>
-													</div>
-													
-												</form>
 											</div>
+											
+											
+											<div class="form-group" id="questionMoonje">
+											<h4>Step3. 문제 내용 입력</h4>
+											<textarea id="moonjeTextArea" class="form-control" placeholder="문제 내용을 입력해주세요." rows="5"></textarea>
+												<div class="col-sm-8"></div>
+												<div class="col-sm-2">
+										    		<input id="moonjeImage" type="file" class="default"/>
+												</div>
+												<div class="col-sm-2"></div>
+											</div>
+											<!-- style="border:1px solid red;" -->
+											
+											<div class="form-group" id="questionChoice">
+											<h4>Step4. 문제 보기 입력</h4>
+												<div class="col-sm-12">
+												<h5> 1번 보기</h5>
+												</div>
+												
+												<div>
+												<textarea id="moonjeTextArea" class="form-control" placeholder="1번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="col-sm-8"></div>
+												<div class="col-sm-2">
+										    		<input id="moonjeImage" type="file" class="default"/>
+												</div>
+												<div class="col-sm-2"></div>
+												</div>
+												
+												<div class="col-sm-12">
+												<h5> 2번 보기</h5>
+												</div>
+												
+												<div>
+												<textarea id="moonjeTextArea" class="form-control" placeholder="2번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="col-sm-8"></div>
+												<div class="col-sm-2">
+										    		<input id="moonjeImage" type="file" class="default"/>
+												</div>
+												<div class="col-sm-2"></div>
+												</div>
+												
+												<div class="col-sm-12">
+												<h5> 3번 보기</h5>
+												</div>
+												
+												<div>
+												<textarea id="moonjeTextArea" class="form-control" placeholder="3번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="col-sm-8"></div>
+												<div class="col-sm-2">
+										    		<input id="moonjeImage" type="file" class="default"/>
+												</div>
+												<div class="col-sm-2"></div>
+												</div>
+												
+												<div class="col-sm-12">
+												<h5> 4번 보기</h5>
+												</div>
+												
+												<div>
+												<textarea id="moonjeTextArea" class="form-control" placeholder="4번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="col-sm-8"></div>
+												<div class="col-sm-2">
+										    		<input id="moonjeImage" type="file" class="default"/>
+												</div>
+												<div class="col-sm-2"></div>
+												</div>
+											
+											</div>
+											
+											
+										</div>
+										<div class="col-sm-2"></div>
+										
 									</div>
 								</div>
 							</div>
-								<!-- /row -->
-							
-
 						</div>
-						<!-- /tab-content -->
+						<!-- /row -->
+
+
 					</div>
-					<!-- /panel-body -->
+					<!-- /tab-content -->
 				</div>
-				<!-- /col-lg-12 -->
+				<!-- /panel-body -->
 			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
+			<!-- /col-lg-12 -->
+		
 	</section>
 	<!-- /wrapper -->
 </section>
