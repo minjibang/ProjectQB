@@ -3,6 +3,10 @@
 	pageEncoding="UTF-8"%>
 
 <!-- 강사 공지사항 글쓰기 -->
+<script>
+
+</script>
+
 <style>
 table {
 	text-align: center;
@@ -30,21 +34,25 @@ table {
 								<table class="table">
 									<tr>
 										<td class="fst_td">제목</td>
-										<td class="scd_td"><input type="text"
-											class="notice_input" placeholder="제목을 입력해주세요" /></td>
+										<td class="scd_td"><input type="text" id="notice_title"
+											class="notice_input" placeholder="제목을 입력해주세요" required /></td>
 									</tr>
 									<tr>
 										<td class="fst_td">내용</td>
-										<td class="sec_td"><textarea class="notice_input"
-												rows="20" placeholder="내용을 입력해주세요"></textarea></td>
+										<td class="sec_td"><textarea id="notice_content" class="notice_input" 
+												rows="20" placeholder="내용을 입력해주세요" required></textarea></td>
 									</tr>
 									<tr>
 										<td class="fst_td">파일 첨부</td>
-										<td><input type="file" /></td>
+										<td>
+											<input type="file" id="txtFile" name="files[0]" />
+											<input type="file" id="txtFile" name="files[1]" />
+											<input type="file" id="txtFile" name="files[2]" />
+										</td>
 									</tr>
 									<tr>
 										<td colspan="2">
-											<button class="btn btn-info">글 등록</button>
+											<button id="notice_submit" class="btn btn-info">글 등록</button>
 											<a href="teacherMain.do"><input type="button" class="btn btn-info" value="취소" /></a>
 											<!-- <button class="btn btn-info">취소</button> -->
 										</td>

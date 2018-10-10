@@ -14,29 +14,28 @@ Website: http://Alvarez.is/
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
-
-
 /*minji*/
-#class_update_form{
-	  padding-left: 15%;
-      padding-right: 10%;
+#class_update_form {
+	padding-left: 15%;
+	padding-right: 10%;
 }
-#AdminUpdateBtn{
+
+#AdminUpdateBtn {
 	text-align: right;
 }
 
-#AdminTableForm{
-	  padding-left: 10%;
-      padding-right: 10%;
-}
-
-#messagebox{
-	margin-top:0px;
-}
-
-#messageTable{
+#AdminTableForm {
 	padding-left: 10%;
-    padding-right: 10%;
+	padding-right: 10%;
+}
+
+#messagebox {
+	margin-top: 0px;
+}
+
+#messageTable {
+	padding-left: 10%;
+	padding-right: 10%;
 }
 /****/
 /* BASIC THEME CONFIGURATION */
@@ -72,7 +71,6 @@ Website: http://Alvarez.is/
 }
 
 /********************************/
-
 body {
 	color: #797979;
 	background: #eaeaea;
@@ -1784,13 +1782,17 @@ PANELS CONFIGURATIONS
 
 /* Grid Showcase*/
 margin-bottom
+
+
 :
+
  
+
 15
 px
+
+
 ;
-
-
 }
 .show-grid [class^=col-] {
 	padding-top: 10px;
@@ -3713,8 +3715,7 @@ ul.chat-available-user li a:hover {
 	color: #fff;
 }
 
-
-/* 현이 mypage css */
+/* 현이 mypage css 시작 */
 .inlineTextField {
 	display: inline;
 	width: 100%;
@@ -3733,4 +3734,36 @@ ul.chat-available-user li a:hover {
 	padding-left: 15%;
 	padding-right: 10%;
 }
-/* 현이 mypage css */
+/* 현이 mypage css 끝 */
+
+
+/* 현이 teacharExamScheduleDetail.jsp css 시작 */
+.examImgDiv {
+	text-align: center;
+}
+
+.examImgDiv img {
+	width: 300px;
+}
+
+.examImgDiv img h3 {
+	padding-top: 10px;
+}
+
+#clockImg {
+	width: 70px;
+}
+
+.clockImgDiv {
+	text-align: right;
+}
+
+.examBtnDiv {
+	text-align: center;
+}
+
+#examBtn {
+	width: 200px;
+	margin-right: 30%;
+}
+/* 현이 teacharExamScheduleDetail.jsp css 끝 */

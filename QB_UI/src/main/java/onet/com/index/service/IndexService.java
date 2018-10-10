@@ -25,6 +25,12 @@ public class IndexService {
 			return result;
 		}
 		
+		public int insertMember(MemberDto dto) {
+			IndexDao dao = sqlsession.getMapper(IndexDao.class);
+			int result = dao.insertMember(dto);
+			return result;
+		}
+		
 	
 }
 

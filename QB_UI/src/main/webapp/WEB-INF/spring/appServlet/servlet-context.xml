@@ -23,5 +23,6 @@
 	<!-- service -->
 	<context:component-scan base-package="onet.com.index.service"/>
 	<context:component-scan base-package="onet.com.teacher.service"/>
+	<context:component-scan base-package="onet.com.admin.service"/>
 	
 </beans:beans>
