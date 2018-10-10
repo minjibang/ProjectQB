@@ -13,7 +13,7 @@
 	padding-right: 5%;
 }
 .checkName {
-	height: 350px;
+	height: 500px;
 	overflow: auto;
 }
 #messageform {
@@ -22,5 +22,14 @@
 }
 #messageBtn{
 	    text-align: right;
+}
+
+.examstudent {
+	margin-left: 10%;
+
+
+}
+.messagepanel{
+	height:800px;
 }
 /****************/

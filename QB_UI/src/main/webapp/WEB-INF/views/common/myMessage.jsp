@@ -14,18 +14,16 @@
 				<h4 class="modal-title" id="myModalLabel">쪽지 확인</h4>
 			</div>
 			<div class="modal-body">
-				<div class="row mt">
 					<!-- /col-lg-12 -->
-					<div class="col-lg-10 mt" id="messageform">
-						<section class="panel">
-							<div class="panel-body ">
+					<div id="messageform">
 								<div class="mail-sender">
 									<div class="row">
 										<div class="col-md-8">
 											<img src="img/ui-zac.jpg" alt=""> <strong>Zac
 												Doe</strong> <span>[zac@youremail.com]</span> to <strong>me</strong>
 										</div>
-										<div class="col-md-2">
+
+										<div class="col-md-4">
 											<p class="date">10:15AM 02 FEB 2014</p>
 										</div>
 									</div>
@@ -52,24 +50,13 @@
 										his little bell again, and summoned his valet to his own
 										bedroom.</p>
 								</div>
-								<div>
-									<button class="btn btn-sm " id="messageBtn">답장하기</button>
-									<button class="btn btn-sm tooltips" id="messageBtn">
-										<i class="fa fa-trash-o"></i>
-									</button>
-								</div>
-							</div>
-
-						</section>
 					</div>
-				</div>
 			</div>
 			<div class="modal-footer">
 				<div class="form-group">
 					<div class="col-lg-offset-2 col-lg-10">
-						<button class="btn btn-theme" data-toggle="modal"
-							data-dismiss="modal">Yes</button>
-						<button class="btn btn-theme04" type="button" data-dismiss="modal">No</button>
+						<button class="btn btn-large btn-primary" id="messageBtn">답장하기</button>
+						<button class="btn btn-theme04" type="button" data-dismiss="modal">취소</button>
 					</div>
 				</div>
 			</div>
@@ -83,7 +70,7 @@
 			<div class="col-lg-12">
 				<!-- /col-lg-12 -->
 				<div class="col-lg-12 mt">
-					<div class="row content-panel">
+					<div class="row content-panel messagepanel">
 						<div class="panel-heading">
 							<ul class="nav nav-tabs nav-justified">
 								<li class="active"><a data-toggle="tab" href="#overview">받은
@@ -289,14 +276,12 @@
 
 								</div>
 								<!-- /tab-pane -->
-								<div id="contact" class="tab-pane">
+								<div id="contact" class="tab-pane examstudent">
 									<div class="row">
 										<div class="row mt">
-
-
 											<div id="updateExam" class="tab-pane">
 												<div class="row">
-													<div class="col-md-12" id="sendMessageform">
+													<div class="col-md-12">
 														<div class="col-md-2">
 															<div class="invite-row">
 																<h4 class="pull-left">받는이</h4>
