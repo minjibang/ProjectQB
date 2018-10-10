@@ -15,9 +15,9 @@ public class TeacherService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	public List<NoticeDto> teacherMain() {
+	public List<NoticeDto> teacherMain(NoticeDto dto) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<NoticeDto> list = dao.notice();
-		return list;
+		List<NoticeDto> notice = dao.notice();
+		return notice;
 	}
 }

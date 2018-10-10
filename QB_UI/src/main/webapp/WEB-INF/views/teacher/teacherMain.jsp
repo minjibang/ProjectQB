@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
@@ -48,6 +49,7 @@
 			<div class="col-lg-12 mt">
 				<div class="row content-panel div_table">
 					<!-- 클래스 공지사항 -->
+					
 					<div id="div_noticePannel" class="col-md-12">
 						<h2 id="notice_H2">클래스 공지사항</h2>
 						<div id="div_notice">
@@ -61,26 +63,17 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach items="${list}" var="notice">
 									<tr>
-										<td class="notice_num">3</td>
-										<td class="notice_name"><a href="noticeView.do">추석 연휴 후 강의 일정</a></td>
-										<td class="notice_date">2018.09.17</td>
-										<td class="member_id">강사 홍길동</td>
+										<td class="notice_num">${notice.notice_num}</td>
+										<td class="notice_name"><a href="noticeView.do">${notice.notice_name }</a></td>
+										<td class="notice_date">${notice.notice_date }</td>
+										<td class="member_id">${notice.member_id }</td>
 									</tr>
-									<tr>
-										<td class="notice_num">2</td>
-										<td class="notice_name"><a href="noticeView.do">조별과제 공지입니다.</a></td>
-										<td class="notice_date">2018.09.10</td>
-										<td class="member_id">강사 홍길동</td>
-									</tr>
-									<tr>
-										<td class="notice_num">1</td>
-										<td class="notice_name"><a href="noticeView.do">공지사항</a></td>
-										<td class="notice_date">2018.09.01</td>
-										<td class="member_id">강사 홍길동</td>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
+							
 							<!-- Security 또는 Session에서 권한이 강사일 경우만 글쓰기 활성화 -->
 							<div>
 								<button id="noticebtn" class="btn btn-info"

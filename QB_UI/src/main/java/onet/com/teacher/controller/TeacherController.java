@@ -26,8 +26,9 @@ public class TeacherController {
 	/*한결 10.09 공지사항 데이터값 뿌리기*/
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model) {
-		List<NoticeDto> list;
+	public String teacherMain(Model model,NoticeDto dto) {
+		List<NoticeDto> notice;
+		notice=teacherService.teacherMain(dto);
 		return "teacher.teacherMain";
 	}
 	/*한결 끝*/
