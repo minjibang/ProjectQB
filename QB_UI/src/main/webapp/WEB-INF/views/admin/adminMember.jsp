@@ -7,16 +7,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style>
-.dataTables_length, .dataTables_info{
-	display: none;
-}
-.dataTables_paginate, .dataTables_filter{
-	display: none;
-}
-
-
-</style>
+<link href="${pageContext.request.contextPath}/css/adminMember.css"
+	rel="stylesheet">
 <!-- main content start -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -31,11 +23,10 @@
 				<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="moadl"
-							aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">회원 정보 수정</h4>
-				<!-- modal-header 끝 -->
-				</div>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">회원 정보 수정</h4>
+						</div>
 				<div class="modal-body">
 					<div class="form-panel">
 						<div class="form">
@@ -74,7 +65,7 @@
 							<div class="form-group">
 								<label for="cclass" class="control-label col-lg-2">클래스</label>
 								<div class="col-lg-10">
-									<select name="classname">
+									<select name="classname" class="form-control">
 										<option value="class">java 109</option>
 										<option value="class">window 108</option>
 										<option value="class">class3</option>
@@ -144,13 +135,13 @@
 					<div class="panel-heading">
 					<h3><span>회원 검색</span></h3>
 						<!-- selectBox -->
-						<select name="member_role" style="width:130px; height:30px;">
+						<select  id="adminMemberSelect" name="member_role" style="width:130px; height:30px;" class="form-control">
 							<option value="">회원 권한 선택</option>
 							<option value="student">학생</option>
 							<option value="teacher">강사</option>
 							<option value="member">일반회원</option>
 						</select>
-						<select name="class" style="width:130px; height:30px;">
+						<select id="adminMemberSelect" name="class" style="width:130px; height:30px;" class="form-control">
 							<option value="">클래스 선택</option>
 							<option value="java109">자바 109기</option>
 							<option value="python110">파이썬 110기</option>
@@ -158,7 +149,7 @@
 						</select>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;또는&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						
-						<select name="member" style="width:130px; height:30px;">
+						<select id="adminMemberSelect" name="member" style="width:130px; height:30px;" class="form-control">
 							<option value="">개인정보 선택</option>
 							<option value="member_name">이름</option>
 							<option value="member_id">아이디</option>
@@ -207,10 +198,15 @@
 														<td class="member_email">${memberList.member_email}</td>
 														<td class="member_phone">${memberList.member_phone}</td>
 														<td class="member_enable">${memberList.member_enable}</td>
-														<td><button class="edit-modal btn btn-theme" id="updatebtn"
-														data-toggle="modal" data-target="#UpdateModal">수정</button> <!-- <a href="deptUpdateForm.htm" class="btn btn-secondary">수정</a> -->
-															<button class="delete-modal btn btn-theme04" id="delebtn"
-															data-toggle="modal" data-target="#DeleteModal">삭제</button>
+														<td><button type="button" class="btn btn-info" id="updatebtn"
+																data-toggle="modal" data-target="#UpdateModal">
+																<i class="fa fa-pencil"> </i>
+															</button>
+															<button type="button" class="btn btn-danger"
+																id="deletebtn" data-toggle="modal"
+																data-target="#DeleteModal">
+																<i class="fa fa-trash-o"></i>
+															</button>
 														</td>
 													</tr>
 													</c:forEach>
