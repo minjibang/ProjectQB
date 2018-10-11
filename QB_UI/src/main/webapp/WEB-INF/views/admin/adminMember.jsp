@@ -135,13 +135,13 @@
 					<div class="panel-heading">
 					<h3><span>회원 검색</span></h3>
 						<!-- selectBox -->
-						<select  id="adminMemberSelect" name="member_role" style="width:130px; height:30px;" class="form-control">
+						<select  id="adminMemberSelect" name="member_role"  class="form-control">
 							<option value="">회원 권한 선택</option>
 							<option value="student">학생</option>
 							<option value="teacher">강사</option>
 							<option value="member">일반회원</option>
 						</select>
-						<select id="adminMemberSelect" name="class" style="width:130px; height:30px;" class="form-control">
+						<select id="adminMemberSelect" name="class" class="form-control">
 							<option value="">클래스 선택</option>
 							<option value="java109">자바 109기</option>
 							<option value="python110">파이썬 110기</option>
@@ -149,7 +149,7 @@
 						</select>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;또는&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						
-						<select id="adminMemberSelect" name="member" style="width:130px; height:30px;" class="form-control">
+						<select id="adminMemberSelect" name="member" class="form-control">
 							<option value="">개인정보 선택</option>
 							<option value="member_name">이름</option>
 							<option value="member_id">아이디</option>
