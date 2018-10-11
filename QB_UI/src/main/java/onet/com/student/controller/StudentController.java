@@ -50,6 +50,18 @@ public class StudentController {
 		
 		return "common.student.noticeView";
 	}  
+	
+	/*지난 시험보기*/
+	@RequestMapping("studentPastExam.do")
+	public String studentPastExam() {
+		
+		return "student.studentPastExam";
+	}  
+	
+	@RequestMapping("studentPastExamPaper.do")
+	public String studentPastExamPaper() {
+		
+		return "student.studentPastExamPaper";
+	}  
 	/* 한결 18.10.10 메인페이지 끝 */
-
 }

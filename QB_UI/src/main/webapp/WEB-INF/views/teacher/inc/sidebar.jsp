@@ -32,7 +32,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/teacher/teacherExamPaper.do">
+            <a href="${pageContext.request.contextPath}/teacher/teacherExamManagement.do">
               <i class="fa fa-desktop"></i>
               <span>시험 관리</span>
               </a>

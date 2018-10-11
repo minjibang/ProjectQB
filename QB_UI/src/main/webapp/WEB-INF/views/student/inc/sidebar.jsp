@@ -26,15 +26,9 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/student/studentPastExam.do">
               <i class="fa fa-desktop"></i>
               <span>지난 시험 보기</span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="#">
-              <i class="fa fa-desktop"></i>
-              <span>오답노트</span>
               </a>
           </li>
           <!-- 학생 end -->

@@ -43,10 +43,10 @@ public class TeacherController {
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
 	/*영준:10.08 내 시험지 보기 페이지 시작 */
-	@RequestMapping("teacherMyExamPaper.do")
+	@RequestMapping("teacherExamManagement.do")
 	public String teacherMyExamPaper() {
 
-		return "teacher.teacherMyExamPaper";
+		return "teacher.teacherExamManagement";
 	}
 	/*영준:10.08 내 시험지 보기 페이지 끝 */
 	

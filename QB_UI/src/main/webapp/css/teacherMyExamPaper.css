@@ -109,3 +109,17 @@ button.buttonGroup {
 	padding-left: 5%;
 }
 /* 현이 teacherMyExamPaper.jsp 시험지 만들기  css 시작 */
+
+/* 한결 시험지 미리보기 */
+#examBox{
+	border-right: 1px solid black;
+}
+.preview_exam_each{
+	text-align: left; 
+	margin-top: 10px;
+}
+.exampaneldetailed{
+	overflow:scroll;
+	height:650px;
+}
+/* 끝 - 시험지 미리보기 */
