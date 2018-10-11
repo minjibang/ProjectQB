@@ -129,4 +129,13 @@ public class TeacherController {
 		return "teacher.examPaperMake";
 	}
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
+	
+	/* 현이 18.10.11 시험지 수정 페이지 시작 */
+	@RequestMapping("examPaperModify.do")
+	public String examPaperModify(){
+		
+		return "teacher.examPaperModify";
+	}
+	/* 현이 18.10.11 시험지 수정 페이지 끝 */
+	
 }
