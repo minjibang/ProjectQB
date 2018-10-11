@@ -20,7 +20,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/student/studentGradeManage.do">
               <i class="fa fa-desktop"></i>
               <span>성적 관리</span>
               </a>

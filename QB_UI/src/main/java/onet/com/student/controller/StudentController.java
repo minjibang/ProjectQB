@@ -52,4 +52,11 @@ public class StudentController {
 	}  
 	/* 한결 18.10.10 메인페이지 끝 */
 
+	/*양회준 18.10.11 학생 성적관리 시작*/
+	@RequestMapping("studentGradeManage.do")
+	public String studentGradeManage() {
+
+		return "student.studentGradeManage";
+	}
+	/*양회준 18.10.11 학생 성적관리 끝*/
 }
