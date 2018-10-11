@@ -345,7 +345,7 @@ label.questionTypeRadioButton{
 											
 											<div class="form-group" id="questionMoonje">
 											<h4>Step3. 문제 내용 입력</h4>
-											<textarea id="moonjeTextArea" class="form-control" placeholder="문제 내용을 입력해주세요." rows="5"></textarea>
+											<textarea id="moonjeTextArea" class="summernote form-control" placeholder="문제 내용을 입력해주세요." rows="5"></textarea>
 												<div class="col-sm-8"></div>
 												<div class="col-sm-2">
 										    		<input id="moonjeImage" type="file" class="default"/>
