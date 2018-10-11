@@ -42,6 +42,15 @@ public class TeacherController {
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
+
+	/*영준:10.08 내 시험지 보기 페이지 시작 */
+	@RequestMapping("teacherExamManagement.do")
+	public String teacherMyExamPaper() {
+
+		return "teacher.teacherExamManagement";
+	}
+	/*영준:10.08 내 시험지 보기 페이지 끝 */
+
 	/*영준:10.08 임시 저장된 시험지 보기 페이지 시작 */
 	@RequestMapping("teacherTempExamPaper.do")
 	public String teacherTempExamPaper() {
