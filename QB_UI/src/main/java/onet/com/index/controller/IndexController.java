@@ -40,22 +40,10 @@ public class IndexController {
 		return "home.findPw";
 	}
 
-	@RequestMapping("login.do")
-	public String join(MemberDto dto){
-		int result = indexService.loginCheck(dto);
-		String auth = indexService.authCheck(dto);
-		System.out.println(auth);
-		if (result == 0) {
-			return "redirect:/login.jsp?result=0";
-		} else if (auth.equals("ROLE_TEACHER")) {
-			return "redirect:/teacher/teacherMain.do";
-		} else if (auth.equals("ROLE_STUDENT")) {
-			return "redirect:/student/studentMain.do";
-		} else if (auth.equals("ROLE_ADMIN")) {
-			return "redirect:/admin/adminMain.do";
-		} else {
+	@RequestMapping("noAuth.do")
+	public String join(){
 		return "home.noAuth";
-		}
+		
 	}
 
 	@RequestMapping(value="insertmember.do", method=RequestMethod.POST)

@@ -34,7 +34,8 @@
 
 	<div id="login-page">
 		<div class="container">
-			<form class="form-login" action="index/login.do">
+		<c:url value="/login" var="loginurl"></c:url>
+			<form class="form-login" action="${loginurl}" method="post">
 				<h2 class="form-login-heading">login now</h2>
 				<div class="login-wrap">
 					<label>ID</label> <input type="text" class="form-control"
@@ -90,6 +91,8 @@
 		swal("아이디 혹은 비밀번호가 틀렸습니다.", "", "error");
 		</c:when>
 		</c:choose>
+			
+        history.replaceState({}, null, location.pathname);
 	</script>
 
 </body>
