@@ -158,12 +158,7 @@
 	 <script>
 	 	$(document).ready( function () {
 	 	    $('table.display').DataTable({
-	 	    	"columnDefs": [
-	 	    	    { "width": "20%", "targets": 0,
-	 	    	      "width": "50%", "targets": 1,
-	 	    	      "width": "30%", "targets": 2
-	 	    	    }
-	 	    	  ]
+	 	    	
 	 	    });
 	 	});
 	 	

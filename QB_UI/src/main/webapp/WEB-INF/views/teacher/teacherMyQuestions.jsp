@@ -9,102 +9,9 @@
 	rel="stylesheet">
 
 <!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
-<%-- <link href="${pageContext.request.contextPath}/css/teacherMyQuesion_newQuestion.css" rel="stylesheet">
- --%>
-<style>
-#categorySelect {
-	width: 100%;
-	border-bottom: 1px solid #e2e2e2;
-}
+<link href="${pageContext.request.contextPath}/css/teacherMyQuesion_newQuestion.css" 
+	rel="stylesheet" type="text/css">
 
-button.categorySelectButton {
-	margin: 10px;
-	width: 150px;
-	display: inline-block;
-}
-
-#questionMoonjeLabel {
-	margin-bottom: 20px;
-}
-
-#questionMoonjeText {
-	margin-left: 20px;
-}
-
-#questionMoonje {
-	width: 100%;
-}
-
-#questionTypeSelect{
-	width: 100%;
-	border-bottom: 1px solid #e2e2e2;
-}
-
-label.questionTypeRadioButton{
-	margin-top: 10px;
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-bottom: 10px;
-}
-
-#questionMoonje{
-	width: 100%;
-	padding-bottom:40px;
-	border-bottom: 1px solid #e2e2e2;
-}
-
-#questionMoonjeText{
-	display:inline-block;
-	width: 100%;
-}
-
-#moonjeTextArea{
-	display:inline-block;
-	width:80%;
-	resize: none;
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-
-#moonjeImage{
-	display:inline-block;
-}
-
-#questionChoice{
-	width: 100%;
-	border:1px solid #e2e2e2;
-}
-
-#answerChoice{
-	width:97%;
-	height:50px;
-	margin-top:10px;
-	margin-left:15px;
-	margin-bottom:10px;
-	border:1px solid gray;
-	text-align:center;
-}
-
-#answerChoiceText{
-	margin-top:15px;
-	display:inline-block;
-}
-
-.questionChoices{
-	width:100px;
-	height:35px;
-	margin-top:10px;
-	margin-bottom:30px;
-	border:1px solid gray;
-	text-align:center;
-	padding-top:10px;
-}
-
-.choicesTextArea{
-	margin-top:20px;
-}
-
-</style>
 
 <!--main content start-->
 <section id="main-content">
@@ -220,9 +127,6 @@ label.questionTypeRadioButton{
 
 												<!-- /col-md-6 -->
 											</div>
-
-
-
 											<hr class="hr">
 
 											<!-- /col-md-6 -->
@@ -491,9 +395,8 @@ label.questionTypeRadioButton{
 			</div>
 			<!-- /row -->
 		</div>
-
 		<!-- /container -->
-			<!-- /col-lg-12 -->
+	</div>	<!-- /col-lg-12 -->
 	</section>
 	<!-- /wrapper -->
 </section>
