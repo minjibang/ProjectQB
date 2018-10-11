@@ -63,7 +63,7 @@
 													<img src="../img/file-download.png"></h5>
 													<p><button class="btn btn-theme04 buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
-														<button class="btn btn-theme buttonGroup">
+														<button class="btn btn-theme buttonGroup" onclick="location.href='examPaperModify.do'">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
@@ -77,7 +77,7 @@
 													<img src="../img/file-download.png"></h5>
 													<p><button class="btn btn-theme04 buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
-														<button class="btn btn-theme buttonGroup">
+														<button class="btn btn-theme buttonGroup" onclick="location.href='examPaperModify.do'">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'" >
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
@@ -91,7 +91,7 @@
 													<img src="../img/file-download.png"></h5>
 													<p><button class="btn btn-theme04 buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
-														<button class="btn btn-theme buttonGroup">
+														<button class="btn btn-theme buttonGroup" onclick="location.href='examPaperModify.do'">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
 														<button class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
