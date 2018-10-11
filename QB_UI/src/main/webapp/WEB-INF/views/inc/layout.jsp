@@ -211,11 +211,7 @@
 	    );
 	 </script>
 	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
-	 
-	 <!-- 영준 - 강사 시험지 페이지 데이터테이블 시작 -->
-	 <script>
 
-	 </script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<!-- 테이블 관련 end -->

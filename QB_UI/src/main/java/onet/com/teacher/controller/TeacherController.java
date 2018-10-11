@@ -42,14 +42,6 @@ public class TeacherController {
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
-	/*영준:10.08 내 시험지 보기 페이지 시작 */
-	@RequestMapping("teacherMyExamPaper.do")
-	public String teacherMyExamPaper() {
-
-		return "teacher.teacherMyExamPaper";
-	}
-	/*영준:10.08 내 시험지 보기 페이지 끝 */
-	
 	/*영준:10.08 임시 저장된 시험지 보기 페이지 시작 */
 	@RequestMapping("teacherTempExamPaper.do")
 	public String teacherTempExamPaper() {
@@ -129,4 +121,12 @@ public class TeacherController {
 		return "teacher.teacherExamManagement";
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */
+	
+	/* 영준 18.10.11 시험지 생성 페이지 시작 */
+	@RequestMapping("examPaperMake.do")
+	public String examPaperMake(){
+		
+		return "teacher.examPaperMake";
+	}
+	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 }
