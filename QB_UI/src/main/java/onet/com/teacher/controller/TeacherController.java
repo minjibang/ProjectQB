@@ -114,5 +114,11 @@ public class TeacherController {
 	}
 	/*정원 18.10.10 내 문제함 끝 */
 	
-	
+	/*양회준 18.10.11 학생&성적관리 추가 */
+	@RequestMapping("teacherStudentInfo.do")
+	public String teacherStudentInfo(){
+		
+		return "teacher.teacherStudentInfo";
+	}
+	/*양회준 18.10.11 학생&성적관리 끝 */
 }
