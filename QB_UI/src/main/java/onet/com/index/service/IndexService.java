@@ -1,6 +1,6 @@
 package onet.com.index.service;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,6 @@ public class IndexService {
 		@Autowired
 		private SqlSession sqlsession;
 		
-		public int loginCheck(MemberDto dto){
-			IndexDao dao = sqlsession.getMapper(IndexDao.class);
-			int result = dao.loginCheck(dto);
-			return result;
-		}
-		
-		public String authCheck(MemberDto dto) {
-			IndexDao dao = sqlsession.getMapper(IndexDao.class);
-			String result = dao.authCheck(dto);
-			return result;
-		}
 		
 		public int insertMember(MemberDto dto) {
 			IndexDao dao = sqlsession.getMapper(IndexDao.class);
