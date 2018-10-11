@@ -30,48 +30,13 @@
         <div class="row mt">
           <div class="col-lg-12 mt">
             <div class="row content-panel">
-              <div class="panel-heading">
-                <ul class="nav nav-tabs nav-justified">
-                  <li class="active">
-                    <a data-toggle="tab" href="#myExamPaper">내 시험지</a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#makeExamPaper" class="contact-map">시험지 만들기</a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#tempExamPaper">임시 저장된 시험지</a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#updateExam">시험 등록</a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#ExamSchedule">시험 일정</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- /panel-heading -->
+     
 
               <div class="panel-body">
                 <div class="tab-content">
-                  <div id="myExamPaper" class="tab-pane active">
-                    <div class="row">
-                      으으?
-                    </div>
+                  
                   </div>
 
-                  <div id="makeExamPaper" class="tab-pane">
-                    <div class="row">
-                      어어?
-                    </div>
-                    <!-- /tab-pane -->
-                  </div>
-
-                  <div id="tempExamPaper" class="tab-pane">
-                    <div class="row">
-                        lockdown
-                    </div>
-                    <!-- /tab-pane -->
-                  </div>
 
                   <div id="updateExam" class="tab-pane">
                     <div class="row">
@@ -174,12 +139,12 @@
                           <div class="col-md-2">
                           </div>
                           <div class="col-md-3">
-                            <button type="button" class="btn btn-second btn-lg">취소</button>
+                            <button type="button" class="btn btn-second btn-lg" onclick="location.href='teacherExamManagement.do'">취소</button>
                           </div>
                           <div class="col-md-2">
                           </div>
                           <div class="col-md-4">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">시험 일정 등록</button>
+                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='teacherExamManagement.do'">시험 일정 등록</button>
                           </div>
                         </div>
                       </div>

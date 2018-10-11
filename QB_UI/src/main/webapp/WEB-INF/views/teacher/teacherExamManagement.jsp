@@ -17,6 +17,12 @@
 <%-- <script
 	src="${pageContext.request.contextPath}/lib/onet-js/teacherMyExamPaper.js"></script>	 --%>
 <!--main content start-->
+<style>
+.dataTables_filter, .dataTables_empty, .dataTables_paginate{
+	display: none;
+}
+
+</style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -28,12 +34,8 @@
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active"><a data-toggle="tab" href="#overview">내
 									시험지 </a></li>
-							<li><a data-toggle="tab" href="#makeExamPaper"
-								class="contact-map">시험지 만들기 </a></li>
 							<li><a data-toggle="tab" href="#tempExamPaper"
 								class="contact-map">임시 저장된 시험지 </a></li>
-							<li><a data-toggle="tab" href="#updateExam" class="contact-map">시험
-									등록 </a></li>
 							<li><a data-toggle="tab" href="#examSchedule"
 								class="contact-map">시험 일정 </a></li>
 						</ul>
@@ -44,10 +46,32 @@
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_myExam" class="col-md-12">
-										<table id="myExam_table" class="display">
-											<tbody>
+									<form>
+										<a href="#makeExamPaper" class="exam-insert">
+										<img src="img/material-icon.png">
+										<strong>새 시험지 만들기</strong></a>
+									</form>
+									<table id="myExam_table" class="display" width="100%">
+										<tbody>
+											<thead>
+										
+											</thead>
+											<tr>
+												<td class="exam_paper_name" width="70%"><h4><strong>JAVA의 기본</strong></h4>
+												<p>변수|배열|FOR문|IF문</p></td>
+												<td class="pdf_download text-right"><h5>PDF 다운로드
+													<img src="img/file-download.png"></h5>
+													<p><button class="btn btn-theme04 buttonGroup">
+														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
+														<button class="btn btn-theme buttonGroup">
+														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
+														<button type="button" class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'">
+														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
+													</p>
+													</td>
+												</tr>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>JAVA의 기본</strong></h4>
+													<td class="exam_paper_name" width="70%"><h4><strong>C++ 기본</strong></h4>
 													<p>변수|배열|FOR문|IF문</p></td>
 													<td class="pdf_download text-right"><h5>PDF 다운로드
 													<img src="img/file-download.png"></h5>
@@ -55,27 +79,13 @@
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-theme buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
-														<button class="btn btn-theme buttonGroup">
+														<button class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'" >
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
 													</p>
 													</td>
 												</tr>
 												<tr>
-													<td class="exam_paper_name"><h4><strong>C++ 기본</strong></h4>
-													<p>변수|배열|FOR문|IF문</p></td>
-													<td class="pdf_download text-right"><h5>PDF 다운로드
-													<img src="img/file-download.png"></h5>
-													<p><button class="btn btn-theme04 buttonGroup">
-														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
-														<button class="btn btn-theme buttonGroup">
-														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
-														<button class="btn btn-theme buttonGroup">
-														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
-													</p>
-													</td>
-												</tr>
-												<tr>
-													<td class="exam_paper_name"><h4><strong>PYTHON 기본</strong></h4>
+													<td class="exam_paper_name" width="70%"><h4><strong>PYTHON 기본</strong></h4>
 													<p>변수|배열|FOR문|IF문<p></td>
 													<td class="pdf_download text-right"><h5>PDF 다운로드
 													<img src="img/file-download.png"></h5>
@@ -83,7 +93,7 @@
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-theme buttonGroup">
 														<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
-														<button class="btn btn-theme buttonGroup">
+														<button class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'">
 														<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
 													</p>
 													</td>
@@ -94,11 +104,7 @@
 										<!-- /col-md-12 -->
 									</div>
 									<!-- /row -->
-								<form>
-								<a href="" class="exam-insert">
-								<img src="img/material-icon.png">
-								<strong>새 시험지 만들기</strong></a>
-								</form>
+								
 							<!-- /col-md-12 -->
 							</div>	
 						<!-- /row -->
@@ -110,18 +116,26 @@
 					<div id="tempExamPaper" class="tab-pane">
 						<div class="row">
 							<div id="div_tempExam" class="col-md-12">
+									<form>
+										<a href="#" class="exam-insert">
+										<img src="img/material-icon.png">
+										<strong>새 시험지 만들기</strong></a>
+									</form>
 								<table id="tempExam_table" class="display" width="100%">
+					
 									<tbody>
+										<thead>
+										</thead>
 										<tr>
 											<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4>
 											<p>HTML + CSS 개념 및 활용</p></td>
 											<td class="pdf_download text-right"><h5>PDF 다운로드
 											<img src="img/file-download.png"></h5>
-											<p><button class="btn btn-theme04 buttonGroup pull-right">
+											<p><button class="btn btn-theme04 buttonGroup">
 												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
-												<button class="btn btn-theme buttonGroup pull-right">
+												<button class="btn btn-theme buttonGroup">
 												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
-												<button class="btn btn-theme buttonGroup pull-right">
+												<button class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'">
 												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
 											</p>
 											</td>
@@ -136,7 +150,7 @@
 												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 												<button class="btn btn-theme buttonGroup">
 												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
-												<button class="btn btn-theme buttonGroup">
+												<button class="btn btn-theme buttonGroup" onclick="location.href='teacherExamPaperUpdate.do'">
 												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
 											</p>
 											</td>
@@ -144,11 +158,7 @@
 								</tbody>
 								<!-- /table end -->
 								</table>
-									<form>
-										<a href="" class="exam-insert">
-										<img src="img/material-icon.png">
-										<strong>새 시험지 만들기</strong></a>
-									</form>
+									
 
 								</div>
 								<!-- /overview -->
@@ -581,127 +591,20 @@
 							</div>
 							<!-- 현이 시험지 만들기 탭 판넬 끝  -->
 							
-							<!-- 시험 등록/수정 탭 판넬 시작 -->
-							<div id="updateExam" class="tab-pane">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="col-md-2">
-                        <div class="invite-row">
-                          <h4 class="pull-left">응시대상자</h4>
-                        </div>
-                      <div class="checkName">
-                        <div class="form-panel">
-                          <label>
-                            <input type="checkbox" value="">
-                              전체선택
-                          </label>
-                            <ul class="chat-available-user">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" value="">
-                                  이두리
-                                  </label>
-                              </div>
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" value="">
-                                  이두리
-                                  </label>
-                              </div>
-                              
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                        <div class="col-md-10">
-                          <div class="col-md-4 detailed">
-                            <div>
-                              <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
-                            </div>
-                            <h3>시험명 : </h3>
-
-                          </div>
-                        <div class="col-md-8 detailed">
-                          <form action="#" class="form-horizontal style-form">
-                            <div class="form-group">
-                              <label class="control-label col-md-2">날짜</label>
-                                <div class="col-md-5 col-xs-11">
-                                  <input class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="">
-                                  <span class="help-block">날짜를 선택하세요</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label col-md-2">시간</label>
-                                <div class="col-md-4">
-                                  <div class="input-group bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker-default">
-                                     <span class="input-group-btn">
-                                       <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
-                                    </span>
-                                  </div>
-                                  <label class="control-label">부터</label>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="input-group bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker-default">
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
-                                      </span>
-                                  </div>
-                                  <label class="control-label">까지</label>
-                                </div>
-                              </div>
-                            <!--timepicker group end-->
-                              <div class="form-group">
-                                <label class="control-label col-md-2">시험시간</label>
-                                  <label class="control-label col-md-5">1시간</label>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-2">종료알림</label>
-                                  <label class="control-label col-md-5">5분</label>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-2">응시대상</label>
-                                  <div class="col-md-10 col-xs-11">
-                                    <input type="text" class="form-control" placeholder="응시대상을 입력하세요">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-2">설명</label>
-                                  <div class="col-md-10 col-xs-10">
-                                    <textarea rows="3" class="form-control" placeholder="설명을 입력하세요"></textarea>
-                                  </div>
-                              </div>
-                              <br>
-                              <br>
-                              <br>
-                              <!--select Exam Status-->
-                            </form>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="col-md-2">
-                          </div>
-                          <div class="col-md-3">
-                            <button type="button" class="btn btn-second btn-lg">취소</button>
-                          </div>
-                          <div class="col-md-2">
-                          </div>
-                          <div class="col-md-4">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">시험 일정 등록</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>							
-				  <!-- 시험 등록/수정 탭 판넬 끝 -->
 							
 							<!-- 시험 일정 tab 시작 -->
 							<div id="examSchedule" class="tab-pane">
 								<div class="row">
 									<div id="div_examSchedule" class="col-md-12">
+										<form>
+											<a href="" class="exam-insert"> <img
+											src="img/material-icon.png"> <strong>새 시험 일정
+												등록</strong></a>
+										</form>
 										<table id="examSchedule_table" class="display" width="100%">
 											<tbody>
+											<thead>
+											</thead>
 												<tr>
 													<td class="exam_paper_name"><h4>
 													<strong>자바의 기본 개념과 활용</strong></h4>
@@ -737,11 +640,7 @@
 											</tbody>
 											<!-- /table -->
 										</table>
-										<form>
-											<a href="" class="exam-insert"> <img
-												src="img/material-icon.png"> <strong>새 시험 일정
-													등록</strong></a>
-										</form>
+										
 										<!-- /col-md-12 -->
 									</div>
 									<!-- /row -->
