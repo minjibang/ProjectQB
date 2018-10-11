@@ -31,7 +31,6 @@
 </head>
 
 <body>
-
 	<div id="login-page">
 		<div class="container">
 			<form class="form-login" action="index/login.do">
@@ -42,13 +41,11 @@
 					<br> <label>PASSWORD</label> <input type="password"
 						class="form-control" name="member_pwd" placeholder="Password"
 						required> <br>
-
 					<label class="pull-right"><span>&nbsp&nbsp || &nbsp&nbsp</span> <a href="index/pwdSearch.do">
 							Forgot Password?</a>
 					</label> <label class="pull-right"> <a href="index/idSearch.do">
 							Forgot id?</a>
 					</label>
-					<!-- ********************** -->
 
 					<button class="btn btn-theme02 btn-block" type="submit">
 						<i class="fa fa-lock"></i>LOGIN

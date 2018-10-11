@@ -14,9 +14,6 @@
 					</div>
 				</div>
 				<h5 class="mt">Hey, maybe you don't have class</h5>
-				<p>
-					<a href="#">Index</a> | <a href="#">Sitemap</a>
-				</p>
 				<br>
 				<br>
 				<br>
