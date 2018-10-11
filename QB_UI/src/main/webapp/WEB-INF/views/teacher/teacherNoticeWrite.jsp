@@ -9,7 +9,7 @@
 
 <style>
 table {
-	text-align: center;
+	/* text-align: center; */
 }
 
 .fst_td {
@@ -39,7 +39,7 @@ table {
 									</tr>
 									<tr>
 										<td class="fst_td">내용</td>
-										<td class="sec_td"><textarea id="notice_content" class="notice_input" 
+										<td class="sec_td"><textarea id="notice_content" class="summernote1 notice_input" 
 												rows="20" placeholder="내용을 입력해주세요" required></textarea></td>
 									</tr>
 									<tr>
