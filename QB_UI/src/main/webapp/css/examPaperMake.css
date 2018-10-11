@@ -1,0 +1,63 @@
+@charset "UTF-8";
+/* 현이 - 시험지 만들기 페이지 css */
+
+.makeExamSelectCategory {
+	width: 19%;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	display: inline-block;
+}
+
+.makeExamTextField {
+	width: 78%;
+	margin-right: 5px;
+	display: inline-block;
+}
+
+#makeExamSelectBtn {
+	width: 20%;
+}
+
+.questionDiv {
+	margin-bottom: 30px;
+}
+
+#pickQuestionBtn {
+	margin-right: 5%;
+	width: 15%;
+}
+
+.questionScoreInputTag {
+	width: 65%;
+	display: inline-block;
+}
+
+.questionImg {
+	width: 50%;
+}
+
+#leftMakeExamDiv, #rightMakeExamDiv {
+	overflow: scroll;
+	height: 500px;
+}
+
+.questionRowBtnDiv {
+	margin-top: 20px;
+}
+
+.pickQuestionBtnDiv, .makeExamBtnDiv {
+	text-align: center;
+}
+
+.makeExamFirstRow {
+	height: 100px;
+}
+
+.makeExamFirstRow #makeExamFirstRowText {
+	vertical-align: middle;
+}
+
+#makeExamFirstRowText {
+	font-size: 16px;
+	padding-left: 5%;
+}
