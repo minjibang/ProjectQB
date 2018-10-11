@@ -172,18 +172,23 @@
 	 <!-- 재훈 - 문제 만들기 페이지 썸머노트 시작-->
 	 <script type="text/javascript">
 	  $(function() {
-	    $('.summernote').summernote({
+	    $('.summernote1').summernote({
 	      height: 300,          // 기본 높이값
 	      minHeight: null,      // 최소 높이값(null은 제한 없음)
 	      maxHeight: null,      // 최대 높이값(null은 제한 없음)
 	      focus: true,          // 페이지가 열릴때 포커스를 지정함
 	      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
 	    });
+	    
+	    $('.summernote2').summernote({
+		      height: 100,          // 기본 높이값
+		      minHeight: null,      // 최소 높이값(null은 제한 없음)
+		      maxHeight: null,      // 최대 높이값(null은 제한 없음)
+		      focus: true,          // 페이지가 열릴때 포커스를 지정함
+		      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+		    });
 	  });
 	  
-	  $(document).ready(function() {
-		  $('.summernote').summernote();
-		});
 	</script>
 	<!-- 재훈 - 문제 만들기 페이지 썸머노트 끝-->
 	 
@@ -196,6 +201,10 @@
 	 </script>
 	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
 	 
+	 <!-- 영준 - 강사 시험지 페이지 데이터테이블 시작 -->
+	 <script>
+
+	 </script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<!-- 테이블 관련 end -->
