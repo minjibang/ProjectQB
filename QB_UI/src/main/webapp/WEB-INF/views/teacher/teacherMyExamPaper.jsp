@@ -5,6 +5,8 @@
 	@Desc:강사-내 시험지 페이지(스토리보드 23 of 41)
 	
 	@2018-10-10 현이 : 시험지 생성 탭 추가
+	
+	@2018-10-11 영준 : 시험지 탭 메뉴 중간통합
  --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -108,18 +110,18 @@
 					<div id="tempExamPaper" class="tab-pane">
 						<div class="row">
 							<div id="div_tempExam" class="col-md-12">
-								<table id="tempExam_table">
+								<table id="tempExam_table" class="display" width="100%">
 									<tbody>
 										<tr>
 											<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4>
 											<p>HTML + CSS 개념 및 활용</p></td>
 											<td class="pdf_download text-right"><h5>PDF 다운로드
 											<img src="img/file-download.png"></h5>
-											<p><button class="btn btn-theme04 buttonGroup">
+											<p><button class="btn btn-theme04 buttonGroup pull-right">
 												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
-												<button class="btn btn-theme buttonGroup">
+												<button class="btn btn-theme buttonGroup pull-right">
 												<span data-toggle="modal" data-target="#UpdateModal"></span>시험지 수정</button>
-												<button class="btn btn-theme buttonGroup">
+												<button class="btn btn-theme buttonGroup pull-right">
 												<span data-toggle="modal" data-target="#InsertModal"></span>시험 등록</button>
 											</p>
 											</td>
@@ -490,11 +492,12 @@
 							<div id="examSchedule" class="tab-pane">
 								<div class="row">
 									<div id="div_examSchedule" class="col-md-12">
-										<table id="examSchedule_table" class="display">
+										<table id="examSchedule_table" class="display" width="100%">
 											<tbody>
 												<tr>
 													<td class="exam_paper_name"><h4>
 													<strong>자바의 기본 개념과 활용</strong></h4>
+													<p>정의|개념|클래스|메소드</p></td>
 													<td class="exam_schedule">
 													<p>시험 날짜 : 2018.08.15</p>
 													<p>시험 시간 : 14:00:00 ~ 14:50:00 [50분]</p>
@@ -548,7 +551,8 @@
 				</div>
 				<!-- /col-lg-12 mt -->
 			</div>
-			<!-- /row mt -->
+		</div>
+		<!-- /row mt -->
 		</div>
 		<!-- /wrapper -->
 	</section>
