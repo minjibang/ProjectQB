@@ -4,7 +4,7 @@
 <header class="header black-bg">
 	
 	<!--logo start-->
-	<a href="admin/adminMain.do" class="logo"><b>QB<span>QB</span></b></a>
+	<a href="adminMain.do" class="logo"><b>QB<span>QB</span></b></a>
 	<!--logo end-->
 
 	<div class="top-menu">

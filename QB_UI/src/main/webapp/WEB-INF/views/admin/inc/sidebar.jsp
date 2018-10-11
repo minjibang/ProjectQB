@@ -9,11 +9,6 @@
           <h5 class="centered">Sam Soffes</h5>
           <!-- 관리자 -->
           <li class="sub-menu">
-            <a href="#">
-              <span>관리자</span>
-             </a>
-          </li>
-          <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/admin/adminMain.do">
               <i class="fa fa-desktop"></i>
               <span>클래스 관리</span>
@@ -32,7 +27,6 @@
               </a>
           </li>
           <!-- 관리자 end -->
-          
          </ul>
         <!-- sidebar menu end-->
       </div>
