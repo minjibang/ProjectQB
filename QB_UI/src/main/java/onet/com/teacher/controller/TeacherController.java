@@ -38,7 +38,7 @@ public class TeacherController {
 	@RequestMapping("noticeView.do")
 	public String noticeView() {
 
-		return "common.noticeView";
+		return "common.teacher.noticeView";
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
 	
