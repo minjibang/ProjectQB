@@ -40,6 +40,10 @@
 	type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/style-responsive.css"
 	type="text/css" rel="stylesheet" />
+	
+<!-- 재훈 - summernote 관련 css  시작  -->
+<link href="${pageContext.request.contextPath}/lib/summernote/summernote.css" rel="stylesheet">
+<!-- 재훈 - summernote 관련 css 끝  -->
 
 <script
 	src="${pageContext.request.contextPath}/lib/chart-master/Chart.js"></script>
@@ -79,6 +83,11 @@
 	<!--script for this page-->
 	<script src="${pageContext.request.contextPath}/lib/sparkline-chart.js"></script>
 	<script src="${pageContext.request.contextPath}/lib/zabuto_calendar.js"></script>
+
+<!-- 재훈 - summernote 관련 js 시작  -->
+	<script src="${pageContext.request.contextPath}/lib/summernote/summernote.js"></script>
+    <script src="${pageContext.request.contextPath}/lib/summernote/lang/summernote-ko-KR.js"></script>
+<!-- 재훈 - summernote 관련 js 끝  -->
 
 	<script type="application/javascript">
 		
@@ -141,11 +150,12 @@
 				"columnDefs" : [ {
 					"width" : "15%",
 					"targets" : 3
-				} ]
+				}]
 			});
 		});
-	
+	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
+	 <script>
 	 	$(document).ready( function () {
 	 	    $('table.display').DataTable({
 	 	    	"columnDefs": [
@@ -156,16 +166,36 @@
 	 	    	  ]
 	 	    });
 	 	});
-	 
+	 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
 	 
+	 <!-- 재훈 - 문제 만들기 페이지 썸머노트 시작-->
+	 <script type="text/javascript">
+	  $(function() {
+	    $('.summernote').summernote({
+	      height: 300,          // 기본 높이값
+	      minHeight: null,      // 최소 높이값(null은 제한 없음)
+	      maxHeight: null,      // 최대 높이값(null은 제한 없음)
+	      focus: true,          // 페이지가 열릴때 포커스를 지정함
+	      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+	    });
+	  });
+	  
+	  $(document).ready(function() {
+		  $('.summernote').summernote();
+		});
+	</script>
+	<!-- 재훈 - 문제 만들기 페이지 썸머노트 끝-->
+	 
 	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 시작 -->
+	 <script>
 	 $(document).ready( function () {
 	        $('#adminMemberTable').DataTable();
 	    } 
 	    );
+	 </script>
 	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
-	</script>
+	 
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<!-- 테이블 관련 end -->

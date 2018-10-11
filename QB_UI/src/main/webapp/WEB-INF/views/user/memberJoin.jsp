@@ -116,5 +116,21 @@
   		}
   		
   		var pwd = document.getElementById("member_pwd");
+  		var pwdcheck = document.getElementById("member_pwd_check");
+  		if(pwd.value != pwconfirm.value){
+  			alert("두 개의 비밀번호는 일치해야 합니다.");
+  			pw.focus();
+  			return false;
+  		}
+  		
+  		var p1 =/[0-9]/;
+  		var p2 =/[a-zA-Z]/;
+  		var p3 =/[~!@#$%^&*()]/;
+  		if(!p1.test(pwd.value) || !p2.test(pwd.value) || !p3.test(pwd.value) || pwd.value.length < 8){
+  			alert("비밀번호는 8자 이상 숫자, 영문자, 특수문자를 포함해야 합니다.");
+  			pw.focus();
+  			
+  			return false;
+  		}
   	}
   </script>
