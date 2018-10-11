@@ -102,8 +102,8 @@
 						<!-- /row -->
 						</div>
 				<!-- /overview -->
-				</div>
-			</div>
+				
+			
 					<!-- 임시 저장된 시험지 tab 시작-->
 					<div id="tempExamPaper" class="tab-pane">
 						<div class="row">
@@ -151,9 +151,10 @@
 								</div>
 								<!-- /overview -->
 							</div>
-
-							<!-- 현이 시험지 만들기 탭 판넬 시작  -->
-							<div id="makeExamPaper" class="tab-pane">
+						</div>
+						
+						<!-- 현이 시험지 만들기 탭 판넬 시작  -->
+						<div id="makeExamPaper" class="tab-pane">
 								<div class="row">
 									<div class="col-lg-6">
 										<h3>문항 검색</h3>
@@ -540,8 +541,9 @@
 								<!-- 시험 일정 tab 끝 -->
 							</div>
 							<!-- /tab-content -->
-						</div>
-		
+						
+					<!-- tab-panel -->
+					</div>
 					<!-- /row content-panel div_table -->
 				</div>
 				<!-- /col-lg-12 mt -->
