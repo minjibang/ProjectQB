@@ -1,5 +1,7 @@
 package onet.com.index.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,12 @@ public class IndexService {
 		public int insertMember(MemberDto dto) {
 			IndexDao dao = sqlsession.getMapper(IndexDao.class);
 			int result = dao.insertMember(dto);
+			return result;
+		}
+		
+		public String joinCheckId(String member_id) {
+			IndexDao dao = sqlsession.getMapper(IndexDao.class);
+			String result = dao.joinCheckId(member_id);
 			return result;
 		}
 		
