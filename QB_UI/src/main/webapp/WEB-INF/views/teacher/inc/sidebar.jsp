@@ -9,31 +9,26 @@
           <h5 class="centered">Sam Soffes</h5> 
           <!-- 강사  -->
           <li class="sub-menu">
-            <a href="#">
-              <span>강사</span>
-             </a>
-          </li>
-          <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/teacher/teacherMain.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-calendar"></i>
               <span>공지사항 & 시험일정</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
-              <i class="fa fa-desktop"></i>
+            <a href="${pageContext.request.contextPath}/teacher/teacherStudentInfo.do">
+              <i class="fa fa-book"></i>
               <span>학생 & 성적관리</span>
               </a>
           </li>
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/teacher/myQuestion.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-pencil"></i>
               <span>문제 관리</span>
               </a>
           </li>
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/teacher/teacherExamPaper.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-file-text-o"></i>
               <span>시험 관리</span>
               </a>
           </li>  

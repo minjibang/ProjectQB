@@ -15,25 +15,25 @@
           </li>
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/student/studentMain.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-calendar"></i>
               <span>공지사항 & 시험일정</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
-              <i class="fa fa-desktop"></i>
+            <a href="${pageContext.request.contextPath}/student/studentGradeManage.do">
+              <i class="fa fa-bar-chart-o"></i>
               <span>성적 관리</span>
-              </a>
+             </a>
           </li>
           <li class="sub-menu">
             <a href="#">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-copy"></i>
               <span>지난 시험 보기</span>
               </a>
           </li>
           <li class="sub-menu">
             <a href="#">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-paste"></i>
               <span>오답노트</span>
               </a>
           </li>
