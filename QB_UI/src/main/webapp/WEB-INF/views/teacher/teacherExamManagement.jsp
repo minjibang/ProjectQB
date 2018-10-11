@@ -12,17 +12,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link
-	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css"
-	rel="stylesheet">
+	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/teacherExamManagement.css" rel="stylesheet">
 <%-- <script
 	src="${pageContext.request.contextPath}/lib/onet-js/teacherMyExamPaper.js"></script>	 --%>
 <!--main content start-->
-<style>
-.dataTables_filter, .dataTables_empty, .dataTables_paginate{
-	display: none;
-}
 
-</style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -54,13 +50,12 @@
 									<table id="myExam_table" class="display" width="100%">
 										<tbody>
 											<thead>
-										
 											</thead>
 											<tr>
 												<td class="exam_paper_name" width="70%"><h4><strong>JAVA의 기본</strong></h4>
 												<p>변수|배열|FOR문|IF문</p></td>
-												<td class="pdf_download text-right"><h5>PDF 다운로드
-													<img src="../img/file-download.png"></h5>
+												<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
+													<img src="../img/file-download.png"></a></h5>
 													<p><button class="btn btn-theme04 buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-theme buttonGroup">
@@ -73,8 +68,8 @@
 												<tr>
 													<td class="exam_paper_name" width="70%"><h4><strong>C++ 기본</strong></h4>
 													<p>변수|배열|FOR문|IF문</p></td>
-													<td class="pdf_download text-right"><h5>PDF 다운로드
-													<img src="../img/file-download.png"></h5>
+													<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
+													<img src="../img/file-download.png"></a></h5>
 													<p><button class="btn btn-theme04 buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-theme buttonGroup">
@@ -87,8 +82,8 @@
 												<tr>
 													<td class="exam_paper_name" width="70%"><h4><strong>PYTHON 기본</strong></h4>
 													<p>변수|배열|FOR문|IF문<p></td>
-													<td class="pdf_download text-right"><h5>PDF 다운로드
-													<img src="../img/file-download.png"></h5>
+													<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
+													<img src="../img/file-download.png"></a></h5>
 													<p><button class="btn btn-theme04 buttonGroup">
 														<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 														<button class="btn btn-theme buttonGroup">
@@ -129,8 +124,8 @@
 										<tr>
 											<td class="exam_paper_name"><h4><strong>NCS HTML 시험(10/15까지 완성할 것)</strong></h4>
 											<p>HTML + CSS 개념 및 활용</p></td>
-											<td class="pdf_download text-right"><h5>PDF 다운로드
-											<img src="../img/file-download.png"></h5>
+											<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
+											<img src="../img/file-download.png"></a></h5>
 											<p><button class="btn btn-theme04 buttonGroup">
 												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 												<button class="btn btn-theme buttonGroup">
@@ -144,8 +139,8 @@
 										<tr>
 											<td class="exam_paper_name"><h4><strong>NCS JAVASCRIPT 시험(10/30까지 완성할 것)</strong></h4>
 											<p>자바스크립트 개념 및 활용</p></td>
-											<td class="pdf_download text-right"><h5>PDF 다운로드
-											<img src="../img/file-download.png"></h5>
+											<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
+											<img src="../img/file-download.png"></a></h5>
 											<p><button class="btn btn-theme04 buttonGroup">
 												<span data-toggle="modal" data-target="#DeleteModal"></span>삭제</button>
 												<button class="btn btn-theme buttonGroup">

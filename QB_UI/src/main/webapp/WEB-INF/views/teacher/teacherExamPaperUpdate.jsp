@@ -30,17 +30,11 @@
         <div class="row mt">
           <div class="col-lg-12 mt">
             <div class="row content-panel">
-     
-
               <div class="panel-body">
-                <div class="tab-content">
-                  
-                  </div>
-
-
                   <div id="updateExam" class="tab-pane">
                     <div class="row">
                       <div class="col-md-12">
+                      	<h2><strong>시험 일정 등록</strong></h2>
                         <div class="col-md-2">
                         <div class="invite-row">
                           <h4 class="pull-left">응시대상자</h4>
