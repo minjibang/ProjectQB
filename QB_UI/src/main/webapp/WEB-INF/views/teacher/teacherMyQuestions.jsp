@@ -69,6 +69,7 @@ label.questionTypeRadioButton{
 	display:inline-block;
 	width:80%;
 	resize: none;
+	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
@@ -83,6 +84,11 @@ label.questionTypeRadioButton{
 	padding-bottom: 40px;
 }
 
+#answerChoice{
+	margin-left:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
 
 </style>
 
@@ -345,69 +351,74 @@ label.questionTypeRadioButton{
 											
 											<div class="form-group" id="questionMoonje">
 											<h4>Step3. 문제 내용 입력</h4>
-											<textarea id="moonjeTextArea" class="form-control" placeholder="문제 내용을 입력해주세요." rows="5"></textarea>
+											
+											
+											<textarea id="moonjeTextArea" class="summernote1 form-control" placeholder="문제 내용을 입력해주세요." rows="5"></textarea>
 												<div class="col-sm-8"></div>
-												<div class="col-sm-2">
-										    		<input id="moonjeImage" type="file" class="default"/>
-												</div>
 												<div class="col-sm-2"></div>
 											</div>
 											<!-- style="border:1px solid red;" -->
 											
 											<div class="form-group" id="questionChoice">
-											<h4>Step4. 문제 보기 입력</h4>
+											<h4>Step4. 객관식 문제 보기 입력</h4>
+											
+											<div class="answerChoice">
+											정답을 선택해주세요: 
+											<label class="checkbox-inline">
+												<input type="checkbox" id="inlineCheckbox1" value="option1">
+												1
+											</label> <label class="checkbox-inline"> <input
+												type="checkbox" id="inlineCheckbox2" value="option2">
+												2
+											</label> <label class="checkbox-inline"> <input
+												type="checkbox" id="inlineCheckbox3" value="option3">
+												3
+											</label>
+											<label class="checkbox-inline"> <input
+												type="checkbox" id="inlineCheckbox3" value="option4">
+												4
+											</label>
+											</div>
+											
 												<div class="col-sm-12">
 												<h5> 1번 보기</h5>
-												</div>
+												</div><br><br>
 												
 												<div>
-												<textarea id="moonjeTextArea" class="form-control" placeholder="1번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="1번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
-												<div class="col-sm-2">
-										    		<input id="moonjeImage" type="file" class="default"/>
-												</div>
 												<div class="col-sm-2"></div>
 												</div>
 												
 												<div class="col-sm-12">
 												<h5> 2번 보기</h5>
-												</div>
+												</div><br><br><br>
 												
 												<div>
-												<textarea id="moonjeTextArea" class="form-control" placeholder="2번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="2번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
-												<div class="col-sm-2">
-										    		<input id="moonjeImage" type="file" class="default"/>
-												</div>
 												<div class="col-sm-2"></div>
 												</div>
 												
 												<div class="col-sm-12">
 												<h5> 3번 보기</h5>
-												</div>
+												</div><br><br><br>
 												
 												<div>
-												<textarea id="moonjeTextArea" class="form-control" placeholder="3번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="3번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
-												<div class="col-sm-2">
-										    		<input id="moonjeImage" type="file" class="default"/>
-												</div>
 												<div class="col-sm-2"></div>
 												</div>
 												
 												<div class="col-sm-12">
 												<h5> 4번 보기</h5>
-												</div>
+												</div><br><br><br>
 												
 												<div>
-												<textarea id="moonjeTextArea" class="form-control" placeholder="4번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="4번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
-												<div class="col-sm-2">
-										    		<input id="moonjeImage" type="file" class="default"/>
-												</div>
 												<div class="col-sm-2"></div>
 												</div>
-											
 											</div>
 											
 											
