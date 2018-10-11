@@ -45,7 +45,7 @@
 				<button class="btn btn-theme btn-block" type="submit">
 					<i class="fa fa-lock"></i> SIGN IN
 				</button>
-				<a class="pull-right" href="login.jsp">로그인 페이지</a>
+				<a class="pull-right" href="${pageContext.request.contextPath}/login.jsp">로그인 페이지</a>
 
 			</div>
 			<!-- Modal -->
