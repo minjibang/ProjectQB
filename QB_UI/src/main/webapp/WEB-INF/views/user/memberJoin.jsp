@@ -3,18 +3,19 @@
 
   <div id="login-page">
     <div class="container">
-      <form class="form-signup" action="insertmember.do" method="post">
+      <form class="form-signup" action="insertmember.do" method="post" onsubmit="return check()">
         <h2 class="form-login-heading">SIGN UP</h2>
         <div class="login-wrap">
           <label>ID</label>
-          <input type="text" class="form-control" placeholder="User ID" autofocus name="member_id">
-            <span class="pull-right"><button class="btn2 btn-theme05">중복 확인</button></span>
-          <p>가입가능한 아이디 입니다.</p>
+          <input type="text" class="form-control" placeholder="User ID" autofocus name="member_id" id="member_id" onblur="confirmId()" required>
+<!--             <span class="pull-right"><button class="btn2 btn-theme05" onclick="confirmId()">중복 확인</button></span> -->
+          <div id="iddiv"></div>
             <label>PASSWORD</label>
-          <input type="password" class="form-control" placeholder="Password" name="member_pwd">
+          <input type="password" class="form-control" placeholder="Password" name="member_pwd" id="member_pwd">
           <br>
             <label>CHECK PASSWORD</label>
-          <input type="password" class="form-control" placeholder="Password" autofocus>
+          <input type="password" class="form-control" placeholder="Password" autofocus id="member_pwd_check">
+          
           <p style="color:red">비밀번호가 일치하지 않습니다</p>
             <label>CLASS</label>
           <select class="form-control" name="class_name">
@@ -76,4 +77,44 @@
     $.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
       speed: 500
     });
+  </script>
+  <script>
+  	var idcheck = false;
+  	
+  	function confirmId(){
+  		val = document.getElementById("member_id").value;
+  		iddiv = document.getElementById("iddiv");
+  		
+  		$.ajax({
+  			url : 'joinCheckId.do',
+  			data : {
+  				'member_id' : val
+  			},
+  			dataType : 'json',
+  			success : function(data){
+  				if(data.result == true){
+  					console.log("etset");
+  					iddiv.innerHTML = "사용가능한 아이디 입니다.";
+  					iddiv.style.color = 'blue';
+  					idcheck = true;
+  				}
+  				else{
+  					iddiv.innerHTML = "사용 불가능한 아이디 입니다.";
+  					iddiv.style.color = "red";
+  					idcheck = false;
+  				}
+  			}
+  		});
+  	}
+  	function check(){
+  		if(idcheck == false){
+  			document.getElementById("iddiv").innerHTML="아이디 중복 검사를 통과하지 못하였습니다.";
+  			document.getElementById("iddiv").style.color='red';
+  			document.getElementById("member_id").focus();
+  			
+  			return false;
+  		}
+  		
+  		var pwd = document.getElementById("member_pwd");
+  	}
   </script>
