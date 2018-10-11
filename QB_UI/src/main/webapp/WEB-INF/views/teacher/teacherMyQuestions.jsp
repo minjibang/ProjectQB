@@ -35,14 +35,8 @@ button.categorySelectButton {
 	width: 100%;
 }
 
-#questionMoonjeFile {
-	margin: 5px;
-	display: inline-block;
-}
-
 #questionTypeSelect{
 	width: 100%;
-	
 	border-bottom: 1px solid #e2e2e2;
 }
 
@@ -56,7 +50,6 @@ label.questionTypeRadioButton{
 #questionMoonje{
 	width: 100%;
 	padding-bottom:40px;
-	
 	border-bottom: 1px solid #e2e2e2;
 }
 
@@ -79,15 +72,36 @@ label.questionTypeRadioButton{
 
 #questionChoice{
 	width: 100%;
-	
-	border-bottom: 1px solid #e2e2e2;
-	padding-bottom: 40px;
+	border:1px solid #e2e2e2;
 }
 
 #answerChoice{
-	margin-left:10px;
+	width:97%;
+	height:50px;
 	margin-top:10px;
+	margin-left:15px;
 	margin-bottom:10px;
+	border:1px solid gray;
+	text-align:center;
+}
+
+#answerChoiceText{
+	margin-top:15px;
+	display:inline-block;
+}
+
+.questionChoices{
+	width:100px;
+	height:35px;
+	margin-top:10px;
+	margin-bottom:30px;
+	border:1px solid gray;
+	text-align:center;
+	padding-top:10px;
+}
+
+.choicesTextArea{
+	margin-top:20px;
 }
 
 </style>
@@ -336,13 +350,15 @@ label.questionTypeRadioButton{
 											<div id="questionTypeSelect" class="form-group">
 											<h4>Step2. 문제 유형 선택</h4>
 												<div class="radio">
-													<label class="questionTypeRadioButton"> <input type="radio" class="questionTypeRadioButton" name="optionsRadios"
-														id="optionsRadios1" value="option1" checked>
+													<label class="questionTypeRadioButton">
+													<input type="radio" name="optionsRadios"
+													id="optionsRadios1" value="option1" checked onclick="questionType('questionChoice');">
 														객관식
 													</label>
 													
-													<label class="questionTypeRadioButton"> <input type="radio"  name="optionsRadios"
-														id="optionsRadios2" value="option2"> 
+													<label class="questionTypeRadioButton"> 
+													<input type="radio"  name="optionsRadios"
+													id="optionsRadios2" value="option2" onclick="questionType('questionShortAnswer');"> 
 														단답형
 													</label>
 												</div>
@@ -358,69 +374,105 @@ label.questionTypeRadioButton{
 												<div class="col-sm-2"></div>
 											</div>
 											<!-- style="border:1px solid red;" -->
-											
-											<div class="form-group" id="questionChoice">
+										
+											<!-- 객관식 답 입력 div 시작 -->
+											<div class="col-sm-12 form-group" id="questionChoice" style="display:'';">
 											<h4>Step4. 객관식 문제 보기 입력</h4>
 											
-											<div class="answerChoice">
-											정답을 선택해주세요: 
-											<label class="checkbox-inline">
-												<input type="checkbox" id="inlineCheckbox1" value="option1">
-												1
-											</label> <label class="checkbox-inline"> <input
-												type="checkbox" id="inlineCheckbox2" value="option2">
-												2
-											</label> <label class="checkbox-inline"> <input
-												type="checkbox" id="inlineCheckbox3" value="option3">
-												3
-											</label>
-											<label class="checkbox-inline"> <input
-												type="checkbox" id="inlineCheckbox3" value="option4">
-												4
-											</label>
+											<div class="col-sm-12" id="answerChoice">
+												
+												<div class="radio" id="answerChoiceText">
+												<strong>정답을 선택해주세요:&nbsp;&nbsp;&nbsp; </strong>
+													<label class="questionChoiceRadioButton">
+													<input type="radio" name="optionsRadios"
+													 value="option1" checked>
+														1
+													</label>
+													
+													<label class="questionChoiceRadioButton"> 
+													<input type="radio"  name="optionsRadios"
+													value="option2"> 
+														2
+													</label>
+													
+													<label class="questionChoiceRadioButton"> 
+													<input type="radio"  name="optionsRadios"
+													value="option3"> 
+														3
+													</label>
+													
+													<label class="questionChoiceRadioButton"> 
+													<input type="radio"  name="optionsRadios"
+													value="option4"> 
+														4
+													</label>
+												</div>
+												
+												<!-- <div class="radio" id="answerChoiceText">
+													<strong>정답을 선택해주세요:&nbsp;&nbsp;&nbsp; </strong>
+				
+													<label class="checkbox-inline">
+														<input type="radio" id="inlineCheckbox1" value="option1">
+														1
+													</label> <label class="checkbox-inline"> <input
+														type="radio" id="inlineCheckbox2" value="option2">
+														2
+													</label> <label class="checkbox-inline"> <input
+														type="radio" id="inlineCheckbox3" value="option3">
+														3
+													</label>
+													<label class="checkbox-inline"> <input
+														type="radio" id="inlineCheckbox3" value="option4">
+														4
+													</label>
+												</div> -->
 											</div>
 											
-												<div class="col-sm-12">
-												<h5> 1번 보기</h5>
-												</div><br><br>
+											<div class="col-sm-12">
+												<h5 class="questionChoices"> 1번 보기</h5>
 												
-												<div>
-												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="1번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="choicesTextArea">
+												<textarea class="summernote2 form-control choicesTextArea" placeholder="1번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
 												<div class="col-sm-2"></div>
 												</div>
+											</div>
 												
-												<div class="col-sm-12">
-												<h5> 2번 보기</h5>
-												</div><br><br><br>
+											<div class="col-sm-12">
+												<h5 class="questionChoices"> 2번 보기</h5>
 												
-												<div>
-												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="2번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="choicesTextArea">
+												<textarea class="summernote2 form-control" placeholder="2번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
 												<div class="col-sm-2"></div>
 												</div>
+											</div>
 												
-												<div class="col-sm-12">
-												<h5> 3번 보기</h5>
-												</div><br><br><br>
+											<div class="col-sm-12">
+												<h5 class="questionChoices"> 3번 보기</h5>
 												
-												<div>
-												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="3번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="choicesTextArea">
+												<textarea class="summernote2 form-control choicesTextArea" placeholder="3번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
 												<div class="col-sm-2"></div>
 												</div>
+											</div>
 												
-												<div class="col-sm-12">
-												<h5> 4번 보기</h5>
-												</div><br><br><br>
+											<div class="col-sm-12">
+												<h5 class="questionChoices"> 4번 보기</h5>
 												
-												<div>
-												<textarea id="moonjeTextArea" class="summernote2 form-control" placeholder="4번 보기 내용을 입력해주세요." rows="3"></textarea>
+												<div class="choicesTextArea">
+												<textarea class="summernote2 form-control choicesTextArea" placeholder="4번 보기 내용을 입력해주세요." rows="3"></textarea>
 												<div class="col-sm-8"></div>
 												<div class="col-sm-2"></div>
 												</div>
 											</div>
 											
+										</div><!-- 객관식 답 입력 div 끝 -->
+										
+										
+										<div class="col-sm-12 form-group" id="questionShortAnswer" style="display:none;">
+											단답형문제!!!!!
 											
 										</div>
 										<div class="col-sm-2"></div>
