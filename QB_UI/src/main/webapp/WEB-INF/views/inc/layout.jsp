@@ -51,7 +51,7 @@
 <!-- DataTables 관련 -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 
 </head>
 <body>
@@ -166,6 +166,11 @@
 	 	    	  ]
 	 	    });
 	 	});
+	 	
+	 	$(document).ready(function() {
+	 	    $('#example').DataTable();
+	 	   $('#example2').DataTable();
+	 	} );
 	 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
 	 
