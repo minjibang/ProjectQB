@@ -10,19 +10,19 @@
           <!-- 관리자 -->
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/admin/adminMain.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-th"></i>
               <span>클래스 관리</span>
               </a>
           </li>
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/admin/adminMember.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-users"></i>
               <span>회원 관리</span>
               </a>
           </li>
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/admin/adminCategory.do">
-              <i class="fa fa-desktop"></i>
+              <i class="fa fa-cogs"></i>
               <span>문제분류 관리</span>
               </a>
           </li>
