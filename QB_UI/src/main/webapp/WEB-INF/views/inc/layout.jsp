@@ -152,20 +152,19 @@
 					"targets" : 3
 				}]
 			});
-		});
+		}); 	
 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
 	 <script>
 	 	$(document).ready( function () {
-	 	    $('table.display').DataTable({
-	 	    	
-	 	    });
+	 	    $('table.display').DataTable();
 	 	});
-	 	
-	 	$(document).ready(function() {
-	 	    $('#example').DataTable();
-	 	   $('#example2').DataTable();
-	 	} );
+	 	$(document).ready( function () {
+	 	    $('#noticetable').DataTable();
+	 	});
+	 	$(document).ready( function () {
+	 	    $('#noticetable2').DataTable();
+	 	});
 	 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
 	 
