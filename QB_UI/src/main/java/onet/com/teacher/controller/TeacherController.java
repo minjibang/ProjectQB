@@ -121,4 +121,12 @@ public class TeacherController {
 		return "teacher.teacherStudentInfo";
 	}
 	/*양회준 18.10.11 학생&성적관리 끝 */
+	
+	/* 현이 18.10.11 선생님 시험관리 시작 */
+	@RequestMapping("teacherExamManagement.do")
+	public String teacherExamManagement(){
+		
+		return "teacher.teacherExamManagement";
+	}
+	/* 현이 18.10.11 선생님 시험관리 끝 */
 }

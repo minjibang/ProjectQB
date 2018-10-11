@@ -96,7 +96,7 @@
 									<!-- /row -->
 								<form>
 								<a href="" class="exam-insert">
-								<img src="img/material-icon.png">
+								<img src="${pageContext.request.contextPath}/img/material-icon.png">
 								<strong>새 시험지 만들기</strong></a>
 								</form>
 							<!-- /col-md-12 -->
