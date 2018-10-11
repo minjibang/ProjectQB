@@ -2,13 +2,15 @@ package onet.com.index.controller;
 
 
 import java.sql.SQLException;
-
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.index.service.IndexService;
 import onet.com.vo.MemberDto;
@@ -50,7 +52,7 @@ public class IndexController {
 		} else if (auth.equals("ROLE_STUDENT")) {
 			return "redirect:/student/studentMain.do";
 		} else if (auth.equals("ROLE_ADMIN")) {
-			return "admin.adminMain";
+			return "redirect:/admin/adminMain.do";
 		} else {
 		return "home.noAuth";
 		}
@@ -72,6 +74,15 @@ public class IndexController {
 			 viewpage = "memberjoin.do";
 		}
 		return viewpage;
+	}
+	
+	@RequestMapping(value="joinCheckId.do", method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> idCheck(@RequestParam("member_id") String member_id) {
+		String memberid = indexService.joinCheckId(member_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", memberid == null);
+		map.get("result");
+		return map;
 	}
 
 }

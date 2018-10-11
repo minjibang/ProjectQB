@@ -57,14 +57,7 @@ public class AdminController {
 		return "admin.adminMember";
 	}	
 	
-	@RequestMapping("adminMessage.do")
-	public String adminMessage() {
-	
-	return "admin.adminMessage";
 
-	/*誘쇱� 異붽� �걹*/
-	}
-	
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
@@ -73,4 +66,12 @@ public class AdminController {
 	}
 	/*현이 18.10.09 관리자 마이페이지 끝*/
 	
+	/*민지 18.10.10 메시지 페이지 시작*/
+	@RequestMapping("myMessage.do")
+	public String myMessage() {
+
+		return "common.admin.myMessage";
+	}
+	/*민지 18.10.10 메시지 페이지 끝*/
+
 }

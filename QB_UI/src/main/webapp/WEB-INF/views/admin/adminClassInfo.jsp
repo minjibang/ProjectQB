@@ -4,7 +4,7 @@
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
-			<div class="col-lg-12"></div>
+			<div class="col-lg-12">
 			<!-- 모달 -->
 			<!-- UpdateModal -->
 			<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
@@ -243,6 +243,7 @@
 				<!-- /col-lg-12 -->
 			</div>
 			<!-- /row -->
+		</div>
 		</div>
 		<!-- /container -->
 	</section>

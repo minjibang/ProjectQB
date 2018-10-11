@@ -1,14 +1,16 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link href="${pageContext.request.contextPath}/css/adminMessage.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/adminMessage.css"
+	rel="stylesheet">
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
+			<div class="col-lg-12">
 			<!-- /col-lg-12 -->
 			<div class="col-lg-12 mt">
 				<div class="row content-panel">
-					<div class="panel-heading">
+				    <div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active"><a data-toggle="tab" href="#overview">받은
 									쪽지</a></li>
@@ -17,11 +19,11 @@
 						</ul>
 					</div>
 					<!-- /panel-heading -->
-					<div class="panel-body">
-						<div class="tab-content">
+					<div class="panel-body" >
+						<div class="tab-content" >
 							<div id="overview" class="tab-pane active">
-								<div class="row">
-									<section>
+								
+                                									<section>
 										<!-- page start-->
 
 										<div class="col-sm-12">
@@ -226,8 +228,8 @@
 
 											</div>
 										</div>
-									</section>
-									<div id="collapseOne" class="accordion-body collapse in">
+                                                                        									
+                                    <div id="collapseOne" class="accordion-body collapse in">
 										<div class="accordion-inner">
 											<div class="row mt">
 												<!-- /col-lg-12 -->
@@ -272,7 +274,7 @@
 																<button class="btn btn-sm " id="messageBtn">
 																	답장하기</button>
 																<button class="btn btn-sm tooltips" id="messageBtn">
-
+																	<i class="fa fa-trash-o"></i>
 																</button>
 															</div>
 														</div>
@@ -282,14 +284,11 @@
 											</div>
 										</div>
 									</div>
-
-									<!-- /wrapper -->
-									<!-- /col-md-6 -->
-								</div>
-								<!-- /OVERVIEW -->
+									</section>
+                                
 							</div>
 							<!-- /tab-pane -->
-							<div id="contact" class="tab-pane">
+										<div id="contact" class="tab-pane">
 								<div class="row">
 									<div class="row mt">
 
@@ -440,9 +439,20 @@
 								</div>
 								<!-- /panel-body -->
 							</div>
-							<!-- /col-lg-12 -->
+
 						</div>
+						<!-- /tab-content -->
 					</div>
+					<!-- /panel-body -->
+				</div>
+				<!-- /col-lg-12 -->
+			</div>
+			<!-- /row -->
+		</div>
+		</div>
+		
+		<!-- /container -->
 	</section>
+	<!-- /wrapper -->
 </section>
 <!-- /MAIN CONTENT -->
