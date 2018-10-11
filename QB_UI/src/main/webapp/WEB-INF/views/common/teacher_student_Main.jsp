@@ -7,7 +7,6 @@ teacherMain.jsp
 한결
 2018.10.10 
 -->
-<link href="${pageContext.request.contextPath}/css/teacher_student_Main.css" rel="stylesheet">
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 <section id="main-content">
       <section class="wrapper">
