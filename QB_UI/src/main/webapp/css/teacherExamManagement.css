@@ -1,0 +1,10 @@
+/* 
+	@JSP:teacherExamManagement.css
+	@DATE:2018-10-11
+	@Author:유영준
+	@Desc:학생 - 시험 관리 css(스토리보드  23, 27, 29 of 41)	
+*/
+
+    .dataTables_filter, .dataTables_empty, .dataTables_paginate{
+	display: none;
+}

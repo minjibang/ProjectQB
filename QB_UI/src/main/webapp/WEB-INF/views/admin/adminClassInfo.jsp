@@ -44,14 +44,14 @@
 										</div>
 										<div class="form-group ">
 											<label for="ccomment" class="control-label col-lg-2">클래스</label>
-											<div class="col-lg-10">
-												<select name="classname">
-													<option value="class">class1</option>
-													<option value="class">class1</option>
-													<option value="class">class3</option>
-												</select>
+												<div class="col-sm-4 col-xs-4 pull-left">
+													<select class="form-control">
+														<option value="class">java 109기</option>
+														<option value="class">java 108기</option>
+														<option value="class">네트워크 91기</option>
+													</select>
+												</div>
 											</div>
-										</div>
 										<div class="form-group ">
 											<label for="curl" class="control-label col-lg-2">권한
 												설정</label>
@@ -169,15 +169,17 @@
 													<td class="phone">test</td>
 													<td class="autho">학생</td>
 													<td>
-														<button class="btn btn-primary btn-xs" id="updatebtn"
-															data-toggle="modal" data-target="#UpdateModal">
-															<i class="fa fa-pencil"></i>
-														</button>
-														<button class="btn btn-danger btn-xs" id="deletebtn"
-															data-toggle="modal" data-target="#DeleteModal">
-															<i class="fa fa-trash-o "></i>
-														</button>
-													</td>
+													<button type="button" class="btn btn-info" id="updatebtn"
+																data-toggle="modal" data-target="#UpdateModal">
+																<i class="fa fa-pencil"> </i>
+															</button>
+															<button type="button" class="btn btn-danger"
+																id="deletebtn" data-toggle="modal"
+																data-target="#DeleteModal">
+																<i class="fa fa-trash-o"></i>
+															</button>
+
+														</td>
 												</tr>
 
 											</tbody>

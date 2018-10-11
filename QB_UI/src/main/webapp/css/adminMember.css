@@ -1,0 +1,15 @@
+
+.dataTables_length, .dataTables_info{
+	display: none;
+}
+.dataTables_paginate, .dataTables_filter{
+	display: none;
+}
+
+/****민지****/
+#adminMemberSelect{
+	display:inline-block;
+	height: 35px;
+	width: 150px;
+	}
+	
