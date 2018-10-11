@@ -504,7 +504,7 @@
 																		id="contact-message" placeholder="Your Message"
 																		rows="5" data-rule="required"
 																		data-msg="Please write something for us"></textarea>
-																	<div class="validate"></div>
+																	
 																</div>
 
 
