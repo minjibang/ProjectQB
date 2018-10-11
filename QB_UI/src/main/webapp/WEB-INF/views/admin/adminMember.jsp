@@ -194,6 +194,7 @@
 													<th class="member_email">이메일</th>
 													<th class="member_phone">핸드폰</th>
 													<th class="member_enable">관리</th>
+													<th class="member_enable">수정&삭제</th>
 												</tr>
 											</thead>
 											<tbody>

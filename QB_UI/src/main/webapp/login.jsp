@@ -31,7 +31,6 @@
 </head>
 
 <body>
-
 	<div id="login-page">
 		<div class="container">
 			<form class="form-login" action="index/login.do">
@@ -42,25 +41,11 @@
 					<br> <label>PASSWORD</label> <input type="password"
 						class="form-control" name="member_pwd" placeholder="Password"
 						required> <br>
-					<!-- 정원 (나중에 삭제) -->
-					<label class="pull-right"> <a href="index/idSearch.do">
+					<label class="pull-right"><span>&nbsp&nbsp || &nbsp&nbsp</span> <a href="index/pwdSearch.do">
+							Forgot Password?</a>
+					</label> <label class="pull-right"> <a href="index/idSearch.do">
 							Forgot id?</a>
 					</label>
-				
-					<!-- 헤더 완료 후 링크 옮기기 -->
-					<br>
-					<br> <a href="common/mypage.do">마이페이지로 이동</a>&nbsp;&nbsp;&nbsp;
-					<br>
-					<br> <br>
-					<br> <a href="teacher/teacherMain.do">강사 메인</a>
-					<!-- 헤더 완료 후 링크 옮기기 -->
-
-					<label class="pull-right"> <a href="index/pwdSearch.do">
-							Forgot Password?</a>
-					</label> <label class="pull-right"> <a href="noAuth.do"> 인증안된
-							회원</a>
-					</label>
-					<!-- ********************** -->
 
 					<button class="btn btn-theme02 btn-block" type="submit">
 						<i class="fa fa-lock"></i>LOGIN
@@ -70,7 +55,6 @@
 							<i class="fa fa-lock"></i> SIGN UP
 						</button></a>
 				</div>
-				<a href="admin/adminClassInfo.do">admin</a>
 			</form>
 		</div>
 	</div>

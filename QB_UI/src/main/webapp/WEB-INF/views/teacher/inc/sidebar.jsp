@@ -20,7 +20,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/teacher/teacherExamPaper.do">
+            <a href="#">
               <i class="fa fa-desktop"></i>
               <span>학생 & 성적관리</span>
               </a>
