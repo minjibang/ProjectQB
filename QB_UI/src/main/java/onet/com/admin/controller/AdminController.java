@@ -1,17 +1,17 @@
 package onet.com.admin.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import onet.com.admin.service.AdminService;
 import onet.com.vo.CategoryDto;
-import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
-import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -57,8 +57,13 @@ public class AdminController {
 	}
 	/* 영준 10.08 회원관리관련 끝 */
 	
-	
 
+	
+	
+	
+	
+	
+	
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
