@@ -60,11 +60,8 @@
 		<tiles:insertAttribute name="header" /> <!-- 사이드바 부분 --> 
 		<tiles:insertAttribute name="sidebar" /> <!-- 컨텐츠 부분 --> 
 		<tiles:insertAttribute name="content" /> <!-- 푸터부분 --> 
-		<tiles:insertAttribute name="footer" />
-
 	</section>
-	
-	<!-- 푸터부분 --> 		<tiles:insertAttribute name="footer" />
+	<tiles:insertAttribute name="footer" />
 	<!-- js placed at the end of the document so the pages load faster -->
 	<%--  <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script> --%>
 
