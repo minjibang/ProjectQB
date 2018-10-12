@@ -9,6 +9,21 @@
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/adminMember.css"
 	rel="stylesheet">
+<script
+	src="${pageContext.request.contextPath}/lib/onet-js/adminMember.js"></script>
+<script>
+$(document).ready(function() {
+	$('#insertMemberModal').click(function(){
+		if(('#chk').val() == null){
+		alret("등록할 회원을 선택해주세요.");
+	}
+	});
+	$('#deleteMemberModal').click(function(){
+		
+	});
+}
+);
+</script>
 <!-- main content start -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -65,7 +80,7 @@
 											<div class="form-group">
 												<label for="cclass" class="control-label col-lg-2">클래스</label>
 												<div class="col-lg-10">
-													<select name="classname" class="form-control">
+													<select name="class_name" class="form-control">
 														<option value="class">java 109</option>
 														<option value="class">window 108</option>
 														<option value="class">class3</option>
@@ -137,7 +152,64 @@
 					</div>
 					<!-- DeleteModal 끝 -->
 				</div>
-				<div class="showback">
+				
+				<!-- 선택회원 일괄 학생 등록 모달창 시작 -->
+				<div class="modal fade" id="insertMemberModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">등록 확인</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body">정말 등록하시겠습니까?</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+										<button class="btn btn-theme" data-toggle="modal"
+											data-dismiss="modal">예</button>
+										<button class="btn btn-theme04" type="button"
+											data-dismiss="modal">아니오</button>
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+				<!-- 선택회원 일괄 학생 등록 모달창 끝 -->
+			
+				<!-- 선택회원 일괄 삭제 모달창 시작 -->
+				<div class="modal fade" id="deleteMemberModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">삭제 확인</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body">정말 삭제하시겠습니까?</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+										<button class="btn btn-theme" data-toggle="modal"
+											data-dismiss="modal">예</button>
+										<button class="btn btn-theme04" type="button"
+											data-dismiss="modal">아니오</button>
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+					<!-- 선택회원 일괄 삭제 모달창 끝 -->
+				</div>
 					<div class="row content-panel">
 						<div class="panel-heading">
 							<h3>
@@ -162,9 +234,7 @@
 								<option value="member_id">아이디</option>
 								<option value="member_email">이메일</option>
 							</select>
-							<div class="col-sm-4 col-xs-4 pull-right">
-						
-									
+							<div class="col-sm-4 col-xs-4 pull-right">									
 									<div class="col-sm-4 col-xs-4 pull-right">
 									<input type="text" class="form-control" placeholder="검색어를 입력">
 									<button class="btn btn-info btn-theme">검색</button>
@@ -183,8 +253,8 @@
 												<thead>
 
 													<tr>
-														<th><input type="checkbox" id="checkall">전체
-															선택</th>
+														<th><input type="checkbox" id="ckeckall" name="checkall">
+														 전체 선택</th>
 														<th class="class_name">클래스</th>
 														<th class="member_id">아이디</th>
 														<th class="member_name">이름</th>
@@ -197,7 +267,7 @@
 												<tbody>
 													<c:forEach items="${memberList}" var="memberList">
 														<tr>
-															<td><input type="checkbox" name="chk"></td>
+															<td><input type="checkbox" id="chk" name="chk"></td>
 															<td class="class_name">${memberList.class_name}</td>
 															<td class="member_id">${memberList.member_id}</td>
 															<td class="member_name">${memberList.member_name}</td>
@@ -218,51 +288,18 @@
 													</c:forEach>
 												</tbody>
 											</table>
-											<button class="insert-member btn btn-theme">선택 회원 일괄
-												학생 등록</button>
-											<button class="delete-member btn btn-theme04">선택 회원
-												일괄 삭제</button>
+											<button type="submit" class="insert-member btn btn-theme"
+													data-toggle="modal" data-target="#insertMemberModal">
+													선택 회원 일괄 학생 등록</button>
+											<button type="button" class="delete-member btn btn-theme04"
+													data-toggle="modal" data-target="#deleteMemberModal">
+													선택 회원 일괄 삭제</button>
 										</div>
 										<!-- /col-md-6 -->
 									</div>
 									<!-- /OVERVIEW -->
 								</div>
 								<!-- /tab-pane -->
-								<div id="contact" class="tab-pane">
-									<div class="row">
-										<div class="col-md-6">
-											<div id="map"></div>
-										</div>
-										<!-- /col-md-6 -->
-										<div class="col-md-6 detailed">
-											<h4>Location</h4>
-											<div class="col-md-8 col-md-offset-2 mt">
-												<p>
-													Postal Address<br /> PO BOX 12988, Sutter Ave<br />
-													Brownsville, New York.
-												</p>
-												<br>
-												<p>
-													Headquarters<br /> 844 Sutter Ave,<br /> 9003, New York.
-												</p>
-											</div>
-											<h4>Contacts</h4>
-											<div class="col-md-8 col-md-offset-2 mt">
-												<p>
-													Phone: +33 4898-4303<br /> Cell: 48 4389-4393<br />
-												</p>
-												<br>
-												<p>
-													Email: hello@dashiotheme.com<br /> Skype: UseDashio<br />
-													Website: http://Alvarez.is
-												</p>
-											</div>
-										</div>
-										<!-- /col-md-6 -->
-									</div>
-									<!-- /row -->
-								</div>
-
 							</div>
 							<!-- /tab-content -->
 						</div>
@@ -270,9 +307,10 @@
 					</div>
 					<!-- /col-lg-12 -->
 				</div>
-			</div>
+			
 			<!-- /row -->
 		</div>
+	</div>
 		<!-- /container -->
 		<!-- /wrapper -->
 	</section>
