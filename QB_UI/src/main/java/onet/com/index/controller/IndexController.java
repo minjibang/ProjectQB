@@ -22,6 +22,8 @@ public class IndexController {
 	@Autowired
 	private IndexService indexService;
 
+	
+	
 	@RequestMapping("memberjoin.do")
 	public String memberjoin() {
 
@@ -33,12 +35,27 @@ public class IndexController {
 
 		return "home.findId";
 	}
-
-	@RequestMapping("pwdSearch.do")
+	
+	@RequestMapping(value="idSearch.do",method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> idSearch(String membername, String mailto) {
+		MemberDto dto = new MemberDto();
+		dto.setMember_name(membername);
+		dto.setMember_email(mailto);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String result = indexService.idSearch(dto);
+		System.out.println(result);
+		map.put("result", result);
+		return map;
+	}
+	
+	
+	@RequestMapping(value="pwdSearch.do")
 	public String pwdSearch() {
 
 		return "home.findPw";
 	}
+	
+	
 
 	@RequestMapping("noAuth.do")
 	public String join(){
@@ -71,6 +88,14 @@ public class IndexController {
 		map.put("result", memberid == null);
 		map.get("result");
 		return map;
+	}
+	
+	@RequestMapping(value = "mail.do",  method = RequestMethod.POST)
+	public @ResponseBody String mail(String mailto) {
+		
+		String randomNum = indexService.sendMail(mailto, "join");// 회원가입 메일발송
+		System.out.println("randomNum>>"+randomNum);
+		return randomNum;
 	}
 
 }

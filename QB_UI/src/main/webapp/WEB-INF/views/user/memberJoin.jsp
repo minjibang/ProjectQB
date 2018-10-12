@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<style>
+.authNumberEmail { display: inline; width:74%;}
+.authNumberButton {width:25%; height:35px;}
+</style>
+
 
   <div id="login-page">
     <div class="container">
@@ -29,9 +34,9 @@
             <label>NAME</label>
           <input type="text" class="form-control" placeholder="Class" autofocus name="member_name">
           <br>
-            <label>E-mail</label>
-          <input type="text" class="form-control" placeholder="Class" autofocus name="member_email">
-          <span class="pull-right"><button class="btn2 btn-theme05">인증번호 발송</button></span>
+            <label>E-mail</label><br>
+          <input type="text" class="form-control authNumberEmail" placeholder="Class" autofocus name="member_email" >
+          <button class="btn2 btn-theme05 authNumberButton">인증번호 발송</button><br><br>
             <label>Certification Number</label>
           <input type="text" class="form-control" placeholder="Class" autofocus>
           <br>

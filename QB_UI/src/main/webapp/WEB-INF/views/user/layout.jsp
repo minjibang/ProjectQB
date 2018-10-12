@@ -27,6 +27,7 @@
   <script src="${pageContext.request.contextPath}/lib/chart-master/Chart.js"></script>
   <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>
+	
 	<!--BACKSTRETCH-->
 	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery.backstretch.min.js"></script>

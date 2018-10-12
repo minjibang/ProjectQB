@@ -13,4 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="joinCheckId" resultType="String">
 	select member_id from member where member_id = #{member_id}
 </select>
+
+<select id="idSearch" parameterType="onet.com.vo.MemberDto" resultType="String">
+	select member_id from member where member_name = #{member_name} and member_email=#{member_email}
+</select>
+
 </mapper>
