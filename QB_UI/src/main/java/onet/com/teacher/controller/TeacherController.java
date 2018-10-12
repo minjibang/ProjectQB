@@ -142,7 +142,13 @@ public class TeacherController {
 	}
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
-
+	/*양회준 18.10.12 문제 수정 시작*/	
+	@RequestMapping("questionUpdate.do")
+	public String questionUpdate() {
+		
+		return "common.teacher.question.questionUpdate";
+	}	
+	/*양회준 18.10.12 문제 수정 끝*/
 	
 
 	

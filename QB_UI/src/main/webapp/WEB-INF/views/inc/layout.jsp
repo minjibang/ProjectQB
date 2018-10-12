@@ -23,6 +23,7 @@
 	href="${pageContext.request.contextPath}/lib/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <%-- 회준 css 시작 --%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-datepicker/css/datepicker.css" />
 <link rel="stylesheet" type="text/css"
