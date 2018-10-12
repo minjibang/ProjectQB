@@ -145,19 +145,22 @@
 			});
 		});
 	
+
+	
+
 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
 	 <script>
 	 	$(document).ready( function () {
-	 	    $('table.display').DataTable({
-	 	    	"columnDefs": [
-	 	    	    { "width": "20%", "targets": 0,
-	 	    	      "width": "50%", "targets": 1,
-	 	    	      "width": "30%", "targets": 2
-	 	    	    }
-	 	    	  ]
-	 	    });
+	 	    $('table.display').DataTable();
 	 	});
+	 	$(document).ready( function () {
+	 	    $('#noticetable').DataTable();
+	 	});
+	 	$(document).ready( function () {
+	 	    $('#noticetable2').DataTable();
+	 	});
+
 	 	
 	 	$(document).ready(function() {
 	 	    $('#example').DataTable();
@@ -165,6 +168,7 @@
 	 	  $('#AdminTable').DataTable();
 	 	  
 	 	} );
+
 	 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
 	 
