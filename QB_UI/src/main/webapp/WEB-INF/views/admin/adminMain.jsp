@@ -111,7 +111,7 @@
 				<div class="col-lg-3 col-md-3 col-sm-3 mb">
 					<div class="project-wrapper">
 						<div class="project">
-							<a href="${pageContext.request.contextPath}/admin/adminClassInfo.do">
+							<a href="${pageContext.request.contextPath}/admin/adminClassMain.do">
 								<div class="weather-4 pn-big centered">
 									<i class="fa fa-desktop"></i>
 									<h1>JAVA</h1>
