@@ -1,92 +1,30 @@
 @charset "UTF-8";
-#categorySelect {
-	width: 100%;
-	border-bottom: 1px solid #e2e2e2;
-}
-
-button.categorySelectButton {
-	margin: 10px;
-	width: 150px;
-	display: inline-block;
-}
-
-#questionMoonjeLabel {
-	margin-bottom: 20px;
-}
-
-#questionMoonjeText {
-	margin-left: 20px;
-}
-
-#questionMoonje {
-	width: 100%;
-}
-
-#questionTypeSelect{
-	width: 100%;
-	border-bottom: 1px solid #e2e2e2;
-}
-
-label.questionTypeRadioButton{
-	margin-top: 10px;
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-bottom: 10px;
-}
-
-#questionMoonje{
-	width: 100%;
-	padding-bottom:40px;
-	border-bottom: 1px solid #e2e2e2;
-}
-
-#questionMoonjeText{
-	display:inline-block;
-	width: 100%;
-}
-
-#moonjeTextArea{
-	display:inline-block;
-	width:80%;
-	resize: none;
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-
-#moonjeImage{
-	display:inline-block;
-}
-
-#questionChoice{
-	width: 100%;
-	border:1px solid #e2e2e2;
-}
-
-#answerChoice{
-	width:97%;
-	height:50px;
-	margin-top:10px;
-	margin-left:15px;
-	margin-bottom:10px;
-	border:1px solid gray;
-	text-align:center;
-}
-
-#answerChoiceText{
-	margin-top:15px;
-	display:inline-block;
-}
-
-.questionChoices{
-	width:100px;
-	height:35px;
-	margin-top:10px;
-	margin-bottom:30px;
-	border:1px solid gray;
-	text-align:center;
-	padding-top:10px;
-}
-
-.choicesTextArea{
-	margin-top:20px;
-}
+/*회준*/
+    .form-control-inline {
+      width:85%;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+      -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+           -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+              transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    .imageup{
+      width:30%;
+    }
+    .quesCategory{
+      width:15%;
+      display: inline-block;
+    }
+    .quesCategorybig{
+      width:25%;
+      display: inline-block;
+    }
