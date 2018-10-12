@@ -145,14 +145,9 @@
 			});
 		});
 	
-	 	$(document).ready(function() {
-			$('#AdminTable').DataTable({
-				"columnDefs" : [ {
-					"width" : "15%",
-					"targets" : 3
-				}]
-			});
-		}); 	
+
+	
+
 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
 	 <script>
@@ -165,6 +160,15 @@
 	 	$(document).ready( function () {
 	 	    $('#noticetable2').DataTable();
 	 	});
+
+	 	
+	 	$(document).ready(function() {
+	 	    $('#example').DataTable();
+	 	   $('#example2').DataTable();
+	 	  $('#AdminTable').DataTable();
+	 	  
+	 	} );
+
 	 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
 	 
