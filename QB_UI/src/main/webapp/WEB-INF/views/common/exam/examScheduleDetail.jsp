@@ -8,6 +8,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#examBtn').click(function() {
+		var popUrl = "examPaperDo.do";
+		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
+
+		window.open(popUrl, "지난 시험보기",popOption);
+	});
+});
+</script>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
@@ -63,7 +73,7 @@
 						<br>
 						<br>
 						<!-- 강사일 경우 버튼이 "시험 시작" / 학생일 경우 버튼이 "시험 응시"-->
-						<button type="button" class="btn btn-theme03" id="examBtn">
+						<button class="btn btn-theme03 exam_start" id="examBtn">
 						시험 시작</button>
 						<br>
 						<br>
