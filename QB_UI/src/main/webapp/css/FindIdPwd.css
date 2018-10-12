@@ -7,4 +7,13 @@
 .authBtn {
 	width: 25%;
 	height: 35px;
+	margin-bottom: 5px;
 }
+.confirm {
+	width:100%;
+}
+
+#remember{
+	text-align: center;
+}
+
