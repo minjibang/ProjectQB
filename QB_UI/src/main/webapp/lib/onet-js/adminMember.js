@@ -6,7 +6,7 @@ function allCheckFunc( obj ) {
 /* 체크박스 체크시 전체선택 체크 여부 */
 function oneCheckFunc( obj )
 {
-	var allObj = $("[name=checkall]");
+	var allObj = $("#checkall");
 	var objName = $(obj).attr("name");
 
 	if( $(obj).prop("checked") )
@@ -28,7 +28,7 @@ function oneCheckFunc( obj )
 
 /* 각각의 체크박스를 클릭시 전체선택 체크박스도 선택 및 해제되도록 구현 */
 $(function(){
-	$("[name=checkall]").click(function(){
+	$("#checkall").click(function(){
 		allCheckFunc( this );
 	});
 	$("[name=chk]").each(function(){
