@@ -38,8 +38,8 @@
 								</td>
 								<td class="title_table_scd_td">
 									<div class="search_box">
-										<input type="text" id="search_input">
-										<button id="search_btn">검색</button>
+										<input type="text" class="form-control" id="search_input" placeholder="키워드를 입력하세요.">
+										<button class="exam_rewind btn btn-theme">검색</button>
 									</div>
 								</td>
 							</tr>
@@ -66,7 +66,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
@@ -91,7 +91,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
@@ -116,7 +116,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
@@ -141,7 +141,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
@@ -166,7 +166,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
@@ -191,7 +191,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
@@ -216,7 +216,7 @@
 										<div>[50분]</div>
 									</td>
 									<td class="btn_td">
-										<button class="exam_rewind">다시 보기</button>
+										<button class="exam_rewind btn btn-theme">다시 보기</button>
 										<div class=""></div>
 									</td>
 								</tr>
