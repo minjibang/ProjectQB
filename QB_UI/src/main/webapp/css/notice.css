@@ -1,0 +1,74 @@
+@charset "UTF-8";
+.notice_header{
+	text-align:center;
+}
+.table-inbox-notice{
+	text-align:center;
+}
+.notice_name{
+	width:45%;
+}
+
+.table-inbox-notice-wrap {
+	margin: 0 -15px;
+}
+
+.table-inbox-exam{
+	text-align:center;
+	vertical-align:middle;
+}
+
+#noticeWrite_btn{
+	float:right;
+}
+
+.exam_info_member{
+	width:20%;
+}
+.exam_info_num{
+	width:20%;
+}
+
+/* .table-inbox-notice tr td:first-child {
+	width: 5%;
+} */
+
+/* .table-inbox-notice tr td:first-child .icheckbox_minimal {
+	margin-left: 15px;
+} 
+
+.table-inbox-notice tr td:hover {
+	cursor: pointer;
+}
+
+.table-inbox-notice tr td .fa-star.inbox-started, .table-inbox-notice tr td .fa-star:hover
+	{
+	color: #f78a09;
+}
+
+.table-inbox-notice tr td .fa-star {
+	color: #d5d5d5;
+}
+
+.table-inbox-notice tr.unread td {
+	font-weight: 600;
+	background: #f7f7f7;
+}
+
+
+.table-inbox-notice tr.unread a {
+	color: #32323a;
+}
+
+.table-inbox-notice tr a {
+	color: #767676;
+}
+
+ul.inbox-pagination {
+	float: right;
+}
+
+ul.inbox-pagination li {
+	float: left;
+}
+*/
