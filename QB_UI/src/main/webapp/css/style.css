@@ -72,7 +72,12 @@ Website: http://Alvarez.is/
 
 body {
 	color: #797979;
-	background: #efefef; /* 재훈 10.12 변경 */
+	/*  background-image: url('../img/bg-test6.jpg'); 재훈 10.12 변경
+	-webkit-background-size: 100%;
+    background-size: 100%;
+    background-attachment:fixed; */ 
+    background:#F0F0F0; 
+    
 	font-family: 'Noto Sans KR', sans-serif;  /* 재훈 10.12 변경 */
 	padding: 0px !important;
 	margin: 0px !important;
@@ -313,7 +318,8 @@ ul.top-menu>li>.logout {
 	width: 210px;
 	height: 100%;
 	position: fixed;
-	background: #eaeaea;
+	background:#F0F0F0;
+	
 }
 
 #sidebar h5 {
@@ -431,11 +437,11 @@ ul.sidebar-menu li a span {
 }
 
 ul.sidebar-menu li a {
-	color: #aeb2b7;
+	color: #797979;
 	text-decoration: none;
 	display: block;
 	padding: 15px 0 15px 10px;
-	font-size: 12px;
+	font-size: 14px;
 	outline: none;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
@@ -477,7 +483,7 @@ ul.sidebar-menu li a.active i {
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
 	margin-left: 210px;
-	background: #eaeaea;
+	background: #F0F0F0;
 }
 
 .header, .footer {
@@ -3599,6 +3605,8 @@ ul.chat-available-user li a:hover {
 
 /*footer*/
 .site-footer {
+	position:relative;
+	bottom:0;
 	background: #4ECDC4;
 	color: #fff;
 	padding: 15px 0;

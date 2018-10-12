@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -61,7 +61,10 @@
 		<tiles:insertAttribute name="sidebar" /> <!-- 컨텐츠 부분 --> 
 		<tiles:insertAttribute name="content" /> <!-- 푸터부분 --> 
 		<tiles:insertAttribute name="footer" />
+
 	</section>
+	
+	<!-- 푸터부분 --> 		<tiles:insertAttribute name="footer" />
 	<!-- js placed at the end of the document so the pages load faster -->
 	<%--  <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script> --%>
 
