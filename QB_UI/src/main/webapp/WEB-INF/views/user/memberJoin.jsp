@@ -1,94 +1,132 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-<link href="${pageContext.request.contextPath}/css/Memberjoin.css" rel="stylesheet">
-  <div id="login-page">
-    <div class="container">
-      <form class="form-signup" action="insertmember.do" method="post" onsubmit="return check()">
-        <h2 class="form-login-heading">SIGN UP</h2>
-        <div class="login-wrap">
-          <label>ID</label>
-          <input type="text" class="form-control" placeholder="User ID" autofocus name="member_id" id="member_id" onblur="confirmId()">
-          <div id="iddiv"></div>
-            <label>PASSWORD</label>
-          <input type="password" class="form-control" placeholder="Password" name="member_pwd" id="member_pwd" onblur="confirmPwd()">
-          <div id="pwddiv"> </div>
-            <label>CHECK PASSWORD</label>
-          <input type="password" class="form-control" placeholder="Password" autofocus id="member_pwd_check" onblur="confirmPwd2()">
-          <div id="pwdcheckdiv"> </div>
-            <label>CLASS</label>
-          <select class="form-control" name="class_name">
-                  <option>109기</option>
-                  <option>110기</option>
-                  <option>111기</option>
-                  <option>112기</option>
-                  <option>113기</option>
-                </select>
-          <br>
-            <label>NAME</label>
-          <input type="text" class="form-control" placeholder="Class" pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name"required>
-          <div>(닉네임은 문자 2자 이상입니다.)</div>
-            <label>E-mail</label><br>
-          <input type="text" class="form-control authText" placeholder="Email" name="member_email" id="mailto">
-          <button class="btn btn-theme authBtn" id="mailtoBtn"><i class="fa fa-envelope"></i> Send Mail</button><br><br>
-            <label>Certification Number</label>
-          <input type="text" class="form-control" place0holder="Class" autofocus>
-          <br>
-            <label>PHONE</label>
-          <input type="text" class="form-control" placeholder="Class" autofocus name="member_phone">
-          <br>
-            
-            
-          
-            <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
-            <a class="pull-right" href="${pageContext.request.contextPath}/login.jsp">로그인 페이지</a>
-          
-        </div>
-        <!-- Modal -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Forgot Password ?</h4>
-              </div>
-              <div class="modal-body">
-                <p>Enter your e-mail address below to reset your password.</p>
-                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-              </div>
-              <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                <button class="btn btn-theme" type="button">Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- modal -->
-      </form>
-    </div>
-  </div>
-  <!-- js placed at the end of the document so the pages load faster -->
- 
-  <!--BACKSTRETCH-->
-  <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
- 
-  <script>
-    $.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
-      speed: 500
-    });
-  </script>
+<link href="${pageContext.request.contextPath}/css/Memberjoin.css"
+	rel="stylesheet">
+
+<div id="login-page">
+	<div class="container">
+		<form class="form-signup" action="insertmember.do" method="post"
+			onsubmit="return check()">
+			<h2 class="form-login-heading">SIGN UP</h2>
+			<div class="login-wrap">
+				<label>ID</label> <input type="text" class="form-control"
+					placeholder="User ID" autofocus name="member_id" id="member_id"
+					onblur="confirmId()">
+				<div id="iddiv"></div>
+				<label>PASSWORD</label> <input type="password" class="form-control"
+					placeholder="Password" name="member_pwd" id="member_pwd"
+					onblur="confirmPwd()">
+				<div id="pwddiv"></div>
+				<label>CHECK PASSWORD</label> <input type="password"
+					class="form-control" placeholder="Password" autofocus
+					id="member_pwd_check" onblur="confirmPwd2()">
+				<div id="pwdcheckdiv"></div>
+				<label>CLASS</label> <select class="form-control" name="class_name">
+					<option>109기</option>
+					<option>110기</option>
+					<option>111기</option>
+					<option>112기</option>
+					<option>113기</option>
+				</select> <br> <label>NAME</label> <input type="text"
+					class="form-control" placeholder="Class"
+					pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name"
+					required>
+				<div>(닉네임은 문자 2자 이상입니다.)</div>
+				<label>E-mail</label><br> <input type="text"
+					class="form-control authText" placeholder="Email"
+					name="member_email" id="mailto">
+				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn">
+					<i class="fa fa-envelope"></i> Send Mail
+				</button>
+				<br> <br> <label>Certification Number</label> 
+				<input type="text" class="form-control" placeholder="Class" id="textmail" autofocus>
+				<br> <label>PHONE</label> <input type="text"
+					class="form-control" placeholder="Class" autofocus
+					name="member_phone"> <br>
+
+
+
+				<button class="btn btn-theme btn-block" type="submit">
+					<i class="fa fa-lock"></i> SIGN IN
+				</button>
+				<a class="pull-right"
+					href="${pageContext.request.contextPath}/login.jsp">로그인 페이지</a>
+
+			</div>
+			<!-- Modal -->
+			<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+				tabindex="-1" id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Forgot Password ?</h4>
+						</div>
+						<div class="modal-body">
+							<p>Enter your e-mail address below to reset your password.</p>
+							<input type="text" name="email" placeholder="Email"
+								autocomplete="off" class="form-control placeholder-no-fix">
+						</div>
+						<div class="modal-footer">
+							<button data-dismiss="modal" class="btn btn-default"
+								type="button">Cancel</button>
+							<button class="btn btn-theme" type="button">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- modal -->
+		</form>
+	</div>
+</div>
+<!-- js placed at the end of the document so the pages load faster -->
+
+<!--BACKSTRETCH-->
+<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+
+<script>
+	$.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
+		speed : 500
+	});
+</script>
 <script>
 	var idcheck = false;
 	var pwdcheck = false;
 	var pwdcheck2 = false;
+	var mailcheck = false;
+	
+	var mailtonumber;
+	
+	$('#mailtoBtn').click(function() {
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}/index/mail.do',
+			data : {
+				mailto : $('#mailto').val()
+			},
+			success : function(data) {
+				alert(data);
+				mailtonumber = data;
+				mailcheck = true;
+			},
+			error : function(error) {
+				alert("인증 메일 전송 실패");
+				console.log(error);
+				console.log(error.status);
+			}
+		});
+	});
 
 	function confirmId() {
 		var val = document.getElementById("member_id").value;
 		var iddiv = document.getElementById("iddiv");
-		if(val == ""){
+		if (val == "") {
 			iddiv.innerHTML = "아이디를 입력해주세요";
 			iddiv.style.color = 'green';
-			
-		}else{
+
+		} else {
 			$.ajax({
 				url : 'joinCheckId.do',
 				data : {
@@ -106,13 +144,13 @@
 						idcheck = false;
 					}
 				}
-			});	
+			});
 		}
 	}
 	function confirmPwd() {
 		var pwd = document.getElementById("member_pwd");
 		var pwddiv = document.getElementById("pwddiv");
-		
+
 		var p1 = /[0-9]/;
 		var p2 = /[a-zA-Z]/;
 		var p3 = /[~!@#$%^&*()]/;
@@ -123,11 +161,11 @@
 			pwddiv.innerHTML = "비밀번호는 8자 이상 숫자, 영문자, 특수문자를 포함해야 합니다.";
 			pwddiv.style.color = 'red';
 			pwdcheck = false;
-		}else{
+		} else {
 			pwddiv.innerHTML = "안전";
 			pwddiv.style.color = 'blue';
 			pwdcheck = true;
-			
+
 		}
 	}
 	function confirmPwd2() {
@@ -150,6 +188,10 @@
 
 		var pwd = document.getElementById("member_pwd");
 		var pwdcheck = document.getElementById("member_pwd_check");
+		var mailnumber = document.getElementById("textmail");
+		
+		console.log("======"+pwd);
+		console.log("======"+mailnumber);
 
 		if (idcheck == false) {
 			document.getElementById("iddiv").innerHTML = "아이디 중복 검사를 통과하지 못하였습니다.";
@@ -157,35 +199,25 @@
 			document.getElementById("member_id").focus();
 
 			return false;
-		}
-		if (pwdcheck == false || pwdcheck2 == false) {
+		}else if (pwdcheck == false || pwdcheck2 == false) {
 			document.getElementById("member_pwd").focus();
 			return false;
+		}else if(mailcheck == false){
+			alert("메일인증을 해주세요.");
+			document.getElementById("textmail").focus();
+			return false;
+		}else if(mailnumber.value != mailtonumber){
+			alert("인증번호가 일치하지 않습니다.");
+			document.getElementById("textmail").focus();
+			return false;
+		}
+		else {
+			var joinconfirm = confirm("회원가입 하시겠습니까");
+			if(joinconfirm == true){
+				return true;
+			}else{
+				return false;
+			}
 		}
 	}
-</script>
-
-<script>
-		var mailtoNum;
-		var member_id;
-		
-		$('#mailtoBtn').click(function(){
-			$.ajax({
-	            type : 'post',
-	            url : '${pageContext.request.contextPath}/index/mail.do',
-	            data : {mailto:$('#mailto').val()},
-	            success : function(data) {
-	            	alert(data);
-					mailtoNum=data;
-	            	this.mailtoNum=mailtoNum;
-					
-	            },
-	            error : function(error) {
-	               alert("인증 메일 전송 실패");
-	               console.log(error);
-	               console.log(error.status);
-	            }
-	         });
-		});
-
 </script>
