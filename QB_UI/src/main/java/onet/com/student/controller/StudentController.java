@@ -85,6 +85,13 @@ public class StudentController {
 		return "common.student.common.myPage";
 	}
 	/* 현이 18.10.09 학생 마이페이지 끝 */
+	
+	
+	@RequestMapping("myMessage.do")
+	public String myMessage() {
+
+		return "common.admin.common.myPage";
+	}
 
 
 
