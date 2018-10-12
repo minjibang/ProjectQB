@@ -1,9 +1,13 @@
 package onet.com.index.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +72,6 @@ public class IndexController {
 		
 		int result = 0;
 		String viewpage="";
-		
 		result = indexService.insertMember(dto);
 		
 		if(result > 0) {
