@@ -51,7 +51,7 @@
 <!-- DataTables 관련 -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 
 </head>
 <body>
@@ -152,24 +152,23 @@
 					"targets" : 3
 				}]
 			});
-		});
+		}); 	
 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
 	 <script>
 	 	$(document).ready( function () {
-	 	    $('table.display').DataTable({
-	 	    	"columnDefs": [
-	 	    	    { "width": "20%", "targets": 0,
-	 	    	      "width": "50%", "targets": 1,
-	 	    	      "width": "30%", "targets": 2
-	 	    	    }
-	 	    	  ]
-	 	    });
+	 	    $('table.display').DataTable();
+	 	});
+	 	$(document).ready( function () {
+	 	    $('#noticetable').DataTable();
+	 	});
+	 	$(document).ready( function () {
+	 	    $('#noticetable2').DataTable();
 	 	});
 	 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
 	 
-	 <!-- 재훈 - 문제 만들기 페이지 썸머노트 시작-->
+	 <!-- 재훈 - 문제 만들기 페이지 시작-->
 	 <script type="text/javascript">
 	  $(function() {
 	    $('.summernote1').summernote({
@@ -181,7 +180,8 @@
 	    });
 	    
 	    $('.summernote2').summernote({
-		      height: 100,          // 기본 높이값
+		      height: 100, // 기본 높이값
+		     
 		      minHeight: null,      // 최소 높이값(null은 제한 없음)
 		      maxHeight: null,      // 최대 높이값(null은 제한 없음)
 		      focus: true,          // 페이지가 열릴때 포커스를 지정함
@@ -189,8 +189,18 @@
 		    });
 	  });
 	  
+	  function questionType(id){
+		  if(id == "questionChoice"){
+		      document.all["questionChoice"].style.display = '';           // 보이게
+		      document.all["questionShortAnswer"].style.display = 'none';  // 안보이게
+		   }else{
+		      document.all["questionChoice"].style.display = 'none';  		// 안보이게
+		      document.all["questionShortAnswer"].style.display = '';       // 보이게
+		   }
+		}
 	</script>
-	<!-- 재훈 - 문제 만들기 페이지 썸머노트 끝-->
+	<!-- 재훈 - 문제 만들기 페이지 끝-->
+	
 	 
 	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 시작 -->
 	 <script>
@@ -200,11 +210,7 @@
 	    );
 	 </script>
 	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
-	 
-	 <!-- 영준 - 강사 시험지 페이지 데이터테이블 시작 -->
-	 <script>
 
-	 </script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<!-- 테이블 관련 end -->
