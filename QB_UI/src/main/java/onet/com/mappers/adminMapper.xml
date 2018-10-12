@@ -24,30 +24,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	member_phone, member_enable from member
 </select>
 <!-- 영준 - 10.10 회원관리 전체조회 끝 -->
-<!-- 영준 - 10.12 회원관리 회원선택 시작 -->
-<select id="getMember" parameterType="String">
-	select class_name, member_id, member_name, member_email,
-		   member_phone, member_enable 
-	from member
-	where member_id=${member_id}
-	
-</select>
-<!-- 영준 - 10.12 회원관리 회원선택 끝 -->
 
-<!-- 영준 - 10.12 회원관리 등록 시작 -->
-<insert id="insertMember" parameterType="String" 
+<!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
+<update id="updateMember" parameterType="onet.com.vo.MemberDto"
 		useGeneratedKeys="true" keyProperty="member_id">
-	insert into member (member_id)
-	values (${member_id})
-</insert>
-<!-- 영준 - 10.12 회원관리 등록 끝 -->
-
-<update id="updateMember" parameterType="onet.com.vo.MemberDto">
-
+	update member
+	set member_name=${member_name}, member_email=${member_email}, 
+	member_phone=${member_phone}, class_name=${class_name},
+	 member_enable=${member_enable}
+	where member_id=${member_id}
 </update>
+<!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
-<delete id="deleteMember" parameterType="onet.com.vo.MemberDto">
-
-</delete>
 
 </mapper>
