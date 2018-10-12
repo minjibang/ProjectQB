@@ -64,14 +64,14 @@ public class IndexService {
 			mail.setMailFrom("bitcamp109");// 송신메일
 			mail.setMailTo(mailto);// 수신메일
 			String randomNum = this.randomNum();
-			 
+			String randomPwd = this.randomPwd(); 
 			if (command == "join") {
-				mail.setMailSubject("벨로시티-회원가입 이메일");// 메일제목
+				mail.setMailSubject("이메일 인증");// 메일제목
 				mail.setTemplateName("jointemplate.vm");// 메일내용
-			} /*else {
-				mail.setMailSubject("벨로시티-로그인실패 이메일");// 메일제목
+			} else {
+				mail.setMailSubject("임시 비밀번호");// 메일제목
 				mail.setTemplateName("logintemplate.vm");// 메일내용
-			}*/
+			}
 
 			// SimpleMailMessage message = new SimpleMailMessage();
 			MimeMessage message = mailSender.createMimeMessage();
@@ -93,7 +93,7 @@ public class IndexService {
 				velocityContext.put("company", mail.getCompany());
 				velocityContext.put("mailFrom", mail.getMailFrom());
 				velocityContext.put("randomNum", randomNum);
-				//velocityContext.put("randomPwd", this.randomPwd());
+				velocityContext.put("randomPwd", randomPwd);
 				System.out.println("2");
 				
 			
@@ -115,7 +115,11 @@ public class IndexService {
 			}
 
 			mailSender.send(message);
-			return randomNum;
+			if (command == "join") {
+				return randomNum;
+			}else {
+				return randomPwd;
+			}
 			
 		}
 
@@ -129,7 +133,7 @@ public class IndexService {
 		}
 
 		
-		/*public  String randomPwd() { 
+		public  String randomPwd() { 
 			char[] charSet = new char[] { 
 					'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
 					'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -145,7 +149,7 @@ public class IndexService {
 			
 			} 
 			return buffer.toString(); 
-		}*/
+		}
 		
 		/******************************** velocity service end**********************************************/
 		
@@ -156,7 +160,11 @@ public class IndexService {
 			return result;
 		}
 		
-		
+		public int pwdSearch(MemberDto dto) {
+			IndexDao dao = sqlsession.getMapper(IndexDao.class);
+			int result = dao.pwdSearch(dto);
+			return result;
+		}
 		
 }
 

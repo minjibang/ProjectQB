@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,15 +42,11 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value="idSearch.do",method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> idSearch(String membername, String mailto) {
-		MemberDto dto = new MemberDto();
-		dto.setMember_name(membername);
-		dto.setMember_email(mailto);
-		Map<String, Object> map = new HashMap<String, Object>();
+	public String idSearch(MemberDto dto, Model model) {
 		String result = indexService.idSearch(dto);
 		System.out.println(result);
-		map.put("result", result);
-		return map;
+		model.addAttribute("result", result);
+		return "home.findId";
 	}
 	
 	
@@ -59,7 +56,22 @@ public class IndexController {
 		return "home.findPw";
 	}
 	
-	
+	@RequestMapping(value="pwdSearch.do", method=RequestMethod.POST)
+	public String pwdSearch(MemberDto dto) {
+		String mailto = dto.getMember_email();
+		String member_id = dto.getMember_id();
+		String pwd = indexService.sendMail(mailto,"loginfail");
+		dto.setMember_pwd(pwd);
+		dto.setMember_id(member_id);
+		int re = indexService.pwdSearch(dto);
+		System.out.println("-------------------------------------------");
+		if(re > 0) {
+			System.out.println("성공");
+		}else {
+			System.out.println("실패");
+		}
+		return "redirect:/login.jsp";
+	}
 
 	@RequestMapping("noAuth.do")
 	public String join(){

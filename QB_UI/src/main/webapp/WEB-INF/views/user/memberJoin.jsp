@@ -29,21 +29,20 @@
 					<option>112기</option>
 					<option>113기</option>
 				</select> <br> <label>NAME</label> <input type="text"
-					class="form-control" placeholder="Class"
+					class="form-control" placeholder="Name"
 					pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name"
 					required>
 				<div>(닉네임은 문자 2자 이상입니다.)</div>
 				<label>E-mail</label><br> <input type="text"
-					class="form-control authText" placeholder="Email"
+					class="form-control authText" placeholder="E-mail"
 					name="member_email" id="mailto">
 				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn">
 					<i class="fa fa-envelope"></i> Send Mail
 				</button>
 				<br> <br> <label>Certification Number</label> 
-				<input type="text" class="form-control" placeholder="Class" id="textmail" autofocus>
-				<br> <label>PHONE</label> <input type="text"
-					class="form-control" placeholder="Class" autofocus
-					name="member_phone"> <br>
+				<input type="text" class="form-control" placeholder="Authentication-Code" id="textmail" autofocus>
+				<br> <label>PHONE</label> <input type="text" class="form-control" placeholder="Phone-Number" pattern="(010)-\d{3,4}-\d{4}" autofocus name="member_phone" required>
+				<div>(숫자, - 를 포함한 숫자만 입력하세요.)</div>
 
 
 
@@ -125,6 +124,7 @@
 		if (val == "") {
 			iddiv.innerHTML = "아이디를 입력해주세요";
 			iddiv.style.color = 'green';
+			idcheck = false;
 
 		} else {
 			$.ajax({

@@ -9,4 +9,6 @@ public interface IndexDao {
 	public String joinCheckId(String memeberid);
 
 	public String idSearch(MemberDto dto);
+	
+	public int pwdSearch(MemberDto dto);
 }
