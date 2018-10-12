@@ -47,16 +47,15 @@ public class AdminController {
 	}
 	/*재훈 10.08 문제분류관련 end*/
 	
-	
+	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
 	public String adminMember(Model model) throws Exception {
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
 		model.addAttribute("memberList", memberList);
-		
 		return "admin.adminMember";
-	}	
-	
+	}
+	/* 영준 10.08 회원관리관련 끝 */
 	
 	
 

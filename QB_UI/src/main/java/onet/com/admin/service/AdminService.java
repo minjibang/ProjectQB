@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.admin.dao.AdminDao;
-import onet.com.index.dao.IndexDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.MemberDto;
 
@@ -41,6 +40,7 @@ public class AdminService {
 		List<MemberDto> result = dao.memberList();
 		return result;
 	}
+
 	/*영준 - 10.10 회원관리 관련 끝 */
 
 	
