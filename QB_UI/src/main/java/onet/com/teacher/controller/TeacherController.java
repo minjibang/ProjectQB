@@ -108,7 +108,7 @@ public class TeacherController {
 	// 강사 문제 관련 
 	/*정원 18.10.10 내 문제함 추가 */
 	@RequestMapping("questionManagement.do")
-	public String teacherMyQuestion(){
+	public String questionManagement(){
 		
 		return "common.teacher.question.questionManagement";
 	}

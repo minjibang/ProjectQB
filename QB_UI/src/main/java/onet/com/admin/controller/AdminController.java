@@ -113,7 +113,7 @@ public class AdminController {
 	}
 	
 	
-	// 관리자 클래스 상세보기 - 시험 
+	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
 	public String examScheduleDetail() {
 		
@@ -133,6 +133,7 @@ public class AdminController {
 	}
 	
 	
+	
 	// 관리자 클래스 상세보기 - 시험지 관련 
 	@RequestMapping("examPaperMake.do")
 	public String examPaperMake(){
@@ -143,9 +144,25 @@ public class AdminController {
 	@RequestMapping("examPaperModify.do")
 	public String examPaperModify(){
 		
-		return "common.adminClass.admin.examPaperModify";
+		return "common.adminClass.admin.exampaper.examPaperModify";
 	}
-
+	
+	
+	
+	// 관리자 클래스 상세보기 - 학생 & 성적관리 
+	@RequestMapping("studentInfo.do")
+	public String studentInfo(){
+		
+		return "common.adminClass.admin.grade.studentInfo";
+	}
+	
+	
+	// 관리자 클래스 상세보기 - 문제 관리 
+	@RequestMapping("questionManagement.do")
+	public String questionManagement(){
+		
+		return "common.adminClass.admin.question.questionManagement";
+	}
 	
 
 

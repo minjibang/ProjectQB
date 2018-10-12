@@ -9,6 +9,7 @@
 		<put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp"/>
 	</definition>
 	
+	<!-- 관리자 클래스 상세보기 페이지  : common.adminClass.권한.기능.파일명  -->
 	<definition name="common.adminClass.*.*.*" template="/WEB-INF/views/inc/layout.jsp">
 		    <put-attribute name="header"  value="/WEB-INF/views/{1}/inc/header.jsp" />
 		    <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
@@ -16,6 +17,8 @@
 		    <put-attribute name="content" value="/WEB-INF/views/common/{2}/{3}.jsp" />   
 	</definition>
 	
+	
+	<!-- 공통 페이지 폴더 구조  : common.권한.기능.파일명  -->
 	<definition name="common.*.*.*" template="/WEB-INF/views/inc/layout.jsp">
 		    <put-attribute name="header"  value="/WEB-INF/views/{1}/inc/header.jsp" />
 		    <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
@@ -23,7 +26,8 @@
 		    <put-attribute name="content" value="/WEB-INF/views/common/{2}/{3}.jsp" />   
 	</definition>
 	
-		<definition name="*.*" template="/WEB-INF/views/inc/layout.jsp">
+	<!-- 각 권한 별 폴더 구조  : 권한.파일명   -->
+	<definition name="*.*" template="/WEB-INF/views/inc/layout.jsp">
 		    <put-attribute name="title"   value="welcome bitcamp" />
 		    <put-attribute name="header"  value="/WEB-INF/views/{1}/inc/header.jsp" />
 		    <put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
