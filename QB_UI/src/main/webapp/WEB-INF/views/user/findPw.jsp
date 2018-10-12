@@ -57,7 +57,7 @@
 <!-- js placed at the end of the document so the pages load faster -->
 
 <script>
-	$.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
+	$.backstretch("${pageContext.request.contextPath}/img/bg-test8.jpg", {
 		speed : 500
 	});
 </script>
