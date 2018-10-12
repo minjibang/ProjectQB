@@ -20,7 +20,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/student/studentGradeManage.do">
+            <a href="${pageContext.request.contextPath}/student/gradeManage.do">
               <i class="fa fa-bar-chart-o"></i>
               <span>성적 관리</span>
              </a>
@@ -28,7 +28,7 @@
           <li class="sub-menu">
 
 
-            <a href="${pageContext.request.contextPath}/student/studentPastExam.do">
+            <a href="${pageContext.request.contextPath}/student/pastExam.do">
               <i class="fa fa-desktop"></i>
               <span>지난 시험 보기</span>
               </a>

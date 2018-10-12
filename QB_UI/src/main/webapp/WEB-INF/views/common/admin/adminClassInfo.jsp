@@ -1,28 +1,17 @@
+<!-- 
+	
+	adminClassInfo는 관리자만 사용하는 페이지이지만, 
+	관리자의 사이드바 적용을 위해 common/admin 폴더에 위치시켰음 
+
+-->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
-<head>
-<!-- 데이터테이블관련 -->
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
-<!-- 모달창관련 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-	
-<body>
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
-			<div class="col-lg-12"></div>
+			<div class="col-lg-12">
 			<!-- 모달 -->
 			<!-- UpdateModal -->
 			<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
@@ -62,14 +51,14 @@
 										</div>
 										<div class="form-group ">
 											<label for="ccomment" class="control-label col-lg-2">클래스</label>
-											<div class="col-lg-10">
-												<select name="classname">
-													<option value="class">class1</option>
-													<option value="class">class1</option>
-													<option value="class">class3</option>
-												</select>
+												<div class="col-sm-4 col-xs-4 pull-left">
+													<select class="form-control">
+														<option value="class">java 109기</option>
+														<option value="class">java 108기</option>
+														<option value="class">네트워크 91기</option>
+													</select>
+												</div>
 											</div>
-										</div>
 										<div class="form-group ">
 											<label for="curl" class="control-label col-lg-2">권한
 												설정</label>
@@ -122,6 +111,31 @@
 					</div>
 				</div>
 			</div>
+			<!-- ClassUpdateModal -->
+			<div class="modal fade" id="ClassUpdateModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">수정 확인</h4>
+						</div>
+						<div class="modal-body">정말 수정하겠습니까?</div>
+						<div class="modal-footer">
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-10">
+									<button class="btn btn-theme" data-toggle="modal"
+										data-dismiss="modal">Yes</button>
+									<button class="btn btn-theme04" type="button"
+										data-dismiss="modal">No</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 			<!-- /col-lg-12 -->
 			<div class="col-lg-12 mt">
 				<div class="row content-panel">
@@ -138,7 +152,7 @@
 						<div class="tab-content" >
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-									<div class="col-md-10" id="AdminTableForm">
+									<div class="col-md-12" id="AdminTableForm">
 										<table id="AdminTable" >
 
 											<thead>
@@ -162,15 +176,17 @@
 													<td class="phone">test</td>
 													<td class="autho">학생</td>
 													<td>
-														<button class="btn btn-primary btn-xs" id="updatebtn"
-															data-toggle="modal" data-target="#UpdateModal">
-															<i class="fa fa-pencil"></i>
-														</button>
-														<button class="btn btn-danger btn-xs" id="deletebtn"
-															data-toggle="modal" data-target="#DeleteModal">
-															<i class="fa fa-trash-o "></i>
-														</button>
-													</td>
+													<button type="button" class="btn btn-info" id="updatebtn"
+																data-toggle="modal" data-target="#UpdateModal">
+																<i class="fa fa-pencil"> </i>
+															</button>
+															<button type="button" class="btn btn-danger"
+																id="deletebtn" data-toggle="modal"
+																data-target="#DeleteModal">
+																<i class="fa fa-trash-o"></i>
+															</button>
+
+														</td>
 												</tr>
 
 											</tbody>
@@ -216,39 +232,10 @@
 														</div>
 													</div>
 													<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
-													<button class="btn btn-theme" type="button" >수정</button>
+													<button class="btn btn-theme" type="button" data-toggle="modal" data-target="#ClassUpdateModal">수정</button>
 													</div>
 													
 												</form>
-
-
-												<!--  <form class="form-horizontal  style-form" action="#">
-               <div class="form-group">
-                  <label class="control-label col-md-3">클래스</label>
-                  <div class="col-md-4 col-xs-12">
-                      <input class="form-control" id="" type="text"/>
-                  </div>
-                </div>
-              
-                <div class="form-group">
-                  <label class="control-label col-md-3">교육 기간</label>
-                  <div class="col-md-4">
-                    <div class="input-group input-large" data-date="01/01/2014" data-date-format="mm/dd/yyyy">
-                      <input type="text" class="form-control dpd1" name="from">
-                      <span class="input-group-addon">To</span>
-                      <input type="text" class="form-control dpd2" name="to">
-                    </div>
-                    <span class="help-block">Select date range</span>
-                  </div>
-                </div>
-                
-                  <div class="form-group">
-                  <label class="control-label col-md-3">강사</label>
-                  <div class="col-md-4 col-xs-12">
-                      <input class="form-control" id="" type="text"/>
-                  </div>
-                </div>
-              </form> -->
 											</div>
 
 										</div>
@@ -266,6 +253,7 @@
 			</div>
 			<!-- /row -->
 		</div>
+		</div>
 		<!-- /container -->
 	</section>
 	<!-- /wrapper -->
@@ -273,5 +261,3 @@
 
 <!-- /MAIN CONTENT -->
 <!--main content end-->
-</body>
-</html>

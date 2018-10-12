@@ -21,7 +21,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/adminCategory.do">
+            <a href="${pageContext.request.contextPath}/admin/questionCategory.do">
               <i class="fa fa-cogs"></i>
               <span>문제분류 관리</span>
               </a>

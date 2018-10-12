@@ -15,19 +15,19 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/teacher/teacherStudentInfo.do">
+            <a href="${pageContext.request.contextPath}/teacher/studentInfo.do">
               <i class="fa fa-book"></i>
               <span>학생 & 성적관리</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/teacher/myQuestion.do">
+            <a href="${pageContext.request.contextPath}/teacher/questionManagement.do">
               <i class="fa fa-pencil"></i>
               <span>문제 관리</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/teacher/teacherExamManagement.do">
+            <a href="${pageContext.request.contextPath}/teacher/examManagement.do">
               <i class="fa fa-file-text-o"></i>
               <span>시험 관리</span>
               </a>

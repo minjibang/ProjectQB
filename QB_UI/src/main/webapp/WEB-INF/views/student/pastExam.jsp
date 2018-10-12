@@ -4,7 +4,7 @@
 	$(document).ready(function() {
 		$('.exam_rewind').click(function() {
 
-			var popUrl = "studentPastExamPaper.do";
+			var popUrl = "pastExamPaper.do";
 			var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
 
 			window.open(popUrl, "지난 시험보기",popOption);

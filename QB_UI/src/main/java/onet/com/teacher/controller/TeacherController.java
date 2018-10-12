@@ -18,12 +18,7 @@ public class TeacherController {
 	@Autowired
 	private CommonService commonService;
 	
-	@RequestMapping("teacherNoticeWrite.do")
-	public String teacherNoticeWrite() {
-
-		return "teacher.teacherNoticeWrite";
-	}
-
+	// 강사 notice 관련 
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
 	public String teacherMain(Model model) {
@@ -31,102 +26,64 @@ public class TeacherController {
 		model.addAttribute("notice", notice);
 		List<Exam_infoDto> exam_info = commonService.exam_info();
 		model.addAttribute("exam_info", exam_info);
-		return "common.teacher.teacher_student_Main";
+		
+		return "common.teacher.notice.notice";
+	}
+	
+	@RequestMapping("noticeWrite.do")
+	public String noticeWrite() {
+		
+		return "common.teacher.notice.noticeWrite";
 	}
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
-	@RequestMapping("noticeView.do")
-	public String noticeView() {
-
-		return "common.teacher.noticeView";
+	@RequestMapping("noticeDetail.do")
+	public String noticeDetail() {
+		
+		return "common.teacher.notice.noticeDetail";
 	}
 	/*재훈:10.08 게시판 글 상세보기 페이지 끝*/
-
-	/*영준:10.08 임시 저장된 시험지 보기 페이지 시작 */
-	@RequestMapping("teacherTempExamPaper.do")
-	public String teacherTempExamPaper() {
-
-		return "teacher.teacherTempExamPaper";
-	}
-	/*영준:10.08 임시 저장된 시험지 보기 페이지 끝 */
 	
-	/*영준:10.08 시험 일정보기 페이지 시작 */
-	@RequestMapping("teacherExamSchedule.do")
-	public String teacherExamSchedule() {
-
-		return "teacher.teacherExamSchedule";
+	@RequestMapping("noticeUpdate.do")
+	public String noticeUpdate() {
+		
+		return "common.teacher.notice.noticeUpdate";
 	}
-	/*영준:10.08 시험 일정보기 페이지 끝 */
-	
-	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
-	@RequestMapping("teacherExamPaperUpdate.do")
-	public String teacherExamPaperUpdate() {
 
-		return "teacher.teacherExamPaperUpdate";
-	}
-	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
+	// 강사 시험 관련 
 	/*현이:10.09 시험 일정 상세보기 페이지 시작*/
 	@RequestMapping("examScheduleDetail.do")
-	public String examDetailView() {
+	public String examScheduleDetail() {
 		
-		return "common.teacher.examScheduleDetail";
+		return "common.teacher.exam.examScheduleDetail";
 	}  
 	/*현이:10.09 시험 상세보기 페이지 끝*/
 	
-	/*현이 18.10.09 강사 마이페이지 시작*/
-	@RequestMapping("myPage.do")
-	public String mypage() {
-
-		return "common.teacher.myPage";
-	}
-	/*현이 18.10.09 강사 마이페이지 끝*/
-	
-	/*민지 18.10.10 강사 시험감독 페이지 시작*/
-	@RequestMapping("teacherExamPaper.do")
-	public String teacherExamPaper() {
-
-		return "teacher.teacherExamPaper";
-	}
-	/*민지 18.10.10 강사 시험감독 페이지 끝*/
-	
-	/*민지 18.10.10 메시지 페이지 시작*/
-	@RequestMapping("myMessage.do")
-	public String myMessage() {
-
-		return "common.teacher.myMessage";
-	}
-	/*민지 18.10.10 메시지 페이지 끝*/
-	
-	/*정원 18.10.10 내 문제함 추가 */
-	@RequestMapping("myQuestion.do")
-	public String teacherMyQuestion(){
-		
-		return "teacher.teacherMyQuestions";
-	}
-	/*정원 18.10.10 내 문제함 끝 */
-	
-	/*양회준 18.10.11 학생&성적관리 추가 */
-	@RequestMapping("teacherStudentInfo.do")
-	public String teacherStudentInfo(){
-		
-		return "teacher.teacherStudentInfo";
-	}
-	/*양회준 18.10.11 학생&성적관리 끝 */
-	
 	/* 현이 18.10.11 선생님 시험관리 시작 */
-	@RequestMapping("teacherExamManagement.do")
-	public String teacherExamManagement(){
+	@RequestMapping("examManagement.do")
+	public String examManagement(){
 		
-		return "teacher.teacherExamManagement";
+		return "common.teacher.exam.examManagement";
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate() {
+
+		return "common.teacher.exam.examScheduleUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
+	
+	
+	
+	// 강사 시험지 관련 
 	/* 영준 18.10.11 시험지 생성 페이지 시작 */
 	@RequestMapping("examPaperMake.do")
 	public String examPaperMake(){
 		
-		return "teacher.examPaperMake";
+		return "common.teacher.exampaper.examPaperMake";
 	}
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 	
@@ -134,8 +91,59 @@ public class TeacherController {
 	@RequestMapping("examPaperModify.do")
 	public String examPaperModify(){
 		
-		return "teacher.examPaperModify";
+		return "common.teacher.exampaper.examPaperModify";
 	}
 	/* 현이 18.10.11 시험지 수정 페이지 끝 */
+	
+	/*민지 18.10.10 강사 시험감독 페이지 시작*/
+	@RequestMapping("examPaper.do")
+	public String examPaper() {
+
+		return "common.teacher.exampaper.examPaper";
+	}
+	/*민지 18.10.10 강사 시험감독 페이지 끝*/
+	
+	
+	
+	// 강사 문제 관련 
+	/*정원 18.10.10 내 문제함 추가 */
+	@RequestMapping("questionManagement.do")
+	public String teacherMyQuestion(){
+		
+		return "common.teacher.question.questionManagement";
+	}
+	/*정원 18.10.10 내 문제함 끝 */
+	
+
+	
+	/*현이 18.10.09 강사 마이페이지 시작*/
+	@RequestMapping("myPage.do")
+	public String mypage() {
+
+		return "common.teacher.common.myPage";
+	}
+	/*현이 18.10.09 강사 마이페이지 끝*/
+	
+	
+	/*민지 18.10.10 메시지 페이지 시작*/
+	@RequestMapping("myMessage.do")
+	public String myMessage() {
+
+		return "common.teacher.common.myMessage";
+	}
+	/*민지 18.10.10 메시지 페이지 끝*/
+	
+	
+	/*양회준 18.10.11 학생&성적관리 추가 */
+	@RequestMapping("studentInfo.do")
+	public String studentInfo(){
+		
+		return "common.teacher.grade.studentInfo";
+	}
+	/*양회준 18.10.11 학생&성적관리 끝 */
+	
+
+	
+
 	
 }

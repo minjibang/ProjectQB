@@ -1,9 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-
-
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link href="${pageContext.request.contextPath}/css/teacherMyQuestion.css"
 	rel="stylesheet">

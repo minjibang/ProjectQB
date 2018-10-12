@@ -21,37 +21,35 @@
              </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/teacher/teacherMain.do">
+            <a href="${pageContext.request.contextPath}/admin/adminClassMain.do">
               <i class="fa fa-desktop"></i>
               <span>공지사항 & 시험일정</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/admin/studentInfo.do">
               <i class="fa fa-desktop"></i>
               <span>학생 & 성적관리</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/admin/questionManagement.do">
               <i class="fa fa-desktop"></i>
               <span>문제 관리</span>
               </a>
           </li>
           <li class="sub-menu">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/admin/examManagement.do">
               <i class="fa fa-desktop"></i>
               <span>시험 관리</span>
               </a>
           </li>
-	          <!-- if 관리자-->
-<%-- 	          <li class="sub-menu">
-	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do">
+	          <li class="sub-menu">
+	            <a href="${pageContext.request.contextPath}/admin/adminMain.do">
 	              <i class="fa fa-desktop"></i>
-	              <span>클래스 관리</span>
+	              <span>클래스 전체 관리</span>
 	             </a>
-	          </li> --%>
-	          <!-- if관리자 end -->
+	          </li> 
           <!-- 강사 end -->
          </ul>
         <!-- sidebar menu end-->
