@@ -23,23 +23,18 @@
 			<div class="col-lg-12">
 				<!--  MODALS -->
 				<div class="showback">
-					<!-- Button trigger modal -->
-					<button class="btn btn-success" data-toggle="modal"
-						data-target="#myModal">새 클래스 개설하기</button>
-
-					<div class="col-sm-4 col-xs-4 pull-right">
-						<div class="col-sm-4 col-xs-4 pull-right">
-							<button class="btn btn-success btn-block">검색</button>
+					<div class="row">
+						<div class="col-lg-3">
+							<button class="btn btn-theme" data-toggle="modal" data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
 						</div>
-						<div class="col-sm-4 col-xs-4 pull-right">
-							<input type="text" class="form-control" placeholder="검색어를 입력">
-						</div>
-						<div class="col-sm-4 col-xs-4 pull-right">
-							<select class="form-control">
+						<div class="col-lg-9 classSearchBtnDiv">
+							<select class="form-control classSearchSize">
 								<option>클래스명</option>
 								<option>강사</option>
 								<option>교육과목</option>
-							</select>
+							</select> 
+							<input type="text" class="form-control classSearchSize" placeholder="검색어를 입력">
+							<button class="btn btn-theme" id="classSearchBtn">검색</button>
 						</div>
 					</div>
 
@@ -99,50 +94,148 @@
 					</div>
 				</div>
 				<!-- /showback -->
-	</section>
 
-	<section class="wrapper-low">
-		<h3>
-			<i class="fa fa-angle-right"></i> 강의 목록
-		</h3>
-		<div class="row mt">
-			<div class="col-lg-12">
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<div class="project-wrapper">
-						<div class="project">
-							<a href="${pageContext.request.contextPath}/admin/adminClassMain.do">
-								<div class="weather-4 pn-big centered">
-									<i class="fa fa-desktop"></i>
-									<h1>JAVA</h1>
-									<div class="info">
-										<div class="row">
 
-											<h5 class="centered">클래스:비트캠프 - 자바 99기</h5>
-											<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-											<h5 class="centered">강사:홍길동</h5>
-											<div class="col-sm-6 col-xs-6 pull-right">
-												<p class="goright">
-													<i class="fa fa-users"></i> 25명
-												</p>
+				<div class="content-panel">
+					<div class="panel-body">
+
+						<header class="panel-heading wht-bg">
+							<h4 class="gen-case">
+								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;강의 목록
+							</h4>
+						</header>
+						<div class="row mt">
+							<div class="col-lg-12">
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<div class="project-wrapper">
+										<div class="project">
+											<a
+												href="${pageContext.request.contextPath}/admin/adminClassMain.do">
+												<div class="weather-4 pn-big centered">
+													<i class="fa fa-desktop"></i>
+													<h1>JAVA</h1>
+													<div class="info">
+														<div class="row">
+
+															<h5 class="centered">클래스:비트캠프 - 자바 99기</h5>
+															<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+															<h5 class="centered">강사:홍길동</h5>
+															<div class="col-sm-6 col-xs-6 pull-right">
+																<p class="goright">
+																	<i class="fa fa-users"></i> 25명
+																</p>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</a>
+										</div>
+									</div>
+
+								</div>
+
+								<!--minji test -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<div class="project-wrapper">
+										<div class="project">
+											<div class="photo-wrapper">
+												<div class="photo">
+													<a class="fancybox" href="img/portfolio/port03.jpg">
+														<div class="weather-4 pn-big centered">
+															<i class="fa fa-desktop"></i>
+															<h1>JAVA</h1>
+															<div class="info">
+																<div class="row">
+																	<h5 class="centered">클래스:비트캠프 - 자바 99기</h5>
+																	<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+																	<h5 class="centered">강사:홍길동</h5>
+																	<div class="col-sm-6 col-xs-6 pull-right">
+																		<p class="goright">
+																			<i class="fa fa-users"></i> 25명
+																		</p>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</a>
+												</div>
+												<div class="overlay"></div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-							</a>
-						</div>
-					</div>
 
-				</div>
-
-				<!--minji test -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<div class="project-wrapper">
-						<div class="project">
-							<div class="photo-wrapper">
-								<div class="photo">
-									<a class="fancybox" href="img/portfolio/port03.jpg">
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-cog"></i>
+											<h1>빅데이터</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 빅데이터 2기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:장영실</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 20명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-gamepad"></i>
+											<h1>AR/VR</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - AR/VR 17기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:사임당</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 20명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-keyboard-o"></i>
+											<h1>임베디드</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 임베디드 7기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:이순신</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 15명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- row -->
+								<!-- row -->
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
 										<div class="weather-4 pn-big centered">
 											<i class="fa fa-desktop"></i>
 											<h1>JAVA</h1>
@@ -161,250 +254,160 @@
 										</div>
 									</a>
 								</div>
-								<div class="overlay"></div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-cog"></i>
+											<h1>빅데이터</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 빅데이터 2기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:장영실</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 20명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-gamepad"></i>
+											<h1>AR/VR</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - AR/VR 17기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:사임당</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 20명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-keyboard-o"></i>
+											<h1>임베디드</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 임베디드 7기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:이순신</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 15명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- row -->
+								<!-- row -->
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-desktop"></i>
+											<h1>JAVA</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 자바 99기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:홍길동</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 25명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-cog"></i>
+											<h1>빅데이터</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 빅데이터 2기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:장영실</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 20명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-gamepad"></i>
+											<h1>AR/VR</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - AR/VR 17기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:사임당</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 20명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- weather-4 PANEL -->
+								<div class="col-lg-3 col-md-3 col-sm-3 mb">
+									<a href="adminClassInfo.do">
+										<div class="weather-4 pn-big centered">
+											<i class="fa fa-keyboard-o"></i>
+											<h1>임베디드</h1>
+											<div class="info">
+												<div class="row">
+													<h5 class="centered">클래스:비트캠프 - 임베디드 7기</h5>
+													<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
+													<h5 class="centered">강사:이순신</h5>
+													<div class="col-sm-6 col-xs-6 pull-right">
+														<p class="goright">
+															<i class="fa fa-users"></i> 15명
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
-
-
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-cog"></i>
-							<h1>빅데이터</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 빅데이터 2기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:장영실</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 20명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-gamepad"></i>
-							<h1>AR/VR</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - AR/VR 17기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:사임당</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 20명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-keyboard-o"></i>
-							<h1>임베디드</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 임베디드 7기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:이순신</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 15명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- row -->
-				<!-- row -->
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-desktop"></i>
-							<h1>JAVA</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 자바 99기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:홍길동</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 25명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-cog"></i>
-							<h1>빅데이터</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 빅데이터 2기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:장영실</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 20명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-gamepad"></i>
-							<h1>AR/VR</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - AR/VR 17기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:사임당</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 20명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-keyboard-o"></i>
-							<h1>임베디드</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 임베디드 7기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:이순신</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 15명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- row -->
-				<!-- row -->
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-desktop"></i>
-							<h1>JAVA</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 자바 99기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:홍길동</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 25명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-cog"></i>
-							<h1>빅데이터</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 빅데이터 2기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:장영실</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 20명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-gamepad"></i>
-							<h1>AR/VR</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - AR/VR 17기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:사임당</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 20명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-				<!-- weather-4 PANEL -->
-				<div class="col-lg-3 col-md-3 col-sm-3 mb">
-					<a href="adminClassInfo.do">
-						<div class="weather-4 pn-big centered">
-							<i class="fa fa-keyboard-o"></i>
-							<h1>임베디드</h1>
-							<div class="info">
-								<div class="row">
-									<h5 class="centered">클래스:비트캠프 - 임베디드 7기</h5>
-									<h5 class="centered">교육기간:2018.05.28-2018.11.22</h5>
-									<h5 class="centered">강사:이순신</h5>
-									<div class="col-sm-6 col-xs-6 pull-right">
-										<p class="goright">
-											<i class="fa fa-users"></i> 15명
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
 	</section>
 	<!-- /wrapper-low -->
 </section>

@@ -7,9 +7,37 @@
 }
 
 /****민지****/
-#adminMemberSelect{
+.adminMemberSelect{
 	display:inline-block;
 	height: 35px;
 	width: 150px;
 	}
 	
+	
+/* 현이 */
+.memberSearchTextSize {
+    width: 25%;
+    display: inline-block;
+}
+
+.memberSearchBtnDiv {
+	padding-right: 5%;
+	padding-left: 5%;
+}
+	
+.memberSearchBtnDiv select, input {
+	margin-right: 5px;
+}
+
+#adminMemberBtnDiv {
+	margin-top: 20px;
+	text-align: center;
+}
+
+#adminMemberBtnDiv button {
+	margin-right: 5px;
+}
+
+#memberSearchBtn{
+	width: 80px;
+}

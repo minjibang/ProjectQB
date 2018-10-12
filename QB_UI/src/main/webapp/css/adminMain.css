@@ -55,5 +55,32 @@
 	font-weight: 700;
 }
 
+/* 현이 */
+#makeNewClassBtn {
+	margin: 10px;
+}
+
+.classSearchSize {
+	width: 30%;
+	display: inline-block;
+}
+
+#classSearchBtn {
+	width: 10%;
+}
+
+.classSearchBtnDiv {
+	margin-top: 10px;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.classSearchBtnDiv select, input {
+	margin-right: 5px;
+}
+
+.classSearchBtnDiv button {
+	margin-right: 30px;
+}
 
 
