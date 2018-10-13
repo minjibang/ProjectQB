@@ -63,5 +63,12 @@ public class AdminService {
 	}
 	/*민지 10.12 클래스멤버 리스트 관리 끝*/
 
+	/*민지 10.13 클래스 멤버 삭제 관련*/
 	
+	public int classMemberDelete(MemberDto dto) {
+		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
+		int result = dao.classMemberDelete(dto);
+		return result;
+	}
+	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 }

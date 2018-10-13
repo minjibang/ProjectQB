@@ -1,7 +1,9 @@
 package onet.com.vo;
 
 public class MemberDto {
-
+	
+	private String role_desc;
+	private String role_code;
 	private String member_id;
 	private String member_pwd;
 	private String member_email;
@@ -9,6 +11,21 @@ public class MemberDto {
 	private String member_phone;
 	private String class_name;
 	private String member_enable;
+	
+	
+	
+	public String getRole_desc() {
+		return role_desc;
+	}
+	public void setRole_desc(String role_desc) {
+		this.role_desc = role_desc;
+	}
+	public String getRole_code() {
+		return role_code;
+	}
+	public void setRole_code(String role_code) {
+		this.role_code = role_code;
+	}
 	public String getMember_id() {
 		return member_id;
 	}

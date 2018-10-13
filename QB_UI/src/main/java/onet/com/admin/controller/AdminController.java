@@ -91,6 +91,21 @@ public class AdminController {
 	}
 	/*민지 10.12 클래스멤버리스트 관련 끝*/
 
+	
+	
+	/*민지 10.13 클래스 멤버 삭제 관련*/
+		@RequestMapping(value = "adminClassMemberDelete.do", method = RequestMethod.POST)
+		public @ResponseBody String adminClassMemberDelete(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+		{	
+			/*deptService.insertDept(dto);
+			return dto.toString();*/
+			int result = adminService.classMemberDelete(dto);
+			String result2 = String.valueOf(result);
+			return result2;
+			
+		}
+	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
+
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {

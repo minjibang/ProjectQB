@@ -7,7 +7,7 @@ import java.util.Date;
 public class ClassDto {
 	
 	private String class_name;
-	private String member_id;
+	private String teacher_name;
 	private Date class_start_date;
 	private Date class_end_date;
 	private int class_enable;
@@ -18,11 +18,11 @@ public class ClassDto {
 	public void setClass_name(String class_name) {
 		this.class_name = class_name;
 	}
-	public String getMember_id() {
-		return member_id;
+	public String getTeacher_name() {
+		return teacher_name;
 	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setTeacher_name(String teacher_name) {
+		this.teacher_name = teacher_name;
 	}
 	public Date getClass_start_date() {
 		return class_start_date;

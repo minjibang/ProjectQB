@@ -35,6 +35,14 @@
 											</div>
 										</div>
 										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-2">이름</label>
+											<div class="col-lg-10">
+											
+											<input class="form-control" type="text"  name="member_name" maxlength="10" value="" readonly  id="member_name">
+												
+											</div>
+										</div>
+										<div class="form-group ">
 											<label for="cemail" class="control-label col-lg-2">E-Mail</label>
 											<div class="col-lg-10">
 												<input class="form-control" type="email"  name="member_email" maxlength="30" value="" id="member_email">
@@ -50,7 +58,7 @@
 											<label for="ccomment" class="control-label col-lg-2">클래스</label>
 												<div class="col-sm-4 col-xs-4 pull-left">
 												<c:if test="${!empty classList}" >
-													<select class="form-control" id="class_name" name="class_name">
+													<select class="form-control" id="class_name">
 													 <c:forEach var="classList" items="${classList}" varStatus="i">
 														<option value="${classList.class_name}">${classList.class_name}</option>
 													</c:forEach>
@@ -63,7 +71,8 @@
 												설정</label>
 											<div class="col-lg-10">
 												<input type="checkbox" id="agree_s" name="agree" onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
-												&nbsp;&nbsp; <input type="checkbox" id="agree_t"
+												&nbsp;&nbsp; 
+												<input type="checkbox" id="agree_t"
 													name="agree" onclick="oneCheckbox(this)"  value="ROLE_TEACHER"/>강사
 											</div>
 										</div>
@@ -99,9 +108,9 @@
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-10">
 									<button class="btn btn-theme" data-toggle="modal"
-										data-dismiss="modal">Yes</button>
+										data-dismiss="modal" id="classDeleteMemberBtn">확인</button>
 									<button class="btn btn-theme04" type="button"
-										data-dismiss="modal">No</button>
+										data-dismiss="modal">취소</button>
 								</div>
 							</div>
 						</div>
@@ -174,7 +183,7 @@
 														<th class="member_name">${classMemberList.member_name}</th>
 														<th class="member_email">${classMemberList.member_email}</th>
 														<th class="member_phone">${classMemberList.member_phone}</th>
-														<td class="autho">학생</td>
+														<td class="autho">${classMemberList.role_desc}</td>
 													<td>
 													<button  type="button" class="btn btn-info" id="updatebtn" name="updatebtn"
 																data-toggle="modal" data-target="#UpdateModal" value="${classMemberList.member_id}">
@@ -183,8 +192,8 @@
 															</button>
 															
 															<button type="button" class="btn btn-danger"
-																id="deletebtn" data-toggle="modal"
-																data-target="#DeleteModal">
+																id="deletebtn" data-toggle="modal" name="deletebtn"
+																data-target="#DeleteModal" value="${classMemberList.member_id}">
 																<i class="fa fa-trash-o"></i>
 															</button>
 
