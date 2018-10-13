@@ -44,7 +44,7 @@
               </a>
           </li>
 	          <li class="sub-menu">
-	            <a href="${pageContext.request.contextPath}/admin/adminMain.do">
+	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do">
 	              <i class="fa fa-desktop"></i>
 	              <span>클래스 전체 관리</span>
 	             </a>

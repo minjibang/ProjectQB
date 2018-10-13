@@ -6,11 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import onet.com.admin.service.AdminService;
 import onet.com.vo.CategoryDto;
+import onet.com.vo.ClassDto;
+import onet.com.vo.Exam_infoDto;
+
+
 import onet.com.vo.MemberDto;
 
 @Controller
@@ -58,6 +65,52 @@ public class AdminController {
 	/* 영준 10.08 회원관리관련 끝 */
 	
 
+	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
+	@RequestMapping("adminClassInfo.do")
+	public String adminClassInfo(Model model) throws Exception{
+		
+		
+
+		List<ClassDto> classList;
+		classList=adminService.classList();
+		model.addAttribute("classList", classList);
+		
+		
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList();
+		model.addAttribute("classMemberList", classMemberList);
+		return "admin.adminClassInfo";
+	}
+
+	
+	@RequestMapping(value = "adminClassMemberUpdate.do", method = RequestMethod.POST)
+	public @ResponseBody String adminClassMemberUpdate(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+	{	
+		/*deptService.insertDept(dto);
+		return dto.toString();*/
+		int result = adminService.classMemberUpdate(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+		
+	}
+	/*민지 10.12 클래스멤버리스트 관련 끝*/
+
+	
+	
+	/*민지 10.13 클래스 멤버 삭제 관련*/
+		@RequestMapping(value = "adminClassMemberDelete.do", method = RequestMethod.POST)
+		public @ResponseBody String adminClassMemberDelete(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+		{	
+			/*deptService.insertDept(dto);
+			return dto.toString();*/
+			int result = adminService.classMemberDelete(dto);
+			String result2 = String.valueOf(result);
+			return result2;
+			
+		}
+	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
+
+
 	
 	
 	
@@ -80,15 +133,7 @@ public class AdminController {
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
-	
-	
-	@RequestMapping("adminClassInfo.do")
-	public String adminClassInfo() {
 
-		return "common.adminClass.admin.admin.adminClassInfo";
-	}
-	
-	
 	
 	
 	// 관리자 클래스 상세보기  - 공지사항
