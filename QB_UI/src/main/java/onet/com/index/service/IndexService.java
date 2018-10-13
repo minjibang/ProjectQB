@@ -66,10 +66,10 @@ public class IndexService {
 			String randomNum = this.randomNum();
 			String randomPwd = this.randomPwd(); 
 			if (command == "join") {
-				mail.setMailSubject("벨로시티-회원가입 이메일");// 메일제목
+				mail.setMailSubject("이메일 인증");// 메일제목
 				mail.setTemplateName("jointemplate.vm");// 메일내용
 			} else {
-				mail.setMailSubject("벨로시티-로그인실패 이메일");// 메일제목
+				mail.setMailSubject("임시 비밀번호");// 메일제목
 				mail.setTemplateName("logintemplate.vm");// 메일내용
 			}
 

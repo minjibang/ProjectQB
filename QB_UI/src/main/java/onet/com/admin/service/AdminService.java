@@ -40,8 +40,13 @@ public class AdminService {
 		List<MemberDto> result = dao.memberList();
 		return result;
 	}
-
 	/*영준 - 10.10 회원관리 관련 끝 */
-
 	
+	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
+	public String updateMember(MemberDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.updateMember(dto);
+		return result;
+	}
+	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 }
