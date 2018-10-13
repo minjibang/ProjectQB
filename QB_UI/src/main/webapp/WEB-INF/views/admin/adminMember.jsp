@@ -210,7 +210,7 @@
 					</div>
 					<!-- /panel-heading -->
 					<div class="panel-body">
-						<div class="tab-content">
+						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
 							<select id="" name="member_role" class="form-control searchControl">
@@ -289,14 +289,14 @@
 									<!-- /col-md-6 -->
 								</div>
 								<!-- /OVERVIEW -->
-							</div>
+							<!-- </div> -->
 							<!-- /tab-pane -->
-							<div id="contact" class="tab-pane">
+							<!-- <div id="contact" class="tab-pane">
 								<div class="row">
 									<div class="col-md-6">
 										<div id="map"></div>
 									</div>
-									<!-- /col-md-6 -->
+									/col-md-6
 									<div class="col-md-6 detailed">
 										<h4>Location</h4>
 										<div class="col-md-8 col-md-offset-2 mt">
@@ -321,10 +321,10 @@
 											</p>
 										</div>
 									</div>
-									<!-- /col-md-6 -->
+									/col-md-6
 								</div>
-								<!-- /row -->
-							</div>
+								/row
+							</div> -->
 
 						</div>
 						<!-- /tab-content -->

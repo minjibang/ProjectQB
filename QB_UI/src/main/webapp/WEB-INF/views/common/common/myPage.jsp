@@ -1,15 +1,20 @@
+<%-- 
+	@JSP:myPage.jsp
+	@DATE:
+	@Author:김현이
+	@Desc:마이페이지(스토리보드 12,13,14 of 41)
+ --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  
-    <!-- **********************************************************************************************************************************************************
-        MAIN CONTENT
-        *********************************************************************************************************************************************************** -->
-    <!--main content start-->
+
+<link href="${pageContext.request.contextPath}/css/myPage.css" rel="stylesheet">
+
  <section id="main-content">
-      <section class="wrapper site-min-height">
+      <section class="wrapper">
         <div class="row mt">
-          <div class="col-lg-12 mt">
+          <div class="col-lg-12">
             <div class="row content-panel">
               <div class="panel-heading">
                 <ul class="nav nav-tabs nav-justified">
@@ -36,7 +41,16 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">비밀번호</label>
+                            <label class="col-lg-3 control-label">기존 비밀번호</label>
+                            <div class="col-lg-8">
+                              <input type="password" placeholder="password" class="form-control">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-3 control-label">비밀번호 변경
+                             <input type="checkbox" class="ez-checkbox" id="passwordChangeChk" style="height: auto">
+                            </label>
+                           
                             <div class="col-lg-8">
                               <input type="password" placeholder="password" class="form-control">
                             </div>
@@ -63,20 +77,16 @@
                             <label class="col-lg-3 control-label"><p style="display: inline-block">이메일 변경</p>
                               <input type="checkbox" class="ez-checkbox" id="emailChangeChk" style="height: auto">
                             </label>
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                   <input type="text" placeholder="email" class="form-control inlineTextField">
-                            </div>
-                            <div class="col-lg-2 inlineTextFieldBtn">
-                                <button class="btn btn-theme" type="button" id="emailCodeRquestBtn">인증번호 요청</button> 
+                                  <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeRquestBtn">인증번호 요청</button> 
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">인증번호</label>
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                   <input type="text" placeholder="인증번호" class="form-control inlineTextField">
-                            </div>
-                            <div class="col-lg-2 inlineTextFieldBtn">
-                                <button class="btn btn-theme" type="button" id="emailCodeCheckBtn">인증번호 확인</button> 
+                                  <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeCheckBtn">인증번호 확인</button>
                             </div>
                           </div>
                           <div class="form-group">
@@ -105,12 +115,6 @@
                           </div>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호</label>
-                            <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control">
-                            </div>
-                          </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">비밀번호 확인</label>
                             <div class="col-lg-8">
                               <input type="password" placeholder="password" class="form-control">
                             </div>
