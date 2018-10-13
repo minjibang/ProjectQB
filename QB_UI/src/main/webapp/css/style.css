@@ -82,6 +82,8 @@ body {
 	padding: 0px !important;
 	margin: 0px !important;
 	font-size: 13px;
+	
+	overflow-y: scroll;   /* 현이 10.13 화면에 계속해서 스크롤 띄우기 */
 }
 
 ul li {
@@ -3750,3 +3752,6 @@ ul.chat-available-user li a:hover {
 	padding-right: 10%;
 }
 /* 현이 mypage css */
+
+
+
