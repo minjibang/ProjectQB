@@ -83,7 +83,7 @@
 											<b>다음 설명 중 옳지 않은 것은?</b><br> <br>
 											<div class="questionImgDiv">
 												<img
-													src="C:\Users\bituser\Desktop\img\questionSampleImg.jpg"
+													src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
 													alt="questionImg" class="questionImg">
 												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 											</div>
