@@ -1,5 +1,6 @@
 package onet.com.admin.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.Exam_infoDto;
+
+
 import onet.com.vo.MemberDto;
-import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -61,6 +64,7 @@ public class AdminController {
 	}
 	/* 영준 10.08 회원관리관련 끝 */
 	
+
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
 	public String adminClassInfo(Model model) throws Exception{
@@ -106,6 +110,13 @@ public class AdminController {
 		}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
+
+	
+	
+	
+	
+	
+	
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {

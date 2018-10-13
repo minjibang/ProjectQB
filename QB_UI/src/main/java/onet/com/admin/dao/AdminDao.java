@@ -16,12 +16,9 @@ public interface AdminDao {
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList();
-	public void getMember(MemberDto member);
-	public void insertMember(MemberDto member);
-	public void updateMember(MemberDto member);
-	public void deleteMember(String member_id);
 	/* 영준 - 10.10 회원관리 관련 끝 */
 	
+
 	/*민지 10.12 클래스멤버리스트 관련*/
 	public List<MemberDto> classMemberList();
 	
@@ -35,5 +32,10 @@ public interface AdminDao {
 	public int classMemberDelete(MemberDto dto);
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 	
+
+	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
+	public String updateMember(MemberDto member);
+	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
+
 }
 

@@ -199,7 +199,6 @@
 					<!-- 선택 회원 일괄 삭제 Modal 끝 -->
 				</div>
 				
-				
 				<!-- <div class="showback"> -->
 				<div class="row content-panel">
 					<div class="panel-heading">
@@ -208,38 +207,34 @@
 								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;회원 관리
 							</h4>
 						</header>
-						<div class="row memberSearchBtnDiv">
+					</div>
+					<!-- /panel-heading -->
+					<div class="panel-body">
+						<!-- <div class="tab-content"> -->
+							<div class="row searchRowDiv">
 							<!-- selectBox -->
-							<select id="" name="member_role" class="form-control adminMemberSelect">
+							<select id="" name="member_role" class="form-control searchControl">
 								<option value="">회원 권한 선택</option>
 								<option value="student">학생</option>
 								<option value="teacher">강사</option>
 								<option value="member">일반회원</option>
 							</select> 
-							<select id="" name="class" class="form-control adminMemberSelect">
+							<select id="" name="class" class="form-control searchControl">
 								<option value="">클래스 선택</option>
 								<option value="java109">자바 109기</option>
 								<option value="python110">파이썬 110기</option>
 								<option value="arduino111">아두이노 111기</option>
 							</select>
 							
-							<select id="" name="member" class="form-control adminMemberSelect">
+							<select id="" name="member" class="form-control searchControl">
 								<option value="">개인정보 선택</option>
 								<option value="member_name">이름</option>
 								<option value="member_id">아이디</option>
 								<option value="member_email">이메일</option>
 							</select>
-							<input type="text" class="form-control memberSearchTextSize" placeholder="검색어를 입력">
+							<input type="text" class="form-control searchControl" placeholder="검색어를 입력">
 							<button class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
-								
 						</div>
-					</div>
-					
-
-					<!-- /panel-heading -->
-					<div class="panel-body">
-						<div class="tab-content">
-							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
 										<table id="adminMember_table" class="display">
@@ -294,14 +289,14 @@
 									<!-- /col-md-6 -->
 								</div>
 								<!-- /OVERVIEW -->
-							</div>
+							<!-- </div> -->
 							<!-- /tab-pane -->
-							<div id="contact" class="tab-pane">
+							<!-- <div id="contact" class="tab-pane">
 								<div class="row">
 									<div class="col-md-6">
 										<div id="map"></div>
 									</div>
-									<!-- /col-md-6 -->
+									/col-md-6
 									<div class="col-md-6 detailed">
 										<h4>Location</h4>
 										<div class="col-md-8 col-md-offset-2 mt">
@@ -326,10 +321,10 @@
 											</p>
 										</div>
 									</div>
-									<!-- /col-md-6 -->
+									/col-md-6
 								</div>
-								<!-- /row -->
-							</div>
+								/row
+							</div> -->
 
 						</div>
 						<!-- /tab-content -->

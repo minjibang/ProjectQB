@@ -20,11 +20,11 @@
 <!--main content start-->
 
 <section id="main-content">
-	<section class="wrapper site-min-height">
+	<section class="wrapper">
 		<div class="row mt">
-			<div class="col-lg-12"></div>
+			<!-- <div class="col-lg-12"></div> -->
 			<!-- /col-lg-12 -->
-			<div class="col-lg-12 mt">
+			<div class="col-lg-12">
 				<div class="row content-panel div_table">
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
@@ -54,7 +54,7 @@
 												<td class="">
 												<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" 
 													class="img-thumbnail" width="150px;"></td>
-												<td class="exam_paper_name" width="70%"><h4><strong>JAVA의 기본</strong></h4>
+												<td class="exam_paper_name"><h4><strong>JAVA의 기본</strong></h4>
 												<p>변수|배열|FOR문|IF문</p></td>
 												<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
 													<img src="../img/file-download.png"></a></h5>

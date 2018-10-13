@@ -12,7 +12,8 @@ function oneCheckFunc( obj )
 	if( $(obj).prop("checked") )
 	{
 		checkBoxLength = $("[name="+ objName +"]").length;
-		checkedLength = $("[name="+ objName +"]:checked").length;
+		checkedLength = $("[name="+ objName +"]:checked")
+		.length;
 
 		if( checkBoxLength == checkedLength ) {
 			allObj.prop("checked", true);
@@ -37,3 +38,14 @@ $(function(){
 		});
 	});
 });
+
+
+/* 회원정보 수정 시작 */
+$(function(){
+	$('#updatebtn').click(function(){
+		
+		
+		
+		
+	}); // updatebtn 끝
+}); // function 끝
