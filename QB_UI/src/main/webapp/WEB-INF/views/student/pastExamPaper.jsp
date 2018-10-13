@@ -157,6 +157,13 @@
 	position: absolute;
 	left: 8px;
 }
+
+/* 현이 제출 버튼 우측으로 정렬 */
+.pastExamRowDiv {
+	margin: 30px;
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -866,7 +873,9 @@
 								</table>
 							</div>
 							</div>
-							<button class="btn btn-large btn-primary exampaneldetailBtn">제출하기</button>
+							<div class="row pastExamRowDiv">
+								<button class="btn btn-theme btn-primary exampaneldetailBtn">제출하기</button>
+							</div>
 						</div>
 
 				</div>
