@@ -37,8 +37,12 @@ public class StudentController {
 	
 	// 학생 notice 관련
 	@RequestMapping("studentMain.do")
-	public String studentMain() {
-
+	public String studentMain(Model model) {
+		List<NoticeDto> notice = commonService.teacher_student_Main();
+		model.addAttribute("notice", notice);
+		List<Exam_infoDto> exam_info = commonService.exam_info();
+		model.addAttribute("exam_info", exam_info);
+		
 		return "common.student.notice.notice";
 	}
 
@@ -63,7 +67,12 @@ public class StudentController {
 	@RequestMapping("pastExamPaper.do")
 	public String pastExamPaper() {
 
-		return "redirect:/WEB-INF/views/student/pastExamPaper.jsp";
+		return "exam.student.pastExamPaper";
+	}
+	@RequestMapping("examPaperDo.do")
+	public String examPaperDo() {
+
+		return "exam.student.examPaperDo";
 	}
 	/* 한결 18.10.10 메인페이지 끝 */
 
@@ -85,6 +94,13 @@ public class StudentController {
 		return "common.student.common.myPage";
 	}
 	/* 현이 18.10.09 학생 마이페이지 끝 */
+	
+	
+	@RequestMapping("myMessage.do")
+	public String myMessage() {
+
+		return "common.admin.common.myPage";
+	}
 
 
 

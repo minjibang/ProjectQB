@@ -62,26 +62,24 @@
 
 		</div>
 	</div>
-</div>
+</div><!-- 쪽지보기 모달창 끝 -->
+
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="row mt">
-			<div class="col-lg-12">
-				<!-- /col-lg-12 -->
-				<div class="col-lg-12 mt">
-					<div class="row content-panel messagepanel">
-						<div class="panel-heading">
-							<ul class="nav nav-tabs nav-justified">
-								<li class="active"><a data-toggle="tab" href="#overview">받은
-										쪽지</a></li>
-								<li><a data-toggle="tab" href="#sendMessagetab"
-									class="contact-map">보낸 쪽지</a></li>
-								<li><a data-toggle="tab" href="#contact">새 쪽지</a></li>
+		<div class="col-lg-12 mt">
+			<div class="row content-panel">
+					<div class="panel-heading">
+						<ul class="nav nav-tabs nav-justified">
+							<li class="active"><a data-toggle="tab" href="#overview">받은
+								쪽지</a></li>
+							<li><a data-toggle="tab" href="#sendMessagetab"
+								class="contact-map">보낸 쪽지</a></li>
+							<li><a data-toggle="tab" href="#contact">새 쪽지</a></li>
 
-							</ul>
-						</div>
-						<!-- /panel-heading -->
-						<div class="panel-body">
+						</ul>
+					</div><!-- /panel-heading -->
+					
+					<div class="panel-body">
 							<div class="tab-content">
 							<!-- 받은 쪽지함 -->
 								<div id="overview" class="tab-pane active">
@@ -536,15 +534,8 @@
 							<!-- /tab-content -->
 						</div>
 						<!-- /panel-body -->
-					</div>
-					<!-- /col-lg-12 -->
-				</div>
-				<!-- /row -->
-			</div>
-		</div>
-
-		<!-- /container -->
-	</section>
-	<!-- /wrapper -->
-</section>
-<!-- /MAIN CONTENT -->
+					
+			</div><!-- row content-panel -->
+		</div><!-- col-lg-12 mt -->
+	</section><!-- wrapper site-min-height -->
+</section><!-- main-content -->

@@ -82,6 +82,8 @@ body {
 	padding: 0px !important;
 	margin: 0px !important;
 	font-size: 13px;
+	
+	overflow-y: scroll;   /* 현이 10.13 화면에 계속해서 스크롤 띄우기 */
 }
 
 ul li {
@@ -3729,24 +3731,3 @@ ul.chat-available-user li a:hover {
 #copyrights a {
 	color: #fff;
 }
-
-/* 현이 mypage css */
-.inlineTextField {
-	display: inline;
-	width: 100%;
-}
-
-.inlineTextFieldBtn {
-	text-align: right;
-}
-
-.infoBtnDiv {
-	text-align: center;
-	margin-top: 20px;
-}
-
-.formArrayHyunyi {
-	padding-left: 15%;
-	padding-right: 10%;
-}
-/* 현이 mypage css */

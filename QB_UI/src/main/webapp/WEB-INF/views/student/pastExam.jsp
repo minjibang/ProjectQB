@@ -21,11 +21,11 @@
 	rel="stylesheet">
 <!-- 학생 - 지난 시험 보기-->
 <section id="main-content">
-	<section class="wrapper site-min-height">
-
-		<div class="col-lg-12"></div>
+	<section class="wrapper">
+		<div class="row mt">
+		<!-- <div class="col-lg-12"></div> -->
 		<!-- /col-lg-12 -->
-		<div class="col-lg-12 mt">
+		<div class="col-lg-12">
 			<div class="row content-panel">
 				<!-- /panel-heading -->
 				<div class="panel-body">
@@ -39,7 +39,7 @@
 								<td class="title_table_scd_td">
 									<div class="search_box">
 										<input type="text" class="form-control" id="search_input" placeholder="키워드를 입력하세요.">
-										<button class="exam_rewind btn btn-theme">검색</button>
+										<button class="exam_rewind btn btn-theme" id="pastExamSearchBtn">검색</button>
 									</div>
 								</td>
 							</tr>
@@ -234,6 +234,8 @@
 		</div>
 		<!-- /container -->
 		<!-- /col-lg-12 -->
+		
+		</div>
 	</section>
 	<!-- /wrapper -->
 </section>

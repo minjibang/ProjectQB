@@ -18,36 +18,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
 
-<!-- 영준 - 10.10 회원관리 전체조회 시작 -->
+<!-- 영준 - 10.10 회원관리 관련 시작 -->
 <select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
 	select class_name, member_id, member_name, member_email,
 	member_phone, member_enable from member
 </select>
-<!-- 영준 - 10.10 회원관리 전체조회 끝 -->
-<!-- 영준 - 10.12 회원관리 회원선택 시작 -->
-<select id="getMember" parameterType="String">
-	select class_name, member_id, member_name, member_email,
-		   member_phone, member_enable 
-	from member
-	where member_id=${member_id}
-	
+
+
+<!-- 영준 - 10.10 회원관리 관련 끝 -->
+
+
+<!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
+<select id="classMemberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
+	select m.class_name, m.member_id, m.member_name, m.member_email,
+	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r where m.class_name='java 109' and m.member_id=mr.member_id and mr.role_code =r.role_code
 </select>
-<!-- 영준 - 10.12 회원관리 회원선택 끝 -->
 
-<!-- 영준 - 10.12 회원관리 등록 시작 -->
-<insert id="insertMember" parameterType="String" 
+<select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
+	select class_name, teacher_name, class_start_date,class_end_date,class_enable
+	 from class
+</select>
+<!-- 클래스 멤버 수정 -->
+ <update id="classMemberUpdate" parameterType="onet.com.vo.MemberDto">
+ UPDATE member m, member_role mr SET m.member_email=#{member_email}, m.member_phone=#{member_phone}, m.class_name=#{class_name}, mr.role_code=#{role_code} where m.member_id=#{member_id} and mr.member_id=#{member_id}
+ </update>
+
+<!-- 민지 10.12 클래스멤버리스트 관련 끝 -->
+
+<!-- 영준 - 10.10 회원관리 전체조회 끝 -->
+
+<!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
+<!-- <update id="updateMember" parameterType="onet.com.vo.MemberDto"
 		useGeneratedKeys="true" keyProperty="member_id">
-	insert into member (member_id)
-	values (${member_id})
-</insert>
-<!-- 영준 - 10.12 회원관리 등록 끝 -->
+	update member
+	set member_name=${member_name}, member_email=${member_email}, 
+	member_phone=${member_phone}, class_name=${class_name},
+	 member_enable=${member_enable}
+	where member_id=${member_id}
+</update> -->
+<!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
-<update id="updateMember" parameterType="onet.com.vo.MemberDto">
 
+
+<!-- 민지 10.13 클래스 멤버 삭제 관련 -->
+ <update id="classMemberDelete" parameterType="onet.com.vo.MemberDto">
+ UPDATE member m, member_role mr SET m.class_name='no_class', mr.role_code='ROLE_MEMBER' where m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
-
-<delete id="deleteMember" parameterType="onet.com.vo.MemberDto">
-
-</delete>
-
+<!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
 </mapper>

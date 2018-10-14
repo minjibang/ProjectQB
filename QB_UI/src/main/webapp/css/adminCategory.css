@@ -1,19 +1,13 @@
 @charset "UTF-8";
 
-#main-content {
-	padding: 100px;
-}
-
 .table_heading {
-	padding: 25px;
-	background-color: #60EEEE;
+	padding: 15px;
+	background-color: #4ECDC4;
+	color:#FFF;
 }
 
 button.add {
 	float: right;
-	right: 15px;
-	margin-left: 10px;
-	margin-right: 10px;
 	margin-bottom: 10px;
 }
 

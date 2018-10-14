@@ -56,31 +56,30 @@
 }
 
 /* 현이 */
-#makeNewClassBtn {
-	margin: 10px;
+.searchRowDiv {
+	margin-bottom: 10px;
+    margin-top: -10px;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
-.classSearchSize {
-	width: 30%;
+.searchRightBtnDiv {
 	display: inline-block;
-}
-
-#classSearchBtn {
-	width: 10%;
-}
-
-.classSearchBtnDiv {
-	margin-top: 10px;
-	text-align: right;
-	padding-right: 5px;
-}
-
-.classSearchBtnDiv select, input {
+	width: 30%;
 	margin-right: 5px;
 }
 
-.classSearchBtnDiv button {
-	margin-right: 30px;
+.searchRowRightDiv {
+	text-align: right;
+}
+
+#makeNewClassBtn {
+	width: 50%;
+}
+
+#classSearchBtn {
+	width: 15%;
+	margin-bottom: 5px;
 }
 
 

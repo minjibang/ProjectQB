@@ -15,18 +15,22 @@
 	
 	
 /* 현이 */
-.memberSearchTextSize {
-    width: 25%;
-    display: inline-block;
+.searchControl {
+	display: inline-block;
+	width: 20%;
 }
 
-.memberSearchBtnDiv {
-	padding-right: 5%;
-	padding-left: 5%;
+.searchRowDiv {
+	padding-left: 3%;
+	padding-right: 3%;
+	text-align: center;
+	margin-bottom: 10px;
+    margin-top: -10px;
 }
-	
-.memberSearchBtnDiv select, input {
-	margin-right: 5px;
+
+#memberSearchBtn{
+	width: 15%;
+	margin-bottom: 5px;
 }
 
 #adminMemberBtnDiv {
@@ -36,8 +40,4 @@
 
 #adminMemberBtnDiv button {
 	margin-right: 5px;
-}
-
-#memberSearchBtn{
-	width: 80px;
 }

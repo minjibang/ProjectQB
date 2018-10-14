@@ -20,9 +20,6 @@
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-
-			<div class="col-lg-12"></div>
-				<!-- /col-lg-12 -->
 				<div class="col-lg-12 mt">
 					<div class="row content-panel">
 						<div class="panel-heading">
@@ -33,6 +30,7 @@
 									class="contact-map">새 문제 만들기</a></li>
 							</ul>
 						</div>
+						
 						<!-- /panel-heading -->
 						<div class="panel-body">
 							<div class="tab-content">
@@ -96,9 +94,9 @@
 													<!-- value에 문제고유번호 들어간다 -->
 												</div>
 												<div class="col-lg-2 myQuestionCategory">
-													Java<br> <br> 메서드와 변수<br> <br> 난이도: 중<br>
-													<br> 정답:3<br> <br> 정답률:72%<br> <br>
-													출제자:서정원<br> <br>
+													Java <br> 메서드와 변수 <br> 난이도: 중
+													<br> 정답:3<br>  정답률:72%<br> 
+													출제자:서정원<br> 
 												</div>
 												<div class="col-lg-3 myQuestionFont">
 													<div>
@@ -109,7 +107,7 @@
 														class="myQuestionImg"> <br>
 
 												</div>
-												<div class="col-lg-4 myQuestionFont">
+												<div class="col-lg-5 myQuestionFont">
 													<div>
 														<b>보기 : </b>
 													</div>
@@ -120,7 +118,7 @@
 
 
 												</div>
-												<div class="col-lg-2 btnUpDe">
+												<div class="col-lg-1 btnUpDe">
 													<br> <br>
 													<a href="questionUpdate.do"><button type="button" class="btn btn-theme">수정</button></a>
 													&nbsp;&nbsp;
@@ -141,9 +139,9 @@
 														<!-- value에 문제고유번호 들어간다 -->
 													</div>
 													<div class="col-lg-2 myQuestionCategory">
-														Java<br> <br> 메서드와 변수<br> <br> 난이도: 중<br>
-														<br> 정답:3<br> <br> 정답률:72%<br> <br>
-														출제자:서정원<br> <br>
+														Java<br> 메서드와 변수<br>  난이도: 중<br>
+														정답:3<br> 정답률:72%<br> 
+														출제자:서정원<br>
 													</div>
 													<div class="col-lg-3 myQuestionFont">
 														<div>
@@ -154,7 +152,7 @@
 															class="myQuestionImg"> <br>
 
 													</div>
-													<div class="col-lg-4 myQuestionFont">
+													<div class="col-lg-5 myQuestionFont">
 														<div>
 															<b>보기 : </b>
 														</div>
@@ -165,7 +163,7 @@
 
 
 													</div>
-													<div class="col-lg-2 btnUpDe">
+													<div class="col-lg-1 btnUpDe">
 														<br> <br>
 														<a href="questionUpdate.do"><button type="button" class="btn btn-theme">수정</button></a>
 														&nbsp;&nbsp;

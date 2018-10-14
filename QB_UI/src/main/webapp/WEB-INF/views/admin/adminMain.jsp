@@ -22,88 +22,93 @@
 			<!--  DATE PICKERS -->
 			<div class="col-lg-12">
 				<!--  MODALS -->
-				<div class="showback">
-					<div class="row">
-						<div class="col-lg-3">
-							<button class="btn btn-theme" data-toggle="modal" data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
-						</div>
-						<div class="col-lg-9 classSearchBtnDiv">
-							<select class="form-control classSearchSize">
-								<option>클래스명</option>
-								<option>강사</option>
-								<option>교육과목</option>
-							</select> 
-							<input type="text" class="form-control classSearchSize" placeholder="검색어를 입력">
-							<button class="btn btn-theme" id="classSearchBtn">검색</button>
-						</div>
-					</div>
-
-					<!-- Modal -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">클래스 개설</h4>
-								</div>
-
-								<div class="modal-body">
-
-									<div class="form-panel">
-										<form action="#" class="form-horizontal style-form">
-											<div class="form-group">
-												<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control"
-														placeholder="클래스 명을 입력해주세요.">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-sm-2 col-sm-2 control-label">수강기간</label>
-												<div class="col-md-10">
-													<div class="input-group input-large" data-date="01/01/2014"
-														data-date-format="mm/dd/yyyy">
-														<input type="text" class="form-control dpd1" name="from">
-														<span class="input-group-addon"> 에서 </span> <input
-															type="text" class="form-control dpd2" name="to">
-													</div>
-													<span class="help-block">기간을 선택하세요.</span>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-sm-2 col-sm-2 control-label">강사명</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control"
-														placeholder="강사님 이름을 입력해주세요.">
-												</div>
-											</div>
-										</form>
-										<!-- /form-panel -->
-									</div>
-									<!-- /col-lg-12 -->
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary">생성</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<!-- 	<div class="showback">
+					
+				</div> -->
 				<!-- /showback -->
 
 
-				<div class="content-panel">
-					<div class="panel-body">
-
+				<div class="row content-panel">
+					<div class="panel-heading">
 						<header class="panel-heading wht-bg">
 							<h4 class="gen-case">
 								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;강의 목록
 							</h4>
 						</header>
+
+					</div>
+					<div class="panel-body">
+						<div class="row searchRowDiv">
+							<div class="col-lg-4">
+								<button class="btn btn-theme" data-toggle="modal"
+									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
+							</div>
+							<div class="col-lg-8 searchRowRightDiv">
+								<select class="form-control searchRightBtnDiv">
+									<option>클래스명</option>
+									<option>강사</option>
+									<option>교육과목</option>
+								</select> <input type="text" class="form-control searchRightBtnDiv"
+									placeholder="검색어를 입력">
+								<button class="btn btn-theme searchRightBtnDiv" id="classSearchBtn">검색</button>
+							</div>
+						</div>
+
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="myModalLabel">클래스 개설</h4>
+									</div>
+
+									<div class="modal-body">
+
+										<div class="form-panel">
+											<form action="#" class="form-horizontal style-form">
+												<div class="form-group">
+													<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control"
+															placeholder="클래스 명을 입력해주세요.">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 col-sm-2 control-label">수강기간</label>
+													<div class="col-md-10">
+														<div class="input-group input-large"
+															data-date="01/01/2014" data-date-format="mm/dd/yyyy">
+															<input type="text" class="form-control dpd1" name="from">
+															<span class="input-group-addon"> 에서 </span> <input
+																type="text" class="form-control dpd2" name="to">
+														</div>
+														<span class="help-block">기간을 선택하세요.</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 col-sm-2 control-label">강사명</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control"
+															placeholder="강사님 이름을 입력해주세요.">
+													</div>
+												</div>
+											</form>
+											<!-- /form-panel -->
+										</div>
+										<!-- /col-lg-12 -->
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-primary">생성</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div class="row mt">
 							<div class="col-lg-12">
 								<!-- weather-4 PANEL -->
