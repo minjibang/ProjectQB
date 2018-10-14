@@ -28,7 +28,7 @@
 							<!-- page start-->
 							<div id="chartjs">
 								<div class="row mt">
-									<div class="col-md-offset-1 col-md-5">
+									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
 												<i class="fa fa-angle-right"></i> 각 시험 성적
@@ -38,7 +38,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-5">
+									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
 												<i class="fa fa-angle-right"></i> 반/학생 평균 비교
@@ -47,30 +47,35 @@
 												<canvas id="studentLine" height="300" width="400"></canvas>
 											</div>
 										</div>
-										<div class="content-panel-lightgray">
-											<h4>
-												<i class="fa fa-angle-right"></i> 등수 보기
-											</h4>
-											<div class="btn-group pull-right">
-												<button type="button"
-													class="btn btn-theme-right dropdown-toggle"
-													data-toggle="dropdown">
-													시험 목록 <span class="caret"></span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li><a href="#">Java</a></li>
-													<li><a href="#">Oracle</a></li>
-													<li><a href="#">Web</a></li>
-													<li><a href="#">Spring</a></li>
-												</ul>
-											</div>
-											<div class="panel-body">
-												<h1>
-													나의 등수는? <b>2등</b>
-												</h1>
+										
+									</div>
+									
+									<div class="col-lg-12">
+											<div class="content-panel-lightgray">
+												<h4>
+													<i class="fa fa-angle-right"></i> 나의 등수 보기
+												</h4>
+												<div class="btn-group pull-right">
+													<button type="button"
+														class="btn btn-theme-right dropdown-toggle"
+														data-toggle="dropdown">
+														시험 별 나의 등수 확인 <span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu" role="menu">
+														<li><a href="#">Java</a></li>
+														<li><a href="#">Oracle</a></li>
+														<li><a href="#">Web</a></li>
+														<li><a href="#">Spring</a></li>
+													</ul>
+												</div>
+												<div class="panel-body">
+													<h3>
+														<b>현재 ___님의 ___ 시험 등수는 __등 입니다.</b>
+													</h3>
+												</div>
 											</div>
 										</div>
-									</div>
+										
 								</div>
 							</div>
 						</div>
