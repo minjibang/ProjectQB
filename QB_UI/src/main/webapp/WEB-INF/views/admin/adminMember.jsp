@@ -21,6 +21,7 @@
 				<!-- 모달창 -->
 				<!-- UpdateModal -->
 				<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
+<<<<<<< .merge_file_a10016
 					aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -112,6 +113,88 @@
 					</div>
 					<!-- UpdateModal 끝 -->
 				</div>
+=======
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">정보 수정</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-panel">
+								<div class=" form">
+									<form class="cmxform form-horizontal style-form"
+										id="commentForm" method="get" action="">
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-2">ID</label>
+											<div class="col-lg-10">
+											
+											<input class="form-control" type="text"  name="member_id" maxlength="10" value="" readonly  id="member_id">
+												
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-2">이름</label>
+											<div class="col-lg-10">
+											
+											<input class="form-control" type="text"  name="member_name" maxlength="10" value="" readonly  id="member_name">
+												
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cemail" class="control-label col-lg-2">E-Mail</label>
+											<div class="col-lg-10">
+												<input class="form-control" type="email"  name="member_email" maxlength="30" value="" id="member_email">
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="curl" class="control-label col-lg-2">핸드폰</label>
+											<div class="col-lg-10">
+												<input class="form-control" type="text"  name="member_phone" maxlength="15" value=""id="member_phone" >
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="ccomment" class="control-label col-lg-2">클래스</label>
+												<div class="col-sm-4 col-xs-4 pull-left">
+												<c:if test="${!empty classList}" >
+													<select class="form-control" id="class_name">
+													 <c:forEach var="classList" items="${classList}" varStatus="i">
+														<option value="${classList.class_name}">${classList.class_name}</option>
+													</c:forEach>
+													</select>
+												</c:if>
+												</div>
+											</div>
+										<div class="form-group ">
+											<label for="curl" class="control-label col-lg-2">권한
+												설정</label>
+											<div class="col-lg-10">
+												<input type="checkbox" id="agree_s" name="agree" onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
+												&nbsp;&nbsp; 
+												<input type="checkbox" id="agree_t"
+													name="agree" onclick="oneCheckbox(this)"  value="ROLE_TEACHER"/>강사
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div class="form-group">
+												<div class="col-lg-offset-2 col-lg-10">
+													<button class="btn btn-theme" type="button" id="updateMemberBtn">수정</button>
+													<button class="btn btn-theme04" type="button"
+														data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+>>>>>>> .merge_file_a08204
 				<!-- DeleteModal -->
 				<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
@@ -213,6 +296,7 @@
 						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
+<<<<<<< .merge_file_a10016
 							<select id="" name="member_role" class="form-control searchControl">
 								<option value="">회원 권한 선택</option>
 								<option value="student">학생</option>
@@ -231,6 +315,27 @@
 								<option value="member_name">이름</option>
 								<option value="member_id">아이디</option>
 								<option value="member_email">이메일</option>
+=======
+							<select id="member_role" name="member_role" class="form-control searchControl">
+								<option value="${role_code}">회원 권한 선택</option>
+								<option value="${role_student}">학생</option>
+								<option value="${role_teacher}">강사</option>
+								<option value="${role_member}">일반회원</option>
+							</select> 
+							<select id="class_name" name="class_name" class="form-control searchControl">
+								<option value="">클래스 선택</option>
+								<option value="${class_name}">java 109</option>
+								<option value="${class_name}">window 108</option>
+								<option value="${class_name}">no_class</option>
+						
+							</select>
+							
+							<select id="member" name="member" class="form-control searchControl">
+								<option value="">개인정보 선택</option>
+								<option value="${member_name}">이름</option>
+								<option value="${member_id}">아이디</option>
+								<option value="${member_email}">이메일</option>
+>>>>>>> .merge_file_a08204
 							</select>
 							<input type="text" class="form-control searchControl" placeholder="검색어를 입력">
 							<button class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
@@ -263,6 +368,7 @@
 														<td class="member_phone">${memberList.member_phone}</td>
 														<td class="member_enable">${memberList.member_enable}</td>
 														<td><button type="button" class="btn btn-info"
+<<<<<<< .merge_file_a10016
 																id="updatebtn" data-toggle="modal"
 																data-target="#UpdateModal">
 																<i class="fa fa-pencil"> </i>
@@ -270,6 +376,15 @@
 															<button type="button" class="btn btn-danger"
 																id="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal">
+=======
+																id="updatebtn" name="updatebtn" data-toggle="modal"
+																data-target="#UpdateModal" value="${memberList.member_id}">
+																<i class="fa fa-pencil"> </i>
+															</button>
+															<button type="button" class="btn btn-danger"
+																id="deletebtn" name="deletebtn" data-toggle="modal"
+																data-target="#DeleteModal" value="${memberList.member_id}">
+>>>>>>> .merge_file_a08204
 																<i class="fa fa-trash-o"></i>
 															</button></td>
 													</tr>
@@ -277,6 +392,10 @@
 											</tbody>
 										</table>
 										<div id="adminMemberBtnDiv">
+<<<<<<< .merge_file_a10016
+=======
+											
+>>>>>>> .merge_file_a08204
 											<button class="insert-member btn btn-theme"
 													id="insertbtn" data-toggle="modal"
 													data-target="#InsertMemberModal">선택 회원 일괄

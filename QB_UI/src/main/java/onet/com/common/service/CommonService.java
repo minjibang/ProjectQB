@@ -11,8 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.admin.dao.AdminDao;
 import onet.com.common.dao.CommonDao;
-import onet.com.teacher.dao.TeacherDao;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -40,6 +41,7 @@ public class CommonService {
 
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
 	
+<<<<<<< .merge_file_a07808
 	/*양회준 - 10.15 내정보 시작 */
 	//내정보 보기
 	public MemberDto myPageInfo(String member_id) {
@@ -64,4 +66,8 @@ public class CommonService {
 		return "redirect:myPage.do";
 	}
 	/*양회준 - 10.15 내정보 끝 */
+=======
+
+	
+>>>>>>> .merge_file_a09212
 }

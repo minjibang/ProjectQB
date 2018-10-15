@@ -1,8 +1,11 @@
 package onet.com.admin.controller;
 
+<<<<<<< .merge_file_a04504
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+=======
+>>>>>>> .merge_file_a06520
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-import onet.com.vo.Exam_infoDto;
-
-
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 
@@ -76,9 +76,19 @@ public class AdminController {
 		model.addAttribute("memberList", memberList);
 		return "admin.adminMember";
 	}
-	/* 영준 10.08 회원관리관련 끝 */
 	
+	
+	@RequestMapping(value="adminMemberUpdate.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberUpdate(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+	{	
+		int result = adminService.updateMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+		
+	}
 
+	/* 영준 10. 회원관리관련 끝 */
+	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
 	public String adminClassInfo(Model model) throws Exception{
@@ -124,6 +134,17 @@ public class AdminController {
 		}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
+<<<<<<< .merge_file_a04504
+=======
+
+	/*현이 18.10.09 관리자 마이페이지 시작*/
+	@RequestMapping("myPage.do")
+	public String mypage() {
+
+		return "common.admin.common.myPage";
+	}
+	/*현이 18.10.09 관리자 마이페이지 끝*/
+>>>>>>> .merge_file_a06520
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
@@ -177,11 +198,13 @@ public class AdminController {
 	}  
 	
 	@RequestMapping("examManagement.do")
-	public String examManagement(){
+	public String examManagement(Model model) throws Exception{
+		List<ExamPaperDto> examPaperList;
+		examPaperList = adminService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
-	
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 
