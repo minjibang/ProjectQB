@@ -7,9 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.service.TeacherService;
+import onet.com.vo.CategoryDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 @Controller
 @RequestMapping("/teacher/")
@@ -17,6 +22,10 @@ public class TeacherController {
 
 	@Autowired
 	private CommonService commonService;
+	@Autowired
+	private AdminService adminService;
+	@Autowired
+	private TeacherService teacherService;
 	
 	// 강사 notice 관련 
 	/* 민지:10.08 강사 메인추가 */
@@ -82,7 +91,26 @@ public class TeacherController {
 	// 강사 시험지 관련 
 	/* 영준 18.10.11 시험지 생성 페이지 시작 */
 	@RequestMapping("examPaperMake.do")
-	public String examPaperMake(){
+	public String examPaperMake(Model model){
+		/*문제 카테고리*/
+		List<CategoryDto> list1;
+		list1=adminService.lgCategoryList();
+		model.addAttribute("list1",list1);
+		
+		List<CategoryDto> list2;
+		list2=adminService.mdCategoryList();
+		model.addAttribute("list2",list2);
+		
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		/*문제 출력*/
+		List<QuestionDto> question = teacherService.question();
+		model.addAttribute("question", question);
+		
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		model.addAttribute("question_choice", question_choice);
 		
 		return "common.teacher.exampaper.examPaperMake";
 	}

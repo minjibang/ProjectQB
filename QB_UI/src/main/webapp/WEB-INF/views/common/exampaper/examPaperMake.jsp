@@ -6,6 +6,7 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
 	rel="stylesheet">
 <section id="main-content">
@@ -20,24 +21,26 @@
 								<div class="makeExamFirstRow">
 									<hr>
 									<select class="form-control makeExamSelectCategory" name="">
-										<option value="">대분류</option>
-										<option value="">언어</option>
-										<option value="">시험</option>
+											<option value="">대분류</option>
+										<c:forEach items="${list1}" var="lgCategoryList">
+											<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
+										</c:forEach>
 									</select> <select class="form-control makeExamSelectCategory" name="">
-										<option value="">중분류</option>
-										<option value="">자바</option>
-										<option value="">C</option>
-										<option value="">C++</option>
+											<option value="">중분류</option>
+										<c:forEach items="${list2}" var="mdCategoryList">
+											<option value="${mdCategoryList.md_category_code}">${mdCategoryList.md_category_name}</option>
+										</c:forEach>
 									</select> <select class="form-control makeExamSelectCategory" name="">
-										<option value="">소분류</option>
-										<option value="">변수</option>
-										<option value="">배열</option>
-										<option value="">객체</option>
+												<option value="">소분류</option>
+											<c:forEach items="${list3}" var="smCategoryList">
+												<option value="${smCategoryList.sm_category_code}">${smCategoryList.sm_category_name}</option>
+											</c:forEach>
 									</select> <select class="form-control makeExamSelectCategory" name="">
 										<option value="">난이도</option>
-										<option value="">기초</option>
-										<option value="">기본</option>
-										<option value="">심화</option>
+										<option value="D1">기초</option>
+										<option value="D2">기본</option>
+										<option value="D3">심화</option>
+										<option value="D4">실전</option>
 									</select> <select class="form-control makeExamSelectCategory" name="">
 										<option value="">문제타입</option>
 										<option value="">전체</option>
@@ -70,37 +73,45 @@
 							<div class="col-lg-6" id="leftMakeExamDiv">
 								<form aciton="" method="post" id="pickQuestionForm">
 									<!-- 문제 하나의 div 시작  -->
-									<div class="questionDiv">
-										<div class="col-lg-1">
-											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-3">
-											Java<br> 기초 개념<br> 난이도: 하<br> 정답: 1<br>
-											정답률:93%<br> 출제자: 김현이<br>
-										</div>
-										<div class="col-lg-8">
-											<b>다음 설명 중 옳지 않은 것은?</b><br> <br>
-											<div class="questionImgDiv">
-												<img
-													src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
-													alt="questionImg" class="questionImg">
-												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+									<c:forEach items="${question }" var="question">
+										<div class="questionDiv">
+											<div class="col-lg-1">
+												<input type="checkbox" value="${question.question_num }" name="" class="question_num">
+												<!-- value에 문제고유번호 들어간다 -->
 											</div>
-											<br> 1. 자바는 영어로 Jaba이다<br> 2. 자바는 컴퓨터 프로그래밍 언어 중
-											하나이다.<br> 3. 자바 언어로 간단한 게임을 구현할 수 있다.<br> 4. 자바는
-											객체지향 언어이다.<br>
+											<div class="col-lg-3">
+												${question.md_category_name}<br> ${question.sm_category_name }<br> 난이도: ${question.level_name }<br> 정답: ${question.question_answer }<br>
+												정답률:${question.question_correct_ratio}%<br> 출제자: ${question.member_id }<br>
+											</div>
+											<div class="col-lg-8">
+												<b>${question.question_name }</b><br> <br>
+												<div class="questionImgDiv">
+													<img
+														src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
+														alt="questionImg" class="questionImg" />
+													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+												</div>
+												<div>
+												<br> 1. 멤버
+											변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스 로딩시에
+											메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static 메서드 안에
+											선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드 안에서는 this 나
+											super를 사용할 수 있다.<br>
+												</div>
+													<%-- <br> ${question.question_choice_num }. ${question.question_choice_content } --%>
+												
+											</div>
+											<div class="col-lg-12">
+												<hr>
+											</div>
 										</div>
-										<div class="col-lg-12">
-											<hr>
-										</div>
-									</div>
+									</c:forEach>
 									<!-- 문제 하나의 div 끝  -->
 									<!-- 문제 하나의 div 시작  -->
-									<div class="questionDiv">
+									<!-- <div class="questionDiv">
 										<div class="col-lg-1">
 											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
+											value에 문제고유번호 들어간다
 										</div>
 										<div class="col-lg-3">
 											Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
@@ -117,12 +128,12 @@
 											<hr>
 										</div>
 									</div>
-									<!-- 문제 하나의 div 끝  -->
-									<!-- 문제 하나의 div 시작  -->
+									문제 하나의 div 끝 
+									문제 하나의 div 시작 
 									<div class="questionDiv">
 										<div class="col-lg-1">
 											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
+											value에 문제고유번호 들어간다
 										</div>
 										<div class="col-lg-3">
 											Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
@@ -139,12 +150,12 @@
 											<hr>
 										</div>
 									</div>
-									<!-- 문제 하나의 div 끝  -->
-									<!-- 문제 하나의 div 시작  -->
+									문제 하나의 div 끝 
+									문제 하나의 div 시작 
 									<div class="questionDiv">
 										<div class="col-lg-1">
 											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
+											value에 문제고유번호 들어간다
 										</div>
 										<div class="col-lg-3">
 											Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
@@ -160,7 +171,7 @@
 										<div class="col-lg-12">
 											<hr>
 										</div>
-									</div>
+									</div> -->
 									<!-- 문제 하나의 div 끝  -->
 								</form>
 							</div>

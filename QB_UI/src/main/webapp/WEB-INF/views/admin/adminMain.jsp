@@ -54,7 +54,7 @@
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<form action="classInsert.do" class="form-horizontal style-form" method="post">
+									<form action="classInsert.do" class="form-horizontal style-form" method="post" onsubmit="return classCheck()">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
@@ -67,16 +67,17 @@
 													<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control"
-															placeholder="클래스 명을 입력해주세요." id="class_name" name="class_name">
+															placeholder="클래스 명을 입력해주세요." id="class_name" name="class_name" onblur="confirmClass()">
+															<div id="classdiv"></div>
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-sm-2 col-sm-2 control-label">수강기간</label>
 													<div class="col-md-10">
 														<div class="input-group input-large">
-															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date">
+															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date" required>
 															<span class="input-group-addon"> 에서 </span> <input
-																type="text" class="form-control dpd2" name="class_end_date" id="class_end_date">
+																type="text" class="form-control dpd2" name="class_end_date" id="class_end_date" required>
 														</div>
 														<span class="help-block">기간을 선택하세요.</span>
 													</div>
@@ -145,3 +146,52 @@
 	</section>
 	<!-- /wrapper-low -->
 </section>
+
+<script>
+var classcheck = false;
+
+function confirmClass() {
+	
+	var val = document.getElementById("class_name").value;
+	var iddiv = document.getElementById("classdiv");
+	if (val == "") {
+		classdiv.innerHTML = "클래스를 입력해주세요";
+		iddiv.style.color = 'green';
+		idcheck = false;
+
+	} else {
+		$.ajax({
+			url : 'classCheck.do',
+			data : {
+				'class_name' : val
+			},
+			dataType : 'json',
+			success : function(data) {
+				if (data.result == true) {
+					classdiv.innerHTML = "사용가능한 클래스 입니다.";
+					classdiv.style.color = 'blue';
+					classcheck = true;
+				} else {
+					classdiv.innerHTML = "사용 불가능한 클래스 입니다.";
+					classdiv.style.color = "red";
+					classcheck = false;
+				}
+			}
+		});
+	}
+}
+function classCheck() {
+	if(classcheck == false){
+		alert("클래스 명을 확인해주세요");
+		document.getElementById("class_name").focus();
+		return false;
+	}else{
+		var classconfirm = confirm("회원가입 하시겠습니까");
+		if(classconfirm == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+</script>
