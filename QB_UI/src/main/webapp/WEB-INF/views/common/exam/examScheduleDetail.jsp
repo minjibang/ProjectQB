@@ -11,21 +11,8 @@
 <link
 	href="${pageContext.request.contextPath}/css/examScheduleDetail.css"
 	rel="stylesheet">
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('#examBtn')
-								.click(
-										function() {
-											var popUrl = "examPaperDo.do";
-											var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
-
-											window.open(popUrl, "지난 시험보기",
-													popOption);
-										});
-					});
-</script>
+<script
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleDetail.js"></script>
 
 <section id="main-content">
 	<section class="wrapper">
