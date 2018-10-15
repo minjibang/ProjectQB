@@ -214,6 +214,12 @@ public class AdminController {
 		return "common.adminClass.admin.question.questionManagement";
 	}
 	
+	/*양회준 18.10.15 문제 수정 시작	*/
+	@RequestMapping("questionUpdate.do")
+	public String questionUpdate() {		
+		return "common.adminClass.admin.question.questionUpdate";
+	}	
+	/*양회준 18.10.15 문제 수정 끝*/
 
 
 }
