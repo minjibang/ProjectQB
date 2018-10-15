@@ -25,15 +25,16 @@
 				<div class="showback">
 					<div class="row">
 						<div class="col-lg-3">
-							<button class="btn btn-theme" data-toggle="modal" data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
+							<button class="btn btn-theme" data-toggle="modal"
+								data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
 						</div>
 						<div class="col-lg-9 classSearchBtnDiv">
 							<select class="form-control classSearchSize">
 								<option>클래스명</option>
 								<option>강사</option>
 								<option>교육과목</option>
-							</select> 
-							<input type="text" class="form-control classSearchSize" placeholder="검색어를 입력">
+							</select> <input type="text" class="form-control classSearchSize"
+								placeholder="검색어를 입력">
 							<button class="btn btn-theme" id="classSearchBtn">검색</button>
 						</div>
 					</div>
@@ -57,7 +58,7 @@
 												<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
 												<div class="col-sm-10">
 													<input type="text" class="form-control"
-														placeholder="클래스 명을 입력해주세요.">
+														placeholder="클래스 명을 입력해주세요." name="class_name" id="class_name">
 												</div>
 											</div>
 											<div class="form-group">
@@ -65,9 +66,9 @@
 												<div class="col-md-10">
 													<div class="input-group input-large" data-date="01/01/2014"
 														data-date-format="mm/dd/yyyy">
-														<input type="text" class="form-control dpd1" name="from">
+														<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date">
 														<span class="input-group-addon"> 에서 </span> <input
-															type="text" class="form-control dpd2" name="to">
+															type="text" class="form-control dpd2" name="class_end_date" id="class_end_date">
 													</div>
 													<span class="help-block">기간을 선택하세요.</span>
 												</div>
