@@ -75,9 +75,9 @@
 													<label class="col-sm-2 col-sm-2 control-label">수강기간</label>
 													<div class="col-md-10">
 														<div class="input-group input-large">
-															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date">
+															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date" required>
 															<span class="input-group-addon"> 에서 </span> <input
-																type="text" class="form-control dpd2" name="class_end_date" id="class_end_date">
+																type="text" class="form-control dpd2" name="class_end_date" id="class_end_date" required>
 														</div>
 														<span class="help-block">기간을 선택하세요.</span>
 													</div>
