@@ -218,12 +218,47 @@ public class AdminController {
 	
 	
 	// 관리자 클래스 상세보기 - 문제 관리 
+	/* 재훈 10.15 문제 관리 페이지 관련 start */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(){
+	public String questionManagement(Model model) throws Exception {
+		List<CategoryDto> lgCatList;
+		
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
+	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
-
+	/*@RequestMapping("questionCategory.do")
+	public String questionCategory(Model model) throws Exception {
+		List<CategoryDto> list1;
+		
+		list1=adminService.lgCategoryList();
+		model.addAttribute("list1",list1);
+		
+		List<CategoryDto> list2;
+		list2=adminService.mdCategoryList();
+		model.addAttribute("list2",list2);
+		
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		return "admin.questionCategory";
+	}*/
+	
 
 }

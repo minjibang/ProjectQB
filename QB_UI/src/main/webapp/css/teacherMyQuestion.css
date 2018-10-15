@@ -56,8 +56,13 @@
             width:98%;
         }
         .btnDeIn{
-            text-align: center;
+        	 width:15%;
+      		display: inline-block;
+      		margin-top:20px;
         }
+        
+        
+        
         .myQuestionCategory{
             background: #eaeaea;
             font-size:14px;

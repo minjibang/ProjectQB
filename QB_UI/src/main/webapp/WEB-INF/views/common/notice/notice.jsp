@@ -1,19 +1,15 @@
+<%-- 
+	@JSP:notice.jsp
+	@DATE:2018-10-06
+	@Author:우한결
+	@Desc:강사, 학생 메인 페이지(스토리보드 17, 35 of 41)
+ --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- 
-teacherMain.jsp
-한결
-2018.10.10 
--->
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
-<style>
-
-
-</style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
-<link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
 <section id="main-content">
 	<section class="wrapper">
 		<!-- page start-->
