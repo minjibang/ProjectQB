@@ -19,26 +19,40 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examPaperDo.js"></script>
-<title></title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script>
+	var total_time = 5000;
+	var current_time = 0;
+	var refresh_interval = 50;
+	var timer;
+	
+	function refresh_bar() {
+	  $( "#progressbar1" ).progressbar({ value: current_time });
+	  current_time += refresh_interval;
+	  if(current_time > total_time) clearInterval( timer );
+	}
+	
+	$(function() {
+	  $( "#progressbar1" ).progressbar({ max: total_time, value: current_time });
+	  timer = setInterval( refresh_bar, refresh_interval );
+	});
+</script>
 </head>
 <body>
 
 	<div class="col-lg-12 mt">
-
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">
 				<i class="fa fa-angle-right"></i> 비트캠프109기-JAVA기본
 			</h3>
-			ANIMATED PROGRESS BARS
-
 			<h4>남은 시간: 00분 00초</h4>
 		</div>
-		<div class="progress progress-striped active" id="timer">
-			<div class="progress-bar" role="progressbar" aria-valuenow="45"
-				aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-				<span class="sr-only">45% Complete</span>
-			</div>
-		</div>
+
+		
+		<div id="progressbar1"></div>
+		
 		<hr>
 		<div class="panel-body">
 			<div class="row content-panel exampaneldetail">

@@ -1,26 +1,25 @@
-package onet.com.admin.controller;
-
-
+﻿package onet.com.admin.controller;
 import java.util.HashMap;
+import java.io.IOException;
+import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import onet.com.admin.service.AdminService;
+import onet.com.common.service.CommonService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-
-
-
+import onet.com.vo.ExamPaperDto;
+import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -30,12 +29,20 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	@Autowired
+	private CommonService commonService;
 	
+	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
-	public String adminMain() {
-
+	public String adminMain(Model model) {
+		List<ClassDto> classlist;
+		
+		classlist = adminService.classList();
+		model.addAttribute("classlist",classlist);
+		
 		return "admin.adminMain";
 	}
+	/*양회준 10.14 관리자 메인 끝*/
 	
 	@RequestMapping("questionCategory.do")
 	public String questionCategory(Model model) throws Exception {
@@ -64,9 +71,19 @@ public class AdminController {
 		model.addAttribute("memberList", memberList);
 		return "admin.adminMember";
 	}
-	/* 영준 10.08 회원관리관련 끝 */
 	
+	
+	@RequestMapping(value="adminMemberUpdate.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberUpdate(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+	{	
+		int result = adminService.updateMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+		
+	}
 
+	/* 영준 10. 회원관리관련 끝 */
+	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
 	public String adminClassInfo(Model model) throws Exception{
@@ -113,12 +130,7 @@ public class AdminController {
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
 
-	
-	
-	
-	
-	
-	
+
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
@@ -126,6 +138,7 @@ public class AdminController {
 		return "common.admin.common.myPage";
 	}
 	/*현이 18.10.09 관리자 마이페이지 끝*/
+
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
@@ -139,11 +152,18 @@ public class AdminController {
 	
 	
 	// 관리자 클래스 상세보기  - 공지사항
+	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain() {
+	public String adminClassMain(Model model) {
+		List<NoticeDto> notice;
+		notice=commonService.teacher_student_Main();
+		model.addAttribute("notice", notice);
 		
+		List<Exam_infoDto> exam_info = commonService.exam_info();
+		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
+	
 
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail() {
@@ -172,11 +192,13 @@ public class AdminController {
 	}  
 	
 	@RequestMapping("examManagement.do")
-	public String examManagement(){
+	public String examManagement(Model model) throws Exception{
+		List<ExamPaperDto> examPaperList;
+		examPaperList = adminService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
-	
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 
@@ -209,13 +231,95 @@ public class AdminController {
 	
 	
 	// 관리자 클래스 상세보기 - 문제 관리 
+	/* 재훈 10.15 문제 관리 페이지 관련 start */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(){
+	public String questionManagement(Model model) throws Exception {
+		List<CategoryDto> lgCatList;
+		
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
+	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
-	// 정원 - 문제분류관리
+	/*양회준 18.10.15 문제 수정 시작	*/
+	@RequestMapping("questionUpdate.do")
+	public String questionUpdate() {		
+		return "common.adminClass.admin.question.questionUpdate";
+	}	
+	/*양회준 18.10.15 문제 수정 끝*/
+
+	/*@RequestMapping("questionCategory.do")
+	public String questionCategory(Model model) throws Exception {
+		List<CategoryDto> list1;
+		
+		list1=adminService.lgCategoryList();
+		model.addAttribute("list1",list1);
+		
+		List<CategoryDto> list2;
+		list2=adminService.mdCategoryList();
+		model.addAttribute("list2",list2);
+		
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		return "admin.questionCategory";
+	}*/
+	
+
+	/*현이 18.10.09 관리자 마이페이지 시작*/
+	/*양회준 10.15 내 정보 수정 시작*/
+	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
+	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
+		String member_id = principal.getName();
+		System.out.println("아이디 : " +member_id);
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		return "common.admin.common.myPage";
+	}
+	/*양회준 10.15 내 정보 수정 끝*/
+	/*현이 18.10.09 관리자 마이페이지 끝*/
+	
+	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
+	public String myPageUpdate(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+		String url = "redirect:myPage.do";
+		try {
+			url = commonService.myPageUpdate(memberDto);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return url;
+	}
+	
+	/* 양회준 10.15 내정보 탈퇴 시작*/
+	@RequestMapping("myPageDrop.do")
+	public String myPageDrop(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+			memberDto.setMember_enable("0");
+			System.out.println(memberDto.getMember_enable());
+			commonService.myPageDrop(memberDto);
+		
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return "redirect:/login.jsp";
+	}
+	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	// 정원 - 문제분류관리 - insert
 	@RequestMapping("lgCatAdd.do")
 	public @ResponseBody Map<String, Object> lgCatAdd(String lgCatAdd) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -242,10 +346,6 @@ public class AdminController {
 		map.put("result", result);
 		return map;
 	}
-	
-	
-	
-	
 	// 정원 - 문제분류관리 끝
 
 }

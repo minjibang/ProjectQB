@@ -4,8 +4,9 @@
 	@Author:김현이
 	@Desc:강사-시험지 생성 페이지(스토리보드 24 of 41) --> 시험관리 탭에서 하나의 페이지로 따로 빼냈음
  --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
 	rel="stylesheet">
 <section id="main-content">
@@ -19,25 +20,24 @@
 								<h3>문항 검색</h3>
 								<div class="makeExamFirstRow">
 									<hr>
+									<select class="form-control makeExamSelectCategory" name="question_lg_category" id="question_lg_category">
+											<option value="">대분류</option>
+										<c:forEach items="${list1}" var="lgCategoryList">
+											<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
+										</c:forEach>
+									</select> 
+									<select class="form-control makeExamSelectCategory" name="question_md_category" id="question_md_category">
+											<option value="">중분류</option>
+									</select> 
+									<select class="form-control makeExamSelectCategory" name="question_sm_category" id="question_sm_category">
+											<option value="">소분류</option>
+									</select> 
 									<select class="form-control makeExamSelectCategory" name="">
-										<option value="">대분류</option>
-										<option value="">언어</option>
-										<option value="">시험</option>
-									</select> <select class="form-control makeExamSelectCategory" name="">
-										<option value="">중분류</option>
-										<option value="">자바</option>
-										<option value="">C</option>
-										<option value="">C++</option>
-									</select> <select class="form-control makeExamSelectCategory" name="">
-										<option value="">소분류</option>
-										<option value="">변수</option>
-										<option value="">배열</option>
-										<option value="">객체</option>
-									</select> <select class="form-control makeExamSelectCategory" name="">
 										<option value="">난이도</option>
-										<option value="">기초</option>
-										<option value="">기본</option>
-										<option value="">심화</option>
+										<option value="D1">기초</option>
+										<option value="D2">기본</option>
+										<option value="D3">심화</option>
+										<option value="D4">실전</option>
 									</select> <select class="form-control makeExamSelectCategory" name="">
 										<option value="">문제타입</option>
 										<option value="">전체</option>
@@ -70,98 +70,42 @@
 							<div class="col-lg-6" id="leftMakeExamDiv">
 								<form aciton="" method="post" id="pickQuestionForm">
 									<!-- 문제 하나의 div 시작  -->
-									<div class="questionDiv">
-										<div class="col-lg-1">
-											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-3">
-											Java<br> 기초 개념<br> 난이도: 하<br> 정답: 1<br>
-											정답률:93%<br> 출제자: 김현이<br>
-										</div>
-										<div class="col-lg-8">
-											<b>다음 설명 중 옳지 않은 것은?</b><br> <br>
-											<div class="questionImgDiv">
-												<img
-													src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
-													alt="questionImg" class="questionImg">
-												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+									<c:forEach items="${question }" var="question">
+										<div class="questionDiv">
+											<div class="col-lg-1">
+												<input type="checkbox" value="${question.question_num }" name="">
+												<!-- value에 문제고유번호 들어간다 -->
 											</div>
-											<br> 1. 자바는 영어로 Jaba이다<br> 2. 자바는 컴퓨터 프로그래밍 언어 중
-											하나이다.<br> 3. 자바 언어로 간단한 게임을 구현할 수 있다.<br> 4. 자바는
-											객체지향 언어이다.<br>
+											<div class="col-lg-3">
+												${question.md_category_name}<br> 
+												${question.sm_category_name }<br> 
+												난이도: ${question.level_name }<br> 
+												정답: ${question.question_answer }<br>
+												정답률:${question.question_correct_ratio}%<br> 
+												출제자: ${question.member_id }<br>
+											</div>
+											<div class="col-lg-8">
+												<b>${question.question_name }</b><br> <br>
+												<div class="questionImgDiv">
+													<img
+														src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
+														alt="questionImg" class="questionImg" />
+													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+												</div>
+												<br>
+												<div>
+												<c:forEach items="${question_choice}" var="question_choice">
+													<c:if test="${question_choice.question_num eq question.question_num}">
+														<p>${question_choice.question_choice_num} . ${question_choice.question_choice_content}</p>
+													</c:if>
+												</c:forEach>
+												</div>
+											</div>
+											<div class="col-lg-12">
+												<hr>
+											</div>
 										</div>
-										<div class="col-lg-12">
-											<hr>
-										</div>
-									</div>
-									<!-- 문제 하나의 div 끝  -->
-									<!-- 문제 하나의 div 시작  -->
-									<div class="questionDiv">
-										<div class="col-lg-1">
-											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-3">
-											Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-											정답률:72%<br> 출제자:서정원<br>
-										</div>
-										<div class="col-lg-8">
-											<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> 1. 멤버
-											변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스 로딩시에
-											메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static 메서드 안에
-											선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드 안에서는 this 나
-											super를 사용할 수 있다.<br>
-										</div>
-										<div class="col-lg-12">
-											<hr>
-										</div>
-									</div>
-									<!-- 문제 하나의 div 끝  -->
-									<!-- 문제 하나의 div 시작  -->
-									<div class="questionDiv">
-										<div class="col-lg-1">
-											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-3">
-											Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-											정답률:72%<br> 출제자:서정원<br>
-										</div>
-										<div class="col-lg-8">
-											<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> 1. 멤버
-											변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스 로딩시에
-											메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static 메서드 안에
-											선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드 안에서는 this 나
-											super를 사용할 수 있다.<br>
-										</div>
-										<div class="col-lg-12">
-											<hr>
-										</div>
-									</div>
-									<!-- 문제 하나의 div 끝  -->
-									<!-- 문제 하나의 div 시작  -->
-									<div class="questionDiv">
-										<div class="col-lg-1">
-											<input type="checkbox" value="" name="">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-3">
-											Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-											정답률:72%<br> 출제자:서정원<br>
-										</div>
-										<div class="col-lg-8">
-											<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> 1. 멤버
-											변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스 로딩시에
-											메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static 메서드 안에
-											선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드 안에서는 this 나
-											super를 사용할 수 있다.<br>
-										</div>
-										<div class="col-lg-12">
-											<hr>
-										</div>
-									</div>
-									<!-- 문제 하나의 div 끝  -->
+									</c:forEach>
 								</form>
 							</div>
 
@@ -438,6 +382,29 @@
 	</section>
 	<!-- /wrapper -->
 </section>
+
+<script>
+$(function(){
+	$('#question_lg_category').change(function(){
+		$('#question_md_category').children('option:not(:first)').remove();
+		<c:forEach items="${list2}" var="mdlist">
+		if(document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}"){
+			$('#question_md_category').append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
+		}
+		</c:forEach>
+	});
+	$('#question_md_category').change(function(){
+		$('#question_sm_category').children('option:not(:first)').remove();
+		<c:forEach items="${list3}" var="smlist">
+		if(document.getElementById("question_md_category").value == "${smlist.md_category_code}"){
+			$('#question_sm_category').append("<option>${smlist.sm_category_name}</option>")
+		}
+		</c:forEach>
+	})
+})
+
+</script>
+
 <!-- /MAIN CONTENT -->
 <script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
 <script src="${pageContext.request.contextPath}/lib/tasks.js"

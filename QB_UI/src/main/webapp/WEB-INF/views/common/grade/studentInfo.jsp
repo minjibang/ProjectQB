@@ -1,5 +1,5 @@
 <%--
-	@JSP:teacherStudentInfo.jsp
+	@JSP:studentInfo.jsp
 	@DATE:2018-10-11
 	@Author:양회준
 	@Desc:학생 & 성적 관리(스토리보드 20 of 41)	
@@ -8,13 +8,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="${pageContext.request.contextPath}/css/teacherStudentInfo.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/studentInfo.css" rel="stylesheet">
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="col-lg-12 mt">
 			<div class="row content-panel">
 			
+				<%-- 탭 머리 시작 --%>
 				<div class="panel-heading">
        				<ul class="nav nav-tabs nav-justified">
           				<li class="active">
@@ -28,11 +29,15 @@
           				</li>
         			</ul>
       			</div>
+      			<%-- 탭 머리 종료 --%>
 			
+				<%-- 탭 본문 영역 시작--%>
 				<div class="panel-body">
 					<div class="tab-content">
+						<%-- 학생 정보 탭 시작 --%>
 						<div id="studentInfo" class="tab-pane active">
 							<div class="row">
+								<%-- 학생 목록 시작 --%>
 								<div class="col-lg-2">
 									<section class="panel">
 										<div class="panel-body grey-panel">
@@ -76,6 +81,8 @@
 										</div>
 									</section>
 								</div>
+								<%-- 학생 목록 끝 --%>
+								<%-- 선택 학생 정보 영역 시작 --%>
 								<div class="col-lg-10">
 									<h3>김하나</h3>
 									<h4>이메일 :</h4>
@@ -84,6 +91,7 @@
 									<!-- page start-->
 									<div class="tab-pane" id="chartjs">
 										<div class="row mt">
+											<%--각 시험 성적 바 차트 --%>
 											<div class="col-lg-6">
 												<div class="content-panel">
 													<h4>
@@ -94,6 +102,8 @@
 													</div>
 												</div>
 											</div>
+											
+											<%-- 반/학생 평균 선 차트 --%>
 											<div class="col-lg-6">
 												<div class="content-panel">
 													<h4>
@@ -107,9 +117,12 @@
 										</div>
 									</div>
 								</div>
-								<!-- tab test -->
+								<%-- 선택 학생 정보 영역 끝 --%>
 							</div>
 						</div>
+						<%-- 학생정보 탭 종료 --%>
+						
+						<%-- 학생 개인 성적 탭 시작 --%>
 						<div id="studentChart" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-2">
@@ -242,9 +255,12 @@
 							</div>
 							<!-- /row -->
 						</div>
-						<!-- /tab-pane2 -->
+						<%-- 학생 개인 성적 탭 끝 --%>
+						
+						<%-- 클래스 통계 탭 시작 --%>
 						<div id="classChart" class="tab-pane">
 							<div class="row">
+								<%-- 클래스 학생 목록 시작--%>
 								<div class="col-lg-2">
 									<section class="panel">
 										<div class="panel-body grey-panel">
@@ -288,12 +304,16 @@
 										</div>
 									</section>
 								</div>
+								<%-- 클래스 학생 목록 끝 --%>
+								
+								<%-- 클래스 학생 표/차트 시작 --%>
 								<div class="col-lg-10">
 									<h3>109기</h3>
 									<h4>JAVA 웹 프로그래밍 과정</h4>
 									<!-- page start-->
 									<div class="tab-pane" id="chartjs">
 										<div class="row mt">
+											<%-- 반평균 막대 차트 --%>
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
 													<h4>
@@ -304,6 +324,7 @@
 													</div>
 												</div>
 											</div>
+											<%-- 반 등수 표 --%>
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
 													<h4>
@@ -376,7 +397,9 @@
 												</div>
 											</div>
 										</div>
+										
 										<div class="row mt">
+											<%-- 점수별 학생 분포 차트 --%>
 											<div class="col-lg-12">
 												<div class="content-panel">
 													<h4>
@@ -401,7 +424,9 @@
 												</div>
 											</div>
 										</div>
+										
 										<div class="row mt">
+											<%-- 학생별 성적표 시작--%>
 											<div class="col-lg-12">
 												<div class="content-panel">
 													<h4>
@@ -447,23 +472,26 @@
 													</div>
 												</div>
 											</div>
+											<%-- 학생별 성적표 끝--%>
 										</div>
 									</div>
 								</div>
-								<!-- tab test -->
+								<%-- 클래스 학생 표/차트 끝 --%>
 							</div>
 							<!-- /row -->
 						</div>
-						<!-- /tab-pane3 -->
+						<%-- 클래스 통계 탭 끝 --%>
 					</div>
-				</div>	<!-- panel-body -->
-				
+				</div>
+				<%-- 탭 본문 영역 끝 --%>
 			</div> <!-- row content-panel -->
 		</div>	<!-- row mt -->
+		
 	</section> 	<!-- wrapper -->
 </section>	<!-- /main-content -->
 
-
-<!--ChartJS-->
+<%--ChartJS--%>
+<%--ChartJS CDN--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-<script src="${pageContext.request.contextPath}/lib/onet-js/teacherStudentInfo.js" type="text/javascript"></script>
+<%--ChartJS 차트 경로--%>
+<script src="${pageContext.request.contextPath}/lib/onet-js/studentInfo.js" type="text/javascript"></script>

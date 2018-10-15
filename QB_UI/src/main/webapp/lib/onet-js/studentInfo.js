@@ -6,6 +6,7 @@
 */
 
 //ChartJS
+//각 시험 성적 바 차트 시작
 var ctx = document.getElementById('bar1').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'bar',
@@ -40,7 +41,9 @@ var myBarChart = new Chart(ctx, {
        }
     }
 });
+//각 시험 성적 바 차트 끝
 
+//반/학생 평균 선 차트 시작
 var ctx = document.getElementById('line1').getContext('2d');
 var chart = new Chart(ctx, {
   // The type of chart we want to create
@@ -94,7 +97,9 @@ var chart = new Chart(ctx, {
          }
     }
 });
+//반/학생 평균 선 차트 끝
 
+//반평균 막대 차트 시작
 var ctx = document.getElementById('bar2').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'bar',
@@ -129,7 +134,9 @@ var myBarChart = new Chart(ctx, {
        }
     }
 });
+//반 평균 막대 차트 끝
 
+//점수별 학생 분포 차트
 var ctx = document.getElementById('line2').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'line',
@@ -156,6 +163,7 @@ var myBarChart = new Chart(ctx, {
       }
     }
 });
+//점수별 학생 분포 차트 끝
 
 //DataTable - 있으면 alert 출력 이유를 모르겠다
 	/*$(document).ready(function() {

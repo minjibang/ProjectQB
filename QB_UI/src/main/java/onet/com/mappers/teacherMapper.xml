@@ -3,13 +3,19 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.teacher.dao.TeacherDao">
-
-<select id="notice" parameterType="hashmap" resultType="onet.com.vo.NoticeDto">
-	select * from notice
+<!-- 한결 : 강사 문제 리스트 불러오기 시작-->
+<select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
+	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
+	(select sm_category_name from question_sm_category where sm_category_code = question.sm_category_code) as 'sm_category_name',
+	(select md_category_name from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_name',
+	(select level_name from question_level where level_code = question.level_code) as 'level_name',
+	member_id
+	from question
 </select>
-<select id="exam_info" parameterType="hashmap" resultType="onet.com.vo.Exam_infoDto">
-	select * from exam_info
+<select id="question_choice" parameterType="hashmap" resultType="onet.com.vo.Question_choiceDto">
+	select * from question_choice
 </select>
+<!-- 한결 : 강사 문제 리스트 불러오기 끝-->
 
 </mapper>
 

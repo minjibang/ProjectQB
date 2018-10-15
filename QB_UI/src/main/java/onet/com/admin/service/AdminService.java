@@ -1,16 +1,13 @@
 package onet.com.admin.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import onet.com.admin.dao.AdminDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 @Service
@@ -19,7 +16,7 @@ public class AdminService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	/*���� - 10.08 �����з����� ����*/ 
+	/*재훈 - 10.08 문제분류관련 시작*/ 
 	public List<CategoryDto> lgCategoryList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.lgCategoryList();
@@ -35,7 +32,15 @@ public class AdminService {
 		List<CategoryDto> result = dao.smCategoryList();
 		return result;
 	}
-	/*���� - 10.08 �����з����� ��*/
+	/*재훈 - 10.08 문제분류관련 끝*/
+	
+	/*재훈 - 10.15 문제난이도관련 시작*/
+	public List<CategoryDto> questionLevelList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.questionLevelList();
+		return result;
+	}
+	/*재훈 - 10.15 문제난이도관련 끝*/
 
 	/*영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList(){
@@ -75,13 +80,14 @@ public class AdminService {
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public String updateMember(MemberDto dto) {
+	public int updateMember(MemberDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		String result = dao.updateMember(dto);
+		int result = dao.updateMember(dto);
 		return result;
 	}
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 
+	// 정원 - 10.15 문제분류 insert 
 	public String lgCatAdd(String lgCatAdd) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		CategoryDto dto = new CategoryDto();
@@ -142,6 +148,21 @@ public class AdminService {
 		}
 		return result;
 	}
+	// 정원 - 10.15 문제분류 insert 끝
+
+	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
+	public List<ExamPaperDto> examPaperList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.examPaperList();
+		return result;	
+	}
 	
+	public int examPaperDelete(ExamPaperDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.examPaperDelete(dto);
+		return result;
+	}
+	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
+
 	
 }

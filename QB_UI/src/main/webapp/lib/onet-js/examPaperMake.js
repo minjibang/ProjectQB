@@ -4,6 +4,7 @@
 
 jQuery(document).ready(function() {
 	TaskList.initTaskWidget();
+	
 });
 
 $(function() {

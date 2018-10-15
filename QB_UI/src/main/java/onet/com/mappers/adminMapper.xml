@@ -22,6 +22,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
 
+<!-- 재훈 - 10.15 문제난이도 관련 시작 -->
+<select id="questionLevelList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_level
+</select>
+<!-- 재훈 - 10.15 문제난이도 관련 끝 -->
+
+<!-- 재훈 - 10.15 새 문제 만들기 관련 시작-->
+<insert id="newQuestionInsert" parameterType="onet.com.vo.QuestionDto">
+	insert into question(question_type, question_name, question_img,
+	question_answer, sm_category_code, level_code, member_id) 
+	values(#{question_type}, #{question_name}, #{question_img}, 
+	#{question_answer}, #{sm_category_code}, #{level_code}, #{member_id});
+</insert>
+
+<insert id="newQuestionChoiceInsert" parameterType="onet.com.vo.Question_choiceDto">
+	insert into question_choice(question_num, question_choice_num, question_choice_content) 
+	values(#{question_num}, #{question_choice_num}, #{question_choice_content});
+</insert>
+
+<!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
+
 <!-- 영준 - 10.10 회원관리 관련 시작 -->
 <select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
 	select class_name, member_id, member_name, member_email,
@@ -39,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
-	select class_name, teacher_name, class_start_date,class_end_date,class_enable
+	select class_name, teacher_name, class_start_date, class_end_date, class_enable
 	 from class
 </select>
 <!-- 클래스 멤버 수정 -->
@@ -52,14 +73,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 영준 - 10.10 회원관리 전체조회 끝 -->
 
 <!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
-<!-- <update id="updateMember" parameterType="onet.com.vo.MemberDto"
-		useGeneratedKeys="true" keyProperty="member_id">
-	update member
-	set member_name=${member_name}, member_email=${member_email}, 
-	member_phone=${member_phone}, class_name=${class_name},
-	 member_enable=${member_enable}
-	where member_id=${member_id}
-</update> -->
+<update id="updateMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member m, member_role mr
+	SET m.member_email=#{member_email}, 
+	m.member_phone=#{member_phone}, m.class_name=#{class_name},
+	mr.role_code=#{role_code}
+	where m.member_id=#{member_id} and mr.member_id=#{member_id}
+</update>
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
 
@@ -70,7 +90,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
 
-<!-- 정원 10.15 문제분류관리 insert, select.... -->
+
+<!-- 정원 10.15 문제분류관리 insert 시작 -->
 <select id="lgCatAddCheak" resultType="int">
 	select CONVERT(substring(lg_category_code, 2), UNSIGNED) as cate_num from question_lg_category order by cate_num desc limit 1
 </select>
@@ -115,5 +136,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select sm_category_name from question_sm_category where sm_category_name=#{smCatAdd}
 </select>
 
-<!-- 정원 끝 -->
+<!-- 정원 10.15 문제분류관리 insert 끝 -->
+
+
+<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  -->
+<insert id="classInsert" parameterType="onet.com.vo.ClassDto">
+	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
+</insert>
+<select id="classCheck" resultType="String">
+	select class_name from class where class_name = #{class_name}
+</select>
+<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
+
 </mapper>

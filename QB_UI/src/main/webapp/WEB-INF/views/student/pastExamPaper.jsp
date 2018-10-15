@@ -1,3 +1,10 @@
+<%-- 
+	@JSP:pasExamPaper.jsp
+	@DATE:2018-10-12
+	@Author:우한결
+	@Desc:학생 지난 시험보기 페이지(스토리보드 40 of 41)
+ --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
