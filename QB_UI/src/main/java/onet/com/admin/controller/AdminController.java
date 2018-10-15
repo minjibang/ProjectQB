@@ -30,8 +30,12 @@ public class AdminController {
 
 	
 	@RequestMapping("adminMain.do")
-	public String adminMain() {
-
+	public String adminMain(Model model) {
+		List<ClassDto> classlist;
+		
+		classlist = adminService.classList();
+		model.addAttribute("classlist",classlist);
+		
 		return "admin.adminMain";
 	}
 	
@@ -212,6 +216,8 @@ public class AdminController {
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
+	
+	
 	
 
 

@@ -36,6 +36,10 @@ public interface AdminDao {
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
 	public String updateMember(MemberDto member);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
+	
+	/* 태용 - 10.15 클래스 생성*/
+	public int classInsert(ClassDto dto);
+	/* 태용 - 10.15 클래스 생성 끝*/
 
 }
 
