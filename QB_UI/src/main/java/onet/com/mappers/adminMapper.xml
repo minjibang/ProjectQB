@@ -72,9 +72,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
 
-<!-- 태용 10.15 클래스 생성  -->
+<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  -->
 <insert id="classInsert" parameterType="onet.com.vo.ClassDto">
 	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
 </insert>
-<!-- 태용 10.15 클래스 생성 끝  -->
+<select id="classCheck" resultType="String">
+	select class_name from class where class_name = #{class_name}
+</select>
+<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
 </mapper>
