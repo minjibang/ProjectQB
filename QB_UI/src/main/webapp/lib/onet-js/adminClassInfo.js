@@ -80,9 +80,17 @@ $(document).ready(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
+
    				  alert("수정성공");
+
    				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
-   			  }
+   			  },
+   			  error: function(request, status, error){
+   				  console.log("request 값이 뭐냐  >>>> "+ request);
+   				  alert("에러야!");
+   			 }
+
+
    		});
 		
 	});	

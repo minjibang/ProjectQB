@@ -1,14 +1,13 @@
 package onet.com.admin.service;
 
 import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import onet.com.admin.dao.AdminDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 @Service
@@ -101,11 +100,89 @@ public class AdminService {
 	}
 	/*민지 10.15 클래스 수정 끝*/
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public String updateMember(MemberDto dto) {
+	public int updateMember(MemberDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		String result = dao.updateMember(dto);
+		int result = dao.updateMember(dto);
 		return result;
 	}
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 
+	// 정원 - 10.15 문제분류 insert 
+	public String lgCatAdd(String lgCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.lgCatAddIdCheck(lgCatAdd);
+		if(result == null) {
+		int finalRow = dao.lgCatAddCheak();
+		String codeH = "H";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeH + codeNum;
+		dto.setLg_category_code(code);
+		dto.setLg_category_name(lgCatAdd);
+		dao.lgCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+			return result;
+		}
+	
+	public String mdCatAdd(String selectLgCat, String mdCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.mdCatAddIdCheck(mdCatAdd);
+		if(result == null) {
+		String lgCatCode = dao.lgCatCode(selectLgCat);
+		int finalRow = dao.mdCatAddCheck();
+		String codeM = "M";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeM + codeNum;
+		dto.setLg_category_code(lgCatCode);
+		dto.setMd_category_code(code);
+		dto.setMd_category_name(mdCatAdd);
+		dao.mdCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+		return result;
+	}
+	
+	public String smCatAdd(String selectMdCat, String smCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.smCatAddIdCheck(smCatAdd);
+		if(result == null) {
+		String mdCatCode = dao.mdCatCode(selectMdCat);
+		int finalRow = dao.smCatAddCheck();
+		String codeS = "S";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeS + codeNum;
+		dto.setMd_category_code(mdCatCode);
+		dto.setSm_category_code(code);
+		dto.setSm_category_name(smCatAdd);
+		dao.smCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+		return result;
+	}
+	// 정원 - 10.15 문제분류 insert 끝
+
+	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
+	public List<ExamPaperDto> examPaperList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.examPaperList();
+		return result;	
+	}
+	
+	public int examPaperDelete(ExamPaperDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.examPaperDelete(dto);
+		return result;
+	}
+	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
+
+	
 }

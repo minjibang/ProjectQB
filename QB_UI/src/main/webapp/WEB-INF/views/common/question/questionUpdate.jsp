@@ -7,8 +7,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
-<link href="${pageContext.request.contextPath}/css/teacherMyQuestion.css"
+<%-- 
+	2018.10.12 회준 새 문제 만들기 UI 추가 
+	questionManagement.jsp와 css파일 공유
+--%>
+<link href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">    
     
 <!--main content start-->
@@ -108,6 +111,7 @@
                     <option value="">보기 2개</option>
                     <option value="">보기 3개</option>
                     <option value="">보기 4개</option>
+                    <option value="">보기 5개</option>
                   </select>
                   <br><br>
                   <!-- 1번 보기 -->
@@ -151,6 +155,19 @@
                   </span><br>
                   <!-- 4번 보기 -->
                   <b>4.</b> <input type="text" class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요." >
+                  <span class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
+                    <span>
+                      <span class="btn btn-theme02 btn-file">
+                        <span class="fileupload-new"><i class="fa fa-paperclip"></i> image</span>
+                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                        <input type="file" class="default" />
+                      </span>
+                      <a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+                    </span>
+                  </span><br>
+                  <!-- 5번 보기 -->
+                  <b>5.</b> <input type="text" class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요." >
                   <span class="fileupload fileupload-new" data-provides="fileupload">
                     <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
                     <span>

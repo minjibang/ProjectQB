@@ -11,8 +11,8 @@
 <link
 	href="${pageContext.request.contextPath}/css/examScheduleDetail.css"
 	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleDetail.js"></script>
+<%-- <script
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleDetail.js"></script> --%>
 
 <section id="main-content">
 	<section class="wrapper">
@@ -25,7 +25,7 @@
 						<div class="col-lg-5 examImgDiv">
 							<img id="examImg"
 								src="${pageContext.request.contextPath}/img/friends/fr-02.jpg">
-							<h3>자바 기초 시험</h3>
+							<h3>${dto.exam_info_name}</h3>
 							<br> <br> <br>
 						</div>
 						<div class="col-lg-7">
@@ -34,11 +34,11 @@
 									<tbody>
 										<tr>
 											<td>시험 일시</td>
-											<td>2018.08.15 &nbsp;&nbsp;&nbsp; 14:00:00 ~ 15:30:00</td>
+											<td>${dto.exam_info_date} &nbsp;&nbsp;&nbsp; ${dto.exam_info_start} ~ ${dto.exam_info_end}</td>
 										</tr>
 										<tr>
 											<td>시험 시간</td>
-											<td>1시간 30분</td>
+											<td>${dto.exam_info_time}</td>
 										</tr>
 										<tr>
 											<td>종료 알림</td>
@@ -46,11 +46,11 @@
 										</tr>
 										<tr>
 											<td>응시 대상</td>
-											<td>전체</td>
+											<td>${dto.exam_info_member}</td>
 										</tr>
 										<tr>
 											<td>설명</td>
-											<td>자바 기초에 대한 시험입니다. 화이팅하세요!</td>
+											<td>${dto.exam_info_desc}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -86,3 +86,17 @@
 	</section>
 	<!-- /wrapper -->
 </section>
+
+<script>
+	$(document).ready(function(){
+		
+		/*시험 응시*/
+		$('#examBtn').click(function() {
+			var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
+			var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
+	
+			window.open(popUrl, "지난 시험보기",popOption);
+		});
+		
+	});
+</script>
