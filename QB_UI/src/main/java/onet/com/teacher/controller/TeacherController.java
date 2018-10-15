@@ -180,6 +180,19 @@ public class TeacherController {
 	}
 	/*현이 18.10.09 강사 마이페이지 끝*/
 	
+	/* 양회준 10.15 내정보 탈퇴 시작*/
+	@RequestMapping("myPageDrop.do")
+	public String myPageDrop(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+			memberDto.setMember_enable("0");
+			System.out.println(memberDto.getMember_enable());
+			commonService.myPageDrop(memberDto);
+		
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return "redirect:/login.jsp";
+	}
+	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
