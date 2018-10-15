@@ -1,8 +1,16 @@
-/*민지*/
+/*
+	@JSP:adminClassInfo.js
+	@DATE:2018-10-13
+	@Author:방민지
+	@Desc:클래스관리 js(스토리보드 ??of 41)
+*/
+
 $(document).ready(function(){
 	
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
+		
+		
 		action='modify';
 		type='PUT';
 		memberid=this.value;
@@ -14,11 +22,23 @@ $(document).ready(function(){
 		var member_email_modal=tr.eq(3).text();
 		var member_phone_modal=tr.eq(4).text();
 		var member_name_modal=tr.eq(2).text();
+		var role_code_modal = tr.eq(5).text();
 		
-		$('#member_id').val(member_id_modal);
-		$('#member_email').val(member_email_modal);
-		$('#member_phone').val(member_phone_modal);
-		$('#member_name').val(member_name_modal);
+		$('#cid').val(member_id_modal);
+		$('#cemail').val(member_email_modal);
+		$('#curl').val(member_phone_modal);
+		$('#cname').val(member_name_modal);
+		
+		if(role_code_modal == '학생'){
+			$("#agree_s").attr("checked", true);
+			$("#agree_t").attr("checked", false);
+		}
+		else if(role_code_modal == '선생님'){
+			$("#agree_t").attr("checked", true);
+			$("#agree_s").attr("checked", false);
+		}
+		
+		
 		
 	});
 	
@@ -33,10 +53,14 @@ $(document).ready(function(){
 		else if($('#agree_t').is(":checked")){
 			role_code_val=$('#agree_t').val();
 		}
+		else if($("#agree_s").attr("checked", false) && $("#agree_t").attr("checked", false)){
+			alert('권한을 체크해주세요.');
+		}
 		
-	console.log("바뀌는 권한 값 ??>>>" + role_code_val);
-		var _param = {member_email:$("#member_email").val(), member_phone:$("#member_phone").val()
-				, member_id:$("#member_id").val(), class_name:$("#class_name option:selected").text()
+		
+	
+		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
+				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
 				, role_code:role_code_val }
 
 		var _data = JSON.stringify(_param); //jsonString으로 변환	                                                      
@@ -51,11 +75,7 @@ $(document).ready(function(){
    			  success : function(data, status){
    				  alert("해당아이디값"+memberid);
    				  location.href="adminClassInfo.do";
-   			  },
-   			  error: function(request, status, error){
-   				  console.log("request 값이 뭐냐  >>>> "+ request);
-   				  alert("에러야!");
-   			 }
+   			  }
    		});
 		
 	});	
