@@ -1,15 +1,22 @@
 package onet.com.student.controller;
 
+import java.io.IOException;
+import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import onet.com.common.service.CommonService;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 
 @Controller
@@ -98,12 +105,26 @@ public class StudentController {
 	
 
 	/* 현이 18.10.09 학생 마이페이지 시작 */
-	@RequestMapping("myPage.do")
-	public String mypage() {
-
+	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
+	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
+		//회준 10.15
+		String member_id = principal.getName();
+		System.out.println("아이디 : " +member_id);
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		
 		return "common.student.common.myPage";
 	}
 	/* 현이 18.10.09 학생 마이페이지 끝 */
+	
+	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
+	public String myPageUpdate(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+			commonService.myPageUpdate(memberDto);
+		
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return "common.student.common.myPage";
+	}
 	
 	
 	@RequestMapping("myMessage.do")
@@ -120,9 +141,20 @@ public class StudentController {
 		return "exam.student.examPaperDo2";
 	}
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
-
-
-
+	
+	/* 양회준 10.15 내정보 탈퇴 시작*/
+	@RequestMapping("myPageDrop.do")
+	public String myPageDrop(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+			memberDto.setMember_enable("0");
+			System.out.println(memberDto.getMember_enable());
+			commonService.myPageDrop(memberDto);
+		
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return "redirect:/login.jsp";
+	}
+	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
 
 
 }

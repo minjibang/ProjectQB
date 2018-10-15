@@ -4,6 +4,7 @@ import java.util.List;
 
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 public interface AdminDao {
@@ -39,13 +40,41 @@ public interface AdminDao {
 	
 
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public String updateMember(MemberDto member);
+	public int updateMember(MemberDto dto);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	
+
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
 	public String classCheck(String class_name);
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
+
+	/* 영준 - 10.15 시험관리 관련 시작 */
+	public List<ExamPaperDto> examPaperList();
+	public int examPaperDelete(ExamPaperDto dto);
+	/* 영준 - 10.15 시험관리 관련 끝 */
+
+	public int lgCatAddCheak();
+	
+	public int lgCatAdd(CategoryDto dto);
+	
+	public int mdCatAddCheck();
+	
+	public String lgCatCode(String selectLgCat);
+	
+	public int mdCatAdd(CategoryDto dto);
+	
+	public String mdCatCode(String selectMdCat);
+
+	public int smCatAddCheck();
+	
+	public int smCatAdd(CategoryDto dto);
+	
+	public String lgCatAddIdCheck(String lgCatAdd);
+	
+	public String mdCatAddIdCheck(String mdCatAdd);
+	
+	public String smCatAddIdCheck(String smCatAdd);
 }
 

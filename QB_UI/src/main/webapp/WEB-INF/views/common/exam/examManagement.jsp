@@ -38,23 +38,40 @@
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
+<<<<<<< .merge_file_a09596
 									<div id="div_myExam" class="col-md-12">
+=======
+									<div id="div_myExamPaper" class="col-md-12">
+>>>>>>> .merge_file_a03180
 									<form class="insertForm">
 										<a href="${pageContext.request.contextPath}/teacher/examPaperMake.do" class="examPaper-insert">
 										<img src="../img/material-icon.png">
 										<strong>새 시험지 만들기</strong></a>
 									</form>
+
 									<table class="table table-inbox table-hover" width="100%">
 										
 										<tbody>
+
+									<table class="table table-inbox table-hover" id="myExamPaper">
+										<tbody>
+
 											<tr>
 												<td class="">
 												<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" 
 													class="img-thumbnail" width="150px;"></td>
+
 												<td class="exam_paper_name"><h4><strong>JAVA의 기본</strong></h4>
 												<p>변수|배열|FOR문|IF문</p></td>
 												<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
 													<img src="../img/file-download.png"></a></h5>
+
+												<td id="exam_paper_name">
+												<h4><strong>JAVA의 기본</strong></h4>
+												<p>변수|배열|FOR문|IF문</p></td>
+												<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
+													<img src="../img/file-download.png"></a></h5>
+
 													<p><button class="btn btn-theme04 buttonGroup">삭제</button>
 														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
@@ -62,6 +79,7 @@
 													</p>
 													</td>
 												</tr>
+
 												<tr>
 													<td class="">
 													<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" 
@@ -92,6 +110,8 @@
 													</p>
 													</td>
 												</tr>
+
+
 											</tbody>
 									
 											<!-- 내 시험지 table 끝 -->
@@ -130,7 +150,11 @@
 											<p><button class="btn btn-theme04 buttonGroup">삭제</button>
 												<button class="btn btn-theme buttonGroup">시험지 수정</button>
 												<button class="btn btn-theme buttonGroup"
+
 												 onclick="location.href='teacherExamPaperUpdate.do'">시험 등록</button>
+
+												 onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
+
 											</p>
 											</td>
 										</tr>
@@ -146,7 +170,11 @@
 											<p><button class="btn btn-theme04 buttonGroup">삭제</button>
 												<button class="btn btn-theme buttonGroup">시험지 수정</button>
 												<button class="btn btn-theme buttonGroup" 
+
 												onclick="location.href='teacherExamPaperUpdate.do'">시험 등록</button>
+
+												onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
+
 											</p>
 											</td>
 										</tr>
@@ -166,7 +194,11 @@
 									<div id="div_examSchedule" class="col-md-12">
 										<form class="insertForm">
 											<a href="" class="exam-insert">
+
 											<img src="../img/material-icon.png"><strong>새 시험 일정 등록</strong></a>
+
+											<img src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새 시험 일정 등록</strong></a>
+
 										</form>
 										<table class="table table-inbox table-hover" width="100%">
 											<tbody>

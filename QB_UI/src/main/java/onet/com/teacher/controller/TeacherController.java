@@ -1,11 +1,16 @@
 package onet.com.teacher.controller;
 
+import java.io.IOException;
+import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
@@ -13,6 +18,7 @@ import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -91,14 +97,6 @@ public class TeacherController {
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 
-	/* 회준:10.08 시험 일정등록/수정 페이지 시작 */
-	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate() {
-
-		return "common.teacher.exam.examScheduleUpdate";
-	}
-	/* 회준:10.08 시험 일정등록/수정 페이지 끝 */
-
 	// 강사 시험지 관련
 	/* 영준 18.10.11 시험지 생성 페이지 시작 */
 	@RequestMapping("examPaperMake.do")
@@ -119,11 +117,18 @@ public class TeacherController {
 		/* 문제 출력 */
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);
-
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		model.addAttribute("question_choice", question_choice);
 
 		return "common.teacher.exampaper.examPaperMake";
+	}
+	
+	@RequestMapping("examPaperMake_questionContent.do")
+	public @ResponseBody String question_content(String num) {
+		System.out.println(num);
+		List<Question_choiceDto> question_choice;
+		
+		return null;
 	}
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 
@@ -143,49 +148,101 @@ public class TeacherController {
 	}
 	/* 민지 18.10.10 강사 시험감독 페이지 끝 */
 
-	// 강사 문제 관련
-	/* 정원 18.10.10 내 문제함 추가 */
+	
+	
+	
+	// 강사 문제 관련 
+	/*정원 18.10.10 내 문제함 추가 시작 */
+	/*재훈 18.10.15 내 문제함 수정 시작 */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement() {
-
+	public String questionManagement(Model model) throws Exception{
+		List<CategoryDto> lgCatList;
+		
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
+		
 		return "common.teacher.question.questionManagement";
 	}
-	/* 정원 18.10.10 내 문제함 끝 */
+	/*정원 18.10.10 내 문제함 추가 끝 */
+	/*재훈 18.10.15 내 문제함 수정 끝 */
 
-	/* 현이 18.10.09 강사 마이페이지 시작 */
-	@RequestMapping("myPage.do")
-	public String mypage() {
-
+	
+	/*현이 18.10.09 강사 마이페이지 시작*/
+	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
+	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
+		//회준 10.15
+		String member_id = principal.getName();
+		System.out.println("아이디 : " +member_id);
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		
 		return "common.teacher.common.myPage";
 	}
-	/* 현이 18.10.09 강사 마이페이지 끝 */
-
-	/* 민지 18.10.10 메시지 페이지 시작 */
+	/* 현이 18.10.09 학생 마이페이지 끝 */
+	
+	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
+	public String myPageUpdate(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+			commonService.myPageUpdate(memberDto);
+		
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return "common.teacher.common.myPage";
+	}
+	/*현이 18.10.09 강사 마이페이지 끝*/
+	
+	/* 양회준 10.15 내정보 탈퇴 시작*/
+	@RequestMapping("myPageDrop.do")
+	public String myPageDrop(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+			memberDto.setMember_enable("0");
+			System.out.println(memberDto.getMember_enable());
+			commonService.myPageDrop(memberDto);
+		
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return "redirect:/login.jsp";
+	}
+	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
+	
+	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
 	public String myMessage() {
 
 		return "common.teacher.common.myMessage";
 	}
-	/* 민지 18.10.10 메시지 페이지 끝 */
-
-	/* 양회준 18.10.11 학생&성적관리 추가 */
+	/*민지 18.10.10 메시지 페이지 끝*/
+	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate() {
+		return "common.teacher.exam.examScheduleUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
+	
+	/*양회준 18.10.11 학생&성적관리 추가 */
 	@RequestMapping("studentInfo.do")
-	public String studentInfo() {
-
+	public String studentInfo(){		
 		return "common.teacher.grade.studentInfo";
 	}
-	/* 양회준 18.10.11 학생&성적관리 끝 */
-
-	/* 양회준 18.10.12 문제 수정 시작 */
+	/*양회준 18.10.11 학생&성적관리 끝 */
+	
+	/*양회준 18.10.12 문제 수정 시작	*/
 	@RequestMapping("questionUpdate.do")
-	public String questionUpdate() {
-
+	public String questionUpdate() {		
 		return "common.teacher.question.questionUpdate";
 	}
 	/* 양회준 18.10.12 문제 수정 끝 */
-	
-	
-	
-
 
 }

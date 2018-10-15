@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
 
+
 <!-- 현이 10.15 examScheduleDetail 페이지 select 시작 -->
 <select id="examScheduleDetail" parameterType="int" resultType="onet.com.vo.ExamInfoDto">
 	select exam_info_num, exam_paper_num, class_name, exam_info_name, exam_info_desc, exam_info_member, 
@@ -19,5 +20,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from exam_info where exam_info_num = #{exam_info_num}
 </select>
 <!-- 현이 10.15 examScheduleDetail 페이지 select 끝 -->
+
+
+<!-- 양회준 10.15 내 정보 수정 시작 -->
+<select id="myPageInfo" resultType="onet.com.vo.MemberDto">
+	select * from member where member_id = #{member_id}
+</select>
+
+<update id="myPageUpdate" parameterType="onet.com.vo.MemberDto">
+ 	UPDATE member 
+	SET 
+	member_pwd=#{member_pwd},
+	member_name=#{member_name},
+	member_email=#{member_email},	
+	member_phone=#{member_phone}
+	where member_id=#{member_id}
+</update>
+
+<update id="myPageDrop" parameterType="onet.com.vo.MemberDto">
+ 	UPDATE member 
+	SET 
+	member_enable=#{member_enable}
+	where member_id=#{member_id}
+</update>
+<!-- 양회준 10.15 내 정보 수정 끝 -->
+
 
 </mapper>
