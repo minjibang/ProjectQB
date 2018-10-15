@@ -36,6 +36,7 @@ public class StudentController {
 
 	
 	// 학생 notice 관련
+	/*한결 10월 12일 학생메인페이지 시작*/
 	@RequestMapping("studentMain.do")
 	public String studentMain(Model model) {
 		List<NoticeDto> notice = commonService.teacher_student_Main();
@@ -45,6 +46,7 @@ public class StudentController {
 		
 		return "common.student.notice.notice";
 	}
+	/*한결 10월 12일 학생메인페이지 끝*/
 
 	/* 재훈:10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")
@@ -58,6 +60,7 @@ public class StudentController {
 	
 	// 학생 성적 관련 
 	/* 지난 시험보기 */
+	/*한결 10.12 지난 시험보기 페이지 로드 시작*/
 	@RequestMapping("pastExam.do")
 	public String pastExam() {
 
@@ -69,12 +72,14 @@ public class StudentController {
 
 		return "exam.student.pastExamPaper";
 	}
+	
+	/*시험일정 > 시험응시 활성화*/
 	@RequestMapping("examPaperDo.do")
 	public String examPaperDo() {
 
 		return "exam.student.examPaperDo";
 	}
-	/* 한결 18.10.10 메인페이지 끝 */
+	/* 한결 10.12 지난 시험보기 및 시험응시 페이지 로드 끝 */
 
 	/* 양회준 18.10.11 학생 성적관리 시작 */
 	@RequestMapping("gradeManage.do")
