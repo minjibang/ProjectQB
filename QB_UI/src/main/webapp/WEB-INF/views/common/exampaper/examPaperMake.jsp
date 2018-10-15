@@ -87,15 +87,16 @@
 											<div class="col-lg-8">
 												<b>${question.question_name }</b><br> <br>
 												<div class="questionImgDiv">
-													<%-- <img
+													<img
 														src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
-														alt="questionImg" class="questionImg" /> --%>
+														alt="questionImg" class="questionImg" />
 													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 												</div>
+												<br>
 												<div>
 												<c:forEach items="${question_choice}" var="question_choice">
 													<c:if test="${question_choice.question_num eq question.question_num}">
-														<br>${question_choice.question_choice_num} . ${question_choice.question_choice_content}
+														<p>${question_choice.question_choice_num} . ${question_choice.question_choice_content}</p>
 													</c:if>
 												</c:forEach>
 												</div>

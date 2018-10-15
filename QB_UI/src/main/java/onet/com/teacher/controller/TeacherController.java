@@ -118,7 +118,8 @@ public class TeacherController {
 		/*문제 출력*/
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);
-
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		model.addAttribute("question_choice", question_choice);
 		
 		return "common.teacher.exampaper.examPaperMake";
 	}
