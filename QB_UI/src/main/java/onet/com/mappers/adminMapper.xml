@@ -18,6 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
 
+<!-- 재훈 - 10.15 문제난이도 관련 시작 -->
+<select id="questionLevelList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_level
+</select>
+<!-- 재훈 - 10.15 문제난이도 관련 끝 -->
+
 <!-- 영준 - 10.10 회원관리 관련 시작 -->
 <select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
 	select class_name, member_id, member_name, member_email,
