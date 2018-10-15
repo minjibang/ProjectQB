@@ -1,7 +1,9 @@
 package onet.com.admin.controller;
 
-import java.sql.SQLException;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import onet.com.admin.service.AdminService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-import onet.com.vo.Exam_infoDto;
+
 
 
 import onet.com.vo.MemberDto;
@@ -213,6 +215,37 @@ public class AdminController {
 		return "common.adminClass.admin.question.questionManagement";
 	}
 	
+	// 정원 - 문제분류관리
+	@RequestMapping("lgCatAdd.do")
+	public @ResponseBody Map<String, Object> lgCatAdd(String lgCatAdd) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String result = adminService.lgCatAdd(lgCatAdd);
+		System.out.println(result);
+		map.put("result", result);
+		return map;
+	}
 
+	@RequestMapping("mdCatAdd.do")
+	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String result = adminService.mdCatAdd(selectLgCat, mdCatAdd);
+		System.out.println(result);
+		map.put("result", result);
+		return map;
+	}
+	
+	@RequestMapping("smCatAdd.do")
+	public @ResponseBody Map<String, Object> smCatAdd(String selectMdCat, String smCatAdd) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String result = adminService.smCatAdd(selectMdCat, smCatAdd);
+		System.out.println(result);
+		map.put("result", result);
+		return map;
+	}
+	
+	
+	
+	
+	// 정원 - 문제분류관리 끝
 
 }

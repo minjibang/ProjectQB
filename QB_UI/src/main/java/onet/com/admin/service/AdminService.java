@@ -1,6 +1,8 @@
 package onet.com.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +82,66 @@ public class AdminService {
 	}
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 
+	public String lgCatAdd(String lgCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.lgCatAddIdCheck(lgCatAdd);
+		if(result == null) {
+		int finalRow = dao.lgCatAddCheak();
+		String codeH = "H";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeH + codeNum;
+		dto.setLg_category_code(code);
+		dto.setLg_category_name(lgCatAdd);
+		dao.lgCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+			return result;
+		}
+	
+	public String mdCatAdd(String selectLgCat, String mdCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.mdCatAddIdCheck(mdCatAdd);
+		if(result == null) {
+		String lgCatCode = dao.lgCatCode(selectLgCat);
+		int finalRow = dao.mdCatAddCheck();
+		String codeM = "M";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeM + codeNum;
+		dto.setLg_category_code(lgCatCode);
+		dto.setMd_category_code(code);
+		dto.setMd_category_name(mdCatAdd);
+		dao.mdCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+		return result;
+	}
+	
+	public String smCatAdd(String selectMdCat, String smCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.smCatAddIdCheck(smCatAdd);
+		if(result == null) {
+		String mdCatCode = dao.mdCatCode(selectMdCat);
+		int finalRow = dao.smCatAddCheck();
+		String codeS = "S";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeS + codeNum;
+		dto.setMd_category_code(mdCatCode);
+		dto.setSm_category_code(code);
+		dto.setSm_category_name(smCatAdd);
+		dao.smCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+		return result;
+	}
+	
+	
 }

@@ -37,5 +37,26 @@ public interface AdminDao {
 	public String updateMember(MemberDto member);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 
+	public int lgCatAddCheak();
+	
+	public int lgCatAdd(CategoryDto dto);
+	
+	public int mdCatAddCheck();
+	
+	public String lgCatCode(String selectLgCat);
+	
+	public int mdCatAdd(CategoryDto dto);
+	
+	public String mdCatCode(String selectMdCat);
+
+	public int smCatAddCheck();
+	
+	public int smCatAdd(CategoryDto dto);
+	
+	public String lgCatAddIdCheck(String lgCatAdd);
+	
+	public String mdCatAddIdCheck(String mdCatAdd);
+	
+	public String smCatAddIdCheck(String smCatAdd);
 }
 

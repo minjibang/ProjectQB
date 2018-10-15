@@ -7,13 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 재훈 - 10.08 문제분류관련 시작 -->
 
 <select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
-	select * from question_lg_category
+	select * from question_lg_category order by length(lg_category_code) asc, lg_category_code asc
 </select>
 <select id="mdCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
-	select * from question_md_category
+	select question_lg_category.lg_category_name, question_md_category.md_category_code, question_md_category.md_category_name 
+	from question_lg_category join question_md_category on question_lg_category.lg_category_code = question_md_category.lg_category_code 
+	order by length(md_category_code) asc, md_category_code asc
 </select>
 <select id="smCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
-	select * from question_sm_category
+	select question_md_category.md_category_name, question_sm_category.sm_category_code, question_sm_category.sm_category_name 
+	from question_sm_category join question_md_category on question_sm_category.md_category_code = question_md_category.md_category_code 
+	order by length(sm_category_code) asc, sm_category_code asc
 </select>
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
@@ -65,4 +69,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  UPDATE member m, member_role mr SET m.class_name='no_class', mr.role_code='ROLE_MEMBER' where m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
+
+<!-- 정원 10.15 문제분류관리 insert, select.... -->
+<select id="lgCatAddCheak" resultType="int">
+	select CONVERT(substring(lg_category_code, 2), UNSIGNED) as cate_num from question_lg_category order by cate_num desc limit 1
+</select>
+
+<insert id="lgCatAdd" parameterType="onet.com.vo.CategoryDto">
+	insert into question_lg_category values (#{lg_category_code},#{lg_category_name})
+</insert> 
+
+<select id="mdCatAddCheck" resultType="int">
+	select CONVERT(substring(md_category_code, 2), UNSIGNED) as cate_num from question_md_category order by cate_num desc limit 1
+</select>
+
+<select id="lgCatCode" resultType="String">
+	select lg_category_code from question_lg_category where lg_category_name=#{selectLgCat}
+</select>
+
+<insert id="mdCatAdd" parameterType="onet.com.vo.CategoryDto">
+	insert into question_md_category values(#{md_category_code},#{md_category_name},#{lg_category_code})
+</insert>
+
+<select id="mdCatCode" resultType="String">
+	select md_category_code from question_md_category where md_category_name=#{selectMdCat}
+</select>
+
+<select id="smCatAddCheck" resultType="int">
+	select CONVERT(substring(sm_category_code, 2), UNSIGNED) as cate_num from question_sm_category order by cate_num desc limit 1
+</select>
+
+<insert id="smCatAdd" parameterType="onet.com.vo.CategoryDto">
+	insert into question_sm_category values(#{sm_category_code},#{sm_category_name},#{md_category_code})
+</insert>
+
+<select id="lgCatAddIdCheck" parameterType="String" resultType="String">
+	select lg_category_name from question_lg_category where lg_category_name=#{lgCatAdd}
+</select>
+
+<select id="mdCatAddIdCheck" parameterType="String" resultType="String">
+	select md_category_name from question_md_category where md_category_name=#{mdCatAdd}
+</select>
+
+<select id="smCatAddIdCheck" parameterType="String" resultType="String">
+	select sm_category_name from question_sm_category where sm_category_name=#{smCatAdd}
+</select>
+
+<!-- 정원 끝 -->
 </mapper>
