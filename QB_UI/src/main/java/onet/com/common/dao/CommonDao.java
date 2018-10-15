@@ -2,6 +2,7 @@ package onet.com.common.dao;
 
 import java.util.List;
 
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
 
@@ -10,4 +11,6 @@ public interface CommonDao {
 	public List<NoticeDto> notice();
 	public List<Exam_infoDto> exam_info();
 	/* 끝 */
+	
+
 }

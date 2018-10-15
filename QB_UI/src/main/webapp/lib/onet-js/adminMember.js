@@ -39,13 +39,27 @@ $(function(){
 	});
 });
 
-
-/* 회원정보 수정 시작 */
-$(function(){
-	$('#updatebtn').click(function(){
+/* 수정버튼 눌렀을때 그에 대한 값을 가져오도록 구현 */
+$(document).ready(function(){ 
+	$("button[name='updatebtn']").click(function(){
+		action='modify';
+		type='PUT';
+		memberid=this.value;
+		
+		var row =$(this).parent().parent();
+		var tr = row.children();
+		
+		var member_id_modal=tr.eq(1).text();
+		var member_name_modal=tr.eq(2).text();
+		var member_email_modal=tr.eq(3).text();
+		var member_phone_modal=tr.eq(4).text();
 		
 		
+		$('#member_id').val(member_id_modal);
+		$('#member_name').val(member_name_modal);
+		$('#member_email').val(member_email_modal);
+		$('#member_phone').val(member_phone_modal);
 		
 		
-	}); // updatebtn 끝
-}); // function 끝
+	});
+});

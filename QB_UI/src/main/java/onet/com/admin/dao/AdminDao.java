@@ -4,6 +4,7 @@ import java.util.List;
 
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 public interface AdminDao {
@@ -36,6 +37,10 @@ public interface AdminDao {
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
 	public String updateMember(MemberDto member);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
-
+	
+	/* 영준 - 10.15 시험관리 관련 시작 */
+	public List<ExamPaperDto> examPaperList();
+	public int examPaperDelete(ExamPaperDto dto);
+	/* 영준 - 10.15 시험관리 관련 끝 */
 }
 

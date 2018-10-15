@@ -1,6 +1,5 @@
 package onet.com.admin.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-import onet.com.vo.Exam_infoDto;
-
-
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 @Controller
@@ -111,12 +107,6 @@ public class AdminController {
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
 
-	
-	
-	
-	
-	
-	
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
@@ -170,11 +160,13 @@ public class AdminController {
 	}  
 	
 	@RequestMapping("examManagement.do")
-	public String examManagement(){
+	public String examManagement(Model model) throws Exception{
+		List<ExamPaperDto> examPaperList;
+		examPaperList = adminService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
-	
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 

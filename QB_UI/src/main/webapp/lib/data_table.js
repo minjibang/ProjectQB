@@ -32,7 +32,6 @@ $(document).ready(function() {
 
 	// 영준 - 관리자 회원관리 페이지 데이터테이블
 	$('#adminMemberTable').DataTable();
-
 	$('table.display').DataTable({
 
 	});

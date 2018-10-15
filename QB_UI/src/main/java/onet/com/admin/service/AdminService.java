@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.admin.dao.AdminDao;
+import onet.com.common.dao.CommonDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 @Service
@@ -80,4 +82,18 @@ public class AdminService {
 	}
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 
+	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
+	public List<ExamPaperDto> examPaperList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.examPaperList();
+		return result;	
+	}
+	
+	public int examPaperDelete(ExamPaperDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.examPaperDelete(dto);
+		return result;
+	}
+	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
+	
 }

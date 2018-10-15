@@ -6,8 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.admin.dao.AdminDao;
 import onet.com.common.dao.CommonDao;
-import onet.com.teacher.dao.TeacherDao;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
 
@@ -29,4 +30,7 @@ public class CommonService {
 		return result;
 	}
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
+	
+
+	
 }

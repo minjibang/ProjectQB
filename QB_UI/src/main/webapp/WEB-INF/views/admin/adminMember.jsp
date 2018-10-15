@@ -38,8 +38,7 @@
 											<div class="form-group">
 												<label for="cid" class="control-label col-lg-2">아이디</label>
 												<div class="col-lg-10">
-													<input class="form-control" id="cid" name="member_id"
-														minlength="5" type="text" readonly />
+													<input class="form-control" type="text" name="member_id" maxlength="10" value="" readonly id="member_id">
 													<!-- col-lg-10 끝 -->
 												</div>
 												<!-- form-group 끝 -->
@@ -47,32 +46,31 @@
 											<div class="form-group">
 												<label for="cname" class="control-label col-lg-2">이름</label>
 												<div class="col-lg-10">
-													<input class="form-control" id="cname" type="text"
-														name="member_name" />
+													<input class="form-control" type="text" name="member_name" maxlength="10" value="" readonly id="member_name"> 
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="cemail" class="control-label col-lg-2">이메일</label>
 												<div class="col-lg-10">
-													<input class="form-control" id="cemail" type="email"
-														name="member_email" />
+													<input class="form-control" type="email" name="member_email" maxlength="10" value="" id="member_email">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="curl" class="control-label col-lg-2">핸드폰</label>
 												<div class="col-lg-10">
-													<input class="form-control" id="curl" type="text"
-														name="member_phone" />
+													<input class="form-control" type="text" name="member_phone" maxlength="15" value="" id="member_phone"> 		 
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="cclass" class="control-label col-lg-2">클래스</label>
-												<div class="col-lg-10">
-													<select name="classname" class="form-control">
-														<option value="class">java 109</option>
-														<option value="class">window 108</option>
-														<option value="class">class3</option>
+												<div class="col-sm-4 col-xs-4 pull-left">
+												
+													<select class="form-control" id="class_name">
+														<c:forEach var="classList" items="${classList}" varStatus="i">
+														<option value="${classList.class_name}">${classList.class_name}</option>
+													</c:forEach>
 													</select>
+
 												</div>
 											</div>
 											<div class="form-group">
@@ -213,24 +211,25 @@
 						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
-							<select id="" name="member_role" class="form-control searchControl">
-								<option value="">회원 권한 선택</option>
-								<option value="student">학생</option>
-								<option value="teacher">강사</option>
-								<option value="member">일반회원</option>
+							<select id="member_role" name="member_role" class="form-control searchControl">
+								<option value="${role_code}">회원 권한 선택</option>
+								<option value="${role_student}">학생</option>
+								<option value="${role_teacher}">강사</option>
+								<option value="${role_member}">일반회원</option>
 							</select> 
-							<select id="" name="class" class="form-control searchControl">
+							<select id="class_name" name="class_name" class="form-control searchControl">
 								<option value="">클래스 선택</option>
-								<option value="java109">자바 109기</option>
-								<option value="python110">파이썬 110기</option>
-								<option value="arduino111">아두이노 111기</option>
+								<option value="${class_name}">java 109</option>
+								<option value="${class_name}">window 108</option>
+								<option value="${class_name}">no_class</option>
+						
 							</select>
 							
-							<select id="" name="member" class="form-control searchControl">
+							<select id="member" name="member" class="form-control searchControl">
 								<option value="">개인정보 선택</option>
-								<option value="member_name">이름</option>
-								<option value="member_id">아이디</option>
-								<option value="member_email">이메일</option>
+								<option value="${member_name}">이름</option>
+								<option value="${member_id}">아이디</option>
+								<option value="${member_email}">이메일</option>
 							</select>
 							<input type="text" class="form-control searchControl" placeholder="검색어를 입력">
 							<button class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
@@ -263,13 +262,13 @@
 														<td class="member_phone">${memberList.member_phone}</td>
 														<td class="member_enable">${memberList.member_enable}</td>
 														<td><button type="button" class="btn btn-info"
-																id="updatebtn" data-toggle="modal"
-																data-target="#UpdateModal">
+																id="updatebtn" name="updatebtn" data-toggle="modal"
+																data-target="#UpdateModal" value="${memberList.member_id}">
 																<i class="fa fa-pencil"> </i>
 															</button>
 															<button type="button" class="btn btn-danger"
-																id="deletebtn" data-toggle="modal"
-																data-target="#DeleteModal">
+																id="deletebtn" name="deletebtn" data-toggle="modal"
+																data-target="#DeleteModal" value="${memberList.member_id}">
 																<i class="fa fa-trash-o"></i>
 															</button></td>
 													</tr>
@@ -277,6 +276,7 @@
 											</tbody>
 										</table>
 										<div id="adminMemberBtnDiv">
+											
 											<button class="insert-member btn btn-theme"
 													id="insertbtn" data-toggle="modal"
 													data-target="#InsertMemberModal">선택 회원 일괄

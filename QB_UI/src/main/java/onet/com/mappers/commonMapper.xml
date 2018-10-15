@@ -11,4 +11,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from exam_info
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
+
 </mapper>

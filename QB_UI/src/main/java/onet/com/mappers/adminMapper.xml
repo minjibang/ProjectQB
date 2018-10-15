@@ -65,4 +65,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  UPDATE member m, member_role mr SET m.class_name='no_class', mr.role_code='ROLE_MEMBER' where m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
+
+<!-- 영준 10월 15일 시험관리(관리자, 강사 페이지) 시작 -->
+<select id="examPaperList" parameterType="hashmap" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper
+</select>
+<delete id="examPaperDelete" parameterType="onet.com.vo.ExamPaperDto">
+	delete from exam_paper where exam_paper_name=#{exam_paper_name}
+</delete>
+<!-- 영준 10월 15일 시험관리(관리자, 강사 페이지) 끝 -->
 </mapper>
