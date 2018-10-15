@@ -1,26 +1,13 @@
+<%-- 
+	@JSP:noticeWrite.jsp
+	@DATE:2018-10-10
+	@Author:우한결
+	@Desc:강사 공지사항 글쓰기 페이지(스토리보드 18 of 41)
+ --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!-- 강사 공지사항 글쓰기 -->
-<script>
-
-</script>
-
-<style>
-table {
-	/* text-align: center; */
-}
-
-.fst_td {
-	width: 10%;
-}
-
-.notice_input {
-	width: 100%;
-}
-</style>
-
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="fluid-container">

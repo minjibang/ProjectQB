@@ -16,7 +16,7 @@ public class CommonService {
 	
 	@Autowired
 	private SqlSession sqlsession;
-	/*한결 - 강사 메인페이지 백그라운드 10.10*/
+	/*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
 	public List<NoticeDto> teacher_student_Main() {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		List<NoticeDto> result = dao.notice();
@@ -28,5 +28,5 @@ public class CommonService {
 		List<Exam_infoDto> result = dao.exam_info();
 		return result;
 	}
-	/*끝*/
+	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
 }

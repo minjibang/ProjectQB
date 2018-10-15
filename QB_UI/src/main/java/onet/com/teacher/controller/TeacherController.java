@@ -30,11 +30,13 @@ public class TeacherController {
 		return "common.teacher.notice.notice";
 	}
 	
+	/*한결 10월 12일 강사 글쓰기 페이지 시작*/
 	@RequestMapping("noticeWrite.do")
 	public String noticeWrite() {
 		
 		return "common.teacher.notice.noticeWrite";
 	}
+	/*한결 10월 12일 강사 글쓰기 페이지 끝*/
 	
 	/*재훈:10.08 게시판 글 상세보기 페이지 시작*/
 	@RequestMapping("noticeDetail.do")
@@ -57,9 +59,17 @@ public class TeacherController {
 	public String examScheduleDetail() {
 		
 		return "common.teacher.exam.examScheduleDetail";
-	}  
+	}
 	/*현이:10.09 시험 상세보기 페이지 끝*/
 	
+	/*한결 : 시험일정 > 시험응시 페이지 시작*/
+	@RequestMapping("examPaperDo.do")
+	public String examPaperDo() {
+
+		return "exam.student.examPaperDo";
+	}
+	/*한결 : 시험일정 > 시험응시 페이지 끝*/
+
 	/* 현이 18.10.11 선생님 시험관리 시작 */
 	@RequestMapping("examManagement.do")
 	public String examManagement(){
@@ -102,7 +112,6 @@ public class TeacherController {
 		return "common.teacher.exampaper.examPaper";
 	}
 	/*민지 18.10.10 강사 시험감독 페이지 끝*/
-	
 	
 	
 	// 강사 문제 관련 
