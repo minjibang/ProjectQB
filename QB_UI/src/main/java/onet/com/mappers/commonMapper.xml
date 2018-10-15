@@ -11,4 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from exam_info
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
+
+<!-- 현이 10.15 examScheduleDetail 페이지 select 시작 -->
+<select id="examScheduleDetail" parameterType="int" resultType="onet.com.vo.ExamInfoDto">
+	select exam_info_num, exam_paper_num, class_name, exam_info_name, exam_info_desc, exam_info_member, 
+	exam_info_date, exam_info_start, exam_info_end, exam_info_time 
+	from exam_info where exam_info_num = #{exam_info_num}
+</select>
+<!-- 현이 10.15 examScheduleDetail 페이지 select 끝 -->
+
 </mapper>

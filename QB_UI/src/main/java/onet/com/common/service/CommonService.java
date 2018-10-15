@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
-import onet.com.teacher.dao.TeacherDao;
+import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
 
@@ -26,6 +26,13 @@ public class CommonService {
 	public List<Exam_infoDto> exam_info() {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		List<Exam_infoDto> result = dao.exam_info();
+		return result;
+	}
+	
+	// 현이 
+	public ExamInfoDto examScheduleDetail(int exam_info_num) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		ExamInfoDto result = dao.examScheduleDetail(exam_info_num);
 		return result;
 	}
 

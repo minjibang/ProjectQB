@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import onet.com.common.service.CommonService;
+import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.NoticeDto;
 
@@ -21,12 +22,16 @@ public class StudentController {
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
-
+	public String examScheduleDetail(Model model, int exam_info_num) {
+		
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		model.addAttribute("dto", dto);
+		
 		return "common.student.exam.examScheduleDetail";
 	}
 	/* 현이:10.09 시험 상세보기 페이지 끝 */
-
+	
+	
 	// 학생 시험지 관련
 	@RequestMapping("examPaper.do")
 	public String examPaper() {
@@ -108,7 +113,6 @@ public class StudentController {
 	}
 	
 	
-	
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
 	@RequestMapping("examPaperDo2.do")
 	public String examPaperDo2() {
@@ -116,6 +120,7 @@ public class StudentController {
 		return "exam.student.examPaperDo2";
 	}
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
+
 
 
 
