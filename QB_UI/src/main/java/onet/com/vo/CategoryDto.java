@@ -8,6 +8,8 @@ public class CategoryDto {
 	private String md_category_name;
 	private String sm_category_code;
 	private String sm_category_name;
+	private String level_code;
+	private String level_name;
 	
 	public String getLg_category_code() {
 		return lg_category_code;
@@ -45,5 +47,18 @@ public class CategoryDto {
 	public void setSm_category_name(String sm_category_name) {
 		this.sm_category_name = sm_category_name;
 	}
+	public String getLevel_code() {
+		return level_code;
+	}
+	public void setLevel_code(String level_code) {
+		this.level_code = level_code;
+	}
+	public String getLevel_name() {
+		return level_name;
+	}
+	public void setLevel_name(String level_name) {
+		this.level_name = level_name;
+	}
+	
 	
 }

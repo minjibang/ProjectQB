@@ -18,6 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
 
+<!-- 재훈 - 10.15 문제난이도 관련 시작 -->
+<select id="questionLevelList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_level
+</select>
+<!-- 재훈 - 10.15 문제난이도 관련 끝 -->
+
 <!-- 영준 - 10.10 회원관리 관련 시작 -->
 <select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
 	select class_name, member_id, member_name, member_email,
@@ -35,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
-	select class_name, teacher_name, class_start_date,class_end_date,class_enable
+	select class_name, teacher_name, class_start_date, class_end_date, class_enable
 	 from class
 </select>
 <!-- 클래스 멤버 수정 -->
@@ -65,4 +71,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  UPDATE member m, member_role mr SET m.class_name='no_class', mr.role_code='ROLE_MEMBER' where m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
+
+<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  -->
+<insert id="classInsert" parameterType="onet.com.vo.ClassDto">
+	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
+</insert>
+<select id="classCheck" resultType="String">
+	select class_name from class where class_name = #{class_name}
+</select>
+<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
 </mapper>

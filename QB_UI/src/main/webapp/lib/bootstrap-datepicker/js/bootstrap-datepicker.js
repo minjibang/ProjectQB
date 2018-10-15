@@ -23,7 +23,9 @@
 	
 	var Datepicker = function(element, options){
 		this.element = $(element);
-		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
+		/*태용*/
+		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'yyyy-mm-dd');
+		/*태용 end*/
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
 							.on({

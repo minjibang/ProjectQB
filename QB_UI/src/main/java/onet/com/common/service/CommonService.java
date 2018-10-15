@@ -28,5 +28,10 @@ public class CommonService {
 		List<Exam_infoDto> result = dao.exam_info();
 		return result;
 	}
+
+	
+	
+
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
+
 }

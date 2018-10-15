@@ -6,6 +6,7 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
@@ -14,9 +15,6 @@
 
 <!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
 <!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
-<%-- <link href="${pageContext.request.contextPath}/css/teacherMyQuesion_newQuestion.css" 
-	rel="stylesheet" type="text/css"> --%>
-
 
 <!--main content start-->
 <section id="main-content">
@@ -41,25 +39,26 @@
 
 									<h3 id="h3id">내가 만든 문제</h3>
 									<hr>
-									<select class="form-control myQuestionSelectCategory" name="">
-										<option value="">대분류</option>
-										<option value="">언어</option>
-										<option value="">시험</option>
-									</select> <select class="form-control myQuestionSelectCategory" name="">
-										<option value="">중분류</option>
-										<option value="">자바</option>
-										<option value="">C</option>
-										<option value="">C++</option>
-									</select> <select class="form-control myQuestionSelectCategory" name="">
-										<option value="">소분류</option>
-										<option value="">변수</option>
-										<option value="">배열</option>
-										<option value="">객체</option>
-									</select> <select class="form-control myQuestionSelectCategory" name="">
-										<option value="">난이도</option>
-										<option value="">기초</option>
-										<option value="">기본</option>
-										<option value="">심화</option>
+									<select class="form-control myQuestionSelectCategory" name="lgCategory">
+										<option value="lgCategory">대분류</option>
+									<c:forEach items="${lgCatList}" var="lgCatList">
+										<option value="">${lgCatList.lg_category_name}</option>
+									</c:forEach>
+									</select> <select class="form-control myQuestionSelectCategory" name="mdCategory">
+										<option value="mdCategory">중분류</option>
+									<c:forEach items="${mdCatList}" var="mdCatList">
+										<option value="">${mdCatList.md_category_name}</option>
+									</c:forEach>
+									</select> <select class="form-control myQuestionSelectCategory" name="smCategory">
+									<option value="smCategory">소분류</option>
+									<c:forEach items="${smCatList}" var="smCatList">
+										<option value="">${smCatList.sm_category_name}</option>
+									</c:forEach>
+									</select> <select class="form-control myQuestionSelectCategory" name="QuestionLevel">
+									<option value="quesLevel">난이도</option>
+									<c:forEach items="${quesLevelList}" var="quesLevelList">
+										<option value="">${quesLevelList.level_name}</option>
+									</c:forEach>
 									</select> <input type="text"
 										class="form-control myQuestionSelectCategory2"
 										placeholder="키워드를 입력하세요."> <input type="button"
@@ -205,23 +204,24 @@
 										</h4>
 										<select class="form-control-static" name="">
 											<option value="">대분류</option>
-											<option value="">언어</option>
-											<option value="">시험</option>
+											<c:forEach items="${lgCatList}" var="lgCatList">
+											<option value="">${lgCatList.lg_category_name}</option>
+											</c:forEach>
 										</select> <select class="form-control-static" name="">
 											<option value="">중분류</option>
-											<option value="">자바</option>
-											<option value="">C</option>
-											<option value="">C++</option>
+											<c:forEach items="${mdCatList}" var="mdCatList">
+											<option value="">${mdCatList.md_category_name}</option>
+											</c:forEach>
 										</select> <select class="form-control-static" name="">
 											<option value="">소분류</option>
-											<option value="">변수</option>
-											<option value="">배열</option>
-											<option value="">객체</option>
+											<c:forEach items="${smCatList}" var="smCatList">
+											<option value="">${smCatList.sm_category_name}</option>
+											</c:forEach>
 										</select> <select class="form-control-static" name="">
 											<option value="">난이도</option>
-											<option value="">기초</option>
-											<option value="">기본</option>
-											<option value="">심화</option>
+											<c:forEach items="${quesLevelList}" var="quesLevelList">
+											<option value="">${quesLevelList.level_name}</option>
+											</c:forEach>
 										</select>
 									</div>
 									<h4 class="quesCategory">
@@ -422,18 +422,11 @@
 
 
 
-						</div>
-						<!-- /tab-content -->
-					</div>
-					<!-- /panel-body -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /col-lg-12 -->
-	</section>
-	<!-- /wrapper -->
-</section>
-<!-- /MAIN CONTENT -->
+						</div><!-- /tab-content -->
+					</div><!-- /panel-body -->
+				</div><!-- /row -->
+			</div><!-- /container -->
+		</div><!-- /col-lg-12 -->
+	</section><!-- /wrapper -->
+</section><!-- /MAIN CONTENT -->
 <!--main content end-->

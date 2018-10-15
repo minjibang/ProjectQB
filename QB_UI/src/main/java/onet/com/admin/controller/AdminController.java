@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
+import onet.com.common.service.CommonService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.Exam_infoDto;
 
 
 import onet.com.vo.MemberDto;
+import onet.com.vo.NoticeDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -27,11 +29,17 @@ public class AdminController {
 	/*재훈 10.08 문제분류관련 start*/
 	@Autowired
 	private AdminService adminService;
-
+	
+	@Autowired
+	private CommonService commonService;
 	
 	@RequestMapping("adminMain.do")
-	public String adminMain() {
-
+	public String adminMain(Model model) {
+		List<ClassDto> classlist;
+		
+		classlist = adminService.classList();
+		model.addAttribute("classlist",classlist);
+		
 		return "admin.adminMain";
 	}
 	
@@ -137,11 +145,18 @@ public class AdminController {
 	
 	
 	// 관리자 클래스 상세보기  - 공지사항
+	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain() {
+	public String adminClassMain(Model model) {
+		List<NoticeDto> notice;
+		notice=commonService.teacher_student_Main();
+		model.addAttribute("notice", notice);
 		
+		List<Exam_infoDto> exam_info = commonService.exam_info();
+		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
+	
 
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail() {
@@ -207,12 +222,46 @@ public class AdminController {
 	
 	
 	// 관리자 클래스 상세보기 - 문제 관리 
+	/* 재훈 10.15 문제 관리 페이지 관련 start */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(){
+	public String questionManagement(Model model) throws Exception {
+		List<CategoryDto> lgCatList;
+		
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
+	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
-
+	/*@RequestMapping("questionCategory.do")
+	public String questionCategory(Model model) throws Exception {
+		List<CategoryDto> list1;
+		
+		list1=adminService.lgCategoryList();
+		model.addAttribute("list1",list1);
+		
+		List<CategoryDto> list2;
+		list2=adminService.mdCategoryList();
+		model.addAttribute("list2",list2);
+		
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		return "admin.questionCategory";
+	}*/
 
 }
