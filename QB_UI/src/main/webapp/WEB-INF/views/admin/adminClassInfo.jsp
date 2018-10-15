@@ -11,6 +11,8 @@
 		<div class="row mt">
 			<div class="col-lg-12">
 				<!-- 모달 -->
+				
+				
 				<!-- UpdateModal -->
 				<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
@@ -31,7 +33,7 @@
 												<label for="cid" class="control-label col-lg-2">아이디</label>
 												<div class="col-lg-10">
 													<input class="form-control" id="cid" name="member_id"
-														minlength="10" type="text" readonly />
+														 type="text" readonly />
 													<!-- col-lg-10 끝 -->
 												</div>
 												<!-- form-group 끝 -->
@@ -46,7 +48,7 @@
 											<div class="form-group">
 												<label for="cemail" class="control-label col-lg-2">이메일</label>
 												<div class="col-lg-10">
-													<input class="form-control" id="cemail" name="member_email" type="email" required/>
+													<input class="form-control" id="cemail" name="member_email" type='email' required/>
 												</div>
 											</div>
 											<div class="form-group">
@@ -100,18 +102,6 @@
 					</div>
 					<!-- UpdateModal 끝 -->
 				</div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 				<!-- DeleteModal -->

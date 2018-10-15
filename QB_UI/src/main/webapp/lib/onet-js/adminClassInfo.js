@@ -73,7 +73,7 @@ $(document).ready(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
-   				  alert("해당아이디값"+memberid);
+   				  alert("수정성공");
    				  location.href="adminClassInfo.do";
    			  }
    		});
@@ -118,7 +118,6 @@ $(document).ready(function(){
    				  location.href="adminClassInfo.do";
    			  },
    			  error: function(request, status, error){
-   				  console.log("request 값이 뭐냐  >>>> "+ request);
    				  alert("에러야!");
    			 }
    		});
