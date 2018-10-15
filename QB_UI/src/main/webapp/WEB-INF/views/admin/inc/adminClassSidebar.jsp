@@ -7,8 +7,12 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!--sidebar start  -->
     <aside>
+
+
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
@@ -43,15 +47,20 @@
               <span>시험 관리</span>
               </a>
           </li>
+          	
 	          <li class="sub-menu">
-	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do">
+	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do?class_name=${param.class_name}">
 	              <i class="fa fa-desktop"></i>
 	              <span>클래스 전체 관리</span>
+	             
 	             </a>
+	             
 	          </li> 
+	          
           <!-- 강사 end -->
          </ul>
         <!-- sidebar menu end-->
       </div>
+ 
     </aside>
 <!--sidebar end-->

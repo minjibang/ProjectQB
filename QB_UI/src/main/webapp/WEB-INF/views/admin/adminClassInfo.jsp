@@ -210,6 +210,7 @@
 																	value="${classMemberList.member_id}">
 																	<i class="fa fa-trash-o"></i>
 																</button>
+																
 
 															</td>
 														</tr>

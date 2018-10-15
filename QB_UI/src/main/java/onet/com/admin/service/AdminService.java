@@ -52,9 +52,11 @@ public class AdminService {
 	/*영준 - 10.10 회원관리 관련 끝 */
 
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
-	public List<MemberDto> classMemberList(){
+	public List<MemberDto> classMemberList(String class_name){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<MemberDto> result = dao.classMemberList();
+		MemberDto dto = new MemberDto();
+		dto.setClass_name(class_name);
+		List<MemberDto> result = dao.classMemberList(dto);
 		return result;
 	}
 	

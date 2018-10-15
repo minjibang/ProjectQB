@@ -35,9 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
-<select id="classMemberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
+<select id="classMemberList" parameterType="onet.com.vo.MemberDto" resultType="onet.com.vo.MemberDto">
 	select m.class_name, m.member_id, m.member_name, m.member_email,
-	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r where m.class_name='java 109' and m.member_id=mr.member_id and mr.role_code =r.role_code
+	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r where m.class_name=#{class_name} and m.member_id=mr.member_id and mr.role_code =r.role_code
 </select>
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">

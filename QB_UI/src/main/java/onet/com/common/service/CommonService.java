@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import onet.com.common.dao.CommonDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.Exam_infoDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 
 @Service
@@ -17,15 +18,21 @@ public class CommonService {
 	@Autowired
 	private SqlSession sqlsession;
 	/*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
-	public List<NoticeDto> teacher_student_Main() {
+	public List<NoticeDto> teacher_student_Main(String class_name) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<NoticeDto> result = dao.notice();
+		NoticeDto dto = new NoticeDto();
+		dto.setClass_name(class_name);
+		List<NoticeDto> result = dao.notice(class_name);
 		return result;
 	}
 	
-	public List<Exam_infoDto> exam_info() {
+	public List<Exam_infoDto> exam_info(String class_name) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<Exam_infoDto> result = dao.exam_info();
+		
+		Exam_infoDto dto = new Exam_infoDto();
+		dto.setClass_name(class_name);
+		
+		List<Exam_infoDto> result = dao.exam_info(class_name);
 		return result;
 	}
 

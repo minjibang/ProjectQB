@@ -4,11 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.common.dao.CommonDao">
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 시작 -->
-<select id="notice" parameterType="hashmap" resultType="onet.com.vo.NoticeDto">
-	select * from notice
+<select id="notice" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice where class_name=#{class_name}
 </select>
-<select id="exam_info" parameterType="hashmap" resultType="onet.com.vo.Exam_infoDto">
-	select * from exam_info
+<select id="exam_info" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.Exam_infoDto">
+	select * from exam_info where class_name=#{class_name}
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
 </mapper>

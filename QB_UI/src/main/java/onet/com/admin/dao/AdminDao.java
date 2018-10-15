@@ -25,7 +25,7 @@ public interface AdminDao {
 	
 
 	/*민지 10.12 클래스멤버리스트 관련*/
-	public List<MemberDto> classMemberList();
+	public List<MemberDto> classMemberList(MemberDto dto);
 	
 	public List<ClassDto> classList();
 	

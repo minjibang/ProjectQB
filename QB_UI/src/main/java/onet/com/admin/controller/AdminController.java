@@ -75,7 +75,7 @@ public class AdminController {
 
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
-	public String adminClassInfo(Model model) throws Exception{
+	public String adminClassInfo(Model model, String class_name) throws Exception{
 		
 		
 
@@ -85,7 +85,7 @@ public class AdminController {
 		
 		
 		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList();
+		classMemberList= adminService.classMemberList(class_name);
 		model.addAttribute("classMemberList", classMemberList);
 		return "admin.adminClassInfo";
 	}
@@ -119,12 +119,6 @@ public class AdminController {
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
 
-	
-	
-	
-	
-	
-	
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	@RequestMapping("myPage.do")
 	public String mypage() {
@@ -147,12 +141,13 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model) {
+	public String adminClassMain(Model model, String class_name) {
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main();
+		notice=commonService.teacher_student_Main(class_name);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info();
+		List<Exam_infoDto> exam_info = commonService.exam_info(class_name);
+		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
