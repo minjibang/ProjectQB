@@ -20,7 +20,6 @@
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-			<div class="col-lg-12"></div>
 				<div class="col-lg-12 mt">
 					<div class="row content-panel">
 						<div class="panel-heading">

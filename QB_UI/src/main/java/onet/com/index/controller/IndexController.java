@@ -26,6 +26,7 @@ public class IndexController {
 
 	@Autowired
 	private IndexService indexService;
+	
 
 	
 	
@@ -45,7 +46,12 @@ public class IndexController {
 	public String idSearch(MemberDto dto, Model model) {
 		String result = indexService.idSearch(dto);
 		System.out.println(result);
-		model.addAttribute("result", result);
+		if(result != null) {
+			model.addAttribute("result", result);
+		}else {
+			result = "false";
+			model.addAttribute("result", result);
+		}
 		return "home.findId";
 	}
 	
@@ -57,20 +63,24 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value="pwdSearch.do", method=RequestMethod.POST)
-	public String pwdSearch(MemberDto dto) {
+	public String pwdSearch(MemberDto dto, Model model) {
 		String mailto = dto.getMember_email();
 		String member_id = dto.getMember_id();
 		String pwd = indexService.sendMail(mailto,"loginfail");
 		dto.setMember_pwd(pwd);
 		dto.setMember_id(member_id);
 		int re = indexService.pwdSearch(dto);
-		System.out.println("-------------------------------------------");
+		String result = "";
 		if(re > 0) {
 			System.out.println("성공");
+			result = "true";
+			model.addAttribute("result", result);
 		}else {
 			System.out.println("실패");
+			result = "false";
+			model.addAttribute("result", result);
 		}
-		return "redirect:/login.jsp";
+		return "home.findPw";
 	}
 
 	@RequestMapping("noAuth.do")

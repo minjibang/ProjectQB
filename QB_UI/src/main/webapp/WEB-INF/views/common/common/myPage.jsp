@@ -11,23 +11,22 @@
 
 <link href="${pageContext.request.contextPath}/css/myPage.css" rel="stylesheet">
 
- <section id="main-content">
-      <section class="wrapper">
-        <div class="row mt">
-          <div class="col-lg-12">
-            <div class="row content-panel">
-              <div class="panel-heading">
-                <ul class="nav nav-tabs nav-justified">
-                  <li class="active">
-                    <a data-toggle="tab" href="#personalInfo">개인정보 수정</a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#unregister" class="contact-map">회원 탈퇴</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- /panel-heading -->
-              <div class="panel-body">
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<div class="col-lg-12 mt">
+			<div class="row content-panel">
+				<div class="panel-heading">
+                	<ul class="nav nav-tabs nav-justified">
+                  		<li class="active">
+                   		<a data-toggle="tab" href="#personalInfo">개인정보 수정</a>
+                  		</li>
+                  		<li>
+                    	<a data-toggle="tab" href="#unregister" class="contact-map">회원 탈퇴</a>
+                  		</li>
+                	</ul>
+              	</div><!-- /panel-heading -->
+			
+				<div class="panel-body">
                 <div class="tab-content">
                   <div id="personalInfo" class="tab-pane active">
                     <div class="row">
@@ -138,14 +137,8 @@
                 <!-- /tab-content -->
               </div>
               <!-- /panel-body -->
-            </div>
-            <!-- /col-lg-12 -->
-          </div>
-          <!-- /row -->
-        </div>
-        <!-- /container -->
-      </section>
-      <!-- /wrapper -->
-    </section>
-    <!-- /MAIN CONTENT -->
-    <!--main content end-->
+			
+			</div><!-- row content-panel -->
+		</div><!-- col-lg-12 mt -->
+	</section><!-- wrapper site-min-height -->
+</section><!-- main-content -->
