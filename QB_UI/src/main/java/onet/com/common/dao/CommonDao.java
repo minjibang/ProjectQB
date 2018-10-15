@@ -1,8 +1,10 @@
 package onet.com.common.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import onet.com.vo.Exam_infoDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 
 public interface CommonDao {
@@ -10,4 +12,10 @@ public interface CommonDao {
 	public List<NoticeDto> notice();
 	public List<Exam_infoDto> exam_info();
 	/* 끝 */
+	
+	/*양회준 - 10.15 내 정보 수정 시작*/
+	public MemberDto myPageInfo(String member_id);
+	public int myPageUpdate(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
+	public int myPageDrop(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
+	/*양회준 - 10.15 내 정보 수정 끝*/
 }

@@ -1,7 +1,11 @@
 package onet.com.admin.controller;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -120,20 +124,6 @@ public class AdminController {
 		}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
-
-	
-	
-	
-	
-	
-	
-	/*현이 18.10.09 관리자 마이페이지 시작*/
-	@RequestMapping("myPage.do")
-	public String mypage() {
-
-		return "common.admin.common.myPage";
-	}
-	/*현이 18.10.09 관리자 마이페이지 끝*/
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
@@ -272,5 +262,31 @@ public class AdminController {
 		
 		return "admin.questionCategory";
 	}*/
+	
+	/*현이 18.10.09 관리자 마이페이지 시작*/
+	/*양회준 10.15 내 정보 수정 시작*/
+	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
+	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
+		String member_id = principal.getName();
+		System.out.println("아이디 : " +member_id);
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		return "common.admin.common.myPage";
+	}
+	/*양회준 10.15 내 정보 수정 끝*/
+	/*현이 18.10.09 관리자 마이페이지 끝*/
+	
+	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
+	public String myPageUpdate(MemberDto memberDto)
+			throws IOException, ClassNotFoundException, SQLException {
+		String url = "redirect:myPage.do";
+		try {
+			url = commonService.myPageUpdate(memberDto);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		// 예외 발생에 상관없이 목록페이지 요청 처리
+		return url;
+	}
 
 }

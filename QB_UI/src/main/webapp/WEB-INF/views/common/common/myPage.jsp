@@ -36,29 +36,29 @@
                       <div class="col-lg-8 col-lg-offset-2 detailed mt">
                         <h4 class="mb">개인정보 수정</h4>
                         <%-- 개인정보 수정 폼 시작 --%>
-                        <form role="form" class="form-horizontal formArrayHyunyi" action="">
+                        <form role="form" class="form-horizontal formArrayHyunyi" method="post" action="myPage.do">
                         <%-- 아이디 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">아이디</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="id" class="form-control" name="member_id" readonly>
+                              <input type="text" placeholder="id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 기존 비밀번호 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">기존 비밀번호</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control" name="member_pwd">
+                              <input type="password" placeholder="password" class="form-control">
                             </div>
                           </div>
                           <%-- 비밀번호 변경 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호 변경
-                             <input type="checkbox" class="ez-checkbox" id="passwordChange" style="height: auto">
+                             <input type="checkbox" class="ez-checkbox" id="passwordChange" style="height: auto" >
                             </label>
                            
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control" id="passwordChangeChk">
+                              <input type="password" placeholder="password" class="form-control" id="passwordChangeChk" name="member_pwd" >
                             </div>
                           </div>
                           	<div id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
@@ -74,14 +74,14 @@
                           <div class="form-group">
                             <label class="col-lg-3 control-label">이름</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="name" class="form-control" name="member_name" readonly>
+                              <input type="text" placeholder="name" class="form-control" name="member_name" readonly value="${memberDto.member_name}">
                             </div>
                           </div>  
                           <%-- 핸드폰 --%>      
                         <div class="form-group">
                             <label class="col-lg-3 control-label">핸드폰</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="HP" id="country" class="form-control" name="member_phone">
+                              <input type="text" placeholder="HP" id="country" class="form-control" name="member_phone" value="${memberDto.member_phone}">
                             </div>
                           </div>
                           <%-- 이메일 변경 --%>
@@ -90,7 +90,7 @@
                               <input type="checkbox" class="ez-checkbox" id="emailChangeChk" style="height: auto">
                             </label>
                             <div class="col-lg-8">
-                                  <input type="text" placeholder="email" id="email" class="form-control inlineTextField">
+                                  <input type="text" placeholder="email" id="member_email" class="form-control inlineTextField" name="member_email" value="${memberDto.member_email}">
                                   <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeRquestBtn">인증번호 요청</button> 
                             </div>
                           </div>
@@ -105,8 +105,8 @@
                           <%-- 정보 수정&취소 버튼 --%>
                           <div class="form-group">
                             <div class="col-lg-11 infoBtnDiv">
-                                <button class="btn btn-theme" type="button" id="infoModifiy">정보 수정</button>
-                                <button class="btn btn-theme04" type="button" id="cancel">취소</button>
+                                <button class="btn btn-theme" type="submit" id="infoModifiy">정보 수정</button>
+                                <button class="btn btn-theme04" type="reset" id="cancel">취소</button>
                             </div>
                           </div>
                         </form>
@@ -123,12 +123,12 @@
                       <div class="col-lg-8 col-lg-offset-2 detailed mt">
                         <h4 class="mb">회원 탈퇴</h4>
                         <%--회원탈퇴 폼 시작 --%>
-                        <form role="form" class="form-horizontal formArrayHyunyi" action="">
+                        <form role="form" class="form-horizontal formArrayHyunyi" action="myPageDrop.do">
                           <%-- 아이디 --%>
                           <div class="form-group">  
                             <label class="col-lg-3 control-label">아이디</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="id" class="form-control" readonly>
+                              <input type="text" placeholder="id" class="form-control" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 비밀번호 --%>
@@ -176,7 +176,7 @@ $('#emailCodeRquestBtn').click(function() {
 		type : 'post',
 		url : '${pageContext.request.contextPath}/index/mail.do',
 		data : {
-			mailto : $('#mail').val()
+			mailto : $('#member_email').val()
 		},
 		success : function(data) {
 			alert(data);

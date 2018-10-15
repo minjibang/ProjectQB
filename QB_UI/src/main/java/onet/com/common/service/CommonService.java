@@ -1,6 +1,11 @@
 package onet.com.common.service;
 
+import java.io.IOException;
+import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.stereotype.Service;
 import onet.com.common.dao.CommonDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.Exam_infoDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 
 @Service
@@ -33,5 +39,29 @@ public class CommonService {
 	
 
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
-
+	
+	/*양회준 - 10.15 내정보 수정 시작 */
+	public MemberDto myPageInfo(String member_id) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		MemberDto memberDto = commonDao.myPageInfo(member_id);
+		return memberDto;
+	}
+	/*양회준 - 10.15 내정보 수정 끝 */
+	
+	public String myPageUpdate(MemberDto memberDto)
+			throws ClassNotFoundException, SQLException, IOException {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		commonDao.myPageUpdate(memberDto);
+		System.out.println("test");
+		return "redirect:myPage.do";
+	}
+	
+	public String myPageDrop(MemberDto memberDto)
+			throws ClassNotFoundException, SQLException, IOException {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		commonDao.myPageDrop(memberDto);
+		System.out.println("droptest");
+		return "redirect:myPage.do";
+	}
+	
 }
