@@ -14,17 +14,17 @@
 				<ul class="nav top-menu">
 
 					<li id="header_inbox_bar">
-					<a href="#"> 
+					<a href="${pageContext.request.contextPath}/student/myMessage.do"> 
 					<i class="fa fa-envelope-o"></i>
 					<span class="badge bg-theme">5</span>
-					</a>
+					</a></li>
 					<li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/student/myPage.do"> <i
 							class="fa fa-user"></i>
 					</a></li>
 
 				</ul>
 			</div>
-			<li><a class="logout" href="">Logout</a></li>
+			<li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
 			<!--  -->
 		</ul>
 	</div>

@@ -21,28 +21,25 @@
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="row mt">
-			<div class="col-lg-12"></div>
-			<!-- /col-lg-12 -->
-			<div class="col-lg-12 mt">
-				<div class="row content-panel div_table">
-					<div class="panel-heading">
-						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a data-toggle="tab" href="#overview">내
-									시험지 </a></li>
-							<li><a data-toggle="tab" href="#tempExamPaper"
+		<div class="col-lg-12 mt">
+			<div class="row content-panel div_table">
+				<div class="panel-heading">
+					<ul class="nav nav-tabs nav-justified">
+						<li class="active"><a data-toggle="tab" href="#overview">내
+								시험지 </a></li>
+						<li><a data-toggle="tab" href="#tempExamPaper"
 								class="contact-map">임시 저장된 시험지 </a></li>
-							<li><a data-toggle="tab" href="#examSchedule"
+						<li><a data-toggle="tab" href="#examSchedule"
 								class="contact-map">시험 일정 </a></li>
-						</ul>
-					</div>
-					<!-- /panel-heading -->
-					<div class="panel-body">
+					</ul>
+				</div>
+				
+				<div class="panel-body">
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_myExam" class="col-md-12">
-									<form>
+									<form class="insertForm">
 										<a href="${pageContext.request.contextPath}/teacher/examPaperMake.do" class="examPaper-insert">
 										<img src="../img/material-icon.png">
 										<strong>새 시험지 만들기</strong></a>
@@ -54,7 +51,7 @@
 												<td class="">
 												<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" 
 													class="img-thumbnail" width="150px;"></td>
-												<td class="exam_paper_name" width="70%"><h4><strong>JAVA의 기본</strong></h4>
+												<td class="exam_paper_name"><h4><strong>JAVA의 기본</strong></h4>
 												<p>변수|배열|FOR문|IF문</p></td>
 												<td class="pdf_download text-right"><h5><a href="#">PDF 다운로드
 													<img src="../img/file-download.png"></a></h5>
@@ -114,7 +111,7 @@
 					<div id="tempExamPaper" class="tab-pane">
 						<div class="row">
 							<div id="div_tempExam" class="col-md-12">
-									<form>
+									<form class="insertForm">
 										<a href="examPaperMake.do" class="examPaper-insert">
 										<img src="../img/material-icon.png">
 										<strong>새 시험지 만들기</strong></a>
@@ -167,7 +164,7 @@
 							<div id="examSchedule" class="tab-pane">
 								<div class="row">
 									<div id="div_examSchedule" class="col-md-12">
-										<form>
+										<form class="insertForm">
 											<a href="" class="exam-insert">
 											<img src="../img/material-icon.png"><strong>새 시험 일정 등록</strong></a>
 										</form>
@@ -225,15 +222,13 @@
 					</div>
 					<!-- /row content-panel div_table -->
 				</div>
-				<!-- /col-lg-12 mt -->
-			</div>
-		</div>
-		<!-- /row mt -->
-		</div>
-		<!-- /wrapper -->
-	</section>
-	<!-- /main-content -->
-</section>
+				
+			</div> <!-- row content-panel div_table -->
+		</div>	<!-- col-lg-12 mt -->
+	</section>	<!-- wrapper site-min-height -->
+</section> <!-- main-content -->
+
+
 	<script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
   	<script src="${pageContext.request.contextPath}/lib/tasks.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/lib/onet-js/teacherMyExamPaper.js" type="text/javascript"></script>

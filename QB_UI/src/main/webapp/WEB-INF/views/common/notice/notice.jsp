@@ -7,6 +7,11 @@ teacherMain.jsp
 한결
 2018.10.10 
 -->
+<link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
+<style>
+
+
+</style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
 <section id="main-content">
@@ -14,157 +19,71 @@ teacherMain.jsp
 		<!-- page start-->
 		<div class="row mt">
 			<div class="col-sm-9">
-				<div class="content-panel noticePanelDiv" >
-					<div class="panel-body">
-						<!-- <section class="panel"> -->
-						<header class="panel-heading wht-bg">
-							<h4 class="gen-case">공지사항</h4>
-						</header>
-						<div class="panel-body minimal">
-							<div class="table-inbox-wrap ">
-								<table class="table table-inbox table-hover" id="noticetable">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Position</th>
-											<th>Office</th>
-											<th>Age</th>
-											<th>Start date</th>
-											<th>Salary</th>
+				<section class="panel">
+					<header class="panel-heading wht-bg">
+						<h4 class="gen-case">공지사항</h4>
+					</header>
+					<div class="panel-body minimal">
+						<div class="table-inbox-notice-wrap ">
+							<table class="table table-inbox-notice table-hover" id="noticetable">
+								<thead>
+									<tr>
+										<th>글번호</th>
+										<th>제목</th>
+										<th>첨부파일</th>
+										<th>작성자</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${notice }" var="notice">
+										<tr class="" onClick="location.href='noticeDetail.do'">
+											<td class="notice_num">${notice.notice_num }</td>
+											<td class="notice_name">${notice.notice_name }</td>
+											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
+											<td class="notice_member_id">${notice.member_id }</td>
+											<td class="notice_date">${notice.notice_date }</td>
 										</tr>
-									</thead>
-									<tbody>
-										<tr class="" onClick="location.href='noticeView.do'">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message  dont-show">Google Inc.</td>
-											<td class="view-message ">Your new account is ready.</td>
-											<td class="view-message  inbox-small-cells"><i
-												class="fa fa-paperclip"></i></td>
-											<td class="view-message  text-right">08:10 AM</td>
-										</tr>
-										<tr class="" onClick="location.href='noticeView.do'">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message dont-show">Mark Thompson</td>
-											<td class="view-message">Last project updates</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 15</td>
-										</tr>
-										<tr class="" onClick="location.href='noticeView.do'">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message dont-show">Wonder Corp.</td>
-											<td class="view-message">Thanks for your registration</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 15</td>
-										</tr>
-										<tr class="" onClick="location.href='noticeView.do'">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message dont-show">>Facebook</td>
-											<td class="view-message">New Friendship Request</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 13</td>
-										</tr>
-										<tr class="" onClick="location.href='noticeView.do'">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i
-												class="fa fa-star inbox-started"></i></td>
-											<td class="view-message dont-show">Mark Webber <span
-												class="label label-danger pull-right">urgent</span></td>
-											<td class="view-message">The server is down</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 09</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
-						<!-- </section> -->
-					</div>
-				</div>
-
-				<div class="content-panel">
-					<div class="panel-body">
-						<!-- <section class="panel"> -->
-						<header class="panel-heading wht-bg">
-							<h4 class="gen-case">시험 일정</h4>
-						</header>
-						<div class="panel-body minimal">
-							<div class="table-inbox-wrap ">
-								<table class="table table-inbox table-hover" id="noticetable2">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Position</th>
-											<th>Office</th>
-											<th>Age</th>
-											<th>Start date</th>
-											<th>Salary</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message  dont-show">Google Inc.</td>
-											<td class="view-message ">Your new account is ready.</td>
-											<td class="view-message  inbox-small-cells"><i
-												class="fa fa-paperclip"></i></td>
-											<td class="view-message  text-right">08:10 AM</td>
-										</tr>
-										<tr class="" onClick="location.href='noticeView.do'">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message dont-show">Mark Thompson</td>
-											<td class="view-message">Last project updates</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 15</td>
-										</tr>
-										<tr class="">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message dont-show">Wonder Corp.</td>
-											<td class="view-message">Thanks for your registration</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 15</td>
-										</tr>
-										<tr class="">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-											<td class="view-message dont-show">>Facebook</td>
-											<td class="view-message">New Friendship Request</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 13</td>
-										</tr>
-										<tr class="">
-											<td class="inbox-small-cells"><input type="checkbox"
-												class="mail-checkbox"></td>
-											<td class="inbox-small-cells"><i
-												class="fa fa-star inbox-started"></i></td>
-											<td class="view-message dont-show">Mark Webber <span
-												class="label label-danger pull-right">urgent</span></td>
-											<td class="view-message">The server is down</td>
-											<td class="view-message inbox-small-cells"></td>
-											<td class="view-message text-right">March 09</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<div>
+							<button id="noticeWrite_btn" class="btn btn-theme" onclick="location.href='noticeWrite.do'">글쓰기</button>
 						</div>
-						<!--       </section> -->
 					</div>
-				</div>
+				</section>
+				<section class="panel">
+					<header class="panel-heading wht-bg">
+						<h4 class="gen-case">시험 일정</h4>
+					</header>
+					<div class="panel-body minimal">
+						<div class="table-inbox-wrap ">
+							<table class="table table-inbox-exam table-hover" id="noticetable2">
+								<thead>
+									<tr>
+										<th>시험번호</th>
+										<th>시험 이름</th>
+										<th>시험 시간</th>
+										<th>응시 대상</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${exam_info}" var="exam_info">
+										<tr class="" onClick="location.href='examScheduleDetail.do'">
+											<td class="exam_info_num">${exam_info.exam_info_num }</td>
+											<td class="exam_info_name">${exam_info.exam_info_name }</td>
+											<td class="exam_info_date">${exam_info.exam_info_date }<br>
+											${exam_info.exam_info_start } ~ ${exam_info.exam_info_end }<br>
+											${exam_info.exam_info_time } 분</td>
+											<td class="exam_info_member">${exam_info.exam_info_member }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
 			</div>
 			<div class="col-sm-3">
 				<section class="panel">
