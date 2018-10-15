@@ -1,4 +1,4 @@
-package onet.com.admin.controller;
+﻿package onet.com.admin.controller;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -319,5 +319,6 @@ public class AdminController {
 		return "redirect:/login.jsp";
 	}
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
+
 
 }

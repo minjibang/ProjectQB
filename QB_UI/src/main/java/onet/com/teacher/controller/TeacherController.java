@@ -147,14 +147,31 @@ public class TeacherController {
 	
 	
 	// 강사 문제 관련 
-	/*정원 18.10.10 내 문제함 추가 */
+	/*정원 18.10.10 내 문제함 추가 시작 */
+	/*재훈 18.10.15 내 문제함 수정 시작 */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(){
+	public String questionManagement(Model model) throws Exception{
+		List<CategoryDto> lgCatList;
+		
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
 		
 		return "common.teacher.question.questionManagement";
 	}
-	/*정원 18.10.10 내 문제함 끝 */
-	
+	/*정원 18.10.10 내 문제함 추가 끝 */
+	/*재훈 18.10.15 내 문제함 수정 끝 */
 
 	
 	/*현이 18.10.09 강사 마이페이지 시작*/
