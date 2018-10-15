@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="notice" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
 	select * from notice where class_name=#{class_name}
 </select>
-<select id="exam_info" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.Exam_infoDto">
+<select id="exam_info" parameterType="onet.com.vo.Exam_infoDto" resultType="onet.com.vo.Exam_infoDto">
 	select * from exam_info where class_name=#{class_name}
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->

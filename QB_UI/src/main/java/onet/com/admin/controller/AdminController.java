@@ -35,10 +35,10 @@ public class AdminController {
 	
 	@RequestMapping("adminMain.do")
 	public String adminMain(Model model) {
-		List<ClassDto> classlist;
+		List<ClassDto> classList;
 		
-		classlist = adminService.classList();
-		model.addAttribute("classlist",classlist);
+		classList = adminService.classList();
+		model.addAttribute("classList",classList);
 		
 		return "admin.adminMain";
 	}
@@ -78,11 +78,14 @@ public class AdminController {
 	public String adminClassInfo(Model model, String class_name) throws Exception{
 		
 		
-
+//전체 클래스 데이터
 		List<ClassDto> classList;
 		classList=adminService.classList();
 		model.addAttribute("classList", classList);
-		
+// 해당 클래스 데이터
+		List<ClassDto> classlist;
+		classlist=adminService.classlist(class_name);
+		model.addAttribute("classlist", classlist);
 		
 		List<MemberDto> classMemberList;
 		classMemberList= adminService.classMemberList(class_name);

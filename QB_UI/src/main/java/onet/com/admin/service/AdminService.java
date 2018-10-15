@@ -66,9 +66,19 @@ public class AdminService {
 		return result;
 	}
 	
+	public List<ClassDto> classlist(String class_name){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		ClassDto dto = new ClassDto();
+		dto.setClass_name(class_name);
+		List<ClassDto> result = dao.classlist(dto);
+		
+		
+		return result;
+	}
 	public int classMemberUpdate(MemberDto dto) {
 		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
 		int result = dao.classMemberUpdate(dto);
+		
 		return result;
 	}
 	/*민지 10.12 클래스멤버 리스트 관리 끝*/

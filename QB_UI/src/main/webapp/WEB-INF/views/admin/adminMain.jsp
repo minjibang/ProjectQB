@@ -106,7 +106,7 @@
 							<div class="col-lg-12">
 							
 							
-								<c:forEach items="${classlist}" var="classlist">
+								<c:forEach items="${classList}" var="classlist">
 								<!-- weather-4 PANEL -->
 								<div class="col-lg-3 col-md-3 col-sm-3 mb">
 									<div class="project-wrapper">

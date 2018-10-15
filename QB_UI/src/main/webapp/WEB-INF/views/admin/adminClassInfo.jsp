@@ -61,11 +61,13 @@
 											<div class="form-group">
 												<label for="cclass" class="control-label col-lg-2">클래스</label>
 												<div class="col-lg-10">
+												
 													<select name="class_name" id="class_name" class="form-control">
-														<option value="class">java 109</option>
-														<option value="class">window 108</option>
-														<option value="class">class3</option>
+													<c:forEach items="${classList}" var="classList">
+														<option>${classList.class_name}</option>
+														</c:forEach>
 													</select>
+													
 												</div>
 											</div>
 											<div class="form-group ">
@@ -172,7 +174,6 @@
 									<div class="row">
 										<div class="col-md-12" id="AdminTableForm">
 											<table id="AdminTable">
-
 												<thead>
 
 													<tr>
@@ -188,7 +189,8 @@
 												<tbody>
 													<c:forEach items="${classMemberList}" var="classMemberList">
 														<tr id="tr${classMemberList.member_id}">
-															<th class="class_name">${classMemberList.class_name}</th>
+															<th class="class_name" id="class_name_val">${classMemberList.class_name}</th>
+															
 															<th class="member_id">${classMemberList.member_id}</th>
 
 															<th class="member_name">${classMemberList.member_name}</th>
@@ -210,7 +212,7 @@
 																	value="${classMemberList.member_id}">
 																	<i class="fa fa-trash-o"></i>
 																</button>
-																
+																<input type="hidden" id="hidden_class_name" value='${param.class_name}'>
 
 															</td>
 														</tr>
@@ -223,6 +225,7 @@
 									<!-- /OVERVIEW -->
 								</div>
 								<!-- /tab-pane -->
+								<c:forEach items="${classlist}" var="classlist">
 								<div id="contact" class="tab-pane">
 									<div class="row">
 										<div class="col-md-612">
@@ -231,12 +234,14 @@
 
 												<div class="col-lg-8 col-lg-offset-2 detailed mt">
 													<h4 class="mb">클래스 수정</h4>
+												
 													<form role="form" class="form-horizontal"
 														id="class_update_form">
+														
 														<div class="form-group">
 															<label class="control-label col-md-3">클래스</label>
 															<div class="col-md-6">
-																<input class="form-control" id="" type="text" />
+																<input class="form-control" id="" type="text" value='${classlist.class_name}' />
 															</div>
 														</div>
 														<div class="form-group">
@@ -245,8 +250,9 @@
 																<div class="input-group input-large"
 																	data-date="01/01/2014" data-date-format="mm/dd/yyyy">
 																	<input type="text" class="form-control dpd1"
-																		name="from"> <span class="input-group-addon">To</span>
-																	<input type="text" class="form-control dpd2" name="to">
+																		name="from" value='${classlist.class_start_date}'> <span class="input-group-addon">To</span>
+																	<input type="text" class="form-control dpd2" name="to" value='${classlist.class_end_date}'>
+																
 																</div>
 																<span class="help-block">Select date range</span>
 															</div>
@@ -254,7 +260,7 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">강사</label>
 															<div class="col-md-6 col-xs-12">
-																<input class="form-control" id="" type="text" />
+																<input class="form-control" id="" type="text" value='${classlist.teacher_name}'/>
 															</div>
 														</div>
 														<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
@@ -270,6 +276,7 @@
 									</div>
 									<!-- /row -->
 								</div>
+								</c:forEach>
 
 							</div>
 							<!-- /tab-content -->

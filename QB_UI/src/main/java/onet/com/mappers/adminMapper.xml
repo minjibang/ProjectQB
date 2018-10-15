@@ -44,6 +44,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select class_name, teacher_name, class_start_date, class_end_date, class_enable
 	 from class
 </select>
+
+<select id="classlist" parameterType="onet.com.vo.ClassDto" resultType="onet.com.vo.ClassDto">
+	select class_name, teacher_name, class_start_date, class_end_date, class_enable
+	 from class where class_name=#{class_name}
+</select>
 <!-- 클래스 멤버 수정 -->
  <update id="classMemberUpdate" parameterType="onet.com.vo.MemberDto">
  UPDATE member m, member_role mr SET m.member_email=#{member_email}, m.member_phone=#{member_phone}, m.class_name=#{class_name}, mr.role_code=#{role_code} where m.member_id=#{member_id} and mr.member_id=#{member_id}

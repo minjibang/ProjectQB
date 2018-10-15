@@ -22,7 +22,7 @@ public class CommonService {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		NoticeDto dto = new NoticeDto();
 		dto.setClass_name(class_name);
-		List<NoticeDto> result = dao.notice(class_name);
+		List<NoticeDto> result = dao.notice(dto);
 		return result;
 	}
 	
@@ -32,7 +32,7 @@ public class CommonService {
 		Exam_infoDto dto = new Exam_infoDto();
 		dto.setClass_name(class_name);
 		
-		List<Exam_infoDto> result = dao.exam_info(class_name);
+		List<Exam_infoDto> result = dao.exam_info(dto);
 		return result;
 	}
 
