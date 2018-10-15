@@ -37,32 +37,40 @@
 
 									<h3 id="h3id">내가 만든 문제</h3>
 									<hr>
-									<select class="form-control myQuestionSelectCategory" name="lgCategory">
-										<option value="lgCategory">대분류</option>
-									<c:forEach items="${lgCatList}" var="lgCatList">
-										<option value="">${lgCatList.lg_category_name}</option>
-									</c:forEach>
-									</select> <select class="form-control myQuestionSelectCategory" name="mdCategory">
-										<option value="mdCategory">중분류</option>
-									<c:forEach items="${mdCatList}" var="mdCatList">
-										<option value="">${mdCatList.md_category_name}</option>
-									</c:forEach>
-									</select> <select class="form-control myQuestionSelectCategory" name="smCategory">
-									<option value="smCategory">소분류</option>
-									<c:forEach items="${smCatList}" var="smCatList">
-										<option value="">${smCatList.sm_category_name}</option>
-									</c:forEach>
-									</select> <select class="form-control myQuestionSelectCategory" name="QuestionLevel">
+									
+									<select id="question_lg_category" class="form-control-static"
+										 name="lg_category_name">
+											<option value="" selected disabled>대분류 선택</option>
+											<c:forEach items="${lgCatList}" var="lgCatList">
+											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
+											</c:forEach>
+										</select> 
+										
+										<select id="question_md_category" class="form-control-static" 
+										name="md_category_name">
+											<option value="">중분류 선택</option>
+										</select> 
+										
+										<select id="question_sm_category" class="form-control-static"
+										 name="sm_category_name">
+											<option value="">소분류 선택</option>
+										</select> 
+									
+									
+									<select class="form-control-static" name="QuestionLevel">
 									<option value="quesLevel">난이도</option>
 									<c:forEach items="${quesLevelList}" var="quesLevelList">
 										<option value="">${quesLevelList.level_name}</option>
 									</c:forEach>
-									</select> <input type="text"
-										class="form-control myQuestionSelectCategory2"
-										placeholder="키워드를 입력하세요."> <input type="button"
-										class="btn btn-theme myQuestionSelectBtn" value="검색">
-									<input type="button" class="btn btn-theme myQuestionSelectBtn"
+									</select>
+									<input type="button" class="btn btn-theme myQuestionSelectBtn pull-right"
 										value="전체조회">
+										<input type="button"
+										class="btn btn-theme myQuestionSelectBtn pull-right" value="검색">
+									<input type="text"
+										class="form-control myQuestionSelectCategory2 pull-right"
+										placeholder="키워드를 입력하세요."> 
+									
 								</div>
 								<a href=""></a>
 								<!-- /detailed -->
@@ -185,11 +193,14 @@
 						<!-- 정원 추가 끝 -->
 
 
+						<!--#####################      새로운 문제 만들기 탭 시작               ##################### -->
 						<!--%%%%%%%%%%%%%%%%%%%%%      재훈 18.10.10 추가 시작             %%%%%%%%%%%%%%%%%%%%%%-->
 						<!--%%%%%%%%%%%%%%%%%%%%%      회준 18.10.12 수정 시작             %%%%%%%%%%%%%%%%%%%%%%-->
 						<div id="newQuestion" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-12">
+								<form class="formNewQuestion" action="insertQuestion.do" method="post"
+								onsubmit="return check()">
 									<h3 id="h3id">새로운 문제 만들기</h3>
 									<hr>
 									<h4>
@@ -200,22 +211,29 @@
 										<h4 class="mb quesCategory">
 											<i class="fa fa-angle-right"></i> 문제 분류
 										</h4>
-										<select class="form-control-static" name="">
-											<option value="">대분류</option>
+										<select id="question_lg_category" class="form-control-static"
+										 name="lg_category_name">
+											<option value="" selected disabled>대분류 선택</option>
 											<c:forEach items="${lgCatList}" var="lgCatList">
-											<option value="">${lgCatList.lg_category_name}</option>
+											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
 											</c:forEach>
-										</select> <select class="form-control-static" name="">
-											<option value="">중분류</option>
-											<c:forEach items="${mdCatList}" var="mdCatList">
-											<option value="">${mdCatList.md_category_name}</option>
-											</c:forEach>
-										</select> <select class="form-control-static" name="">
-											<option value="">소분류</option>
-											<c:forEach items="${smCatList}" var="smCatList">
-											<option value="">${smCatList.sm_category_name}</option>
-											</c:forEach>
-										</select> <select class="form-control-static" name="">
+										</select> 
+										
+										<select id="question_md_category" class="form-control-static" 
+										name="md_category_name">
+										
+											<option value="">중분류 선택</option>
+											
+										</select> 
+										
+										<select id="question_sm_category" class="form-control-static"
+										 name="sm_category_name">
+											<option value="">소분류 선택</option>
+											
+										</select> 
+										
+										<select class="form-control-static" name="level_name" 
+										onchange="quesLevelChange()">
 											<option value="">난이도</option>
 											<c:forEach items="${quesLevelList}" var="quesLevelList">
 											<option value="">${quesLevelList.level_name}</option>
@@ -227,11 +245,11 @@
 									</h4>
 									<span class="radio quesCategorybig"> <label
 										class="questionChoiceRadioButton"> <input type="radio"
-											name="questionTypeRadios" id="optionsRadios1" value="option1"
+											name="question_type" id="optionsRadios1" value="option1"
 											checked onclick="questionType('questionChoice');" checked>
 											객관식
 									</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-											<input type="radio" name="questionTypeRadios"
+											<input type="radio" name="question_type"
 											id="optionsRadios2" value="option2"
 											onclick="questionType('questionShortAnswer');"> 단답형
 									</label>
@@ -243,7 +261,7 @@
 												<h4>
 													<i class="fa fa-angle-right"></i> 문제 내용 입력
 												</h4>
-												<textarea class="form-control" placeholder="문제 내용을 입력해주세요."
+												<textarea name="question_name" class="form-control" placeholder="문제 내용을 입력해주세요."
 													rows="3"></textarea>
 												<div class="fileupload fileupload-new"
 													data-provides="fileupload">
@@ -253,7 +271,7 @@
 															<span class="fileupload-new"><i
 																class="fa fa-paperclip"></i> image</span> <span
 															class="fileupload-exists"><i class="fa fa-undo"></i>
-																Change</span> <input type="file" class="default" />
+																Change</span> <input type="file" name="question_img" class="default" />
 													</span> <a href="" class="btn btn-theme04 fileupload-exists"
 														data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
 															Remove</a>
@@ -271,19 +289,19 @@
 												<div class="radio" id="answerChoiceText">
 
 													<label class="questionChoiceRadioButton"> <input
-														type="radio" name="optionsRadios" value="option1" checked>
+														type="radio" name="question_answer" value="option1" checked>
 														1번
 													</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-														<input type="radio" name="optionsRadios" value="option2">
+														<input type="radio" name="question_answer" value="option2">
 														2번
 													</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-														<input type="radio" name="optionsRadios" value="option3">
+														<input type="radio" name="question_answer" value="option3">
 														3번
 													</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-														<input type="radio" name="optionsRadios" value="option4">
+														<input type="radio" name="question_answer" value="option4">
 														4번
 													</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-														<input type="radio" name="optionsRadios" value="option5">
+														<input type="radio" name="question_answer" value="option5">
 														5번
 													</label>&nbsp;&nbsp;
 
@@ -302,7 +320,7 @@
 													<option value="">보기 5개</option>
 												</select> <br> <br>
 												<!-- 1번 보기 -->
-												<b>1.</b> <input type="text" class="form-control-inline"
+												<b><input type="text" name="question_choice_num" value="1" style="display:hidden">1.</b> <input type="text" name="question_choice_content" class="form-control-inline"
 													placeholder="1번 보기 내용을 입력해주세요."> <span
 													class="fileupload fileupload-new imageup"
 													data-provides="fileupload">
@@ -320,7 +338,7 @@
 
 												</span><br>
 												<!-- 2번 보기 -->
-												<b>2.</b> <input type="text" class="form-control-inline"
+												<b><input type="text" name="question_choice_num" value="2" style="display:hidden">2.</b> <input type="text" class="form-control-inline"
 													placeholder="2번 보기 내용을 입력해주세요."> <span
 													class="fileupload fileupload-new"
 													data-provides="fileupload">
@@ -337,7 +355,7 @@
 												</span>
 												</span><br>
 												<!-- 3번 보기 -->
-												<b>3.</b> <input type="text" class="form-control-inline"
+												<b><input type="text" name="question_choice_num" value="3" style="display:hidden">3.</b> <input type="text" class="form-control-inline"
 													placeholder="3번 보기 내용을 입력해주세요."> <span
 													class="fileupload fileupload-new"
 													data-provides="fileupload">
@@ -354,7 +372,7 @@
 												</span>
 												</span><br>
 												<!-- 4번 보기 -->
-												<b>4.</b> <input type="text" class="form-control-inline"
+												<b><input type="text" name="question_choice_num" value="4" style="display:hidden">4.</b> <input type="text" class="form-control-inline"
 													placeholder="4번 보기 내용을 입력해주세요."> <span
 													class="fileupload fileupload-new"
 													data-provides="fileupload">
@@ -408,9 +426,10 @@
 									<!--문제 내용, 정답, 보기 입력 종료 -->
 									<hr>
 									<button type="button" class="btn btn-theme quesCategory">문제
-										수정</button>
+										등록</button>
 									<button type="button"
 										class="btn btn-theme04 pull-right quesCategory">삭제</button>
+								</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->
 								<!-- /form-panel -->
@@ -429,3 +448,29 @@
 	</section><!-- /wrapper -->
 </section><!-- /MAIN CONTENT -->
 <!--main content end-->
+
+<script src="${pageContext.request.contextPath}/lib/onet-js/questionManagement.js"
+	type="text/javascript"></script>
+
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 시작 -->
+<script>
+$(function(){
+   $('#question_lg_category').change(function(){
+      $('#question_md_category').children('option:not(:first)').remove();
+      <c:forEach items="${mdCatList}" var="mdlist">
+      if(document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}"){
+         $('#question_md_category').append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
+      }
+      </c:forEach>
+   });
+   $('#question_md_category').change(function(){
+      $('#question_sm_category').children('option:not(:first)').remove();
+      <c:forEach items="${smCatList}" var="smlist">
+      if(document.getElementById("question_md_category").value == "${smlist.md_category_code}"){
+         $('#question_sm_category').append("<option>${smlist.sm_category_name}</option>")
+      }
+      </c:forEach>
+   })
+})
+</script>
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->

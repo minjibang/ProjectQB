@@ -127,7 +127,18 @@ public class StudentController {
 
 		return "common.admin.common.myPage";
 	}
+	
+	
+	
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
+	@RequestMapping("examPaperDo2.do")
+	public String examPaperDo2() {
 
+		return "exam.student.examPaperDo2";
+	}
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
+	
+	/* 양회준 10.15 내정보 탈퇴 시작*/
 	@RequestMapping("myPageDrop.do")
 	public String myPageDrop(MemberDto memberDto)
 			throws IOException, ClassNotFoundException, SQLException {
@@ -136,7 +147,7 @@ public class StudentController {
 		// 예외 발생에 상관없이 목록페이지 요청 처리
 		return "redirect:/login.jsp";
 	}
-
-
+	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
 
 }
