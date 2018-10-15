@@ -52,11 +52,18 @@ public interface AdminDao {
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	
 
+
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
 	public String classCheck(String class_name);
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
+
+
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
+	public int deleteMember(MemberDto dto);
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
+	
 
 	/* 영준 - 10.15 시험관리 관련 시작 */
 	public List<ExamPaperDto> examPaperList();

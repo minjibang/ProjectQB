@@ -83,7 +83,14 @@ public class AdminController {
 		return result2;
 		
 	}
-
+	
+	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
+	{
+		int result = adminService.deleteMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+	}
 	/* 영준 10. 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */

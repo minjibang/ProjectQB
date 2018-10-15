@@ -42,7 +42,9 @@ $(function(){
 
 
 
+
 /* 수정버튼 눌렀을때 그에 대한 값을 가져오도록 구현 */
+
 $(document).ready(function(){
 	
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
@@ -103,6 +105,35 @@ $(document).ready(function(){
    		});
 		
 	});	
-	
+
+
+	/* 멤버 삭제(실제 삭제X) */
+	$('#deleteMemberBtn').click(function() {
+		action = 'modify',
+		type = 'PUT',
+		memberid = this.value;
+		
+		var _param = {member_id:$('#member_id').val(), member_enable:$('#member_enable').val()}
+		
+		var _data = JSON.stringify(_param); //jsonString으로 변환
+		
+		$.ajax({
+			type : "post",
+			url : "adminMemberDelete.do",
+			cache : false,
+			dataType : "json",
+			data : _data,
+			processData : false,
+			contentType : "application/json; charset=utf-8",
+			success : function(data, status){
+				alert("삭제되었습니다");
+				location.href="adminMember.do";
+			},
+			error: function(request, status, error){
+				alert("에러에러에러에러에러");
+			}
+		});
+	});
+
 });
 

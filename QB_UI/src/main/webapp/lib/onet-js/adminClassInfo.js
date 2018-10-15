@@ -81,9 +81,14 @@ $(document).ready(function(){
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
 
+
    				  alert("수정성공");
 
    				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
+
+   				  alert("해당아이디값"+memberid);
+   				  location.href="adminClassInfo.do";
+
    			  },
    			  error: function(request, status, error){
    				  console.log("request 값이 뭐냐  >>>> "+ request);

@@ -76,7 +76,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 민지 10.12 클래스멤버리스트 관련 끝 -->
 
 
+
 <!-- 영준 - 10.10 회원관리 전체조회 끝 -->
+
 
 <!-- 민지 10.15 클래스 수정 관련 -->
 <update id="classUpdate" parameterType="onet.com.vo.ClassDto">
@@ -94,13 +96,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
-
-
 <!-- 민지 10.13 클래스 멤버 삭제 관련 -->
  <update id="classMemberDelete" parameterType="onet.com.vo.MemberDto">
  UPDATE member m, member_role mr SET m.class_name='no_class', mr.role_code='ROLE_MEMBER' where m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
+
 
 
 <!-- 정원 10.15 문제분류관리 insert 시작 -->
@@ -159,5 +160,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select class_name from class where class_name = #{class_name}
 </select>
 <!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
+
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
+<update id="deleteMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member 
+	SET member_enable=0
+	WHERE member_id=#{member_id}
+</update>
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
+
 
 </mapper>
