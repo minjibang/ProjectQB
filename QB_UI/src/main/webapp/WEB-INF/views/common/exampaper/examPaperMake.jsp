@@ -76,29 +76,32 @@
 									<c:forEach items="${question }" var="question">
 										<div class="questionDiv">
 											<div class="col-lg-1">
-												<input type="checkbox" value="${question.question_num }" name="" class="question_num">
+												<input type="checkbox" value="${question.question_num }" name="">
 												<!-- value에 문제고유번호 들어간다 -->
 											</div>
 											<div class="col-lg-3">
-												${question.md_category_name}<br> ${question.sm_category_name }<br> 난이도: ${question.level_name }<br> 정답: ${question.question_answer }<br>
-												정답률:${question.question_correct_ratio}%<br> 출제자: ${question.member_id }<br>
+												${question.md_category_name}<br> 
+												${question.sm_category_name }<br> 
+												난이도: ${question.level_name }<br> 
+												정답: ${question.question_answer }<br>
+												정답률:${question.question_correct_ratio}%<br> 
+												출제자: ${question.member_id }<br>
 											</div>
 											<div class="col-lg-8">
 												<b>${question.question_name }</b><br> <br>
 												<div class="questionImgDiv">
-													<img
+													<%-- <img
 														src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
-														alt="questionImg" class="questionImg" />
+														alt="questionImg" class="questionImg" /> --%>
 													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 												</div>
-												<div>
-												<br> 1. 멤버
-											변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스 로딩시에
-											메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static 메서드 안에
-											선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드 안에서는 this 나
-											super를 사용할 수 있다.<br>
+												<div class="qnum">
+												<br> 1. 멤버변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스 로딩시에
+												메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static 메서드 안에
+												선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드 안에서는 this 나
+												super를 사용할 수 있다.<br>
 												</div>
-													<%-- <br> ${question.question_choice_num }. ${question.question_choice_content } --%>
+													
 												
 											</div>
 											<div class="col-lg-12">
