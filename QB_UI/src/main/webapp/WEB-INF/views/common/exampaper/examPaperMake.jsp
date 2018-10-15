@@ -73,19 +73,23 @@
 									<c:forEach items="${question }" var="question">
 										<div class="questionDiv">
 											<div class="col-lg-1">
-												<input type="checkbox" value="${question.question_num }" name="" class="question_num">
+												<input type="checkbox" value="${question.question_num }" name="">
 												<!-- value에 문제고유번호 들어간다 -->
 											</div>
 											<div class="col-lg-3">
-												${question.md_category_name}<br> ${question.sm_category_name }<br> 난이도: ${question.level_name }<br> 정답: ${question.question_answer }<br>
-												정답률:${question.question_correct_ratio}%<br> 출제자: ${question.member_id }<br>
+												${question.md_category_name}<br> 
+												${question.sm_category_name }<br> 
+												난이도: ${question.level_name }<br> 
+												정답: ${question.question_answer }<br>
+												정답률:${question.question_correct_ratio}%<br> 
+												출제자: ${question.member_id }<br>
 											</div>
 											<div class="col-lg-8">
 												<b>${question.question_name }</b><br> <br>
 												<div class="questionImgDiv">
-													<img
+													<%-- <img
 														src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
-														alt="questionImg" class="questionImg" />
+														alt="questionImg" class="questionImg" /> --%>
 													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 												</div>
 												<div>
