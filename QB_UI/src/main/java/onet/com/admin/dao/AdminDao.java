@@ -42,9 +42,10 @@ public interface AdminDao {
 	public String updateMember(MemberDto member);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	
-	/* 태용 - 10.15 클래스 생성*/
+	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
-	/* 태용 - 10.15 클래스 생성 끝*/
+	public String classCheck(String class_name);
+	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
 }
 
