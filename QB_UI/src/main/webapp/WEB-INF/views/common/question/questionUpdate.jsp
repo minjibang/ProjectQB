@@ -7,8 +7,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
-<link href="${pageContext.request.contextPath}/css/teacherMyQuestion.css"
+<%-- 
+	2018.10.12 회준 새 문제 만들기 UI 추가 
+	questionManagement.jsp와 css파일 공유
+--%>
+<link href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">    
     
 <!--main content start-->

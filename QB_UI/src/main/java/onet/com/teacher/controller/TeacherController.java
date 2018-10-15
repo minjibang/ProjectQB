@@ -68,15 +68,6 @@ public class TeacherController {
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 	
-	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
-	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate() {
-
-		return "common.teacher.exam.examScheduleUpdate";
-	}
-	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
-	
-	
 	
 	// 강사 시험지 관련 
 	/* 영준 18.10.11 시험지 생성 페이지 시작 */
@@ -133,23 +124,25 @@ public class TeacherController {
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate() {
+		return "common.teacher.exam.examScheduleUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
 	@RequestMapping("studentInfo.do")
-	public String studentInfo(){
-		
+	public String studentInfo(){		
 		return "common.teacher.grade.studentInfo";
 	}
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
-	/*양회준 18.10.12 문제 수정 시작*/	
+	/*양회준 18.10.12 문제 수정 시작	*/
 	@RequestMapping("questionUpdate.do")
-	public String questionUpdate() {
-		
+	public String questionUpdate() {		
 		return "common.teacher.question.questionUpdate";
 	}	
 	/*양회준 18.10.12 문제 수정 끝*/
-	
-
 	
 }

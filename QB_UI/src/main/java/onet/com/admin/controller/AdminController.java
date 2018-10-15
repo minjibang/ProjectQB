@@ -28,12 +28,13 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	
+	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
 	public String adminMain() {
 
 		return "admin.adminMain";
 	}
+	/*양회준 10.14 관리자 메인 끝*/
 	
 	@RequestMapping("questionCategory.do")
 	public String questionCategory(Model model) throws Exception {
