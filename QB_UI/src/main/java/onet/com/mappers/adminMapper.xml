@@ -48,14 +48,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 영준 - 10.10 회원관리 전체조회 끝 -->
 
 <!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
-<!-- <update id="updateMember" parameterType="onet.com.vo.MemberDto"
-		useGeneratedKeys="true" keyProperty="member_id">
-	update member
-	set member_name=${member_name}, member_email=${member_email}, 
-	member_phone=${member_phone}, class_name=${class_name},
-	 member_enable=${member_enable}
-	where member_id=${member_id}
-</update> -->
+<update id="updateMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member m, member_role mr
+	SET m.member_email=#{member_email}, 
+	m.member_phone=#{member_phone}, m.class_name=#{class_name},
+	mr.role_code=#{role_code}
+	where m.member_id=#{member_id} and mr.member_id=#{member_id}
+</update>
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
 
@@ -66,12 +65,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
 
-<!-- 영준 10월 15일 시험관리(관리자, 강사 페이지) 시작 -->
-<select id="examPaperList" parameterType="hashmap" resultType="onet.com.vo.ExamPaperDto">
-	select * from exam_paper
-</select>
-<delete id="examPaperDelete" parameterType="onet.com.vo.ExamPaperDto">
-	delete from exam_paper where exam_paper_name=#{exam_paper_name}
-</delete>
-<!-- 영준 10월 15일 시험관리(관리자, 강사 페이지) 끝 -->
 </mapper>

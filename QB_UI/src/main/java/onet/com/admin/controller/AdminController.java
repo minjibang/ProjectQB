@@ -58,9 +58,19 @@ public class AdminController {
 		model.addAttribute("memberList", memberList);
 		return "admin.adminMember";
 	}
-	/* 영준 10.08 회원관리관련 끝 */
 	
+	
+	@RequestMapping(value="adminMemberUpdate.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberUpdate(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+	{	
+		int result = adminService.updateMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+		
+	}
 
+	/* 영준 10. 회원관리관련 끝 */
+	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
 	public String adminClassInfo(Model model) throws Exception{

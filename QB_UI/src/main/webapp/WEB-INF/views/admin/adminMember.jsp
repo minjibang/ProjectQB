@@ -21,95 +21,86 @@
 				<!-- 모달창 -->
 				<!-- UpdateModal -->
 				<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">회원 정보 수정</h4>
-							</div>
-							<div class="modal-body">
-								<!-- <div class="form-panel"> -->
-								<div>
-									<div class="form">
-										<form class="cmxform form-horizontal style-form"
-											id="commentForm" method="get" action="">
-											<div class="form-group">
-												<label for="cid" class="control-label col-lg-2">아이디</label>
-												<div class="col-lg-10">
-													<input class="form-control" type="text" name="member_id" maxlength="10" value="" readonly id="member_id">
-													<!-- col-lg-10 끝 -->
-												</div>
-												<!-- form-group 끝 -->
-											</div>
-											<div class="form-group">
-												<label for="cname" class="control-label col-lg-2">이름</label>
-												<div class="col-lg-10">
-													<input class="form-control" type="text" name="member_name" maxlength="10" value="" readonly id="member_name"> 
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="cemail" class="control-label col-lg-2">이메일</label>
-												<div class="col-lg-10">
-													<input class="form-control" type="email" name="member_email" maxlength="10" value="" id="member_email">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="curl" class="control-label col-lg-2">핸드폰</label>
-												<div class="col-lg-10">
-													<input class="form-control" type="text" name="member_phone" maxlength="15" value="" id="member_phone"> 		 
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="cclass" class="control-label col-lg-2">클래스</label>
-												<div class="col-sm-4 col-xs-4 pull-left">
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">정보 수정</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-panel">
+								<div class=" form">
+									<form class="cmxform form-horizontal style-form"
+										id="commentForm" method="get" action="">
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-2">ID</label>
+											<div class="col-lg-10">
+											
+											<input class="form-control" type="text"  name="member_id" maxlength="10" value="" readonly  id="member_id">
 												
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-2">이름</label>
+											<div class="col-lg-10">
+											
+											<input class="form-control" type="text"  name="member_name" maxlength="10" value="" readonly  id="member_name">
+												
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cemail" class="control-label col-lg-2">E-Mail</label>
+											<div class="col-lg-10">
+												<input class="form-control" type="email"  name="member_email" maxlength="30" value="" id="member_email">
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="curl" class="control-label col-lg-2">핸드폰</label>
+											<div class="col-lg-10">
+												<input class="form-control" type="text"  name="member_phone" maxlength="15" value=""id="member_phone" >
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="ccomment" class="control-label col-lg-2">클래스</label>
+												<div class="col-sm-4 col-xs-4 pull-left">
+												<c:if test="${!empty classList}" >
 													<select class="form-control" id="class_name">
-														<c:forEach var="classList" items="${classList}" varStatus="i">
+													 <c:forEach var="classList" items="${classList}" varStatus="i">
 														<option value="${classList.class_name}">${classList.class_name}</option>
 													</c:forEach>
 													</select>
-
+												</c:if>
 												</div>
 											</div>
+										<div class="form-group ">
+											<label for="curl" class="control-label col-lg-2">권한
+												설정</label>
+											<div class="col-lg-10">
+												<input type="checkbox" id="agree_s" name="agree" onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
+												&nbsp;&nbsp; 
+												<input type="checkbox" id="agree_t"
+													name="agree" onclick="oneCheckbox(this)"  value="ROLE_TEACHER"/>강사
+											</div>
+										</div>
+										<div class="modal-footer">
 											<div class="form-group">
-												<label for="curl" class="control-label col-lg-2">권한
-													설정</label>
-												<div class="col-lg-10">
-													<p>
-														<input type="checkbox" id="role_student"
-															name="role_student" />&nbsp;&nbsp;학생
-													</p>
-													<p>
-														<input type="checkbox" id="role_teacher"
-															name="role_teacher" />&nbsp;&nbsp;강사
-													</p>
+												<div class="col-lg-offset-2 col-lg-10">
+													<button class="btn btn-theme" type="button" id="updateMemberBtn">수정</button>
+													<button class="btn btn-theme04" type="button"
+														data-dismiss="modal">취소</button>
 												</div>
 											</div>
-											<div class="modal-footer">
-												<div class="form-group">
-													<div class="col-lg-offset-2 col-lg-10">
-														<button class="btn btn-theme" data-toggle="modal"
-															data-target="">정보 수정</button>
-														<button class="btn btn-theme04" type="button"
-															data-dismiss="modal">취소</button>
-													</div>
-												</div>
-											</div>
-										</form>
-										<!-- form 끝 -->
-									</div>
-									<!-- form-panel 끝 -->
+										</div>
+									</form>
 								</div>
-								<!-- modal-body 끝 -->
 							</div>
-							<!-- modal-content 끝 -->
 						</div>
-						<!-- modal-dialog 끝 -->
+
 					</div>
-					<!-- UpdateModal 끝 -->
 				</div>
+			</div>
 				<!-- DeleteModal -->
 				<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">

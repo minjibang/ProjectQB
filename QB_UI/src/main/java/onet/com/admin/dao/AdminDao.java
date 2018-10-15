@@ -35,7 +35,7 @@ public interface AdminDao {
 	
 
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public String updateMember(MemberDto member);
+	public int updateMember(MemberDto dto);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	
 	/* 영준 - 10.15 시험관리 관련 시작 */

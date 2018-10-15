@@ -50,7 +50,7 @@ $(document).ready(function(){
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
    				  alert("해당아이디값"+memberid);
-   				  location.href="adminClassInfo.do";
+   				  location.href="adminMember.do";
    			  },
    			  error: function(request, status, error){
    				  console.log("request 값이 뭐냐  >>>> "+ request);
