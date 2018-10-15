@@ -17,7 +17,7 @@ public class AdminService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	/*���� - 10.08 �����з����� ����*/ 
+	/*재훈 - 10.08 문제분류관련 시작*/ 
 	public List<CategoryDto> lgCategoryList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.lgCategoryList();
@@ -33,7 +33,15 @@ public class AdminService {
 		List<CategoryDto> result = dao.smCategoryList();
 		return result;
 	}
-	/*���� - 10.08 �����з����� ��*/
+	/*재훈 - 10.08 문제분류관련 끝*/
+	
+	/*재훈 - 10.15 문제난이도관련 시작*/
+	public List<CategoryDto> questionLevelList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.questionLevelList();
+		return result;
+	}
+	/*재훈 - 10.15 문제난이도관련 끝*/
 
 	/*영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList(){
