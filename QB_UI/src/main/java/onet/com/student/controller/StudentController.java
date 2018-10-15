@@ -106,7 +106,16 @@ public class StudentController {
 
 		return "common.admin.common.myPage";
 	}
+	
+	
+	
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
+	@RequestMapping("examPaperDo2.do")
+	public String examPaperDo2() {
 
+		return "exam.student.examPaperDo2";
+	}
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
 
 
 

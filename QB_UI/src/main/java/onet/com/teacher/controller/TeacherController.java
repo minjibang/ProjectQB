@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
@@ -117,11 +118,18 @@ public class TeacherController {
 		/*문제 출력*/
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);
-		
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		model.addAttribute("question_choice", question_choice);
 		
 		return "common.teacher.exampaper.examPaperMake";
+	}
+	
+	@RequestMapping("examPaperMake_questionContent.do")
+	public @ResponseBody String question_content(String num) {
+		System.out.println(num);
+		List<Question_choiceDto> question_choice;
+		
+		return null;
 	}
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 	
