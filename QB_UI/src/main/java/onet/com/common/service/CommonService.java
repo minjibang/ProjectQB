@@ -41,7 +41,7 @@ public class CommonService {
 
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
 	
-<<<<<<< .merge_file_a07808
+
 	/*양회준 - 10.15 내정보 시작 */
 	//내정보 보기
 	public MemberDto myPageInfo(String member_id) {
@@ -66,8 +66,5 @@ public class CommonService {
 		return "redirect:myPage.do";
 	}
 	/*양회준 - 10.15 내정보 끝 */
-=======
 
-	
->>>>>>> .merge_file_a09212
 }

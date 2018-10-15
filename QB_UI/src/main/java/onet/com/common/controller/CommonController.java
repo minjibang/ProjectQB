@@ -15,14 +15,9 @@ import onet.com.vo.ExamPaperDto;
 
 @Controller
 @RequestMapping("/common/")
-<<<<<<< .merge_file_a01604
+
 public class CommonController {	
-=======
-public class CommonController {
-	
 
-	
 
->>>>>>> .merge_file_a01528
 	
 }

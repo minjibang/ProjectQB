@@ -32,10 +32,7 @@ $(document).ready(function() {
 
 	// 영준 - 관리자 회원관리 페이지 데이터테이블
 	$('#adminMemberTable').DataTable();
-<<<<<<< .merge_file_a04716
 
-=======
->>>>>>> .merge_file_a07720
 	$('table.display').DataTable({
 
 	});

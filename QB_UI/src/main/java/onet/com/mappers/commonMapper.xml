@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
 
-<<<<<<< .merge_file_a03320
+
 <!-- 양회준 10.15 내 정보 수정 시작 -->
 <select id="myPageInfo" resultType="onet.com.vo.MemberDto">
 	select * from member where member_id = #{member_id}
@@ -35,6 +35,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where member_id=#{member_id}
 </update>
 <!-- 양회준 10.15 내 정보 수정 끝 -->
-=======
->>>>>>> .merge_file_a04596
+
 </mapper>

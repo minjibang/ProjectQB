@@ -39,18 +39,9 @@ $(function(){
 	});
 });
 
-<<<<<<< .merge_file_a08080
 
-/* 회원정보 수정 시작 */
-$(function(){
-	$('#updatebtn').click(function(){
-		
-		
-		
-		
-	}); // updatebtn 끝
-}); // function 끝
-=======
+
+
 /* 수정버튼 눌렀을때 그에 대한 값을 가져오도록 구현 */
 $(document).ready(function(){
 	
@@ -114,4 +105,4 @@ $(document).ready(function(){
 	});	
 	
 });
->>>>>>> .merge_file_a00380
+

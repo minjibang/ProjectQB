@@ -73,19 +73,17 @@ $(document).ready(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
-<<<<<<< .merge_file_a08884
+
    				  alert("수정성공");
    				  location.href="adminClassInfo.do";
-   			  }
-=======
-   				  alert("해당아이디값"+memberid);
-   				  location.href="adminMember.do";
+
+
    			  },
    			  error: function(request, status, error){
    				  console.log("request 값이 뭐냐  >>>> "+ request);
    				  alert("에러야!");
    			 }
->>>>>>> .merge_file_a02876
+
    		});
 		
 	});	

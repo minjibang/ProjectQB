@@ -43,17 +43,17 @@ public interface AdminDao {
 	public int updateMember(MemberDto dto);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	
-<<<<<<< .merge_file_a10048
+
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
 	public String classCheck(String class_name);
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
-=======
+
 	/* 영준 - 10.15 시험관리 관련 시작 */
 	public List<ExamPaperDto> examPaperList();
 	public int examPaperDelete(ExamPaperDto dto);
 	/* 영준 - 10.15 시험관리 관련 끝 */
->>>>>>> .merge_file_a05280
+
 }
 
