@@ -81,7 +81,15 @@ public class AdminService {
 		return result;
 	}
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
-
+	
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
+	public int deleteMember(MemberDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.deleteMember(dto);
+		return result;
+	}
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
+	
 	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
 	public List<ExamPaperDto> examPaperList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);

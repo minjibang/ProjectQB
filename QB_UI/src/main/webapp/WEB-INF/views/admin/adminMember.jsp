@@ -65,13 +65,13 @@
 										<div class="form-group ">
 											<label for="ccomment" class="control-label col-lg-2">클래스</label>
 												<div class="col-sm-4 col-xs-4 pull-left">
-												<c:if test="${!empty classList}" >
-													<select class="form-control" id="class_name">
+												
+													<select class="form-control" id="class_name" name="class_name">
 													 <c:forEach var="classList" items="${classList}" varStatus="i">
 														<option value="${classList.class_name}">${classList.class_name}</option>
 													</c:forEach>
 													</select>
-												</c:if>
+												
 												</div>
 											</div>
 										<div class="form-group ">
@@ -116,7 +116,7 @@
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
-										<button class="btn btn-theme" data-toggle="modal"
+										<button id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
 											data-dismiss="modal">예</button>
 										<button class="btn btn-theme04" type="button"
 											data-dismiss="modal">아니오</button>
@@ -202,17 +202,17 @@
 						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
-							<select id="member_role" name="member_role" class="form-control searchControl">
+							<select id="member_role" class="form-control searchControl">
 								<option value="${role_code}">회원 권한 선택</option>
 								<option value="${role_student}">학생</option>
 								<option value="${role_teacher}">강사</option>
 								<option value="${role_member}">일반회원</option>
 							</select> 
-							<select id="class_name" name="class_name" class="form-control searchControl">
+							<select id="class_name" class="form-control searchControl">
 								<option value="">클래스 선택</option>
-								<option value="${class_name}">java 109</option>
-								<option value="${class_name}">window 108</option>
-								<option value="${class_name}">no_class</option>
+								<option value="class_name">java 109</option>
+								<option value="class_name">window 108</option>
+								<option value="class_name">no_class</option>
 						
 							</select>
 							
@@ -245,7 +245,7 @@
 											<tbody>
 												<c:forEach items="${memberList}" var="memberList">
 													<tr>
-														<td><input type="checkbox" name="chk"></td>
+														<td><input type="checkbox" name="chk" value="chk"></td>
 														<td class="class_name">${memberList.class_name}</td>
 														<td class="member_id">${memberList.member_id}</td>
 														<td class="member_name">${memberList.member_name}</td>
