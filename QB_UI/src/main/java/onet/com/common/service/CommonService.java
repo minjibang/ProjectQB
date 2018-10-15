@@ -40,14 +40,14 @@ public class CommonService {
 
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
 	
-	/*양회준 - 10.15 내정보 수정 시작 */
+	/*양회준 - 10.15 내정보 시작 */
+	//내정보 보기
 	public MemberDto myPageInfo(String member_id) {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
 		MemberDto memberDto = commonDao.myPageInfo(member_id);
 		return memberDto;
-	}
-	/*양회준 - 10.15 내정보 수정 끝 */
-	
+	}	
+	//내정보 수정
 	public String myPageUpdate(MemberDto memberDto)
 			throws ClassNotFoundException, SQLException, IOException {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
@@ -55,7 +55,7 @@ public class CommonService {
 		System.out.println("test");
 		return "redirect:myPage.do";
 	}
-	
+	//내정보 탈퇴
 	public String myPageDrop(MemberDto memberDto)
 			throws ClassNotFoundException, SQLException, IOException {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
@@ -63,5 +63,5 @@ public class CommonService {
 		System.out.println("droptest");
 		return "redirect:myPage.do";
 	}
-	
+	/*양회준 - 10.15 내정보 끝 */
 }

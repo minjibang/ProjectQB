@@ -73,12 +73,16 @@
 									<c:forEach items="${question }" var="question">
 										<div class="questionDiv">
 											<div class="col-lg-1">
-												<input type="checkbox" value="${question.question_num }" name="" class="question_num">
+												<input type="checkbox" value="${question.question_num }" name="">
 												<!-- value에 문제고유번호 들어간다 -->
 											</div>
 											<div class="col-lg-3">
-												${question.md_category_name}<br> ${question.sm_category_name }<br> 난이도: ${question.level_name }<br> 정답: ${question.question_answer }<br>
-												정답률:${question.question_correct_ratio}%<br> 출제자: ${question.member_id }<br>
+												${question.md_category_name}<br> 
+												${question.sm_category_name }<br> 
+												난이도: ${question.level_name }<br> 
+												정답: ${question.question_answer }<br>
+												정답률:${question.question_correct_ratio}%<br> 
+												출제자: ${question.member_id }<br>
 											</div>
 											<div class="col-lg-8">
 												<b>${question.question_name }</b><br> <br>
@@ -88,10 +92,11 @@
 														alt="questionImg" class="questionImg" />
 													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 												</div>
+												<br>
 												<div>
 												<c:forEach items="${question_choice}" var="question_choice">
 													<c:if test="${question_choice.question_num eq question.question_num}">
-														<br>${question_choice.question_choice_num} . ${question_choice.question_choice_content}
+														<p>${question_choice.question_choice_num} . ${question_choice.question_choice_content}</p>
 													</c:if>
 												</c:forEach>
 												</div>

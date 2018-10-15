@@ -142,6 +142,8 @@ public class StudentController {
 	@RequestMapping("myPageDrop.do")
 	public String myPageDrop(MemberDto memberDto)
 			throws IOException, ClassNotFoundException, SQLException {
+			memberDto.setMember_enable("0");
+			System.out.println(memberDto.getMember_enable());
 			commonService.myPageDrop(memberDto);
 		
 		// 예외 발생에 상관없이 목록페이지 요청 처리

@@ -54,11 +54,11 @@
                           <%-- 비밀번호 변경 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호 변경
-                             <input type="checkbox" class="ez-checkbox" id="passwordChange" style="height: auto" >
+                             <input type="checkbox" class="ez-checkbox" style="height: auto" >
                             </label>
                            
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control" id="passwordChangeChk" name="member_pwd" >
+                              <input type="password" placeholder="password" class="form-control" id="passwordChange" name="member_pwd" >
                             </div>
                           </div>
                           	<div id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
@@ -128,7 +128,7 @@
                           <div class="form-group">  
                             <label class="col-lg-3 control-label">아이디</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="id" class="form-control" readonly value="${memberDto.member_id}">
+                              <input type="text" placeholder="id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 비밀번호 --%>
@@ -141,7 +141,7 @@
                           <%-- 회원탈퇴&취소 버튼 --%>
                           <div class="form-group">
                             <div class="col-lg-11 infoBtnDiv">
-                                <button class="btn btn-theme" type="button" id="infoModifiy">회원 탈퇴</button>
+                                <button class="btn btn-theme" type="submit" id="infoModifiy">회원 탈퇴</button>
                                 <button class="btn btn-theme04" type="button" id="cancel">취소</button>
                             </div>
                           </div>
