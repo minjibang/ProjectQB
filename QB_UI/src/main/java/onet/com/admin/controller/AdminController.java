@@ -246,22 +246,5 @@ public class AdminController {
 	}
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
-	/*@RequestMapping("questionCategory.do")
-	public String questionCategory(Model model) throws Exception {
-		List<CategoryDto> list1;
-		
-		list1=adminService.lgCategoryList();
-		model.addAttribute("list1",list1);
-		
-		List<CategoryDto> list2;
-		list2=adminService.mdCategoryList();
-		model.addAttribute("list2",list2);
-		
-		List<CategoryDto> list3;
-		list3=adminService.smCategoryList();
-		model.addAttribute("list3",list3);
-		
-		return "admin.questionCategory";
-	}*/
 
 }
