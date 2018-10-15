@@ -1,6 +1,7 @@
 package onet.com.vo;
 
 public class Exam_infoDto {
+	private int class_num;
 	private String exam_info_num;
 	private String exam_paper_num;
 	private String class_name;
@@ -12,6 +13,16 @@ public class Exam_infoDto {
 	private String exam_info_start;
 	private String exam_info_end;
 	
+	
+	
+	
+	
+	public int getClass_num() {
+		return class_num;
+	}
+	public void setClass_num(int class_num) {
+		this.class_num = class_num;
+	}
 	public String getExam_info_num() {
 		return exam_info_num;
 	}

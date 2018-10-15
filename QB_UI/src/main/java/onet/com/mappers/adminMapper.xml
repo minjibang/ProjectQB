@@ -52,17 +52,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
 <select id="classMemberList" parameterType="onet.com.vo.MemberDto" resultType="onet.com.vo.MemberDto">
 	select m.class_name, m.member_id, m.member_name, m.member_email,
-	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r where m.class_name=#{class_name} and m.member_id=mr.member_id and mr.role_code =r.role_code
+	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r, class c where c.class_name = m.class_name and c.class_num=#{class_num} and  m.member_id=mr.member_id and mr.role_code =r.role_code
 </select>
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
-	select class_name, teacher_name, class_start_date, class_end_date, class_enable
+	select class_name, teacher_name, class_start_date, class_end_date, class_enable, class_num
 	 from class
 </select>
 
 <select id="classlist" parameterType="onet.com.vo.ClassDto" resultType="onet.com.vo.ClassDto">
 	select class_name, teacher_name, class_start_date, class_end_date, class_enable
-	 from class where class_name=#{class_name}
+	 from class where class_num=#{class_num}
 </select>
 <!-- 클래스 멤버 수정 -->
  <update id="classMemberUpdate" parameterType="onet.com.vo.MemberDto">
@@ -71,7 +71,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 민지 10.12 클래스멤버리스트 관련 끝 -->
 
+
 <!-- 영준 - 10.10 회원관리 전체조회 끝 -->
+
+<!-- 민지 10.15 클래스 수정 관련 -->
+<update id="classUpdate" parameterType="onet.com.vo.ClassDto">
+ UPDATE class SET class_name=#{class_name}, teacher_name=#{teacher_name},class_start_date=#{class_start_date}, class_end_date=#{class_end_date} where class_num=#{class_num}
+ </update>
+<!-- 민지 10.15 클래스 수정 관련 끝 -->
 
 <!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
 <!-- <update id="updateMember" parameterType="onet.com.vo.MemberDto"

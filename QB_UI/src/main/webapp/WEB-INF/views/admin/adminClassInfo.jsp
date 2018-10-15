@@ -131,31 +131,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- ClassUpdateModal -->
-				<div class="modal fade" id="ClassUpdateModal" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">수정 확인</h4>
-							</div>
-							<div class="modal-body">정말 수정하겠습니까?</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal">Yes</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">No</button>
-									</div>
-								</div>
-							</div>
 
-						</div>
-					</div>
-				</div>
 				<!-- /col-lg-12 -->
 				<div class="col-lg-12 mt">
 					<div class="row content-panel">
@@ -212,7 +188,7 @@
 																	value="${classMemberList.member_id}">
 																	<i class="fa fa-trash-o"></i>
 																</button>
-																<input type="hidden" id="hidden_class_name" value='${param.class_name}'>
+																<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
 
 															</td>
 														</tr>
@@ -241,17 +217,17 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">클래스</label>
 															<div class="col-md-6">
-																<input class="form-control" id="" type="text" value='${classlist.class_name}' />
+																<input class="form-control" id="updatetab_class_name" type="text" value='${classlist.class_name}' />
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="control-label col-md-3">교육 기간</label>
 															<div class="col-md-6">
 																<div class="input-group input-large"
-																	data-date="01/01/2014" data-date-format="mm/dd/yyyy">
+																	data-date="01/01/2014" data-date-format="mm-dd-yyyy">
 																	<input type="text" class="form-control dpd1"
-																		name="from" value='${classlist.class_start_date}'> <span class="input-group-addon">To</span>
-																	<input type="text" class="form-control dpd2" name="to" value='${classlist.class_end_date}'>
+																		name="from" id="from" value='${classlist.class_start_date}'> <span class="input-group-addon">To</span>
+																	<input type="text" class="form-control dpd2" name="to" id="to" value='${classlist.class_end_date}'>
 																
 																</div>
 																<span class="help-block">Select date range</span>
@@ -260,12 +236,11 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">강사</label>
 															<div class="col-md-6 col-xs-12">
-																<input class="form-control" id="" type="text" value='${classlist.teacher_name}'/>
+																<input class="form-control" id="teacher_name" type="text" value='${classlist.teacher_name}'/>
 															</div>
 														</div>
 														<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
-															<button class="btn btn-theme" type="button"
-																data-toggle="modal" data-target="#ClassUpdateModal">수정</button>
+															<button class="btn btn-theme" type="button" id="classUpdateBtn">수정</button>
 														</div>
 
 													</form>

@@ -49,7 +49,7 @@
           </li>
           	
 	          <li class="sub-menu">
-	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do?class_name=${param.class_name}">
+	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do?class_num=${param.class_num}">
 	              <i class="fa fa-desktop"></i>
 	              <span>클래스 전체 관리</span>
 	             

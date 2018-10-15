@@ -31,10 +31,10 @@ public class TeacherController {
 	// 강사 notice 관련 
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model, String class_name) {
-		List<NoticeDto> notice = commonService.teacher_student_Main(class_name);
+	public String teacherMain(Model model, int class_num) {
+		List<NoticeDto> notice = commonService.teacher_student_Main(class_num);
 		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info(class_name);
+		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
 		model.addAttribute("exam_info", exam_info);
 		
 		return "common.teacher.notice.notice";

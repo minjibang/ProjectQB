@@ -1,6 +1,8 @@
 package onet.com.vo;
 
 public class NoticeDto {
+	
+	private int class_num;
 	private String notice_num;
 	private String class_name;
 	private String notice_name;
@@ -11,6 +13,13 @@ public class NoticeDto {
 	private String notice_file3;
 	private String notice_date;
 	
+	
+	public int getClass_num() {
+		return class_num;
+	}
+	public void setClass_num(int class_num) {
+		this.class_num = class_num;
+	}
 	public String getNotice_num() {
 		return notice_num;
 	}

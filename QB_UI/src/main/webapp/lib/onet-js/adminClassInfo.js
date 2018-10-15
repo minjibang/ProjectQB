@@ -64,8 +64,8 @@ $(document).ready(function(){
 		}
 		
 		
-	var class_name_parameter=$('#hidden_class_name').val();
-	console.log("파라미터 클래스이름>>"+class_name_parameter);
+	var class_num_parameter=$('#hidden_class_num').val();
+	console.log("파라미터 클래스이름>>"+class_num_parameter);
 		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
 				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
 				, role_code:role_code_val }
@@ -81,7 +81,7 @@ $(document).ready(function(){
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
    				  alert("수정성공");
-   				  location.href="adminClassInfo.do?class_name="+class_name_parameter;
+   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
    			  }
    		});
 		
@@ -113,7 +113,7 @@ $(document).ready(function(){
 
 		var _data = JSON.stringify(_param); //jsonString으로 변환	  
 		
-		var class_name_parameter=$('#hidden_class_name').val();
+		var class_num_parameter=$('#hidden_class_num').val();
 		
 		
 		$.ajax({
@@ -126,7 +126,7 @@ $(document).ready(function(){
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
    				  alert("삭제 성공");
-   				  location.href="adminClassInfo.do?class_name="+class_name_parameter;
+   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
    			  },
    			  error: function(request, status, error){
    				  alert("에러야!");
@@ -134,6 +134,34 @@ $(document).ready(function(){
    		});
 		
 	});	
+	
+	/*클래스 수정*/
+	$('#classUpdateBtn').click(function(){
+		
+		var _param = {class_name:$("#updatetab_class_name").val(),class_start_date:$("#from").val()
+				, class_end_date:$("#to").val(), teacher_name:$("#teacher_name").val()}
+		
+		var _data = JSON.stringify(_param); //jsonString으로 변환	 
+		
+		var class_num_parameter=$('#hidden_class_num').val();
+		
+		$.ajax({
+   			  type : "post",
+   			  url : "adminClassUpdate.do",
+   			  cache: false,
+   			  dataType: "json",
+   			  data:_data,  
+   			  processData: false,
+   			  contentType: "application/json; charset=utf-8",
+   			  success : function(data, status){
+   				  alert("수정성공");
+   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
+   			  }
+   		});
+		
+		
+		
+	});
 	
 });
 

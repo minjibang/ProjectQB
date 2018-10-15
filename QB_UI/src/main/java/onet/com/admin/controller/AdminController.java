@@ -75,7 +75,7 @@ public class AdminController {
 
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
-	public String adminClassInfo(Model model, String class_name) throws Exception{
+	public String adminClassInfo(Model model, int class_num) throws Exception{
 		
 		
 //전체 클래스 데이터
@@ -84,11 +84,11 @@ public class AdminController {
 		model.addAttribute("classList", classList);
 // 해당 클래스 데이터
 		List<ClassDto> classlist;
-		classlist=adminService.classlist(class_name);
+		classlist=adminService.classlist(class_num);
 		model.addAttribute("classlist", classlist);
 		
 		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_name);
+		classMemberList= adminService.classMemberList(class_num);
 		model.addAttribute("classMemberList", classMemberList);
 		return "admin.adminClassInfo";
 	}
@@ -144,16 +144,27 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name) {
+	public String adminClassMain(Model model, int class_num) {
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(class_name);
+		notice=commonService.teacher_student_Main(class_num);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info(class_name);
+		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
+	//10.15민지 클래스 수정
+	@RequestMapping(value = "adminClassUpdate.do", method = RequestMethod.POST)
+		public @ResponseBody String adminClassUpdate(@RequestBody ClassDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+		{	
+			/*deptService.insertDept(dto);
+			return dto.toString();*/
+			int result = adminService.classUpdate(dto);
+			String result2 = String.valueOf(result);
+			return result2;
+			
+		}
 	
 
 	@RequestMapping("noticeDetail.do")

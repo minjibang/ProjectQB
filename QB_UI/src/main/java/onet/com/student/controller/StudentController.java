@@ -38,10 +38,10 @@ public class StudentController {
 	// 학생 notice 관련
 	/*한결 10월 12일 학생메인페이지 시작*/
 	@RequestMapping("studentMain.do")
-	public String studentMain(Model model, String class_name) {
-		List<NoticeDto> notice = commonService.teacher_student_Main(class_name);
+	public String studentMain(Model model, int class_num) {
+		List<NoticeDto> notice = commonService.teacher_student_Main(class_num);
 		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info(class_name);
+		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
 		model.addAttribute("exam_info", exam_info);
 		
 		return "common.student.notice.notice";

@@ -52,10 +52,10 @@ public class AdminService {
 	/*영준 - 10.10 회원관리 관련 끝 */
 
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
-	public List<MemberDto> classMemberList(String class_name){
+	public List<MemberDto> classMemberList(int class_num){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		MemberDto dto = new MemberDto();
-		dto.setClass_name(class_name);
+		dto.setClass_num(class_num);
 		List<MemberDto> result = dao.classMemberList(dto);
 		return result;
 	}
@@ -66,10 +66,10 @@ public class AdminService {
 		return result;
 	}
 	
-	public List<ClassDto> classlist(String class_name){
+	public List<ClassDto> classlist(int class_num){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		ClassDto dto = new ClassDto();
-		dto.setClass_name(class_name);
+		dto.setClass_num(class_num);
 		List<ClassDto> result = dao.classlist(dto);
 		
 		
@@ -91,7 +91,15 @@ public class AdminService {
 		return result;
 	}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
-
+	
+	/*민지 10.15 클래스 수정 관련*/
+	public int classUpdate(ClassDto dto) {
+		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
+		int result = dao.classUpdate(dto);
+		
+		return result;
+	}
+	/*민지 10.15 클래스 수정 끝*/
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
 	public String updateMember(MemberDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);

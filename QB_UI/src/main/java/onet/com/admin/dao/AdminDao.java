@@ -39,6 +39,12 @@ public interface AdminDao {
 	public int classMemberDelete(MemberDto dto);
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 	
+	/*민지 10.15 클래스 수정 관련*/
+	
+	public int classUpdate(ClassDto dto);
+	
+	/*민지 10.15 클래스 수정 관련 끝*/
+	
 
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
 	public String updateMember(MemberDto member);
