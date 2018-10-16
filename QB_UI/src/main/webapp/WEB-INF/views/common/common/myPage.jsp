@@ -3,6 +3,11 @@
 	@DATE:
 	@Author:김현이
 	@Desc:마이페이지(스토리보드 12,13,14 of 41)
+	
+	@JSP:myPage.jsp
+	@DATE:18.10.16
+	@Author:양회준
+	@Desc:마이페이지(스토리보드 12,13,14 of 41) - front & back 작업
  --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -36,40 +41,41 @@
                       <div class="col-lg-8 col-lg-offset-2 detailed mt">
                         <h4 class="mb">개인정보 수정</h4>
                         <%-- 개인정보 수정 폼 시작 --%>
-                        <form role="form" class="form-horizontal formArrayHyunyi" method="post" action="myPage.do">
+                        <form role="form" id="memberModifyFrm"class="form-horizontal formArrayHyunyi" method="post" action="myPage.do">
                         <%-- 아이디 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">아이디</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
+                              <input type="text" id="modify_member_id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 기존 비밀번호 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">기존 비밀번호</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control">
+                              <input type="password" placeholder="password" id="modify_member_pwd" class="form-control" name="member_pwd">
                             </div>
                           </div>
                           <%-- 비밀번호 변경 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호 변경
-                             <input type="checkbox" class="ez-checkbox" style="height: auto" >
-                            </label>
-                           
+                             <input type="checkbox" class="ez-checkbox" id="passwordChangeChk" style="height: auto" >
+                            </label>                           
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control" id="passwordChange" name="member_pwd" >
+                              <input type="password" placeholder="password" class="form-control" id="passwordChange" name="member_pwd" onblur="confirmPwd()" disabled>
                             </div>
+                            <div class="col-lg-offset-3 col-lg-8" id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
                           </div>
-                          	<div id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
+                          	
                         <%-- 비밀번호 확인 --%>  	
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호 확인</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" id="passwordChangeChk" class="form-control">
+                              <input type="password" placeholder="password" id="passwordChangeConfirm" class="form-control" onblur="confirmPwd2()" disabled>
                             </div>
+                            <div class="col-lg-offset-3 col-lg-8" id="pwdcheckdiv"></div> <%-- 비밀번호 일치 결과 출력 --%>
                           </div>
-                          <div id="pwdcheckdiv"></div> <%-- 비밀번호 일치 결과 출력 --%>
+                          
                          <%-- 이름 --%> 
                           <div class="form-group">
                             <label class="col-lg-3 control-label">이름</label>
@@ -90,23 +96,23 @@
                               <input type="checkbox" class="ez-checkbox" id="emailChangeChk" style="height: auto">
                             </label>
                             <div class="col-lg-8">
-                                  <input type="text" placeholder="email" id="member_email" class="form-control inlineTextField" name="member_email" value="${memberDto.member_email}">
-                                  <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeRquestBtn">인증번호 요청</button> 
+                                  <input type="text" placeholder="email" id="member_email" class="form-control inlineTextField" name="member_email" value="${memberDto.member_email}" readonly>
+                                  <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeRquestBtn" disabled>인증번호 요청</button> 
                             </div>
                           </div>
                           <%-- 인증번호 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">인증번호</label>
                             <div class="col-lg-8">
-                                  <input type="text" placeholder="인증번호" class="form-control inlineTextField" id="emailCodeCheck">
-                                  <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeCheckBtn">인증번호 확인</button>
+                                  <input type="text" placeholder="인증번호" class="form-control inlineTextField" id="emailCodeCheck" disabled>
+                                  <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeCheckBtn" disabled>인증번호 확인</button>
                             </div>
                           </div>
                           <%-- 정보 수정&취소 버튼 --%>
                           <div class="form-group">
                             <div class="col-lg-11 infoBtnDiv">
-                                <button class="btn btn-theme" type="submit" id="infoModifiy">정보 수정</button>
-                                <button class="btn btn-theme04" type="reset" id="cancel">취소</button>
+                                <button class="btn btn-theme" type="button" id="infoModifiy">정보 수정</button>
+                                <button class="btn btn-theme04" type="reset" id="modifyCancel">취소</button>
                             </div>
                           </div>
                         </form>
@@ -117,32 +123,33 @@
                     <!-- /row -->
                   </div>
                   <%-- 개인정보 수정 탭 종료 --%>
+                  
                   <%-- 회원 탈퇴 탭 시작 --%>
                     <div id="unregister" class="tab-pane">
                     <div class="row">
                       <div class="col-lg-8 col-lg-offset-2 detailed mt">
                         <h4 class="mb">회원 탈퇴</h4>
                         <%--회원탈퇴 폼 시작 --%>
-                        <form role="form" class="form-horizontal formArrayHyunyi" action="myPageDrop.do">
+                        <form role="form" class="form-horizontal formArrayHyunyi" id="memberDropFrm" action="myPageDrop.do">
                           <%-- 아이디 --%>
                           <div class="form-group">  
                             <label class="col-lg-3 control-label">아이디</label>
                             <div class="col-lg-8">
-                              <input type="text" placeholder="id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
+                              <input type="text" id="drop_member_id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 비밀번호 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control">
+                              <input type="password" placeholder="password" id="drop_member_pwd" class="form-control" name="member_pwd">
                             </div>
                           </div>
                           <%-- 회원탈퇴&취소 버튼 --%>
                           <div class="form-group">
                             <div class="col-lg-11 infoBtnDiv">
-                                <button class="btn btn-theme" type="submit" id="infoModifiy">회원 탈퇴</button>
-                                <button class="btn btn-theme04" type="button" id="cancel">취소</button>
+                                <button class="btn btn-theme" type="button" id="memberDropBtn" >회원 탈퇴</button>
+                                <button class="btn btn-theme04" type="button" id="dropCancel">취소</button>
                             </div>
                           </div>
                         </form>
@@ -156,21 +163,145 @@
                 </div>
                 <!-- /tab-content -->
               </div>
-              <%-- 탭 몸통 종료--%>
-			
+              <%-- 탭 몸통 종료--%>			
 			</div><!-- row content-panel -->
 		</div><!-- col-lg-12 mt -->
 	</section><!-- wrapper site-min-height -->
 </section><!-- main-content -->
 
 <script>
-var idcheck = false;
+
+//양회준 10.16 - 비밀번호변경 활성 비활성 체크박스
+$("#passwordChangeChk").change(function(){
+	if(this.checked){
+		$("#modify_member_pwd").removeAttr("name");
+		$("#passwordChange").attr("disabled", false);
+		$("#passwordChangeConfirm").attr("disabled", false);
+		$("#pwddiv").show();
+		$("#pwdcheckdiv").show();
+	}else{
+		$("#modify_member_pwd").attr("name", "member_pwd");
+		$("#passwordChange").attr("disabled", true);
+		$("#passwordChangeConfirm").attr("disabled", true);
+		$("#pwddiv").hide();
+		$("#pwdcheckdiv").hide();
+	}
+});
+
+//양회준 10.16 - 이메일변경 활성 비활성 체크박스
+$("#emailChangeChk").change(function(){
+	if(this.checked){
+		$("#member_email").attr("readonly", false);
+		$("#emailCodeCheck").attr("disabled", false);
+		$("#emailCodeRquestBtn").attr("disabled", false);
+		$("#emailCodeCheckBtn").attr("disabled", false);
+	}else{
+		$("#member_email").attr("readonly", true);
+		$("#emailCodeCheck").attr("disabled", true);
+		$("#emailCodeRquestBtn").attr("disabled", true);
+		$("#emailCodeCheckBtn").attr("disabled", true);
+	}
+});
+
+//양회준 10.16 - 개인정보 수정 비밀번호 확인
+$('#infoModifiy').click(function() {	
+	$.ajax({
+		type: 'post',
+		url : 'memberDrop.do',
+		data : {
+				"member_id" : $("#modify_member_id").val(), 
+				"member_pwd" : $("#modify_member_pwd").val()
+				},
+		success : function(data) {
+			if (data == 0){
+				alert("비밀 번호가 입력되지 않았거나 일치하지 않습니다.");
+			} else {
+				if(confirm("정말 수정하시겠습니까?")){
+					document.getElementById('memberModifyFrm').submit();
+				}else{
+					
+				}
+			}			
+		},
+		error : function(error) {
+			alert("전송 실패");
+			console.log(error);
+			console.log(error.status);
+		}
+	});
+});
+
+//양회준 10.16 - 회원탈퇴 비밀번호 확인
+$('#memberDropBtn').click(function() {	
+	$.ajax({
+		type: 'post',
+		url : 'memberDrop.do',
+		data : {
+				"member_id" : $("#drop_member_id").val(), 
+				"member_pwd" : $("#drop_member_pwd").val()
+				},
+		success : function(data) {
+			if (data == 0){
+				alert("비밀 번호가 입력되지 않았거나 일치하지 않습니다.");
+			} else {
+				if(confirm("정말 탈퇴하시겠습니까?")){
+					document.getElementById('memberDropFrm').submit();
+				}else{
+					
+				}
+			}			
+		},
+		error : function(error) {
+			alert("전송 실패");
+			console.log(error);
+			console.log(error.status);
+		}
+	});
+});
+
+//비밀번호 유효성 검사
 var pwdcheck = false;
 var pwdcheck2 = false;
+
+function confirmPwd() {
+	var pwd = document.getElementById("passwordChange");
+	var pwddiv = document.getElementById("pwddiv");
+
+	var p1 = /[0-9]/;
+	var p2 = /[a-zA-Z]/;
+	var p3 = /[~!@#$%^&*()]/;
+
+	if (!p1.test(pwd.value) || !p2.test(pwd.value) || !p3.test(pwd.value)
+			|| pwd.value.length < 8) {
+
+		pwddiv.innerHTML = "비밀번호는 8자 이상 숫자, 영문자, 특수문자를 포함해야 합니다.";
+		pwddiv.style.color = '#ff6600';
+		pwdcheck = false;
+	} else {
+		pwddiv.innerHTML = "안전한 비밀번호입니다.";
+		pwddiv.style.color = 'dodgerblue';
+		pwdcheck = true;
+
+	}
+}
+function confirmPwd2() {
+	var pwd = document.getElementById("passwordChange");
+	var pwdcheck = document.getElementById("passwordChangeConfirm");
+	var pwdcheckdiv = document.getElementById("pwdcheckdiv");
+
+	if (pwd.value != pwdcheck.value) {
+		pwdcheckdiv.innerHTML = "비밀번호가 일치하지 않습니다.";
+		pwdcheckdiv.style.color = '#ff6600';
+		pwdcheck2 = false;
+	} else {
+		pwdcheckdiv.innerHTML = "일치합니다.";
+		pwdcheckdiv.style.color = 'dodgerblue';
+		pwdcheck2 = true;
+	}
+}
+//인증번호 메일 보내기
 var mailcheck = false;
-
 var mailtonumber;
-
 $('#emailCodeRquestBtn').click(function() {
 	$.ajax({
 		type : 'post',
@@ -191,73 +322,18 @@ $('#emailCodeRquestBtn').click(function() {
 	});
 });
 
-function confirmPwd() {
-	var pwd = document.getElementById("passwordChange");
-	var pwddiv = document.getElementById("pwddiv");
+//인증번호 확인
+$('#emailCodeCheckBtn').click(function() {
 
-	var p1 = /[0-9]/;
-	var p2 = /[a-zA-Z]/;
-	var p3 = /[~!@#$%^&*()]/;
-
-	if (!p1.test(passwordChange.value) || !p2.test(passwordChange.value) || !p3.test(passwordChange.value)
-			|| passwordChange.value.length < 8) {
-
-		pwddiv.innerHTML = "비밀번호는 8자 이상 숫자, 영문자, 특수문자를 포함해야 합니다.";
-		pwddiv.style.color = 'red';
-		pwdcheck = false;
-	} else {
-		pwddiv.innerHTML = "안전";
-		pwddiv.style.color = 'blue';
-		pwdcheck = true;
-
-	}
-}
-
-function confirmPwd2() {
-	var pwd = document.getElementById("passwordChange");
-	var pwdcheck = document.getElementById("passwordChangeChk");
-	var pwdcheckdiv = document.getElementById("pwdcheckdiv");
-
-	if (pwd.value != pwdcheck.value) {
-		pwdcheckdiv.innerHTML = "비밀번호가 일치하지 않습니다.";
-		pwdcheckdiv.style.color = 'red';
-		pwdcheck2 = false;
-	} else {
-		pwdcheckdiv.innerHTML = "일치";
-		pwdcheckdiv.style.color = 'blue';
-		pwdcheck2 = true;
-	}
-
-}
-function check() {
-
-	var pwd = document.getElementById("passwordChange");
-	var pwdcheck = document.getElementById("passwordChangeChk");
 	var mailnumber = document.getElementById("emailCodeCheck");
-	
-	console.log("======"+pwd);
-	console.log("======"+mailnumber);
-
-	if (pwdcheck == false || pwdcheck2 == false) {
-		document.getElementById("passwordChange").focus();
-		return false;
-	}else if(mailcheck == false){
-		alert("메일인증을 해주세요.");
-		document.getElementById("emailCodeCheck").focus();
-		return false;
-	}else if(mailnumber.value != mailtonumber){
+		
+	if(mailnumber.value != mailtonumber){
 		alert("인증번호가 일치하지 않습니다.");
 		document.getElementById("emailCodeCheck").focus();
 		return false;
 	}
 	else {
-		var joinconfirm = confirm("정보를 수정하시겠습니까?");
-		if(joinconfirm == true){
-			return true;
-		}else{
-			return false;
-		}
+		alert("인증번호가 확인되었습니다.");
 	}
-}
-
+});
 </script>

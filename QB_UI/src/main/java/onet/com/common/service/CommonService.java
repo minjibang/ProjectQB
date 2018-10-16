@@ -79,6 +79,16 @@ public class CommonService {
 	}
 	/*양회준 - 10.15 내정보 끝 */
 	
+	
+	public int memberDrop(String member_id, String member_pwd)
+			throws ClassNotFoundException, SQLException, IOException {
+		System.out.println("droptestAjax");
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.memberDrop(member_id, member_pwd);
+		
+		return result;
+	}
+
 
 
 	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
@@ -94,4 +104,5 @@ public class CommonService {
 		return result;
 	}
 	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
+
 }

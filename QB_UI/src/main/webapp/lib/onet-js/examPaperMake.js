@@ -22,7 +22,6 @@ jQuery(document).ready(function() {
 	$('#pickQuestionDeleteBtn').click(function(){
 		$('input[name="checkbox[]"]:checked').parents(".qnumdiv").parents(".questionDiv").parents(".row").empty();
 	});
-	
 });
 
 $(function() {
