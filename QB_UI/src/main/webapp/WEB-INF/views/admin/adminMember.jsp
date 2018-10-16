@@ -326,7 +326,8 @@
 			</div>
 			<!-- </div> -->
 			<!-- /row -->
-		</div>
+
+		
 		<!-- /container -->
 		<!-- /wrapper -->
 	</section>

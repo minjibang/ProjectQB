@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -23,4 +24,9 @@ public interface CommonDao {
 	public int myPageDrop(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
 	/*양회준 - 10.15 내 정보 수정 끝*/
 
+
+	/* 영준 - 10.15 시험관리 관련 시작 */
+	public List<ExamPaperDto> examPaperList();
+	public int examPaperDelete(ExamPaperDto dto);
+	/* 영준 - 10.15 시험관리 관련 끝 */
 }

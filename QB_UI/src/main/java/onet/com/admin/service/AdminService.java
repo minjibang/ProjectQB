@@ -182,19 +182,7 @@ public class AdminService {
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 
-	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
-	public List<ExamPaperDto> examPaperList(){
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<ExamPaperDto> result = dao.examPaperList();
-		return result;	
-	}
-	
-	public int examPaperDelete(ExamPaperDto dto) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.examPaperDelete(dto);
-		return result;
-	}
-	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
+
 
 	
 }

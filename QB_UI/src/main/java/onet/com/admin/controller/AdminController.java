@@ -215,15 +215,16 @@ public class AdminController {
 		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
-	
+	/* 영준 10.16 시험 관리 페이지 시작 */
 	@RequestMapping("examManagement.do")
 	public String examManagement(Model model) throws Exception{
 		List<ExamPaperDto> examPaperList;
-		examPaperList = adminService.examPaperList();
+		examPaperList = commonService.examPaperList();
 		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
+	/* 영준 10.16 시험 관리 페이지 끝 */
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 

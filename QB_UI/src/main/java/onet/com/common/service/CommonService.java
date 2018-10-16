@@ -8,8 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.admin.dao.AdminDao;
 import onet.com.common.dao.CommonDao;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -76,4 +78,17 @@ public class CommonService {
 	}
 	/*양회준 - 10.15 내정보 끝 */
 
+	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
+	public List<ExamPaperDto> examPaperList(){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<ExamPaperDto> result = dao.examPaperList();
+		return result;	
+	}
+	
+	public int examPaperDelete(ExamPaperDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.examPaperDelete(dto);
+		return result;
+	}
+	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
 }
