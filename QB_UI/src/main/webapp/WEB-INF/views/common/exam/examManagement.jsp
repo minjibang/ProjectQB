@@ -45,22 +45,24 @@
 										<img src="../img/material-icon.png">
 										<strong>새 시험지 만들기</strong></a>
 									</form>
+									<hr>
 										<form action="" method="post" id="pickMyExamPaperForm">
 											<div class="col-lg-12">
 												<!-- 시험지 하나의 div 시작 -->
 												<div id="examPaperDiv">
 													<c:forEach items="${examPaperList}" var="examPaperList">
 													
-															<h4>${examPaperList.exam_paper_name}</h4>
-															<p>${examPaperList.exam_paper_desc}</p>
-													<div class="pdf_download text-right"><h5><a href="#">PDF 다운로드
-														<img src="../img/file-download.png"></a></h5>
-														<p><button class="btn btn-theme04 buttonGroup">삭제</button>
+															<h4><strong>${examPaperList.exam_paper_name}</strong></h4>
+															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${examPaperList.exam_paper_desc}
+													<div class="pdf_download text-right"><a href="#">PDF 다운로드
+														<img src="../img/file-download.png"></a>
+														<button class="btn btn-theme04 buttonGroup">삭제</button>
 														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
 														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
-														</p>
+											
 														</div>
+														<hr>
 													</c:forEach>
 													
 														
