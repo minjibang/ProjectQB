@@ -52,9 +52,11 @@ public class AdminService {
 	/*영준 - 10.10 회원관리 관련 끝 */
 
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
-	public List<MemberDto> classMemberList(){
+	public List<MemberDto> classMemberList(int class_num){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<MemberDto> result = dao.classMemberList();
+		MemberDto dto = new MemberDto();
+		dto.setClass_num(class_num);
+		List<MemberDto> result = dao.classMemberList(dto);
 		return result;
 	}
 	
@@ -64,9 +66,19 @@ public class AdminService {
 		return result;
 	}
 	
+	public List<ClassDto> classlist(int class_num){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		ClassDto dto = new ClassDto();
+		dto.setClass_num(class_num);
+		List<ClassDto> result = dao.classlist(dto);
+		
+		
+		return result;
+	}
 	public int classMemberUpdate(MemberDto dto) {
 		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
 		int result = dao.classMemberUpdate(dto);
+		
 		return result;
 	}
 	/*민지 10.12 클래스멤버 리스트 관리 끝*/
@@ -79,13 +91,95 @@ public class AdminService {
 		return result;
 	}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
-
+	
+	/*민지 10.15 클래스 수정 관련*/
+	public int classUpdate(ClassDto dto) {
+		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
+		int result = dao.classUpdate(dto);
+		
+		return result;
+	}
+	/*민지 10.15 클래스 수정 끝*/
 	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public String updateMember(MemberDto dto) {
+	public int updateMember(MemberDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		String result = dao.updateMember(dto);
+		int result = dao.updateMember(dto);
 		return result;
 	}
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
+
+
+	// 정원 - 10.15 문제분류 insert 
+	public String lgCatAdd(String lgCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.lgCatAddIdCheck(lgCatAdd);
+		if(result == null) {
+		int finalRow = dao.lgCatAddCheak();
+		String codeH = "H";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeH + codeNum;
+		dto.setLg_category_code(code);
+		dto.setLg_category_name(lgCatAdd);
+		dao.lgCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+			return result;
+		}
+	
+	public String mdCatAdd(String selectLgCat, String mdCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.mdCatAddIdCheck(mdCatAdd);
+		if(result == null) {
+		String lgCatCode = dao.lgCatCode(selectLgCat);
+		int finalRow = dao.mdCatAddCheck();
+		String codeM = "M";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeM + codeNum;
+		dto.setLg_category_code(lgCatCode);
+		dto.setMd_category_code(code);
+		dto.setMd_category_name(mdCatAdd);
+		dao.mdCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+		return result;
+	}
+	
+	public String smCatAdd(String selectMdCat, String smCatAdd) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		String result = dao.smCatAddIdCheck(smCatAdd);
+		if(result == null) {
+		String mdCatCode = dao.mdCatCode(selectMdCat);
+		int finalRow = dao.smCatAddCheck();
+		String codeS = "S";
+		int finalRowCodeAdd = finalRow + 1;
+		String codeNum = String.valueOf(finalRowCodeAdd);
+		String code = codeS + codeNum;
+		dto.setMd_category_code(mdCatCode);
+		dto.setSm_category_code(code);
+		dto.setSm_category_name(smCatAdd);
+		dao.smCatAdd(dto);
+		}else {
+			result = "중복";
+		}
+		return result;
+	}
+	// 정원 - 10.15 문제분류 insert 끝
+
+
+	
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
+	public int deleteMember(MemberDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.deleteMember(dto);
+		return result;
+	}
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 
 }

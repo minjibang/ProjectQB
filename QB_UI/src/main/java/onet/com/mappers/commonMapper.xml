@@ -4,13 +4,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.common.dao.CommonDao">
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 시작 -->
-<select id="notice" parameterType="hashmap" resultType="onet.com.vo.NoticeDto">
-	select * from notice
+<select id="notice" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice n, class c where n.class_name=c.class_name and class_num=#{class_num} ;
 </select>
-<select id="exam_info" parameterType="hashmap" resultType="onet.com.vo.Exam_infoDto">
-	select * from exam_info
+<select id="exam_info" parameterType="onet.com.vo.Exam_infoDto" resultType="onet.com.vo.Exam_infoDto">
+	select * from exam_info ex, class c  where ex.class_name = c.class_name and class_num=#{class_num};
 </select>
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
+
+
+<!-- 현이 10.15 examScheduleDetail 페이지 select 시작 -->
+<select id="examScheduleDetail" parameterType="int" resultType="onet.com.vo.ExamInfoDto">
+	select exam_info_num, exam_paper_num, class_name, exam_info_name, exam_info_desc, exam_info_member, 
+	exam_info_date, exam_info_start, exam_info_end, exam_info_time 
+	from exam_info where exam_info_num = #{exam_info_num}
+</select>
+<!-- 현이 10.15 examScheduleDetail 페이지 select 끝 -->
+
 
 <!-- 양회준 10.15 내 정보 수정 시작 -->
 <select id="myPageInfo" resultType="onet.com.vo.MemberDto">
@@ -35,8 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 양회준 10.15 내 정보 수정 끝 -->
 
+
 <select id="memberDrop" resultType="int">
 	select count(*) from member where member_id = #{param1} and member_pwd = #{param2}
 </select>
+
 
 </mapper>

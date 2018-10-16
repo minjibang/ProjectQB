@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.common.service.CommonService;
+import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -32,12 +33,16 @@ public class StudentController {
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
-
+	public String examScheduleDetail(Model model, int exam_info_num) {
+		
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		model.addAttribute("dto", dto);
+		
 		return "common.student.exam.examScheduleDetail";
 	}
 	/* 현이:10.09 시험 상세보기 페이지 끝 */
-
+	
+	
 	// 학생 시험지 관련
 	@RequestMapping("examPaper.do")
 	public String examPaper() {
@@ -49,10 +54,10 @@ public class StudentController {
 	// 학생 notice 관련
 	/*한결 10월 12일 학생메인페이지 시작*/
 	@RequestMapping("studentMain.do")
-	public String studentMain(Model model) {
-		List<NoticeDto> notice = commonService.teacher_student_Main();
+	public String studentMain(Model model, int class_num) {
+		List<NoticeDto> notice = commonService.teacher_student_Main(class_num);
 		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info();
+		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
 		model.addAttribute("exam_info", exam_info);
 		
 		return "common.student.notice.notice";
@@ -133,10 +138,12 @@ public class StudentController {
 	}
 	
 	
-	
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
 	@RequestMapping("examPaperDo2.do")
-	public String examPaperDo2() {
+	public String examPaperDo2(Model model, int exam_info_num) {
+
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		model.addAttribute("dto", dto);
 
 		return "exam.student.examPaperDo2";
 	}
@@ -166,4 +173,6 @@ public class StudentController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+
+
 }

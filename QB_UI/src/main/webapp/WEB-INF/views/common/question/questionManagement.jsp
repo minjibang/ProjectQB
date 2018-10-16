@@ -10,7 +10,7 @@
 
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
-	href="${pageContext.request.contextPath}/css/teacherMyQuestion.css"
+	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
 
 <!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
@@ -231,11 +231,11 @@
 										<span class="radio quesCategorybig"> <label
 											class="questionChoiceRadioButton"> <input
 												type="radio" name="question_type" id="question_type_1"
-												value="option1" checked
+												value="객관식" checked
 												onclick="questionType('questionChoice');" checked>객관식
 										</label> &nbsp;&nbsp; <label class="questionChoiceRadioButton">
 												<input type="radio" name="question_type"
-												id="question_type_2" value="option2"
+												id="question_type_2" value="단답형"
 												onclick="questionType('questionShortAnswer');">단답형
 										</label>
 										</span>
@@ -248,20 +248,22 @@
 													</h4>
 													<textarea name="question_name" class="form-control"
 														placeholder="문제 내용을 입력해주세요." rows="3"></textarea>
-													<div class="fileupload fileupload-new"
-														data-provides="fileupload">
-														<div
-															class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 400px; max-height: 250px; line-height: 20px;"></div>
-														<span> <span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new"><i
-																	class="fa fa-paperclip"></i> image</span> <span
-																class="fileupload-exists"><i class="fa fa-undo"></i>
-																	Change</span> <input type="file" name="question_img"
-																class="default" />
-														</span> <a href="" class="btn btn-theme04 fileupload-exists"
-															data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																Remove</a>
+													<div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 400px; max-height: 250px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_img" class="default"/>
+															</span>
+															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</a>
 														</span>
 													</div>
 												</div>
@@ -275,148 +277,169 @@
 													</h4>
 													<div class="radio" id="answerChoiceText">
 
-														<label class="questionChoiceRadioButton"> <input
-															type="radio" name="question_answer" value="option1"
-															checked> 1번
-														</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer"
-															value="option2"> 2번
-														</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer"
-															value="option3"> 3번
-														</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer"
-															value="option4"> 4번
-														</label>&nbsp;&nbsp; <label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer"
-															value="option5"> 5번
+														<label class="questionChoiceRadioButton"> 
+															<input type="radio" name="question_answer" value="1" checked>
+															1번
+														</label>&nbsp;&nbsp; 
+														
+														<label class="questionChoiceRadioButton">
+															<input type="radio" name="question_answer" value="2">
+															2번
 														</label>&nbsp;&nbsp;
-
+														
+														<label class="questionChoiceRadioButton">
+															<input type="radio" name="question_answer" value="3">
+															3번
+														</label>&nbsp;&nbsp; 
+														<label class="questionChoiceRadioButton">
+															<input type="radio" name="question_answer" value="4">
+															4번
+														</label>&nbsp;&nbsp; 
+														<label class="questionChoiceRadioButton">
+															<input type="radio" name="question_answer" value="5">
+															5번
+														</label>&nbsp;&nbsp;
 													</div>
 													<br>
+													
 													<hr>
 													<h4>
 														<i class="fa fa-angle-right"></i> 객관식 보기 입력
 													</h4>
-													<select class="form-control-static" name="">
+													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
 														<option value="">보기 개수</option>
-														<option value="">보기 1개</option>
-														<option value="">보기 2개</option>
-														<option value="">보기 3개</option>
-														<option value="">보기 4개</option>
-														<option value="">보기 5개</option>
+														<option value="1">보기 1개</option>
+														<option value="2">보기 2개</option>
+														<option value="3">보기 3개</option>
+														<option value="4">보기 4개</option>
+														<option value="5">보기 5개</option>
 													</select> <br> <br>
 													<!-- 1번 보기 -->
+													<div id="choiceInput">
 													<b><input type="text" name="question_choice_num"
-														value="1" style="display: none">1.</b> <input
-														type="text" name="question_choice_content"
-														class="form-control-inline"
-														placeholder="1번 보기 내용을 입력해주세요."> <span
-														class="fileupload fileupload-new imageup"
+														value="1" style="display: none">1.</b>
+													   <input type="text" name="question_choice_content"
+														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요.">
+													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
-														<div
-															class="fileupload-preview fileupload-exists thumbnail"
+														   <div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-														<span> <span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new"><i
-																	class="fa fa-paperclip"></i> image</span> <span
-																class="fileupload-exists"><i class="fa fa-undo"></i>
-																	Change</span> <input type="file" class="default" />
-														</span> <a href="" class="btn btn-theme04 fileupload-exists"
-															data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
+															<span> 
+																<span class="btn btn-theme02 btn-file">
+																	<span class="fileupload-new">
+																		<i class="fa fa-paperclip"></i>image
+																	</span>
+																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
+																	</span> 
+																	<input type="file" class="default" />
+																</span>
+																<a href="" class="btn btn-theme04 fileupload-exists"
+																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
 																Remove</a>
-													</span>
-													</span><br>
+															</span>
+														</span><br>
 													<!-- 2번 보기 -->
 													<b><input type="text" name="question_choice_num"
-														value="2" style="display: none">2.</b> <input
-														type="text" class="form-control-inline"
-														placeholder="2번 보기 내용을 입력해주세요."> <span
-														class="fileupload fileupload-new"
+														value="2" style="display: none">2.</b>
+													   <input type="text" name="question_choice_content"
+														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요.">
+													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
-														<div
-															class="fileupload-preview fileupload-exists thumbnail"
+														   <div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-														<span> <span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new"><i
-																	class="fa fa-paperclip"></i> image</span> <span
-																class="fileupload-exists"><i class="fa fa-undo"></i>
-																	Change</span> <input type="file" class="default" />
-														</span> <a href="" class="btn btn-theme04 fileupload-exists"
-															data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
+															<span> 
+																<span class="btn btn-theme02 btn-file">
+																	<span class="fileupload-new">
+																		<i class="fa fa-paperclip"></i>image
+																	</span>
+																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
+																	</span> 
+																	<input type="file" class="default" />
+																</span>
+																<a href="" class="btn btn-theme04 fileupload-exists"
+																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
 																Remove</a>
-													</span>
-													</span><br>
+															</span>
+														</span><br>
 													<!-- 3번 보기 -->
 													<b><input type="text" name="question_choice_num"
-														value="3" style="display: none">3.</b> <input
-														type="text" class="form-control-inline"
-														placeholder="3번 보기 내용을 입력해주세요."> <span
-														class="fileupload fileupload-new"
+														value="3" style="display: none">3.</b>
+													   <input type="text" name="question_choice_content"
+														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요.">
+													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
-														<div
-															class="fileupload-preview fileupload-exists thumbnail"
+														   <div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-														<span> <span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new"><i
-																	class="fa fa-paperclip"></i> image</span> <span
-																class="fileupload-exists"><i class="fa fa-undo"></i>
-																	Change</span> <input type="file" class="default" />
-														</span> <a href="" class="btn btn-theme04 fileupload-exists"
-															data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
+															<span> 
+																<span class="btn btn-theme02 btn-file">
+																	<span class="fileupload-new">
+																		<i class="fa fa-paperclip"></i>image
+																	</span>
+																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
+																	</span> 
+																	<input type="file" class="default" />
+																</span>
+																<a href="" class="btn btn-theme04 fileupload-exists"
+																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
 																Remove</a>
-													</span>
-													</span><br>
+															</span>
+														</span><br>
 													<!-- 4번 보기 -->
 													<b><input type="text" name="question_choice_num"
-														value="4" style="display: none">4.</b> <input
-														type="text" class="form-control-inline"
-														placeholder="4번 보기 내용을 입력해주세요."> <span
-														class="fileupload fileupload-new"
+														value="4" style="display: none">4.</b>
+													   <input type="text" name="question_choice_content"
+														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
+													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
-														<div
-															class="fileupload-preview fileupload-exists thumbnail"
+														   <div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-														<span> <span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new"><i
-																	class="fa fa-paperclip"></i> image</span> <span
-																class="fileupload-exists"><i class="fa fa-undo"></i>
-																	Change</span> <input type="file" class="default" />
-														</span> <a href="" class="btn btn-theme04 fileupload-exists"
-															data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
+															<span> 
+																<span class="btn btn-theme02 btn-file">
+																	<span class="fileupload-new">
+																		<i class="fa fa-paperclip"></i>image
+																	</span>
+																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
+																	</span> 
+																	<input type="file" class="default" />
+																</span>
+																<a href="" class="btn btn-theme04 fileupload-exists"
+																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
 																Remove</a>
-													</span>
-													</span><br>
+															</span>
+														</span><br>
 													<!-- 5번 보기 -->
-													<b>5.</b> <input type="text" class="form-control-inline"
-														placeholder="5번 보기 내용을 입력해주세요."> <span
-														class="fileupload fileupload-new"
+													<b><input type="text" name="question_choice_num"
+														value="5" style="display: none">5.</b>
+													   <input type="text" name="question_choice_content"
+														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
+													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
-														<div
-															class="fileupload-preview fileupload-exists thumbnail"
+														   <div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-														<span> <span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new"><i
-																	class="fa fa-paperclip"></i> image</span> <span
-																class="fileupload-exists"><i class="fa fa-undo"></i>
-																	Change</span> <input type="file" class="default" />
-														</span> <a href="" class="btn btn-theme04 fileupload-exists"
-															data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
+															<span> 
+																<span class="btn btn-theme02 btn-file">
+																	<span class="fileupload-new">
+																		<i class="fa fa-paperclip"></i>image
+																	</span>
+																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
+																	</span> 
+																	<input type="file" class="default" />
+																</span>
+																<a href="" class="btn btn-theme04 fileupload-exists"
+																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
 																Remove</a>
-													</span>
-													</span><br>
-
-												</div>
-												<!--객관식 보기 내용 입력 종료 -->
+															</span>
+														</span><br>
+													</div> <!-- choicesInput 끝 -->
+												</div><!--객관식 보기 내용 입력 종료 -->
 
 												<!--단답형 보기 시작-->
-												<div id="questionShortAnswer" style="display: none;"
-													class="col-lg-6">
+												<div id="questionShortAnswer" style="display:none;" class="col-lg-6">
 													<h4>
 														<i class="fa fa-angle-right"></i> 단답형 정답 입력
 													</h4>
-													<!-- 1번 보기 -->
-													<input type="text" class="form-control"
+													<!-- 단답형 정답 입력란 -->
+													<input type="text" class="form-control" name="question_answer"
 														placeholder="정답을 입력해주세요.">
 												</div>
 												<!--단답형 내용 입력 종료 -->
@@ -425,10 +448,11 @@
 										</div>
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
-										<button type="button" class="btn btn-theme quesCategory">문제
-											등록</button>
-										<button type="button"
-											class="btn btn-theme04 pull-right quesCategory">삭제</button>
+										<button type="button" class="btn btn-secondary quesCategory">
+										취소</button>
+										<button type="submit" class="btn btn-theme quesCategory pull-right">
+										문제 등록</button>
+										
 									</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->
@@ -471,10 +495,11 @@
 							<c:forEach items="${mdCatList}" var="mdlist">
 							if (document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}") {
 								$('#question_md_category')
-										.append(
-												"<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
+										.append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
 							}
 							</c:forEach>
+							$('#question_sm_category').children(
+							'option:not(:first)').remove();
 						})
 
 		$('#question_md_category')
@@ -485,8 +510,7 @@
 							<c:forEach items="${smCatList}" var="smlist">
 							if (document.getElementById("question_md_category").value == "${smlist.md_category_code}") {
 								$('#question_sm_category')
-										.append(
-												"<option>${smlist.sm_category_name}</option>")
+										.append("<option value=${mdlist.md_category_code}>${smlist.sm_category_name}</option>")
 							}
 							</c:forEach>
 						})
@@ -500,10 +524,11 @@
 							if (document
 									.getElementById("question_lg_category2").value == "${mdlist.lg_category_code}") {
 								$('#question_md_category2')
-										.append(
-												"<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
+										.append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
 							}
 							</c:forEach>
+							$('#question_sm_category2').children(
+							'option:not(:first)').remove();
 						})
 
 		$('#question_md_category2')
@@ -515,8 +540,7 @@
 							if (document
 									.getElementById("question_md_category2").value == "${smlist.md_category_code}") {
 								$('#question_sm_category2')
-										.append(
-												"<option>${smlist.sm_category_name}</option>")
+										.append("<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
 							}
 							</c:forEach>
 						})
@@ -524,3 +548,29 @@
 	})
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
+
+<!-- 객관식 보기 개수 선택시 보기내용 입력창 갯수 조절 비동기 스크립트 시작 -->
+<script>
+	$(function() {
+		$('#howManyChoices')
+				.change(
+						function() {
+							var remove = document.getElementById("choiceInput");
+							remove.innerHTML="";
+							
+							if (document.getElementById("howManyChoices").value == "1") {
+							 $('#choiceInput')
+									.append("<div id='choiceInput'><b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>")
+							} 
+							
+							if (document.getElementById("howManyChoices").value == "2") {
+							$('#choiceInput')
+									.append("<div id='choiceInput'><b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br> <div id='choiceInput'><b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>")
+							}
+							
+							if (document.getElementById("howManyChoices").value == "3") {
+							
+							}	
+				})
+	})
+</script>
