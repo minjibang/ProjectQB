@@ -232,15 +232,14 @@
 										<h4 class="quesCategory">
 											<i class="fa fa-angle-right"></i> 문제 유형
 										</h4>
-										<span class="radio quesCategorybig"> <label
-											class="questionChoiceRadioButton"> <input
-												type="radio" name="question_type" id="question_type_1"
-												value="객관식" checked
-												onclick="questionType('questionChoice');" checked>객관식
-										</label> &nbsp;&nbsp; <label class="questionChoiceRadioButton">
-												<input type="radio" name="question_type"
-												id="question_type_2" value="단답형"
-												onclick="questionType('questionShortAnswer');">단답형
+										<span class="radio quesCategorybig"> 
+											<label class="questionChoiceRadioButton"> 
+												<input type="radio" name="question_type" id="question_type_1"
+												value="객관식" checked onclick="questionType('questionChoice');" checked>객관식
+											</label> &nbsp;&nbsp; 
+											<label class="questionChoiceRadioButton">
+												<input type="radio" name="question_type" id="question_type_2"
+												value="단답형" onclick="questionType('questionShortAnswer');">단답형
 										</label>
 										</span>
 										<hr>
@@ -281,7 +280,6 @@
 													</h4>
 													<div class="radio" id="answerChoiceText">
 														
-														
 														<label class="questionChoiceRadioButton"> 
 															<input  type="radio" name="question_answer" value="1" id="questionAnswerRadio1">
 															1번
@@ -310,8 +308,11 @@
 													<br>
 													
 													<hr>
+													
+													
 													<h4>
-														<i class="fa fa-angle-right"></i> 객관식 보기 입력
+														<i class="fa fa-angle-right"></i> 객관식 보기 입력 및 정답 선택
+													
 													</h4>
 													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
 													
@@ -321,6 +322,21 @@
 														<option value="4">보기 개수: 4개</option>
 														<option value="5" selected>보기 개수: 5개</option>
 													</select> <br> <br>
+													
+													<!-- <select id="answerSelect" class="form-control-static" name="question_answer">
+													    <option value="" selected disabled> 정답을 선택해주세요 </option>
+														<option value="1">
+														정답: 1번</option>
+														<option value="2">
+														정답: 2번</option>
+														<option value="3">
+														정답: 3번</option>
+														<option value="4">
+														정답: 4번</option>
+														<option value="5">
+														정답: 5번</option>
+													</select> <br> <br> -->
+													
 													<!-- 1번 보기 -->
 													<div id="choiceInput">
 													<b><input type="text" name="question_choice_num"
@@ -447,7 +463,7 @@
 													</h4>
 													<!-- 단답형 정답 입력란 -->
 													<input type="text" class="form-control" name="question_answer"
-														placeholder="정답을 입력해주세요.">
+														id="questionType2Answer" placeholder="정답을 입력해주세요.">
 												</div>
 												<!--단답형 내용 입력 종료 -->
 											</div>
@@ -550,6 +566,13 @@
 										.append("<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
 							}
 							</c:forEach>
+						})
+						
+		$('#answerSelect')
+				.change(
+						function() {
+							var st = $("#answerSelect option:selected").val();
+							console.log(st);
 						})
 
 	})
