@@ -97,6 +97,12 @@ public class TeacherController {
 		examPaperList = teacherService.examPaperList();
 		model.addAttribute("examPaperList", examPaperList);
 		
+	/* 영준 18.10.16 선생님 시험일정 시작 */
+		List<ExamInfoDto> examScheduleList;
+		examScheduleList = teacherService.examScheduleList();
+		model.addAttribute("examScheduleList", examScheduleList);
+	/* 영준 18.10.16 선생님 시험일정 끝 */	
+		
 		return "common.teacher.exam.examManagement";
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */
@@ -253,5 +259,7 @@ public class TeacherController {
 		return "common.teacher.question.questionUpdate";
 	}
 	/* 양회준 18.10.12 문제 수정 끝 */
+	
+
 
 }
