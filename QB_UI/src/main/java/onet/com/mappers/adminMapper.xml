@@ -25,14 +25,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 재훈 - 10.15 문제난이도 관련 끝 -->
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 시작-->
-<insert id="newQuestionInsert" parameterType="onet.com.vo.QuestionDto">
-	insert into question(question_type, question_name, question_img,
-	question_answer, sm_category_code, level_code, member_id) 
-	values(#{question_type}, #{question_name}, #{question_img}, 
-	#{question_answer}, #{sm_category_code}, #{level_code}, #{member_id});
+<insert id="insertQuestion" parameterType="onet.com.vo.QuestionDto">
+	insert into question(question_type,question_name,question_img,
+	question_answer,sm_category_code,level_code,member_id) 
+	values(#{question_type},#{question_name},#{question_img},#{question_answer},#{sm_category_code},#{level_code},#{member_id});
 </insert>
 
-<insert id="newQuestionChoiceInsert" parameterType="onet.com.vo.Question_choiceDto">
+<insert id="insertQuestionChoice" parameterType="onet.com.vo.Question_choiceDto">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{question_num}, #{question_choice_num}, #{question_choice_content});
 </insert>
@@ -43,6 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
 	select class_name, member_id, member_name, member_email,
 	member_phone, member_enable from member
+</select>
+<select id="roleList" parameterType="hashmap" resultType="onet.com.vo.RoleDto">
+	SELECT * FROM role
+	WHERE NOT role_code='ROLE_ADMIN'
 </select>
 
 
@@ -160,7 +163,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
 <update id="deleteMember" parameterType="onet.com.vo.MemberDto">
 	UPDATE member 
-	SET member_enable=#{member_enable}
+	SET member_enable=0
 	WHERE member_id=#{member_id}
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->

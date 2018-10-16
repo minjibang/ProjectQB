@@ -1,20 +1,25 @@
-package onet.com.admin.service;
+﻿package onet.com.admin.service;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import onet.com.admin.dao.AdminDao;
+import onet.com.index.dao.IndexDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.QuestionDto;
 
 @Service
 public class AdminService {
 	
 	@Autowired
 	private SqlSession sqlsession;
+	
+	HttpServletRequest request;
 	
 	/*재훈 - 10.08 문제분류관련 시작*/ 
 	public List<CategoryDto> lgCategoryList(){
@@ -41,6 +46,14 @@ public class AdminService {
 		return result;
 	}
 	/*재훈 - 10.15 문제난이도관련 끝*/
+	
+	/*재훈 - 10.16 새 문제 만들기 관련 시작*/
+	public int insertQuestion(QuestionDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.insertQuestion(dto);
+		return result;
+	}
+	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
 
 	/*영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList(){
@@ -180,9 +193,5 @@ public class AdminService {
 		return result;
 	}
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
-	
 
-
-
-	
 }

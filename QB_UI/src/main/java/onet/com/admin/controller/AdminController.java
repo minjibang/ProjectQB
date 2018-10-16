@@ -22,6 +22,7 @@ import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.QuestionDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -68,10 +69,13 @@ public class AdminController {
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
 	public String adminMember(Model model) throws Exception {
+		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
 		model.addAttribute("memberList", memberList);
+				
 		return "admin.adminMember";
+		
 	}
 	
 	
@@ -91,7 +95,7 @@ public class AdminController {
 		String result2 = String.valueOf(result);
 		return result2;
 	}
-	/* 영준 10. 회원관리관련 끝 */
+	/* 영준 10.15 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
@@ -259,7 +263,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기 - 문제 관리 
 	/* 재훈 10.15 문제 관리 페이지 관련 start */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(Model model) throws Exception {
+	public String questionManagement(Model model, Principal principal) throws Exception {
 		List<CategoryDto> lgCatList;
 		
 		lgCatList=adminService.lgCategoryList();
@@ -277,8 +281,29 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
+		String member_id = principal.getName();
+		System.out.println("아이디 : " +member_id);
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		
 		return "common.adminClass.admin.question.questionManagement";
 	}
+	
+	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
+		
+		int result = 0;
+		result= adminService.insertQuestion(dto);
+		
+		if(result > 0) {
+			System.out.println("새 문제 등록 성공");
+		}else {
+			System.out.println("새 문제 등록 실패");
+		}
+		
+		return "common.adminClass.admin.question.questionManagement";
+	}
+	
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
 	/*양회준 18.10.15 문제 수정 시작	*/
@@ -288,23 +313,7 @@ public class AdminController {
 	}	
 	/*양회준 18.10.15 문제 수정 끝*/
 
-	/*@RequestMapping("questionCategory.do")
-	public String questionCategory(Model model) throws Exception {
-		List<CategoryDto> list1;
-		
-		list1=adminService.lgCategoryList();
-		model.addAttribute("list1",list1);
-		
-		List<CategoryDto> list2;
-		list2=adminService.mdCategoryList();
-		model.addAttribute("list2",list2);
-		
-		List<CategoryDto> list3;
-		list3=adminService.smCategoryList();
-		model.addAttribute("list3",list3);
-		
-		return "admin.questionCategory";
-	}*/
+
 	
 
 	/*현이 18.10.09 관리자 마이페이지 시작*/
@@ -373,5 +382,4 @@ public class AdminController {
 		return map;
 	}
 	// 정원 - 문제분류관리 끝
-
 }

@@ -16,8 +16,17 @@ public class QuestionDto {
 	/* 문제 뿌려주기 시 코드 아닌 이름 불러오기 */
 	private String sm_category_name;
 	private String md_category_name;
+	private String lg_category_name;
 	private String level_name;
 	
+	
+	
+	public String getLg_category_name() {
+		return lg_category_name;
+	}
+	public void setLg_category_name(String lg_category_name) {
+		this.lg_category_name = lg_category_name;
+	}
 	public String getQuestion_num() {
 		return question_num;
 	}

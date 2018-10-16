@@ -26,7 +26,6 @@ jQuery(document).ready(function() {
 			$(this).parents(".qnumdiv").parents(".row").empty();
 		});
 	});
-	
 });
 
 $(function() {
