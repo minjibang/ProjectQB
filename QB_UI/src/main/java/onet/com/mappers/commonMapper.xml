@@ -34,4 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where member_id=#{member_id}
 </update>
 <!-- 양회준 10.15 내 정보 수정 끝 -->
+
+<select id="memberDrop" resultType="int">
+	select count(*) from member where member_id = #{param1} and member_pwd = #{param2}
+</select>
+
 </mapper>

@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
@@ -301,5 +301,17 @@ public class AdminController {
 		return "redirect:/login.jsp";
 	}
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
+	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
+	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
+	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
+			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
+		System.out.println("intoAjax");
+		System.out.println(member_id);
+		System.out.println(member_pwd);
+		int result = commonService.memberDrop(member_id, member_pwd);		
+		return result;
+	}
+	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
 
 }
