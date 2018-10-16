@@ -68,10 +68,13 @@ public class AdminController {
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
 	public String adminMember(Model model) throws Exception {
+		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
 		model.addAttribute("memberList", memberList);
+				
 		return "admin.adminMember";
+		
 	}
 	
 	
@@ -91,7 +94,7 @@ public class AdminController {
 		String result2 = String.valueOf(result);
 		return result2;
 	}
-	/* 영준 10. 회원관리관련 끝 */
+	/* 영준 10.15 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
@@ -373,5 +376,4 @@ public class AdminController {
 		return map;
 	}
 	// 정원 - 문제분류관리 끝
-
 }
