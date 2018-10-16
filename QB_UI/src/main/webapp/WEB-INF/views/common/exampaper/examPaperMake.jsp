@@ -55,7 +55,7 @@
                         <div class="makeExamFirstRow">
                            <hr>
                            <div id="makeExamFirstRowText">
-                              <div> 출제된 문항 수 : <span id="qnum"></span></div><br><div> 현재 총 배점 : <span id="qcore"></span> / 100 </div>
+                              <div> 출제된 문항 수 : <span id="qnum">0</span></div><br><div> 현재 총 배점 : <span id="qcore">0</span> / 100 </div>
                            </div>
                         </div>
                         <hr>
@@ -67,10 +67,11 @@
 
                   <div class="row">
                      <div class="col-lg-6" id="leftMakeExamDiv">
-                        <form aciton="" method="post" id="pickQuestionForm">
+                        <form aciton="" method="post" id="pickQuestionForm" onsubmit="return false;">
                            <!-- 문제 하나의 div 시작  -->
                            <div id="questions">
                            <c:forEach items="${question }" var="question">
+                           	<div class="questions">
                               <div class="questionDiv col-lg-11 questionDiv_${question.question_num }">
                                  <div class="col-lg-1 qnumdiv">
                                     <input type="checkbox" value="${question.question_num }" name="checkbox[]" />
@@ -79,10 +80,10 @@
                                  <div class="col-lg-3">
                                     ${question.md_category_name}<br> 
                                     ${question.sm_category_name }<br> 
-                                    난이도: ${question.level_name }<br> 
-                                    정답: ${question.question_answer }<br>
-                                    정답률:${question.question_correct_ratio}%<br> 
-                                    출제자: ${question.member_id }<br>
+				                                    난이도: ${question.level_name }<br> 
+				                                    정답: ${question.question_answer }<br>
+				                                    정답률:${question.question_correct_ratio}%<br> 
+				                                    출제자: ${question.member_id }<br>
                                  </div>
                                  <div class="col-lg-8">
                                     <b>${question.question_name }</b><br> <br>
@@ -104,6 +105,7 @@
                                     </div>
                                  </div>
                               </div>
+                              </div>
                               <div class="col-lg-12">
                                  <hr>
                               </div>
@@ -118,29 +120,6 @@
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
                               <ul id="sortable" class="task-list">
-                                 <!--  li 태그 하나 당 문제 하나 위치시키기 -->
-                                 <!-- <li>
-                                    문제 하나의 div 시작 
-                                    <div class="row">
-                                       <div class="questionDiv">
-                                          <div class="col-lg-1">
-                                             <input type="checkbox" value="" name="">
-                                             value에 문제고유번호 들어간다
-                                          </div>
-                                          <div class="col-lg-3">
-                                             Java<br> 기초 개념<br> 난이도: 하<br> 정답: 1<br>
-                                             정답률:93%<br> 출제자: 김현이<br> <br> 배점 : <input
-                                                type="number" class="form-control questionScoreInputTag"
-                                                name="quantity" min="1" max="5">
-                                          </div>
-                                          <div class="col-lg-8">
-                                             <b>다음 설명 중 옳지 않은 것은?</b><br> <br> 1. 자바는 영어로
-                                             Jaba이다<br> 2. 자바는 컴퓨터 프로그래밍 언어 중 하나이다.<br> 3.
-                                             자바 언어로 간단한 게임을 구현할 수 있다.<br> 4. 자바는 객체지향 언어이다.<br>
-                                          </div>
-                                       </div>
-                                    </div> 문제 하나의 div 끝 
-                                 </li> -->
                               </ul>
                            </div>
                         </form>
@@ -154,9 +133,12 @@
                      </div>
                      <div class="col-lg-6 makeExamBtnDiv">
                         <input type="button" class="btn btn-theme04" value="선택문제 삭제"
-                           id="pickQuestionDeleteBtn"> <input type="button"
+                           id="pickQuestionDeleteBtn"> <!-- <input type="button"
                            class="btn btn-theme" value="임시저장" data-toggle="modal"
                            data-target="#pickQuestionTempSaveModal"
+                           id="pickQuestionTempSaveModalBtn"> -->
+                           <input type="button"
+                           class="btn btn-theme" value="임시저장"
                            id="pickQuestionTempSaveModalBtn">
                         <!--                                <input type="button" class="btn btn-theme" value="시험지 미리보기" id="">  우선순위에서 제외-->
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
