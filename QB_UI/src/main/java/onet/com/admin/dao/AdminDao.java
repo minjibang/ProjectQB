@@ -65,10 +65,6 @@ public interface AdminDao {
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 
-	/* 영준 - 10.15 시험관리 관련 시작 */
-	public List<ExamPaperDto> examPaperList();
-	public int examPaperDelete(ExamPaperDto dto);
-	/* 영준 - 10.15 시험관리 관련 끝 */
 
 	public int lgCatAddCheak();
 	

@@ -38,11 +38,10 @@
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-<<<<<<< .merge_file_a09596
+
 									<div id="div_myExam" class="col-md-12">
-=======
-									<div id="div_myExamPaper" class="col-md-12">
->>>>>>> .merge_file_a03180
+
+
 									<form class="insertForm">
 										<a href="${pageContext.request.contextPath}/teacher/examPaperMake.do" class="examPaper-insert">
 										<img src="../img/material-icon.png">
@@ -52,10 +51,6 @@
 									<table class="table table-inbox table-hover" width="100%">
 										
 										<tbody>
-
-									<table class="table table-inbox table-hover" id="myExamPaper">
-										<tbody>
-
 											<tr>
 												<td class="">
 												<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" 
@@ -170,10 +165,7 @@
 											<p><button class="btn btn-theme04 buttonGroup">삭제</button>
 												<button class="btn btn-theme buttonGroup">시험지 수정</button>
 												<button class="btn btn-theme buttonGroup" 
-
-												onclick="location.href='teacherExamPaperUpdate.do'">시험 등록</button>
-
-												onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
+														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
 
 											</p>
 											</td>

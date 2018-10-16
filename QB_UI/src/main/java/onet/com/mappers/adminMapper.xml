@@ -160,7 +160,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
 <update id="deleteMember" parameterType="onet.com.vo.MemberDto">
 	UPDATE member 
-	SET member_enable=0
+	SET member_enable=#{member_enable}
 	WHERE member_id=#{member_id}
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
