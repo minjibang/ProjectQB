@@ -147,9 +147,6 @@
 				} ]
 			});
 		});
-	
-
-	
 
 	</script>
 	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
@@ -195,16 +192,6 @@
 		      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
 		    });
 	  });
-	  
-	  function questionType(id){
-		  if(id == "questionChoice"){
-		      document.all["questionChoice"].style.display = '';           // 보이게
-		      document.all["questionShortAnswer"].style.display = 'none';  // 안보이게
-		   }else{
-		      document.all["questionChoice"].style.display = 'none';  		// 안보이게
-		      document.all["questionShortAnswer"].style.display = '';       // 보이게
-		   }
-		}
 	</script>
 	<!-- 재훈 - 문제 만들기 페이지 끝-->
 	
