@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 #examBox {
 	border-right: solid 1px black;
 }
@@ -89,7 +90,6 @@
 	height: 500px;
 }
 
-
 /*  */
 .wrap {
 	position: relative;
@@ -111,15 +111,17 @@
 }
 
 /* OMR 표시 */
-.check_num_myCheck{
-	background-color:red;
+.check_num_myCheck {
+	background-color: red;
 }
-
-
 
 /* 현이 progress bar  */
 #progressbar1 {
 	margin-top: 20px;
-    margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
+/* .ui-widget-header {
+	background-image: none !important;
+	background-color: #4ECDC4 !important;
+} */
