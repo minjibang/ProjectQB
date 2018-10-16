@@ -49,14 +49,13 @@
                               class="btn btn-theme" value="검색" id="questionsearch">
                         </div>
                         <hr>
-
                      </div>
                      <div class="col-lg-6">
                         <h3>시험 출제 문항</h3>
                         <div class="makeExamFirstRow">
                            <hr>
                            <div id="makeExamFirstRowText">
-                              <br> 출제된 문항 수 : 2<br> 현재 총 배점 : 7 / 100
+                              <div> 출제된 문항 수 : <span id="qnum"></span></div><br><div> 현재 총 배점 : <span id="qcore"></span> / 100 </div>
                            </div>
                         </div>
                         <hr>
@@ -64,6 +63,7 @@
 
                   </div>
                   <!-- div 윗 줄의 문항검색 부분  -->
+
 
                   <div class="row">
                      <div class="col-lg-6" id="leftMakeExamDiv">
@@ -103,10 +103,9 @@
                                     </c:forEach>
                                     </div>
                                  </div>
-                                 
                               </div>
                               <div class="col-lg-12">
-                                    <hr>
+                                 <hr>
                               </div>
                            </c:forEach>
                            </div>
@@ -119,6 +118,29 @@
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
                               <ul id="sortable" class="task-list">
+                                 <!--  li 태그 하나 당 문제 하나 위치시키기 -->
+                                 <!-- <li>
+                                    문제 하나의 div 시작 
+                                    <div class="row">
+                                       <div class="questionDiv">
+                                          <div class="col-lg-1">
+                                             <input type="checkbox" value="" name="">
+                                             value에 문제고유번호 들어간다
+                                          </div>
+                                          <div class="col-lg-3">
+                                             Java<br> 기초 개념<br> 난이도: 하<br> 정답: 1<br>
+                                             정답률:93%<br> 출제자: 김현이<br> <br> 배점 : <input
+                                                type="number" class="form-control questionScoreInputTag"
+                                                name="quantity" min="1" max="5">
+                                          </div>
+                                          <div class="col-lg-8">
+                                             <b>다음 설명 중 옳지 않은 것은?</b><br> <br> 1. 자바는 영어로
+                                             Jaba이다<br> 2. 자바는 컴퓨터 프로그래밍 언어 중 하나이다.<br> 3.
+                                             자바 언어로 간단한 게임을 구현할 수 있다.<br> 4. 자바는 객체지향 언어이다.<br>
+                                          </div>
+                                       </div>
+                                    </div> 문제 하나의 div 끝 
+                                 </li> -->
                               </ul>
                            </div>
                         </form>
@@ -314,6 +336,8 @@
    </section>
    <!-- /wrapper -->
 </section>
+   <!-- /wrapper -->
+</section>
 
 <script>
 $(function(){
@@ -335,6 +359,7 @@ $(function(){
       </c:forEach>
    });
    $('#questionsearch').click(function(){
+	   console.log("=============");
 	   var lgcategory = $("#question_lg_category option:checked").text().trim();
 	   $('#questions').children().remove();
 	   <c:forEach items="${question}" var="question">
