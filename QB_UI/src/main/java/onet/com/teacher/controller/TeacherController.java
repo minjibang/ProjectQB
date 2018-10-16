@@ -114,6 +114,10 @@ public class TeacherController {
 		list3=adminService.smCategoryList();
 		model.addAttribute("list3",list3);
 		
+		List<CategoryDto> levellist;
+		levellist = adminService.questionLevelList();
+		model.addAttribute("levellist",levellist);
+		
 		/*문제 출력*/
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);

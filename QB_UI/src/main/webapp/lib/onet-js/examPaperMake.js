@@ -4,23 +4,16 @@
 
 jQuery(document).ready(function() {
 	TaskList.initTaskWidget();
-	
-	var question_num = $('.question_num').val();
-	console.log(question_num);
-	$.ajax(
-		{
-			type:"POST",
-	        url:"examPaperMake.do",
-	        data : {question_num : question_num},
-	        dataType : "JSON",
-	        success: function(xml){
-	            console.log(xml);
-	        },
-	        error: function(xhr, status, error) {
-	            alert(error);
-	        }  
-		}	
-	);
+	$('#pickQuestionBtn').click(function(){
+
+	      var selected = new Array();
+	      $('input[name="checkbox[]"]:checked').each(function() {
+	         selected.push("<li><div class='row'>" + $(this).parents(".qnumdiv").parents(".questionDiv").html()+ "배점: <input type='number' class='form-control questionScoreInputTag' name='quantity' min='1' max='5' /><hr></div></li>");
+	      });
+	      $('.task-list').append(selected);
+	      
+	      $('input[name="checkbox[]"]:checked').prop('checked',false);
+	   });
 	
 });
 
