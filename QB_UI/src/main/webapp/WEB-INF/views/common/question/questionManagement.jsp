@@ -195,10 +195,14 @@
 								<div class="col-lg-12">
 									<form class="formNewQuestion" action="insertQuestion.do"
 										method="post" onsubmit="return check()">
+										
+										<input type="text" name="member_id"
+										value="${memberDto.member_id}" style="display: none">
+										
 										<h3 id="h3id">새로운 문제 만들기</h3>
 										<hr>
 										<h4>
-											<i class="fa fa-angle-right"></i> 출제자: 홍길동
+											<i class="fa fa-angle-right"></i> 출제자: ${memberDto.member_name} ( ${memberDto.member_id} )
 										</h4>
 										<hr>
 										<div>
@@ -215,13 +219,13 @@
 												class="form-control-static" name="md_category_name">
 												<option value="">중분류 선택</option>
 											</select> <select id="question_sm_category2"
-												class="form-control-static" name="sm_category_name">
+												class="form-control-static" name="sm_category_code">
 												<option value="">소분류 선택</option>
 											</select> <select id="question_level" class="form-control-static"
-												name="level_name">
+												name="level_code">
 												<option value="">난이도</option>
 												<c:forEach items="${quesLevelList}" var="quesLevelList">
-													<option value="">${quesLevelList.level_name}</option>
+													<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -276,27 +280,33 @@
 														<i class="fa fa-angle-right"></i> 객관식 정답 입력
 													</h4>
 													<div class="radio" id="answerChoiceText">
-
+														
+														<input type="radio" name="question_type" id="question_type_1"
+												value="객관식" checked
+												onclick="questionType('questionChoice');" checked>객관식
+														
 														<label class="questionChoiceRadioButton"> 
-															<input type="radio" name="question_answer" value="1" checked>
+															<input  type="radio" name="question_answer" value="1" id="questionAnswerRadio1">
 															1번
 														</label>&nbsp;&nbsp; 
 														
 														<label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer" value="2">
+															<input type="radio" name="question_answer" value="2" id="questionAnswerRadio2">
 															2번
 														</label>&nbsp;&nbsp;
 														
 														<label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer" value="3">
+															<input type="radio" name="question_answer" value="3" id="questionAnswerRadio3">
 															3번
-														</label>&nbsp;&nbsp; 
+														</label>&nbsp;&nbsp;
+														 
 														<label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer" value="4">
+															<input type="radio" name="question_answer" value="4" id="questionAnswerRadio4">
 															4번
 														</label>&nbsp;&nbsp; 
+														
 														<label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer" value="5">
+															<input type="radio" name="question_answer" value="5" id="questionAnswerRadio5">
 															5번
 														</label>&nbsp;&nbsp;
 													</div>
@@ -307,12 +317,12 @@
 														<i class="fa fa-angle-right"></i> 객관식 보기 입력
 													</h4>
 													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
-														<option value="">보기 개수</option>
-														<option value="1">보기 1개</option>
-														<option value="2">보기 2개</option>
-														<option value="3">보기 3개</option>
-														<option value="4">보기 4개</option>
-														<option value="5">보기 5개</option>
+													
+														
+														<option value="2">보기 개수: 2개</option>
+														<option value="3">보기 개수: 3개</option>
+														<option value="4">보기 개수: 4개</option>
+														<option value="5" selected>보기 개수: 5개</option>
 													</select> <br> <br>
 													<!-- 1번 보기 -->
 													<div id="choiceInput">
@@ -549,28 +559,13 @@
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
 
-<!-- 객관식 보기 개수 선택시 보기내용 입력창 갯수 조절 비동기 스크립트 시작 -->
-<script>
-	$(function() {
-		$('#howManyChoices')
-				.change(
-						function() {
-							var remove = document.getElementById("choiceInput");
-							remove.innerHTML="";
-							
-							if (document.getElementById("howManyChoices").value == "1") {
-							 $('#choiceInput')
-									.append("<div id='choiceInput'><b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>")
-							} 
-							
-							if (document.getElementById("howManyChoices").value == "2") {
-							$('#choiceInput')
-									.append("<div id='choiceInput'><b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br> <div id='choiceInput'><b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>")
-							}
-							
-							if (document.getElementById("howManyChoices").value == "3") {
-							
-							}	
-				})
-	})
-</script>
+<script type="text/javascript">
+      $(document).ready(function () {
+        $('#questionAnswerRadio1').click(function () {
+          // getter
+          var radioVal = $('input[name="question_answer"]:checked').val();
+          alert(radioVal);
+        });
+
+      });
+    </script>

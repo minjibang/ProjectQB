@@ -6,6 +6,7 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.QuestionDto;
 
 public interface AdminDao {
 	/*  재훈 - 10.08  문제분류관리 관련 시작  */
@@ -19,6 +20,9 @@ public interface AdminDao {
 	public List<CategoryDto> questionLevelList();
 	/*  재훈 - 10.15  문제난이도 관련 끝  */
 	
+	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
+	public int insertQuestion(QuestionDto dto);
+	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList();
