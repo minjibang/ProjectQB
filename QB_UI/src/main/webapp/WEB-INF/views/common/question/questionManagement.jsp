@@ -553,6 +553,12 @@
 						})
 
 	})
+	
+	
+	$("input:radio[name=question_answer]").click(function() 
+    { 
+        console.log($("input:radio[name=question_answer]:checked").val());
+    }) 
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
 

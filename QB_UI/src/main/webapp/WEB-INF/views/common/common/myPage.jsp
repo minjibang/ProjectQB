@@ -299,7 +299,7 @@ function confirmPwd2() {
 		pwdcheck2 = true;
 	}
 }
-
+//인증번호 메일 보내기
 var mailcheck = false;
 var mailtonumber;
 $('#emailCodeRquestBtn').click(function() {
@@ -320,5 +320,20 @@ $('#emailCodeRquestBtn').click(function() {
 			console.log(error.status);
 		}
 	});
+});
+
+//인증번호 확인
+$('#emailCodeCheckBtn').click(function() {
+
+	var mailnumber = document.getElementById("emailCodeCheck");
+		
+	if(mailnumber.value != mailtonumber){
+		alert("인증번호가 일치하지 않습니다.");
+		document.getElementById("emailCodeCheck").focus();
+		return false;
+	}
+	else {
+		alert("인증번호가 확인되었습니다.");
+	}
 });
 </script>

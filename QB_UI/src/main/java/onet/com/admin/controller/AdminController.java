@@ -292,7 +292,7 @@ public class AdminController {
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
-		
+		System.out.println("controller:"+dto.getQuestion_answer());
 		int result = 0;
 		result= adminService.insertQuestion(dto);
 		
