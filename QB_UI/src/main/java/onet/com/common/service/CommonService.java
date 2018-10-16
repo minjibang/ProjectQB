@@ -78,20 +78,5 @@ public class CommonService {
 		return "redirect:myPage.do";
 	}
 	/*양회준 - 10.15 내정보 끝 */
-	
 
-
-	/* 영준 - 10.15 강사 시험관지 페이지 시작 */
-	public List<ExamPaperDto> examPaperList(){
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<ExamPaperDto> result = dao.examPaperList();
-		return result;	
-	}
-	
-	public int examPaperDelete(ExamPaperDto dto) {
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int result = dao.examPaperDelete(dto);
-		return result;
-	}
-	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
 }
