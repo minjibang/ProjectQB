@@ -1,8 +1,44 @@
 /**
  * 18.10.15 재훈 questionManagement.js 파일 추가 
  */
+function check() {
 
-/*대분류 셀렉트메뉴 선택시 호출되는 함수*/
+	var pwd = document.getElementById("member_pwd");
+	var pwdcheck = document.getElementById("member_pwd_check");
+	var mailnumber = document.getElementById("textmail");
+
+	console.log("======" + pwd);
+	console.log("======" + mailnumber);
+	if (idcheck == false) {
+		document.getElementById("iddiv").innerHTML = "아이디 중복 검사를 통과하지 못하였습니다.";
+		document.getElementById("iddiv").style.color = 'red';
+		document.getElementById("member_id").focus();
+
+		return false;
+	} else if (pwdcheck == false || pwdcheck2 == false) {
+		document.getElementById("member_pwd").focus();
+		return false;
+	} else if (mailcheck == false) {
+		alert("메일인증을 해주세요.");
+		document.getElementById("textmail").focus();
+		return false;
+	} else if (mailnumber.value != mailtonumber) {
+		alert("인증번호가 일치하지 않습니다.");
+		document.getElementById("textmail").focus();
+		return false;
+	} else {
+		var joinconfirm = confirm("회원가입 하시겠습니까");
+		if (joinconfirm == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+};
+	
+
+
+/* 대분류 셀렉트메뉴 선택시 호출되는 함수 */
 
 /*
 $(function(){
