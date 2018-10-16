@@ -42,6 +42,7 @@ function questionType(id){
 if (id == "questionChoice") {
 		document.all["questionChoice"].style.display = ''; // 보이게
 		document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
+		
 	} else {
 		document.all["questionChoice"].style.display = 'none'; // 안보이게
 		document.all["questionShortAnswer"].style.display = ''; // 보이게
@@ -52,6 +53,22 @@ if (id == "questionChoice") {
 /*객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 시작 */
 
 	$(function() {
+		$("#question_type_1").click(function(){ 
+	        $("#questionAnswerRadio1").attr("disabled", false);
+	        $("#questionAnswerRadio2").attr("disabled", false);
+	        $("#questionAnswerRadio3").attr("disabled", false);
+	        $("#questionAnswerRadio4").attr("disabled", false);
+	        $("#questionAnswerRadio5").attr("disabled", false);
+	        $("#questionType2Answer").attr("disabled", true);
+	    });
+		$("#question_type_2").click(function(){
+			$("#questionAnswerRadio1").attr("disabled", true);
+	        $("#questionAnswerRadio2").attr("disabled", true);
+	        $("#questionAnswerRadio3").attr("disabled", true);
+	        $("#questionAnswerRadio4").attr("disabled", true);
+	        $("#questionAnswerRadio5").attr("disabled", true);
+			$("#questionType2Answer").attr("disabled", false);
+	    });
 		
 		
 		$('#howManyChoices')

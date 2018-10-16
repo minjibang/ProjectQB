@@ -273,8 +273,7 @@
 												<!--문제 종료-->
 
 												<!--객관식 보기 시작-->
-												<div id="questionChoice" style="display: '';"
-													class="col-lg-6">
+												<div id="questionChoice" style="display: '';" class="col-lg-6">
 													<h4>
 														<i class="fa fa-angle-right"></i> 객관식 정답 입력
 													</h4>
@@ -465,7 +464,7 @@
 													</h4>
 													<!-- 단답형 정답 입력란 -->
 													<input type="text" class="form-control" name="question_answer"
-														id="questionType2Answer" placeholder="정답을 입력해주세요.">
+														id="questionType2Answer" placeholder="정답을 입력해주세요." disabled>
 												</div>
 												<!--단답형 내용 입력 종료 -->
 											</div>
@@ -578,12 +577,6 @@
 						})
 
 	})
-	
-	
-	$("input:radio[name=question_answer]").click(function() 
-    { 
-        console.log($("input:radio[name=question_answer]:checked").val());
-    }) 
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
 
