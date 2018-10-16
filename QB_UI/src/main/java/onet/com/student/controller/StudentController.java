@@ -136,7 +136,10 @@ public class StudentController {
 	
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
 	@RequestMapping("examPaperDo2.do")
-	public String examPaperDo2() {
+	public String examPaperDo2(Model model, int exam_info_num) {
+
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		model.addAttribute("dto", dto);
 
 		return "exam.student.examPaperDo2";
 	}

@@ -37,18 +37,19 @@ public class CommonService {
 		List<Exam_infoDto> result = dao.exam_info(dto);
 		return result;
 	}
+	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
 	
-	// 현이 
+	/*현이 - 10.15 examScheduleDetail 시작*/
 	public ExamInfoDto examScheduleDetail(int exam_info_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		ExamInfoDto result = dao.examScheduleDetail(exam_info_num);
 		return result;
 	}
-
+	/*현이 - 10.15 examScheduleDetail 끝*/
 	
 	
 
-	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
+	
 	
 
 	/*양회준 - 10.15 내정보 시작 */
@@ -75,5 +76,7 @@ public class CommonService {
 		return "redirect:myPage.do";
 	}
 	/*양회준 - 10.15 내정보 끝 */
+	
+
 
 }
