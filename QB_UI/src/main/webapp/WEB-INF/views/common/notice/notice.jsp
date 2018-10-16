@@ -66,7 +66,7 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${exam_info}" var="exam_info">
-										<tr class="" onClick="location.href='examScheduleDetail.do'">
+										<tr class="" onClick="location.href='examScheduleDetail.do?exam_info_num=${exam_info.exam_info_num}'">
 											<td class="exam_info_num">${exam_info.exam_info_num }</td>
 											<td class="exam_info_name">${exam_info.exam_info_name }</td>
 											<td class="exam_info_date">${exam_info.exam_info_date }<br>

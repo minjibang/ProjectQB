@@ -114,3 +114,12 @@
 .check_num_myCheck{
 	background-color:red;
 }
+
+
+
+/* 현이 progress bar  */
+#progressbar1 {
+	margin-top: 20px;
+    margin-bottom: 25px;
+}
+

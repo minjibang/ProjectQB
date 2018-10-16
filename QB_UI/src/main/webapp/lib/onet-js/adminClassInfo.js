@@ -23,11 +23,14 @@ $(document).ready(function(){
 		var member_phone_modal=tr.eq(4).text();
 		var member_name_modal=tr.eq(2).text();
 		var role_code_modal = tr.eq(5).text();
+		var class_name_modal = tr.eq(0).text();
 		
 		$('#cid').val(member_id_modal);
 		$('#cemail').val(member_email_modal);
 		$('#curl').val(member_phone_modal);
 		$('#cname').val(member_name_modal);
+		$('#class_name').val(class_name_modal);
+		
 		
 		if(role_code_modal == '학생'){
 			$("#agree_s").attr("checked", true);
@@ -44,6 +47,9 @@ $(document).ready(function(){
 	
 	/*클래스 멤버 수정*/
 	$('#classUpdateMemberBtn').click(function() {
+		
+	
+		
 		var role_code_val;
 		
 		if ($('#agree_s').is(":checked"))
@@ -58,7 +64,8 @@ $(document).ready(function(){
 		}
 		
 		
-	
+	var class_num_parameter=$('#hidden_class_num').val();
+	console.log("파라미터 클래스이름>>"+class_num_parameter);
 		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
 				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
 				, role_code:role_code_val }
@@ -73,9 +80,22 @@ $(document).ready(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
+
+
    				  alert("수정성공");
+
+   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
+
+   				  alert("해당아이디값"+memberid);
    				  location.href="adminClassInfo.do";
-   			  }
+
+   			  },
+   			  error: function(request, status, error){
+   				  console.log("request 값이 뭐냐  >>>> "+ request);
+   				  alert("에러야!");
+   			 }
+
+
    		});
 		
 	});	
@@ -104,7 +124,11 @@ $(document).ready(function(){
 		
 		var _param = {member_id:member_id_table_value};
 
-		var _data = JSON.stringify(_param); //jsonString으로 변환	                                                      
+		var _data = JSON.stringify(_param); //jsonString으로 변환	  
+		
+		var class_num_parameter=$('#hidden_class_num').val();
+		
+		
 		$.ajax({
    			  type : "post",
    			  url : "adminClassMemberDelete.do",
@@ -115,7 +139,7 @@ $(document).ready(function(){
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
    				  alert("삭제 성공");
-   				  location.href="adminClassInfo.do";
+   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
    			  },
    			  error: function(request, status, error){
    				  alert("에러야!");
@@ -123,6 +147,34 @@ $(document).ready(function(){
    		});
 		
 	});	
+	
+	/*클래스 수정*/
+	$('#classUpdateBtn').click(function(){
+		
+		var _param = {class_name:$("#updatetab_class_name").val(),class_start_date:$("#from").val()
+				, class_end_date:$("#to").val(), teacher_name:$("#teacher_name").val()}
+		
+		var _data = JSON.stringify(_param); //jsonString으로 변환	 
+		
+		var class_num_parameter=$('#hidden_class_num').val();
+		
+		$.ajax({
+   			  type : "post",
+   			  url : "adminClassUpdate.do",
+   			  cache: false,
+   			  dataType: "json",
+   			  data:_data,  
+   			  processData: false,
+   			  contentType: "application/json; charset=utf-8",
+   			  success : function(data, status){
+   				  alert("수정성공");
+   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
+   			  }
+   		});
+		
+		
+		
+	});
 	
 });
 

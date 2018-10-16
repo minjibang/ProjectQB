@@ -5,12 +5,21 @@ import java.util.Date;
 /*민지 10.12-클래스 테이블 DTO 작성*/
 
 public class ClassDto {
-	
+	private int class_num;
 	private String class_name;
 	private String teacher_name;
 	private String class_start_date;
 	private String class_end_date;
 	private int class_enable;
+	
+	
+	
+	public int getClass_num() {
+		return class_num;
+	}
+	public void setClass_num(int class_num) {
+		this.class_num = class_num;
+	}
 	public String getClass_name() {
 		return class_name;
 	}

@@ -1,0 +1,21 @@
+/* 
+	@CSS:examScheduleUpdate.css
+	@DATE:2018-10-14
+	@Author:양회준
+	@Desc:강사-시험 일정 등록/수정(스토리보드 28 of 41)
+*/
+
+	.checkName{
+      height:350px;
+      overflow:auto;
+    }
+    
+	.wrapper-low {
+	    display: inline-block;
+	    margin-top: 20px;
+	    padding-left: 15px;
+	    padding-right: 15px;
+	    padding-bottom: 0px;
+	    padding-top: 0px;
+	    width: 100%;
+	}

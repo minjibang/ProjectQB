@@ -13,8 +13,7 @@ jQuery(document).ready(function() {
 	      $('.task-list').append(selected);
 	      
 	      $('input[name="checkbox[]"]:checked').prop('checked',false);
-	   });
-	
+	   });	
 });
 
 $(function() {

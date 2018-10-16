@@ -106,14 +106,14 @@
 							<div class="col-lg-12">
 							
 							
-								<c:forEach items="${classlist}" var="classlist">
+								<c:forEach items="${classList}" var="classlist">
 								<!-- weather-4 PANEL -->
 								<div class="col-lg-3 col-md-3 col-sm-3 mb">
 									<div class="project-wrapper">
 										<div class="project">
 											<div class="photo-wrapper">
 												<div class="photo">
-													<a class="fancybox" href="adminClassMain.do">
+													<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}">
 														<div class="weather-4 pn-big centered">
 															<i class="fa fa-desktop"></i>
 															<h1>JAVA</h1>

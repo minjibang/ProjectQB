@@ -20,11 +20,10 @@
 						<div class="modal-body">
 							<div id="lgCatAddForm" class="form-group">
 								<label for="lgCatAdd">대분류 이름</label> <input type="text"
-									class="form-control" name="lgCatAdd"
+									class="form-control" name="lgCatAdd" id="lgCatAdd"
 									placeholder="대분류 이름을 입력해주세요.">
-								<button type="submit" class="btn btn-theme modalButton">등록</button>
-								<button type="button" class="btn btn-secondary modalButton">취소</button>
-
+								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
+								<button type="button" class="btn btn-theme modalButton" id="lgCatAddBtn">등록</button>	
 							</div>
 						</div>
 					</div>
@@ -44,12 +43,11 @@
 						<div class="modal-body">
 							<label><span class="hidden-xs">상위 대분류 선택</span> </label>
 							<div class="form-inline">
-								<select class="form-control">
+								<select class="form-control" id="selectLgCategory">
 									<option>대분류를 선택해주세요.</option>
-									<option>대분류1</option>
-									<option>대분류2</option>
-									<option>대분류3</option>
-									<option>대분류4</option>
+								<c:forEach items="${list1}" var="lgCategoryList">
+									<option>${lgCategoryList.lg_category_name}</option>
+								</c:forEach>
 								</select>
 							</div>
 
@@ -57,9 +55,9 @@
 
 								<label for="mdCatAdd">중분류 이름</label> <input type="text"
 									class="form-control" name="mdCatAdd"
-									placeholder="중분류 이름을 입력해주세요.">
-								<button type="submit" class="btn btn-info modalButton">등록</button>
-								<button type="button" class="btn btn-secondary modalButton">취소</button>
+									placeholder="중분류 이름을 입력해주세요." id="mdCatAdd">
+								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
+								<button type="button" class="btn btn-theme modalButton" id="mdCatAddBtn">등록</button>
 							</div>
 						</div>
 					</div>
@@ -79,12 +77,11 @@
 						<div class="modal-body">
 							<label><span class="hidden-xs">상위 중분류 선택</span> </label>
 							<div class="form-inline">
-								<select class="form-control">
+								<select class="form-control" id="selectMdCategory">
 									<option>중분류를 선택해주세요.</option>
-									<option>중분류1</option>
-									<option>중분류2</option>
-									<option>중분류3</option>
-									<option>중분류4</option>
+								<c:forEach items="${list2}" var="mdCategoryList">
+									<option>${mdCategoryList.md_category_name}</option>
+								</c:forEach>
 								</select>
 							</div>
 
@@ -92,10 +89,9 @@
 
 								<label for="smCatAdd">소분류 이름</label> <input type="text"
 									class="form-control" name="smCatAdd"
-									placeholder="소분류 이름을 입력해주세요.">
-								<button type="submit" class="btn btn-theme modalButton">등록</button>
-								<button type="button" class="btn btn-secondary modalButton">취소</button>
-
+									placeholder="소분류 이름을 입력해주세요."  id="smCatAdd">
+								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
+								<button type="button" id="smCatAddBtn" class="btn btn-theme modalButton">등록</button>
 							</div>
 						</div>
 					</div>
@@ -154,7 +150,7 @@
 
 									<thead>
 										<tr>
-											<th>대분류코드</th>
+											<th>대분류[언어]</th>
 											<th>중분류코드</th>
 											<th>중분류 [과목]</th>
 											<th>관리</th>
@@ -163,7 +159,7 @@
 									<tbody>
 										<c:forEach items="${list2}" var="mdCategoryList">
 											<tr>
-												<td>${mdCategoryList.lg_category_code}</td>
+												<td>${mdCategoryList.lg_category_name}</td>
 												<td>${mdCategoryList.md_category_code}</td>
 												<td>${mdCategoryList.md_category_name}</td>
 												<td>
@@ -188,7 +184,7 @@
 
 									<thead>
 										<tr>
-											<th>중분류코드</th>
+											<th>중분류[과목]</th>
 											<th>소분류코드</th>
 											<th>소분류 [주제]</th>
 											<th>관리</th>
@@ -197,7 +193,7 @@
 									<tbody>
 										<c:forEach items="${list3}" var="smCategoryList">
 											<tr>
-												<td>${smCategoryList.md_category_code}</td>
+												<td>${smCategoryList.md_category_name}</td>
 												<td>${smCategoryList.sm_category_code}</td>
 												<td>${smCategoryList.sm_category_name}</td>
 												<td>
@@ -226,5 +222,75 @@
 	<!-- /wrapper -->
 </section>
 <!-- /main-content -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+$('#lgCatAddBtn').click(function(){
+	$.ajax({
+		type:'post',
+		url:'${pageContext.request.contextPath}/admin/lgCatAdd.do',
+		data:{lgCatAdd:$('#lgCatAdd').val()},
+		dataType:'json',
+		success:function(data){
+			if(data.result == "중복"){
+				swal("중복된 이름입니다", "다른 이름을 사용하여 추가해주세요", "error");
+			}else{
+			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
+			}	
+			},
+		error:function(error){
+			alert("에러");
+		}
+		
+	});
+});
+
+$('#mdCatAddBtn').click(function(){
+	$.ajax({
+		type:'post',
+		url:'${pageContext.request.contextPath}/admin/mdCatAdd.do',
+		data:{selectLgCat:$('#selectLgCategory option:selected').val(), mdCatAdd:$('#mdCatAdd').val() },
+		dataType:'json',
+		success:function(data){
+			if(data.result == "중복"){
+				swal("중복된 이름입니다", "다른 이름을 사용하여 추가해주세요", "error");
+			}else{
+			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
+			}
+			},
+		error:function(error){
+			alert("에러");
+		}
+	});
+});
+
+$('#smCatAddBtn').click(function(){
+	$.ajax({
+		type:'post',
+		url:'${pageContext.request.contextPath}/admin/smCatAdd.do',
+		data:{selectMdCat:$('#selectMdCategory option:selected').val(), smCatAdd:$('#smCatAdd').val() },
+		success:function(data){
+			if(data.result == "중복"){
+				swal("중복된 이름입니다", "다른 이름을 사용하여 추가해주세요", "error");
+			}else{
+			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
+			}
+			},
+		error:function(error){
+			alert("에러");
+		}
+	});
+	});
+	
+	
+	
+	
+
+
+
+
+
+
+
+</script>
 			
 			
