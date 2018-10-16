@@ -20,7 +20,11 @@ jQuery(document).ready(function() {
 	
 	/*선택문제 삭제*/
 	$('#pickQuestionDeleteBtn').click(function(){
-		$('input[name="checkbox[]"]:checked').parents(".qnumdiv").parents(".questionDiv").parents(".row").empty();
+		
+		alert($('input[name="checkbox[]"]:checked').length);
+		$('input[name="checkbox[]"]:checked').each(function() {
+			$(this).parents(".qnumdiv").parents(".row").empty();
+		});
 	});
 	
 });
