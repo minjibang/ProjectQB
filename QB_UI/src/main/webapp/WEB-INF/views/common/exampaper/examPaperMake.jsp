@@ -49,14 +49,13 @@
 										class="btn btn-theme" value="검색" id="makeExamSelectBtn">
 								</div>
 								<hr>
-
 							</div>
 							<div class="col-lg-6">
 								<h3>시험 출제 문항</h3>
 								<div class="makeExamFirstRow">
 									<hr>
 									<div id="makeExamFirstRowText">
-										<br> 출제된 문항 수 : 2<br> 현재 총 배점 : 7 / 100
+										<div> 출제된 문항 수 : <span id="qnum"></span></div><br><div> 현재 총 배점 : <span id="qcore"></span> / 100 </div>
 									</div>
 								</div>
 								<hr>
@@ -71,9 +70,9 @@
 								<form aciton="" method="post" id="pickQuestionForm">
 									<!-- 문제 하나의 div 시작  -->
 									<c:forEach items="${question }" var="question">
-										<div class="questionDiv">
-											<div class="col-lg-1">
-												<input type="checkbox" value="${question.question_num }" name="">
+										<div class="questionDiv col-lg-11 questionDiv_${question.question_num }">
+											<div class="col-lg-1 qnumdiv">
+												<input type="checkbox" value="${question.question_num }" name="checkbox[]" />
 												<!-- value에 문제고유번호 들어간다 -->
 											</div>
 											<div class="col-lg-3">
@@ -87,10 +86,12 @@
 											<div class="col-lg-8">
 												<b>${question.question_name }</b><br> <br>
 												<div class="questionImgDiv">
-													<img
-														src="${pageContext.request.contextPath}/img/sampleQuestionImg.jpg"
-														alt="questionImg" class="questionImg" />
-													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+													<c:if test="${question.question_img  ne null }">
+														<img
+															src="${pageContext.request.contextPath}/img/${question.question_img }"
+															alt="questionImg" class="questionImg" />
+														<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+													</c:if>
 												</div>
 												<br>
 												<div>
@@ -101,9 +102,9 @@
 												</c:forEach>
 												</div>
 											</div>
-											<div class="col-lg-12">
-												<hr>
-											</div>
+										</div>
+										<div class="col-lg-12">
+											<hr>
 										</div>
 									</c:forEach>
 								</form>
@@ -116,13 +117,13 @@
 									<div class="task-content">
 										<ul id="sortable" class="task-list">
 											<!--  li 태그 하나 당 문제 하나 위치시키기 -->
-											<li>
-												<!-- 문제 하나의 div 시작  -->
+											<!-- <li>
+												문제 하나의 div 시작 
 												<div class="row">
 													<div class="questionDiv">
 														<div class="col-lg-1">
 															<input type="checkbox" value="" name="">
-															<!-- value에 문제고유번호 들어간다 -->
+															value에 문제고유번호 들어간다
 														</div>
 														<div class="col-lg-3">
 															Java<br> 기초 개념<br> 난이도: 하<br> 정답: 1<br>
@@ -136,57 +137,8 @@
 															자바 언어로 간단한 게임을 구현할 수 있다.<br> 4. 자바는 객체지향 언어이다.<br>
 														</div>
 													</div>
-												</div> <!-- 문제 하나의 div 끝  -->
-											</li>
-											<li>
-												<!-- 문제 하나의 div 시작  -->
-												<div class="row">
-													<div class="questionDiv">
-														<div class="col-lg-1">
-															<input type="checkbox" value="" name="">
-															<!-- value에 문제고유번호 들어간다 -->
-														</div>
-														<div class="col-lg-3">
-															Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-															정답률:72%<br> 출제자:서정원<br> <br> 배점 : <input
-																type="number" class="form-control questionScoreInputTag"
-																name="quantity" min="1" max="5">
-														</div>
-														<div class="col-lg-8">
-															<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> 1.
-															멤버 변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스
-															로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static
-															메서드 안에 선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드
-															안에서는 this 나 super를 사용할 수 있다.<br>
-														</div>
-													</div>
-												</div> <!-- 문제 하나의 div 끝  -->
-											</li>
-											<li>
-												<!-- 문제 하나의 div 시작  -->
-												<div class="row">
-													<div class="questionDiv">
-														<div class="col-lg-1">
-															<input type="checkbox" value="" name="">
-															<!-- value에 문제고유번호 들어간다 -->
-														</div>
-														<div class="col-lg-3">
-															Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-															정답률:72%<br> 출제자:서정원<br> <br> 배점 : <input
-																type="number" class="form-control questionScoreInputTag"
-																name="quantity" min="1" max="5">
-														</div>
-														<div class="col-lg-8">
-															<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> 1.
-															멤버 변수와 메서드에 static을 지정할 수 있다<br> 2. static 형 변수는 클래스
-															로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br> 3. static
-															메서드 안에 선언되는 변수들은 모두 static 변수이다.<br> 4. static 메서드
-															안에서는 this 나 super를 사용할 수 있다.<br>
-														</div>
-													</div>
-												</div> <!-- 문제 하나의 div 끝  -->
-											</li>
-
+												</div> 문제 하나의 div 끝 
+											</li> -->
 										</ul>
 									</div>
 								</form>
