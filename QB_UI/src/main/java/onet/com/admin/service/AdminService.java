@@ -1,13 +1,14 @@
 package onet.com.admin.service;
 
 import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import onet.com.admin.dao.AdminDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 
 @Service
@@ -180,9 +181,5 @@ public class AdminService {
 		return result;
 	}
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
-	
 
-
-
-	
 }

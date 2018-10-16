@@ -137,3 +137,9 @@ $(document).ready(function(){
 
 });
 
+/* 회원 권한 셀렉트메뉴 선택시 호출되는 함수 */
+$(function(){
+	$("#role_code option:selected").val();
+	
+});
+
