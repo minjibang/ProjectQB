@@ -10,7 +10,7 @@
 
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
-	href="${pageContext.request.contextPath}/css/teacherMyQuestion.css"
+	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
 
 <!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
