@@ -2763,11 +2763,11 @@ ul.labels-info li img {
 .table-inbox tr td {
 	padding: 12px !important;
 }
-
+/* 
 .table-inbox tr td:first-child {
 	width: 5%;
 }
-
+ */
 .table-inbox tr td:first-child .icheckbox_minimal {
 	margin-left: 15px;
 }

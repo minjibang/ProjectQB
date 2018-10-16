@@ -125,3 +125,24 @@
 	background-image: none !important;
 	background-color: #4ECDC4 !important;
 } */
+
+/* 현이 시험지 테이블 형식 */
+.questionTd {
+	width: 50px;
+	padding-right: 10px;
+	text-align: right;
+}
+
+.questionTable {
+	margin-bottom: 60px;
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+.questionTr {
+	height: 20px;
+}
+
+.questionSpace {
+	padding-bottom: 15px;
+}

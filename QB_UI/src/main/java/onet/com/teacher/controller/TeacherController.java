@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
@@ -17,6 +18,7 @@ import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -91,8 +93,11 @@ public class TeacherController {
 
 	/* 현이 18.10.11 선생님 시험관리 시작 */
 	@RequestMapping("examManagement.do")
-	public String examManagement() {
-
+	public String examManagement(Model model) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
+		
 		return "common.teacher.exam.examManagement";
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */
@@ -247,7 +252,19 @@ public class TeacherController {
 	@RequestMapping("questionUpdate.do")
 	public String questionUpdate() {		
 		return "common.teacher.question.questionUpdate";
-	}
-	/* 양회준 18.10.12 문제 수정 끝 */
 
+	}	
+	/*양회준 18.10.12 문제 수정 끝*/
+	
+	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
+	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
+	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
+			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
+		System.out.println("intoAjax");
+		System.out.println(member_id);
+		System.out.println(member_pwd);
+		int result = commonService.memberDrop(member_id, member_pwd);		
+		return result;
+	}
+	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
 }

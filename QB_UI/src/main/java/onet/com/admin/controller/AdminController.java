@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamPaperDto;
@@ -34,6 +36,9 @@ public class AdminController {
 
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private TeacherService teacherService;
 	
 	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
@@ -95,6 +100,8 @@ public class AdminController {
 		String result2 = String.valueOf(result);
 		return result2;
 	}
+	
+	
 	/* 영준 10.15 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
@@ -215,20 +222,20 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
+	public String examScheduleDetail(Model model) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
-	/* 영준 10.16 시험 관리 페이지 시작 */
+
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model) throws Exception{
-		List<ExamPaperDto> examPaperList;
-		examPaperList = commonService.examPaperList();
-		model.addAttribute("examPaperList", examPaperList);
+	public String examManagement() {
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
-	/* 영준 10.16 시험 관리 페이지 끝 */
+
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 
@@ -291,7 +298,7 @@ public class AdminController {
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
-		
+		System.out.println("controller:"+dto.getQuestion_answer());
 		int result = 0;
 		result= adminService.insertQuestion(dto);
 		
@@ -354,6 +361,19 @@ public class AdminController {
 		return "redirect:/login.jsp";
 	}
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
+	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
+	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
+	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
+			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
+		System.out.println("intoAjax");
+		System.out.println(member_id);
+		System.out.println(member_pwd);
+		int result = commonService.memberDrop(member_id, member_pwd);		
+		return result;
+	}
+	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+
 	// 정원 - 문제분류관리 - insert
 	@RequestMapping("lgCatAdd.do")
 	public @ResponseBody Map<String, Object> lgCatAdd(String lgCatAdd) {
@@ -363,6 +383,7 @@ public class AdminController {
 		map.put("result", result);
 		return map;
 	}
+
 
 	@RequestMapping("mdCatAdd.do")
 	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
