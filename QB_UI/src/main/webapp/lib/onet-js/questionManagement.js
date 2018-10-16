@@ -38,20 +38,16 @@ function check() {
 
 /*문제 타입 변경 시 div 보여주기 시작*/
 function questionType(id){
-		var remove1 = document.getElementById("questionShortAnswer");
-		var remove2 = document.getElementById("questionChoice");
-
-if(id == "questionChoice"){
-  $("questionShortAnswer").empty();
-  document.all["questionChoice"].style.display = '';           // 보이게
-  document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
-}else{
-  $("questionChoice").empty();
-  document.all["questionChoice"].style.display = 'none';  		// 안보이게
-  document.all["questionShortAnswer"].style.display = '';       // 보이게
+	
+if (id == "questionChoice") {
+		document.all["questionChoice"].style.display = ''; // 보이게
+		document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
+	} else {
+		document.all["questionChoice"].style.display = 'none'; // 안보이게
+		document.all["questionShortAnswer"].style.display = ''; // 보이게
+	}
 }
-}
-/*문제 타입 변경 시 div 보여주기 끝 */
+/* 문제 타입 변경 시 div 보여주기 끝 */
 
 /*객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 시작 */
 
