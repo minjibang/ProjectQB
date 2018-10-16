@@ -282,8 +282,9 @@
 													<div class="radio" id="answerChoiceText">
 														
 														
+														
 														<label class="questionChoiceRadioButton"> 
-															<input  type="radio" name="question_answer" value="1" id="questionAnswerRadio1">
+															<input type="radio" name="question_answer" value="1" id="questionAnswerRadio1">
 															1번
 														</label>&nbsp;&nbsp; 
 														
@@ -306,12 +307,13 @@
 															<input type="radio" name="question_answer" value="5" id="questionAnswerRadio5">
 															5번
 														</label>&nbsp;&nbsp;
+														
 													</div>
 													<br>
 													
 													<hr>
 													<h4>
-														<i class="fa fa-angle-right"></i> 객관식 보기 입력
+														<i class="fa fa-angle-right"></i>객관식 보기 입력
 													</h4>
 													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
 													
