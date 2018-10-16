@@ -18,6 +18,7 @@ import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -92,8 +93,11 @@ public class TeacherController {
 
 	/* 현이 18.10.11 선생님 시험관리 시작 */
 	@RequestMapping("examManagement.do")
-	public String examManagement() {
-
+	public String examManagement(Model model) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
+		
 		return "common.teacher.exam.examManagement";
 	}
 	/* 현이 18.10.11 선생님 시험관리 끝 */

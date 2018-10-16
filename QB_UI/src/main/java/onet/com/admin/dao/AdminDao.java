@@ -69,9 +69,6 @@ public interface AdminDao {
 	public int deleteMember(MemberDto dto);
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
-	/* 영준 - 10.16 회원관리 회원권한 셀렉트메뉴 시작 */
-	public List<RoleDto> roleList();
-	/* 영준 - 10.16 회원관리 회원권한 셀렉트메뉴 끝 */
 	
 	public int lgCatAddCheak();
 	

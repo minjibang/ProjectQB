@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamPaperDto;
@@ -35,6 +36,9 @@ public class AdminController {
 
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private TeacherService teacherService;
 	
 	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
@@ -96,6 +100,8 @@ public class AdminController {
 		String result2 = String.valueOf(result);
 		return result2;
 	}
+	
+	
 	/* 영준 10.15 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
@@ -216,20 +222,20 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
+	public String examScheduleDetail(Model model) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
-	/* 영준 10.16 시험 관리 페이지 시작 */
+
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model) throws Exception{
-		List<ExamPaperDto> examPaperList;
-		examPaperList = commonService.examPaperList();
-		model.addAttribute("examPaperList", examPaperList);
+	public String examManagement() {
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
-	/* 영준 10.16 시험 관리 페이지 끝 */
+
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 

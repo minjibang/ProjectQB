@@ -63,12 +63,12 @@
 											</div>
 										</div>
 										<div class="form-group ">
-											<label for="ccomment" class="control-label col-lg-2">클래스</label>
-												<div class="col-sm-4 col-xs-4 pull-left">
+											<label for="cclass" class="control-label col-lg-2">클래스</label>
+												<div class="col-lg-10">
 												
 													<select class="form-control" id="class_name" name="class_name">
-													 <c:forEach var="classList" items="${classList}" varStatus="i">
-														<option value="${classList.class_name}">${classList.class_name}</option>
+													 <c:forEach var="classList" items="${classList}">
+														<option>${classList.class_name}</option>
 													</c:forEach>
 													</select>
 												
@@ -78,10 +78,12 @@
 											<label for="curl" class="control-label col-lg-2">권한
 												설정</label>
 											<div class="col-lg-10">
-												<input type="checkbox" id="agree_s" name="agree" onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
+												<input type="checkbox" id="agree_s" name="agree" 
+													onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
 												&nbsp;&nbsp; 
 												<input type="checkbox" id="agree_t"
-													name="agree" onclick="oneCheckbox(this)"  value="ROLE_TEACHER"/>강사
+													name="agree" onclick="oneCheckbox(this)" 
+													value="ROLE_TEACHER"/>강사
 											</div>
 										</div>
 										<div class="modal-footer">

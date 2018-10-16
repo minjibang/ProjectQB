@@ -194,4 +194,5 @@ public class AdminService {
 	}
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 
+	
 }
