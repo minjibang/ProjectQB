@@ -61,6 +61,7 @@ public interface AdminDao {
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
 	public String classCheck(String class_name);
+	public List<ClassDto> classSearch(String searchtext);
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
 

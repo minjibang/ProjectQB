@@ -359,7 +359,6 @@ $(function(){
       </c:forEach>
    });
    $('#questionsearch').click(function(){
-	   console.log("=============");
 	   var lgcategory = $("#question_lg_category option:checked").text().trim();
 	   $('#questions').children().remove();
 	   <c:forEach items="${question}" var="question">
@@ -391,7 +390,6 @@ $(function(){
 	   }
 	   </c:forEach>
    });
-   
 })
 
 </script>

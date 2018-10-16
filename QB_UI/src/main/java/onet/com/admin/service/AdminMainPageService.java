@@ -1,5 +1,7 @@
 package onet.com.admin.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,13 @@ public class AdminMainPageService {
 	public String classCheck(String class_name) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		String result = dao.classCheck(class_name);
+		return result;
+	}
+	
+	public List<ClassDto> classSearch(String searchtext) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ClassDto> result = dao.classSearch(searchtext);
+		
 		return result;
 	}
 
