@@ -36,6 +36,7 @@
 				
 				<div class="panel-body">
 						<div class="tab-content">
+						<!-- 내 시험지 탭 시작 -->
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 
@@ -50,8 +51,9 @@
 											<div class="col-lg-12">
 												<!-- 시험지 하나의 div 시작 -->
 												<div id="examPaperDiv">
-													<c:forEach items="${examPaperList}" var="examPaperList">
 													
+													<c:forEach items="${examPaperList}" var="examPaperList">
+
 															<h4><strong>${examPaperList.exam_paper_name}</strong></h4>
 															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${examPaperList.exam_paper_desc}
 													<div class="pdf_download text-right"><a href="#">PDF 다운로드
@@ -64,22 +66,17 @@
 														</div>
 														<hr>
 													</c:forEach>
-													
-														
+
 													</div>
 												</div>
 											</form>
 										</div>
-										
-											<!-- 내 시험지 div 끝 -->
+										<!-- 내 시험지 div 끝 -->
 										</div>		
 										<!-- /col-md-12 -->
 									</div>
-									<!-- /row -->
+									<!-- 내 시험지 탭 끝-->
 
-		
-				
-			
 					<!-- 임시 저장된 시험지 tab 시작-->
 					<div id="tempExamPaper" class="tab-pane">
 						<div class="row">
@@ -141,48 +138,32 @@
 									<div id="div_examSchedule" class="col-md-12">
 										<form class="insertForm">
 											<a href="" class="exam-insert">
-
 											<img src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새 시험 일정 등록</strong></a>
-
 										</form>
-										<table class="table table-inbox table-hover" width="100%">
-											<tbody>
-						
-												<tr>
-													<td class="">
-													<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" 
-													class="img-thumbnail" width="150px;"></td>
-													<td class="view-schedule"><h4>
-													<strong>자바의 기본 개념과 활용</strong></h4>
-													<p>정의|개념|클래스|메소드</p></td>
-													<td class="view-schedule text-right">
-													<p>시험 날짜 : 2018.08.15</p>
-													<p>시험 시간 : 14:00:00 ~ 14:50:00 [50분]</p>
-													<p>응시 대상 : 전체</p></td>
-													<td><button type="button" class="btn btn-theme04 buttonGroup">삭제</button>
-														<button type="button" class="btn btn-theme buttonGroup">시험 일정 수정</button>
-													</td>
+										<hr>
+										<form action="" method="post" id="pickExamScheduleForm">
+											<div class="col-lg-12">
+												<!-- 시험 일정 하나의 div 시작 -->
+												<div id="examScheduleDiv">
+													<c:forEach items="${examScheduleList}" var="examScheduleList">
+														<h4><strong>${examScheduleList.exam_info_name}</strong></h4>
+													<div class="view-schedule text-center">
+													시험 날짜 : ${examScheduleList.exam_info_date}<br>
+													시험 시간 : ${examScheduleList.exam_info_start} ~ ${examScheduleList.exam_info_end}[${examScheduleList.exam_info_time}]분<br>
+													응시 대상 : ${examScheduleList.exam_info_member}
+													
+													<button type="button" class="btn btn-theme04 buttonGroup">삭제</button>
+													<button type="button" class="btn btn-theme buttonGroup">시험 일정 수정</button>
+													</div>		
+													<hr>											
+													</c:forEach>
+													
+											</div>
+										</div>
+										
+									</form>
 
-												</tr>
-
-												<tr>
-													<td class="">
-													<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-													class="img-thumbnail" width="150px;"></td>
-													<td class="view-schedule"><h4>
-													<strong>자바의 기본 개념과 활용(재시험)</strong></h4>
-														<p>정의|개념|클래스|메소드</p></td>
-														<td class="view-schedule text-right">
-														<p>시험 날짜 : 2018.08.22</p>
-														<p>시험 시간 : 17:00:00 ~ 17:50:00 [50분]</p>
-														<p>응시 대상 : JAVA 1차 60점 미만</p></td>
-													<td><button type="button" class="btn btn-theme04 buttonGroup">삭제</button>
-														<button type="button" class="btn btn-theme buttonGroup">시험 일정 수정</button>
-													</td>
-												</tr>
-											</tbody>
-											<!-- /table -->
-										</table>
+												
 										
 										<!-- /col-md-12 -->
 									</div>
