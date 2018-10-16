@@ -45,14 +45,11 @@
 	<div class="col-lg-12 mt">
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">
-				<i class="fa fa-angle-right"></i> 비트캠프109기-JAVA기본
+				<i class="fa fa-angle-right"></i> ${dto.exam_info_name}
 			</h3>
-			<h4>남은 시간: 00분 00초</h4>
+			<h4>남은 시간: ${dto.exam_info_time}</h4>
 		</div>
-
-		
 		<div id="progressbar1"></div>
-		
 		<hr>
 		<div class="panel-body">
 			<div class="row content-panel exampaneldetail">
