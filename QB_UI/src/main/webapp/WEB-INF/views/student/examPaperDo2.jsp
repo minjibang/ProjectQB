@@ -23,9 +23,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
-	var total_time = 5000;
+	var exam_info_time = "${dto.exam_info_time}";
+	var hour_ms = parseInt(exam_info_time.substr(0, 2))*3600000;
+	var minute_ms = parseInt(exam_info_time.substr(3, 5))*60000;
+	var second_ms = parseInt(exam_info_time.substr(6))*1000;
+
+	var total_time = hour_ms + minute_ms + second_ms;
+	console.log("토탈 타임: "+total_time);
 	var current_time = 0;
-	var refresh_interval = 50;
+	var refresh_interval = 0.5;
 	var timer;
 	
 	function refresh_bar() {
@@ -35,7 +41,11 @@
 	}
 	
 	$(function() {
-	  $( "#progressbar1" ).progressbar({ max: total_time, value: current_time });
+	  $( "#progressbar1" ).progressbar({ 
+		  max: total_time, 
+		  value: current_time 
+		  
+	  });
 	  timer = setInterval( refresh_bar, refresh_interval );
 	});
 </script>
