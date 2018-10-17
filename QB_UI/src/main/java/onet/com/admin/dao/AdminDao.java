@@ -6,6 +6,7 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 
 public interface AdminDao {
@@ -22,6 +23,7 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
+	public int insertQuestionChoice(Question_choiceDto dto);
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */

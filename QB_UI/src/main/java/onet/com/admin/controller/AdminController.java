@@ -26,6 +26,7 @@ import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -305,11 +306,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
+	public String insertQuestion(QuestionDto dto, Question_choiceDto dto2) throws ClassNotFoundException, SQLException {
 		System.out.println("controller:"+dto.getQuestion_answer());
 		int result = 0;
-		result= adminService.insertQuestion(dto);
-		
+		adminService.insertQuestion(dto);
+		result = adminService.insertQuestionChoice(dto2, dto);
 		if(result > 0) {
 			System.out.println("새 문제 등록 성공");
 		}else {
