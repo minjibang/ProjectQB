@@ -311,7 +311,8 @@ public class AdminController {
 		System.out.println("controller:"+dto.getQuestion_answer());
 		int result = 0;
 		adminService.insertQuestion(dto);
-		result = adminService.insertQuestionChoice(dto2, dto);
+		adminService.insertQuestionChoice(dto2, dto);
+		/*result = adminService.insertQuestionChoice(dto2, dto);*/
 		if(result > 0) {
 			System.out.println("새 문제 등록 성공");
 		}else {
