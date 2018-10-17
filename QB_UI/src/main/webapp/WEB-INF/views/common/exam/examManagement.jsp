@@ -36,10 +36,39 @@
 				
 				<div class="panel-body">
 						<div class="tab-content">
-						<!-- 내 시험지 탭 시작 -->
+							<!-- 내 시험지 탭 시작 -->
 							<div id="overview" class="tab-pane active">
 								<div class="row">
-
+								<!-- 내 시험지 DeleteModal 시작-->
+								<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+									aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+								<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">시험지 삭제</h4>
+									<!-- modal-header 끝 -->
+								</div>
+								<div class="modal-body">정말 삭제하시겠습니까?</div>
+								<div class="modal-footer">
+									<div class="form-group">
+										<div class="col-lg-offset-2 col-lg-10">
+											<button id="deletebtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
+													data-dismiss="modal">예</button>
+											<button class="btn btn-theme04" type="button"
+													data-dismiss="modal">아니오</button>
+										</div>
+									</div>
+								</div>
+								<!-- modal-content 끝 -->
+								</div>
+							<!-- modal-dialog 끝 -->
+							</div>
+						<!-- 내 시험지 DeleteModal 끝 -->
+						</div>
+						
+				
 									<div id="div_myExam" class="col-md-12">
 									<form class="insertForm">
 										<a href="${pageContext.request.contextPath}/teacher/examPaperMake.do" class="examPaper-insert">
@@ -58,8 +87,10 @@
 															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${examPaperList.exam_paper_desc}
 													<div class="pdf_download text-right"><a href="#">PDF 다운로드
 														<img src="../img/file-download.png"></a>
-														<button class="btn btn-theme04 buttonGroup">삭제</button>
-														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do'">시험지 수정</button>
+														<button type="button" id="deleteExamPaperBtn" name="deleteExamPaperBtn"
+																class="btn btn-theme04 buttonGroup" data-toggle="modal"
+																data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
+														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}teacher/examPaperModify.do'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
 														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
 											
@@ -135,6 +166,35 @@
 							<!-- 시험 일정 tab 시작 -->
 							<div id="examSchedule" class="tab-pane">
 								<div class="row">
+								<!-- 시험 일정 DeleteModal 시작-->
+								<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+									aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+								<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">시험 일정 삭제</h4>
+									<!-- modal-header 끝 -->
+								</div>
+								<div class="modal-body">정말 삭제하시겠습니까?</div>
+								<div class="modal-footer">
+									<div class="form-group">
+										<div class="col-lg-offset-2 col-lg-10">
+											<button class="btn btn-theme" data-toggle="modal" 
+													data-dismiss="modal" id="deleteExamScheduleBtn"
+													name="deleteExamScheduleBtn">예</button>
+											<button class="btn btn-theme04" type="button"
+													data-dismiss="modal">아니오</button>
+										</div>
+									</div>
+								</div>
+								<!-- modal-content 끝 -->
+								</div>
+							<!-- modal-dialog 끝 -->
+							</div>
+						<!-- 시험 일정 DeleteModal 끝 -->
+						</div>
 									<div id="div_examSchedule" class="col-md-12">
 										<form class="insertForm">
 											<a href="" class="exam-insert">
@@ -148,11 +208,15 @@
 													<c:forEach items="${examScheduleList}" var="examScheduleList">
 														<h4><strong>${examScheduleList.exam_info_name}</strong></h4>
 													<div class="view-schedule text-center">
-													시험 날짜 : ${examScheduleList.exam_info_date}<br>
-													시험 시간 : ${examScheduleList.exam_info_start} ~ ${examScheduleList.exam_info_end}[${examScheduleList.exam_info_time}]분<br>
-													응시 대상 : ${examScheduleList.exam_info_member}
+													<p>시험 날짜 : ${examScheduleList.exam_info_date}</p>
+													<p>시험 시간 : ${examScheduleList.exam_info_start} ~ ${examScheduleList.exam_info_end}</p>
+													<p>[${examScheduleList.exam_info_time}]</p>
+													<p>응시 대상 : ${examScheduleList.exam_info_member}</p>
 													
-													<button type="button" class="btn btn-theme04 buttonGroup">삭제</button>
+													<button type="button" class="btn btn-theme04 buttonGroup"
+															data-toggle="modal" data-target="#DeleteModal"
+															id="deleteExamScheduleBtn" name="deleteExamScheduleBtn"
+															value="">삭제</button>
 													<button type="button" class="btn btn-theme buttonGroup">시험 일정 수정</button>
 													</div>		
 													<hr>											
@@ -192,4 +256,4 @@
 
 	<script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
   	<script src="${pageContext.request.contextPath}/lib/tasks.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/lib/onet-js/teacherMyExamPaper.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/lib/onet-js/examManagement.js" type="text/javascript"></script>

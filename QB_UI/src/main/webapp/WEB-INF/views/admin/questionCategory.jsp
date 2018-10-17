@@ -8,7 +8,22 @@
 	display:inline;
 	width: 70%;
 }
-
+.lg_category_code{
+	text-align: center;
+	background: #f1f1f1;
+	
+}
+.md_category_code{
+	text-align: center;
+	background: #f1f1f1;
+}
+.sm_category_code{
+	text-align: center;
+	background: #f1f1f1;
+}
+td{
+	border-bottom: 1px solid #DDDDDD;
+}
 
 
 </style>
@@ -296,7 +311,7 @@
 									</thead>
 									<tbody id="list1body">
 									 <c:forEach items="${list1}" var="lgCategoryList">
-											<tr>
+											<tr class="trBottom">
 												<td class="lg_category_code">${lgCategoryList.lg_category_code}</td>
 												<td class="lg_category_name">${lgCategoryList.lg_category_name}</td>
 												<td>
@@ -332,8 +347,8 @@
 									<tbody id="list2body">
 										 <c:forEach items="${list2}" var="mdCategoryList">
 											<tr>
-												<td>${mdCategoryList.md_category_code}</td>
-												<td>${mdCategoryList.md_category_name}</td>
+												<td class="md_category_code">${mdCategoryList.md_category_code}</td>
+												<td class="md_category_name">${mdCategoryList.md_category_name}</td>
 												<td>
 													<button type="button" class="btn btn-theme" id="updatebtnmd" name="updatebtnmd"
 													data-toggle="modal" data-target="#UpdateMdModal">
@@ -368,8 +383,8 @@
 									<tbody id="list3body">
 										 <c:forEach items="${list3}" var="smCategoryList">
 											<tr>
-												<td>${smCategoryList.sm_category_code}</td>
-												<td>${smCategoryList.sm_category_name}</td>
+												<td class="sm_category_code">${smCategoryList.sm_category_code}</td>
+												<td class="sm_category_name">${smCategoryList.sm_category_name}</td>
 												<td>
 													<button type="button" class="btn btn-theme" id="updatebtnsm" name="updatebtnsm"
 													data-toggle="modal" data-target="#UpdateSmModal">

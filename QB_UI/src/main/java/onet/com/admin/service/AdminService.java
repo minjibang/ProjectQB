@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.admin.dao.AdminDao;
 import onet.com.index.dao.IndexDao;
@@ -48,6 +49,7 @@ public class AdminService {
 	/*재훈 - 10.15 문제난이도관련 끝*/
 	
 	/*재훈 - 10.16 새 문제 만들기 관련 시작*/
+	@Transactional
 	public int insertQuestion(QuestionDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.insertQuestion(dto);
@@ -194,6 +196,7 @@ public class AdminService {
 	}
 
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
+
 	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
 	
 	// 정원 - 10.16  시작
@@ -252,11 +255,15 @@ public class AdminService {
 		return result;
 	}
 	
-	 
+	/*민지 - 10.17 클래스 수정 이름 중복체크*/
 	
-
+	public String classCheck(String class_name) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.classCheck(class_name);
+		return result;
+	}
 	
-
+	/*민지 - 10.17 클래스 수정 이름 중복체크 끝  */
 
 	
 }

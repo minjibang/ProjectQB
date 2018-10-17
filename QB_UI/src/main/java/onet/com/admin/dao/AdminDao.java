@@ -69,7 +69,12 @@ public interface AdminDao {
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 	
-	// 정원 문제분류관리
+	/*민지 - 10.17 클래스 수정시 중복체크 */
+	public String joinCheckId(String class_name);
+
+	/*민지 - 10.17 클래스 수정시 중복체크  끝*/
+	
+	// 정원 문제분류관리 시작  //
 	public int lgCatAddCheak();
 	
 	public int lgCatAdd(CategoryDto dto);
@@ -103,7 +108,8 @@ public interface AdminDao {
 	public int mdUpdate(CategoryDto dto);
 	
 	public int smUpdate(CategoryDto dto);
-	//
+	
+	// 정원 문제분류관리 끝  //
 
 	
 
