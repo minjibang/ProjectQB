@@ -16,7 +16,7 @@ public interface TeacherDao {
 	
 
 	/* 영준 - 10.16 시험관리 관련 시작 */
-	public List<ExamPaperDto> examPaperList();
+	public List<ExamPaperDto> examPaperList(ExamPaperDto dto);
 	/* 영준 - 10.16 시험관리 관련 끝 */
 	
 	/* 영준 - 10.17 내 시험지 삭제 시작 */

@@ -30,9 +30,11 @@ public class TeacherService {
 	}
 	
 	/* 영준 - 10.16 선생님 시험관리 페이지 시작 */
-	public List<ExamPaperDto> examPaperList(){
+	public List<ExamPaperDto> examPaperList(int class_num){
+		ExamPaperDto dto = new ExamPaperDto();
+		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamPaperDto> result = dao.examPaperList();
+		List<ExamPaperDto> result = dao.examPaperList(dto);
 		return result;	
 	}
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */

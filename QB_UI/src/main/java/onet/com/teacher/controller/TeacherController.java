@@ -94,9 +94,9 @@ public class TeacherController {
 
 	/* 현이 18.10.11 선생님 시험관리 시작 */
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model) {
+	public String examManagement(Model model, int class_num) {
 		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList();
+		examPaperList = teacherService.examPaperList(class_num);
 		model.addAttribute("examPaperList", examPaperList);
 	
 	/* 영준 18.10.16 선생님 시험일정 시작 */

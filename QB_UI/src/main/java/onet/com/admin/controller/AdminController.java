@@ -230,9 +230,9 @@ public class AdminController {
 
 	/* 영준 18.10.17 관리자 시험관리 시작 */
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model) {
+	public String examManagement(Model model, int class_num) {
 		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList();
+		examPaperList = teacherService.examPaperList(class_num);
 		model.addAttribute("examPaperList", examPaperList);
 		
 		List<ExamInfoDto> examScheduleList;
