@@ -11,8 +11,8 @@ import onet.com.vo.NoticeDto;
 
 public interface CommonDao {
 	/*한결 - 메인페이지 데이터 뿌리기 10.10*/
-	public List<NoticeDto> notice(NoticeDto dto);
-	public List<Exam_infoDto> exam_info(Exam_infoDto dto);
+	public List<NoticeDto> notice(String member_id);
+	public List<Exam_infoDto> exam_info(String member_id);
 	/* 끝 */
 	/*현이 - examInfoDetail 10.15 시작 */ 
 	public ExamInfoDto examScheduleDetail(int exam_info_num);
