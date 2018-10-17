@@ -8,6 +8,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
@@ -575,7 +576,6 @@
 							var st = $("#answerSelect option:selected").val();
 							console.log(st);
 						})
-
 	})
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
