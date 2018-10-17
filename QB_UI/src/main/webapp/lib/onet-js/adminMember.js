@@ -120,11 +120,13 @@ $(function(){
 
 
 	/* 멤버 삭제(실제 삭제X) */
-	$('#deleteMemberBtn').click(function() {
-		action = 'modify',
-		type = 'PUT',
+	
+	$("button[name='deletebtn']").click(function(){
+		action = 'modify';
+		type = 'PUT';
 		memberid = this.value;
-		
+	});
+	$('#deleteMemberBtn').click(function() {
 		var _param = {member_id:$('#member_id').val(), member_enable:$('#member_enable').val()}
 		
 		var _data = JSON.stringify(_param); //jsonString으로 변환

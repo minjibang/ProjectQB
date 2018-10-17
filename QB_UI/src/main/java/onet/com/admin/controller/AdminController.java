@@ -20,6 +20,7 @@ import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
@@ -222,20 +223,27 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail(Model model) {
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList();
-		model.addAttribute("examPaperList", examPaperList);
+	public String examScheduleDetail() {
 		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 
+	/* 영준 18.10.17 관리자 시험관리 시작 */
 	@RequestMapping("examManagement.do")
-	public String examManagement() {
+	public String examManagement(Model model) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
+		
+		List<ExamInfoDto> examScheduleList;
+		examScheduleList = teacherService.examScheduleList();
+		model.addAttribute("examScheduleList", examScheduleList);
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
 
+	/* 영준 18.10.17 관리자 시험관리 끝 */
+	
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 
