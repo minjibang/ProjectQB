@@ -37,6 +37,14 @@ public class TeacherService {
 	}
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
 	
+	/* 영준 - 10.17 내 시험지 삭제 시작 */
+	public int examPaperDelete(ExamPaperDto dto) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examPaperDelete(dto);
+		return result;
+	}
+	/* 영준 - 10.17 내 시험지 삭제 끝 */
+	
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 시작 */
 	public List<ExamInfoDto> examScheduleList(){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
