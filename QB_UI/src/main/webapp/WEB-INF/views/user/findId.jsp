@@ -13,7 +13,8 @@
 				<input type="text" id="member_name" name="member_name" class="form-control" placeholder="User Name"	autofocus required><br> 
 				<input type="text" id="member_email" name="member_email" class="form-control authText" placeholder="Email" required>
 				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn"><i class="fa fa-envelope"></i> Send&nbsp;Mail</button><br><br>
-				<input type="text" id="ok" class="form-control" placeholder="Authorization Code" required><br> 
+				<input type="text" id="ok" class="form-control" placeholder="Authorization Code" ><br> 
+				<div id="okdiv"></div>
 				<button type="submit" class="btn btn-theme confirm"><i class="fa fa-unlock"></i>Confirm</button>
 				<hr>
 				
@@ -38,7 +39,7 @@
 		speed : 500
 	});
 	var mailtoNum;
-	var result;
+	
 	
 	
 	$('#mailtoBtn').click(function(){
@@ -59,9 +60,9 @@
             },
             error : function(error) {
             	swal({
-              	  title:"ERROR",
-              	  text:error+"status:"+error.status,
-              	  icon:"waraning",
+              	  title:"이메일 형식이 올바르지않습니다",
+              	  text:"확인 후 다시 인증을 받아주세요",
+              	  icon:"warning",
               	  button:"Confirm",
                  });
                console.log(error);
@@ -74,18 +75,28 @@
 	/* 인증번호가 틀렸을 때 유효성 */
 	function authNumberCheck(){
 		var ok = $('#ok').val();
-		console.log(ok)
-		if(mailtoNum == ok){
-			return true;
-		}else{
-			swal({
-		    	title:"인증번호가 유효하지 않습니다.",
-		    	text:"다시 시도해주세요",
-		    	icon:"warning",
-		    	button:"Confirm",
-		    });
-			$('#ok').focus();
+		var okdiv=document.getElementById("okdiv");
+		if(ok==""){
+			okdiv.append("인증번호를 입력해주세요")
+			okdiv.style.color="red";
+			ok.focus();
+			
 			return false;
+		}
+		else{
+			if(mailtoNum == ok){
+				return true;
+			}else{
+				swal({
+			    	title:"인증번호가 유효하지 않습니다.",
+			    	text:"다시 시도해주세요",
+			    	icon:"warning",
+			    	button:"Confirm",
+			    });
+				$('#ok').focus();
+				return false;
+			}
+			
 		}
 	}
 		
@@ -108,11 +119,6 @@
 	}
 	
 	 history.replaceState({}, null, location.pathname);
-	
-	 /* <c:if test="${!empty result}">
-		swal("본인의 아이디를 까먹지마세여","${result}","warning");
-	</c:if>
-		history.replaceState({}, null, location.pathname); */
 		
 </script>
 

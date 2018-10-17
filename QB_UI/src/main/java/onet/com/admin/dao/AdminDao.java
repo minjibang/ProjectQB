@@ -1,12 +1,13 @@
 ﻿package onet.com.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
-import onet.com.vo.RoleDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 
 public interface AdminDao {
@@ -23,6 +24,7 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
+	public void insertQuestionChoice(Question_choiceDto dto);
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
@@ -65,12 +67,17 @@ public interface AdminDao {
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
 
-
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
 	public int deleteMember(MemberDto dto);
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 	
+	/*민지 - 10.17 클래스 수정시 중복체크 */
+	public String joinCheckId(String class_name);
+
+	/*민지 - 10.17 클래스 수정시 중복체크  끝*/
+	
+	// 정원 문제분류관리 시작  //
 	public int lgCatAddCheak();
 	
 	public int lgCatAdd(CategoryDto dto);
@@ -93,6 +100,21 @@ public interface AdminDao {
 	
 	public String smCatAddIdCheck(String smCatAdd);
 	
+	public List<CategoryDto> lgProblemCategoryList();
 	
+	public List<CategoryDto> mdProblemCategoryList();
+	
+	public List<CategoryDto> smProblemCategoryList();
+
+	public int lgUpdate(CategoryDto dto);
+	
+	public int mdUpdate(CategoryDto dto);
+	
+	public int smUpdate(CategoryDto dto);
+	
+	// 정원 문제분류관리 끝  //
+
+	
+
 }
 

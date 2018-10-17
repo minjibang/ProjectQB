@@ -8,6 +8,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
@@ -250,7 +251,7 @@
 														<i class="fa fa-angle-right"></i> 문제 내용 입력
 													</h4>
 													<textarea name="question_name" class="form-control"
-														placeholder="문제 내용을 입력해주세요." rows="3"></textarea>
+														placeholder="문제 내용을 입력해주세요." rows="3" required></textarea>
 													<div class="fileupload fileupload-new" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 400px; max-height: 250px; line-height: 20px;">
@@ -343,7 +344,7 @@
 													<b><input type="text" name="question_choice_num"
 														value="1" style="display: none">1.</b>
 													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요.">
+														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요." required>
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -366,7 +367,7 @@
 													<b><input type="text" name="question_choice_num"
 														value="2" style="display: none">2.</b>
 													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요.">
+														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요." required>
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -389,7 +390,7 @@
 													<b><input type="text" name="question_choice_num"
 														value="3" style="display: none">3.</b>
 													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요.">
+														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요." required>
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -412,7 +413,7 @@
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
 													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
+														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요." required>
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -435,7 +436,7 @@
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
 													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
+														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요." required>
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -464,7 +465,7 @@
 													</h4>
 													<!-- 단답형 정답 입력란 -->
 													<input type="text" class="form-control" name="question_answer"
-														id="questionType2Answer" placeholder="정답을 입력해주세요." disabled>
+														id="questionType2Answer" placeholder="정답을 입력해주세요." required disabled>
 												</div>
 												<!--단답형 내용 입력 종료 -->
 											</div>
@@ -474,7 +475,7 @@
 										<hr>
 										<button type="button" class="btn btn-secondary quesCategory">
 										취소</button>
-										<button type="submit" class="btn btn-theme quesCategory pull-right">
+										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										
 									</form>
@@ -575,7 +576,6 @@
 							var st = $("#answerSelect option:selected").val();
 							console.log(st);
 						})
-
 	})
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->

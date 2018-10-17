@@ -188,7 +188,7 @@
 																	value="${classMemberList.member_id}">
 																	<i class="fa fa-trash-o"></i>
 																</button>
-																<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
+																<input type="hidden" id="hidden_class_num2" value='${param.class_num}'>
 
 															</td>
 														</tr>
@@ -217,7 +217,9 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">클래스</label>
 															<div class="col-md-6">
-																<input class="form-control" id="updatetab_class_name" type="text" value='${classlist.class_name}' />
+																<input class="form-control" id="updatetab_class_name"  type="text" value='${classlist.class_name}' onblur="confirmName()"/>
+																<input id="hiddenName" value="${classlist.class_name}" type="hidden"/>
+																<div id="namediv"></div>
 															</div>
 														</div>
 														<div class="form-group">
@@ -239,19 +241,23 @@
 																<input class="form-control" id="teacher_name" type="text" value='${classlist.teacher_name}'/>
 															</div>
 														</div>
-														<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
+														<div class="col-md-9 col-xs-12" id="AdminUpdateBtn" >
 															<button class="btn btn-theme" type="button" id="classUpdateBtn">수정</button>
-														</div>
+															</div>
+															<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
+														
 
 													</form>
+													</div>
 												</div>
 
 											</div>
 										</div>
 									</div>
 									<!-- /row -->
-								</div>
 								</c:forEach>
+								</div>
+								
 
 							</div>
 							<!-- /tab-content -->
