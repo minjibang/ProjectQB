@@ -102,14 +102,18 @@ function check(){
 	
 	var _smCategory = $("#question_sm_category2 option:selected").val();
 	var _questionLevel = $("#question_level option:selected").val();
+	var _questionName = $("input[type=text][name=question_name]").val();
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
-
+	var _questionChoiceContent = $("#question_choice_content").val();
 	
+	var _QuesContValue = $("input[name='question_choice_conten'")
 	
 	alert("_smCategory value=[[ " + _smCategory + " ]]"
 		+ "_questionLevel value=[[ " + _questionLevel + " ]]"
 		+ "_questionChoiceAnswer value=[[ " + _questionChoiceAnswer + " ]]"
-	);
+		+ "_questionChoiceContent value=[[ " +_questionChoiceContent + " ]]"
+		+ "_questionName value=[[" + _questionName + " ]]"
+ 	);
 	
 	if ($.trim(_smCategory) == "") {
 		alert("문제의 대,중,소 분류를 선택해주세요");
