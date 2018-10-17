@@ -38,20 +38,16 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
     
 </insert>
 
-<insert id="insertQuestionChoice" parameterType="java.lang.String">
-<!-- useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num" -->
-
+<insert id="insertQuestionChoice" parameterType="java.util.HashMap">
+	<foreach item="item" index="index" collection="list">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values (#{question_num},
-	<foreach collection="question_choice_num" item="item" separator=" , ">
-	 #{item.question_choice_num}, #{item.question_choice_content})
+	values(#{item.question_num},#{item.question_choice_num},#{item.question_choice_content});
 	</foreach>
-	
+
 	
 	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{question_num}, #{question_choice_num}, #{question_choice_content}); -->
 	
-	<!-- #{question_num}, #{question_choice_num}, #{question_choice_content}); -->
 </insert>
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
