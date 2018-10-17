@@ -1,6 +1,10 @@
 ﻿package onet.com.admin.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 @Service
 public class AdminService {
@@ -52,9 +57,34 @@ public class AdminService {
 	@Transactional
 	public int insertQuestion(QuestionDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		System.out.println("question 테이블 question_num: " + dto.getQuestion_name() +" ::: "+ dto.getQuestion_num() + "(before insert)");
 		int result = dao.insertQuestion(dto);
+		System.out.println("question 테이블 question_num: " + dto.getQuestion_name() +" ::: "+ dto.getQuestion_num() + "(after insert)");
+		return result;
+
+	}
+	
+	@Transactional
+	public int insertQuestionChoice(Question_choiceDto dto, QuestionDto dto2) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
+		+" question_choice_num: "+ dto.getQuestion_choice_num()
+		+" question_choice_content: " + dto.getQuestion_choice_content() + "(before insert)");
+		dto.setQuestion_num(dto2.getQuestion_num());
+		int result = dao.insertQuestionChoice(dto);
+		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
+		+" question_choice_num: "+ dto.getQuestion_choice_num()
+		+" question_choice_content: " + dto.getQuestion_choice_content() + "(after insert)");
+		
+		List<Question_choiceDto> list = new ArrayList<Question_choiceDto>();
+		list.add(dto);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
 		return result;
 	}
+	
 	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
 
 	/*영준 - 10.10 회원관리 관련 시작 */

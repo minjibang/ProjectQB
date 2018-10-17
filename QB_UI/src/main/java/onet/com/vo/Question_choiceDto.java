@@ -2,14 +2,14 @@ package onet.com.vo;
 
 public class Question_choiceDto {
 
-	private String question_num;
+	private int question_num;
 	private String question_choice_num;
 	private String question_choice_content;
 	
-	public String getQuestion_num() {
+	public int getQuestion_num() {
 		return question_num;
 	}
-	public void setQuestion_num(String question_num) {
+	public void setQuestion_num(int question_num) {
 		this.question_num = question_num;
 	}
 	public String getQuestion_choice_num() {
