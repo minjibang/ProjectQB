@@ -65,13 +65,13 @@ public class AdminService {
 	}
 	
 	@Transactional
-	public int insertQuestionChoice(Question_choiceDto dto, QuestionDto dto2) {
+	public void insertQuestionChoice(Question_choiceDto dto, QuestionDto dto2) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
 		+" question_choice_num: "+ dto.getQuestion_choice_num()
 		+" question_choice_content: " + dto.getQuestion_choice_content() + "(before insert)");
 		dto.setQuestion_num(dto2.getQuestion_num());
-		int result = dao.insertQuestionChoice(dto);
+		dao.insertQuestionChoice(dto);
 		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
 		+" question_choice_num: "+ dto.getQuestion_choice_num()
 		+" question_choice_content: " + dto.getQuestion_choice_content() + "(after insert)");
@@ -82,7 +82,7 @@ public class AdminService {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		
-		return result;
+		/*return result;*/
 	}
 	
 	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
@@ -115,8 +115,6 @@ public class AdminService {
 		ClassDto dto = new ClassDto();
 		dto.setClass_num(class_num);
 		List<ClassDto> result = dao.classlist(dto);
-		
-		
 		return result;
 	}
 	public int classMemberUpdate(MemberDto dto) {
