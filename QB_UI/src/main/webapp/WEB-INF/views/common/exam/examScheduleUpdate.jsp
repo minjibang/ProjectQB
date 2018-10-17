@@ -10,7 +10,8 @@
 <link
 	href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
 	rel="stylesheet">
-  
+ <script
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
 <section id="main-content">
   <section class="wrapper-low">
   
@@ -23,28 +24,24 @@
                 <div class="row">
                   <div class="col-md-12">
                   	<h2><strong>시험 일정 등록</strong></h2>
-                    <div class="col-md-2">
+                    <div class="col-md-2" id="examScheduleUpdateMember">
 	                    <div class="invite-row">
 	                      <h4 class="pull-left">응시대상자</h4>
 	                    </div>
                   	<div class="checkName">
 						<div class="form-panel">
 	                      <label>
-	                        <input type="checkbox" value="">전체선택
+	                        <input type="checkbox" value="" id="checkall">전체선택
 	                      </label>
-	                      
-	                        <ul class="chat-available-user">
-	                          <div class="checkbox">
+	                      	<c:forEach items="${classMemberList}" var="classMemberList">
+	                        <ul class="chat-available-user" id ="checkboxNameUl">
+	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox" value="">이두리
+	                            	<input type="checkbox" value="" name="chk" value="chk">${classMemberList.member_name}
 	                            </label>
 	                          </div>
-	                          <div class="checkbox">
-	                            <label>
-	                              <input type="checkbox" value="">이두리
-	                            </label>
-	                          </div>	                          
 	                        </ul>
+	                        </c:forEach>
 	                      </div>
                      </div>
                   </div>
@@ -53,7 +50,8 @@
                         <div>
                           <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
                         </div>
-                        <h3>시험명 : </h3>
+                        <h3>시험명 : ${param.exam_paper_name}</h3>
+                        
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>

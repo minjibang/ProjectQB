@@ -422,4 +422,22 @@ public class AdminController {
 		map.get("result");
 		return map;
 	}
+	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	/*민지 :10.17 수정*/
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate(Model model, int class_num) {
+		
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList(class_num);
+		model.addAttribute("classMemberList", classMemberList);
+		
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList(class_num);
+		model.addAttribute("examPaperList", examPaperList);
+		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+		
+		return "common.admin.exam.examScheduleUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 }
