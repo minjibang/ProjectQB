@@ -8,6 +8,7 @@ import java.util.Map;
 public class Question_choiceDto {
 
 	private int question_num;
+
 	private String[] question_choice_num;
 	private String[] question_choice_content;
 	
@@ -30,4 +31,6 @@ public class Question_choiceDto {
 		this.question_choice_content = question_choice_content;
 	}
 	
+	
+
 }

@@ -13,20 +13,6 @@ public class QuestionDto {
 	private String level_code;
 	private String member_id;
 	
-	/* 문제 뿌려주기 시 코드 아닌 이름 불러오기 */
-	private String sm_category_name;
-	private String md_category_name;
-	private String lg_category_name;
-	private String level_name;
-	
-	
-	
-	public String getLg_category_name() {
-		return lg_category_name;
-	}
-	public void setLg_category_name(String lg_category_name) {
-		this.lg_category_name = lg_category_name;
-	}
 	public int getQuestion_num() {
 		return question_num;
 	}
@@ -89,22 +75,11 @@ public class QuestionDto {
 	}
 	
 	/* 문제 뿌려주기 시 코드 아닌 이름 불러오기 */
-	public String getSm_category_name() {
-		return sm_category_name;
-	}
-	public void setSm_category_name(String sm_category_name) {
-		this.sm_category_name = sm_category_name;
-	}
-	public String getMd_category_name() {
-		return md_category_name;
-	}
-	public void setMd_category_name(String md_category_name) {
-		this.md_category_name = md_category_name;
-	}
-	public String getLevel_name() {
-		return level_name;
-	}
-	public void setLevel_name(String level_name) {
-		this.level_name = level_name;
-	}
+/*	private String sm_category_name;
+	private String md_category_name;
+	private String lg_category_name;
+	private String level_name;*/
+	
+	
+	
 }
