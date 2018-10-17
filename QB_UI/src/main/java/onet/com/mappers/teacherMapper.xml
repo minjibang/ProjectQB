@@ -25,11 +25,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 영준 10.16 내 시험지  리스트 불러오기 끝 -->
 
-<!-- 영준 10.16 내 시험지  삭제 시작 -->
+<!-- 영준 10.17 내 시험지  삭제 시작 -->
 <delete id="examPaperDelete" parameterType="onet.com.vo.ExamPaperDto">
-	
+	DELETE FROM exam_paper
+	WHERE exam_paper_name=#{exam_paper_name}
 </delete>
-<!-- 영준 10.16 내 시험지  삭제 끝 -->
+<!-- 영준 10.17 내 시험지  삭제 끝 -->
 
 <!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
 <select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
