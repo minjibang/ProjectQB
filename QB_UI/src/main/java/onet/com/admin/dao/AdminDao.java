@@ -55,6 +55,7 @@ public interface AdminDao {
 	public int examPaperDelete(ExamPaperDto dto);
 	/* 영준 - 10.15 시험관리 관련 끝 */
 
+	// 정원 문제분류관리
 	public int lgCatAddCheak();
 	
 	public int lgCatAdd(CategoryDto dto);
@@ -76,5 +77,15 @@ public interface AdminDao {
 	public String mdCatAddIdCheck(String mdCatAdd);
 	
 	public String smCatAddIdCheck(String smCatAdd);
+	
+	public List<CategoryDto> lgProblemCategoryList();
+	
+	public List<CategoryDto> mdProblemCategoryList();
+	
+	public List<CategoryDto> smProblemCategoryList();
+
+	public int lgUpdate(CategoryDto dto);
+	
+	//
 }
 

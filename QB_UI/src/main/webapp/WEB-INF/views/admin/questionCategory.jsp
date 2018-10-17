@@ -3,7 +3,13 @@
 	pageEncoding="UTF-8"%>
 
 <link href="${pageContext.request.contextPath}/css/adminCategory.css" rel="stylesheet">
+<style>
+.selectCategory{
+	display:inline;
+	width: 70%;
+}
 
+</style>
 
 <section id="main-content">
 	<section class="wrapper">
@@ -21,7 +27,7 @@
 							<div id="lgCatAddForm" class="form-group">
 								<label for="lgCatAdd">대분류 이름</label> <input type="text"
 									class="form-control" name="lgCatAdd" id="lgCatAdd"
-									placeholder="대분류 이름을 입력해주세요.">
+									placeholder="대분류 이름을 입력해주세요." >
 								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
 								<button type="button" class="btn btn-theme modalButton" id="lgCatAddBtn">등록</button>	
 							</div>
@@ -44,7 +50,7 @@
 							<label><span class="hidden-xs">상위 대분류 선택</span> </label>
 							<div class="form-inline">
 								<select class="form-control" id="selectLgCategory">
-									<option>대분류를 선택해주세요.</option>
+									<option value="">대분류를 선택해주세요.</option>
 								<c:forEach items="${list1}" var="lgCategoryList">
 									<option>${lgCategoryList.lg_category_name}</option>
 								</c:forEach>
@@ -55,7 +61,7 @@
 
 								<label for="mdCatAdd">중분류 이름</label> <input type="text"
 									class="form-control" name="mdCatAdd"
-									placeholder="중분류 이름을 입력해주세요." id="mdCatAdd">
+									placeholder="중분류 이름을 입력해주세요." id="mdCatAdd" >
 								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
 								<button type="button" class="btn btn-theme modalButton" id="mdCatAddBtn">등록</button>
 							</div>
@@ -78,7 +84,7 @@
 							<label><span class="hidden-xs">상위 중분류 선택</span> </label>
 							<div class="form-inline">
 								<select class="form-control" id="selectMdCategory">
-									<option>중분류를 선택해주세요.</option>
+									<option value="">중분류를 선택해주세요.</option>
 								<c:forEach items="${list2}" var="mdCategoryList">
 									<option>${mdCategoryList.md_category_name}</option>
 								</c:forEach>
@@ -89,7 +95,7 @@
 
 								<label for="smCatAdd">소분류 이름</label> <input type="text"
 									class="form-control" name="smCatAdd"
-									placeholder="소분류 이름을 입력해주세요."  id="smCatAdd">
+									placeholder="소분류 이름을 입력해주세요."  id="smCatAdd" >
 								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
 								<button type="button" id="smCatAddBtn" class="btn btn-theme modalButton">등록</button>
 							</div>
@@ -98,6 +104,52 @@
 				</div>
 			</div>
 			<!-- 소분류 추가 모달창 끝 -->
+			
+			<!-- 수정 모달창  -->
+			<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">대분류 정보 수정</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-panel">
+								<div class=" form">
+									<form class="cmxform form-horizontal style-form"
+										id="commentForm" method="get" action="">
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">대분류 코드</label>
+											<div class="col-lg-9">
+											<input class="form-control" type="text"  name="member_id" maxlength="12" value="" readonly  id="lgCode">
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">대분류 이름</label>
+											<div class="col-lg-9">
+											<input class="form-control" type="text"  name="member_name" maxlength="12" value="" id="lgName">
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div class="form-group">
+												<div class="col-lg-offset-2 col-lg-10">
+													<button class="btn btn-theme" type="button" id="updateLgBtn">수정</button>
+													<button class="btn btn-theme04" type="button"
+														data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- 수정 모달창 끝 -->
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="row content-panel">
@@ -110,24 +162,31 @@
 						
 							<div class="col-lg-4">
 								<h3 class="table_heading" align="center">대분류</h3>
+								<select class="form-control selectCategory" id="selectLgCatSearch" onchange="selectLgCatSearch()">
+									<option value="">대분류 검색</option>
+								<c:forEach items="${list1}" var="lgCategoryList">
+									<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
+								</c:forEach>
+								</select>
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#lgCatModal">대분류 추가</button>
-								<table id="table_lgCategory" class="display">
+								<table id="table_lgCategory">
 								
 									<thead>
 										<tr>
 											<th>대분류코드</th>
 											<th>대분류 [언어]</th>
-											<th>관리</th>
+											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach items="${list1}" var="lgCategoryList">
+									<tbody id="list1body">
+									 <c:forEach items="${list1}" var="lgCategoryList">
 											<tr>
-												<td>${lgCategoryList.lg_category_code}</td>
-												<td>${lgCategoryList.lg_category_name}</td>
+												<td class="lg_category_code">${lgCategoryList.lg_category_code}</td>
+												<td class="lg_category_name">${lgCategoryList.lg_category_name}</td>
 												<td>
-													<button type="button" class="btn btn-theme">
+													<button type="button" class="btn btn-theme" id="updatebtnlg" name="updatebtnlg"
+													data-toggle="modal" data-target="#UpdateModal" value="${lgCategoryList.lg_category_code}">
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger">
@@ -135,7 +194,7 @@
 													</button>
 												</td>
 											</tr>
-										</c:forEach>
+										</c:forEach> 
 									</tbody>
 								</table>
 
@@ -144,22 +203,24 @@
 
 							<div class="col-lg-4">
 								<h3 class="table_heading" align="center">중분류</h3>
+								<select class="form-control selectCategory" id="selectMdCatSearch" onchange="selectMdCatSearch()">
+									<option value="">중분류 검색</option>
+								</select>
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#mdCatModal">중분류 추가</button>
-								<table id="table_mdCategory" class="display">
+									<div id="test">
+								<table id="table_mdCategory">
 
 									<thead>
 										<tr>
-											<th>대분류[언어]</th>
 											<th>중분류코드</th>
 											<th>중분류 [과목]</th>
-											<th>관리</th>
+											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach items="${list2}" var="mdCategoryList">
+									<tbody id="list2body">
+										 <c:forEach items="${list2}" var="mdCategoryList">
 											<tr>
-												<td>${mdCategoryList.lg_category_name}</td>
 												<td>${mdCategoryList.md_category_code}</td>
 												<td>${mdCategoryList.md_category_name}</td>
 												<td>
@@ -171,29 +232,31 @@
 													</button>
 												</td>
 											</tr>
-										</c:forEach>
+										</c:forEach> 
 									</tbody>
 								</table>
+								</div>
 							</div>
 
 							<div class="col-lg-4">
 								<h3 class="table_heading" align="center">소분류</h3>
+								<select class="form-control selectCategory" id="selectSmCatSearch" onchange="selectSmCatSearch()">
+									<option value="">소분류 검색</option>
+								</select>
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#smCatModal">소분류 추가</button>
-								<table id="table_smCategory" class="display">
+								<table id="table_smCategory">
 
 									<thead>
 										<tr>
-											<th>중분류[과목]</th>
 											<th>소분류코드</th>
 											<th>소분류 [주제]</th>
-											<th>관리</th>
+											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach items="${list3}" var="smCategoryList">
+									<tbody id="list3body">
+										 <c:forEach items="${list3}" var="smCategoryList">
 											<tr>
-												<td>${smCategoryList.md_category_name}</td>
 												<td>${smCategoryList.sm_category_code}</td>
 												<td>${smCategoryList.sm_category_name}</td>
 												<td>
@@ -224,7 +287,12 @@
 <!-- /main-content -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+
+
 $('#lgCatAddBtn').click(function(){
+	if($('#lgCatAdd').val().length > 12) {
+		swal("대분류의 이름이 글자 제한수를 넘었습니다", "12글자 이내로 입력해주세요", "error");
+	}else{
 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath}/admin/lgCatAdd.do',
@@ -232,7 +300,9 @@ $('#lgCatAddBtn').click(function(){
 		dataType:'json',
 		success:function(data){
 			if(data.result == "중복"){
-				swal("중복된 이름입니다", "다른 이름을 사용하여 추가해주세요", "error");
+				swal("중복된 이름이 있습니다", "다른 이름을 사용하여 추가해주세요", "error");
+			}else if(data.result == "null"){
+				swal("필수입력사항입니다","반드시 선택해주세요","error");
 			}else{
 			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
 			}	
@@ -240,11 +310,14 @@ $('#lgCatAddBtn').click(function(){
 		error:function(error){
 			alert("에러");
 		}
-		
 	});
+	}
 });
 
 $('#mdCatAddBtn').click(function(){
+	if($('#mdCatAdd').val().length > 12) {
+		swal("중분류의 이름이 글자 제한수를 넘었습니다", "12글자 이내로 입력해주세요", "error");
+	}else{
 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath}/admin/mdCatAdd.do',
@@ -252,7 +325,11 @@ $('#mdCatAddBtn').click(function(){
 		dataType:'json',
 		success:function(data){
 			if(data.result == "중복"){
-				swal("중복된 이름입니다", "다른 이름을 사용하여 추가해주세요", "error");
+				swal("중복된 이름이 있습니다", "다른 이름을 사용하여 추가해주세요", "error");
+			}else if(data.result == "null"){
+				swal("필수 입력사항입니다","대분류를 선택해주세요","error");
+			}else if(data.result == "textNull"){
+				swal("필수입력사항입니다","중분류 이름을 입력해주세요","error"); 
 			}else{
 			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
 			}
@@ -261,16 +338,24 @@ $('#mdCatAddBtn').click(function(){
 			alert("에러");
 		}
 	});
+	}
 });
 
 $('#smCatAddBtn').click(function(){
+	if($('#smCatAdd').val().length > 12) {
+		swal("소분류의 이름이 글자 제한수를 넘었습니다", "12글자 이내로 입력해주세요", "error");
+	}else{
 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath}/admin/smCatAdd.do',
 		data:{selectMdCat:$('#selectMdCategory option:selected').val(), smCatAdd:$('#smCatAdd').val() },
 		success:function(data){
 			if(data.result == "중복"){
-				swal("중복된 이름입니다", "다른 이름을 사용하여 추가해주세요", "error");
+				swal("중복된 이름이 있습니다", "다른 이름을 사용하여 추가해주세요", "error");
+			}else if(data.result == "null"){
+				swal("필수 입력사항입니다","중분류를 선택해주세요","error");
+			}else if(data.result == "textNull"){
+				swal("필수입력사항입니다","소분류 이름을 입력해주세요","error"); 
 			}else{
 			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
 			}
@@ -279,14 +364,122 @@ $('#smCatAddBtn').click(function(){
 			alert("에러");
 		}
 	});
+	}
+	});
+
+function selectLgCatSearch(){
+	$('#list2body').children().remove();
+	$('#list3body').children().remove();
+		$('#selectMdCatSearch').children('option:not(:first)').remove();
+			<c:forEach items="${list2}" var="mdCategoryList">
+				if(document.getElementById("selectLgCatSearch").value == "${mdCategoryList.lg_category_code}"){
+					$('#selectMdCatSearch').append("<option value=${mdCategoryList.md_category_code}>${mdCategoryList.md_category_name}</option>")
+				}
+			</c:forEach>	
+				$('#list1body').children().remove();
+				<c:forEach items='${list1}' var='lgCategoryList'>
+				if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
+				$('#list1body').append(+"<tr>"
+				+"<td>${lgCategoryList.lg_category_code}</td>"
+				+"<td>${lgCategoryList.lg_category_name}</td>"
+				+"<td>"
+				+"<button type='button' class='btn btn-theme listbtn'>"
+				+"<i class='fa fa-pencil'></i>"
+				+"</button>"
+				+"<button type='button' class='btn btn-danger'>"
+				+"<i class='fa fa-trash-o'></i>"
+				+"</button>"
+				+"</td>"
+				+"</tr>");
+				}
+				</c:forEach>
+}
+
+function selectMdCatSearch(){
+	$('#list3body').children().remove();
+	$('#selectSmCatSearch').children('option:not(:first)').remove();
+		<c:forEach items="${list3}" var="smCategoryList">
+			if(document.getElementById("selectMdCatSearch").value == "${smCategoryList.md_category_code}"){
+				$('#selectSmCatSearch').append("<option value=${smCategoryList.sm_category_code}>${smCategoryList.sm_category_name}</option>")
+			}
+		</c:forEach>	
+			$('#list2body').children().remove();
+			<c:forEach items='${list2}' var='mdCategoryList'>
+			if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
+			$('#list2body').append(+"<tr>"
+			+"<td>${mdCategoryList.md_category_code}</td>"
+			+"<td>${mdCategoryList.md_category_name}</td>"
+			+"<td>"
+			+"<button type='button' class='btn btn-theme'>"
+			+"<i class='fa fa-pencil'></i>"
+			+"</button>"
+			+"<button type='button' class='btn btn-danger'>"
+			+"<i class='fa fa-trash-o'></i>"
+			+"</button>"
+			+"</td>"
+			+"</tr>");
+			}
+			</c:forEach>
+		}
+	
+
+	function selectSmCatSearch(){
+				$('#list3body').children().remove();
+				<c:forEach items='${list3}' var='smCategoryList'>
+				if(document.getElementById("selectSmCatSearch").value == "${smCategoryList.sm_category_code}"){
+				$('#list3body').append(+"<tr>"
+				+"<td>${smCategoryList.sm_category_code}</td>"
+				+"<td>${smCategoryList.sm_category_name}</td>"
+				+"<td>"
+				+"<button type='button' class='btn btn-theme'>"
+				+"<i class='fa fa-pencil'></i>"
+				+"</button>"
+				+"<button type='button' class='btn btn-danger'>"
+				+"<i class='fa fa-trash-o'></i>"
+				+"</button>"
+				+"</td>"
+				+"</tr>");
+				}
+				</c:forEach>
+}
+
+	$("button[name='updatebtnlg']").click(function(){
+		action='modify';
+		type='PUT';
+		var row =$(this).parent().parent();
+		var tr = row.children();
+		var lgCatCode_modal=tr.eq(0).text();
+		var lgCatName_modal=tr.eq(1).text();
+		
+		$('#lgCode').val(lgCatCode_modal);
+		$('#lgName').val(lgCatName_modal);
 	});
 	
 	
 	
+	$('#updateLgBtn').click(function() {
+		var lgChkName = $('#lgName').val();
+		if(lgChkName == ""){
+			swal("필수 입력사항입니다", "대분류 이름을 입력해주세요", "error");
+		}else{
+		$.ajax({
+   			  type : "post",
+   			  url : "${pageContext.request.contextPath}/admin/lgUpdate.do",
+   			  data:{lgCatCode:$('#lgCode').val(), lgCatName:$('#lgName').val()},  
+   			  success : function(data){
+   				 if(data.result =="null"){
+   					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
+   				 }else{
+   				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+   				 }	   			 
+   				 },
+   			  error: function(error){
+   				  alert("에러야!");
+   			 }
+   		});
+		}	
+	});	
 	
-
-
-
 
 
 

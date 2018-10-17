@@ -46,17 +46,17 @@ public class AdminController {
 	
 	@RequestMapping("questionCategory.do")
 	public String questionCategory(Model model) throws Exception {
-		List<CategoryDto> list1;
 		
-		list1=adminService.lgCategoryList();
+		List<CategoryDto> list1;
+		list1=adminService.lgProblemCategoryList();
 		model.addAttribute("list1",list1);
 		
 		List<CategoryDto> list2;
-		list2=adminService.mdCategoryList();
+		list2=adminService.mdProblemCategoryList();
 		model.addAttribute("list2",list2);
 		
 		List<CategoryDto> list3;
-		list3=adminService.smCategoryList();
+		list3=adminService.smProblemCategoryList();
 		model.addAttribute("list3",list3);
 		
 		return "admin.questionCategory";
@@ -323,29 +323,67 @@ public class AdminController {
 	@RequestMapping("lgCatAdd.do")
 	public @ResponseBody Map<String, Object> lgCatAdd(String lgCatAdd) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(lgCatAdd.trim()=="") {
+			map.put("result", "null");
+			return map;
+		}else {
 		String result = adminService.lgCatAdd(lgCatAdd);
-		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
-
+	}	
 	@RequestMapping("mdCatAdd.do")
 	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
+		System.out.println("<<<" + mdCatAdd + ">>>");
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(selectLgCat.trim()=="") {
+			map.put("result", "null");
+			return map;
+		}else if(mdCatAdd.trim()=="") {
+			map.put("result", "textNull");
+			return map;
+		}else {
 		String result = adminService.mdCatAdd(selectLgCat, mdCatAdd);
 		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
-	
+	}
 	@RequestMapping("smCatAdd.do")
 	public @ResponseBody Map<String, Object> smCatAdd(String selectMdCat, String smCatAdd) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(selectMdCat.trim()=="") {
+			map.put("result", "null");
+			return map;
+		}else if(smCatAdd.trim()=="") {
+			map.put("result", "textNull");
+			return map;
+		}else {
 		String result = adminService.smCatAdd(selectMdCat, smCatAdd);
 		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
-	// 정원 - 문제분류관리 끝
-
+	}	
+	// 정원 - 문제분류관리 insert 끝
+	
+	// 정원 - 문제분류관리 update 시작
+	@RequestMapping("lgUpdate.do")
+	public @ResponseBody Map<String, Object> lgUpdate(String lgCatCode, String lgCatName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		CategoryDto dto = new CategoryDto();
+		String check = adminService.lgCatAdd(lgCatName);
+		if(check != "") {
+			map.put("result","null");
+			return map;
+		}else {
+		dto.setLg_category_code(lgCatCode);
+		dto.setLg_category_name(lgCatName);
+		System.out.println(dto.getLg_category_name());
+		int result = adminService.lgUpdate(dto);
+		return null;
+	}
+	
+	}	
+	// 정원 - 문제분류관리 update 끝
 }

@@ -163,6 +163,31 @@ public class AdminService {
 		return result;
 	}
 	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
-
+	
+	// 정원 - 10.16 
+	public List<CategoryDto> lgProblemCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.lgProblemCategoryList();
+		return result;
+	}
+	public List<CategoryDto> mdProblemCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.mdProblemCategoryList();
+		return result;
+	}
+	public List<CategoryDto> smProblemCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.smProblemCategoryList();
+		return result;
+	}
+	
+	public int lgUpdate(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.lgUpdate(dto);
+		return result;
+	}
+	
+	
+	
 	
 }

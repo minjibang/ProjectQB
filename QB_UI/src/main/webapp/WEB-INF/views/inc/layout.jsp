@@ -169,7 +169,16 @@
 	 	    $('#example').DataTable();
 	 	   $('#example2').DataTable();
 	 	  $('#AdminTable').DataTable();
-	 	  
+	 	 $('#table_smCategory').DataTable({
+	 		"ordering": false
+	 		 });
+	 	 $('#table_mdCategory').DataTable({
+	 		"ordering":false 
+	 	 });
+	 	$('#table_lgCategory').DataTable({
+	 		"ordering":false 
+	 	 });
+	 	 
 	 	} );
 
 	 	</script>
