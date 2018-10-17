@@ -19,8 +19,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/lib/onet-js/examPaperDo.js"></script>
+<%-- <script
+	src="${pageContext.request.contextPath}/lib/onet-js/examPaperDo.js"></script> --%>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -28,7 +28,7 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
 	//	프로그레스바 script 부분
- 	var exam_info_time = "${dto.exam_info_time}";
+	var exam_info_time = "${dto.exam_info_time}";
 	var hour_ms = parseInt(exam_info_time.substr(0, 2)) * 3600000;
 	var minute_ms = parseInt(exam_info_time.substr(3, 5)) * 60000;
 	var second_ms = parseInt(exam_info_time.substr(6)) * 1000;
@@ -36,7 +36,7 @@
 	var total_time = hour_ms + minute_ms + second_ms;
 	console.log("토탈 타임: " + total_time);
 	var current_time = 0;
-	var refresh_interval = 100;
+	var refresh_interval = 50;
 	var timer;
 
 	function refresh_bar() {
@@ -48,17 +48,51 @@
 			clearInterval(timer);
 	}
 
+	// document.ready 시작 
 	$(function() {
+
+		// 프로그레스바 script
 		$("#progressbar1").progressbar({
 			max : total_time,
 			value : current_time
 		});
 		timer = setInterval(refresh_bar, refresh_interval);
-	}); 
+
+		
+		// 문제 및 답지 체크 script 시작 
+		// 문제 보기를 클릭했을 때 답안지에도 표시 
+		$('input[type="radio"]').click(function() {
+			var oximg_v_class = "oximg_v_" + $(this).attr("id").substr(0, 6);
+			$("." + oximg_v_class).css("display", "none");
+
+			var img_id = "img_" + $(this).attr("id");
+			var ans_img_id = "ans_" + img_id;
+			$('#' + img_id).css("display", "block");
+			$('#' + ans_img_id).css("display", "block");
+		});
+
+		// 답안지를 클릭했을 때 문제 보기에도 표시 
+		$('.answer_choice').click(function() {
+			var ques_num = $(this).find('img').attr('class').substr(15);
+			$("." + ques_num).css("display", "none"); // 이걸로 한 문제의 체크 이미지 전체를 지운다. 
+
+			var img_ques_id = $(this).find('img').attr('id').substr(4);
+			$("#" + img_ques_id).css("display", "block"); //  문제 보기에 체크 이미지 보이게  
+			$(this).find('img').css("display", "block"); // 답지에 체크 이미지 보이게 
+		});
+
+		// 단답형 답 문제지와 답지 동시에 입력하기 
+		$('#ques_2').change(function() {
+			$('#ques_2_answer').val($(this).val());
+		});
+		$('#ques_2_answer').change(function() {
+			$('#ques_2').val($(this).val());
+		});
+		
+	});  // document.ready 종료 
 </script>
 </head>
 <body>
-
 	<div class="col-lg-12 mt">
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">
@@ -71,95 +105,109 @@
 		<div class="panel-body">
 			<div class="row content-panel exampaneldetail">
 				<div class="col-lg-5 fst_div" id="examBox">
-					
+                    
+                    
+                    <table class="questionTable">  <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->
+                        <input type="hidden" name="문제고유번호" value="">
+                        <input type="hidden" name="문제배치번호" value="">
+						<tr class="questionTr">
+							<td class="questionTd questionSpace"><b>1.</b></td>
+							<td class="questionSpace"><b>다음 중 옳은 것은? &nbsp;&nbsp;(3점)</b></td>
+						</tr>
+						<tr class="ques_choice">
+							<td class="questionTd"><div class="wrap"><img class="oximg_v oximg_v_ques_1" id="img_ques_1_1" src="../img/oximg_v.png"></div>1)</td>  
+							<td><input type="radio" name="ques_1" id="ques_1_1" value="1"><label for="ques_1_1">멤버 변수와 메서드에 static를 지정할 수 있다.</label></td>
+						</tr>
+						<tr class="ques_choice">
+							<td class="questionTd"><div class="wrap"><img class="oximg_v oximg_v_ques_1" id="img_ques_1_2" src="../img/oximg_v.png"></div>2)</td>
+                            <td><input type="radio" name="ques_1" id="ques_1_2" value="2"><label for="ques_1_2">static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</label></td>
+						</tr>
+						<tr class="ques_choice">
+							<td class="questionTd"><div class="wrap"><img class="oximg_v oximg_v_ques_1" id="img_ques_1_3" src="../img/oximg_v.png"></div>3)</td>
+                            <td><input type="radio" name="ques_1" id="ques_1_3" value="3"><label for="ques_1_3">static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</label></td>
+						</tr>
+						<tr class="ques_choice">
+							<td class="questionTd"><div class="wrap"><img class="oximg_v oximg_v_ques_1" id="img_ques_1_4" src="../img/oximg_v.png"></div>4)</td>
+                            <td><input type="radio" name="ques_1" id="ques_1_4" value="4"><label for="ques_1_4">static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</label></td>
+						</tr>
+						<tr class="ques_choice">
+							<td class="questionTd"><div class="wrap"><img class="oximg_v oximg_v_ques_1" id="img_ques_1_5" src="../img/oximg_v.png"></div>5)</td>
+                            <td><input type="radio" name="ques_1" id="ques_1_5" value="5"><label for="ques_1_5">static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</label></td>
+						</tr>
+					</table>
+                    
+                    
+                    <table class="questionTable">  <!--  단답형 문제 하나의 테이블 -->
+                        <input type="hidden" name="문제고유번호" value="">
+                        <input type="hidden" name="문제배치번호" value="">
+						<tr class="questionTr">
+							<td class="questionTd questionSpace"><b>2.</b></td>
+							<td class="questionSpace"><b>단답형 답을 적으세요. &nbsp;&nbsp;(3점)</b></td>
+						</tr>
+                        <tr class="ques_choice">
+							<td class="questionTd"></td>  
+							<td><img class="question_img" src="../img/sampleQuestionImg.jpg"></td>
+						</tr>
+						<tr class="ques_choice">
+							<td class="questionTd"></td>  
+							<td><input type="text" id="ques_2" name="ques_2"></td>
+						</tr>
+					</table>
+                    
 					
 					
 				</div><!-- 단의 왼쪽 끝 div -->
-				<div class="col-lg-5" scd_div><!-- 단의 오른쪽 시작 div -->
-					<table class="questionTable">  <!--  문제 하나의 테이블 -->
-						<tr class="questionTr">
-							<td class="questionTd questionSpace"><b>1.</b></td>
-							<td class="questionSpace"><b>다음 중 옳은 것은? &nbsp;&nbsp;(3점)</b></td>
-						</tr>
-						<tr>
-							<td class="questionTd">1)</td>
-							<td>멤버 변수와 메서드에 static를 지정할 수 있다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">2)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">3)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">4)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">5)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-					</table>
-					<table class="questionTable">
-						<tr class="questionTr">
-							<td class="questionTd questionSpace"><b>1.</b></td>
-							<td class="questionSpace"><b>다음 중 옳은 것은? &nbsp;&nbsp;(3점)</b></td>
-						</tr>
-						<tr>
-							<td class="questionTd">1)</td>
-							<td>멤버 변수와 메서드에 static를 지정할 수 있다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">2)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">3)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">4)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-						<tr>
-							<td class="questionTd">5)</td>
-							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
-						</tr>
-					</table>
+                
+                
+                
+                
+                
+                
+				<div class="col-lg-5 scd_div" ><!-- 단의 오른쪽 시작 div -->
+
+					
 
 
 
 				</div>
 				<!-- 단의 오른쪽 끝  div -->
+                
+                
+                
+                
 				<div class="col-lg-2 trd_div">
+                    
 					<!-- OMR 시작 div -->
 					<table class="tg">
 						<tr>
-							<th class="tg-baqh qname" colspan="5">답안지</th>
+							<th class="tg-baqh qname" colspan="6">답안지</th>
 						</tr>
-						<tr>
-							<td id="ans_num" class="tg-baqh qnumber">1</td>
-							<td id="ans_td" class="tg-baqh check_num pointer"><a
-								href="#" onclick="check_num()">1</a></td>
-							<td class="tg-baqh">2</td>
-							<td class="tg-baqh">3</td>
-							<td class="tg-baqh">4</td>
+                        <tr>
+							<td class="tg-baqh qnumber">1</td>
+							<td class="tg-baqh answer_choice">
+                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_1" id="ans_img_ques_1_1" src="../img/oximg_v.png"></div>
+                                1
+                            </td>
+                            <td class="tg-baqh answer_choice">
+                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_1" id="ans_img_ques_1_2" src="../img/oximg_v.png"></div>
+                                2
+                            </td>
+                            <td class="tg-baqh answer_choice">
+                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_1" id="ans_img_ques_1_3" src="../img/oximg_v.png"></div>
+                                3
+                            </td>
+                            <td class="tg-baqh answer_choice">
+                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_1" id="ans_img_ques_1_4" src="../img/oximg_v.png"></div>
+                                4
+                            </td>
+                            <td class="tg-baqh answer_choice">
+                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_1" id="ans_img_ques_1_5" src="../img/oximg_v.png"></div>
+                                5
+                            </td>
 						</tr>
 						<tr>
 							<td class="tg-baqh qnumber">2</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">3</td>
-							<td class="tg-baqh ">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
+							<td class="tg-baqh answer_choice" colspan="5"><input type="text" name="" id="ques_2_answer" ></td>
 						</tr>
 						<tr>
 							<td class="tg-baqh qnumber">4</td>
@@ -189,68 +237,15 @@
 							<td class="tg-baqh">ⓐ</td>
 							<td class="tg-baqh">ⓐ</td>
 						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">8</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">9</td>
-							<td class="tg-baqh ">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">10</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">11</td>
-							<td class="tg-baqh ">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">12</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">13</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">14</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
-						<tr>
-							<td class="tg-baqh qnumber">15</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-							<td class="tg-baqh">ⓐ</td>
-						</tr>
 					</table>
 					<br>
 				</div>
 			</div>
-			<button class="btn btn-large btn-primary exampaneldetailBtn">제출하기</button>
+			<button class="btn btn-theme03 exampaneldetailBtn">제출하기</button>
 		</div>
+		
+		
+		
 
 	</div>
 
