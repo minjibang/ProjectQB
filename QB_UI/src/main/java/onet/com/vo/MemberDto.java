@@ -11,9 +11,16 @@ public class MemberDto {
 	private String member_phone;
 	private String class_name;
 	private String member_enable;
+	private int class_num;
 	
 	
 	
+	public int getClass_num() {
+		return class_num;
+	}
+	public void setClass_num(int class_num) {
+		this.class_num = class_num;
+	}
 	public String getRole_desc() {
 		return role_desc;
 	}

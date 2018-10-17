@@ -4,20 +4,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.admin.dao.AdminDao">
 
-<!-- 재훈 - 10.08 문제분류관련 시작 -->
+<!-- 재훈 - 10.08 문제분류관련 (문제관리페이지 시작 -->
 
 <select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
-	select * from question_lg_category order by length(lg_category_code) asc, lg_category_code asc
+	select * from question_lg_category
 </select>
 <select id="mdCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
-	select question_lg_category.lg_category_name, question_md_category.md_category_code, question_md_category.md_category_name 
-	from question_lg_category join question_md_category on question_lg_category.lg_category_code = question_md_category.lg_category_code 
-	order by length(md_category_code) asc, md_category_code asc
+	select * from question_md_category
 </select>
 <select id="smCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
-	select question_md_category.md_category_name, question_sm_category.sm_category_code, question_sm_category.sm_category_name 
-	from question_sm_category join question_md_category on question_sm_category.md_category_code = question_md_category.md_category_code 
-	order by length(sm_category_code) asc, sm_category_code asc
+	select * from question_sm_category
 </select>
 
 <!-- 재훈 - 10.08 문제분류관련 끝 -->
@@ -29,14 +25,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 재훈 - 10.15 문제난이도 관련 끝 -->
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 시작-->
-<insert id="newQuestionInsert" parameterType="onet.com.vo.QuestionDto">
-	insert into question(question_type, question_name, question_img,
-	question_answer, sm_category_code, level_code, member_id) 
-	values(#{question_type}, #{question_name}, #{question_img}, 
-	#{question_answer}, #{sm_category_code}, #{level_code}, #{member_id});
+<insert id="insertQuestion" parameterType="onet.com.vo.QuestionDto">
+	insert into question(question_type,question_name,question_img,
+	question_answer,sm_category_code,level_code,member_id) 
+	values(#{question_type},#{question_name},#{question_img},#{question_answer},#{sm_category_code},#{level_code},#{member_id});
 </insert>
 
-<insert id="newQuestionChoiceInsert" parameterType="onet.com.vo.Question_choiceDto">
+<insert id="insertQuestionChoice" parameterType="onet.com.vo.Question_choiceDto">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{question_num}, #{question_choice_num}, #{question_choice_content});
 </insert>
@@ -48,20 +43,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select class_name, member_id, member_name, member_email,
 	member_phone, member_enable from member
 </select>
+<select id="roleList" parameterType="hashmap" resultType="onet.com.vo.RoleDto">
+	SELECT * FROM role
+	WHERE NOT role_code='ROLE_ADMIN'
+</select>
 
 
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 
 
 <!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
-<select id="classMemberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
+<select id="classMemberList" parameterType="onet.com.vo.MemberDto" resultType="onet.com.vo.MemberDto">
 	select m.class_name, m.member_id, m.member_name, m.member_email,
-	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r where m.class_name='java 109' and m.member_id=mr.member_id and mr.role_code =r.role_code
+	m.member_phone, m.member_enable, mr.role_code,r.role_desc from member m, member_role mr, role r, class c where c.class_name = m.class_name and c.class_num=#{class_num} and  m.member_id=mr.member_id and mr.role_code =r.role_code
 </select>
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
-	select class_name, teacher_name, class_start_date, class_end_date, class_enable
+	select class_name, teacher_name, class_start_date, class_end_date, class_enable, class_num
 	 from class
+</select>
+
+<select id="classlist" parameterType="onet.com.vo.ClassDto" resultType="onet.com.vo.ClassDto">
+	select class_name, teacher_name, class_start_date, class_end_date, class_enable
+	 from class where class_num=#{class_num}
 </select>
 <!-- 클래스 멤버 수정 -->
  <update id="classMemberUpdate" parameterType="onet.com.vo.MemberDto">
@@ -70,7 +74,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 민지 10.12 클래스멤버리스트 관련 끝 -->
 
+
+
 <!-- 영준 - 10.10 회원관리 전체조회 끝 -->
+
+
+<!-- 민지 10.15 클래스 수정 관련 -->
+<update id="classUpdate" parameterType="onet.com.vo.ClassDto">
+ UPDATE class SET class_name=#{class_name}, teacher_name=#{teacher_name},class_start_date=#{class_start_date}, class_end_date=#{class_end_date} where class_num=#{class_num}
+ </update>
+<!-- 민지 10.15 클래스 수정 관련 끝 -->
 
 <!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
 <update id="updateMember" parameterType="onet.com.vo.MemberDto">
@@ -82,13 +95,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
-
-
 <!-- 민지 10.13 클래스 멤버 삭제 관련 -->
  <update id="classMemberDelete" parameterType="onet.com.vo.MemberDto">
  UPDATE member m, member_role mr SET m.class_name='no_class', mr.role_code='ROLE_MEMBER' where m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
 <!-- 민지 10.13 클래스 멤버 삭제 관련 끝 -->
+
 
 
 <!-- 정원 10.15 문제분류관리 insert 시작 -->
@@ -150,7 +162,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="classCheck" resultType="String">
 	select class_name from class where class_name = #{class_name}
 </select>
+<select id="classSearch" parameterType="String" resultType="onet.com.vo.ClassDto">
+	select * from class where class_name like concat('%',#{searchtext},'%')
+</select>
 <!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
+
 
 <!-- 정원 10.16 문제분류관리 -->
 
@@ -169,9 +185,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from question_sm_category order by length(sm_category_code) asc, sm_category_code asc
 </select>
 
+<!-- 정원 10.16 끝 -->
+
+<!-- 정원 10.17 시작 -->
+
+<!-- 문제분류관리 update 쿼리 -->
 <update id="lgUpdate" parameterType="onet.com.vo.CategoryDto">
 	update question_lg_category set lg_category_name = #{lg_category_name} where lg_category_code = #{lg_category_code}
 </update>
+
+<update id="mdUpdate" parameterType="onet.com.vo.CategoryDto">
+	update question_md_category set lg_category_code = #{lg_category_code}, md_category_name = #{md_category_name} where md_category_code = #{md_category_code}
+</update>
+
+<update id="smUpdate" parameterType="onet.com.vo.CategoryDto">
+	update question_sm_category set md_category_code = #{md_category_code}, sm_category_name = #{sm_category_name} where sm_category_code = #{sm_category_code}
+</update>
+
+<!-- 정원 10.17 끝 -->
+
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
+<update id="deleteMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member 
+	SET member_enable=0
+	WHERE member_id=#{member_id}
+</update>
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
+
 
 
 

@@ -11,33 +11,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="${pageContext.request.contextPath}/css/examPaperDo.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="${pageContext.request.contextPath}/css/examPaperDo.css"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examPaperDo.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
-	var total_time = 5000;
+	//	프로그레스바 script 부분
+ 	var exam_info_time = "${dto.exam_info_time}";
+	var hour_ms = parseInt(exam_info_time.substr(0, 2)) * 3600000;
+	var minute_ms = parseInt(exam_info_time.substr(3, 5)) * 60000;
+	var second_ms = parseInt(exam_info_time.substr(6)) * 1000;
+
+	var total_time = hour_ms + minute_ms + second_ms;
+	console.log("토탈 타임: " + total_time);
 	var current_time = 0;
-	var refresh_interval = 50;
+	var refresh_interval = 100;
 	var timer;
-	
+
 	function refresh_bar() {
-	  $( "#progressbar1" ).progressbar({ value: current_time });
-	  current_time += refresh_interval;
-	  if(current_time > total_time) clearInterval( timer );
+		$("#progressbar1").progressbar({
+			value : current_time
+		});
+		current_time += refresh_interval;
+		if (current_time > total_time)
+			clearInterval(timer);
 	}
-	
+
 	$(function() {
-	  $( "#progressbar1" ).progressbar({ max: total_time, value: current_time });
-	  timer = setInterval( refresh_bar, refresh_interval );
-	});
+		$("#progressbar1").progressbar({
+			max : total_time,
+			value : current_time
+		});
+		timer = setInterval(refresh_bar, refresh_interval);
+	}); 
 </script>
 </head>
 <body>
@@ -45,162 +62,87 @@
 	<div class="col-lg-12 mt">
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">
-				<i class="fa fa-angle-right"></i> 비트캠프109기-JAVA기본
+				<i class="fa fa-angle-right"></i> ${dto.exam_info_name}
 			</h3>
-			<h4>남은 시간: 00분 00초</h4>
+			<h4>남은 시간: ${dto.exam_info_time}</h4>
 		</div>
-
-		
 		<div id="progressbar1"></div>
-		
 		<hr>
 		<div class="panel-body">
 			<div class="row content-panel exampaneldetail">
 				<div class="col-lg-5 fst_div" id="examBox">
-					<div id="exam" class="wrap exam_num_1">
-						<div>
-							<!-- 정답 체크 부분 -->
-						</div>
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						2)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						5)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>
-							<img class="exam_check" src="../img/oximg_o.png">
-						</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>
-							<img class="exam_check" src="../img/oximg_v.png">
-						</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						6)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
+					
+					
+					
+				</div><!-- 단의 왼쪽 끝 div -->
+				<div class="col-lg-5" scd_div><!-- 단의 오른쪽 시작 div -->
+					<table class="questionTable">  <!--  문제 하나의 테이블 -->
+						<tr class="questionTr">
+							<td class="questionTd questionSpace"><b>1.</b></td>
+							<td class="questionSpace"><b>다음 중 옳은 것은? &nbsp;&nbsp;(3점)</b></td>
+						</tr>
+						<tr>
+							<td class="questionTd">1)</td>
+							<td>멤버 변수와 메서드에 static를 지정할 수 있다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">2)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">3)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">4)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">5)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+					</table>
+					<table class="questionTable">
+						<tr class="questionTr">
+							<td class="questionTd questionSpace"><b>1.</b></td>
+							<td class="questionSpace"><b>다음 중 옳은 것은? &nbsp;&nbsp;(3점)</b></td>
+						</tr>
+						<tr>
+							<td class="questionTd">1)</td>
+							<td>멤버 변수와 메서드에 static를 지정할 수 있다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">2)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">3)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">4)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+						<tr>
+							<td class="questionTd">5)</td>
+							<td>static형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.</td>
+						</tr>
+					</table>
+
 
 
 				</div>
-				<div class="col-lg-5" scd_div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-					<div id="exam" class="wrap">
-						1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-						<div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-						<div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그 영역이 고정된다.</div>
-						<div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-						<div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-					</div>
-				</div>
+				<!-- 단의 오른쪽 끝  div -->
 				<div class="col-lg-2 trd_div">
+					<!-- OMR 시작 div -->
 					<table class="tg">
 						<tr>
 							<th class="tg-baqh qname" colspan="5">답안지</th>
 						</tr>
 						<tr>
 							<td id="ans_num" class="tg-baqh qnumber">1</td>
-							<td id="ans_td" class="tg-baqh check_num pointer">	
-								<a href="#" onclick="check_num()">1</a>
-							</td>
+							<td id="ans_td" class="tg-baqh check_num pointer"><a
+								href="#" onclick="check_num()">1</a></td>
 							<td class="tg-baqh">2</td>
 							<td class="tg-baqh">3</td>
 							<td class="tg-baqh">4</td>

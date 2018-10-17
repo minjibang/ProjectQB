@@ -1,25 +1,30 @@
 ﻿package onet.com.admin.controller;
-import java.util.HashMap;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.QuestionDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -32,13 +37,16 @@ public class AdminController {
 	@Autowired
 	private CommonService commonService;
 	
+	@Autowired
+	private TeacherService teacherService;
+	
 	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
 	public String adminMain(Model model) {
-		List<ClassDto> classlist;
+		List<ClassDto> classList;
 		
-		classlist = adminService.classList();
-		model.addAttribute("classlist",classlist);
+		classList = adminService.classList();
+		model.addAttribute("classList",classList);
 		
 		return "admin.adminMain";
 	}
@@ -66,10 +74,13 @@ public class AdminController {
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
 	public String adminMember(Model model) throws Exception {
+		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
 		model.addAttribute("memberList", memberList);
+				
 		return "admin.adminMember";
+		
 	}
 	
 	
@@ -81,22 +92,34 @@ public class AdminController {
 		return result2;
 		
 	}
-
-	/* 영준 10. 회원관리관련 끝 */
+	
+	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
+	{
+		int result = adminService.deleteMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+	}
+	
+	
+	/* 영준 10.15 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
-	public String adminClassInfo(Model model) throws Exception{
+	public String adminClassInfo(Model model, int class_num) throws Exception{
 		
 		
-
+//전체 클래스 데이터
 		List<ClassDto> classList;
 		classList=adminService.classList();
 		model.addAttribute("classList", classList);
-		
+// 해당 클래스 데이터
+		List<ClassDto> classlist;
+		classlist=adminService.classlist(class_num);
+		model.addAttribute("classlist", classlist);
 		
 		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList();
+		classMemberList= adminService.classMemberList(class_num);
 		model.addAttribute("classMemberList", classMemberList);
 		return "admin.adminClassInfo";
 	}
@@ -130,13 +153,14 @@ public class AdminController {
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
 
 
-
 	/*현이 18.10.09 관리자 마이페이지 시작*/
+		
 	@RequestMapping("myPage.do")
 	public String mypage() {
 
 		return "common.admin.common.myPage";
 	}
+	
 	/*현이 18.10.09 관리자 마이페이지 끝*/
 
 	
@@ -154,15 +178,27 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model) {
+	public String adminClassMain(Model model, int class_num) {
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main();
+		notice=commonService.teacher_student_Main(class_num);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info();
+		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
+		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
+	//10.15민지 클래스 수정
+	@RequestMapping(value = "adminClassUpdate.do", method = RequestMethod.POST)
+		public @ResponseBody String adminClassUpdate(@RequestBody ClassDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
+		{	
+			/*deptService.insertDept(dto);
+			return dto.toString();*/
+			int result = adminService.classUpdate(dto);
+			String result2 = String.valueOf(result);
+			return result2;
+			
+		}
 	
 
 	@RequestMapping("noticeDetail.do")
@@ -186,19 +222,20 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
+	public String examScheduleDetail(Model model) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList();
+		model.addAttribute("examPaperList", examPaperList);
 		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
-	
+
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model) throws Exception{
-		List<ExamPaperDto> examPaperList;
-		examPaperList = adminService.examPaperList();
-		model.addAttribute("examPaperList", examPaperList);
+	public String examManagement() {
 		
 		return "common.adminClass.admin.exam.examManagement";
 	}
+
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
 
@@ -233,7 +270,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기 - 문제 관리 
 	/* 재훈 10.15 문제 관리 페이지 관련 start */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(Model model) throws Exception {
+	public String questionManagement(Model model, Principal principal) throws Exception {
 		List<CategoryDto> lgCatList;
 		
 		lgCatList=adminService.lgCategoryList();
@@ -251,8 +288,29 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
+		String member_id = principal.getName();
+		System.out.println("아이디 : " +member_id);
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		
 		return "common.adminClass.admin.question.questionManagement";
 	}
+	
+	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
+		System.out.println("controller:"+dto.getQuestion_answer());
+		int result = 0;
+		result= adminService.insertQuestion(dto);
+		
+		if(result > 0) {
+			System.out.println("새 문제 등록 성공");
+		}else {
+			System.out.println("새 문제 등록 실패");
+		}
+		
+		return "common.adminClass.admin.question.questionManagement";
+	}
+	
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
 	/*양회준 18.10.15 문제 수정 시작	*/
@@ -262,23 +320,7 @@ public class AdminController {
 	}	
 	/*양회준 18.10.15 문제 수정 끝*/
 
-	/*@RequestMapping("questionCategory.do")
-	public String questionCategory(Model model) throws Exception {
-		List<CategoryDto> list1;
-		
-		list1=adminService.lgCategoryList();
-		model.addAttribute("list1",list1);
-		
-		List<CategoryDto> list2;
-		list2=adminService.mdCategoryList();
-		model.addAttribute("list2",list2);
-		
-		List<CategoryDto> list3;
-		list3=adminService.smCategoryList();
-		model.addAttribute("list3",list3);
-		
-		return "admin.questionCategory";
-	}*/
+
 	
 
 	/*현이 18.10.09 관리자 마이페이지 시작*/
@@ -319,6 +361,19 @@ public class AdminController {
 		return "redirect:/login.jsp";
 	}
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
+	
+	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
+	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
+	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
+			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
+		System.out.println("intoAjax");
+		System.out.println(member_id);
+		System.out.println(member_pwd);
+		int result = commonService.memberDrop(member_id, member_pwd);		
+		return result;
+	}
+	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+
 	// 정원 - 문제분류관리 - insert
 	@RequestMapping("lgCatAdd.do")
 	public @ResponseBody Map<String, Object> lgCatAdd(String lgCatAdd) {
@@ -331,7 +386,12 @@ public class AdminController {
 		map.put("result", result);
 		return map;
 	}
+
 	}	
+
+
+
+
 	@RequestMapping("mdCatAdd.do")
 	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
 		System.out.println("<<<" + mdCatAdd + ">>>");
@@ -364,6 +424,7 @@ public class AdminController {
 		map.put("result", result);
 		return map;
 	}
+
 	}	
 	// 정원 - 문제분류관리 insert 끝
 	
@@ -372,18 +433,52 @@ public class AdminController {
 	public @ResponseBody Map<String, Object> lgUpdate(String lgCatCode, String lgCatName) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		CategoryDto dto = new CategoryDto();
-		String check = adminService.lgCatAdd(lgCatName);
-		if(check != "") {
-			map.put("result","null");
+		String check = adminService.lgCatIdCheck(lgCatName);
+		if((check != null) && (!check.equals(lgCatName))){
+			map.put("result","Notnull");
 			return map;
 		}else {
 		dto.setLg_category_code(lgCatCode);
 		dto.setLg_category_name(lgCatName);
-		System.out.println(dto.getLg_category_name());
-		int result = adminService.lgUpdate(dto);
+		adminService.lgUpdate(dto);
 		return null;
 	}
-	
 	}	
+		@RequestMapping("mdUpdate.do")
+		public @ResponseBody Map<String, Object> mdUpdate(String mdCatCode, String mdCatName, String lgSelectCode) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			CategoryDto dto = new CategoryDto();
+			String check = adminService.mdCatIdCheck(mdCatName);
+			if((check != null)&&(!check.equals(mdCatName))) {
+				map.put("result","Notnull");
+				return map;
+			}else {
+				dto.setLg_category_code(lgSelectCode);
+				dto.setMd_category_code(mdCatCode);
+				dto.setMd_category_name(mdCatName);
+				adminService.mdUpdate(dto);
+				return null;
+			}
+		}
+		
+		@RequestMapping("smUpdate.do")
+		public @ResponseBody Map<String, Object> smUpdate(String smCatCode, String smCatName, String mdSelectCode) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			CategoryDto dto = new CategoryDto();
+			String check = adminService.smCatIdCheck(smCatName);
+			if((check != null)&&(!check.equals(smCatName))) {
+				map.put("result","Notnull");
+				return map;
+			}else {
+				dto.setMd_category_code(mdSelectCode);
+				dto.setSm_category_code(smCatCode);
+				dto.setSm_category_name(smCatName);
+				adminService.smUpdate(dto);
+				return null;
+			
+			}
+		}
+		
+		
 	// 정원 - 문제분류관리 update 끝
 }

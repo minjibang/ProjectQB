@@ -9,6 +9,8 @@
 	width: 70%;
 }
 
+
+
 </style>
 
 <section id="main-content">
@@ -105,7 +107,7 @@
 			</div>
 			<!-- 소분류 추가 모달창 끝 -->
 			
-			<!-- 수정 모달창  -->
+			<!-- 대분류 수정 모달창  -->
 			<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -149,7 +151,121 @@
 					</div>
 				</div>
 			</div>
-			<!-- 수정 모달창 끝 -->
+			<!-- 대분류 수정 모달창 끝 -->
+			<!-- 중분류 수정 모달창  -->
+			<div class="modal fade" id="UpdateMdModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">중분류 정보 수정</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-panel">
+								<div class=" form">
+									<form class="cmxform form-horizontal style-form"
+										id="commentForm" method="get" action="">
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">대분류 이름</label>
+										<div class="col-lg-9">
+											<select class="form-control selectCategory" id="UpdateSelectLgCatSearch">
+												<option value="">대분류 검색</option>
+											<c:forEach items="${list1}" var="lgCategoryList">
+												<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
+											</c:forEach>
+											</select>
+										</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">증분류 코드</label>
+											<div class="col-lg-9">
+											<input class="form-control" type="text"  name="member_id" maxlength="12" value="" readonly  id="mdCode">
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">중분류 이름</label>
+											<div class="col-lg-9">
+											<input class="form-control" type="text"  name="member_name" maxlength="12" value="" id="mdName">
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div class="form-group">
+												<div class="col-lg-offset-2 col-lg-10">
+													<button class="btn btn-theme" type="button" id="updateMdBtn">수정</button>
+													<button class="btn btn-theme04" type="button"
+														data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- 중분류 수정 모달창 끝 -->
+			
+			<!-- 소분류 수정 모달창 시작 -->
+			<div class="modal fade" id="UpdateSmModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">소분류 정보 수정</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-panel">
+								<div class=" form">
+									<form class="cmxform form-horizontal style-form"
+										id="commentForm" method="get" action="">
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">중분류 이름</label>
+										<div class="col-lg-9">
+											<select class="form-control selectCategory" id="UpdateSelectMdCatSearch">
+												<option value="">중분류 검색</option>
+											<c:forEach items="${list2}" var="mdCategoryList">
+												<option value="${mdCategoryList.md_category_code}">${mdCategoryList.md_category_name}</option>
+											</c:forEach>
+											</select>
+										</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">소분류 코드</label>
+											<div class="col-lg-9">
+											<input class="form-control" type="text"  name="member_id" maxlength="12" value="" readonly  id="smCode">
+											</div>
+										</div>
+										<div class="form-group ">
+											<label for="cname" class="control-label col-lg-3">소분류 이름</label>
+											<div class="col-lg-9">
+											<input class="form-control" type="text"  name="member_name" maxlength="12" value="" id="smName">
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div class="form-group">
+												<div class="col-lg-offset-2 col-lg-10">
+													<button class="btn btn-theme" type="button" id="updateSmBtn">수정</button>
+													<button class="btn btn-theme04" type="button"
+														data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		<!-- 소분류 수정 모달창 끝 -->	
+			
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="row content-panel">
@@ -171,7 +287,6 @@
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#lgCatModal">대분류 추가</button>
 								<table id="table_lgCategory">
-								
 									<thead>
 										<tr>
 											<th>대분류코드</th>
@@ -186,7 +301,7 @@
 												<td class="lg_category_name">${lgCategoryList.lg_category_name}</td>
 												<td>
 													<button type="button" class="btn btn-theme" id="updatebtnlg" name="updatebtnlg"
-													data-toggle="modal" data-target="#UpdateModal" value="${lgCategoryList.lg_category_code}">
+													data-toggle="modal" data-target="#UpdateModal">
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger">
@@ -197,8 +312,6 @@
 										</c:forEach> 
 									</tbody>
 								</table>
-
-
 							</div>
 
 							<div class="col-lg-4">
@@ -208,9 +321,7 @@
 								</select>
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#mdCatModal">중분류 추가</button>
-									<div id="test">
 								<table id="table_mdCategory">
-
 									<thead>
 										<tr>
 											<th>중분류코드</th>
@@ -224,7 +335,8 @@
 												<td>${mdCategoryList.md_category_code}</td>
 												<td>${mdCategoryList.md_category_name}</td>
 												<td>
-													<button type="button" class="btn btn-theme">
+													<button type="button" class="btn btn-theme" id="updatebtnmd" name="updatebtnmd"
+													data-toggle="modal" data-target="#UpdateMdModal">
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger">
@@ -236,7 +348,7 @@
 									</tbody>
 								</table>
 								</div>
-							</div>
+							
 
 							<div class="col-lg-4">
 								<h3 class="table_heading" align="center">소분류</h3>
@@ -246,10 +358,9 @@
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#smCatModal">소분류 추가</button>
 								<table id="table_smCategory">
-
 									<thead>
 										<tr>
-											<th>소분류코드</th>
+											<th class="smWidth">소분류코드</th>
 											<th>소분류 [주제]</th>
 											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
 										</tr>
@@ -260,7 +371,8 @@
 												<td>${smCategoryList.sm_category_code}</td>
 												<td>${smCategoryList.sm_category_name}</td>
 												<td>
-													<button type="button" class="btn btn-theme">
+													<button type="button" class="btn btn-theme" id="updatebtnsm" name="updatebtnsm"
+													data-toggle="modal" data-target="#UpdateSmModal">
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger">
@@ -288,7 +400,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 
-
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@문제 카테고리 추가 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 $('#lgCatAddBtn').click(function(){
 	if($('#lgCatAdd').val().length > 12) {
 		swal("대분류의 이름이 글자 제한수를 넘었습니다", "12글자 이내로 입력해주세요", "error");
@@ -367,6 +479,9 @@ $('#smCatAddBtn').click(function(){
 	}
 	});
 
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@문제 카테고리 추가  끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+/* @@@@@@@@@@@@@@@@@@@@@@카테고리(대분류,중분류,소분류 선택시 차례대로 해당 카테고리로 바뀌고 테이블도 같이 변경) 시작 @@@@@@@@@@@@@@@@@@@@*/
 function selectLgCatSearch(){
 	$('#list2body').children().remove();
 	$('#list3body').children().remove();
@@ -375,7 +490,7 @@ function selectLgCatSearch(){
 				if(document.getElementById("selectLgCatSearch").value == "${mdCategoryList.lg_category_code}"){
 					$('#selectMdCatSearch').append("<option value=${mdCategoryList.md_category_code}>${mdCategoryList.md_category_name}</option>")
 				}
-			</c:forEach>	
+			</c:forEach>
 				$('#list1body').children().remove();
 				<c:forEach items='${list1}' var='lgCategoryList'>
 				if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
@@ -383,9 +498,9 @@ function selectLgCatSearch(){
 				+"<td>${lgCategoryList.lg_category_code}</td>"
 				+"<td>${lgCategoryList.lg_category_name}</td>"
 				+"<td>"
-				+"<button type='button' class='btn btn-theme listbtn'>"
-				+"<i class='fa fa-pencil'></i>"
-				+"</button>"
+				+"<button type='button' class='btn btn-theme' onclick='up()'"
+				+"data-toggle='modal' data-target='#UpdateModal'>"
+				+"<i class='fa fa-pencil'></i></button>"
 				+"<button type='button' class='btn btn-danger'>"
 				+"<i class='fa fa-trash-o'></i>"
 				+"</button>"
@@ -402,7 +517,7 @@ function selectMdCatSearch(){
 			if(document.getElementById("selectMdCatSearch").value == "${smCategoryList.md_category_code}"){
 				$('#selectSmCatSearch').append("<option value=${smCategoryList.sm_category_code}>${smCategoryList.sm_category_name}</option>")
 			}
-		</c:forEach>	
+		</c:forEach>
 			$('#list2body').children().remove();
 			<c:forEach items='${list2}' var='mdCategoryList'>
 			if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
@@ -410,7 +525,8 @@ function selectMdCatSearch(){
 			+"<td>${mdCategoryList.md_category_code}</td>"
 			+"<td>${mdCategoryList.md_category_name}</td>"
 			+"<td>"
-			+"<button type='button' class='btn btn-theme'>"
+			+"<button type='button' class='btn btn-theme' onclick='upMd()'"
+			+"data-toggle='modal' data-target='#UpdateMdModal'>"
 			+"<i class='fa fa-pencil'></i>"
 			+"</button>"
 			+"<button type='button' class='btn btn-danger'>"
@@ -431,7 +547,8 @@ function selectMdCatSearch(){
 				+"<td>${smCategoryList.sm_category_code}</td>"
 				+"<td>${smCategoryList.sm_category_name}</td>"
 				+"<td>"
-				+"<button type='button' class='btn btn-theme'>"
+				+"<button type='button' class='btn btn-theme' onclick='upSm()'"
+				+"data-toggle='modal' data-target='#UpdateSmModal'>"
 				+"<i class='fa fa-pencil'></i>"
 				+"</button>"
 				+"<button type='button' class='btn btn-danger'>"
@@ -442,7 +559,10 @@ function selectMdCatSearch(){
 				}
 				</c:forEach>
 }
+/* @@@@@@@@@@@@@@@@@@@@@@카테고리(대분류,중분류,소분류 선택시 차례대로 해당 카테고리로 바뀌고 테이블도 같이 변경) 끝 @@@@@@@@@@@@@@@@@@@@*/
+ 
 
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@수정 버튼 클릭 시 모달창 띄우고 해당 값 가져와서 수정 (전체조회시에만) 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 	$("button[name='updatebtnlg']").click(function(){
 		action='modify';
 		type='PUT';
@@ -450,13 +570,88 @@ function selectMdCatSearch(){
 		var tr = row.children();
 		var lgCatCode_modal=tr.eq(0).text();
 		var lgCatName_modal=tr.eq(1).text();
-		
 		$('#lgCode').val(lgCatCode_modal);
 		$('#lgName').val(lgCatName_modal);
 	});
 	
+	$("button[name='updatebtnmd']").click(function(){
+		action='modify';
+		type='PUT';
+		var row =$(this).parent().parent();
+		var tr = row.children();
+	 	var mdCatCode_modal=tr.eq(0).text();
+		var mdCatName_modal=tr.eq(1).text();
+		$('#mdCode').val(mdCatCode_modal);
+		$('#mdName').val(mdCatName_modal);
+		<c:forEach items="${list2}" var="mdCategoryList">
+		if(mdCatCode_modal == "${mdCategoryList.md_category_code}"){
+			var lgSelectCode = "${mdCategoryList.lg_category_code}";
+		}
+		</c:forEach>
+		$('#UpdateSelectLgCatSearch').val(lgSelectCode);
+	});
 	
+	$("button[name='updatebtnsm']").click(function(){
+		action='modify';
+		type='PUT';
+		var row =$(this).parent().parent();
+		var tr = row.children();
+	 	var smCatCode_modal=tr.eq(0).text();
+		var smCatName_modal=tr.eq(1).text();
+		$('#smCode').val(smCatCode_modal);
+		$('#smName').val(smCatName_modal);
+		<c:forEach items="${list3}" var="smCategoryList">
+		if(smCatCode_modal == "${smCategoryList.sm_category_code}"){
+			var mdSelectCode = "${smCategoryList.md_category_code}";
+		}
+		</c:forEach>
+		$('#UpdateSelectMdCatSearch').val(mdSelectCode);
+	});
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@수정 버튼 클릭 시 모달창 띄우고 해당 값 가져와서 수정 (전체조회시에만) 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */	
 	
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@카테고리 선택시 수정할 때 값 가져오기(상세조회시에) 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+	function up(){
+		<c:forEach items='${list1}' var='lgCategoryList'>
+		if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
+			var code = "${lgCategoryList.lg_category_code}";
+			var name = "${lgCategoryList.lg_category_name}";  
+			
+		}
+		</c:forEach>
+		$('#lgCode').val(code);
+		$('#lgName').val(name);
+	}
+	
+	function upMd(){
+		<c:forEach items='${list2}' var='mdCategoryList'>
+		if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
+			var code = "${mdCategoryList.md_category_code}";
+			var name = "${mdCategoryList.md_category_name}";
+			var lgcode = "${mdCategoryList.lg_category_code}";
+		}
+		</c:forEach>
+		$('#mdCode').val(code);
+		$('#mdName').val(name);
+		$('#UpdateSelectLgCatSearch').val(lgcode);
+	}
+	
+	function upSm(){
+		<c:forEach items='${list3}' var='smCategoryList'>
+		if(document.getElementById("selectSmCatSearch").value == "${smCategoryList.sm_category_code}"){
+			var code = "${smCategoryList.sm_category_code}";
+			var name = "${smCategoryList.sm_category_name}";
+			var mdcode = "${smCategoryList.md_category_code}";
+		}
+		</c:forEach>
+		$('#smCode').val(code);
+		$('#smName').val(name);
+		$('#UpdateSelectMdCatSearch').val(mdcode);
+	}
+	
+	/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@카테고리 선택시 수정할 때 값 가져오기(상세조회시에) 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+	
+	/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@해당 값들 가져와서 db에서 수정 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	$('#updateLgBtn').click(function() {
 		var lgChkName = $('#lgName').val();
 		if(lgChkName == ""){
@@ -467,7 +662,7 @@ function selectMdCatSearch(){
    			  url : "${pageContext.request.contextPath}/admin/lgUpdate.do",
    			  data:{lgCatCode:$('#lgCode').val(), lgCatName:$('#lgName').val()},  
    			  success : function(data){
-   				 if(data.result =="null"){
+   				 if(data.result =="Notnull"){
    					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
    				 }else{
    				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
@@ -480,6 +675,62 @@ function selectMdCatSearch(){
 		}	
 	});	
 	
+	$('#updateMdBtn').click(function() {
+		var mdChkName = $('#mdName').val();
+		var lgSelectName = $('#UpdateSelectLgCatSearch').val();
+		if(lgSelectName ==""){
+			swal("필수 입력사항입니다", "대분류를 선택해세요", "error");
+		}else if(mdChkName == ""){
+			swal("필수 입력사항입니다", "중분류 이름을 입력해주세요", "error");
+		}
+		else{
+		$.ajax({
+   			  type : "post",
+   			  url : "${pageContext.request.contextPath}/admin/mdUpdate.do",
+   			  data:{mdCatCode:$('#mdCode').val(), mdCatName:$('#mdName').val(),lgSelectCode:$('#UpdateSelectLgCatSearch').val()},  
+   			  success : function(data){
+   				 if(data.result =="Notnull"){
+   					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
+   				 }else{
+   				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+   				 }	   			 
+   				 },
+   			  error: function(error){
+   				  alert("에러야!");
+   			 }
+   		});
+		}	
+	});
+	
+	$('#updateSmBtn').click(function() {
+		var smChkName = $('#smName').val();
+		var mdSelectName = $('#UpdateSelectMdCatSearch').val();
+		if(mdSelectName ==""){
+			swal("필수 입력사항입니다", "중분류를 선택해세요", "error");
+		}else if(smChkName == ""){
+			swal("필수 입력사항입니다", "소분류 이름을 입력해주세요", "error");
+		}
+		else{
+		$.ajax({
+   			  type : "post",
+   			  url : "${pageContext.request.contextPath}/admin/smUpdate.do",
+   			  data:{smCatCode:$('#smCode').val(), smCatName:$('#smName').val(),mdSelectCode:$('#UpdateSelectMdCatSearch').val()},  
+   			  success : function(data){
+   				 if(data.result =="Notnull"){
+   					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
+   				 }else{
+   				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+   				 }	   			 
+   				 },
+   			  error: function(error){
+   				  alert("에러야!");
+   			 }
+   		});
+		}	
+	});
+	
+	
+	/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@해당 값들 가져와서 db에서 수정 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 
 

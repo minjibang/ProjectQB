@@ -1,5 +1,13 @@
+/*
+ 	@JSP:adminMember.js
+ 	@DATE:2018.10.16
+ 	@Author:유영준
+ 	@Desc:회원관리 js(스토리보드 10 of 41)
+ */
 
-function allCheckFunc( obj ) {
+
+$(document).ready(function(){
+	function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 }
 
@@ -39,12 +47,6 @@ $(function(){
 	});
 });
 
-
-
-
-/* 수정버튼 눌렀을때 그에 대한 값을 가져오도록 구현 */
-$(document).ready(function(){
-	
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
 		action='modify';
@@ -58,11 +60,23 @@ $(document).ready(function(){
 		var member_email_modal=tr.eq(4).text();
 		var member_phone_modal=tr.eq(5).text();
 		var member_name_modal=tr.eq(3).text();
+		var role_code_modal = tr.eq(6).text();
+		var class_name_modal = tr.eq(1).text();
 		
 		$('#member_id').val(member_id_modal);
 		$('#member_email').val(member_email_modal);
 		$('#member_phone').val(member_phone_modal);
 		$('#member_name').val(member_name_modal);
+		$('#class_name').val(class_name_modal);
+		
+		if(role_code_modal == '학생'){
+			$("#agree_s").attr("checked", true);
+			$("#agree_t").attr("checked", false);
+		}
+		else if(role_code_modal == '선생님'){
+			$("#agree_t").attr("checked", true);
+			$("#agree_s").attr("checked", false);
+		}
 		
 	});
 	
@@ -98,11 +112,46 @@ $(document).ready(function(){
    			  },
    			  error: function(request, status, error){
    				  console.log("request 값이 뭐냐  >>>> "+ request);
-   				  alert("에러야!");
+   				  alert("에러에러에러에러에러에러");
    			 }
    		});
 		
 	});	
+
+
+	/* 멤버 삭제(실제 삭제X) */
+	$('#deleteMemberBtn').click(function() {
+		action = 'modify',
+		type = 'PUT',
+		memberid = this.value;
+		
+		var _param = {member_id:$('#member_id').val(), member_enable:$('#member_enable').val()}
+		
+		var _data = JSON.stringify(_param); //jsonString으로 변환
+		
+		$.ajax({
+			type : "post",
+			url : "adminMemberDelete.do",
+			cache : false,
+			dataType : "json",
+			data : _data,
+			processData : false,
+			contentType : "application/json; charset=utf-8",
+			success : function(data, status){
+				alert("삭제되었습니다");
+				location.href="adminMember.do";
+			},
+			error: function(request, status, error){
+				alert("에러에러에러에러에러");
+			}
+		});
+	});
+
+});
+
+/* 회원 권한 셀렉트메뉴 선택시 호출되는 함수 */
+$(function(){
+	$("#role_code option:selected").val();
 	
 });
 

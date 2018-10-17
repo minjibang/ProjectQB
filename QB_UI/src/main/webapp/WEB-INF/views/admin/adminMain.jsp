@@ -39,13 +39,13 @@
 									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
-								<select class="form-control searchRightBtnDiv">
+								<select class="form-control searchRightBtnDiv" id="searchselect" name="searchselect">
 									<option>클래스명</option>
 									<option>강사</option>
 									<option>교육과목</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
-									placeholder="검색어를 입력">
-								<button class="btn btn-theme searchRightBtnDiv" id="classSearchBtn">검색</button>
+									placeholder="검색어를 입력" id="searchtext" name="searchtext">
+								<button type="button" class="btn btn-theme searchRightBtnDiv" id="classSearchBtn" onclick="classSearch()">검색</button>
 							</div>
 						</div>
 
@@ -106,14 +106,14 @@
 							<div class="col-lg-12">
 							
 							
-								<c:forEach items="${classlist}" var="classlist">
+								<c:forEach items="${classList}" var="classlist">
 								<!-- weather-4 PANEL -->
 								<div class="col-lg-3 col-md-3 col-sm-3 mb">
 									<div class="project-wrapper">
 										<div class="project">
 											<div class="photo-wrapper">
 												<div class="photo">
-													<a class="fancybox" href="adminClassMain.do">
+													<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}">
 														<div class="weather-4 pn-big centered">
 															<i class="fa fa-desktop"></i>
 															<h1>JAVA</h1>
@@ -193,5 +193,20 @@ function classCheck() {
 			return false;
 		}
 	}
+}
+
+function classSearch() {
+	$.ajax({
+		url : 'classSearch.do',
+		data : {
+			/* "member_id" : $("#searchselect").val(), */ 
+			"searchtext" : $("#searchtext").val()
+		},
+		dataType : 'json',
+		success : function(data){
+			console.log(data.result);
+		}
+	})
+	
 }
 </script>

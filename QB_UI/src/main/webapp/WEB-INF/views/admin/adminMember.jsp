@@ -63,25 +63,27 @@
 											</div>
 										</div>
 										<div class="form-group ">
-											<label for="ccomment" class="control-label col-lg-2">클래스</label>
-												<div class="col-sm-4 col-xs-4 pull-left">
-												<c:if test="${!empty classList}" >
-													<select class="form-control" id="class_name">
-													 <c:forEach var="classList" items="${classList}" varStatus="i">
-														<option value="${classList.class_name}">${classList.class_name}</option>
+											<label for="cclass" class="control-label col-lg-2">클래스</label>
+												<div class="col-lg-10">
+												
+													<select class="form-control" id="class_name" name="class_name">
+													 <c:forEach var="classList" items="${classList}">
+														<option>${classList.class_name}</option>
 													</c:forEach>
 													</select>
-												</c:if>
+												
 												</div>
 											</div>
 										<div class="form-group ">
 											<label for="curl" class="control-label col-lg-2">권한
 												설정</label>
 											<div class="col-lg-10">
-												<input type="checkbox" id="agree_s" name="agree" onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
+												<input type="checkbox" id="agree_s" name="agree" 
+													onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
 												&nbsp;&nbsp; 
 												<input type="checkbox" id="agree_t"
-													name="agree" onclick="oneCheckbox(this)"  value="ROLE_TEACHER"/>강사
+													name="agree" onclick="oneCheckbox(this)" 
+													value="ROLE_TEACHER"/>강사
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -116,7 +118,7 @@
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
-										<button class="btn btn-theme" data-toggle="modal"
+										<button id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
 											data-dismiss="modal">예</button>
 										<button class="btn btn-theme04" type="button"
 											data-dismiss="modal">아니오</button>
@@ -202,27 +204,30 @@
 						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
-							<select id="member_role" name="member_role" class="form-control searchControl">
-								<option value="${role_code}">회원 권한 선택</option>
-								<option value="${role_student}">학생</option>
-								<option value="${role_teacher}">강사</option>
-								<option value="${role_member}">일반회원</option>
+							<select id="roleList" class="form-control searchControl"
+									name="roleList">
+								<option value="" selected disabled>회원 권한 선택</option>
+								<c:forEach var="roleList" items="${roleList}" varStatus="i">
+									<option value="${roleList.role_code}">${roleList.role_code}</option>
+								</c:forEach>
 							</select> 
-							<select id="class_name" name="class_name" class="form-control searchControl">
-								<option value="">클래스 선택</option>
-								<option value="${class_name}">java 109</option>
-								<option value="${class_name}">window 108</option>
-								<option value="${class_name}">no_class</option>
+							<select id="class_name" class="form-control searchControl"
+									name="class_name">
+								<option value="" selected disabled>클래스 선택</option>
+								<option value="java109">java 109</option>
+								<option value="class_name">window 108</option>
+								<option value="class_name">no_class</option>
 						
 							</select>
 							
-							<select id="member" name="member" class="form-control searchControl">
-								<option value="">개인정보 선택</option>
+							<select id="member" class="form-control searchControl"
+									name="member">
+								<option value="" selected disabled>개인정보 선택</option>
 								<option value="${member_name}">이름</option>
 								<option value="${member_id}">아이디</option>
 								<option value="${member_email}">이메일</option>
 							</select>
-							<input type="text" class="form-control searchControl" placeholder="검색어를 입력">
+							<input type="text" class="form-control searchControl" id="searchBox" placeholder="검색어를 입력">
 							<button class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
 						</div>
 								<div class="row">
@@ -245,7 +250,7 @@
 											<tbody>
 												<c:forEach items="${memberList}" var="memberList">
 													<tr>
-														<td><input type="checkbox" name="chk"></td>
+														<td><input type="checkbox" name="chk" value="chk"></td>
 														<td class="class_name">${memberList.class_name}</td>
 														<td class="member_id">${memberList.member_id}</td>
 														<td class="member_name">${memberList.member_name}</td>
@@ -326,7 +331,8 @@
 			</div>
 			<!-- </div> -->
 			<!-- /row -->
-		</div>
+
+		
 		<!-- /container -->
 		<!-- /wrapper -->
 	</section>

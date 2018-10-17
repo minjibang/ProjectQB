@@ -61,11 +61,13 @@
 											<div class="form-group">
 												<label for="cclass" class="control-label col-lg-2">클래스</label>
 												<div class="col-lg-10">
+												
 													<select name="class_name" id="class_name" class="form-control">
-														<option value="class">java 109</option>
-														<option value="class">window 108</option>
-														<option value="class">class3</option>
+													<c:forEach items="${classList}" var="classList">
+														<option>${classList.class_name}</option>
+														</c:forEach>
 													</select>
+													
 												</div>
 											</div>
 											<div class="form-group ">
@@ -129,31 +131,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- ClassUpdateModal -->
-				<div class="modal fade" id="ClassUpdateModal" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">수정 확인</h4>
-							</div>
-							<div class="modal-body">정말 수정하겠습니까?</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal">Yes</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">No</button>
-									</div>
-								</div>
-							</div>
 
-						</div>
-					</div>
-				</div>
 				<!-- /col-lg-12 -->
 				<div class="col-lg-12 mt">
 					<div class="row content-panel">
@@ -172,7 +150,6 @@
 									<div class="row">
 										<div class="col-md-12" id="AdminTableForm">
 											<table id="AdminTable">
-
 												<thead>
 
 													<tr>
@@ -188,7 +165,8 @@
 												<tbody>
 													<c:forEach items="${classMemberList}" var="classMemberList">
 														<tr id="tr${classMemberList.member_id}">
-															<th class="class_name">${classMemberList.class_name}</th>
+															<th class="class_name" id="class_name_val">${classMemberList.class_name}</th>
+															
 															<th class="member_id">${classMemberList.member_id}</th>
 
 															<th class="member_name">${classMemberList.member_name}</th>
@@ -210,6 +188,7 @@
 																	value="${classMemberList.member_id}">
 																	<i class="fa fa-trash-o"></i>
 																</button>
+																<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
 
 															</td>
 														</tr>
@@ -222,6 +201,7 @@
 									<!-- /OVERVIEW -->
 								</div>
 								<!-- /tab-pane -->
+								<c:forEach items="${classlist}" var="classlist">
 								<div id="contact" class="tab-pane">
 									<div class="row">
 										<div class="col-md-612">
@@ -230,22 +210,25 @@
 
 												<div class="col-lg-8 col-lg-offset-2 detailed mt">
 													<h4 class="mb">클래스 수정</h4>
+												
 													<form role="form" class="form-horizontal"
 														id="class_update_form">
+														
 														<div class="form-group">
 															<label class="control-label col-md-3">클래스</label>
 															<div class="col-md-6">
-																<input class="form-control" id="" type="text" />
+																<input class="form-control" id="updatetab_class_name" type="text" value='${classlist.class_name}' />
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="control-label col-md-3">교육 기간</label>
 															<div class="col-md-6">
 																<div class="input-group input-large"
-																	data-date="01/01/2014" data-date-format="mm/dd/yyyy">
+																	data-date="01/01/2014" data-date-format="mm-dd-yyyy">
 																	<input type="text" class="form-control dpd1"
-																		name="from"> <span class="input-group-addon">To</span>
-																	<input type="text" class="form-control dpd2" name="to">
+																		name="from" id="from" value='${classlist.class_start_date}'> <span class="input-group-addon">To</span>
+																	<input type="text" class="form-control dpd2" name="to" id="to" value='${classlist.class_end_date}'>
+																
 																</div>
 																<span class="help-block">Select date range</span>
 															</div>
@@ -253,12 +236,11 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">강사</label>
 															<div class="col-md-6 col-xs-12">
-																<input class="form-control" id="" type="text" />
+																<input class="form-control" id="teacher_name" type="text" value='${classlist.teacher_name}'/>
 															</div>
 														</div>
 														<div class="col-md-9 col-xs-12" id="AdminUpdateBtn">
-															<button class="btn btn-theme" type="button"
-																data-toggle="modal" data-target="#ClassUpdateModal">수정</button>
+															<button class="btn btn-theme" type="button" id="classUpdateBtn">수정</button>
 														</div>
 
 													</form>
@@ -269,6 +251,7 @@
 									</div>
 									<!-- /row -->
 								</div>
+								</c:forEach>
 
 							</div>
 							<!-- /tab-content -->
