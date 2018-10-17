@@ -44,4 +44,12 @@ public class TeacherService {
 		return result;
 	}
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 끝 */
+	/*--성태용 시작--*/
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype);
+		return result;
+	}
+	
+	/*--성태용 끝--*/
 }

@@ -3,6 +3,40 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.teacher.dao.TeacherDao">
+
+<!-- 태용  -->
+<sql id="search">
+	<if test="param1 == '' and param2 == '' and param3 == ''">
+		<if test="param4 != '' and param5 != ''">where lv.level_code = #{param4} and qs.question_type = #{param5}</if>
+		<if test="param4 != '' and param5 == ''">where lv.level_code = #{param4}</if>
+		<if test="param4 == '' and param5 != ''">where qs.question_type = #{param5}</if>
+	</if>
+	<if test="param1 != '' and param2 != '' and param3 != ''">
+		where sm.sm_category_code = #{param3}
+		<if test="param4 != ''">and	lv.level_code = #{param4}</if>
+		<if test="param5 != ''">and	qs.question_type = #{param5}</if>
+	</if>
+	<if test="param1 != '' and param2 != '' and param3 == ''">
+		where md.md_category_code = #{param2}
+		<if test="param4 != ''">and	lv.level_code = #{param4}</if>
+		<if test="param5 != ''">and	qs.question_type = #{param5}</if>
+	</if>
+	<if test="param1 != '' and param2 == '' and param3 == ''">
+		where lg.lg_category_code = #{param1}
+		<if test="param4 != ''">and	lv.level_code = #{param4}</if>
+		<if test="param5 != ''">and	qs.question_type = #{param5}</if>
+	</if>
+</sql>
+<select id="questionSearch" resultType="onet.com.vo.QuestionDto">
+	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
+	join question_md_category md on (sm.md_category_code = md.md_category_code) 
+	join question_lg_category lg on (lg.lg_category_code = md.lg_category_code)
+	join question_level lv on (qs.level_code = lv.level_code)
+	<include refid="search"></include>
+	order by question_num;
+</select>
+<!-- 태용 끝 -->
+
 <!-- 한결 : 강사 문제 리스트 불러오기 시작-->
 <select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
 	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
@@ -38,4 +72,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 영준 10.16 시험 일정 리스트 불러오기 끝 -->
 </mapper>
+
 

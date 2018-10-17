@@ -128,13 +128,6 @@ public class TeacherController {
 		List<CategoryDto> levellist;
 		levellist = adminService.questionLevelList();
 		model.addAttribute("levellist",levellist);
-		
-		/*문제 출력*/
-
-		List<QuestionDto> question = teacherService.question();
-		model.addAttribute("question", question);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		model.addAttribute("question_choice", question_choice);
 
 		return "common.teacher.exampaper.examPaperMake";
 	}
@@ -273,4 +266,5 @@ public class TeacherController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+	
 }
