@@ -24,7 +24,8 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
-	public void insertQuestionChoice(Question_choiceDto dto);
+	public int insertQuestionChoice(String string, Map<String, Object> map);
+	/*public int insertQuestionChoice(Question_choiceDto dto);*/
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
@@ -111,6 +112,7 @@ public interface AdminDao {
 	public int mdUpdate(CategoryDto dto);
 	
 	public int smUpdate(CategoryDto dto);
+	
 	
 	// 정원 문제분류관리 끝  //
 
