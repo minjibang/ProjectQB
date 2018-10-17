@@ -71,6 +71,11 @@ public interface AdminDao {
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 	
+	/*민지 - 10.17 클래스 수정시 중복체크 */
+	public String joinCheckId(String class_name);
+
+	/*민지 - 10.17 클래스 수정시 중복체크  끝*/
+	
 	public int lgCatAddCheak();
 	
 	public int lgCatAdd(CategoryDto dto);

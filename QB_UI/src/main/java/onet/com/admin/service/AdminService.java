@@ -193,6 +193,15 @@ public class AdminService {
 		return result;
 	}
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
-
+	
+	/*민지 - 10.17 클래스 수정 이름 중복체크*/
+	
+	public String classCheck(String class_name) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.classCheck(class_name);
+		return result;
+	}
+	
+	/*민지 - 10.17 클래스 수정 이름 중복체크 끝  */
 	
 }

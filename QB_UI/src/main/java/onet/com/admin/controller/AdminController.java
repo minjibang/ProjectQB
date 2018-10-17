@@ -189,7 +189,7 @@ public class AdminController {
 		return "common.adminClass.admin.notice.notice";
 	}
 	//10.15민지 클래스 수정
-	@RequestMapping(value = "adminClassUpdate.do", method = RequestMethod.POST)
+	@RequestMapping(value = "adminClassUpdate.do",  method =  RequestMethod.POST)
 		public @ResponseBody String adminClassUpdate(@RequestBody ClassDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
 		{	
 			/*deptService.insertDept(dto);
@@ -403,4 +403,15 @@ public class AdminController {
 		return map;
 	}
 	// 정원 - 문제분류관리 끝
+	
+	
+	//10.17민지- 클래스수정 중복체크
+	@RequestMapping(value="classNameCheck.do", method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> idCheck(@RequestParam("class_name") String class_name) {
+		String memberid = adminService.classCheck(class_name);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", memberid == null);
+		map.get("result");
+		return map;
+	}
 }
