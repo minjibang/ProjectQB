@@ -316,8 +316,9 @@ ul.top-menu>li>.logout {
 }
 
 /*sidebar navigation*/
+/* 210px -> 160px로 변경(test) */
 #sidebar {
-	width: 210px;
+	width: 210px; 
 	height: 100%;
 	position: fixed;
 	background:#F0F0F0;
@@ -483,6 +484,7 @@ ul.sidebar-menu li a.active i {
 }
 
 /* MAIN CONTENT CONFIGURATION */
+/* 210px -> 160px로 변경(test) */
 #main-content {
 	margin-left: 210px;
 	background: #F0F0F0;

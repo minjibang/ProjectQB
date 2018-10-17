@@ -106,7 +106,7 @@ function check(){
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
 	var _questionChoiceContent = $("#question_choice_content").val();
 	
-	var _QuesContValue = $("input[name='question_choice_conten'")
+	var _QuesContValue = $("input[name='question_choice_content'")
 	
 	alert("_smCategory value=[[ " + _smCategory + " ]]"
 		+ "_questionLevel value=[[ " + _questionLevel + " ]]"

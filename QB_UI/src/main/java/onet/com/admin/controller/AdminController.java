@@ -26,6 +26,7 @@ import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -55,17 +56,17 @@ public class AdminController {
 	
 	@RequestMapping("questionCategory.do")
 	public String questionCategory(Model model) throws Exception {
-		List<CategoryDto> list1;
 		
-		list1=adminService.lgCategoryList();
+		List<CategoryDto> list1;
+		list1=adminService.lgProblemCategoryList();
 		model.addAttribute("list1",list1);
 		
 		List<CategoryDto> list2;
-		list2=adminService.mdCategoryList();
+		list2=adminService.mdProblemCategoryList();
 		model.addAttribute("list2",list2);
 		
 		List<CategoryDto> list3;
-		list3=adminService.smCategoryList();
+		list3=adminService.smProblemCategoryList();
 		model.addAttribute("list3",list3);
 		
 		return "admin.questionCategory";
@@ -179,12 +180,13 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, int class_num) {
+	public String adminClassMain(Model model, Principal principal) {
+		String member_id = principal.getName();
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(class_num);
+		notice=commonService.teacher_student_Main(member_id);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
+		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -305,11 +307,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
+	public String insertQuestion(QuestionDto dto, Question_choiceDto dto2) throws ClassNotFoundException, SQLException {
 		System.out.println("controller:"+dto.getQuestion_answer());
 		int result = 0;
-		result= adminService.insertQuestion(dto);
-		
+		adminService.insertQuestion(dto);
+		adminService.insertQuestionChoice(dto2, dto);
+		/*result = adminService.insertQuestionChoice(dto2, dto);*/
 		if(result > 0) {
 			System.out.println("새 문제 등록 성공");
 		}else {
@@ -386,31 +389,102 @@ public class AdminController {
 	@RequestMapping("lgCatAdd.do")
 	public @ResponseBody Map<String, Object> lgCatAdd(String lgCatAdd) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(lgCatAdd.trim()=="") {
+			map.put("result", "null");
+			return map;
+		}else {
 		String result = adminService.lgCatAdd(lgCatAdd);
-		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
-
-
+	}	
 	@RequestMapping("mdCatAdd.do")
 	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
+		System.out.println("<<<" + mdCatAdd + ">>>");
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(selectLgCat.trim()=="") {
+			map.put("result", "null");
+			return map;
+		}else if(mdCatAdd.trim()=="") {
+			map.put("result", "textNull");
+			return map;
+		}else {
 		String result = adminService.mdCatAdd(selectLgCat, mdCatAdd);
 		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
-	
+	}
 	@RequestMapping("smCatAdd.do")
 	public @ResponseBody Map<String, Object> smCatAdd(String selectMdCat, String smCatAdd) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(selectMdCat.trim()=="") {
+			map.put("result", "null");
+			return map;
+		}else if(smCatAdd.trim()=="") {
+			map.put("result", "textNull");
+			return map;
+		}else {
 		String result = adminService.smCatAdd(selectMdCat, smCatAdd);
 		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
-	// 정원 - 문제분류관리 끝
+	}	
+	// 정원 - 문제분류관리 insert 끝
+	
+	// 정원 - 문제분류관리 update 시작
+	@RequestMapping("lgUpdate.do")
+	public @ResponseBody Map<String, Object> lgUpdate(String lgCatCode, String lgCatName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		CategoryDto dto = new CategoryDto();
+		String check = adminService.lgCatIdCheck(lgCatName);
+		if((check != null) && (!check.equals(lgCatName))){
+			map.put("result","Notnull");
+			return map;
+		}else {
+		dto.setLg_category_code(lgCatCode);
+		dto.setLg_category_name(lgCatName);
+		adminService.lgUpdate(dto);
+		return null;
+	}
+	}	
+		@RequestMapping("mdUpdate.do")
+		public @ResponseBody Map<String, Object> mdUpdate(String mdCatCode, String mdCatName, String lgSelectCode) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			CategoryDto dto = new CategoryDto();
+			String check = adminService.mdCatIdCheck(mdCatName);
+			if((check != null)&&(!check.equals(mdCatName))) {
+				map.put("result","Notnull");
+				return map;
+			}else {
+				dto.setLg_category_code(lgSelectCode);
+				dto.setMd_category_code(mdCatCode);
+				dto.setMd_category_name(mdCatName);
+				adminService.mdUpdate(dto);
+				return null;
+			}
+		}
+		
+		@RequestMapping("smUpdate.do")
+		public @ResponseBody Map<String, Object> smUpdate(String smCatCode, String smCatName, String mdSelectCode) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			CategoryDto dto = new CategoryDto();
+			String check = adminService.smCatIdCheck(smCatName);
+			if((check != null)&&(!check.equals(smCatName))) {
+				map.put("result","Notnull");
+				return map;
+			}else {
+				dto.setMd_category_code(mdSelectCode);
+				dto.setSm_category_code(smCatCode);
+				dto.setSm_category_name(smCatName);
+				adminService.smUpdate(dto);
+				return null;
+			
+			}
+		}
+	// 정원 - 문제분류관리 update 끝
+
 	
 	
 	//10.17민지- 클래스수정 중복체크
@@ -422,6 +496,7 @@ public class AdminController {
 		map.get("result");
 		return map;
 	}
+
 	
 	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
 	/*민지 :10.17 수정*/
@@ -440,4 +515,5 @@ public class AdminController {
 		return "common.admin.exam.examScheduleUpdate";
 	}
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
+
 }
