@@ -46,6 +46,7 @@ public class IndexController {
 	public String idSearch(MemberDto dto, Model model) {
 		String result = indexService.idSearch(dto);
 		System.out.println(result);
+		System.out.println("ㅇㅇㅇㅇ");
 		if(result != null) {
 			model.addAttribute("result", result);
 		}else {
