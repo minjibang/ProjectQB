@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.admin.dao.AdminDao;
 import onet.com.index.dao.IndexDao;
@@ -48,6 +49,7 @@ public class AdminService {
 	/*재훈 - 10.15 문제난이도관련 끝*/
 	
 	/*재훈 - 10.16 새 문제 만들기 관련 시작*/
+	@Transactional
 	public int insertQuestion(QuestionDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.insertQuestion(dto);
