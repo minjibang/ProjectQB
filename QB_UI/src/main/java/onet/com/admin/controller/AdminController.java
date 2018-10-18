@@ -223,7 +223,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
 	public String examScheduleDetail() {
-		
+		System.out.println("시험일정 상세 컨트롤러");
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 
@@ -574,5 +574,37 @@ public class AdminController {
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
 
+	/*민지:10.18 시험등록 */
+	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
+	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException {
+		System.out.println("시험등록컨트롤러들어옴");
+		int result = 0;
+		String viewpage="";
+		String date = dto.getExam_info_date();
+		System.out.println(date);
+		
+		String monthdate = date.substring(0, 5);
+		String year = date.substring(6);
+		String date2 = year+"-"+monthdate;
+		System.out.println("합친 날짜>>" + date2);
+		dto.setExam_info_date(date2);
+		System.out.println("클래스이름:" + dto.getClass_name());
+		result=teacherService.examInfoInsert(dto);
+		if(result > 0) {
+			System.out.println("시험등록 성공");
+			viewpage = "redirect:examManagement.do?class_num="+dto.getClass_num()+"&class_name="+dto.getClass_name();
+		}else {
+			System.out.println("시험등록 실패");
+			 
+		}
+		return viewpage;
+	}
+
+
+	/*민지:10.18 시험등록  끝*/
+
 	
-}
+		}
+
+
+
