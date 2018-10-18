@@ -185,10 +185,9 @@ public class TeacherController {
 	
 	
 	// 강사 문제 관련 
-	/*정원 18.10.10 내 문제함 추가 시작 */
-	/*재훈 18.10.15 내 문제함 수정 시작 */
+	/*재훈 18.10.15 내 문제함 관련 시작 */
 	@RequestMapping("questionManagement.do")
-	public String questionManagement(Model model) throws Exception{
+	public String questionManagement(Model model, Principal principal) throws Exception{
 		List<CategoryDto> lgCatList;
 		
 		lgCatList=adminService.lgCategoryList();
@@ -206,10 +205,26 @@ public class TeacherController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
+		String member_id = principal.getName();
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+		
 		return "common.teacher.question.questionManagement";
 	}
-	/*정원 18.10.10 내 문제함 추가 끝 */
-	/*재훈 18.10.15 내 문제함 수정 끝 */
+	/*재훈 18.10.15 내 문제함 관련 끝 */
+	/*재훈 18.10.18 새 문제 만들기 시작 */
+	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+	
+		if (dto2.getQuestion_type().equals("객관식")) {
+		adminService.insertQuestion(dto2);
+		adminService.insertQuestionChoice(dto2, dto);
+		} else {
+		adminService.insertQuestion(dto2);
+		}
+		return "common.teacher.question.questionManagement";
+	}
+	/*재훈 18.10.18 새 문제 만들기 끝 */
 
 	
 	/*현이 18.10.09 강사 마이페이지 시작*/

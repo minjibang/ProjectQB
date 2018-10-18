@@ -296,7 +296,6 @@ public class AdminController {
 		model.addAttribute("quesLevelList",quesLevelList);
 		
 		String member_id = principal.getName();
-		System.out.println("아이디 : " +member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 		
@@ -305,12 +304,13 @@ public class AdminController {
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
-		int result = 0;
-
+	
+		if (dto2.getQuestion_type().equals("객관식")) {
 		adminService.insertQuestion(dto2);
-		/*adminService.insertQuestionChoice(dto2, dto);*/
-		result = adminService.insertQuestionChoice(dto2, dto);
-		
+		adminService.insertQuestionChoice(dto2, dto);
+		} else {
+		adminService.insertQuestion(dto2);
+		}
 		return "common.adminClass.admin.question.questionManagement";
 	}
 	
