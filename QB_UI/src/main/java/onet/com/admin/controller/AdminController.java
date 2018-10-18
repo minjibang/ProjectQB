@@ -46,10 +46,6 @@ public class AdminController {
 	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
 	public String adminMain(Model model) {
-		List<ClassDto> classList;
-		
-		classList = adminService.classList();
-		model.addAttribute("classList",classList);
 		
 		return "admin.adminMain";
 	}
