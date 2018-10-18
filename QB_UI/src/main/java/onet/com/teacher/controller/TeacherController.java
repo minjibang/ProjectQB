@@ -116,9 +116,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto, String exam_paper_name)
 	{
-		int result = teacherService.examPaperDelete(dto);
+		int result = teacherService.examPaperDelete(exam_paper_name);
 		String result2 = String.valueOf(result);
 		return result2;
 	}

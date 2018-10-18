@@ -59,7 +59,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 영준 10.16 내 시험지 리스트 불러오기 시작 -->
 <select id="examPaperList" parameterType="onet.com.vo.ExamPaperDto" resultType="onet.com.vo.ExamPaperDto">
+
 	select exam_paper_num, exam_paper_name, member_id, exam_paper_desc, exam_paper_status,exam_paper_enable from exam_paper where member_id = (select member_id from member_role where member_id in (select m.member_id from member m, class c where  c.class_num=#{class_num} and c.class_name=m.class_name) and role_code='role_teacher');
+	select * from exam_paper 
+	where member_id = (select member_id from member_role where member_id in 
+	(select m.member_id from member m, class c where  c.class_num=#{class_num} and c.class_name=m.class_name) and role_code='role_teacher');
+
 </select>
 <!-- 영준 10.16 내 시험지 끝 -->
 <!-- 영준 10.17 내 시험지  삭제 시작 -->
