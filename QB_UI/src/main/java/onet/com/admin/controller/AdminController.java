@@ -296,7 +296,6 @@ public class AdminController {
 		model.addAttribute("quesLevelList",quesLevelList);
 		
 		String member_id = principal.getName();
-		System.out.println("아이디 : " +member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 		
