@@ -314,6 +314,37 @@ public class AdminController {
 		return "common.adminClass.admin.question.questionManagement";
 	}
 	
+	@RequestMapping(value="myQuestionView.do")
+	public @ResponseBody ModelAndView classListView(Model model) {
+		List<QuestionDto> question = teacherService.question();
+		model.addAttribute("question", question);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		model.addAttribute("question_choice", question_choice);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="questionSearch.do")
+	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+		
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
+	}
+	
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
 	/*양회준 18.10.15 문제 수정 시작	*/

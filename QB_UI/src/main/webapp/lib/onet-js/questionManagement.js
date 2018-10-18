@@ -2,6 +2,35 @@
  * 18.10.15 재훈 questionManagement.js 파일 추가 
  */
 
+ /*관리자-  전체문제 보여주기 시작*/
+$(function() {
+	 $('#questionsearch').click(function(){
+		   var lgsearchtype = document.getElementById("question_lg_category").value;
+		   var mdsearchtype = document.getElementById("question_md_category").value;
+		   var smsearchtype = document.getElementById("question_sm_category").value;
+		   var leveltype = document.getElementById("level_type").value;
+		   var questiontype = document.getElementById("questiontype").value;
+		   
+			$.ajax({
+				  url : "questionSearch.do",
+				  type:'GET',
+				  data : {
+					  'lgsearchtype' : lgsearchtype,
+					  'mdsearchtype' : mdsearchtype,
+					  'smsearchtype' : smsearchtype,
+					  'leveltype' : leveltype,
+					  'questiontype' : questiontype
+				  },
+				  dataType:"html",
+				  success:function(data){
+					  $('#questions').html(data);
+				  }
+			   });
+	   });
+})
+/*관리자-  전체문제 보여주기 끝*/
+
+
 /*문제 타입 변경 시 div 보여주기 시작*/
 function questionType(id){
 	if (id == "questionChoice") {
@@ -99,8 +128,7 @@ $(function() {
 				}	
 		})
 });
-/* 객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 끝 */
-			
+/* 객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 끝 */	
 
 function check(){
 	
