@@ -404,7 +404,7 @@ th{
 							</h4>
 						</header>
 						<div class="col-lg-4 a"></div><div class="col-lg-4 a"></div>
-						<div class="col-lg-4 a"><button type="button" class="btn btn-theme"><i class="fa fa-search-plus"></i>&nbsp;&nbsp;초기화 [전체조회]</button></div>
+						<div class="col-lg-4 a"><button type="button" class="btn btn-theme" id="resetBtn"><i class="fa fa-search-plus"></i>&nbsp;&nbsp;초기화 [전체조회]</button></div>
 							<div class="col-lg-4">
 								<h3 class="table_heading" align="center">대분류</h3>
 								<select class="form-control selectCategory" id="selectLgCatSearch" onchange="selectLgCatSearch()">
@@ -644,7 +644,7 @@ function selectLgCatSearch(){
 				$('#list1body').children().remove();
 				<c:forEach items='${list1}' var='lgCategoryList'>
 				if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
-				$('#list1body').append(+"<tr>"
+				$('#list1body').append("<tr>"
 				+"<td>${lgCategoryList.lg_category_code}</td>"
 				+"<td>${lgCategoryList.lg_category_name}</td>"
 				+"<td>"
@@ -672,7 +672,7 @@ function selectMdCatSearch(){
 			$('#list2body').children().remove();
 			<c:forEach items='${list2}' var='mdCategoryList'>
 			if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
-			$('#list2body').append(+"<tr>"
+			$('#list2body').append("<tr>"
 			+"<td>${mdCategoryList.md_category_code}</td>"
 			+"<td>${mdCategoryList.md_category_name}</td>"
 			+"<td>"
@@ -695,7 +695,7 @@ function selectMdCatSearch(){
 				$('#list3body').children().remove();
 				<c:forEach items='${list3}' var='smCategoryList'>
 				if(document.getElementById("selectSmCatSearch").value == "${smCategoryList.sm_category_code}"){
-				$('#list3body').append(+"<tr>"
+				$('#list3body').append("<tr>"
 				+"<td>${smCategoryList.sm_category_code}</td>"
 				+"<td>${smCategoryList.sm_category_name}</td>"
 				+"<td>"
@@ -903,7 +903,7 @@ function selectMdCatSearch(){
    				  alert("에러야!");
    			 }
    		});
-		}	
+		}
 	});
 	
 	
@@ -1014,7 +1014,7 @@ function selectMdCatSearch(){
 						    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
 						});
 				 	 }else{
-				 		swal("해당 정보를 참조받는 소분류 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+				 		swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
 				 	 }
 			  },
 			  error: function(error){
@@ -1050,6 +1050,16 @@ function selectMdCatSearch(){
 		}
 		</c:forEach>
 	}
+	 
+	$('#resetBtn').click(function(){
+		location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+	});
+					
+	
+		
+		
+		
+		
 </script>
 			
 			
