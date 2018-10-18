@@ -7,6 +7,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -105,6 +106,18 @@
 		<div class="panel-body">
 			<div class="row content-panel exampaneldetail">
 				<div class="col-lg-5 fst_div" id="examBox">
+ 				<c:forEach var="question" items="${examPaperDoDto}">
+					문제고유번호 : ${question.question_num}<br>
+					문제의 문제 : ${question.question_name}<br>
+					문제 : ${question}<br><br>
+				</c:forEach> 
+				
+<%-- 				문제 : <c:out value="${examPaperDoDto}" /> <br>
+				
+				<c:forEach var="question" items="${examPaperDoDto}" varStatus="status">     
+					문제 : ${question.question_name}<br>
+					문제 : <c:out value="${question.question_name}" /> 
+				</c:forEach> --%>
                     
                     
                     <table class="questionTable">  <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->
