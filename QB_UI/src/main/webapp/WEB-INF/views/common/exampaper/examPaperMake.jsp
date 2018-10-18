@@ -324,8 +324,6 @@ $(document).ready(function(){
 	   var smsearchtype = document.getElementById("question_sm_category").value;
 	   var leveltype = document.getElementById("level_type").value;
 	   var questiontype = document.getElementById("questiontype").value;
-	   console.log("=========="+leveltype);
-	   console.log("=========="+questiontype);
 	   
 	$.ajax({
 		  url : "questionSearch.do",
