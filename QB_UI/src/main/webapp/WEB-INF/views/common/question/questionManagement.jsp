@@ -67,7 +67,6 @@
 										placeholder="키워드를 입력하세요.">
 
 								</div>
-								<a href=""></a>
 								<!-- /detailed -->
 							</div>
 							<div class="row mt hrRow">
@@ -78,112 +77,18 @@
 									</label>
 								</div>
 							</div>
-
-
 							<hr>
 
-							<!-- /col-md-6 -->
 							<div class="row content-panel" id="myQuestionPanel">
-								<div class="myQuestionDiv">
-									<div class="row mt">
-
-										<div class="col-lg-1 myQuestionCheck">
-											<input type="checkbox" value="" name="" id="checkLa">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-2 myQuestionCategory">
-											Java <br> 메서드와 변수 <br> 난이도: 중 <br> 정답:3<br>
-											정답률:72%<br> 출제자:서정원<br>
-										</div>
-										<div class="col-lg-3 myQuestionFont">
-											<div>
-												<b>문제 : </b>
-											</div>
-											<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> <img
-												src="${pageContext.request.contextPath}/img/500.png"
-												class="myQuestionImg"> <br>
-
-										</div>
-										<div class="col-lg-5 myQuestionFont">
-											<div>
-												<b>보기 : </b>
-											</div>
-											<br> 1. 멤버 변수와 메서드에 static을 지정할 수 있다<br> <br>
-											2. static 형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br>
-											<br> 3. static 메서드 안에 선언되는 변수들은 모두 static 변수이다.<br>
-											<br> 4. static 메서드 안에서는 this 나 super를 사용할 수 있다.<br>
-
-
-										</div>
-										<div class="col-lg-1 btnUpDe">
-											<br> <br> <a href="questionUpdate.do"><button
-													type="button" class="btn btn-theme">수정</button></a>
-											&nbsp;&nbsp;
-											<button type="button" class="btn btn-theme04">삭제</button>
-
-										</div>
-
-
-										<!-- /col-md-6 -->
-									</div>
-									<hr class="hr">
-
-									<!-- /col-md-6 -->
-									<div class="row mt">
-										<div class="myQuestionDiv">
-											<div class="col-lg-1 myQuestionCheck">
-												<input type="checkbox" value="" name="">
-												<!-- value에 문제고유번호 들어간다 -->
-											</div>
-											<div class="col-lg-2 myQuestionCategory">
-												Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-												정답률:72%<br> 출제자:서정원<br>
-											</div>
-											<div class="col-lg-3 myQuestionFont">
-												<div>
-													<b>문제 : </b>
-												</div>
-												<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> <img
-													src="${pageContext.request.contextPath}/img/404.png"
-													class="myQuestionImg"> <br>
-
-											</div>
-											<div class="col-lg-5 myQuestionFont">
-												<div>
-													<b>보기 : </b>
-												</div>
-												<br> 1. 멤버 변수와 메서드에 static을 지정할 수 있다<br> <br>
-												2. static 형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br>
-												<br> 3. static 메서드 안에 선언되는 변수들은 모두 static 변수이다.<br>
-												<br> 4. static 메서드 안에서는 this 나 super를 사용할 수 있다.<br>
-
-
-											</div>
-											<div class="col-lg-1 btnUpDe">
-												<br> <br> <a href="questionUpdate.do"><button
-														type="button" class="btn btn-theme">수정</button></a>
-												&nbsp;&nbsp;
-												<button type="button" class="btn btn-theme04">삭제</button>
-
-											</div>
-
-										</div>
-										<!-- /col-md-6 -->
-									</div>
-
-
-
-
-								</div>
-
+					                           <div id="myQuestions">
+													
+					                           </div>
 							</div>
-							<button type="button" class="btn btn-theme btnDeIn">선택
-								문제 수정</button>
-							<button type="button" class="btn btn-theme pull-right btnDeIn">새
-								문제 등록</button>
-
-
+							
+							<button type="button" class="btn btn-theme btnDeIn">선택 문제 삭제</button>
+							<button type="button" class="btn btn-theme pull-right btnDeIn">새 문제 등록</button>
 						</div>
+						
 						<!-- /OVERVIEW -->
 						<!-- 정원 추가 끝 -->
 
@@ -325,26 +230,13 @@
 														<option value="5" selected>보기 개수: 5개</option>
 													</select> <br> <br>
 													
-													<!-- <select id="answerSelect" class="form-control-static" name="question_answer">
-													    <option value="" selected disabled> 정답을 선택해주세요 </option>
-														<option value="1">
-														정답: 1번</option>
-														<option value="2">
-														정답: 2번</option>
-														<option value="3">
-														정답: 3번</option>
-														<option value="4">
-														정답: 4번</option>
-														<option value="5">
-														정답: 5번</option>
-													</select> <br> <br> -->
 													
 													<!-- 1번 보기 -->
 													<div id="choiceInput">
 													<b><input type="text" name="question_choice_num"
 														value="1" style="display: none">1.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content1"
+														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -366,8 +258,8 @@
 													<!-- 2번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="2" style="display: none">2.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content2"
+														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -389,8 +281,8 @@
 													<!-- 3번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="3" style="display: none">3.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content3"
+														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -412,8 +304,8 @@
 													<!-- 4번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content4"
+														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -435,8 +327,8 @@
 													<!-- 5번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content5"
+														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -509,9 +401,9 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/questionManagement.js"
 	type="text/javascript"></script>
 
-<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 시작 -->
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-전체문제 스크립트 시작  -->
 <script>
-	$(function() {
+	$(document).ready(function() {
 		$('#question_lg_category')
 				.change(
 						function() {
@@ -570,13 +462,18 @@
 							</c:forEach>
 						})
 						
-		$('#answerSelect')
-				.change(
-						function() {
-							var st = $("#answerSelect option:selected").val();
-							console.log(st);
-						})
+		$.ajax({
+		url : "myQuestionView.do",
+		type:'GET',
+		dataType:"html",
+		success:function(data){
+			$('#myQuestions').html(data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
 	})
+})
 </script>
-<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-전체문제 스크립트 끝 -->
 

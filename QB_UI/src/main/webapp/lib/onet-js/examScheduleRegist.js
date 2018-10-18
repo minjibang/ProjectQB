@@ -1,10 +1,12 @@
+/* 영준 - 10.18 examScheduleRegist.js 파일 추가 */
+
+
 /* 체크박스 체크시 전체선택 체크 여부 */
 $(document).ready(function(){
 	function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 }
-	
-	
+
 function oneCheckFunc( obj )
 {
 	var allObj = $("#checkall");

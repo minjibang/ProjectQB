@@ -8,13 +8,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import onet.com.admin.dao.AdminDao;
 import onet.com.common.dao.CommonDao;
 import onet.com.vo.ExamInfoDto;
-import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.Question_choiceDto;
 
 @Service
 public class CommonService {
@@ -83,6 +83,29 @@ public class CommonService {
 		
 		return result;
 	}
+	
+	
+	/*현이 - ExamPaperDo 10.18 시작 */ 
+	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<ExamPaperDoQuestionDto> questionList = commonDao.examPaperDoQuestion(exam_info_num);
+		return questionList;
+	}
+	
+	public List<Question_choiceDto> examPaperDoQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<Question_choiceDto> questionChoiceList = commonDao.examPaperDoQuestion_choice(exam_info_num);
+		return questionChoiceList;
+	}
+	
+	public int questionCount(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int questionCount = commonDao.questionCount(exam_info_num);
+		return questionCount;
+	}
+	/*현이 - ExamPaperDo 10.18 끝 */ 
+	
 }
 
 

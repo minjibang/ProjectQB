@@ -3,9 +3,7 @@ package onet.com.student.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.common.service.CommonService;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.Question_choiceDto;
 
 @Controller
 @RequestMapping("/student/")
@@ -139,17 +139,6 @@ public class StudentController {
 	}
 	
 	
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
-	@RequestMapping("examPaperDo2.do")
-	public String examPaperDo2(Model model, int exam_info_num) {
-
-		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
-		model.addAttribute("dto", dto);
-
-		return "exam.student.examPaperDo2";
-	}
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
-	
 	/* 양회준 10.15 내정보 탈퇴 시작*/
 	@RequestMapping("myPageDrop.do")
 	public String myPageDrop(MemberDto memberDto)
@@ -174,6 +163,36 @@ public class StudentController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+
+
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
+	@RequestMapping("examPaperDo2.do")
+	public String examPaperDo2(Model model, int exam_info_num, HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {
+		
+		ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
+		model.addAttribute("exam_info", exam_info);
+		
+		// 현이 10.17 추가
+		// 문제, 문제보기 리스트 뽑아옴
+		List<ExamPaperDoQuestionDto> questionList = commonService.examPaperDoQuestion(exam_info_num);
+		List<Question_choiceDto> questionChoiceList = commonService.examPaperDoQuestion_choice(exam_info_num);
+		int questionCount = commonService.questionCount(exam_info_num);
+		
+		model.addAttribute("questionList", questionList);
+		model.addAttribute("questionChoiceList", questionChoiceList);
+		model.addAttribute("questionCount", questionCount);
+		
+		return "exam.student.examPaperDo2";
+	}
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }

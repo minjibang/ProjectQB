@@ -3,9 +3,45 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.teacher.dao.TeacherDao">
+
+<!-- 태용  -->
+<sql id="search">
+	<if test="param1 == '' and param2 == '' and param3 == ''">
+		<if test="param4 != '' and param5 != ''">where lv.level_code = #{param4} and qs.question_type = #{param5}</if>
+		<if test="param4 != '' and param5 == ''">where lv.level_code = #{param4}</if>
+		<if test="param4 == '' and param5 != ''">where qs.question_type = #{param5}</if>
+	</if>
+	<if test="param1 != '' and param2 != '' and param3 != ''">
+		where sm.sm_category_code = #{param3}
+		<if test="param4 != ''">and	lv.level_code = #{param4}</if>
+		<if test="param5 != ''">and	qs.question_type = #{param5}</if>
+	</if>
+	<if test="param1 != '' and param2 != '' and param3 == ''">
+		where md.md_category_code = #{param2}
+		<if test="param4 != ''">and	lv.level_code = #{param4}</if>
+		<if test="param5 != ''">and	qs.question_type = #{param5}</if>
+	</if>
+	<if test="param1 != '' and param2 == '' and param3 == ''">
+		where lg.lg_category_code = #{param1}
+		<if test="param4 != ''">and	lv.level_code = #{param4}</if>
+		<if test="param5 != ''">and	qs.question_type = #{param5}</if>
+	</if>
+</sql>
+<select id="questionSearch" resultType="onet.com.vo.QuestionDto">
+	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
+	join question_md_category md on (sm.md_category_code = md.md_category_code) 
+	join question_lg_category lg on (lg.lg_category_code = md.lg_category_code)
+	join question_level lv on (qs.level_code = lv.level_code)
+	<include refid="search"></include>
+	order by question_num;
+</select>
+<!-- 태용 끝 -->
+
 <!-- 한결 : 강사 문제 리스트 불러오기 시작-->
 <select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
 	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
+	(select md_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_code',
+	(select lg_category_code from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_code',
    (select sm_category_name from question_sm_category where sm_category_code = question.sm_category_code) as 'sm_category_name',
    (select md_category_name from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_name',
    (select lg_category_name from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_name',
@@ -16,14 +52,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="question_choice" parameterType="hashmap" resultType="onet.com.vo.Question_choiceDto">
 	select * from question_choice
 </select>
+<select id="question_level" parameterType="hashmap" resultType="onet.com.vo.Question_levelDto">
+	select * from question_level
+</select>
 <!-- 한결 : 강사 문제 리스트 불러오기 끝-->
 
 <!-- 영준 10.16 내 시험지 리스트 불러오기 시작 -->
 <select id="examPaperList" parameterType="onet.com.vo.ExamPaperDto" resultType="onet.com.vo.ExamPaperDto">
-	select exam_paper_num, exam_paper_name, member_id, exam_paper_desc, exam_paper_status,exam_paper_enable from exam_paper where member_id = (select member_id from member_role where member_id in (select m.member_id from member m, class c where  c.class_num=#{class_num} and c.class_name=m.class_name) and role_code='role_teacher');
-</select>
-<!-- 영준 10.16 내 시험지  리스트 불러오기 끝 -->
 
+	select * from exam_paper 
+	where member_id = (select member_id from member_role where member_id in 
+	(select m.member_id from member m, class c where  c.class_num=#{class_num} and c.class_name=m.class_name) and role_code='role_teacher');
+
+</select>
+<!-- 영준 10.16 내 시험지 끝 -->
 <!-- 영준 10.17 내 시험지  삭제 시작 -->
 <delete id="examPaperDelete" parameterType="onet.com.vo.ExamPaperDto">
 	DELETE FROM exam_paper
@@ -33,10 +75,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
 <select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
-	SELECT exam_info_name, exam_info_date, exam_info_start, exam_info_end, exam_info_time, exam_info_member
-	FROM exam_info
+	SELECT * FROM exam_info
 </select>
 <!-- 영준 10.16 시험 일정 리스트 불러오기 끝 -->
+
 
 <!-- 민지-10.18 시험등록 -->
 <insert id="examInfoInsert" parameterType="onet.com.vo.ExamInfoDto">
@@ -44,5 +86,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES(#{exam_paper_num},#{class_name},#{exam_info_name},#{exam_info_desc},#{exam_info_member},#{exam_info_date},#{exam_info_start},#{exam_info_end},#{exam_info_time})     
 </insert>
 <!-- 민지 10.18 시험등록 끝 -->
+
+<!-- 한결 10.17 
+시험지 생성 및 임시저장 확인용 시작-->
+<select id="examPaperCheck" parameterType="String" resultType="String">
+	select exam_paper_num from exam_paper where exam_paper_name = #{exam_paper_name}
+</select>
+<!-- 시험지 테이블에 insert and update -->
+<insert id="examPaperInsert">
+	insert into exam_paper(exam_paper_name, member_id, exam_paper_desc) values(#{param1}, #{param2}, #{param3})
+</insert>
+<update id="examPaperUpdate">
+	update  exam_paper set exam_paper_name=#{param1},member_id=#{param2},exam_paper_desc=#{param3} where exam_paper_num = #{param4}
+</update>
+<!-- 시험지 문제 테이블에 select insert update delete -->
+<select id="examQuestionSelect" parameterType="String" resultType="Integer">
+	select question_num from exam_question where exam_paper_num = #{param1} and question_num = #{param2}
+</select>
+<insert id="examQuestionInsert">
+	insert into exam_question(exam_paper_num,question_num, exam_question_seq, exam_question_score) values(#{param1}, #{param2}, #{param3}, #{param4})
+</insert>
+<update id="examQuestionUpdate">
+	update  exam_question set exam_paper_num=#{param1},question_num=#{param2},exam_question_seq=#{param3},exam_question_score=#{param4} where exam_paper_num = #{param1}
+</update>
+<delete id="examQuestionDelete" parameterType="String">
+	delete from exam_question where exam_paper_num=#{param1}
+</delete>
+<!-- 한결 10.17 끝-->
+
+<!-- 영준 10.18 시험 일정 삭제 시작 -->
+<delete id="examScheduleDelete" parameterType="onet.com.vo.ExamInfoDto">
+	DELETE FROM exam_info
+	WHERE exam_info_name=#{exam_info_name}
+</delete>
+
 </mapper>
+
 

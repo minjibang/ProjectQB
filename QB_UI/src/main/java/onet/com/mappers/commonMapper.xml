@@ -50,5 +50,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select count(*) from member where member_id = #{param1} and member_pwd = #{param2}
 </select>
 
+<!-- 현이 - ExamPaperDo 10.18 시작 -->
+<select id="examPaperDoQuestion" parameterType="int" resultType="onet.com.vo.ExamPaperDoQuestionDto"><!-- 문제 정보 가져오기 -->
+	select q.question_num, q.question_type, q.question_name, q.question_img, q.question_answer, 
+	eq.exam_question_seq, eq.exam_question_score 
+	from question q join exam_question eq
+	on (q.question_num = eq.question_num)
+	where eq.exam_paper_num = 
+	(select exam_paper_num from exam_info where exam_info_num = #{exam_info_num})
+	order by eq.exam_question_seq
+</select>
+
+<select id="examPaperDoQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->
+	select question_num, question_choice_num, question_choice_content 
+	from question_choice
+	where question_num in 	
+	(select q.question_num
+	from question q join exam_question eq
+	on (q.question_num = eq.question_num)
+	where eq.exam_paper_num = 
+	(select exam_paper_num from exam_info 
+	where exam_info_num = #{exam_info_num})
+	)
+	order by question_num, question_choice_num
+</select>
+
+<select id="questionCount" parameterType="int" resultType="int"><!-- 한 시험지에 담긴 문제의 개수 -->
+	select count(*) as questionCount
+	from exam_question
+	where exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{exam_info_num})
+</select>
+<!-- 현이 - ExamPaperDo 10.18 끝 -->
+
 
 </mapper>

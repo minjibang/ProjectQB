@@ -39,13 +39,13 @@
 									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
-								<select class="form-control searchRightBtnDiv" id="searchselect" name="searchselect">
-									<option>클래스명</option>
-									<option>강사</option>
-									<option>교육과목</option>
+								<select class="form-control searchRightBtnDiv" id="searchType" name="searchType">
+									<option value="">전체</option>
+									<option value="n">클래스명</option>
+									<option value="t">강사</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
-									placeholder="검색어를 입력" id="searchtext" name="searchtext">
-								<button type="button" class="btn btn-theme searchRightBtnDiv" id="classSearchBtn" onclick="classSearch()">검색</button>
+									placeholder="검색어를 입력" id="keyword" name="keyword">
+								<button type="button" class="btn btn-theme searchRightBtnDiv" id="searchBtn">검색</button>
 							</div>
 						</div>
 
@@ -105,39 +105,11 @@
 						<div class="row mt">
 							<div class="col-lg-12">
 							
+								<div id="classlistView">
 							
-								<c:forEach items="${classList}" var="classlist">
-								<!-- weather-4 PANEL -->
-								<div class="col-lg-3 col-md-3 col-sm-3 mb">
-									<div class="project-wrapper">
-										<div class="project">
-											<div class="photo-wrapper">
-												<div class="photo">
-													<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}&class_name=${classlist.class_name}">
-														<div class="weather-4 pn-big centered">
-															<i class="fa fa-desktop"></i>
-															<h1>JAVA</h1>
-															<div class="info">
-																<div class="row">
-																	<h5 class="centered">클래스:비트캠프 - ${classlist.class_name}</h5>
-																	<h5 class="centered">교육기간:${classlist.class_start_date}-${classlist.class_end_date}</h5>
-																	<h5 class="centered">강사:${classlist.teacher_name}</h5>
-																	<div class="col-sm-6 col-xs-6 pull-right">
-																		<p class="goright">
-																			<i class="fa fa-users"></i> 25명
-																		</p>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="overlay"></div>
-											</div>
-										</div>
-									</div>
+
+
 								</div>
-								</c:forEach>
 							</div>
 						</div>
 
@@ -150,63 +122,87 @@
 <script>
 var classcheck = false;
 
-function confirmClass() {
+$(document).ready(function(){
 	
-	var val = document.getElementById("class_name").value;
-	var iddiv = document.getElementById("classdiv");
-	if (val == "") {
-		classdiv.innerHTML = "클래스를 입력해주세요";
-		iddiv.style.color = 'green';
-		idcheck = false;
-
-	} else {
+	$.ajax({
+		url : "adminMainView.do",
+		type:'GET',
+		dataType:"html",
+		success:function(data){
+			$('#classlistView').html(data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
+	});
+	
+	$('#searchBtn').click(function(){
+		var searchtype = document.getElementById("searchType").value;
+		var keyword = document.getElementById("keyword").value;
+		
+		console.log("========"+searchtype+"==========");
+		
 		$.ajax({
-			url : 'classCheck.do',
+			url : "classSearch.do",
+			type : 'GET',
 			data : {
-				'class_name' : val
+				  'searchtype' : searchtype,
+				  'keyword' : keyword
+			 },
+			dataType : "html",
+			success:function(data){
+				$('#classlistView').html(data);
 			},
-			dataType : 'json',
-			success : function(data) {
-				if (data.result == true) {
-					classdiv.innerHTML = "사용가능한 클래스 입니다.";
-					classdiv.style.color = 'blue';
-					classcheck = true;
-				} else {
-					classdiv.innerHTML = "사용 불가능한 클래스 입니다.";
-					classdiv.style.color = "red";
-					classcheck = false;
-				}
+			error : function(error) {
+				console.log("===========실패");
 			}
 		});
-	}
-}
-function classCheck() {
-	if(classcheck == false){
-		alert("클래스 명을 확인해주세요");
-		document.getElementById("class_name").focus();
-		return false;
-	}else{
-		var classconfirm = confirm("회원가입 하시겠습니까");
-		if(classconfirm == true){
-			return true;
-		}else{
+	});
+	function classCheck() {
+		if(classcheck == false){
+			alert("클래스 명을 확인해주세요");
+			document.getElementById("class_name").focus();
 			return false;
+		}else{
+			var classconfirm = confirm("회원가입 하시겠습니까");
+			if(classconfirm == true){
+				return true;
+			}else{
+				return false;
+			}
 		}
 	}
-}
+	function confirmClass() {
+		
+		var val = document.getElementById("class_name").value;
+		var iddiv = document.getElementById("classdiv");
+		if (val == "") {
+			classdiv.innerHTML = "클래스를 입력해주세요";
+			iddiv.style.color = 'green';
+			idcheck = false;
 
-function classSearch() {
-	$.ajax({
-		url : 'classSearch.do',
-		data : {
-			/* "member_id" : $("#searchselect").val(), */ 
-			"searchtext" : $("#searchtext").val()
-		},
-		dataType : 'json',
-		success : function(data){
-			console.log(data.result);
+		} else {
+			$.ajax({
+				url : 'classCheck.do',
+				data : {
+					'class_name' : val
+				},
+				dataType : 'json',
+				success : function(data) {
+					if (data.result == true) {
+						classdiv.innerHTML = "사용가능한 클래스 입니다.";
+						classdiv.style.color = 'blue';
+						classcheck = true;
+					} else {
+						classdiv.innerHTML = "사용 불가능한 클래스 입니다.";
+						classdiv.style.color = "red";
+						classcheck = false;
+					}
+				}
+			});
 		}
-	})
-	
-}
+	}
+
+})
+
 </script>

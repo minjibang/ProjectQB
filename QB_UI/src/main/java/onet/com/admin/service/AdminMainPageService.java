@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.admin.dao.AdminDao;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ClassDto;
+import onet.com.vo.QuestionDto;
 
 @Service
 public class AdminMainPageService {
@@ -26,11 +28,14 @@ public class AdminMainPageService {
 		String result = dao.classCheck(class_name);
 		return result;
 	}
-	
-	public List<ClassDto> classSearch(String searchtext) {
+	public List<ClassDto> adminMainView(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<ClassDto> result = dao.classSearch(searchtext);
-		
+		List<ClassDto> result = dao.adminMainView();
+		return result;
+	}
+	public List<ClassDto> classSearch(String searchtype, String keyword){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ClassDto> result = dao.classSearch(searchtype, keyword);
 		return result;
 	}
 

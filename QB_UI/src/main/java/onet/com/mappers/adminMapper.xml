@@ -3,6 +3,35 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.admin.dao.AdminDao">
+<!-- 태용 시작 -->
+<sql id="search">
+	<if test="param1 ==''">
+		where class_name like concat('%',#{param2},'%') or teacher_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="n"'>
+		where class_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="t"'>
+		where teacher_name like concat('%',#{param2},'%')
+	</if>
+</sql>
+
+<select id="adminMainView" resultType="onet.com.vo.ClassDto">
+	select * from class
+</select>
+
+<select id="classSearch" resultType="onet.com.vo.ClassDto">
+	select * from class <include refid="search"></include>
+</select>
+
+<insert id="classInsert" parameterType="onet.com.vo.ClassDto">
+	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
+</insert>
+<select id="classCheck" resultType="String">
+	select class_name from class where class_name = #{class_name}
+</select>
+
+<!-- 태용 끝 -->
 
 <!-- 재훈 - 10.08 문제분류관련 (문제관리페이지 시작 -->
 
@@ -38,16 +67,9 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
     
 </insert>
 
-<insert id="insertQuestionChoice" parameterType="java.util.HashMap">
-	<foreach item="item" index="index" collection="list">
+<insert id="insertQuestionChoice">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values(#{item.question_num},#{item.question_choice_num},#{item.question_choice_content});
-	</foreach>
-
-	
-	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values(#{question_num}, #{question_choice_num}, #{question_choice_content}); -->
-	
+	values(#{param1},#{param2},#{param3});
 </insert>
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
@@ -62,7 +84,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	WHERE NOT role_code='ROLE_ADMIN'
 </select>
 
-
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 
 
@@ -74,7 +95,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
 	select class_name, teacher_name, class_start_date, class_end_date, class_enable, class_num
-	 from class
+	 from class <include refid="search"></include>
 </select>
 
 <select id="classlist" parameterType="onet.com.vo.ClassDto" resultType="onet.com.vo.ClassDto">
@@ -169,18 +190,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 정원 10.15 문제분류관리 insert 끝 -->
 
-<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  -->
-<insert id="classInsert" parameterType="onet.com.vo.ClassDto">
-	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
-</insert>
-<select id="classCheck" resultType="String">
-	select class_name from class where class_name = #{class_name}
-</select>
-<select id="classSearch" parameterType="String" resultType="onet.com.vo.ClassDto">
-	select * from class where class_name like concat('%',#{searchtext},'%')
-</select>
-<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
-
 
 <!-- 정원 10.16 문제분류관리 -->
 
@@ -226,6 +235,22 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
 
+<!-- 정원 문제분류 삭제 -->
+<delete id="lgDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_lg_category where lg_category_code = #{lg_category_code}
+</delete>
+
+<delete id="mdDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_md_category where md_category_code = #{md_category_code}
+</delete>
+
+<delete id="smDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_sm_category where sm_category_code = #{sm_category_code}
+</delete>
+
+<select id="questionDeleteSearch" parameterType="String" resultType="String">
+	select sm_category_code from question where sm_category_code=#{smDeleteCode}
+</select>
 
 
 
