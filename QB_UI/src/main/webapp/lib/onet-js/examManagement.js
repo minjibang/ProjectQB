@@ -35,7 +35,7 @@ $(document).ready(function() {
 		
 						/*$(".exam_paper_name:eq(" + index + ")").remove();
 						$(".exam_paper_name:eq(" + index + ")").submit();*/
-						alert("삭제 성공");
+						alert("삭제된 시험지 값 : " + examName);
 						location.href="examManagement.do?class_num="+class_num_parameter;
 					},
 					error: function(error){
@@ -46,44 +46,36 @@ $(document).ready(function() {
 					
 		});
 		
-		
-		
-		
+
 		/* 시험 일정 페이지 삭제 버튼 구현 */
 
-		/*$("button[name='deleteExamScheduleBtn']").click(function(){
-			action = 'delete';
-			type = 'PUT';
-			examinfoname = this.value;
+		$("button[name='deleteExamScheduleBtn']").click(function(){
 			
-			var row = $(this);
-			var p = row.children();
+			var index = $("button[name='deleteExamScheduleBtn']").index(this);
 			
+			console.log("시험 일정 이름 가져오기 : " + index);	
 			
 		});
-			 시험 일정 삭제 모달창 
+			 /*시험 일정 삭제 모달창 */ 
 			$('#deletebtn').click(function(){
-				var _param = {exam_info_name:$("#exam_info_name").val()};
 				
-				var _data = JSON.stringify(_param); //jsonString으로 변환
+				var examInfoName = $("#exam_info_name").text();
+				var class_num_parameter=$('#hidden_class_num').val();
 				
 				$.ajax({
 					type : "post",
 					url : "teacherExamSchedultDelete.do",
-					cache : false,
-					dataType : "json",
-					data : _data,
-					processData : false,
+					data : {
+						"exam_info_name": examInfoName
+					},
 					contentType : "application/json; charset=utf-8",
-					success : function(data, status){
-						$('').remove();
-						alert("삭제된 시험 일정 값 : " + exam_info_name);
-						location.href="examManagement.do";
+					success : function(data){
+						alert("삭제된 시험 일정 값 : " + examInfoName);
+						location.href="examManagement.do?class_num="+class_num_parameter;
 					},
 					error: function(request, status, error){
 						alert("에러에러에러에러에러에러");
 					}
 				});
-			});*/
-		
-	});
+			});
+});

@@ -37,5 +37,8 @@ public interface TeacherDao {
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype);
 	
 	/*--성태용 끝--*/
-
+	
+	/* 영준 - 10.18 시험일정 삭제 시작 */
+	public int examScheduleDelete(ExamInfoDto dto);
+	/* 영준 - 10.18 시험일정 삭제 끝 */
 }
