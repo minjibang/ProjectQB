@@ -59,49 +59,25 @@ public class AdminService {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.insertQuestion(dto);
 		return result;
-
 	}
 	
 	@Transactional
 	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
-		int result = 0;
-		
+		int result = 0;		
+		String[] question_choice_num;
+		String[] question_choice_content;
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		dto.setQuestion_num(dto2.getQuestion_num());
 		
-		List<Question_choiceDto> list = new ArrayList<Question_choiceDto>();
-		list.add(dto);
-		System.out.println("list:" + list);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list",list);
-		
-		System.out.println("map:" + map);
-		
-		result=dao.insertQuestionChoice("dao.insertQuestionChoice", map);
+		int question_num=dto2.getQuestion_num();		
+		question_choice_num=dto.getQuestion_choice_num().split(",");
+		question_choice_content=dto.getQuestion_choice_content().split(",");
+					
+		for(int i=0;i<question_choice_num.length;i++) {
+			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
+		}		
 		
 		return result;
 	}
-	
-/*	public int insertQuestionChoice(Question_choiceDto dto, QuestionDto dto2) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
-		+" question_choice_num: "+ dto.getQuestion_choice_num()
-		+" question_choice_content: " + dto.getQuestion_choice_content() + "(before insert)");
-		
-		
-		dto.setQuestion_num(dto2.getQuestion_num());
-		int result = dao.insertQuestionChoice(dto);
-		
-		
-		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
-		+" question_choice_num: "+ dto.getQuestion_choice_num()
-		+" question_choice_content: " + dto.getQuestion_choice_content() + "(after insert)");
-		
-		
-		return result;
-	}
-	*/
 	
 	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
 
@@ -317,4 +293,29 @@ public class AdminService {
 		int result = dao.lgDelete(dto);
 		return result;
 	}
+	
+	public int mdDelete(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.mdDelete(dto);
+		return result;
+	}
+	
+	public int smDelete(String smDeleteCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = 0;
+		List<QuestionDto> qSearch = dao.questionDeleteSearch(smDeleteCode);
+		System.out.println(qSearch);
+		CategoryDto dto = new CategoryDto();
+		dto.setSm_category_code(smDeleteCode);
+		System.out.println(qSearch);
+		if(qSearch == null) {
+			result = dao.smDelete(dto);
+			return result;
+		}else {
+			return result;	
+		}
+	}
+	
+	
+	
 }

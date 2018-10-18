@@ -2,7 +2,6 @@
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
@@ -46,10 +46,6 @@ public class AdminController {
 	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
 	public String adminMain(Model model) {
-		List<ClassDto> classList;
-		
-		classList = adminService.classList();
-		model.addAttribute("classList",classList);
 		
 		return "admin.adminMain";
 	}
@@ -300,7 +296,6 @@ public class AdminController {
 		model.addAttribute("quesLevelList",quesLevelList);
 		
 		String member_id = principal.getName();
-		System.out.println("아이디 : " +member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 		
@@ -309,13 +304,45 @@ public class AdminController {
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
-		int result = 0;
-
+	
+		if (dto2.getQuestion_type().equals("객관식")) {
 		adminService.insertQuestion(dto2);
-		/*adminService.insertQuestionChoice(dto2, dto);*/
-		result = adminService.insertQuestionChoice(dto2, dto);
-		
+		adminService.insertQuestionChoice(dto2, dto);
+		} else {
+		adminService.insertQuestion(dto2);
+		}
 		return "common.adminClass.admin.question.questionManagement";
+	}
+	
+	@RequestMapping(value="myQuestionView.do")
+	public @ResponseBody ModelAndView classListView(Model model) {
+		List<QuestionDto> question = teacherService.question();
+		model.addAttribute("question", question);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		model.addAttribute("question_choice", question_choice);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="questionSearch.do")
+	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+		
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
 	}
 	
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
@@ -431,52 +458,55 @@ public class AdminController {
 	
 	// 정원 - 문제분류관리 update 시작
 	@RequestMapping("lgUpdate.do")
-	public @ResponseBody Map<String, Object> lgUpdate(String lgCatCode, String lgCatName) {
+	public @ResponseBody Map<String, Object> lgUpdate(String lgCatCode, String lgCatName, String lgBeforeName) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		CategoryDto dto = new CategoryDto();
 		String check = adminService.lgCatIdCheck(lgCatName);
-		if((check != null) && (!check.equals(lgCatName))){
+		if((lgCatName.equals(lgBeforeName)) || check == null) {
+			dto.setLg_category_code(lgCatCode);
+			dto.setLg_category_name(lgCatName);
+			adminService.lgUpdate(dto);
+			map.put("result", "null");
+			return map;
+		}else{
 			map.put("result","Notnull");
 			return map;
-		}else {
-		dto.setLg_category_code(lgCatCode);
-		dto.setLg_category_name(lgCatName);
-		adminService.lgUpdate(dto);
-		return null;
-	}
+		}
+		
 	}	
 		@RequestMapping("mdUpdate.do")
-		public @ResponseBody Map<String, Object> mdUpdate(String mdCatCode, String mdCatName, String lgSelectCode) {
+		public @ResponseBody Map<String, Object> mdUpdate(String mdCatCode, String mdCatName, String lgSelectCode, String mdBeforeName) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			CategoryDto dto = new CategoryDto();
 			String check = adminService.mdCatIdCheck(mdCatName);
-			if((check != null)&&(!check.equals(mdCatName))) {
-				map.put("result","Notnull");
-				return map;
-			}else {
+			if((mdCatName.equals(mdBeforeName)) || check == null) {
 				dto.setLg_category_code(lgSelectCode);
 				dto.setMd_category_code(mdCatCode);
 				dto.setMd_category_name(mdCatName);
 				adminService.mdUpdate(dto);
-				return null;
+				map.put("result", "null");
+				return map;
+			}else {
+				map.put("result","Notnull");
+				return map;
 			}
 		}
 		
 		@RequestMapping("smUpdate.do")
-		public @ResponseBody Map<String, Object> smUpdate(String smCatCode, String smCatName, String mdSelectCode) {
+		public @ResponseBody Map<String, Object> smUpdate(String smCatCode, String smCatName, String mdSelectCode, String smBeforeName) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			CategoryDto dto = new CategoryDto();
 			String check = adminService.smCatIdCheck(smCatName);
-			if((check != null)&&(!check.equals(smCatName))) {
-				map.put("result","Notnull");
-				return map;
-			}else {
+			if((smCatName.equals(smBeforeName)) || check == null) {
 				dto.setMd_category_code(mdSelectCode);
 				dto.setSm_category_code(smCatCode);
 				dto.setSm_category_name(smCatName);
 				adminService.smUpdate(dto);
-				return null;
-			
+				map.put("result", "null");
+				return map;
+			}else {
+				map.put("result","Notnull");
+				return map;
 			}
 		}
 	// 정원 - 문제분류관리 update 끝
@@ -501,13 +531,29 @@ public class AdminController {
 			dto.setLg_category_code(lgDeleteCode);
 			adminService.lgDelete(dto);
 			return null;
-		
-		
+	} 
+	
+	@RequestMapping("mdDelete.do")
+	public @ResponseBody Map<String, Object> mdDelete(String mdDeleteCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		CategoryDto dto = new CategoryDto();
+			dto.setMd_category_code(mdDeleteCode);
+			adminService.mdDelete(dto);
+			return null;
 	}
 	
+	@RequestMapping("smDelete.do")
+	public @ResponseBody Map<String, Object> smDelete(String smDeleteCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+			int result = adminService.smDelete(smDeleteCode);
+			if(result == 0) {
+				map.put("result", "삭제불가");
+			}else {
+				map.put("result", "삭제가능");
+			}
+			return map;
+	}
 	
-	
-
 	
 	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
 	/*민지 :10.17 수정*/
@@ -526,5 +572,7 @@ public class AdminController {
 		return "common.admin.exam.examScheduleUpdate";
 	}
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
+	
 
+	
 }

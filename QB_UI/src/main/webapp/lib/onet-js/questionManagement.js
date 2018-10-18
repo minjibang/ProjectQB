@@ -2,6 +2,35 @@
  * 18.10.15 재훈 questionManagement.js 파일 추가 
  */
 
+ /*관리자-  전체문제 보여주기 시작*/
+$(function() {
+	 $('#questionsearch').click(function(){
+		   var lgsearchtype = document.getElementById("question_lg_category").value;
+		   var mdsearchtype = document.getElementById("question_md_category").value;
+		   var smsearchtype = document.getElementById("question_sm_category").value;
+		   var leveltype = document.getElementById("level_type").value;
+		   var questiontype = document.getElementById("questiontype").value;
+		   
+			$.ajax({
+				  url : "questionSearch.do",
+				  type:'GET',
+				  data : {
+					  'lgsearchtype' : lgsearchtype,
+					  'mdsearchtype' : mdsearchtype,
+					  'smsearchtype' : smsearchtype,
+					  'leveltype' : leveltype,
+					  'questiontype' : questiontype
+				  },
+				  dataType:"html",
+				  success:function(data){
+					  $('#questions').html(data);
+				  }
+			   });
+	   });
+})
+/*관리자-  전체문제 보여주기 끝*/
+
+
 /*문제 타입 변경 시 div 보여주기 시작*/
 function questionType(id){
 	if (id == "questionChoice") {
@@ -25,14 +54,18 @@ $(function() {
 	        $("#questionAnswerRadio4").attr("disabled", false);
 	        $("#questionAnswerRadio5").attr("disabled", false);
 	        $("#questionType2Answer").attr("disabled", true);
+	        
+	        $("#choiceInput").attr("disabled", false);
 	   });
-            $("#question_type_2").click(function(){
+       $("#question_type_2").click(function(){
 			$("#questionAnswerRadio1").attr("disabled", true);
 	        $("#questionAnswerRadio2").attr("disabled", true);
 	        $("#questionAnswerRadio3").attr("disabled", true);
 	        $("#questionAnswerRadio4").attr("disabled", true);
 	        $("#questionAnswerRadio5").attr("disabled", true);
 			$("#questionType2Answer").attr("disabled", false);
+			
+			$("#choiceInput").attr("disabled", true);
 	   });
 });
 		
@@ -95,8 +128,7 @@ $(function() {
 				}	
 		})
 });
-/* 객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 끝 */
-			
+/* 객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 끝 */	
 
 function check(){
 	
@@ -104,38 +136,72 @@ function check(){
 	var _questionLevel = $("#question_level option:selected").val();
 	var _questionName = $("input[type=text][name=question_name]").val();
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
-	var _questionChoiceContent = $("#question_choice_content").val();
+	var _questionChoiceContent1 = $("input[type=text][id=question_choice_content1]").val();
+	var _questionChoiceContent2 = $("input[type=text][id=question_choice_content2]").val();
+	var _questionChoiceContent3 = $("input[type=text][id=question_choice_content3]").val();
+	var _questionChoiceContent4 = $("input[type=text][id=question_choice_content4]").val();
+	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
+	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
+
 	
-	var _QuesContValue = $("input[name='question_choice_content'")
-	
-	alert("_smCategory value=[[ " + _smCategory + " ]]"
-		+ "_questionLevel value=[[ " + _questionLevel + " ]]"
-		+ "_questionChoiceAnswer value=[[ " + _questionChoiceAnswer + " ]]"
-		+ "_questionChoiceContent value=[[ " +_questionChoiceContent + " ]]"
-		+ "_questionName value=[[" + _questionName + " ]]"
- 	);
-	
-	if ($.trim(_smCategory) == "") {
-		alert("문제의 대,중,소 분류를 선택해주세요");
-		document.getElementById("question_sm_category2").focus();
-		return false;
-	}else if ($.trim(_questionLevel) == "") {
-		alert("문제의 난이도를 선택해주세요");
-		document.getElementById("question_level").focus();
-		return false;
-		
-	}else if($.trim(_questionChoiceAnswer) == ""){ 
-		alert("객관식 문제의 정답을 선택해주세요.");
-		document.getElementById("question_answer").focus();
-		return false;
-	
-	}else {
-		var questionInsertConfirm = confirm(
-				"문제를 정말로 등록하시겠습니까?");
-		if(questionInsertConfirm == true){
-			return true;
-		}else{
+	if ($.trim(_shortAnswerQuestion) == "객관식") {
+		/*객관식 문제 생성 유효성검사*/
+		if ($.trim(_smCategory) == "") {
+			alert("문제의 대,중,소 분류를 선택해주세요");
+			document.getElementById("question_sm_category2").focus();
 			return false;
+		} else if ($.trim(_questionLevel) == "") {
+			alert("문제의 난이도를 선택해주세요");
+			document.getElementById("question_level").focus();
+			return false;
+		} else if ($.trim(_questionChoiceAnswer) == "") {
+			alert("문제의 정답을 선택해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent1) == "") {
+			alert("객관식 1번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent2) == "") {
+			alert("객관식 2번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent3) == "") {
+			alert("객관식 3번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent4) == "") {
+			alert("객관식 4번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent5) == "") {
+			alert("객관식 5번 보기를 입력해주세요");
+			return false;
+		} else {
+				var questionInsertConfirm = confirm(
+						"문제를 정말로 등록하시겠습니까?");
+				if(questionInsertConfirm == true){
+					alert("새로운 문제가 등록되었습니다.")
+					return true;
+				}else{
+					return false;
+				}
+		} 
+	}else {
+		/*주관식 문제 생성 유효성검사*/
+		if ($.trim(_smCategory) == "") {
+			alert("문제의 대,중,소 분류를 선택해주세요");
+			document.getElementById("question_sm_category2").focus();
+			return false;
+		} else if ($.trim(_questionLevel) == "") {
+			alert("문제의 난이도를 선택해주세요");
+			document.getElementById("question_level").focus();
+			return false;
+		}else{
+			var questionInsertConfirm = confirm(
+					"문제를 정말로 등록하시겠습니까?");
+			if(questionInsertConfirm == true){
+				alert("새로운 문제가 등록되었습니다.")
+				return true;
+				
+			}else{
+				return false;
+			}
 		}
 	}
-};
+}

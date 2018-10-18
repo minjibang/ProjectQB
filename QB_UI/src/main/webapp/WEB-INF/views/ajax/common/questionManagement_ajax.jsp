@@ -8,7 +8,7 @@
 </head>
 <body>
 	<c:forEach items="${question }" var="question">
-		<div class="questions">
+		<div class="myQuestions">
 			<div
 				class="questionDiv col-lg-11 questionDiv_${question.question_num }">
 				<div class="col-lg-1 qnumdiv">

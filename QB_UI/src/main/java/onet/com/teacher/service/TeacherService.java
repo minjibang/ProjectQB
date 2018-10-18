@@ -43,7 +43,6 @@ public class TeacherService {
 		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.examPaperList(dto);
-		System.out.println("teacherService result 값>>" + result);
 		return result;	
 	}
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
@@ -70,6 +69,7 @@ public class TeacherService {
 		dto.setExam_paper_name(exam_paper_name);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperDelete(dto);
+		System.out.println("teacherService result값 : " + result);
 		return result;
 	}
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
@@ -90,5 +90,16 @@ public class TeacherService {
 	}
 	
 	/*--성태용 끝--*/
+	
+	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
+	public int examScheduleDelete(String exam_info_name) {
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setExam_info_name(exam_info_name);
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examScheduleDelete(dto);
+		System.out.println("teacherService result값 : " + result);
+		return result;
+	}
+	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
 
 }

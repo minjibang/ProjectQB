@@ -24,8 +24,7 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
-	public int insertQuestionChoice(String string, Map<String, Object> map);
-	/*public int insertQuestionChoice(Question_choiceDto dto);*/
+	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content);
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
@@ -64,7 +63,8 @@ public interface AdminDao {
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
 	public String classCheck(String class_name);
-	public List<ClassDto> classSearch(String searchtext);
+	public List<ClassDto> classSearch(String searchtype, String keyword);
+	public List<ClassDto> adminMainView();
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
 
@@ -115,6 +115,11 @@ public interface AdminDao {
 	
 	public int lgDelete(CategoryDto dto);
 
+	public int mdDelete(CategoryDto dto);
+	
+	public int smDelete(CategoryDto dto);
+	
+	public List<QuestionDto> questionDeleteSearch(String smDeleteCode);
 	// 정원 문제분류관리 끝  //
 
 	
