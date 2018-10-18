@@ -43,7 +43,6 @@ public class TeacherService {
 		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.examPaperList(dto);
-		System.out.println("teacherService result 값>>" + result);
 		return result;	
 	}
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
@@ -70,6 +69,7 @@ public class TeacherService {
 		dto.setExam_paper_name(exam_paper_name);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperDelete(dto);
+		System.out.println("teacherService result값 : " + result);
 		return result;
 	}
 	/* 영준 - 10.17 내 시험지 삭제 끝 */

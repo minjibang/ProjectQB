@@ -83,8 +83,8 @@
 													
 													<c:forEach items="${examPaperList}" var="examPaperList">
 														<!-- 시험지 한 개 시작 -->
-														<div class="exam_paper_name">
-															<h4><strong>${examPaperList.exam_paper_name}</strong></h4>
+														<div class="exam-paper-name">
+															<h4 id="exam_paper_name"><strong>${examPaperList.exam_paper_name}</strong></h4>
 															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${examPaperList.exam_paper_desc}
 													<div class="pdf_download text-right"><a href="#">PDF 다운로드
 														<img src="../img/file-download.png"></a>
@@ -224,7 +224,8 @@
 															data-toggle="modal" data-target="#DeleteModal"
 															id="deleteExamScheduleBtn" name="deleteExamScheduleBtn"
 															value="">삭제</button>
-													<button type="button" class="btn btn-theme buttonGroup">시험 일정 수정</button>
+													<button type="button" class="btn btn-theme buttonGroup"
+															onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 일정 수정</button>
 													</div>		
 													<hr>	
 													</div>										
@@ -261,7 +262,8 @@
 	</section>	<!-- wrapper site-min-height -->
 </section> <!-- main-content -->
 
-
+	<script
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
 	<script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
   	<script src="${pageContext.request.contextPath}/lib/tasks.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/lib/onet-js/examManagement.js" type="text/javascript"></script>

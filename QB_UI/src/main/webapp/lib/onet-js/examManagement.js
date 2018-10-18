@@ -8,43 +8,40 @@ $(document).ready(function() {
 	
 	
 	$("button[name='deleteExamPaperBtn']").click(function(){
-		action='delete';
-		type='PUT';
-		
 		var index = $("button[name='deleteExamPaperBtn']").index(this);
 		
-		console.log("시험지 제목 가져오기 : " + index);
+		console.log("시험지 이름 가져오기 : " + index);
+		
+
 	});
 		/* 시험지 삭제 모달창 */
 		$("#deletebtn").click(function(){		
-			var index = $("button[name='deletebtn']").index(this);
-			var _param = {exam_paper_name:".exam_paper_name:eq"};
-			
-			var _data = JSON.stringify(_param);
-			
+		
+		
+			var examName = $("#exam_paper_name").text();
 			var class_num_parameter=$('#hidden_class_num').val();
 			
-			console.log("왜 삭제 안돼 : " + index);
-			
-			$.ajax({
-				type : "post",
-				url : "teacherMyExamDelete.do",
-				cache : false,
-				dataType : "json",
-				data : _data,
-				processData : false,
-				contentType : "application/json; charset=utf-8",
-				success : function(data, status){
-					$(".exam_paper_name:eq(" + index + ")").remove();
-					$(".exam_paper_name:eq(" + index + ")").submit();
-					alert("삭제 성공");
-					location.href="examManagement.do?class_num="+class_num_parameter;
-				},
-				error: function(request, status, error){
-					alert("에러에러에러에러에러에러");
-				}
-			});
-			
+			console.log("시험지 이름 왜 이렇게 나오냐 : " + examName);
+
+				
+				$.ajax({
+					type : "post",
+					url : "teacherMyExamDelete.do",
+					data : {"exam_paper_name":examName
+						
+					},
+					contentType : "application/json; charset=utf-8",
+					success : function(data){
+		
+						/*$(".exam_paper_name:eq(" + index + ")").remove();
+						$(".exam_paper_name:eq(" + index + ")").submit();*/
+						alert("삭제 성공");
+						location.href="examManagement.do?class_num="+class_num_parameter;
+					},
+					error: function(error){
+						alert("에러에러에러에러에러에러");
+					}
+				});
 			
 					
 		});
