@@ -8,10 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import onet.com.admin.dao.AdminDao;
 import onet.com.common.dao.CommonDao;
 import onet.com.vo.ExamInfoDto;
-import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamPaperDoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -83,6 +82,29 @@ public class CommonService {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*현이 - ExamPaperDo 10.17 시작 */ 
+	public List<ExamPaperDoDto> searchExamPaperDo(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		
+		//System.out.println("searchExamPaperDo service에 들어옴");
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<ExamPaperDoDto> examPaperDoDto = commonDao.searchExamPaperDo(exam_info_num);
+		//System.out.println("서비스에서 list의 사이즈 : "+examPaperDoDto.size());
+		
+		return examPaperDoDto;
+	}
+	/*현이 - ExamPaperDo 10.17 끝 */ 
+	
 }
 
 

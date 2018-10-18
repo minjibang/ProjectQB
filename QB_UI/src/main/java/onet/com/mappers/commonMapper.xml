@@ -51,4 +51,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 
+<!-- 현이 - ExamPaperDo 10.17 시작 -->
+<select id="searchExamPaperDo" parameterType="int" resultType="onet.com.vo.ExamPaperDoDto">
+	select eq.exam_question_seq, q.question_num, q.question_type, q.question_name, c.question_choice_num, c.question_choice_content, q.question_answer, eq.exam_question_score
+	from question q left outer join question_choice c 
+	on (q.question_num = c.question_num)
+	join exam_question eq 
+	on (q.question_num = eq.question_num)
+	where q.question_num in 
+	(select question_num from exam_question where exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{exam_info_num}))
+	order by eq.exam_question_seq
+</select>
+<!-- 현이 - ExamPaperDo 10.17 끝 -->
+
+
+
+
 </mapper>

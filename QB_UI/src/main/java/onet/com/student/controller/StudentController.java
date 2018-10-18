@@ -3,11 +3,7 @@ package onet.com.student.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.common.service.CommonService;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -139,17 +136,6 @@ public class StudentController {
 	}
 	
 	
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
-	@RequestMapping("examPaperDo2.do")
-	public String examPaperDo2(Model model, int exam_info_num) {
-
-		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
-		model.addAttribute("dto", dto);
-
-		return "exam.student.examPaperDo2";
-	}
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
-	
 	/* 양회준 10.15 내정보 탈퇴 시작*/
 	@RequestMapping("myPageDrop.do")
 	public String myPageDrop(MemberDto memberDto)
@@ -174,6 +160,45 @@ public class StudentController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
+	@RequestMapping("examPaperDo2.do")
+	public String examPaperDo2(Model model, int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		model.addAttribute("dto", dto);
+		
+		// 현이 10.17 추가
+		List<ExamPaperDoDto> examPaperDoDto = commonService.searchExamPaperDo(exam_info_num);
+		
+		//System.out.println("컨트롤러에서 list의 사이즈 : "+ examPaperDoDto.size());
+		//System.out.println("컨트롤러에서 받아온 dto의 첫번째 값  : "+examPaperDoDto.get(0).getQuestion_name());
+		
+		
+		model.addAttribute("examPaperDoDto", examPaperDoDto);
+		
+
+		return "exam.student.examPaperDo2";
+	}
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }
