@@ -93,10 +93,20 @@
 	$(document).ready(function(){		
 		/*시험 응시*/
 		$('#examBtn').click(function() {
-			var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-			var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
-	
-			window.open(popUrl, "지난 시험보기",popOption);
+			if(examStartDaysRound<0 && examEndDaysRound>=0){
+				//var popupX = (window.screen.width / 2) - (200 / 2);
+				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+				//var popupY= (window.screen.height /2) - (300 / 2);
+				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+				//window.open('', '', 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+				
+				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
+				var popOption = "width=100%, height=100%";
+		
+				window.open(popUrl, "지난 시험보기",popOption);
+			}else{
+				alert("시험이 종료되었습니다.")
+			}
 		});
 		
 		//시험 D-Day 시간계산
@@ -143,7 +153,8 @@
 		var examEndSecondsRound = Math.round(eSeconds);
 							
 		console.log(typeof(examEndDaysRound));
-		console.log(examEndDaysRound);
+		console.log("examEndDaysRound : "+examEndDaysRound);
+		console.log("examStartDaysRound : "+examStartDaysRound);
 		
 		if(examStartDaysRound >= 0){
 			$('#daysRound').html("시험 시작까지 "+examStartDaysRound+"일");
