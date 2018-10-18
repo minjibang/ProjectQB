@@ -82,20 +82,26 @@
 												<div id="examPaperDiv">
 													
 													<c:forEach items="${examPaperList}" var="examPaperList">
-
-															<h4><strong>${examPaperList.exam_paper_name}</strong></h4>
+														<!-- 시험지 한 개 시작 -->
+														<div class="exam-paper-name">
+															<h4 id="exam_paper_name"><strong>${examPaperList.exam_paper_name}</strong></h4>
 															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${examPaperList.exam_paper_desc}
 													<div class="pdf_download text-right"><a href="#">PDF 다운로드
 														<img src="../img/file-download.png"></a>
 														<button type="button" id="deleteExamPaperBtn" name="deleteExamPaperBtn"
 																class="btn btn-theme04 buttonGroup" data-toggle="modal"
 																data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
-														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}teacher/examPaperModify.do'">시험지 수정</button>
+														<button type="button" class="btn btn-theme buttonGroup"
+														 onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
 														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?class_num=${param.class_num}&exam_paper_name=${examPaperList.exam_paper_name}'">시험 등록</button>
-											
+
+														<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
+
 														</div>
 														<hr>
+														<!-- 시험지 한 개 끝 -->
+														</div>
 													</c:forEach>
 
 													</div>
@@ -206,6 +212,7 @@
 												<!-- 시험 일정 하나의 div 시작 -->
 												<div id="examScheduleDiv">
 													<c:forEach items="${examScheduleList}" var="examScheduleList">
+														<div class="exam_info_name">
 														<h4><strong>${examScheduleList.exam_info_name}</strong></h4>
 													<div class="view-schedule text-center">
 													<p>시험 날짜 : ${examScheduleList.exam_info_date}</p>
@@ -217,9 +224,11 @@
 															data-toggle="modal" data-target="#DeleteModal"
 															id="deleteExamScheduleBtn" name="deleteExamScheduleBtn"
 															value="">삭제</button>
-													<button type="button" class="btn btn-theme buttonGroup">시험 일정 수정</button>
+													<button type="button" class="btn btn-theme buttonGroup"
+															onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 일정 수정</button>
 													</div>		
-													<hr>											
+													<hr>	
+													</div>										
 													</c:forEach>
 													
 											</div>
@@ -253,7 +262,8 @@
 	</section>	<!-- wrapper site-min-height -->
 </section> <!-- main-content -->
 
-
+	<script
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
 	<script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
   	<script src="${pageContext.request.contextPath}/lib/tasks.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/lib/onet-js/examManagement.js" type="text/javascript"></script>

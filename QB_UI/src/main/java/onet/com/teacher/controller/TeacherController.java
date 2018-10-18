@@ -3,6 +3,7 @@ package onet.com.teacher.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Question_levelDto;
 
 @Controller
 @RequestMapping("/teacher/")
@@ -114,9 +116,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto, String exam_paper_name)
 	{
-		int result = teacherService.examPaperDelete(dto);
+		int result = teacherService.examPaperDelete(exam_paper_name);
 		String result2 = String.valueOf(result);
 		return result2;
 	}
@@ -127,7 +129,7 @@ public class TeacherController {
 	// 강사 시험지 관련
 	/* 영준 18.10.11 시험지 생성 페이지 시작 */
 	@RequestMapping("examPaperMake.do")
-	public String examPaperMake(Model model) {
+	public String examPaperMake(Model model, Principal principal) {
 		/* 문제 카테고리 */
 		List<CategoryDto> list1;
 		list1 = adminService.lgCategoryList();
@@ -144,13 +146,12 @@ public class TeacherController {
 		List<CategoryDto> levellist;
 		levellist = adminService.questionLevelList();
 		model.addAttribute("levellist",levellist);
-		
-		/*문제 출력*/
 
-		List<QuestionDto> question = teacherService.question();
-		model.addAttribute("question", question);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		model.addAttribute("question_choice", question_choice);
+		
+		String member_id = principal.getName();
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
+
 
 		return "common.teacher.exampaper.examPaperMake";
 	}
@@ -289,4 +290,7 @@ public class TeacherController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+	
+
+
 }

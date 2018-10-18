@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import onet.com.vo.ExamInfoDto;
-import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamPaperDoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
@@ -25,5 +25,13 @@ public interface CommonDao {
 	
 	public int memberDrop(String member_id, String member_pwd) throws ClassNotFoundException, SQLException;
 	/*양회준 - 10.15 내 정보 수정 끝*/
+	
+	
+	
+	
+	
+	/*현이 - ExamPaperDo 10.17 시작 */ 
+	public List<ExamPaperDoDto> searchExamPaperDo(int exam_info_num) throws ClassNotFoundException, SQLException;
+	/*현이 - ExamPaperDo 10.17 끝 */
 
 }

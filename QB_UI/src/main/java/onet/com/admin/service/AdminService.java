@@ -64,21 +64,21 @@ public class AdminService {
 	
 	@Transactional
 	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
-		int result = 0;
-		
+		int result = 0;		
+		String[] question_choice_num;
+		String[] question_choice_content;
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		dto.setQuestion_num(dto2.getQuestion_num());
 		
-		List<Question_choiceDto> list = new ArrayList<Question_choiceDto>();
-		list.add(dto);
-		System.out.println("list:" + list);
+		int question_num=dto2.getQuestion_num();		
+		question_choice_num=dto.getQuestion_choice_num().split(",");
+		question_choice_content=dto.getQuestion_choice_content().split(",");
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list",list);
-		
-		System.out.println("map:" + map);
-		
-		result=dao.insertQuestionChoice("dao.insertQuestionChoice", map);
+		System.out.println("배열 question_choice_num: "+question_choice_num);
+		System.out.println("배열 question_choice_num: "+question_choice_content);
+					
+		for(int i=0;i<question_choice_num.length;i++) {
+			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
+		}		
 		
 		return result;
 	}
