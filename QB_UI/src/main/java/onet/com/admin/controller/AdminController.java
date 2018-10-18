@@ -322,7 +322,7 @@ public class AdminController {
 		model.addAttribute("question_choice", question_choice);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.setViewName("ajax.common.questionManagement_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
 		
