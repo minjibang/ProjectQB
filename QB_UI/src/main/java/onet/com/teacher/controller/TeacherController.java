@@ -307,9 +307,10 @@ public class TeacherController {
 		return result;
 	}	
 	
-	@RequestMapping("insertExamPaper.do")
+	@RequestMapping("examPaperInsert.do")
 	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
 			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
+		System.out.println(exam_paper_name +"//"+ member_id +"\\"+ exam_paper_desc);
 		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
 		return result;
 	}

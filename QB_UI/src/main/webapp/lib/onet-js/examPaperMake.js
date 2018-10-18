@@ -70,15 +70,20 @@ jQuery(document).ready(function() {
 			$('.exam-paper-desc').focus();
 		}else{
 			swal("데이터를 뿌려보자");
-
-			/*$.ajax({
+			
+			var examName = $('.exam-paper-name').val();
+			var examDesc = $('.exam-paper-desc').val();
+			var memId = $('.dpn1').val();
+			console.log("시험지이름 및 기타 등등 >> " + examName +"//"+examDesc + "\\" +memId);
+			
+			$.ajax({
 				url:"checkExam_paper.do",
 				type:"get",
 				data:{"exam_paper_name":$('.exam-paper-name').val()},
 				success:function(data){
 					if(data == ""){
 						$.ajax({
-							url:"insertExamPaper.do",
+							url:"examPaperInsert.do",
 							type:"get",
 							dataType:"json",
 							data:{
@@ -88,9 +93,9 @@ jQuery(document).ready(function() {
 								},
 							success:function(data){
 								if(data == "0"){
-									console.log("실패인가?");
+									console.log("실패");
 								}else if(data == "1"){
-									console.log("성공인가?");
+									console.log("성공");
 								}
 							},
 							error:function(xml){
@@ -103,7 +108,7 @@ jQuery(document).ready(function() {
 				error:function(xml){
 					swal("문제가 생겨부럿네");
 				}
-			});*/
+			});
 			var inputQNum = [];
 			$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 				console.log("문제번호 = "+$(this).val());
