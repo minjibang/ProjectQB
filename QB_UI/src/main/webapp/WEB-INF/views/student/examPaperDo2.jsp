@@ -30,7 +30,7 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
 	//	프로그레스바 script 부분
-	var exam_info_time = "${dto.exam_info_time}";
+	var exam_info_time = "${exam_info.exam_info_time}";
 	var hour_ms = parseInt(exam_info_time.substr(0, 2)) * 3600000;
 	var minute_ms = parseInt(exam_info_time.substr(3, 5)) * 60000;
 	var second_ms = parseInt(exam_info_time.substr(6)) * 1000;
@@ -84,13 +84,18 @@
 		});
 
 		// 단답형 답 문제지와 답지 동시에 입력하기 
-		$('#ques_2').change(function() {
-			$('#ques_2_answer').val($(this).val());
-		});
-		$('#ques_2_answer').change(function() {
-			$('#ques_2').val($(this).val());
+		$('.trd_div input[type="text"]').change(function(){
+			var ques_num2 = $(this).attr('id')
+			var _index = ques_num2.lastIndexOf("_");
+			var ques_num = ques_num2.substr(0, _index);
+			$("#" + ques_num).val($(this).val());
 		});
 		
+		$('.fst_div input[type="text"], .scd-div input[type="text"]').change(function(){
+			var ques_num2 = $(this).attr('id').substr(0, 6);
+			var ques_num = ques_num2 + "_answer";
+			$("#" + ques_num).val($(this).val());
+		});		
 	});  // document.ready 종료 
 </script>
 </head>
@@ -169,7 +174,7 @@
 									<c:when test="${question.question_type eq '단답형'}">
 										<tr class="ques_choice">
 											<td class="questionTd"></td>  
-											<td><input type="text" id="ques_${question.exam_question_seq}" name="ques_2"></td>
+											<td><input type="text" id="ques_${question.exam_question_seq}" class="" name="ques_${question.exam_question_seq}"></td>
 										</tr>
 									</c:when>
 								</c:choose>
@@ -195,14 +200,16 @@
 										<c:forEach var="questionChoice" items="${questionChoiceList}" varStatus="status">
 											<c:if test="${questionChoice.question_num eq question.question_num}">
 												<td class="tg-baqh answer_choice">
-					                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_1" id="ans_img_ques_1_1" src="../img/oximg_v.png"></div>
+					                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_${question.exam_question_seq}" 
+					                                id="ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+					                                src="${pageContext.request.contextPath}/img/oximg_v.png"></div>
 					                                ${questionChoice.question_choice_num} 
 					                            </td>
 											</c:if>
 										</c:forEach>
 									</c:when>
 									<c:when test="${question.question_type eq '단답형'}">
-										<td class="tg-baqh answer_choice" colspan="5"><input type="text" name="" id="ques_2_answer" ></td>
+										<td class="tg-baqh answer_choice" colspan="5"><input type="text" class="" name="" id="ques_${question.exam_question_seq}_answer" ></td>
 									</c:when>
 								</c:choose>
 							</tr>
