@@ -33,4 +33,9 @@ public interface TeacherDao {
 	public List<ExamInfoDto> examScheduleList();
 	/* 영준 - 10.16 시험일정 리스트 불러오기 끝 */
 
+	/*--성태용 시작--*/
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype);
+	
+	/*--성태용 끝--*/
+
 }

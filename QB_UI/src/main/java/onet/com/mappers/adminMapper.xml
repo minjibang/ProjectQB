@@ -4,6 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.admin.dao.AdminDao">
 
+<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 'n'.toString()">
+			where class_name concat('%',#{keyword},'%')
+		</if>
+		<if test="searchType == 't'.toString()">
+			where teacher_name concat('%',#{keyword},'%')
+		</if>
+	</if>
+
+</sql>
+
 <!-- 재훈 - 10.08 문제분류관련 (문제관리페이지 시작 -->
 
 <select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
@@ -74,7 +86,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
 	select class_name, teacher_name, class_start_date, class_end_date, class_enable, class_num
-	 from class
+	 from class <include refid="search"></include>
 </select>
 
 <select id="classlist" parameterType="onet.com.vo.ClassDto" resultType="onet.com.vo.ClassDto">

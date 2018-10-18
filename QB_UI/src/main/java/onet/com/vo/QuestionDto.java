@@ -12,7 +12,7 @@ public class QuestionDto {
 	private String sm_category_code;
 	private String level_code;
 	private String member_id;
-	
+
 	/* 문제 뿌려주기 시 코드 아닌 이름 불러오기 */
 	private String sm_category_name;
 	private String md_category_name;
@@ -20,7 +20,7 @@ public class QuestionDto {
 	private String lg_category_name;
 	private String lg_category_code;
 	private String level_name;
-
+	
 	public int getQuestion_num() {
 		return question_num;
 	}
@@ -81,7 +81,6 @@ public class QuestionDto {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-
 	public String getSm_category_name() {
 		return sm_category_name;
 	}
@@ -118,5 +117,7 @@ public class QuestionDto {
 	public void setLevel_name(String level_name) {
 		this.level_name = level_name;
 	}
+
+
 	
 }

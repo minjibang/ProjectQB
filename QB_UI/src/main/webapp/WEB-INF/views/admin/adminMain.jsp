@@ -39,13 +39,14 @@
 									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
-								<select class="form-control searchRightBtnDiv" id="searchselect" name="searchselect">
-									<option>클래스명</option>
-									<option>강사</option>
-									<option>교육과목</option>
+								<select class="form-control searchRightBtnDiv" id="searchType" name="searchType">
+									<option value="">test</option>
+									<option value="n">클래스명</option>
+									<option value="t">강사</option>
+									<option value="c">교육과목</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
-									placeholder="검색어를 입력" id="searchtext" name="searchtext">
-								<button type="button" class="btn btn-theme searchRightBtnDiv" id="classSearchBtn" onclick="classSearch()">검색</button>
+									placeholder="검색어를 입력" id="keyword" name="keyword">
+								<button type="button" class="btn btn-theme searchRightBtnDiv" id="searchBtn">검색</button>
 							</div>
 						</div>
 
@@ -209,4 +210,20 @@ function classSearch() {
 	})
 	
 }
+</script>
+<script>
+	document.getElementById("searchBtn").addEventListener("click",function(){
+		var x = document.getElementById("searchType").selectedIndex;
+		var y = document.getElementById("searchType").options;
+		
+		keyword = document.getElementById("keyword").value;
+		
+		console.log("=========="+y[x].value);
+		console.log("============="+x);
+		console.log("============="+y);
+		
+		location.href="?searchType="+y[x].value +"&keyword="+keyword;
+	});
+
+
 </script>

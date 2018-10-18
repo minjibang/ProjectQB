@@ -21,7 +21,7 @@ public class MainPageController {
 	
 	@Autowired
 	private AdminMainPageService adminMainPageService;
-
+	/*태용 시작*/
 	@RequestMapping(value="classInsert.do",method=RequestMethod.POST)
 	public String classInert(ClassDto dto) {
 		
@@ -53,4 +53,5 @@ public class MainPageController {
 		System.out.println(map.get("result"));
 		return model;
 	}
+	/*태용 끝*/
 }

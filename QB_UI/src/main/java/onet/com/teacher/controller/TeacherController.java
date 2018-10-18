@@ -146,21 +146,12 @@ public class TeacherController {
 		List<CategoryDto> levellist;
 		levellist = adminService.questionLevelList();
 		model.addAttribute("levellist",levellist);
-		
-		/*문제 출력*/
 
-		List<QuestionDto> question = teacherService.question();
-		model.addAttribute("question", question);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		model.addAttribute("question_choice", question_choice);
-		
-		/*난이도 출력*/
-		List<Question_levelDto> question_level = teacherService.question_level();
-		model.addAttribute("question_level", question_level);
 		
 		String member_id = principal.getName();
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
+
 
 		return "common.teacher.exampaper.examPaperMake";
 	}
@@ -300,6 +291,7 @@ public class TeacherController {
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
 	
+
 	/*한결 10.17 임시저장 및 시험지 저장 관련 시작*/
 	@RequestMapping("checkExam_paper.do")
 	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
@@ -315,4 +307,5 @@ public class TeacherController {
 		return result;
 	}
 	/*한결 10.17 임시저장 및 시험지 저장 관련 끝*/
+
 }
