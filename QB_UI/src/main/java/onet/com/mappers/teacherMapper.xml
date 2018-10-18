@@ -75,8 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
 <select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
-	SELECT exam_info_name, exam_info_date, exam_info_start, exam_info_end, exam_info_time, exam_info_member
-	FROM exam_info
+	SELECT * FROM exam_info
 </select>
 <!-- 영준 10.16 시험 일정 리스트 불러오기 끝 -->
 
@@ -89,6 +88,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into exam_paper(exam_paper_name, member_id, exam_paper_desc) values(#{param1}, #{param2}, #{param3})
 </insert>
 <!-- 한결 10.17 끝-->
+
+<!-- 영준 10.18 시험 일정 삭제 시작 -->
+<delete id="examScheduleDelete" parameterType="onet.com.vo.ExamInfoDto">
+	DELETE FROM exam_info
+	WHERE exam_info_name=#{exam_info_name}
+</delete>
 </mapper>
 
 

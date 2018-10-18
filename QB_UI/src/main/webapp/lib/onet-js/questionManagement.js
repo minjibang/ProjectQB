@@ -25,14 +25,18 @@ $(function() {
 	        $("#questionAnswerRadio4").attr("disabled", false);
 	        $("#questionAnswerRadio5").attr("disabled", false);
 	        $("#questionType2Answer").attr("disabled", true);
+	        
+	        $("#choiceInput").attr("disabled", false);
 	   });
-            $("#question_type_2").click(function(){
+       $("#question_type_2").click(function(){
 			$("#questionAnswerRadio1").attr("disabled", true);
 	        $("#questionAnswerRadio2").attr("disabled", true);
 	        $("#questionAnswerRadio3").attr("disabled", true);
 	        $("#questionAnswerRadio4").attr("disabled", true);
 	        $("#questionAnswerRadio5").attr("disabled", true);
 			$("#questionType2Answer").attr("disabled", false);
+			
+			$("#choiceInput").attr("disabled", true);
 	   });
 });
 		
@@ -104,38 +108,72 @@ function check(){
 	var _questionLevel = $("#question_level option:selected").val();
 	var _questionName = $("input[type=text][name=question_name]").val();
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
-	var _questionChoiceContent = $("#question_choice_content").val();
+	var _questionChoiceContent1 = $("input[type=text][id=question_choice_content1]").val();
+	var _questionChoiceContent2 = $("input[type=text][id=question_choice_content2]").val();
+	var _questionChoiceContent3 = $("input[type=text][id=question_choice_content3]").val();
+	var _questionChoiceContent4 = $("input[type=text][id=question_choice_content4]").val();
+	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
+	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
+
 	
-	var _QuesContValue = $("input[name='question_choice_content'")
-	
-	alert("_smCategory value=[[ " + _smCategory + " ]]"
-		+ "_questionLevel value=[[ " + _questionLevel + " ]]"
-		+ "_questionChoiceAnswer value=[[ " + _questionChoiceAnswer + " ]]"
-		+ "_questionChoiceContent value=[[ " +_questionChoiceContent + " ]]"
-		+ "_questionName value=[[" + _questionName + " ]]"
- 	);
-	
-	if ($.trim(_smCategory) == "") {
-		alert("문제의 대,중,소 분류를 선택해주세요");
-		document.getElementById("question_sm_category2").focus();
-		return false;
-	}else if ($.trim(_questionLevel) == "") {
-		alert("문제의 난이도를 선택해주세요");
-		document.getElementById("question_level").focus();
-		return false;
-		
-	}else if($.trim(_questionChoiceAnswer) == ""){ 
-		alert("객관식 문제의 정답을 선택해주세요.");
-		document.getElementById("question_answer").focus();
-		return false;
-	
-	}else {
-		var questionInsertConfirm = confirm(
-				"문제를 정말로 등록하시겠습니까?");
-		if(questionInsertConfirm == true){
-			return true;
-		}else{
+	if ($.trim(_shortAnswerQuestion) == "객관식") {
+		/*객관식 문제 생성 유효성검사*/
+		if ($.trim(_smCategory) == "") {
+			alert("문제의 대,중,소 분류를 선택해주세요");
+			document.getElementById("question_sm_category2").focus();
 			return false;
+		} else if ($.trim(_questionLevel) == "") {
+			alert("문제의 난이도를 선택해주세요");
+			document.getElementById("question_level").focus();
+			return false;
+		} else if ($.trim(_questionChoiceAnswer) == "") {
+			alert("문제의 정답을 선택해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent1) == "") {
+			alert("객관식 1번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent2) == "") {
+			alert("객관식 2번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent3) == "") {
+			alert("객관식 3번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent4) == "") {
+			alert("객관식 4번 보기를 입력해주세요");
+			return false;
+		} else if ($.trim(_questionChoiceContent5) == "") {
+			alert("객관식 5번 보기를 입력해주세요");
+			return false;
+		} else {
+				var questionInsertConfirm = confirm(
+						"문제를 정말로 등록하시겠습니까?");
+				if(questionInsertConfirm == true){
+					alert("새로운 문제가 등록되었습니다.")
+					return true;
+				}else{
+					return false;
+				}
+		} 
+	}else {
+		/*주관식 문제 생성 유효성검사*/
+		if ($.trim(_smCategory) == "") {
+			alert("문제의 대,중,소 분류를 선택해주세요");
+			document.getElementById("question_sm_category2").focus();
+			return false;
+		} else if ($.trim(_questionLevel) == "") {
+			alert("문제의 난이도를 선택해주세요");
+			document.getElementById("question_level").focus();
+			return false;
+		}else{
+			var questionInsertConfirm = confirm(
+					"문제를 정말로 등록하시겠습니까?");
+			if(questionInsertConfirm == true){
+				alert("새로운 문제가 등록되었습니다.")
+				return true;
+				
+			}else{
+				return false;
+			}
 		}
 	}
-};
+}

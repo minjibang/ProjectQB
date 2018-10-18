@@ -10,14 +10,7 @@
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style>
-.dpn{
-	display:none;
-}
-.ppp{
-	background-color:yellow;
-}
-</style>
+
 <section id="main-content">
    <section class="wrapper">
       <div class="row mt">
