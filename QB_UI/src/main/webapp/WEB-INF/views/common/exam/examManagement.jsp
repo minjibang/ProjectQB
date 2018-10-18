@@ -82,7 +82,7 @@
 												<div id="examPaperDiv">
 													
 													<c:forEach items="${examPaperList}" var="examPaperList">
-
+													<input type="hidden" id="exam_paper_num" value='${examPaperList.exam_paper_num}'/>
 															<h4><strong>${examPaperList.exam_paper_name}</strong></h4>
 															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${examPaperList.exam_paper_desc}
 													<div class="pdf_download text-right"><a href="#">PDF 다운로드
@@ -92,7 +92,7 @@
 																data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
 														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}teacher/examPaperModify.do'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
-														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?class_num=${param.class_num}&exam_paper_name=${examPaperList.exam_paper_name}'">시험 등록</button>
+														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?class_num=${param.class_num}&exam_paper_name=${examPaperList.exam_paper_name}&exam_paper_num=${examPaperList.exam_paper_num}&class_name=${param.class_name}'">시험 등록</button>
 											
 														</div>
 														<hr>

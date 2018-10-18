@@ -26,4 +26,8 @@ public interface TeacherDao {
 	/* 영준 - 10.16 시험일정 리스트 불러오기 시작 */
 	public List<ExamInfoDto> examScheduleList();
 	/* 영준 - 10.16 시험일정 리스트 불러오기 끝 */
+	
+	/*민지 - 10.18 시험등록*/
+	public int examInfoInsert(ExamInfoDto dto);
+	/*민지 - 10.18 시험등록 끝*/
 }

@@ -113,7 +113,7 @@
 										<div class="project">
 											<div class="photo-wrapper">
 												<div class="photo">
-													<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}">
+													<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}&class_name=${classlist.class_name}">
 														<div class="weather-4 pn-big centered">
 															<i class="fa fa-desktop"></i>
 															<h1>JAVA</h1>

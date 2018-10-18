@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.index.dao.IndexDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
@@ -55,4 +56,13 @@ public class TeacherService {
 		return result;
 	}
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 끝 */
+	
+	/*민지 - 10.18 시험등록*/
+	public int examInfoInsert(ExamInfoDto dto){
+		
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examInfoInsert(dto);
+		return result;
+	}
+	/*민지- 10.18 시험등록 끝*/
 }
