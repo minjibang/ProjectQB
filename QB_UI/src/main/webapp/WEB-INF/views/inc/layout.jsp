@@ -31,8 +31,9 @@
 	href="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-timepicker/compiled/timepicker.css" />
+<%-- 양회준 link 경로 수정 (/css 추가)--%>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/datertimepicker.css" />
+	href="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/css/datertimepicker.css" />
 <%-- 회준 css 끝 --%>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/zabuto_calendar.css">
@@ -240,6 +241,7 @@
 		src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/lang/ko.min.js"></script>
 	<%-- 회준 js 시작 --%>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
