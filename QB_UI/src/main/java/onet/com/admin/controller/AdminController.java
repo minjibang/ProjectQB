@@ -493,5 +493,20 @@ public class AdminController {
 		map.get("result");
 		return map;
 	}
+	
+	// 정원 -문제분류 delete 시작
+	@RequestMapping("lgDelete.do")
+	public @ResponseBody Map<String, Object> lgDelete(String lgDeleteCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		CategoryDto dto = new CategoryDto();
+			dto.setLg_category_code(lgDeleteCode);
+			adminService.lgDelete(dto);
+			return null;
+		
+		
+	}
+	
+	
+	
 
 }

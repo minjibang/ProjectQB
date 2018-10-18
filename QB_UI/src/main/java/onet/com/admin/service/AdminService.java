@@ -265,5 +265,10 @@ public class AdminService {
 	
 	/*민지 - 10.17 클래스 수정 이름 중복체크 끝  */
 
-	
+	/* 정원 - 문제분류관리 삭제 */
+	public int lgDelete(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.lgDelete(dto);
+		return result;
+	}
 }

@@ -109,6 +109,7 @@ public interface AdminDao {
 	
 	public int smUpdate(CategoryDto dto);
 	
+	public int lgDelete(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
 
 	
