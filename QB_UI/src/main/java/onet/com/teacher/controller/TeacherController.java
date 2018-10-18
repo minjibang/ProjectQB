@@ -124,6 +124,16 @@ public class TeacherController {
 	}
 	/* 영준 - 18.10.17 내 시험지 삭제 끝 */
 	
+	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
+	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
+	public @ResponseBody String teacherExamSchedultDelete(@RequestBody ExamInfoDto dto, String exam_info_name)
+	{
+		int result = teacherService.examScheduleDelete(exam_info_name);
+		String result2 = String.valueOf(result);
+		return result2;
+	}
+	/* 영준 - 18.10.18 시험 일정 삭제 끝 */
+	
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 
 	// 강사 시험지 관련
@@ -166,13 +176,26 @@ public class TeacherController {
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 
 	/* 현이 18.10.11 시험지 수정 페이지 시작 */
+	/* 영준 18.10.18 시험지 수정 시작 */
 	@RequestMapping("examPaperModify.do")
-	public String examPaperModify() {
-
+	public String examPaperModify(Model model, int class_num) {
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList(class_num);
+		model.addAttribute("examPaperList", examPaperList);
+		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
 		return "common.teacher.exampaper.examPaperModify";
 	}
 	/* 현이 18.10.11 시험지 수정 페이지 끝 */
-
+	/* 영준 18.10.18 시험지 수정 끝 */
+	
+	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 시작 */
+	@RequestMapping("examScheduleRegist.do")
+	public String examScheduleRegist() {
+		
+		return "common.teacher.exam.examScheduleRegist";
+	}
+	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 끝 */
+	
 	/* 민지 18.10.10 강사 시험감독 페이지 시작 */
 	@RequestMapping("examPaper.do")
 	public String examPaper() {

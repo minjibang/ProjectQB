@@ -1,17 +1,17 @@
 <%-- 
-	@JSP:examScheduleUpdate.jsp
-	@DATE:2018-10-14
-	@Author:양회준
-	@Desc:강사-시험 일정 등록/수정(스토리보드 28 of 41)
+	@JSP:examScheduleRegist.jsp
+	@DATE:2018-10-18
+	@Author:유영준
+	@Desc:강사-시험 일정 등록(스토리보드 28 of 41) --> 시험 일정 등록 페이지 새로 생성함
  --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link
-	href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
+	href="${pageContext.request.contextPath}/css/examScheduleRegist.css"
 	rel="stylesheet">
  <script
-	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleRegist.js"></script> 
 <section id="main-content">
   <section class="wrapper-low">
   
@@ -23,8 +23,8 @@
               <div id="updateExam" class="tab-pane">
                 <div class="row">
                   <div class="col-md-12">
-                  	<h2><strong>시험 일정 수정</strong></h2>
-                    <div class="col-md-2" id="examScheduleUpdateMember">
+                  	<h2><strong>시험 일정 등록</strong></h2>
+                    <div class="col-md-2" id="examScheduleRegistMember">
 	                    <div class="invite-row">
 	                      <h4 class="pull-left">응시대상자</h4>
 	                    </div>
@@ -123,7 +123,7 @@
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">시험 일정 수정</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">시험 일정 등록</button>
                       </div>
                     </div>
                   </div>
@@ -148,6 +148,7 @@
         <!-- /col-lg-12 -->
       </div>
       <!-- /row -->
+   
     <!-- /container -->
   </section>
   <!-- /wrapper -->
