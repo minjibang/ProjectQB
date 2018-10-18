@@ -3,6 +3,7 @@ package onet.com.index.service;
 
 
 import java.io.StringWriter;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -18,6 +19,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import onet.com.index.dao.IndexDao;
+import onet.com.vo.ClassDto;
 import onet.com.vo.Mail;
 import onet.com.vo.MemberDto;
 
@@ -35,7 +37,11 @@ public class IndexService {
 		
 		HttpServletRequest request;
 
-		
+		public List<ClassDto> classList(){
+			IndexDao dao = sqlsession.getMapper(IndexDao.class);
+			List<ClassDto> result = dao.classList();
+			return result;
+		}
 		public int insertMember(MemberDto dto) {
 			IndexDao dao = sqlsession.getMapper(IndexDao.class);
 			int result = dao.insertMember(dto);
