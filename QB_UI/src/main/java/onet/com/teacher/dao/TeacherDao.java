@@ -4,6 +4,7 @@ import java.util.List;
 
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Question_levelDto;
@@ -19,15 +20,14 @@ public interface TeacherDao {
 	public String examPaperCheck(String exam_paper_name);
 
 	/*10.18 시험지 테이블*/
-	public String examPaperSelect(String exam_paper_name);
 	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc);
 	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num); 
 	
 	/*10.18 시험지 문제 테이블*/
-	public int examQuestionSelect(String exam_paper_num);
+	public int examQuestionSelect(String exam_paper_num, String question_num);
 	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
 	public int examQuestionUpdate(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
-	public int examQuestionDelete(String exam_paper_num, String question_num);
+	public int examQuestionDelete(String exam_paper_num);
 	/*한결 끝*/
 
 	/* 영준 - 10.16 시험관리 관련 시작 */

@@ -108,7 +108,7 @@ jQuery(document).ready(function() {
 						});
 						/*만든 시험지 번호를 받아온다.*/
 						/*$.ajax({
-							url:"examPaperSelect.do",
+							url:"",
 							type:"get",
 							data:{"exam_paper_name":$('.exam-paper-name').val()},
 							success:function(epn){
@@ -117,7 +117,6 @@ jQuery(document).ready(function() {
 								
 							}
 						});           이 방식은 받아오질 못하네..*/
-						var inputQNum = [];
 						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 							console.log("	시험지 번호 = " + epn);
 							console.log("	문제번호 = "+$(this).val());
@@ -143,7 +142,7 @@ jQuery(document).ready(function() {
 					} else{
 						console.log("2-1. data값이 있다. data 값은 [" + data + "] 이다.")
 						/*그 외... 데이터 있음 >> update*/
-						/*$.ajax({
+						$.ajax({
 							url:"examPaperUpdate.do",
 							type:"get",
 							dataType:"json",
@@ -164,35 +163,41 @@ jQuery(document).ready(function() {
 							error:function(xml){
 								swal("업데이트 에러입니다.");
 							}
-						});*/
-						
-						/*select로 DB에 있는 문제번호 받아오기*/
-						$.ajax({
-							url:"examQuestionSelect.do",
-							data:{"exam_paper_num":data},
-							success:function(Qnum){
-								console.log(Qnum);
-								var inputQNum = [];
-								$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-									console.log("시험지 번호 = " + data);
-									console.log("문제번호 = "+$(this).val());
-									console.log("문제 배치번호 = " + index + 1);
-									console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-									
-									
-								});
-							}
 						});
-						
-						
-						
-						/*생각해보자
-						 * 1. 처음에 시험지를 만든다 >> 이후 시험지문제로 넘어감 여기서 examQuestionSelect를 돌린다.
-						 * 2. 내가 처음 만든다 >> select에 걸리는게 없겠지 >> All insert
-						 * 3. 만들다 말았다 >> select의 결과값이 나오겠지 - 해당 문제들은 update, 그 외에 다른 번호들은 insert
-						 * 4. 만들다 변경되서 일부 문제가 없어진다. 
-						 *     >> 내가 찾은 번호들과 select 결과값 비교해서 없어진 번호는 delete
-						 * */
+						$.ajax({
+									url:"examQuestionDelete.do",
+									type:"get",
+									dataType:"json",
+									data:{
+										"exam_paper_num":data
+										},
+									success:function(Qnum){
+										console.log("시험지 번호 ["+data+"] 값 애들 다 지움 >> "+Qnum);
+									}
+								});
+						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+							console.log("시험지 번호 = " + data);
+							console.log("문제번호 = "+$(this).val());
+							console.log("문제 배치번호 = " + index + 1);
+							var EQSeq=(Number(index) + 1);
+							console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+							var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
+								/*insert자리*/
+								$.ajax({
+									url:"examQuestionInsert.do",
+									type:"get",
+									dataType:"json",
+									data:{
+										"exam_paper_num":data,
+										"question_num":$(this).val(),
+										"exam_question_seq":EQSeq,
+										"exam_question_score":Score
+									},
+									success:function(data){
+										console.log(data);
+									}
+								});
+							});
 					}
 				},
 				error:function(xml){

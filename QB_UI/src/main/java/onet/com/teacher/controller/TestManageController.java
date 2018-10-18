@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import onet.com.admin.service.AdminService;
-import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
@@ -68,12 +67,7 @@ public class TestManageController {
 	}	
 	
 	/* 10.17 시험지 테이블 insert and update*/
-	@RequestMapping("examPaperSelect.do")
-	public @ResponseBody String examPaperSelect(@RequestParam("exam_paper_name") String exam_paper_name) {	
-		String result = teacherService.examPaperCheck(exam_paper_name);
-		System.out.println(exam_paper_name);
-		return result;
-	}	
+
 	@RequestMapping("examPaperInsert.do")
 	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
 			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
@@ -92,16 +86,15 @@ public class TestManageController {
 	
 	/*10.18 시험지 문제 테이블 select insert update delete*/
 	@RequestMapping("examQuestionSelect.do")
-	public @ResponseBody int examQuestionSelect(@RequestParam("exam_paper_num") String exam_paper_num) {
-		int result = teacherService.examQuestionSelect(exam_paper_num);
+	public @ResponseBody int examQuestionSelect(@RequestParam("exam_paper_num") String exam_paper_num,
+			@RequestParam("question_num") String question_num) {
+		int result = teacherService.examQuestionSelect(exam_paper_num, question_num);
 		return result;
 	}
 	@RequestMapping("examQuestionInsert.do")
 	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") String exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
 			@RequestParam("exam_question_score") String exam_question_score) {
-		
-			/*ExamPaperDto.setQuestion_num(ExamQuestion.getQuestion_num());*/
 		System.out.println(exam_paper_num + question_num+ exam_question_seq+ exam_question_score);
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
@@ -114,9 +107,8 @@ public class TestManageController {
 		return result;
 	}
 	@RequestMapping("examQuestionDelete.do")
-	public @ResponseBody int examQuestionDelte(@RequestParam("exam_paper_num") String exam_paper_num, 
-			@RequestParam("question_num") String question_num) {
-		int result = teacherService.examQuestionDelete(exam_paper_num, question_num);
+	public @ResponseBody int examQuestionDelte(@RequestParam("exam_paper_num") String exam_paper_num) {
+		int result = teacherService.examQuestionDelete(exam_paper_num);
 		return result;
 	}
 	
