@@ -332,7 +332,8 @@ public class AdminController {
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
+			@RequestParam("keyword") String keyword) {
 		
 		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
