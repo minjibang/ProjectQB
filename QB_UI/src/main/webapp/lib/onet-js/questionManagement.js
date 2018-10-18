@@ -4,12 +4,34 @@
 
  /*관리자-  전체문제 보여주기 시작*/
 $(function() {
-	 $('#questionsearch').click(function(){
+	
+	$.ajax({
+		url : "myQuestionView.do",
+		type:'GET',
+		dataType:"html",
+		success:function(data){
+			$('#myQuestions').html(data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
+	});
+	
+	$('#questionsearch').click(function(){
 		   var lgsearchtype = document.getElementById("question_lg_category").value;
 		   var mdsearchtype = document.getElementById("question_md_category").value;
 		   var smsearchtype = document.getElementById("question_sm_category").value;
 		   var leveltype = document.getElementById("level_type").value;
 		   var questiontype = document.getElementById("questiontype").value;
+		   var keyword = document.getElementById("keyword").value;
+		   
+		   alert(" lgsearchtype: " + lgsearchtype
+				  + "\n mdsearchtype: " + mdsearchtype
+				  + "\n smsearchtype: " + smsearchtype
+				  + "\n leveltype: " + leveltype
+				  + "\n questiontype: " + questiontype
+				  + "\n keyword: " + keyword
+		   		);
 		   
 			$.ajax({
 				  url : "questionSearch.do",
@@ -19,11 +41,12 @@ $(function() {
 					  'mdsearchtype' : mdsearchtype,
 					  'smsearchtype' : smsearchtype,
 					  'leveltype' : leveltype,
-					  'questiontype' : questiontype
+					  'questiontype' : questiontype,
+					  'keyword':keyword
 				  },
 				  dataType:"html",
 				  success:function(data){
-					  $('#questions').html(data);
+					  $('#myQuestions').html(data);
 				  }
 			   });
 	   });
