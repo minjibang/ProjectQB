@@ -9,6 +9,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+.dpn{
+	display:none;
+}
+.ppp{
+	background-color:yellow;
+}
+</style>
 <section id="main-content">
    <section class="wrapper">
       <div class="row mt">
@@ -18,6 +27,7 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
+                        <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
                         <div class="makeExamFirstRow">
                            <hr>
                            <select class="form-control makeExamSelectCategory" name="question_lg_category" id="question_lg_category">
@@ -28,21 +38,25 @@
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_md_category" id="question_md_category">
                                  <option value="">중분류</option>
+                              <c:forEach items="${list2}" var="mdCategoryList">
+                                 <option value="${mdCategoryList.md_category_code}">
+                                 ${mdCategoryList.md_category_name}
+                                 </option>
+                              </c:forEach>
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_sm_category" id="question_sm_category">
                                  <option value="">소분류</option>
                            </select> 
-                           <select class="form-control makeExamSelectCategory" name="">
+                           <select class="form-control makeExamSelectCategory" name="level_type" id="level_type">
                               <option value="">난이도</option>
-                              <option value="D1">기초</option>
-                              <option value="D2">기본</option>
-                              <option value="D3">심화</option>
-                              <option value="D4">실전</option>
-                           </select> <select class="form-control makeExamSelectCategory" name="">
+                              <c:forEach items="${levellist}" var="levellist">
+                                 <option value="${levellist.level_code}">${levellist.level_name}</option>
+                              </c:forEach>
+                           </select> <select class="form-control makeExamSelectCategory" id="questiontype" name="questionType">
                               <option value="">문제타입</option>
                               <option value="">전체</option>
-                              <option value="">객관식</option>
-                              <option value="">단답식</option>
+                              <option value="객관식">객관식</option>
+                              <option value="단답형">단답형</option>
                            </select> <br> <input type="text"
                               class="form-control makeExamTextField"
                               placeholder="키워드를 입력하세요."> <input type="button"
@@ -68,49 +82,14 @@
                   <div class="row">
                      <div class="col-lg-6" id="leftMakeExamDiv">
                         <form aciton="" method="post" id="pickQuestionForm" onsubmit="return false;">
+                           
+                           
                            <!-- 문제 하나의 div 시작  -->
                            <div id="questions">
-                           <c:forEach items="${question }" var="question">
-                           	<div class="questions">
-                              <div class="questionDiv col-lg-11 questionDiv_${question.question_num }">
-                                 <div class="col-lg-1 qnumdiv">
-                                    <input type="checkbox" value="${question.question_num }" name="checkbox[]" />
-                                    <!-- value에 문제고유번호 들어간다 -->
-                                 </div>
-                                 <div class="col-lg-3">
-                                    ${question.md_category_name}<br> 
-                                    ${question.sm_category_name }<br> 
-				                                    난이도: ${question.level_name }<br> 
-				                                    정답: ${question.question_answer }<br>
-				                                    정답률:${question.question_correct_ratio}%<br> 
-				                                    출제자: ${question.member_id }<br>
-                                 </div>
-                                 <div class="col-lg-8">
-                                    <b>${question.question_name }</b><br> <br>
-                                    <div class="questionImgDiv">
-                                       <c:if test="${question.question_img  ne null }">
-                                          <img
-                                             src="${pageContext.request.contextPath}/img/${question.question_img }"
-                                             alt="questionImg" class="questionImg" />
-                                          <!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
-                                       </c:if>
-                                    </div>
-                                    <br>
-                                    <div>
-                                    <c:forEach items="${question_choice}" var="question_choice">
-                                       <c:if test="${question_choice.question_num eq question.question_num}">
-                                          <p>${question_choice.question_choice_num} . ${question_choice.question_choice_content}</p>
-                                       </c:if>
-                                    </c:forEach>
-                                    </div>
-                                 </div>
-                              </div>
-                              </div>
-                              <div class="col-lg-12">
-                                 <hr>
-                              </div>
-                           </c:forEach>
+
                            </div>
+                           
+                           
                         </form>
                      </div>
 
@@ -119,7 +98,7 @@
                         <!--  시험문제 배치 드래그 앤 드롭-->
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
-                              <ul id="sortable" class="task-list">
+                              <ul id="sortable" class="task-list selectedBox">
                               </ul>
                            </div>
                         </form>
@@ -133,13 +112,12 @@
                      </div>
                      <div class="col-lg-6 makeExamBtnDiv">
                         <input type="button" class="btn btn-theme04" value="선택문제 삭제"
-                           id="pickQuestionDeleteBtn"> <!-- <input type="button"
+                           id="pickQuestionDeleteBtn">
+                           <input type="button"
                            class="btn btn-theme" value="임시저장" data-toggle="modal"
                            data-target="#pickQuestionTempSaveModal"
-                           id="pickQuestionTempSaveModalBtn"> -->
-                           <input type="button"
-                           class="btn btn-theme" value="임시저장"
                            id="pickQuestionTempSaveModalBtn">
+                           <input type="hidden" id="copyTempSave" value="">
                         <!--                                <input type="button" class="btn btn-theme" value="시험지 미리보기" id="">  우선순위에서 제외-->
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
@@ -238,9 +216,11 @@
 
                            </div>
                         </div>
-                        <input type="button" class="btn btn-theme" value="시험지 생성"
+                        <!-- <input type="button" class="btn btn-theme" value="시험지 생성"
                            data-toggle="modal" data-target="#makeExamSubmitModal"
-                           id="makeExamSubmitModalBtn">
+                           id="makeExamSubmitModalBtn"> -->
+                        <input type="button" class="btn btn-theme" value="시험지 생성"
+                        id="makeExamSubmitModalBtn">
                      </div>
                   </div>
                   <!-- 모달창 -->
@@ -258,17 +238,19 @@
                            <form action="" method="post">
                               <div class="modal-body">
 
-                                 시험지 이름 <input type="text" class="form-control"
+                                 시험지 이름 <input type="text" class="form-control exam-paper-name"
                                     placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
                                  설명
-                                 <textarea type="textarea" class="form-control"
+                                 <textarea type="textarea" class="form-control exam-paper-desc"
                                     placeholder="시험지 설명을 입력하세요." name=""></textarea>
                               </div>
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                       <input type="button" class="btn btn-theme"
+                                       <!-- <input type="button" class="btn btn-theme"
                                           data-toggle="modal" data-dismiss="modal" value="임시저장"
+                                          id="pickQuestionTempSaveBtn"> -->
+                                       <input type="button" class="btn btn-theme" value="임시저장"
                                           id="pickQuestionTempSaveBtn"> <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
@@ -322,55 +304,65 @@
 </section>
 
 <script>
-$(function(){
+$(document).ready(function(){
+	
+	$.ajax({
+		url : "classListView.do",
+		/* url:"${pageContext.request.contextPath}/examPaperMake2.jsp", */
+		type:'GET',
+		dataType:"html",
+		success:function(data){
+			$('#questions').html(data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
+	})
    $('#question_lg_category').change(function(){
       $('#question_md_category').children('option:not(:first)').remove();
+      $('#question_sm_category').children('option:not(:first)').remove();
       <c:forEach items="${list2}" var="mdlist">
       if(document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}"){
-         $('#question_md_category').append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
+         $('#question_md_category').append("<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
       }
       </c:forEach>
+      /* console.log("this  // " + $(this).val());
+      console.log("Q // "+$('.lg-dpn').val());
+      if($(this).val()== $('.lg-dpn').val()){
+    	  $('.lg-dpn').parents('.questionDiv').addClass("ppp");
+      }  */
    });
    
    $('#question_md_category').change(function(){
       $('#question_sm_category').children('option:not(:first)').remove();
       <c:forEach items="${list3}" var="smlist">
       if(document.getElementById("question_md_category").value == "${smlist.md_category_code}"){
-         $('#question_sm_category').append("<option>${smlist.sm_category_name}</option>")
+         $('#question_sm_category').append("<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
       }
       </c:forEach>
    });
    $('#questionsearch').click(function(){
-	   var lgcategory = $("#question_lg_category option:checked").text().trim();
-	   $('#questions').children().remove();
-	   <c:forEach items="${question}" var="question">
-	   if (lgcategory == "${question.lg_category_name}") {
-	   	$('#questions').append("<div class='questionDiv' col-lg-11 questionDiv_${question.question_num}>"
-	   			+"<div class='col-lg-1 qnumdiv'>"
-	   			+"<input type='checkbox' value='${question.question_num }' name='checkbox[]'>"
-	   			+"</div>"
-	   			+"<div class='col-lg-3'>"
-	   			+"${question.md_category_name}<br> ${question.sm_category_name }<br> 난이도: ${question.level_name }<br> 정답: ${question.question_answer }<br>"
-				+"정답률:${question.question_correct_ratio}%<br> 출제자: ${question.member_id }<br>"
-	   			+"</div>"
-	   			+"<div class='col-lg-8'>"
-	   			+"<b>${question.question_name }</b><br> <br>"
-				+"<div class='questionImgDiv'>"
-				+"<c:if test='${question.question_img  ne null }'>"
-				+"<img src='${pageContext.request.contextPath}/img/sampleQuestionImg.jpg' alt='questionImg' class='questionImg' />"
-				+"</c:if>"
-				+"</div><br>"
-				+"<div>"
-				+"<c:forEach items='${question_choice}' var='question_choice'>"
-				+"<c:if test='${question_choice.question_num eq question.question_num}'>"
-				+"<p>${question_choice.question_choice_num} . ${question_choice.question_choice_content}</p>"
-				+"</c:if>"
-				+"</c:forEach>"
-				+"</div></div></div>"
-				+"<div class='col-lg-12'><hr></div>"
-				);
-	   }
-	   </c:forEach>
+	   var lgsearchtype = document.getElementById("question_lg_category").value;
+	   var mdsearchtype = document.getElementById("question_md_category").value;
+	   var smsearchtype = document.getElementById("question_sm_category").value;
+	   var leveltype = document.getElementById("level_type").value;
+	   var questiontype = document.getElementById("questiontype").value;
+	   
+	$.ajax({
+		  url : "questionSearch.do",
+		  type:'GET',
+		  data : {
+			  'lgsearchtype' : lgsearchtype,
+			  'mdsearchtype' : mdsearchtype,
+			  'smsearchtype' : smsearchtype,
+			  'leveltype' : leveltype,
+			  'questiontype' : questiontype
+		  },
+		  dataType:"html",
+		  success:function(data){
+			  $('#questions').html(data);
+		  }
+	   });
    });
 })
 

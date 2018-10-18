@@ -8,6 +8,7 @@
 		<put-attribute name="title" value="3TEAM"/>
 		<put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp"/>
 	</definition>
+	<definition name="ajax.*.*" template="/WEB-INF/views/ajax/{1}/{2}.jsp"/>
 	
 	<!-- 관리자 클래스 상세보기 페이지  : common.adminClass.권한.기능.파일명  -->
 	<definition name="common.adminClass.*.*.*" template="/WEB-INF/views/inc/layout.jsp">
