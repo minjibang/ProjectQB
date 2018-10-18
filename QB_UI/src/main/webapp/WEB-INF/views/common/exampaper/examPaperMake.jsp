@@ -9,6 +9,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+.dpn{
+	display:none;
+}
+.ppp{
+	background-color:yellow;
+}
+</style>
 <section id="main-content">
    <section class="wrapper">
       <div class="row mt">
@@ -18,6 +27,7 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
+                        <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
                         <div class="makeExamFirstRow">
                            <hr>
                            <select class="form-control makeExamSelectCategory" name="question_lg_category" id="question_lg_category">
@@ -28,16 +38,20 @@
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_md_category" id="question_md_category">
                                  <option value="">중분류</option>
+                              <c:forEach items="${list2}" var="mdCategoryList">
+                                 <option value="${mdCategoryList.md_category_code}">
+                                 ${mdCategoryList.md_category_name}
+                                 </option>
+                              </c:forEach>
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_sm_category" id="question_sm_category">
                                  <option value="">소분류</option>
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="">
                               <option value="">난이도</option>
-                              <option value="D1">기초</option>
-                              <option value="D2">기본</option>
-                              <option value="D3">심화</option>
-                              <option value="D4">실전</option>
+                              <c:forEach items="${question_level}" var="level">
+                              <option value="${level.level_code }">${level.level_name }</option>
+                              </c:forEach>
                            </select> <select class="form-control makeExamSelectCategory" name="">
                               <option value="">문제타입</option>
                               <option value="">전체</option>
@@ -78,6 +92,9 @@
                                     <!-- value에 문제고유번호 들어간다 -->
                                  </div>
                                  <div class="col-lg-3">
+                                 	<div id="lg-dpn" class="dpn lg-dpn">${question.lg_category_code}</div>
+                                 	<div id="md-dpn" class="dpn md-dpn">${question.md_category_code}</div>
+                                 	<div id="sm-dpn" class="dpn sm-dpn">${question.sm_category_code}</div>
                                     ${question.md_category_name}<br> 
                                     ${question.sm_category_name }<br> 
 				                                    난이도: ${question.level_name }<br> 
@@ -119,7 +136,7 @@
                         <!--  시험문제 배치 드래그 앤 드롭-->
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
-                              <ul id="sortable" class="task-list">
+                              <ul id="sortable" class="task-list selectedBox">
                               </ul>
                            </div>
                         </form>
@@ -133,13 +150,12 @@
                      </div>
                      <div class="col-lg-6 makeExamBtnDiv">
                         <input type="button" class="btn btn-theme04" value="선택문제 삭제"
-                           id="pickQuestionDeleteBtn"> <!-- <input type="button"
+                           id="pickQuestionDeleteBtn">
+                           <input type="button"
                            class="btn btn-theme" value="임시저장" data-toggle="modal"
                            data-target="#pickQuestionTempSaveModal"
-                           id="pickQuestionTempSaveModalBtn"> -->
-                           <input type="button"
-                           class="btn btn-theme" value="임시저장"
                            id="pickQuestionTempSaveModalBtn">
+                           <input type="hidden" id="copyTempSave" value="">
                         <!--                                <input type="button" class="btn btn-theme" value="시험지 미리보기" id="">  우선순위에서 제외-->
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
@@ -238,9 +254,11 @@
 
                            </div>
                         </div>
-                        <input type="button" class="btn btn-theme" value="시험지 생성"
+                        <!-- <input type="button" class="btn btn-theme" value="시험지 생성"
                            data-toggle="modal" data-target="#makeExamSubmitModal"
-                           id="makeExamSubmitModalBtn">
+                           id="makeExamSubmitModalBtn"> -->
+                        <input type="button" class="btn btn-theme" value="시험지 생성"
+                        id="makeExamSubmitModalBtn">
                      </div>
                   </div>
                   <!-- 모달창 -->
@@ -258,17 +276,19 @@
                            <form action="" method="post">
                               <div class="modal-body">
 
-                                 시험지 이름 <input type="text" class="form-control"
+                                 시험지 이름 <input type="text" class="form-control exam-paper-name"
                                     placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
                                  설명
-                                 <textarea type="textarea" class="form-control"
+                                 <textarea type="textarea" class="form-control exam-paper-desc"
                                     placeholder="시험지 설명을 입력하세요." name=""></textarea>
                               </div>
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                       <input type="button" class="btn btn-theme"
+                                       <!-- <input type="button" class="btn btn-theme"
                                           data-toggle="modal" data-dismiss="modal" value="임시저장"
+                                          id="pickQuestionTempSaveBtn"> -->
+                                       <input type="button" class="btn btn-theme" value="임시저장"
                                           id="pickQuestionTempSaveBtn"> <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
@@ -327,9 +347,14 @@ $(function(){
       $('#question_md_category').children('option:not(:first)').remove();
       <c:forEach items="${list2}" var="mdlist">
       if(document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}"){
-         $('#question_md_category').append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
+         $('#question_md_category').append("<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
       }
       </c:forEach>
+      /* console.log("this  // " + $(this).val());
+      console.log("Q // "+$('.lg-dpn').val());
+      if($(this).val()== $('.lg-dpn').val()){
+    	  $('.lg-dpn').parents('.questionDiv').addClass("ppp");
+      }  */
    });
    
    $('#question_md_category').change(function(){

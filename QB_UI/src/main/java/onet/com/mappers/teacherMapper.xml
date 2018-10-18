@@ -6,6 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 한결 : 강사 문제 리스트 불러오기 시작-->
 <select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
 	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
+	(select md_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_code',
+	(select lg_category_code from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_code',
    (select sm_category_name from question_sm_category where sm_category_code = question.sm_category_code) as 'sm_category_name',
    (select md_category_name from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_name',
    (select lg_category_name from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_name',
@@ -16,6 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="question_choice" parameterType="hashmap" resultType="onet.com.vo.Question_choiceDto">
 	select * from question_choice
 </select>
+<select id="question_level" parameterType="hashmap" resultType="onet.com.vo.Question_levelDto">
+	select * from question_level
+</select>
 <!-- 한결 : 강사 문제 리스트 불러오기 끝-->
 
 <!-- 영준 10.16 내 시험지 시작 -->
@@ -24,5 +29,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM exam_paper
 </select>
 <!-- 영준 10.16 내 시험지 끝 -->
+
+<!-- 한결 10.17 
+시험지 생성 및 임시저장 확인용 시작-->
+<select id="examPaperCheck" parameterType="String" resultType="String">
+	select exam_paper_name from exam_paper where exam_paper_name = #{exam_paper_name}
+</select>
+<insert id="examPaperInsert">
+	insert into exam_paper(exam_paper_name, member_id, exam_paper_desc) values(#{param1}, #{param2}, #{param3})
+</insert>
+<!-- 한결 10.17 끝-->
 </mapper>
 

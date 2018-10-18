@@ -3,6 +3,7 @@ package onet.com.teacher.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Question_levelDto;
 
 @Controller
 @RequestMapping("/teacher/")
@@ -105,7 +107,7 @@ public class TeacherController {
 	// 강사 시험지 관련
 	/* 영준 18.10.11 시험지 생성 페이지 시작 */
 	@RequestMapping("examPaperMake.do")
-	public String examPaperMake(Model model) {
+	public String examPaperMake(Model model, Principal principal) {
 		/* 문제 카테고리 */
 		List<CategoryDto> list1;
 		list1 = adminService.lgCategoryList();
@@ -129,6 +131,14 @@ public class TeacherController {
 		model.addAttribute("question", question);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		model.addAttribute("question_choice", question_choice);
+		
+		/*난이도 출력*/
+		List<Question_levelDto> question_level = teacherService.question_level();
+		model.addAttribute("question_level", question_level);
+		
+		String member_id = principal.getName();
+		MemberDto memberDto = commonService.myPageInfo(member_id);
+		model.addAttribute("memberDto", memberDto);
 
 		return "common.teacher.exampaper.examPaperMake";
 	}
@@ -267,4 +277,19 @@ public class TeacherController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
+	
+	/*한결 10.17 임시저장 및 시험지 저장 관련 시작*/
+	@RequestMapping("checkExam_paper.do")
+	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
+		String result = teacherService.examPaperCheck(exam_paper_name);
+		return result;
+	}	
+	
+	@RequestMapping("insertExamPaper.do")
+	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
+			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
+		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
+		return result;
+	}
+	/*한결 10.17 임시저장 및 시험지 저장 관련 끝*/
 }
