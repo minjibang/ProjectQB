@@ -226,7 +226,9 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
 
-
-
+<!-- 정원 문제분류 삭제 -->
+<delete id="lgDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_lg_category where lg_category_code = #{lg_category_code}
+</delete>
 
 </mapper>
