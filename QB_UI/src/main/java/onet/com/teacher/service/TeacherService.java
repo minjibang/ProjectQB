@@ -40,7 +40,9 @@ public class TeacherService {
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
 	
 	/* 영준 - 10.17 내 시험지 삭제 시작 */
-	public int examPaperDelete(ExamPaperDto dto) {
+	public int examPaperDelete(String exam_paper_name) {
+		ExamPaperDto dto = new ExamPaperDto();
+		dto.setExam_paper_name(exam_paper_name);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperDelete(dto);
 		return result;
