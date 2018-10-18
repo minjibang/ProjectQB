@@ -1,10 +1,15 @@
 ﻿package onet.com.admin.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.admin.dao.AdminDao;
 import onet.com.index.dao.IndexDao;
@@ -12,6 +17,7 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 @Service
 public class AdminService {
@@ -48,11 +54,55 @@ public class AdminService {
 	/*재훈 - 10.15 문제난이도관련 끝*/
 	
 	/*재훈 - 10.16 새 문제 만들기 관련 시작*/
+	@Transactional
 	public int insertQuestion(QuestionDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.insertQuestion(dto);
 		return result;
+
 	}
+	
+	@Transactional
+	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
+		int result = 0;
+		
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		dto.setQuestion_num(dto2.getQuestion_num());
+		
+		List<Question_choiceDto> list = new ArrayList<Question_choiceDto>();
+		list.add(dto);
+		System.out.println("list:" + list);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list",list);
+		
+		System.out.println("map:" + map);
+		
+		result=dao.insertQuestionChoice("dao.insertQuestionChoice", map);
+		
+		return result;
+	}
+	
+/*	public int insertQuestionChoice(Question_choiceDto dto, QuestionDto dto2) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
+		+" question_choice_num: "+ dto.getQuestion_choice_num()
+		+" question_choice_content: " + dto.getQuestion_choice_content() + "(before insert)");
+		
+		
+		dto.setQuestion_num(dto2.getQuestion_num());
+		int result = dao.insertQuestionChoice(dto);
+		
+		
+		System.out.println("question_choice 테이블 question_num: " + dto2.getQuestion_num() 
+		+" question_choice_num: "+ dto.getQuestion_choice_num()
+		+" question_choice_content: " + dto.getQuestion_choice_content() + "(after insert)");
+		
+		
+		return result;
+	}
+	*/
+	
 	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
 
 	/*영준 - 10.10 회원관리 관련 시작 */
@@ -83,8 +133,6 @@ public class AdminService {
 		ClassDto dto = new ClassDto();
 		dto.setClass_num(class_num);
 		List<ClassDto> result = dao.classlist(dto);
-		
-		
 		return result;
 	}
 	public int classMemberUpdate(MemberDto dto) {
@@ -192,7 +240,76 @@ public class AdminService {
 		int result = dao.deleteMember(dto);
 		return result;
 	}
+
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
+
+	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
+	
+	// 정원 - 10.16  시작
+	public List<CategoryDto> lgProblemCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.lgProblemCategoryList();
+		return result;
+	}
+	public List<CategoryDto> mdProblemCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.mdProblemCategoryList();
+		return result;
+	}
+	public List<CategoryDto> smProblemCategoryList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> result = dao.smProblemCategoryList();
+		return result;
+	}
+	
+	// 정원 - 10.16 끝
+	
+	// 정원 - 10.17 시작
+	public int lgUpdate(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.lgUpdate(dto);
+		return result;
+	}
+	
+	public int mdUpdate(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.mdUpdate(dto);
+		return result;
+	}
+	
+	public int smUpdate(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.smUpdate(dto);
+		return result;
+	}
+	
+	public String lgCatIdCheck(String lgCatName) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.lgCatAddIdCheck(lgCatName);
+		return result;
+	}
+	
+	public String mdCatIdCheck(String mdCatName) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.mdCatAddIdCheck(mdCatName);
+		return result;
+	}
+	
+	public String smCatIdCheck(String smCatName) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.smCatAddIdCheck(smCatName);
+		return result;
+	}
+	
+	/*민지 - 10.17 클래스 수정 이름 중복체크*/
+	
+	public String classCheck(String class_name) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		String result = dao.classCheck(class_name);
+		return result;
+	}
+	
+	/*민지 - 10.17 클래스 수정 이름 중복체크 끝  */
 
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.teacher.dao.TeacherDao;
+import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -36,10 +37,13 @@ public class TeacherService {
 	}
 	/*한결 - 10.17 새 시험지 만들기 문제 뿌리기 각 문제,문제보기,문제 난이도 끝*/
 	
-	/* 영준 - 10.16 강사 시험관리 페이지 시작 */
-	public List<ExamPaperDto> examPaperList(){
+	/* 영준 - 10.16 선생님 시험관리 페이지 시작 */
+	public List<ExamPaperDto> examPaperList(int class_num){
+		ExamPaperDto dto = new ExamPaperDto();
+		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamPaperDto> result = dao.examPaperList();
+		List<ExamPaperDto> result = dao.examPaperList(dto);
+		System.out.println("teacherService result 값>>" + result);
 		return result;	
 	}
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
@@ -57,4 +61,23 @@ public class TeacherService {
 		return result;
 	}
 	/*한결 - 10.17 시험지 체크  및 insert 끝*/
+
+	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
+	
+	/* 영준 - 10.17 내 시험지 삭제 시작 */
+	public int examPaperDelete(ExamPaperDto dto) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examPaperDelete(dto);
+		return result;
+	}
+	/* 영준 - 10.17 내 시험지 삭제 끝 */
+	
+	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 시작 */
+	public List<ExamInfoDto> examScheduleList(){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamInfoDto> result = dao.examScheduleList();
+		return result;
+	}
+	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 끝 */
+
 }

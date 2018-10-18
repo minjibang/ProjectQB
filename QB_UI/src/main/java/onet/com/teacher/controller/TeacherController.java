@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,12 +42,16 @@ public class TeacherController {
 	// 강사 notice 관련
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model, int class_num) {
-		List<NoticeDto> notice = commonService.teacher_student_Main(class_num);
+	public String teacherMain(Model model, Principal principal) {
+		String member_id = principal.getName();
+		List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
 		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
+		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		model.addAttribute("exam_info", exam_info);
-
+		
+		for(int i=0; i<exam_info.size();i++) {
+			System.out.println(exam_info.get(i).getExam_info_name());
+		}
 		return "common.teacher.notice.notice";
 	}
 
@@ -95,13 +100,30 @@ public class TeacherController {
 
 	/* 현이 18.10.11 선생님 시험관리 시작 */
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model) {
+	public String examManagement(Model model, int class_num) {
 		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList();
+		examPaperList = teacherService.examPaperList(class_num);
 		model.addAttribute("examPaperList", examPaperList);
+	
+	/* 영준 18.10.16 선생님 시험일정 시작 */
+		List<ExamInfoDto> examScheduleList;
+		examScheduleList = teacherService.examScheduleList();
+		model.addAttribute("examScheduleList", examScheduleList);
+	/* 영준 18.10.16 선생님 시험일정 끝 */	
 		
 		return "common.teacher.exam.examManagement";
 	}
+	
+	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
+	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto)
+	{
+		int result = teacherService.examPaperDelete(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+	}
+	/* 영준 - 18.10.17 내 시험지 삭제 끝 */
+	
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 
 	// 강사 시험지 관련
@@ -263,8 +285,8 @@ public class TeacherController {
 	public String questionUpdate() {		
 		return "common.teacher.question.questionUpdate";
 
-	}	
-	/*양회준 18.10.12 문제 수정 끝*/
+	}
+	/* 양회준 18.10.12 문제 수정 끝 */
 	
 	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
 	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)

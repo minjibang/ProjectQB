@@ -7,7 +7,14 @@ public class ExamPaperDto {
 	private String exam_paper_desc;
 	private int exam_paper_status;
 	private int exam_paper_enable;
+	private int class_num;
 	
+	public int getClass_num() {
+		return class_num;
+	}
+	public void setClass_num(int class_num) {
+		this.class_num = class_num;
+	}
 	public int getExam_paper_num() {
 		return exam_paper_num;
 	}

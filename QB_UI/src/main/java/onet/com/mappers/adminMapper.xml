@@ -25,15 +25,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 재훈 - 10.15 문제난이도 관련 끝 -->
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 시작-->
-<insert id="insertQuestion" parameterType="onet.com.vo.QuestionDto">
+<insert id="insertQuestion" parameterType="onet.com.vo.QuestionDto"
+useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
+
 	insert into question(question_type,question_name,question_img,
 	question_answer,sm_category_code,level_code,member_id) 
 	values(#{question_type},#{question_name},#{question_img},#{question_answer},#{sm_category_code},#{level_code},#{member_id});
+
+	<selectKey keyProperty="question_num" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID();
+    </selectKey> 
+    
 </insert>
 
-<insert id="insertQuestionChoice" parameterType="onet.com.vo.Question_choiceDto">
+<insert id="insertQuestionChoice" parameterType="java.util.HashMap">
+	<foreach item="item" index="index" collection="list">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values(#{question_num}, #{question_choice_num}, #{question_choice_content});
+	values(#{item.question_num},#{item.question_choice_num},#{item.question_choice_content});
+	</foreach>
+
+	
+	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
+	values(#{question_num}, #{question_choice_num}, #{question_choice_content}); -->
+	
 </insert>
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
@@ -104,38 +118,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <!-- 정원 10.15 문제분류관리 insert 시작 -->
+
+<!-- +1 해주기 위해서 마지막 행 값 가져오는 쿼리 -->
 <select id="lgCatAddCheak" resultType="int">
 	select CONVERT(substring(lg_category_code, 2), UNSIGNED) as cate_num from question_lg_category order by cate_num desc limit 1
 </select>
 
-<insert id="lgCatAdd" parameterType="onet.com.vo.CategoryDto">
-	insert into question_lg_category values (#{lg_category_code},#{lg_category_name})
-</insert> 
-
 <select id="mdCatAddCheck" resultType="int">
 	select CONVERT(substring(md_category_code, 2), UNSIGNED) as cate_num from question_md_category order by cate_num desc limit 1
-</select>
-
-<select id="lgCatCode" resultType="String">
-	select lg_category_code from question_lg_category where lg_category_name=#{selectLgCat}
-</select>
-
-<insert id="mdCatAdd" parameterType="onet.com.vo.CategoryDto">
-	insert into question_md_category values(#{md_category_code},#{md_category_name},#{lg_category_code})
-</insert>
-
-<select id="mdCatCode" resultType="String">
-	select md_category_code from question_md_category where md_category_name=#{selectMdCat}
 </select>
 
 <select id="smCatAddCheck" resultType="int">
 	select CONVERT(substring(sm_category_code, 2), UNSIGNED) as cate_num from question_sm_category order by cate_num desc limit 1
 </select>
 
+<!-- 대분류,중분류,소분류 데이터 추가 쿼리 -->
+<insert id="lgCatAdd" parameterType="onet.com.vo.CategoryDto">
+	insert into question_lg_category values (#{lg_category_code},#{lg_category_name})
+</insert> 
+
+<insert id="mdCatAdd" parameterType="onet.com.vo.CategoryDto">
+	insert into question_md_category values(#{md_category_code},#{md_category_name},#{lg_category_code})
+</insert>
+
 <insert id="smCatAdd" parameterType="onet.com.vo.CategoryDto">
 	insert into question_sm_category values(#{sm_category_code},#{sm_category_name},#{md_category_code})
 </insert>
 
+<!-- select 박스의 name값을 통해 code로 가지고오는 쿼리 -->
+<select id="lgCatCode" resultType="String">
+	select lg_category_code from question_lg_category where lg_category_name=#{selectLgCat}
+</select>
+
+<select id="mdCatCode" resultType="String">
+	select md_category_code from question_md_category where md_category_name=#{selectMdCat}
+</select>
+
+<!-- 대분류, 중분류, 소분류 중복값 비교 쿼리 -->
 <select id="lgCatAddIdCheck" parameterType="String" resultType="String">
 	select lg_category_name from question_lg_category where lg_category_name=#{lgCatAdd}
 </select>
@@ -150,7 +169,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 정원 10.15 문제분류관리 insert 끝 -->
 
-
 <!-- 태용 10.15 클래스 생성, 클래스 유효성검사  -->
 <insert id="classInsert" parameterType="onet.com.vo.ClassDto">
 	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
@@ -158,7 +176,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="classCheck" resultType="String">
 	select class_name from class where class_name = #{class_name}
 </select>
+<select id="classSearch" parameterType="String" resultType="onet.com.vo.ClassDto">
+	select * from class where class_name like concat('%',#{searchtext},'%')
+</select>
 <!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
+
+
+<!-- 정원 10.16 문제분류관리 -->
+
+<!-- 테이블 정렬 쿼리 -->
+<select id="lgProblemCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select * from question_lg_category order by length(lg_category_code) asc, lg_category_code asc
+</select>
+
+<select id="mdProblemCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select lg_category_code, md_category_code, md_category_name 
+	from question_md_category order by length(md_category_code) asc, md_category_code asc
+</select>
+
+<select id="smProblemCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
+	select md_category_code, sm_category_code, sm_category_name 
+	from question_sm_category order by length(sm_category_code) asc, sm_category_code asc
+</select>
+
+<!-- 정원 10.16 끝 -->
+
+<!-- 정원 10.17 시작 -->
+
+<!-- 문제분류관리 update 쿼리 -->
+<update id="lgUpdate" parameterType="onet.com.vo.CategoryDto">
+	update question_lg_category set lg_category_name = #{lg_category_name} where lg_category_code = #{lg_category_code}
+</update>
+
+<update id="mdUpdate" parameterType="onet.com.vo.CategoryDto">
+	update question_md_category set lg_category_code = #{lg_category_code}, md_category_name = #{md_category_name} where md_category_code = #{md_category_code}
+</update>
+
+<update id="smUpdate" parameterType="onet.com.vo.CategoryDto">
+	update question_sm_category set md_category_code = #{md_category_code}, sm_category_name = #{sm_category_name} where sm_category_code = #{sm_category_code}
+</update>
+
+<!-- 정원 10.17 끝 -->
 
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
 <update id="deleteMember" parameterType="onet.com.vo.MemberDto">
@@ -167,6 +225,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE member_id=#{member_id}
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
+
 
 
 
