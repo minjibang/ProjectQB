@@ -3,6 +3,7 @@ package onet.com.student.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -167,7 +168,7 @@ public class StudentController {
 
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
 	@RequestMapping("examPaperDo2.do")
-	public String examPaperDo2(Model model, int exam_info_num, HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {
+	public String examPaperDo2(Model model, int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
 		
 		ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
 		model.addAttribute("exam_info", exam_info);

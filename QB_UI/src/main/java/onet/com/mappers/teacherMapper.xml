@@ -76,8 +76,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
 <select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
 	SELECT * FROM exam_info
+	WHERE exam_paper_num = (select exam_paper_num from exam_paper 
+	WHERE exam_paper_name =#{exam_paper_name})
 </select>
-<!-- 영준 10.16 시험 일정 리스트 불러오기 끝 -->
+
+
+
+<!-- 민지-10.18 시험등록 -->
+<insert id="examInfoInsert" parameterType="onet.com.vo.ExamInfoDto">
+ INSERT INTO exam_info(exam_paper_num, class_name, exam_info_name,exam_info_desc,exam_info_member,exam_info_date,exam_info_start,exam_info_end,exam_info_time)
+        VALUES(#{exam_paper_num},#{class_name},#{exam_info_name},#{exam_info_desc},#{exam_info_member},#{exam_info_date},#{exam_info_start},#{exam_info_end},#{exam_info_time})     
+</insert>
+<!-- 민지 10.18 시험등록 끝 -->
 
 <!-- 한결 10.17 
 시험지 생성 및 임시저장 확인용 시작-->
@@ -111,6 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	DELETE FROM exam_info
 	WHERE exam_info_name=#{exam_info_name}
 </delete>
+
 </mapper>
 
 

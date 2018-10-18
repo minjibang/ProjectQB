@@ -1241,9 +1241,9 @@
 				navStep: 1
 			},
 			{
-				clsName: 'days',
-				navFnc: 'Month',
-				navStep: 1
+				clsName: 'years',
+				navFnc: 'FullYear',
+				navStep: 10
 			},
 			{
 				clsName: 'months',
@@ -1251,9 +1251,9 @@
 				navStep: 1
 			},
 			{
-				clsName: 'years',
-				navFnc: 'FullYear',
-				navStep: 10
+				clsName: 'days',
+				navFnc: 'Month',
+				navStep: 1
 		}],
 		isLeapYear: function (year) {
 			return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
@@ -1537,20 +1537,6 @@
 									DPGlobal.footTemplate+
 								'</table>'+
 							'</div>'+
-							'<div class="datetimepicker-days">'+
-								'<table class=" table-condensed">'+
-									DPGlobal.headTemplate+
-									'<tbody></tbody>'+
-									DPGlobal.footTemplate+
-								'</table>'+
-							'</div>'+
-							'<div class="datetimepicker-months">'+
-								'<table class="table-condensed">'+
-									DPGlobal.headTemplate+
-									DPGlobal.contTemplate+
-									DPGlobal.footTemplate+
-								'</table>'+
-							'</div>'+
 							'<div class="datetimepicker-years">'+
 								'<table class="table-condensed">'+
 									DPGlobal.headTemplate+
@@ -1558,6 +1544,20 @@
 									DPGlobal.footTemplate+
 								'</table>'+
 							'</div>'+
+							'<div class="datetimepicker-months">'+
+							'<table class="table-condensed">'+
+								DPGlobal.headTemplate+
+								DPGlobal.contTemplate+
+								DPGlobal.footTemplate+
+							'</table>'+
+						    '</div>'+
+						    '<div class="datetimepicker-days">'+
+							'<table class=" table-condensed">'+
+								DPGlobal.headTemplate+
+								'<tbody></tbody>'+
+								DPGlobal.footTemplate+
+							'</table>'+
+						'</div>'+
 						'</div>';
 
 	$.fn.datetimepicker.DPGlobal = DPGlobal;

@@ -3,7 +3,8 @@ $(document).ready(function(){
 	function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 }
-
+	
+	
 function oneCheckFunc( obj )
 {
 	var allObj = $("#checkall");

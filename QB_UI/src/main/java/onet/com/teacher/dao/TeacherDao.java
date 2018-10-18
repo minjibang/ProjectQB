@@ -42,6 +42,12 @@ public interface TeacherDao {
 	public List<ExamInfoDto> examScheduleList();
 	/* 영준 - 10.16 시험일정 리스트 불러오기 끝 */
 
+	
+	/*민지 - 10.18 시험등록*/
+	public int examInfoInsert(ExamInfoDto dto);
+	/*민지 - 10.18 시험등록 끝*/
+
+
 	/*--성태용 시작--*/
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype);
 	
@@ -50,4 +56,5 @@ public interface TeacherDao {
 	/* 영준 - 10.18 시험일정 삭제 시작 */
 	public int examScheduleDelete(ExamInfoDto dto);
 	/* 영준 - 10.18 시험일정 삭제 끝 */
+
 }

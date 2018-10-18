@@ -323,8 +323,8 @@
             }
 
             if (this.showMeridian) {
-                if (this.hour > 12) {
-                    this.hour = 12;
+                if (this.hour > 24) {
+                    this.hour = 1;
                 } else if (this.hour < 1) {
                     this.hour = 1;
                 }
@@ -386,13 +386,17 @@
                     var hours = dTime.getHours();
                     var minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep;
                     var seconds = Math.floor(dTime.getSeconds() / this.secondStep) * this.secondStep;
-                    var meridian = "AM";
+                    var meridian = "PM";
                     if (this.showMeridian) {
                         if (hours === 0) {
-                            hours = 12;
+                            hours = 0;
                         } else if (hours >= 12) {
                             if (hours > 12) {
-                                hours = hours - 12;
+                                hours = hours + 12;
+                            }else if(hours > 24){
+                            	hours = 0;
+                            }else if(hours ===12){
+                            	hours = 12;
                             }
                             meridian = "PM";
                         } else {
@@ -616,7 +620,7 @@
                 if (this.hour === 11) {
                     this.toggleMeridian();
                 } else if (this.hour === 12) {
-                    return this.hour = 1;
+                    return this.hour = this.hour+1;
                 }
             }
             if (this.hour === 23) {
@@ -628,7 +632,7 @@
         , decrementHour: function() {
             if (this.showMeridian) {
                 if (this.hour === 1) {
-                    return this.hour = 12;
+                    return this.hour = 24;
                 }
                 else if (this.hour === 12) {
                     this.toggleMeridian();
@@ -796,7 +800,7 @@
     , defaultTime: 'current'
     , showSeconds: false
     , showInputs: true
-    , showMeridian: true
+    , showMeridian: false
     , template: 'dropdown'
     , modalBackdrop: false
     , templates: {} // set custom templates

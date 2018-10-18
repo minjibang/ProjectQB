@@ -17,7 +17,6 @@
   
     <div class="row mt">
       <div class="col-lg-12 mt">
-      
         <div class="row content-panel">
           <div class="panel-body">
               <div id="updateExam" class="tab-pane">
@@ -31,13 +30,13 @@
                   	<div class="checkName">
 						<div class="form-panel">
 	                      <label>
-	                        <input type="checkbox" value="" id="checkall">전체선택
+	                        <input type="checkbox"  id="checkall">전체선택
 	                      </label>
 	                      	<c:forEach items="${classMemberList}" var="classMemberList">
 	                        <ul class="chat-available-user" id ="checkboxNameUl">
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox" value="" name="chk" value="chk">${classMemberList.member_name}
+	                            	<input type="checkbox"  name="chk" value="chk">${classMemberList.member_name}
 	                            </label>
 	                          </div>
 	                        </ul>
@@ -54,14 +53,18 @@
                         
                      </div>
                     <div class="col-md-8 detailed">
-                    <%-- 폼 양식 시작 --%>
-                      <form action="#" class="form-horizontal style-form">
+                    <%-- 폼 양식 시작 --%>        
+                      <form action="examInfoInsert.do" class="form-horizontal style-form" method="post">
+                      <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>
+                         <input type="hidden" id="class_num" name="class_num" value="${param.class_num}"/>
+                         <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/>
+                         <input type="hidden" id="class_name" name="class_name" value="${param.class_name}"/>
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-                              <input class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" 
-                              		 name="">
-                              
+
+                              <input class="form-control form-control-inline input-medium default-date-picker" id="exam_info_date" name="exam_info_date" size="16" type="text" required >
+
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
                         </div>
@@ -69,7 +72,7 @@
                           <label class="control-label col-md-2">시간</label>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default">
+                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" required>
                                  <span class="input-group-btn">
                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -78,7 +81,7 @@
                             </div>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default">
+                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" required>
                                   <span class="input-group-btn">
                                     <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                   </span>
@@ -89,7 +92,7 @@
                         <!--timepicker group end-->
                           <div class="form-group">
                             <label class="control-label col-md-2">시험시간</label>
-                              <label class="control-label col-md-5">1시간</label>
+                            <input type="text" id="exam_info_time" name="exam_info_time"  value="1:00:00" readonly />
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">종료알림</label>
@@ -98,23 +101,19 @@
                           <div class="form-group">
                             <label class="control-label col-md-2">응시대상</label>
                               <div class="col-md-10 col-xs-11">
-                                <input type="text" class="form-control" placeholder="응시대상을 입력하세요">
+                                <input type="text" class="form-control" placeholder="응시대상을 입력하세요" id="exam_info_member" name="exam_info_member" required>
                               </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">설명</label>
                               <div class="col-md-10 col-xs-10">
-                                <textarea rows="3" class="form-control" placeholder="설명을 입력하세요"></textarea>
+                                <textarea rows="3" class="form-control" placeholder="설명을 입력하세요" id="exam_info_desc" name="exam_info_desc" required></textarea>
                               </div>
                           </div>
                           <br>
                           <br>
                           <br>
-                        </form>
-                        <%-- 폼 양식 끝 --%>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
+                                              <div class="col-md-12">
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-3">
@@ -123,9 +122,16 @@
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">시험 일정 수정</button>
+
+                        <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn">시험 일정 등록</button>
                       </div>
                     </div>
+                        </form>
+                        <%-- 폼 양식 끝 --%>
+
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -144,10 +150,12 @@
             <!-- /tab-content -->
           </div>
           <!-- /panel-body -->
+
         </div>
         <!-- /col-lg-12 -->
       </div>
       <!-- /row -->
+
     <!-- /container -->
   </section>
   <!-- /wrapper -->
