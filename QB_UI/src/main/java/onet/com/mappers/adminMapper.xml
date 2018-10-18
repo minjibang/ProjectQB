@@ -50,11 +50,9 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
     
 </insert>
 
-<insert id="insertQuestionChoice" parameterType="java.util.HashMap">
-	<foreach item="item" index="index" collection="list">
+<insert id="insertQuestionChoice">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values(#{item.question_num},#{item.question_choice_num},#{item.question_choice_content});
-	</foreach>
+	values(#{param1},#{param2},#{param3});
 
 	
 	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
