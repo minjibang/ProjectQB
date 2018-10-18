@@ -116,12 +116,12 @@
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-3">
-                        <button type="button" class="btn btn-second btn-lg" onclick="location.href='teacherExamManagement.do'">취소</button>
+                        <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
                       </div>
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='teacherExamManagement.do'">시험 일정 등록</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">시험 일정 등록</button>
                       </div>
                     </div>
                   </div>
