@@ -40,3 +40,9 @@ function oneCheckFunc( obj )
 	});
 
 });
+
+function check(){
+	var datecheck = false;
+	var start = $('#exam_info_start').val();
+	$('#exam_info_end').val()
+}

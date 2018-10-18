@@ -580,22 +580,14 @@ public class AdminController {
 		System.out.println("시험등록컨트롤러들어옴");
 		int result = 0;
 		String viewpage="";
-		String date = dto.getExam_info_date();
-		System.out.println(date);
 		
-		String monthdate = date.substring(0, 5);
-		String year = date.substring(6);
-		String date2 = year+"-"+monthdate;
-		System.out.println("합친 날짜>>" + date2);
-		dto.setExam_info_date(date2);
-		System.out.println("클래스이름:" + dto.getClass_name());
 		result=teacherService.examInfoInsert(dto);
 		if(result > 0) {
 			System.out.println("시험등록 성공");
 			viewpage = "redirect:examManagement.do?class_num="+dto.getClass_num()+"&class_name="+dto.getClass_name();
 		}else {
 			System.out.println("시험등록 실패");
-			 
+			
 		}
 		return viewpage;
 	}
