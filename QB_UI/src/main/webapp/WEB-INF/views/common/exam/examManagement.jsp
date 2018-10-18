@@ -92,7 +92,7 @@
 																data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
 														<button class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}teacher/examPaperModify.do'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
-														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do'">시험 등록</button>
+														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?class_num=${param.class_num}&exam_paper_name=${examPaperList.exam_paper_name}'">시험 등록</button>
 											
 														</div>
 														<hr>

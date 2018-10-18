@@ -31,6 +31,8 @@
 			<security:concurrency-control
 				max-sessions="1" expired-url="/login.jsp" />
 		</security:session-management>
+    
+   
 
 	</security:http>
 	<!-- 로그인 완료후 처리할 handler -->

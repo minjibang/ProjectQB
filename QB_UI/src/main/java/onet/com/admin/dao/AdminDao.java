@@ -1,11 +1,13 @@
 ﻿package onet.com.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 
 public interface AdminDao {
@@ -22,6 +24,8 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
+	public int insertQuestionChoice(String string, Map<String, Object> map);
+	/*public int insertQuestionChoice(Question_choiceDto dto);*/
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
@@ -110,6 +114,7 @@ public interface AdminDao {
 	public int smUpdate(CategoryDto dto);
 	
 	public int lgDelete(CategoryDto dto);
+
 	// 정원 문제분류관리 끝  //
 
 	

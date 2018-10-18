@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -179,12 +181,13 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, int class_num) {
+	public String adminClassMain(Model model, Principal principal) {
+		String member_id = principal.getName();
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(class_num);
+		notice=commonService.teacher_student_Main(member_id);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info(class_num);
+		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -305,16 +308,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto) throws ClassNotFoundException, SQLException {
-		System.out.println("controller:"+dto.getQuestion_answer());
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 		int result = 0;
-		result= adminService.insertQuestion(dto);
-		
-		if(result > 0) {
-			System.out.println("새 문제 등록 성공");
-		}else {
-			System.out.println("새 문제 등록 실패");
-		}
+
+		adminService.insertQuestion(dto2);
+		/*adminService.insertQuestionChoice(dto2, dto);*/
+		result = adminService.insertQuestionChoice(dto2, dto);
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
@@ -508,5 +507,24 @@ public class AdminController {
 	
 	
 	
+
+	
+	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
+	/*민지 :10.17 수정*/
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate(Model model, int class_num) {
+		
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList(class_num);
+		model.addAttribute("classMemberList", classMemberList);
+		
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList(class_num);
+		model.addAttribute("examPaperList", examPaperList);
+		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+		
+		return "common.admin.exam.examScheduleUpdate";
+	}
+	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 
 }

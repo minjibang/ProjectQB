@@ -35,6 +35,7 @@ public class TeacherService {
 		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.examPaperList(dto);
+		System.out.println("teacherService result 값>>" + result);
 		return result;	
 	}
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
