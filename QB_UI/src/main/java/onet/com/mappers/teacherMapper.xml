@@ -82,6 +82,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select exam_paper_num from exam_paper where exam_paper_name = #{exam_paper_name}
 </select>
 <!-- 시험지 테이블에 insert and update -->
+<select id="examPaperSelect" parameterType="String" resultType="String">
+	select exam_paper_num from exam_paper where exam_paper_name = #{exam_paper_name}
+</select>
 <insert id="examPaperInsert">
 	insert into exam_paper(exam_paper_name, member_id, exam_paper_desc) values(#{param1}, #{param2}, #{param3})
 </insert>
@@ -89,7 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update  exam_paper set exam_paper_name=#{param1},member_id=#{param2},exam_paper_desc=#{param3} where exam_paper_num = #{param4}
 </update>
 <!-- 시험지 문제 테이블에 select insert update delete -->
-<select id="examQuestionSelect" parameterType="String">
+<select id="examQuestionSelect" parameterType="String" resultType="onet.com.vo.ExamQuestionDto">
 	select question_num from exam_question where exam_paper_num = #{param1}
 </select>
 <insert id="examQuestionInsert">

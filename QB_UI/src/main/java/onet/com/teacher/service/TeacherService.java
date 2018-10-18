@@ -54,6 +54,11 @@ public class TeacherService {
 		return result;
 	}
 	
+	public String examPaperSelect(String exam_paper_name) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		String result = dao.examPaperCheck(exam_paper_name);
+		return result;
+	}
 	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);

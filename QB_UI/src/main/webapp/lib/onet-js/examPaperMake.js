@@ -74,17 +74,19 @@ jQuery(document).ready(function() {
 			var examName = $('.exam-paper-name').val();
 			var examDesc = $('.exam-paper-desc').val();
 			var memId = $('.dpn1').val();
-			console.log("시험지이름 및 기타 등등 >> " + examName +"//"+examDesc + "\\" +memId);
+			console.log("시험지이름 및 기타 등등 설정 >> " + examName +"//"+examDesc + "\\" +memId);
 			
-			$.ajax({
+			/*시험지 이름으로 시험지가 있는지 확인 >> 시험지 번호를 받아온다.*/
+			var promise = $.ajax({
 				url:"checkExam_paper.do",
 				type:"get",
 				data:{"exam_paper_name":$('.exam-paper-name').val()},
 				success:function(data){
-					console.log("같은 값이 있는지 체크한다. 결과값은 >> "+data);
+					console.log("1. 같은 값이 있는지 체크한다. 결과값은 >> " + data + " || 첫번째 checkExam_paper.do");
 					if(data == ""){
-						/*공백 >> 데이터 없음(null)*/
-						/*$.ajax({
+						/*공백 >> 데이터 없음(null) >> 시험지를 만든다.*/
+						console.log("2-1. data 값이 null 값이다. >> 새로운 시험지를 insert한다.")
+						$.ajax({
 							url:"examPaperInsert.do",
 							type:"get",
 							dataType:"json",
@@ -103,16 +105,43 @@ jQuery(document).ready(function() {
 							error:function(xml){
 								swal("저장을 실패하였습니다.");
 							}
-						});*/
+						});
+						/*만든 시험지 번호를 받아온다.*/
+						/*$.ajax({
+							url:"examPaperSelect.do",
+							type:"get",
+							data:{"exam_paper_name":$('.exam-paper-name').val()},
+							success:function(epn){
+								console.log("3-1. 만든 시험지 번호를 받아온다. 시험지 번호는 [" + epn+ "] 이다. 두번째 checkExam_paper.do");
+								받아온 시험지 번호로 시험지 문제 테이블에 문제를 넣는다.
+								
+							}
+						});           이 방식은 받아오질 못하네..*/
 						var inputQNum = [];
 						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-							console.log("시험지 번호 = " + data);
-							console.log("문제번호 = "+$(this).val());
-							console.log("문제 배치번호 = " + (Number(index) + 1));
-							console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-							console.log(">> 여기서 insert << ");
+							console.log("	시험지 번호 = " + epn);
+							console.log("	문제번호 = "+$(this).val());
+							console.log("	문제 배치번호 = " + (Number(index) + 1));
+							var EQSeq=(Number(index) + 1);
+							console.log("	점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+							$.ajax({
+								url:"examQuestionInsert.do",
+								type:"get",
+								dataType:"json",
+								data:{
+									"exam_paper_num":epn,
+									"question_num":$(this).val(),
+									"exam_question_seq":EQSeq,
+									"exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
+								},
+								success:function(data){
+									console.log(data);
+								}
+							});
+							console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
 						});
 					} else{
+						console.log("2-1. data값이 있다. data 값은 [" + data + "] 이다.")
 						/*그 외... 데이터 있음 >> update*/
 						/*$.ajax({
 							url:"examPaperUpdate.do",
@@ -136,15 +165,26 @@ jQuery(document).ready(function() {
 								swal("업데이트 에러입니다.");
 							}
 						});*/
-						var inputQNum = [];
-						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-							console.log("시험지 번호 = " + data);
-							console.log("문제번호 = "+$(this).val());
-							console.log("문제 배치번호 = " + index + 1);
-							console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-							
-							console.log(">> 여기서 insert << ");
+						
+						/*select로 DB에 있는 문제번호 받아오기*/
+						$.ajax({
+							url:"examQuestionSelect.do",
+							data:{"exam_paper_num":data},
+							success:function(Qnum){
+								console.log(Qnum);
+								var inputQNum = [];
+								$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+									console.log("시험지 번호 = " + data);
+									console.log("문제번호 = "+$(this).val());
+									console.log("문제 배치번호 = " + index + 1);
+									console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+									
+									
+								});
+							}
 						});
+						
+						
 						
 						/*생각해보자
 						 * 1. 처음에 시험지를 만든다 >> 이후 시험지문제로 넘어감 여기서 examQuestionSelect를 돌린다.

@@ -19,6 +19,7 @@ public interface TeacherDao {
 	public String examPaperCheck(String exam_paper_name);
 
 	/*10.18 시험지 테이블*/
+	public String examPaperSelect(String exam_paper_name);
 	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc);
 	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num); 
 	

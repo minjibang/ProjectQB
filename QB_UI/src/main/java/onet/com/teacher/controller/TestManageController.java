@@ -63,10 +63,17 @@ public class TestManageController {
 	@RequestMapping("checkExam_paper.do")
 	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
 		String result = teacherService.examPaperCheck(exam_paper_name);
+		System.out.println(exam_paper_name);
 		return result;
 	}	
 	
 	/* 10.17 시험지 테이블 insert and update*/
+	@RequestMapping("examPaperSelect.do")
+	public @ResponseBody String examPaperSelect(@RequestParam("exam_paper_name") String exam_paper_name) {	
+		String result = teacherService.examPaperCheck(exam_paper_name);
+		System.out.println(exam_paper_name);
+		return result;
+	}	
 	@RequestMapping("examPaperInsert.do")
 	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
 			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
@@ -93,6 +100,8 @@ public class TestManageController {
 	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") String exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
 			@RequestParam("exam_question_score") String exam_question_score) {
+		
+			/*ExamPaperDto.setQuestion_num(ExamQuestion.getQuestion_num());*/
 		System.out.println(exam_paper_num + question_num+ exam_question_seq+ exam_question_score);
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
