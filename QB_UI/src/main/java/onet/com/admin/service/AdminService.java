@@ -303,10 +303,11 @@ public class AdminService {
 	public int smDelete(String smDeleteCode) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = 0;
-		String qSearch = dao.questionDeleteSearch(smDeleteCode);
+		List<QuestionDto> qSearch = dao.questionDeleteSearch(smDeleteCode);
 		System.out.println(qSearch);
 		CategoryDto dto = new CategoryDto();
 		dto.setSm_category_code(smDeleteCode);
+		System.out.println(qSearch);
 		if(qSearch == null) {
 			result = dao.smDelete(dto);
 			return result;
