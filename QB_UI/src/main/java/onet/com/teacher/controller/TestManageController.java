@@ -26,7 +26,6 @@ public class TestManageController {
 	/*성태용 시작*/
 	@RequestMapping(value="classListView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
-		
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
