@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -307,17 +308,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto, Question_choiceDto dto2) throws ClassNotFoundException, SQLException {
-		System.out.println("controller:"+dto.getQuestion_answer());
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 		int result = 0;
-		adminService.insertQuestion(dto);
-		adminService.insertQuestionChoice(dto2, dto);
-		/*result = adminService.insertQuestionChoice(dto2, dto);*/
-		if(result > 0) {
-			System.out.println("새 문제 등록 성공");
-		}else {
-			System.out.println("새 문제 등록 실패");
-		}
+
+		adminService.insertQuestion(dto2);
+		/*adminService.insertQuestionChoice(dto2, dto);*/
+		result = adminService.insertQuestionChoice(dto2, dto);
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
@@ -496,6 +492,21 @@ public class AdminController {
 		map.get("result");
 		return map;
 	}
+	
+	// 정원 -문제분류 delete 시작
+	@RequestMapping("lgDelete.do")
+	public @ResponseBody Map<String, Object> lgDelete(String lgDeleteCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		CategoryDto dto = new CategoryDto();
+			dto.setLg_category_code(lgDeleteCode);
+			adminService.lgDelete(dto);
+			return null;
+		
+		
+	}
+	
+	
+	
 
 	
 	/*회준:10.08 시험 일정등록/수정 페이지 시작 */

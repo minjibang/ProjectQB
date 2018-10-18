@@ -50,20 +50,16 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
     
 </insert>
 
-<insert id="insertQuestionChoice" parameterType="java.lang.String">
-<!-- useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num" -->
-
+<insert id="insertQuestionChoice" parameterType="java.util.HashMap">
+	<foreach item="item" index="index" collection="list">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values (#{question_num},
-	<foreach collection="question_choice_num" item="item" separator=" , ">
-	 #{item.question_choice_num}, #{item.question_choice_content})
+	values(#{item.question_num},#{item.question_choice_num},#{item.question_choice_content});
 	</foreach>
-	
+
 	
 	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{question_num}, #{question_choice_num}, #{question_choice_content}); -->
 	
-	<!-- #{question_num}, #{question_choice_num}, #{question_choice_content}); -->
 </insert>
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
@@ -242,7 +238,9 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
 
-
-
+<!-- 정원 문제분류 삭제 -->
+<delete id="lgDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_lg_category where lg_category_code = #{lg_category_code}
+</delete>
 
 </mapper>

@@ -23,8 +23,19 @@
 }
 td{
 	border-bottom: 1px solid #DDDDDD;
+	font-size: 1em;
 }
 
+th{
+	font-weight:bold;
+	font-size: 0.9em;
+}
+
+.deleteLgName{
+	width:20%;
+	display:inline;
+	
+}
 
 </style>
 
@@ -280,6 +291,38 @@ td{
 				</div>
 			</div>
 		<!-- 소분류 수정 모달창 끝 -->	
+		
+		<!-- 대분류 삭제 모달창 시작 -->	
+		<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">대분류 삭제</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<h5>해당 정보를 참조하는 하위 정보가 있으면 삭제가 제한됩니다</h5>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+										<button id="deleteLgBtn" name="deletebtn" class="btn btn-theme" value="">확인</button>
+										<button class="btn btn-theme04" type="button"
+											data-dismiss="modal">취소</button>
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+		<!-- 대분류 삭제 모달창 끝 -->	
+			
+			
 			
 		<div class="row mt">
 			<div class="col-lg-12">
@@ -316,10 +359,11 @@ td{
 												<td class="lg_category_name">${lgCategoryList.lg_category_name}</td>
 												<td>
 													<button type="button" class="btn btn-theme" id="updatebtnlg" name="updatebtnlg"
-													data-toggle="modal" data-target="#UpdateModal">
+													data-toggle="modal" data-target="#UpdateModal" value="${lgCategoryList.lg_category_code}">
 														<i class="fa fa-pencil"></i>
 													</button>
-													<button type="button" class="btn btn-danger">
+													<button type="button" class="btn btn-danger" id="deletebtnlg" name="deletebtnlg"
+													data-toggle="modal" data-target="#DeleteModal">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -747,8 +791,42 @@ function selectMdCatSearch(){
 	
 	/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@해당 값들 가져와서 db에서 수정 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-
-
+	$("button[name='deletebtnlg']").click(function(){
+		action='modify';
+		type='PUT';
+		var row =$(this).parent().parent();
+		var tr = row.children();
+	 	var lgDeleteCode=tr.eq(0).text();
+	 	$('#deleteLgBtn').val(lgDeleteCode);
+	});
+	
+	$('#deleteLgBtn').click(function(){
+		<c:forEach items="${list2}" var="mdCategoryList">
+		if(document.getElementById("deleteLgBtn").value == "${mdCategoryList.lg_category_code}"){
+			result = "false"; 
+		}else{
+			result = "true";
+		}
+		</c:forEach>
+		if(result == "false"){
+			swal("해당 정보를 참조받는 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+		}else{
+		$.ajax({
+			  type : "post",
+			  url : "${pageContext.request.contextPath}/admin/lgDelete.do",
+			  data:{lgDeleteCode:$('#deleteLgBtn').val()},  
+			  success : function(data){
+				 location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+		}
+		
+		
+	});
+	
 
 </script>
 			
