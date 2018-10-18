@@ -348,21 +348,21 @@ $(document).ready(function(){
 	   var leveltype = document.getElementById("level_type").value;
 	   var questiontype = document.getElementById("questiontype").value;
 	   
-	$.ajax({
-		  url : "questionSearch.do",
-		  type:'GET',
-		  data : {
-			  'lgsearchtype' : lgsearchtype,
-			  'mdsearchtype' : mdsearchtype,
-			  'smsearchtype' : smsearchtype,
-			  'leveltype' : leveltype,
-			  'questiontype' : questiontype
-		  },
-		  dataType:"html",
-		  success:function(data){
-			  $('#questions').html(data);
-		  }
-	   });
+		$.ajax({
+			  url : "questionSearch.do",
+			  type:'GET',
+			  data : {
+				  'lgsearchtype' : lgsearchtype,
+				  'mdsearchtype' : mdsearchtype,
+				  'smsearchtype' : smsearchtype,
+				  'leveltype' : leveltype,
+				  'questiontype' : questiontype
+			  },
+			  dataType:"html",
+			  success:function(data){
+				  $('#questions').html(data);
+			  }
+		   });
    });
 })
 

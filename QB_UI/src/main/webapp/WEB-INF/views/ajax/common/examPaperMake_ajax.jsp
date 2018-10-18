@@ -38,8 +38,7 @@
 						<c:forEach items="${question_choice}" var="question_choice">
 							<c:if
 								test="${question_choice.question_num eq question.question_num}">
-								<p>${question_choice.question_choice_num}.
-									${question_choice.question_choice_content}</p>
+								<p>${question_choice.question_choice_num}.${question_choice.question_choice_content}</p>
 							</c:if>
 						</c:forEach>
 					</div>

@@ -3,18 +3,35 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.admin.dao.AdminDao">
-
+<!-- 태용 시작 -->
 <sql id="search">
-	<if test="searchType != null">
-		<if test="searchType == 'n'.toString()">
-			where class_name concat('%',#{keyword},'%')
-		</if>
-		<if test="searchType == 't'.toString()">
-			where teacher_name concat('%',#{keyword},'%')
-		</if>
+	<if test="param1 ==''">
+		where class_name like concat('%',#{param2},'%') or teacher_name like concat('%',#{param2},'%')
 	</if>
-
+	<if test='param1 =="n"'>
+		where class_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="t"'>
+		where teacher_name like concat('%',#{param2},'%')
+	</if>
 </sql>
+
+<select id="adminMainView" resultType="onet.com.vo.ClassDto">
+	select * from class
+</select>
+
+<select id="classSearch" resultType="onet.com.vo.ClassDto">
+	select * from class <include refid="search"></include>
+</select>
+
+<insert id="classInsert" parameterType="onet.com.vo.ClassDto">
+	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
+</insert>
+<select id="classCheck" resultType="String">
+	select class_name from class where class_name = #{class_name}
+</select>
+
+<!-- 태용 끝 -->
 
 <!-- 재훈 - 10.08 문제분류관련 (문제관리페이지 시작 -->
 
@@ -178,18 +195,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </select>
 
 <!-- 정원 10.15 문제분류관리 insert 끝 -->
-
-<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  -->
-<insert id="classInsert" parameterType="onet.com.vo.ClassDto">
-	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
-</insert>
-<select id="classCheck" resultType="String">
-	select class_name from class where class_name = #{class_name}
-</select>
-<select id="classSearch" parameterType="String" resultType="onet.com.vo.ClassDto">
-	select * from class where class_name like concat('%',#{searchtext},'%')
-</select>
-<!-- 태용 10.15 클래스 생성, 클래스 유효성검사  끝  -->
 
 
 <!-- 정원 10.16 문제분류관리 -->
