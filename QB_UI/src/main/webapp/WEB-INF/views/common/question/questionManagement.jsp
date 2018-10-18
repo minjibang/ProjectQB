@@ -325,26 +325,13 @@
 														<option value="5" selected>보기 개수: 5개</option>
 													</select> <br> <br>
 													
-													<!-- <select id="answerSelect" class="form-control-static" name="question_answer">
-													    <option value="" selected disabled> 정답을 선택해주세요 </option>
-														<option value="1">
-														정답: 1번</option>
-														<option value="2">
-														정답: 2번</option>
-														<option value="3">
-														정답: 3번</option>
-														<option value="4">
-														정답: 4번</option>
-														<option value="5">
-														정답: 5번</option>
-													</select> <br> <br> -->
 													
 													<!-- 1번 보기 -->
 													<div id="choiceInput">
 													<b><input type="text" name="question_choice_num"
 														value="1" style="display: none">1.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content1"
+														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -366,8 +353,8 @@
 													<!-- 2번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="2" style="display: none">2.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content2"
+														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -389,8 +376,8 @@
 													<!-- 3번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="3" style="display: none">3.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content3"
+														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -412,8 +399,8 @@
 													<!-- 4번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content4"
+														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"
@@ -435,8 +422,8 @@
 													<!-- 5번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content"
-														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요." required>
+													   <input type="text" name="question_choice_content" id="question_choice_content5"
+														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new imageup"
 														data-provides="fileupload">
 														   <div class="fileupload-preview fileupload-exists thumbnail"

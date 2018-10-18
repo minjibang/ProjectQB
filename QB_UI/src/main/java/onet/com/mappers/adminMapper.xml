@@ -53,11 +53,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <insert id="insertQuestionChoice">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{param1},#{param2},#{param3});
-
-	
-	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values(#{question_num}, #{question_choice_num}, #{question_choice_content}); -->
-	
 </insert>
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
@@ -71,7 +66,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	SELECT * FROM role
 	WHERE NOT role_code='ROLE_ADMIN'
 </select>
-
 
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 
