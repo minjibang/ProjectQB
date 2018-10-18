@@ -26,18 +26,7 @@ public interface CommonDao {
 	
 	public int memberDrop(String member_id, String member_pwd) throws ClassNotFoundException, SQLException;
 	/*양회준 - 10.15 내 정보 수정 끝*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	/*현이 - ExamPaperDo 10.18 시작 */ 
 	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num) throws ClassNotFoundException, SQLException;

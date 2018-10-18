@@ -85,19 +85,6 @@ public class CommonService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/*현이 - ExamPaperDo 10.18 시작 */ 
 	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);

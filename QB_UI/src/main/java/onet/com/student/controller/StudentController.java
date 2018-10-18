@@ -163,26 +163,8 @@ public class StudentController {
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
 	@RequestMapping("examPaperDo2.do")
 	public String examPaperDo2(Model model, int exam_info_num, HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {

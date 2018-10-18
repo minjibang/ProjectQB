@@ -50,27 +50,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select count(*) from member where member_id = #{param1} and member_pwd = #{param2}
 </select>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- 현이 - ExamPaperDo 10.18 시작 -->
 <select id="examPaperDoQuestion" parameterType="int" resultType="onet.com.vo.ExamPaperDoQuestionDto"><!-- 문제 정보 가져오기 -->
 	select q.question_num, q.question_type, q.question_name, q.question_img, q.question_answer, 
