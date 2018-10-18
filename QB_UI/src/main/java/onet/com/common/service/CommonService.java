@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
 import onet.com.vo.ExamInfoDto;
-import onet.com.vo.ExamPaperDoDto;
+import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.Question_choiceDto;
 
 @Service
 public class CommonService {
@@ -84,26 +85,26 @@ public class CommonService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*현이 - ExamPaperDo 10.17 시작 */ 
-	public List<ExamPaperDoDto> searchExamPaperDo(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
-		
-		//System.out.println("searchExamPaperDo service에 들어옴");
+	/*현이 - ExamPaperDo 10.18 시작 */ 
+	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		List<ExamPaperDoDto> examPaperDoDto = commonDao.searchExamPaperDo(exam_info_num);
-		//System.out.println("서비스에서 list의 사이즈 : "+examPaperDoDto.size());
-		
-		return examPaperDoDto;
+		List<ExamPaperDoQuestionDto> questionList = commonDao.examPaperDoQuestion(exam_info_num);
+		return questionList;
 	}
-	/*현이 - ExamPaperDo 10.17 끝 */ 
+	
+	public List<Question_choiceDto> examPaperDoQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<Question_choiceDto> questionChoiceList = commonDao.examPaperDoQuestion_choice(exam_info_num);
+		return questionChoiceList;
+	}
+	
+	public int questionCount(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int questionCount = commonDao.questionCount(exam_info_num);
+		return questionCount;
+	}
+	/*현이 - ExamPaperDo 10.18 끝 */ 
 	
 }
 
