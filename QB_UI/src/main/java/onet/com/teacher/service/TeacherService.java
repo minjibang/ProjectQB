@@ -90,5 +90,16 @@ public class TeacherService {
 	}
 	
 	/*--성태용 끝--*/
+	
+	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
+	public int examScheduleDelete(String exam_info_name) {
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setExam_info_name(exam_info_name);
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examScheduleDelete(dto);
+		System.out.println("teacherService result값 : " + result);
+		return result;
+	}
+	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
 
 }
