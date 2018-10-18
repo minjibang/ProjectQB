@@ -43,7 +43,6 @@ public class TeacherService {
 		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.examPaperList(dto);
-		System.out.println("teacherService result 값>>" + result);
 		return result;	
 	}
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
@@ -58,6 +57,32 @@ public class TeacherService {
 	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
+		return result;
+	}
+	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num);
+		return result;
+	}
+	
+	public int examQuestionSelect(String exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionSelect(exam_paper_num);
+		return result;
+	}
+	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
+		return result;
+	}
+	public int examQuestionUpdate(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionUpdate(exam_paper_num,question_num, exam_question_seq, exam_question_score);
+		return result;
+	}
+	public int examQuestionDelete(String exam_paper_num, String question_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionDelete(exam_paper_num, question_num);
 		return result;
 	}
 	/*한결 - 10.17 시험지 체크  및 insert 끝*/

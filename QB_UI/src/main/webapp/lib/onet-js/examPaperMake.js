@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
 			swal("시험지 설명을 입력하세요(ex.기초 자바문제");
 			$('.exam-paper-desc').focus();
 		}else{
-			swal("데이터를 뿌려보자");
+			console.log("이제부터 데이터를 뿌려보자~");
 			
 			var examName = $('.exam-paper-name').val();
 			var examDesc = $('.exam-paper-desc').val();
@@ -81,8 +81,10 @@ jQuery(document).ready(function() {
 				type:"get",
 				data:{"exam_paper_name":$('.exam-paper-name').val()},
 				success:function(data){
+					console.log("같은 값이 있는지 체크한다. 결과값은 >> "+data);
 					if(data == ""){
-						$.ajax({
+						/*공백 >> 데이터 없음(null)*/
+						/*$.ajax({
 							url:"examPaperInsert.do",
 							type:"get",
 							dataType:"json",
@@ -101,26 +103,62 @@ jQuery(document).ready(function() {
 							error:function(xml){
 								swal("저장을 실패하였습니다.");
 							}
+						});*/
+						var inputQNum = [];
+						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+							console.log("시험지 번호 = " + data);
+							console.log("문제번호 = "+$(this).val());
+							console.log("문제 배치번호 = " + (Number(index) + 1));
+							console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+							console.log(">> 여기서 insert << ");
 						});
 					} else{
+						/*그 외... 데이터 있음 >> update*/
+						/*$.ajax({
+							url:"examPaperUpdate.do",
+							type:"get",
+							dataType:"json",
+							data:{
+								"exam_paper_name":examName, 
+								"member_id":memId,
+								"exam_paper_desc":examDesc,
+								"exam_paper_num":data
+							},
+							success:function(data){
+								console.log("업데이트 성공 >> " + data);
+								if(data == "0"){
+									console.log("0이면 실패인가?");
+								}else if(data == "1"){
+									console.log("1이면 성공이고?")
+								}
+							},
+							error:function(xml){
+								swal("업데이트 에러입니다.");
+							}
+						});*/
+						var inputQNum = [];
+						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+							console.log("시험지 번호 = " + data);
+							console.log("문제번호 = "+$(this).val());
+							console.log("문제 배치번호 = " + index + 1);
+							console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+							
+							console.log(">> 여기서 insert << ");
+						});
+						
+						/*생각해보자
+						 * 1. 처음에 시험지를 만든다 >> 이후 시험지문제로 넘어감 여기서 examQuestionSelect를 돌린다.
+						 * 2. 내가 처음 만든다 >> select에 걸리는게 없겠지 >> All insert
+						 * 3. 만들다 말았다 >> select의 결과값이 나오겠지 - 해당 문제들은 update, 그 외에 다른 번호들은 insert
+						 * 4. 만들다 변경되서 일부 문제가 없어진다. 
+						 *     >> 내가 찾은 번호들과 select 결과값 비교해서 없어진 번호는 delete
+						 * */
 					}
 				},
 				error:function(xml){
 					swal("문제가 생겨부럿네");
 				}
 			});
-			var inputQNum = [];
-			$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-				console.log("문제번호 = "+$(this).val());
-				console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-				console.log(index + 1);/*배치번호를 받아와야함*/
-				console.log("여기서 다시 insert");
-			});
-			
-			
-			
-			$('.exam-paper-name').val("");
-			$('.exam-paper-desc').val("");
 			$('#pickQuestionTempSaveModal').modal('hide');
 		}
 	});
