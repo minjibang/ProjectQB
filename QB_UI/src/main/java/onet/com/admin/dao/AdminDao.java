@@ -115,6 +115,11 @@ public interface AdminDao {
 	
 	public int lgDelete(CategoryDto dto);
 
+	public int mdDelete(CategoryDto dto);
+	
+	public int smDelete(CategoryDto dto);
+	
+	public List<QuestionDto> questionDeleteSearch(String smDeleteCode);
 	// 정원 문제분류관리 끝  //
 
 	

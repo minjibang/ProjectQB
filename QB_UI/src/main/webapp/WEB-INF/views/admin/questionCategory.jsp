@@ -30,11 +30,23 @@ th{
 	font-weight:bold;
 	font-size: 0.9em;
 }
-
-.deleteLgName{
-	width:20%;
+.insertHeader{
+	font-size: 1.5em;
+	text-align: center;
+	color: white;
+	font-weight: bold; 
+}
+.insertsize{
+	width:98%;
+}
+.updateHeader{
+	font-size: 1.5em;
+	text-align: center;
+	font-weight: bold;
+}
+.a{
 	display:inline;
-	
+	text-align: right;
 }
 
 </style>
@@ -47,15 +59,15 @@ th{
 				<div class="modal-dialog">
 					<!-- Modal content-->
 					<div id="lgCatModalPop" class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header insertHeader">
 							대분류 추가
 							<button type="button" class="close" data-dismiss="modal">×</button>
 						</div>
 						<div class="modal-body">
 							<div id="lgCatAddForm" class="form-group">
 								<label for="lgCatAdd">대분류 이름</label> <input type="text"
-									class="form-control" name="lgCatAdd" id="lgCatAdd"
-									placeholder="대분류 이름을 입력해주세요." >
+									class="form-control insertsize" name="lgCatAdd" id="lgCatAdd"
+									placeholder="대분류 이름을 입력해주세요  [ 길이 제한은 12글자입니다  ]" maxlength="12">
 								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
 								<button type="button" class="btn btn-theme modalButton" id="lgCatAddBtn">등록</button>	
 							</div>
@@ -70,7 +82,7 @@ th{
 				<div class="modal-dialog">
 					<!--  Modal content -->
 					<div id="mdCatModalPop" class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header insertHeader">
 							중분류 추가
 							<button type="button" class="close" data-dismiss="modal">×</button>
 						</div>
@@ -88,8 +100,8 @@ th{
 							<div id="mdCatAddForm" class="form-group">
 
 								<label for="mdCatAdd">중분류 이름</label> <input type="text"
-									class="form-control" name="mdCatAdd"
-									placeholder="중분류 이름을 입력해주세요." id="mdCatAdd" >
+									class="form-control insertsize" name="mdCatAdd"
+									placeholder="중분류 이름을 입력해주세요  [ 길이 제한은 12글자입니다  ]" id="mdCatAdd" maxlength="12">
 								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
 								<button type="button" class="btn btn-theme modalButton" id="mdCatAddBtn">등록</button>
 							</div>
@@ -104,12 +116,12 @@ th{
 				<div class="modal-dialog">
 					<!--  Modal content -->
 					<div id="smCatModalPop" class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header insertHeader">
 							소분류 추가
 							<button type="button" class="close" data-dismiss="modal">×</button>
 						</div>
 						<div class="modal-body">
-							<label><span class="hidden-xs">상위 중분류 선택</span> </label>
+							<label><span class="hidden-xs">상위 중분류 선택</span></label>
 							<div class="form-inline">
 								<select class="form-control" id="selectMdCategory">
 									<option value="">중분류를 선택해주세요.</option>
@@ -122,8 +134,8 @@ th{
 							<div id="smCatAddForm" class="form-group">
 
 								<label for="smCatAdd">소분류 이름</label> <input type="text"
-									class="form-control" name="smCatAdd"
-									placeholder="소분류 이름을 입력해주세요."  id="smCatAdd" >
+									class="form-control insertsize" name="smCatAdd"
+									placeholder="소분류 이름을 입력해주세요  [ 길이 제한은 12글자입니다  ]"  id="smCatAdd" maxlength="12">
 								<button type="button" data-dismiss="modal" class="btn btn-secondary modalButton">취소</button>
 								<button type="button" id="smCatAddBtn" class="btn btn-theme modalButton">등록</button>
 							</div>
@@ -141,7 +153,7 @@ th{
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">대분류 정보 수정</h4>
+							<div class="modal-title updateHeader" id="myModalLabel">대분류 정보 수정</div>
 						</div>
 						<div class="modal-body">
 							<div class="form-panel">
@@ -163,7 +175,7 @@ th{
 										<div class="modal-footer">
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
-													<button class="btn btn-theme" type="button" id="updateLgBtn">수정</button>
+													<button class="btn btn-theme" type="button" id="updateLgBtn" value="">수정</button>
 													<button class="btn btn-theme04" type="button"
 														data-dismiss="modal">취소</button>
 												</div>
@@ -186,7 +198,7 @@ th{
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">중분류 정보 수정</h4>
+							<div class="modal-title updateHeader" id="myModalLabel">중분류 정보 수정</div>
 						</div>
 						<div class="modal-body">
 							<div class="form-panel">
@@ -219,7 +231,7 @@ th{
 										<div class="modal-footer">
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
-													<button class="btn btn-theme" type="button" id="updateMdBtn">수정</button>
+													<button class="btn btn-theme" type="button" id="updateMdBtn" value="">수정</button>
 													<button class="btn btn-theme04" type="button"
 														data-dismiss="modal">취소</button>
 												</div>
@@ -243,7 +255,7 @@ th{
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">소분류 정보 수정</h4>
+							<div class="modal-title updateHeader" id="myModalLabel">소분류 정보 수정</div>
 						</div>
 						<div class="modal-body">
 							<div class="form-panel">
@@ -276,7 +288,7 @@ th{
 										<div class="modal-footer">
 											<div class="form-group">
 												<div class="col-lg-offset-2 col-lg-10">
-													<button class="btn btn-theme" type="button" id="updateSmBtn">수정</button>
+													<button class="btn btn-theme" type="button" id="updateSmBtn" value="updateSmBtn">수정</button>
 													<button class="btn btn-theme04" type="button"
 														data-dismiss="modal">취소</button>
 												</div>
@@ -320,9 +332,67 @@ th{
 						<!-- modal-dialog 끝 -->
 					</div>
 				</div>
-		<!-- 대분류 삭제 모달창 끝 -->	
+			<!-- 대분류 삭제 모달창 끝 -->	
+				
+			<!-- 중분류 삭제 모달창 시작 -->	
+				<div class="modal fade" id="DeleteModalmd" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">중분류 삭제</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<h5>해당 정보를 참조하는 하위 정보가 있으면 삭제가 제한됩니다</h5>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+										<button id="deleteMdBtn" name="deletebtn" class="btn btn-theme" value="">확인</button>
+										<button class="btn btn-theme04" type="button"
+											data-dismiss="modal">취소</button>
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+			<!-- 중분류 삭제 모달창 끝 -->
 			
-			
+			<!-- 소분류 삭제 모달창 시작 -->
+			<div class="modal fade" id="DeleteModalsm" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">소분류 삭제</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<h5>해당 정보를 참조하는 하위 정보가 있으면 삭제가 제한됩니다</h5>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+										<button id="deleteSmBtn" name="deletebtn" class="btn btn-theme" value="">확인</button>
+										<button class="btn btn-theme04" type="button"
+											data-dismiss="modal">취소</button>
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+			<!-- 소분류 삭제 모달창 끝 -->
 			
 		<div class="row mt">
 			<div class="col-lg-12">
@@ -333,7 +403,8 @@ th{
 								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;문제 분류 관리
 							</h4>
 						</header>
-						
+						<div class="col-lg-4 a"></div><div class="col-lg-4 a"></div>
+						<div class="col-lg-4 a"><button type="button" class="btn btn-theme" id="resetBtn"><i class="fa fa-search-plus"></i>&nbsp;&nbsp;초기화 [전체조회]</button></div>
 							<div class="col-lg-4">
 								<h3 class="table_heading" align="center">대분류</h3>
 								<select class="form-control selectCategory" id="selectLgCatSearch" onchange="selectLgCatSearch()">
@@ -398,7 +469,8 @@ th{
 													data-toggle="modal" data-target="#UpdateMdModal">
 														<i class="fa fa-pencil"></i>
 													</button>
-													<button type="button" class="btn btn-danger">
+													<button type="button" class="btn btn-danger" id="deletebtnmd" name="deletebtnmd"
+													data-toggle="modal" data-target="#DeleteModalmd">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -434,7 +506,8 @@ th{
 													data-toggle="modal" data-target="#UpdateSmModal">
 														<i class="fa fa-pencil"></i>
 													</button>
-													<button type="button" class="btn btn-danger">
+													<button type="button" class="btn btn-danger" id="deletebtnsm" name="deletebtnsm"
+													data-toggle="modal" data-target="#DeleteModalsm">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -475,7 +548,13 @@ $('#lgCatAddBtn').click(function(){
 			}else if(data.result == "null"){
 				swal("필수입력사항입니다","반드시 선택해주세요","error");
 			}else{
-			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
+				swal({
+				       title: "대분류 가 추가되었습니다",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+					});
 			}	
 			},
 		error:function(error){
@@ -502,7 +581,13 @@ $('#mdCatAddBtn').click(function(){
 			}else if(data.result == "textNull"){
 				swal("필수입력사항입니다","중분류 이름을 입력해주세요","error"); 
 			}else{
-			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
+				swal({
+				       title: "중분류 가 추가되었습니다",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+					});
 			}
 			},
 		error:function(error){
@@ -528,7 +613,13 @@ $('#smCatAddBtn').click(function(){
 			}else if(data.result == "textNull"){
 				swal("필수입력사항입니다","소분류 이름을 입력해주세요","error"); 
 			}else{
-			location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; 
+				swal({
+				       title: "소분류 가 추가되었습니다",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+					});
 			}
 			},
 		error:function(error){
@@ -553,14 +644,15 @@ function selectLgCatSearch(){
 				$('#list1body').children().remove();
 				<c:forEach items='${list1}' var='lgCategoryList'>
 				if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
-				$('#list1body').append(+"<tr>"
+				$('#list1body').append("<tr>"
 				+"<td>${lgCategoryList.lg_category_code}</td>"
 				+"<td>${lgCategoryList.lg_category_name}</td>"
 				+"<td>"
-				+"<button type='button' class='btn btn-theme' onclick='up()'"
+				+"<button type='button' class='btn btn-theme' onclick='upLg()'"
 				+"data-toggle='modal' data-target='#UpdateModal'>"
 				+"<i class='fa fa-pencil'></i></button>"
-				+"<button type='button' class='btn btn-danger'>"
+				+"<button type='button' class='btn btn-danger' onclick='deleteLg()'"
+				+"data-toggle='modal' data-target='#DeleteModal'>"
 				+"<i class='fa fa-trash-o'></i>"
 				+"</button>"
 				+"</td>"
@@ -580,7 +672,7 @@ function selectMdCatSearch(){
 			$('#list2body').children().remove();
 			<c:forEach items='${list2}' var='mdCategoryList'>
 			if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
-			$('#list2body').append(+"<tr>"
+			$('#list2body').append("<tr>"
 			+"<td>${mdCategoryList.md_category_code}</td>"
 			+"<td>${mdCategoryList.md_category_name}</td>"
 			+"<td>"
@@ -588,7 +680,8 @@ function selectMdCatSearch(){
 			+"data-toggle='modal' data-target='#UpdateMdModal'>"
 			+"<i class='fa fa-pencil'></i>"
 			+"</button>"
-			+"<button type='button' class='btn btn-danger'>"
+			+"<button type='button' class='btn btn-danger' onclick='deleteMd()'"
+			+"data-toggle='modal' data-target='#DeleteModalmd'>"
 			+"<i class='fa fa-trash-o'></i>"
 			+"</button>"
 			+"</td>"
@@ -602,7 +695,7 @@ function selectMdCatSearch(){
 				$('#list3body').children().remove();
 				<c:forEach items='${list3}' var='smCategoryList'>
 				if(document.getElementById("selectSmCatSearch").value == "${smCategoryList.sm_category_code}"){
-				$('#list3body').append(+"<tr>"
+				$('#list3body').append("<tr>"
 				+"<td>${smCategoryList.sm_category_code}</td>"
 				+"<td>${smCategoryList.sm_category_name}</td>"
 				+"<td>"
@@ -610,7 +703,8 @@ function selectMdCatSearch(){
 				+"data-toggle='modal' data-target='#UpdateSmModal'>"
 				+"<i class='fa fa-pencil'></i>"
 				+"</button>"
-				+"<button type='button' class='btn btn-danger'>"
+				+"<button type='button' class='btn btn-danger' onclick='deleteSm()'"
+				+"data-toggle='modal' data-target='#DeleteModalsm'>"
 				+"<i class='fa fa-trash-o'></i>"
 				+"</button>"
 				+"</td>"
@@ -631,6 +725,7 @@ function selectMdCatSearch(){
 		var lgCatName_modal=tr.eq(1).text();
 		$('#lgCode').val(lgCatCode_modal);
 		$('#lgName').val(lgCatName_modal);
+		$('#updateLgBtn').val(lgCatName_modal);
 	});
 	
 	$("button[name='updatebtnmd']").click(function(){
@@ -642,6 +737,7 @@ function selectMdCatSearch(){
 		var mdCatName_modal=tr.eq(1).text();
 		$('#mdCode').val(mdCatCode_modal);
 		$('#mdName').val(mdCatName_modal);
+		$('#updateMdBtn').val(mdCatName_modal);
 		<c:forEach items="${list2}" var="mdCategoryList">
 		if(mdCatCode_modal == "${mdCategoryList.md_category_code}"){
 			var lgSelectCode = "${mdCategoryList.lg_category_code}";
@@ -659,6 +755,7 @@ function selectMdCatSearch(){
 		var smCatName_modal=tr.eq(1).text();
 		$('#smCode').val(smCatCode_modal);
 		$('#smName').val(smCatName_modal);
+		$('#updateSmBtn').val(smCatName_modal);
 		<c:forEach items="${list3}" var="smCategoryList">
 		if(smCatCode_modal == "${smCategoryList.sm_category_code}"){
 			var mdSelectCode = "${smCategoryList.md_category_code}";
@@ -670,7 +767,7 @@ function selectMdCatSearch(){
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@수정 버튼 클릭 시 모달창 띄우고 해당 값 가져와서 수정 (전체조회시에만) 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */	
 	
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@카테고리 선택시 수정할 때 값 가져오기(상세조회시에) 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
-	function up(){
+	function upLg(){
 		<c:forEach items='${list1}' var='lgCategoryList'>
 		if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
 			var code = "${lgCategoryList.lg_category_code}";
@@ -713,18 +810,25 @@ function selectMdCatSearch(){
 	/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@해당 값들 가져와서 db에서 수정 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	$('#updateLgBtn').click(function() {
 		var lgChkName = $('#lgName').val();
+		var lgBeforeName = $('#updateLgBtn').val();
 		if(lgChkName == ""){
 			swal("필수 입력사항입니다", "대분류 이름을 입력해주세요", "error");
 		}else{
 		$.ajax({
    			  type : "post",
    			  url : "${pageContext.request.contextPath}/admin/lgUpdate.do",
-   			  data:{lgCatCode:$('#lgCode').val(), lgCatName:$('#lgName').val()},  
+   			  data:{lgCatCode:$('#lgCode').val(), lgCatName:$('#lgName').val(), lgBeforeName:$('#updateLgBtn').val()},  
    			  success : function(data){
    				 if(data.result =="Notnull"){
    					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
    				 }else{
-   				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+   					swal({
+   					    title: "대분류 정보가 수정되었습니다",
+   					    text: "",
+   					    icon:"success"
+   					}).then(function() {
+   					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+   					});
    				 }	   			 
    				 },
    			  error: function(error){
@@ -737,6 +841,7 @@ function selectMdCatSearch(){
 	$('#updateMdBtn').click(function() {
 		var mdChkName = $('#mdName').val();
 		var lgSelectName = $('#UpdateSelectLgCatSearch').val();
+		var mdBeforeName = $('#updateMdBtn').val();
 		if(lgSelectName ==""){
 			swal("필수 입력사항입니다", "대분류를 선택해세요", "error");
 		}else if(mdChkName == ""){
@@ -746,12 +851,18 @@ function selectMdCatSearch(){
 		$.ajax({
    			  type : "post",
    			  url : "${pageContext.request.contextPath}/admin/mdUpdate.do",
-   			  data:{mdCatCode:$('#mdCode').val(), mdCatName:$('#mdName').val(),lgSelectCode:$('#UpdateSelectLgCatSearch').val()},  
+   			  data:{mdCatCode:$('#mdCode').val(), mdCatName:$('#mdName').val(),lgSelectCode:$('#UpdateSelectLgCatSearch').val(),mdBeforeName:$('#updateMdBtn').val()},  
    			  success : function(data){
    				 if(data.result =="Notnull"){
    					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
    				 }else{
-   				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+   					swal({
+   					    title: "중분류 정보가 수정되었습니다",
+   					    text: "",
+   					    icon:"success"
+   					}).then(function() {
+   					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+   					});
    				 }	   			 
    				 },
    			  error: function(error){
@@ -764,6 +875,7 @@ function selectMdCatSearch(){
 	$('#updateSmBtn').click(function() {
 		var smChkName = $('#smName').val();
 		var mdSelectName = $('#UpdateSelectMdCatSearch').val();
+		var smBeforeName = $('#updateSmBtn').val();
 		if(mdSelectName ==""){
 			swal("필수 입력사항입니다", "중분류를 선택해세요", "error");
 		}else if(smChkName == ""){
@@ -773,19 +885,25 @@ function selectMdCatSearch(){
 		$.ajax({
    			  type : "post",
    			  url : "${pageContext.request.contextPath}/admin/smUpdate.do",
-   			  data:{smCatCode:$('#smCode').val(), smCatName:$('#smName').val(),mdSelectCode:$('#UpdateSelectMdCatSearch').val()},  
+   			  data:{smCatCode:$('#smCode').val(), smCatName:$('#smName').val(),mdSelectCode:$('#UpdateSelectMdCatSearch').val(), smBeforeName:$('#updateSmBtn').val()},  
    			  success : function(data){
    				 if(data.result =="Notnull"){
    					swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
    				 }else{
-   				location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+   					swal({
+   					    title: "소분류 정보가 수정되었습니다",
+   					    text: "",
+   					    icon:"success"
+   					}).then(function() {
+   					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+   					});
    				 }	   			 
    				 },
    			  error: function(error){
    				  alert("에러야!");
    			 }
    		});
-		}	
+		}
 	});
 	
 	
@@ -809,25 +927,139 @@ function selectMdCatSearch(){
 		}
 		</c:forEach>
 		if(result == "false"){
-			swal("해당 정보를 참조받는 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+			swal("해당 정보를 참조받는 중분류 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
 		}else{
 		$.ajax({
 			  type : "post",
 			  url : "${pageContext.request.contextPath}/admin/lgDelete.do",
 			  data:{lgDeleteCode:$('#deleteLgBtn').val()},  
 			  success : function(data){
-				 location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+				  swal({
+				       title: "해당 대분류가 삭제되었습니다",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+					});
 			  },
 			  error: function(error){
 				  alert("에러야!");
 			 }
 		});
 		}
+	});
+	
+	$("button[name='deletebtnmd']").click(function(){
+		action='modify';
+		type='PUT';
+		var row =$(this).parent().parent();
+		var tr = row.children();
+	 	var mdDeleteCode=tr.eq(0).text();
+	 	$('#deleteMdBtn').val(mdDeleteCode);
+	});
+
+	$('#deleteMdBtn').click(function(){
+		<c:forEach items="${list3}" var="smCategoryList">
+		if(document.getElementById("deleteMdBtn").value == "${smCategoryList.md_category_code}"){
+			result = "false"; 
+		}else{
+			result = "true";
+		}
+		</c:forEach>
+		if(result == "false"){
+			swal("해당 정보를 참조받는 소분류 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+		}else{
+		$.ajax({
+			  type : "post",
+			  url : "${pageContext.request.contextPath}/admin/mdDelete.do",
+			  data:{mdDeleteCode:$('#deleteMdBtn').val()},  
+			  success : function(data){
+				  swal({
+				       title: "해당 중분류가 삭제되었습니다",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+					});
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+		}
+	});
+	
+	$("button[name='deletebtnsm']").click(function(){
+		action='modify';
+		type='PUT';
+		var row =$(this).parent().parent();
+		var tr = row.children();
+	 	var smDeleteCode=tr.eq(0).text();
+	 	$('#deleteSmBtn').val(smDeleteCode);
+	});
+	
+	$('#deleteSmBtn').click(function(){
 		
+		$.ajax({
+			  type : "post",
+			  url : "${pageContext.request.contextPath}/admin/smDelete.do",
+			  data:{smDeleteCode:$('#deleteSmBtn').val()},  
+			  success : function(data){
+				  if((data.result)=="삭제가능"){
+					  swal({
+					       title: "해당 소분류가 삭제되었습니다",
+						   text: "",
+						   icon:"success"
+						}).then(function() {
+						    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+						});
+				 	 }else{
+				 		swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+				 	 }
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
 		
 	});
 	
-
+	function deleteLg(){
+		<c:forEach items='${list1}' var='lgCategoryList'>
+		if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
+			var code = "${lgCategoryList.lg_category_code}";
+			$('#deleteLgBtn').val(code);
+		}
+		</c:forEach>
+	}
+	
+	 function deleteMd(){
+		<c:forEach items='${list2}' var='mdCategoryList'>
+		if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
+			var code = "${mdCategoryList.md_category_code}";
+			$('#deleteMdBtn').val(code);
+		}
+		</c:forEach>
+	} 
+	
+	 function deleteSm(){
+		<c:forEach items='${list3}' var='smCategoryList'>
+		if(document.getElementById("selectSmCatSearch").value == "${smCategoryList.sm_category_code}"){
+			var code = "${smCategoryList.sm_category_code}";
+			$('#deleteSmBtn').val(code);
+		}
+		</c:forEach>
+	}
+	 
+	$('#resetBtn').click(function(){
+		location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+	});
+					
+	
+		
+		
+		
+		
 </script>
 			
 			

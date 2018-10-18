@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Question_levelDto;
@@ -43,7 +44,6 @@ public class TeacherService {
 		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.examPaperList(dto);
-		System.out.println("teacherService result 값>>" + result);
 		return result;	
 	}
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
@@ -55,9 +55,35 @@ public class TeacherService {
 		return result;
 	}
 	
+
 	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
+		return result;
+	}
+	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num);
+		return result;
+	}
+	public int examQuestionSelect(String exam_paper_num, String question_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionSelect(exam_paper_num, question_num);
+		return result;
+	}
+	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
+		return result;
+	}
+	public int examQuestionUpdate(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionUpdate(exam_paper_num,question_num, exam_question_seq, exam_question_score);
+		return result;
+	}
+	public int examQuestionDelete(String exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examQuestionDelete(exam_paper_num);
 		return result;
 	}
 	/*한결 - 10.17 시험지 체크  및 insert 끝*/
@@ -70,6 +96,7 @@ public class TeacherService {
 		dto.setExam_paper_name(exam_paper_name);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperDelete(dto);
+		System.out.println("teacherService result값 : " + result);
 		return result;
 	}
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
@@ -90,5 +117,16 @@ public class TeacherService {
 	}
 	
 	/*--성태용 끝--*/
+	
+	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
+	public int examScheduleDelete(String exam_info_name) {
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setExam_info_name(exam_info_name);
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examScheduleDelete(dto);
+		System.out.println("teacherService result값 : " + result);
+		return result;
+	}
+	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
 
 }

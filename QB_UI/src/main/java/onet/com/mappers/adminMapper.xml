@@ -70,11 +70,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <insert id="insertQuestionChoice">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{param1},#{param2},#{param3});
-
-	
-	<!-- insert into question_choice(question_num, question_choice_num, question_choice_content) 
-	values(#{question_num}, #{question_choice_num}, #{question_choice_content}); -->
-	
 </insert>
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
@@ -88,7 +83,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	SELECT * FROM role
 	WHERE NOT role_code='ROLE_ADMIN'
 </select>
-
 
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 
@@ -245,5 +239,19 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <delete id="lgDelete" parameterType="onet.com.vo.MemberDto">
 	delete from question_lg_category where lg_category_code = #{lg_category_code}
 </delete>
+
+<delete id="mdDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_md_category where md_category_code = #{md_category_code}
+</delete>
+
+<delete id="smDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_sm_category where sm_category_code = #{sm_category_code}
+</delete>
+
+<select id="questionDeleteSearch" parameterType="String" resultType="String">
+	select sm_category_code from question where sm_category_code=#{smDeleteCode}
+</select>
+
+
 
 </mapper>

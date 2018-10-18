@@ -168,19 +168,19 @@
 	 	  $('#AdminTable').DataTable();
 	 	 $('#table_smCategory').DataTable({
 	 		"ordering": false,
-	 		"scrollY":"420px",
+	 		"scrollY":"390px",
 	        "scrollCollapse": true,
 	        "paging": false
 	 		 });
 	 	 $('#table_mdCategory').DataTable({
 	 		"ordering":false,
-	 		"scrollY":"420px",
+	 		"scrollY":"390px",
 	        "scrollCollapse": true,
 	        "paging":false
 	 	 });
 	 	$('#table_lgCategory').DataTable({
 	 		"ordering":false,
-	 		"scrollY":"420px",
+	 		"scrollY":"390px",
 	        "scrollCollapse": true,
 	        "paging":false
 	 	 });
