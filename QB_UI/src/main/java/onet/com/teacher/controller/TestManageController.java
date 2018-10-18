@@ -58,4 +58,21 @@ public class TestManageController {
 		return mv;
 	}
 	/*성태용 끝*/
+	
+	/*한결 시작*/
+	@RequestMapping("checkExam_paper.do")
+	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
+		String result = teacherService.examPaperCheck(exam_paper_name);
+		return result;
+	}	
+	
+	@RequestMapping("examPaperInsert.do")
+	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
+			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
+		System.out.println(exam_paper_name +"//"+ member_id +"\\"+ exam_paper_desc);
+		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
+		return result;
+	}
+	
+	/*한결 끝*/
 }
