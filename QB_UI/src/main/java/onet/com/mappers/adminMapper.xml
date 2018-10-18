@@ -231,4 +231,18 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	delete from question_lg_category where lg_category_code = #{lg_category_code}
 </delete>
 
+<delete id="mdDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_md_category where md_category_code = #{md_category_code}
+</delete>
+
+<delete id="smDelete" parameterType="onet.com.vo.MemberDto">
+	delete from question_sm_category where sm_category_code = #{sm_category_code}
+</delete>
+
+<select id="questionDeleteSearch" parameterType="String" resultType="String">
+	select sm_category_code from question where sm_category_code=#{smDeleteCode}
+</select>
+
+
+
 </mapper>

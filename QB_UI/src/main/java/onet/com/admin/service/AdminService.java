@@ -317,4 +317,28 @@ public class AdminService {
 		int result = dao.lgDelete(dto);
 		return result;
 	}
+	
+	public int mdDelete(CategoryDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.mdDelete(dto);
+		return result;
+	}
+	
+	public int smDelete(String smDeleteCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = 0;
+		String qSearch = dao.questionDeleteSearch(smDeleteCode);
+		System.out.println(qSearch);
+		CategoryDto dto = new CategoryDto();
+		dto.setSm_category_code(smDeleteCode);
+		if(qSearch == null) {
+			result = dao.smDelete(dto);
+			return result;
+		}else {
+			return result;	
+		}
+	}
+	
+	
+	
 }
