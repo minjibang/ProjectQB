@@ -1,5 +1,6 @@
 ﻿package onet.com.admin.controller;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
@@ -7,6 +8,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -645,17 +648,21 @@ public class AdminController {
 
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
 		System.out.println("시험등록컨트롤러들어옴");
 		int result = 0;
 		String viewpage="";
 		
 		result=teacherService.examInfoInsert(dto);
 		if(result > 0) {
-			System.out.println("시험등록 성공");
+			System.out.println("시험등록성공");
 			String class_name = dto.getClass_name();
 			System.out.println(class_name);
-			
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('성공!');");
+			out.println("</script>");
+			out.flush();
 			
 			String url = URLEncoder.encode(class_name, "UTF-8");
 			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
@@ -679,6 +686,8 @@ public class AdminController {
 			examPaperList = teacherService.examPaperList(class_num);
 			model.addAttribute("examPaperList", examPaperList);
 			System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+			
+			
 			
 			return "common.admin.exam.examScheduleRegist";
 		}
