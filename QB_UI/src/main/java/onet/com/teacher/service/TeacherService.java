@@ -113,9 +113,11 @@ public class TeacherService {
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
 	
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 시작 */
-	public List<ExamInfoDto> examScheduleList(){
+	public List<ExamInfoDto> examScheduleList(int class_num){
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamInfoDto> result = dao.examScheduleList();
+		List<ExamInfoDto> result = dao.examScheduleList(dto);
 		return result;
 	}
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 끝 */
