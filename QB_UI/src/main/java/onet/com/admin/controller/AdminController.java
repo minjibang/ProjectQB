@@ -177,13 +177,13 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, Principal principal) {
-		String member_id = principal.getName();
+	public String adminClassMain(Model model, String class_name) {
+
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(member_id);
+		notice=commonService.teacher_student_Main(class_name);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";

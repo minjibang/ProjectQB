@@ -42,11 +42,11 @@ public class TeacherController {
 	// 강사 notice 관련
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model, Principal principal) {
-		String member_id = principal.getName();
-		List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+	public String teacherMain(Model model, String class_name) {
+	
+		List<NoticeDto> notice = commonService.teacher_student_Main(class_name);
 		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
 		
 		for(int i=0; i<exam_info.size();i++) {

@@ -22,17 +22,19 @@ public class CommonService {
 	@Autowired
 	private SqlSession sqlsession;
 	/*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
-	public List<NoticeDto> teacher_student_Main(String member_id) {
+	public List<NoticeDto> teacher_student_Main(String class_name) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		NoticeDto dto = new NoticeDto();
-		List<NoticeDto> result = dao.notice(member_id);
+		dto.setClass_name(class_name);
+		List<NoticeDto> result = dao.notice(dto);
 		return result;
 	}
 	
-	public List<Exam_infoDto> exam_info(String member_id) {
+	public List<ExamInfoDto> exam_info(String class_name) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);		
-		Exam_infoDto dto = new Exam_infoDto();		
-		List<Exam_infoDto> result = dao.exam_info(member_id);
+		ExamInfoDto dto = new ExamInfoDto();		
+		dto.setClass_name(class_name);
+		List<ExamInfoDto> result = dao.exam_info(dto);
 		return result;
 	}
 	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
