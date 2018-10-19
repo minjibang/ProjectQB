@@ -28,6 +28,7 @@
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
                         <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
+                        <input type="hidden" class="dpn_EPN" value="" />
                         <div class="makeExamFirstRow">
                            <hr>
                            <select class="form-control makeExamSelectCategory" name="question_lg_category" id="question_lg_category">
