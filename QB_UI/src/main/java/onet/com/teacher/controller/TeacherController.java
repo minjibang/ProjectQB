@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
@@ -43,11 +44,11 @@ public class TeacherController {
 	// 강사 notice 관련
 	/* 민지:10.08 강사 메인추가 */
 	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model, Principal principal) {
-		String member_id = principal.getName();
-		List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+	public String teacherMain(Model model, String class_name) {
+	
+		List<NoticeDto> notice = commonService.teacher_student_Main(class_name);
 		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
 		
 		for(int i=0; i<exam_info.size();i++) {
@@ -117,9 +118,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody String exam_paper_name)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody int exam_paper_num)
 	{
-		int result = teacherService.examPaperDelete(exam_paper_name);
+		int result = teacherService.examPaperDelete(exam_paper_num);
 		String result2 = String.valueOf(result);
 		return result2;
 	}
@@ -127,9 +128,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
 	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody String exam_info_name)
+	public @ResponseBody String teacherExamSchedultDelete(@RequestBody int exam_info_num)
 	{
-		int result = teacherService.examScheduleDelete(exam_info_name);
+		int result = teacherService.examScheduleDelete(exam_info_num);
 		String result2 = String.valueOf(result);
 		return result2;
 	}
@@ -263,6 +264,23 @@ public class TeacherController {
 			
 			return mv;
 		}
+		
+		@RequestMapping(value="myQuestionSearch.do")
+		public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+				@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+				@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			
+			List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.common.questionManagement_ajax");
+			mv.addObject("question", question);
+			mv.addObject("question_choice",question_choice);
+			
+			return mv;
+		}
+	
 		
 	/*재훈 18.10.18  */
 

@@ -32,13 +32,13 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${notice }" var="notice">
+									<c:forEach items="${notice}" var="notice">
 										<tr class="" onClick="location.href='noticeDetail.do'">
-											<td class="notice_num">${notice.notice_num }</td>
-											<td class="notice_name">${notice.notice_name }</td>
+											<td class="notice_num">${notice.notice_num}</td>
+											<td class="notice_name">${notice.notice_name}</td>
 											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
-											<td class="notice_member_id">${notice.member_id }</td>
-											<td class="notice_date">${notice.notice_date }</td>
+											<td class="notice_member_id">${notice.member_id}</td>
+											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
