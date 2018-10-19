@@ -118,7 +118,6 @@
                            data-target="#pickQuestionTempSaveModal"
                            id="pickQuestionTempSaveModalBtn">
                            <input type="hidden" id="copyTempSave" value="">
-                        <!--                                <input type="button" class="btn btn-theme" value="시험지 미리보기" id="">  우선순위에서 제외-->
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
                            data-toggle="modal">시험지 미리보기</button>
@@ -273,10 +272,10 @@
                            <form action="" method="post">
                               <div class="modal-body">
 
-                                 시험지 이름 <input type="text" class="form-control"
+                                 시험지 이름 <input type="text" class="form-control createEPaper"
                                     placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
                                  설명
-                                 <textarea type="textarea" class="form-control"
+                                 <textarea type="textarea" class="form-control createEPDesc"
                                     placeholder="시험지 설명을 입력하세요." name=""></textarea>
                               </div>
                               <div class="modal-footer">
