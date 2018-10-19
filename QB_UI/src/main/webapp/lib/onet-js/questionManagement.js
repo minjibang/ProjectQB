@@ -209,18 +209,17 @@ function check(){
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
 	alert( "=== 문제 생성 입력값 확인용 alert ==="
-			  + "문제 타입: " + _shortAnswerQuestion
-			  + "\n 소분류: " + _smCategory
-			  + "\n 난이도: " + _questionLevel
-			  + "\n 문제내용: " + _questionName
-			  + "\n 정답: " + _questionChoiceAnswer
-			  + "\n 객관식보기1번: " + _questionChoiceContent1
-			  + "\n 객관식보기2번: " + _questionChoiceContent2
-			  + "\n 객관식보기3번: " + _questionChoiceContent3
-			  + "\n 객관식보기4번: " + _questionChoiceContent4
-			  + "\n 객관식보기5번: " + _questionChoiceContent5
-			  + "\n 객관식보기숫자: " + _choiceQuantity
-			
+			  + "문제 타입: " 			+ _shortAnswerQuestion
+			  + "\n 소분류: " 		+ _smCategory
+			  + "\n 난이도: " 		+ _questionLevel
+			  + "\n 문제내용: " 		+ _questionName
+			  + "\n 정답: " 			+ _questionChoiceAnswer
+			  + "\n 객관식보기1번: " 	+ _questionChoiceContent1
+			  + "\n 객관식보기2번: " 	+ _questionChoiceContent2
+			  + "\n 객관식보기3번: " 	+ _questionChoiceContent3
+			  + "\n 객관식보기4번: " 	+ _questionChoiceContent4
+			  + "\n 객관식보기5번: " 	+ _questionChoiceContent5
+			  + "\n 객관식보기갯수: " 	+ _choiceQuantity
 	   		);
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
@@ -236,6 +235,7 @@ function check(){
 			swal("문제의 난이도를 선택해주세요");
 			document.getElementById("level_type2").focus();
 			return false;
+		//객관식 문제 보기가 5개일때 
 		} else if ($.trim(_choiceQuantity) == "5"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -252,6 +252,7 @@ function check(){
 			} else if ($.trim(_questionChoiceContent5) == "") {
 				swal("객관식 5번 보기를 입력해주세요");
 			}
+		//객관식 문제 보기가 4개일때	
 		} else if ($.trim(_choiceQuantity) == "4"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -266,6 +267,7 @@ function check(){
 				swal("객관식 4번 보기를 입력해주세요");
 				return false;
 			} 
+		//객관식 문제 보기가 3개일때
 		} else if ($.trim(_choiceQuantity) == "3"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -277,6 +279,7 @@ function check(){
 				swal("객관식 3번 보기를 입력해주세요");
 				return false;
 			}
+		//객관식 문제 보기가 2개일때	
 		} else if ($.trim(_choiceQuantity) == "2"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -311,10 +314,63 @@ function check(){
 			if(questionInsertConfirm == true){
 				alert("새로운 문제가 등록되었습니다.")
 				return true;
-				
 			}else{
 				return false;
 			}
 		}
 	}
 }
+
+
+$(function() {
+	/* <<다수의>> 선택 문제 삭제 버튼*/
+	$("#myQuestionPickDeleteBtn").click(function(){
+		if($('.myQuestions input[name="checkbox[]"]').is(':checked')){
+			action='modify';
+			type='PUT';
+			swal("선택된 문제가 있을 시 이 창이 떠야함.");
+		}else{
+			swal("선택된 문제가 없습니다. \n 먼저 삭제할 문제를 선택해주세요.");
+		}
+		
+	})
+	
+	
+	$('#multiDeleteConfirmBtn').click(function(){
+		
+		$('.myQuestions input[name="checkbox[]"]:checked').each(function(index) {
+				alert("선택된 문제 갯수 확인용 index:" + index);
+		})
+		
+			/*$.ajax({
+				url : "myQuestionDelete.do",
+				type:'GET',
+				data : {
+					  'question_num' : question_num
+				},
+				dataType:"html",
+				success:function(data){
+					swal('삭제성공');
+				}
+			})*/
+	})
+	
+	/* 문제 한개 삭제 버튼*/
+	$('#singleDeleteConfirmBtn').click(function(){
+		swal("이제부터 삭제 기능 시작!");
+		
+			/*$.ajax({
+				url : "myQuestionDelete.do",
+				type:'GET',
+				data : {
+					  'question_num' : question_num
+				},
+				dataType:"html",
+				success:function(data){
+					swal('삭제성공');
+				}
+			})*/
+	})	
+		
+})
+
