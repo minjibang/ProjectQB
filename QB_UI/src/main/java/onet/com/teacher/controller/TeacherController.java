@@ -117,7 +117,7 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto, String exam_paper_name)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody String exam_paper_name)
 	{
 		int result = teacherService.examPaperDelete(exam_paper_name);
 		String result2 = String.valueOf(result);
@@ -127,7 +127,7 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
 	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody ExamInfoDto dto, String exam_info_name)
+	public @ResponseBody String teacherExamSchedultDelete(@RequestBody String exam_info_name)
 	{
 		int result = teacherService.examScheduleDelete(exam_info_name);
 		String result2 = String.valueOf(result);
@@ -191,8 +191,10 @@ public class TeacherController {
 	
 	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 시작 */
 	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist() {
-		
+	public String examScheduleRegist(Model model, int class_num) {
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList(class_num);
+		model.addAttribute("classMemberList", classMemberList);
 		return "common.teacher.exam.examScheduleRegist";
 	}
 	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 끝 */
@@ -312,7 +314,10 @@ public class TeacherController {
 	
 	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
 	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate() {
+	public String examScheduleUpdate(Model model, int class_num) {
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList(class_num);
+		model.addAttribute("classMemberList", classMemberList);
 		return "common.teacher.exam.examScheduleUpdate";
 	}
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
