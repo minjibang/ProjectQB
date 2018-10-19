@@ -204,7 +204,7 @@
 					                                id="ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
 					                                src="${pageContext.request.contextPath}/img/oximg_v.png"></div>
 					                                ${questionChoice.question_choice_num} 
-					                            </td>
+					                            </td>					                            
 											</c:if>
 										</c:forEach>
 									</c:when>

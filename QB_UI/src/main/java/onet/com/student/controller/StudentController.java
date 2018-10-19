@@ -169,7 +169,7 @@ public class StudentController {
 	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
 	/* 양회준 18.10.19 학생 시험응시 페이지 테스트 시간제한 설정 */
 	@RequestMapping("examPaperDo2.do")
-	public String examPaperDo2(Model model, int exam_info_num, HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException, ParseException {
+	public String examPaperDo2(Model model, int exam_info_num) throws ClassNotFoundException, SQLException, IOException, ParseException {
 		
 		ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
 		String url = null;
@@ -209,6 +209,7 @@ public class StudentController {
 				model.addAttribute("questionList", questionList);
 				model.addAttribute("questionChoiceList", questionChoiceList);
 				model.addAttribute("questionCount", questionCount);
+				
 				url = "exam.student.examPaperDo2";
 			}else {
 				System.out.println("시험시간이 끝났습니다.");
