@@ -5,6 +5,7 @@
 
 jQuery(document).ready(function() {
 
+
    TaskList.initTaskWidget();
    
    /*선택문제 출제 + 문제 수 +카운트*/
@@ -31,6 +32,8 @@ jQuery(document).ready(function() {
       /*이동한 문제수 만큼 문제 개수 카운트*/
       $('#qnum').text(sortable_li_num);
    });
+   
+   /*미리보기*/
    $('#miriBtn').click(function(){
       var miriselected = new Array();
       var miricount = 0;
@@ -262,26 +265,27 @@ function makeExamSubmitBtn(num){
         }
      });
 	
+
 }
 
 
 
 function plusqcore(){
-   var qc = Number($('#qcore').val());
-   $('.questionScoreInputTag').each(function(){
-      if($(this).val()>101){
-         swal("한 문제당 최대 배점은 5점까지 인정됩니다.");
-         $(this).val(5);
-         qc += Number(5);
-      } else {
-         qc += Number($(this).val());
-      }
-   });
-      if(qc > 100){
-         swal("총 점수가 100점이 넘을 수 없습니다.");
-         $('#qcore').text(qc);
-      }
-      $('#qcore').text(qc);
+	var qc = Number($('#qcore').val());
+	$('.questionScoreInputTag').each(function(){
+		if($(this).val()>101){
+			swal("한 문제당 최대 배점은 5점까지 인정됩니다.");
+			$(this).val(5);
+			qc += Number(5);
+		} else {
+			qc += Number($(this).val());
+		}
+	});
+		if(qc > 100){
+			swal("총 점수가 100점이 넘을 수 없습니다.");
+			$('#qcore').text(qc);
+		}
+		$('#qcore').text(qc);
 };
 
 function CRUD(exam_paper_name, member_id, exam_paper_desc, exam_paper_status){
@@ -295,6 +299,6 @@ function successFunction(data,tt){
 }
 
 $(function() {
-   $("#sortable").sortable();
-   $("#sortable").disableSelection();
+	$("#sortable").sortable();
+	$("#sortable").disableSelection();
 });
