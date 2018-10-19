@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
@@ -64,7 +64,7 @@
 										<option value="">소분류 선택</option>
 									</select> 
 									
-									<select class="form-control-static myQuestionSelectCategory" name="QuestionLevel" id="level_type">
+									<select class="form-control-static myQuestionSelectCategory" name="level_code" id="level_type">
 										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
 											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
@@ -151,7 +151,7 @@
 											</select> <select id="question_sm_category2"
 												class="form-control-static" name="sm_category_code">
 												<option value="">소분류 선택</option>
-											</select> <select id="level_type" class="form-control-static"
+											</select> <select id="level_type2" class="form-control-static"
 												name="level_code">
 												<option value="">난이도</option>
 												<c:forEach items="${quesLevelList}" var="quesLevelList">
@@ -389,8 +389,8 @@
 										</div>
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
-										<button type="button" class="btn btn-secondary quesCategory">
-										취소 - 입력값 초기화</button>
+										<button type="reset" class="btn btn-secondary quesCategory">
+										입력 취소</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										

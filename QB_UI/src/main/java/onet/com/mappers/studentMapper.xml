@@ -2,4 +2,17 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="onet.com.admin.dao.AdminDao"/><!--임시 매핑. 작업시 필히 수정 요망 -->
+<mapper namespace="onet.com.student.dao.StudentDao">
+
+<!-- 10.19 현이 학생 답안지 제출 시작 -->
+<insert id="examAnswerInsert" parameterType="onet.com.vo.Student_answerDto">
+	insert into student_answer(member_id, exam_info_num, question_num, exam_question_seq, student_answer_choice, student_answer_status)
+	values(#{member_id}, #{exam_info_num}, #{question_num}, #{exam_question_seq}, #{student_answer_choice}, #{student_answer_status})
+</insert>
+
+<select id="searchAnswer" parameterType="int" resultType="String">
+	select question_answer from question where question_num = #{question_num}
+</select>
+<!-- 10.19 현이 학생 답안지 제출 끝 -->
+
+</mapper>

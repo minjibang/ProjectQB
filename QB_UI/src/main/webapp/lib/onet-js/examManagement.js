@@ -17,7 +17,7 @@ $(document).ready(function(){
 		/* 시험지 삭제 모달창 */
 		$("#examPaperDeletebtn").click(function(){	
 			
-			var _param = {examName:$("#exam-paper-name")
+			var _param = {examNum:$("#exam-paper-num")
 						  };
 			
 			var _data = JSON.stringify(_param); // jsonString으로 변환
@@ -37,9 +37,8 @@ $(document).ready(function(){
 					
 						/*$(".exam-paper-name:eq(" + index + ")").remove();
 						$(".exam-paper-name:eq(" + index + ")").submit();*/
-						console.log("삭제된 시험지 이름 : " + data);
 						
-						alert("삭제되었습니다");
+						alert("시험지 삭제 성공");
 						location.href="examManagement.do?class_num="+class_num_parameter;
 					},
 					error: function(error){
@@ -61,12 +60,7 @@ $(document).ready(function(){
 			/* 시험 일정 삭제 모달창  */
 			$('#examScheduleDeletebtn').click(function(){
 				
-				var _param = {examInfoName:$('#exam-info-name'),
-							  examInfoDate:$('#exam-info-date'),
-							  examInfoStart:$('#exam-info-start'),
-							  examInfoEnd:$('#exam-info-end'),
-							  examInfoTime:$('#exam-info-time'),
-							  examInfoMember:$('#exam-info-member')};
+				var _param = {examInfoNum:$('#exam-info-num')};
 				
 				var _data = JSON.stringify(_param); // jsonString으로 변환
 				
@@ -81,9 +75,7 @@ $(document).ready(function(){
 					data :_data,
 					contentType : "application/json; charset=utf-8",
 					success : function(data){
-						console.log("삭제된 시험일정 이름 : " + data);
-						
-						alert("삭제되었습니다");
+						alert("시험 일정 삭제성공");
 						location.href="examManagement.do?class_num="+class_num_parameter;
 					},
 					error: function(request, status, error){

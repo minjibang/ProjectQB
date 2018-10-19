@@ -21,21 +21,40 @@ public class CommonService {
 	
 	@Autowired
 	private SqlSession sqlsession;
-	/*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
-	public List<NoticeDto> teacher_student_Main(String member_id) {
+	   /*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
+	   public List<NoticeDto> teacher_student_Main(String member_id) {
+	      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+	      NoticeDto dto = new NoticeDto();
+	      List<NoticeDto> result = dao.notice(member_id);
+	      return result;
+	   }
+	   
+	   public List<Exam_infoDto> exam_info(String member_id) {
+	      CommonDao dao = sqlsession.getMapper(CommonDao.class);      
+	      Exam_infoDto dto = new Exam_infoDto();      
+	      List<Exam_infoDto> result = dao.exam_info(member_id);
+	      return result;
+	   }
+	   /*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
+	/*민지 - 10.10 관리자 메인페이지 백그라운드 시작*/
+	public List<NoticeDto> admin_Main(String class_name) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		NoticeDto dto = new NoticeDto();
-		List<NoticeDto> result = dao.notice(member_id);
+		dto.setClass_name(class_name);
+		List<NoticeDto> result = dao.adminnotice(dto);
 		return result;
 	}
 	
-	public List<Exam_infoDto> exam_info(String member_id) {
+	public List<ExamInfoDto> admin_exam_info(String class_name) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);		
-		Exam_infoDto dto = new Exam_infoDto();		
-		List<Exam_infoDto> result = dao.exam_info(member_id);
+		ExamInfoDto dto = new ExamInfoDto();		
+		dto.setClass_name(class_name);
+		List<ExamInfoDto> result = dao.adminexam_info(dto);
 		return result;
 	}
-	/*한결 - 10.10 강사 메인페이지 백그라운드  끝*/
+	/*민지 - 10.10 관리자 메인페이지 백그라운드 끝*/
+	
+	
 	
 	/*현이 - 10.15 examScheduleDetail 시작*/
 	public ExamInfoDto examScheduleDetail(int exam_info_num) {

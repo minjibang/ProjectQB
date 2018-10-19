@@ -46,6 +46,12 @@ public class TeacherService {
 		return result;
 	}
 	
+	public List<QuestionDto> myQuestionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype);
+		return result;
+	}
+	
 	/*재훈 - 10.19 강사 문제관리 - 내가 만든 문제 끝 */
 	
 	
@@ -102,9 +108,9 @@ public class TeacherService {
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
 	
 	/* 영준 - 10.17 내 시험지 삭제 시작 */
-	public int examPaperDelete(String exam_paper_name) {
+	public int examPaperDelete(int exam_paper_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperDelete(exam_paper_name);
+		int result = dao.examPaperDelete(exam_paper_num);
 		System.out.println("시험지 삭제 result값 : " + result);
 		return result;
 	}
@@ -140,9 +146,9 @@ public class TeacherService {
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
-	public int examScheduleDelete(String exam_info_name) {
+	public int examScheduleDelete(int exam_info_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examScheduleDelete(exam_info_name);
+		int result = dao.examScheduleDelete(exam_info_num);
 		System.out.println("시험일정삭제 result값 : " + result);
 		return result;
 	}

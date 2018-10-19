@@ -96,6 +96,15 @@
 			var ques_num = ques_num2 + "_answer";
 			$("#" + ques_num).val($(this).val());
 		});		
+		
+		
+		// 제출 버튼 눌렀을 때 form 제출 
+		$('#examPaperSubmit').click(function(){
+			$('#answerForm').submit();
+			self.close();
+			opener.location.href = '${pageContext.request.contextPath}/student/pastExam.do';	//시험 제출 후 자식창이 닫히고 부모창에서 페이지 이동하기, 나중에 뒤에 인자값 들고가야함
+		});
+		
 	});  // document.ready 종료 
 </script>
 </head>
@@ -133,15 +142,19 @@
 				<c:set var="firstRow" value="<%=firstRow%>"/>
 				<c:set var="secondRow" value="<%=secondRow%>"/>
 			
-				<c:forEach var="question" items="${questionList}"> <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->		
+			<form method="post" id="answerForm">
+			
+				<c:forEach var="question" items="${questionList}" varStatus="status"> <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->		
 					<c:if test="${question.exam_question_seq < 2}">
 						<div class="col-lg-5 fst_div" id="examBox">	
 					</c:if>
-							<table class="questionTable"> 
-		                        <input type="hidden" name="question_num" value="${question.question_num}"> <!-- insert 때 사용할 문제번호, 문제배치번호 -->
-		                        <input type="hidden" name="exam_question_seq" value="${question.exam_question_seq}">
+							<table class="questionTable">
+ 								<input type="hidden" name="student_answer[${status.index}].member_id" value="${pageContext.request.userPrincipal.name}"> 
+								<input type="hidden" name="student_answer[${status.index}].exam_info_num" value="${exam_info.exam_info_num}">
+		                        <input type="hidden" name="student_answer[${status.index}].question_num" value="${question.question_num}"> 
+		                        <input type="hidden" name="student_answer[${status.index}].exam_question_seq" value="${question.exam_question_seq}"> 
 								<tr class="questionTr">
-									<td class="questionTd questionSpace"><b>${question.exam_question_seq}.</b></td>
+									<td class="questionTd questionSpace"><b>${question.exam_question_seq}. </b></td>
 									<td class="questionSpace"><b>${question.question_name} &nbsp;&nbsp;(${question.exam_question_score}점)</b></td>
 								</tr>
 								<c:if test="${not empty question.question_img}"> <!-- 이미지 있으면 추가 -->
@@ -163,7 +176,7 @@
 													${questionChoice.question_choice_num})
 												</td>  	
 												<td>
-													<input type="radio" name="ques_${question.exam_question_seq}" id="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+													<input type="radio" name="student_answer[${status.index}].student_answer_choice" id="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
 													value="${questionChoice.question_choice_num}">
 													<label for="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}">${questionChoice.question_choice_content}</label>
 												</td>
@@ -174,7 +187,7 @@
 									<c:when test="${question.question_type eq '단답형'}">
 										<tr class="ques_choice">
 											<td class="questionTd"></td>  
-											<td><input type="text" id="ques_${question.exam_question_seq}" class="" name="ques_${question.exam_question_seq}"></td>
+											<td><input type="text" id="ques_${question.exam_question_seq}" class="" name="student_answer[${status.index}].student_answer_choice"></td>
 										</tr>
 									</c:when>
 								</c:choose>
@@ -185,6 +198,11 @@
 							</c:if>
                 </c:forEach>
                 </div>
+                
+                </form>
+                
+                
+                
                 
 				<div class="col-lg-2 trd_div">
 					<!-- OMR 시작 div -->
@@ -218,7 +236,7 @@
 					<br>
 				</div>
 			</div>
-			<button class="btn btn-theme03 exampaneldetailBtn">제출하기</button>
+			<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperSubmit">제출하기</button>
 		</div>
 	</div>
 </body>
