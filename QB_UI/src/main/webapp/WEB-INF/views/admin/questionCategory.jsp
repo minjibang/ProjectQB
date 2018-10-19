@@ -49,6 +49,8 @@ th{
 	text-align: right;
 }
 
+
+
 </style>
 
 <section id="main-content">
@@ -429,7 +431,7 @@ th{
 												<td class="lg_category_code">${lgCategoryList.lg_category_code}</td>
 												<td class="lg_category_name">${lgCategoryList.lg_category_name}</td>
 												<td>
-													<button type="button" class="btn btn-theme" id="updatebtnlg" name="updatebtnlg"
+													<button type="button" class="btn btn-theme" name="updatebtnlg"
 													data-toggle="modal" data-target="#UpdateModal" value="${lgCategoryList.lg_category_code}">
 														<i class="fa fa-pencil"></i>
 													</button>
@@ -549,7 +551,7 @@ $('#lgCatAddBtn').click(function(){
 				swal("필수입력사항입니다","반드시 선택해주세요","error");
 			}else{
 				swal({
-				       title: "대분류 가 추가되었습니다",
+				       title: "대분류가 추가되었습니다",
 					   text: "",
 					   icon:"success"
 					}).then(function() {
@@ -636,29 +638,40 @@ function selectLgCatSearch(){
 	$('#list2body').children().remove();
 	$('#list3body').children().remove();
 		$('#selectMdCatSearch').children('option:not(:first)').remove();
+		$('#selectSmCatSearch').children('option:not(:first)').remove();
 			<c:forEach items="${list2}" var="mdCategoryList">
 				if(document.getElementById("selectLgCatSearch").value == "${mdCategoryList.lg_category_code}"){
 					$('#selectMdCatSearch').append("<option value=${mdCategoryList.md_category_code}>${mdCategoryList.md_category_name}</option>")
 				}
 			</c:forEach>
-				$('#list1body').children().remove();
-				<c:forEach items='${list1}' var='lgCategoryList'>
-				if(document.getElementById("selectLgCatSearch").value == "${lgCategoryList.lg_category_code}"){
-				$('#list1body').append("<tr>"
-				+"<td>${lgCategoryList.lg_category_code}</td>"
-				+"<td>${lgCategoryList.lg_category_name}</td>"
-				+"<td>"
-				+"<button type='button' class='btn btn-theme' onclick='upLg()'"
-				+"data-toggle='modal' data-target='#UpdateModal'>"
-				+"<i class='fa fa-pencil'></i></button>"
-				+"<button type='button' class='btn btn-danger' onclick='deleteLg()'"
-				+"data-toggle='modal' data-target='#DeleteModal'>"
-				+"<i class='fa fa-trash-o'></i>"
-				+"</button>"
-				+"</td>"
-				+"</tr>");
-				}
-				</c:forEach>
+			$.ajax({
+	   			  type : "post",
+	   			  url : "${pageContext.request.contextPath}/admin/selectLgList.do",
+	   			  data:{lgCode:$('#selectLgCatSearch').val()},
+	   			  dataType:"html",
+	   			  success : function(data){
+	   					$('#list1body').html(data); 
+	   				 	$.ajax({
+	   						type:"post",
+	   						url:"${pageContext.request.contextPath}/admin/selectMdList.do",
+	   				 		data:{lgCode:$('#selectLgCatSearch').val()},
+	   				 		success:function(data){
+	   				 			$('#list2body').html(data);
+			   				 		$.ajax({
+				   						type:"post",
+				   						url:"${pageContext.request.contextPath}/admin/selectSmList.do",
+				   				 		data:{lgCode:$('#selectLgCatSearch').val()},
+				   				 		success:function(data){
+				   				 			$('#list3body').html(data);
+				   				 		}
+				   				 	});
+	   				 		}
+	   				 	});
+	   			  },
+	   			  error: function(error){
+	   				  alert("에러야!");
+	   			 }
+	   		});	
 }
 
 function selectMdCatSearch(){
@@ -670,47 +683,33 @@ function selectMdCatSearch(){
 			}
 		</c:forEach>
 			$('#list2body').children().remove();
-			<c:forEach items='${list2}' var='mdCategoryList'>
-			if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
-			$('#list2body').append("<tr>"
-			+"<td>${mdCategoryList.md_category_code}</td>"
-			+"<td>${mdCategoryList.md_category_name}</td>"
-			+"<td>"
-			+"<button type='button' class='btn btn-theme' onclick='upMd()'"
-			+"data-toggle='modal' data-target='#UpdateMdModal'>"
-			+"<i class='fa fa-pencil'></i>"
-			+"</button>"
-			+"<button type='button' class='btn btn-danger' onclick='deleteMd()'"
-			+"data-toggle='modal' data-target='#DeleteModalmd'>"
-			+"<i class='fa fa-trash-o'></i>"
-			+"</button>"
-			+"</td>"
-			+"</tr>");
-			}
-			</c:forEach>
+			$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/admin/selectMdRealList.do",
+			 		data:{mdCode:$('#selectMdCatSearch').val()},
+			 		success:function(data){
+			 			$('#list2body').html(data);
+				 			$.ajax({
+								type:"post",
+								url:"${pageContext.request.contextPath}/admin/selectSmRealList.do",
+						 		data:{mdCode:$('#selectMdCatSearch').val()},
+						 		success:function(data){
+						 			$('#list3body').html(data);
+						 		}
+				 		});
+			 		}
+			});
 		}
-	
-
-	function selectSmCatSearch(){
+		function selectSmCatSearch(){
 				$('#list3body').children().remove();
-				<c:forEach items='${list3}' var='smCategoryList'>
-				if(document.getElementById("selectSmCatSearch").value == "${smCategoryList.sm_category_code}"){
-				$('#list3body').append("<tr>"
-				+"<td>${smCategoryList.sm_category_code}</td>"
-				+"<td>${smCategoryList.sm_category_name}</td>"
-				+"<td>"
-				+"<button type='button' class='btn btn-theme' onclick='upSm()'"
-				+"data-toggle='modal' data-target='#UpdateSmModal'>"
-				+"<i class='fa fa-pencil'></i>"
-				+"</button>"
-				+"<button type='button' class='btn btn-danger' onclick='deleteSm()'"
-				+"data-toggle='modal' data-target='#DeleteModalsm'>"
-				+"<i class='fa fa-trash-o'></i>"
-				+"</button>"
-				+"</td>"
-				+"</tr>");
-				}
-				</c:forEach>
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/admin/selectSmRealList2.do",
+			 		data:{smCode:$('#selectSmCatSearch').val()},
+			 		success:function(data){
+			 			$('#list3body').html(data);
+			 		}
+	 		});
 }
 /* @@@@@@@@@@@@@@@@@@@@@@카테고리(대분류,중분류,소분류 선택시 차례대로 해당 카테고리로 바뀌고 테이블도 같이 변경) 끝 @@@@@@@@@@@@@@@@@@@@*/
  
@@ -780,16 +779,19 @@ function selectMdCatSearch(){
 	}
 	
 	function upMd(){
+		
 		<c:forEach items='${list2}' var='mdCategoryList'>
-		if(document.getElementById("selectMdCatSearch").value == "${mdCategoryList.md_category_code}"){
-			var code = "${mdCategoryList.md_category_code}";
+		if(document.getElementById("updatebtnmd").value == "${mdCategoryList.md_category_code}"){
+			alert($(this).attr('value'));
+		/* 	var code = "${mdCategoryList.md_category_code}";
 			var name = "${mdCategoryList.md_category_name}";
-			var lgcode = "${mdCategoryList.lg_category_code}";
+			var lgcode = "${mdCategoryList.lg_category_code}"; */
 		}
 		</c:forEach>
 		$('#mdCode').val(code);
 		$('#mdName').val(name);
 		$('#UpdateSelectLgCatSearch').val(lgcode);
+		
 	}
 	
 	function upSm(){

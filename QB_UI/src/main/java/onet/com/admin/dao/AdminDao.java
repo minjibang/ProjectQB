@@ -120,6 +120,18 @@ public interface AdminDao {
 	public int smDelete(CategoryDto dto);
 	
 	public List<QuestionDto> questionDeleteSearch(String smDeleteCode);
+	
+	public List<CategoryDto> selectLgList(CategoryDto dto);
+	
+	public List<CategoryDto> selectMdList(CategoryDto dto);
+	
+	public List<CategoryDto> selectSmList(CategoryDto dto);
+	
+	public List<CategoryDto> selectMdRealList(CategoryDto dto);
+	
+	public List<CategoryDto> selectSmRealList(CategoryDto dto);
+	
+	public List<CategoryDto> selectSmRealList2(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
 
 	

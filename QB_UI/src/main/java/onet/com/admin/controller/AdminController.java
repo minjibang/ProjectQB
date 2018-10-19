@@ -576,6 +576,62 @@ public class AdminController {
 	}
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
+	@RequestMapping("selectLgList.do")
+	public ModelAndView selectLgList(String lgCode) {
+		List<CategoryDto> list1 = adminService.selectLgList(lgCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax");
+		mv.addObject("list1", list1);
+		return mv;
+	}
+
+
+	@RequestMapping("selectMdList.do")
+	public ModelAndView selectMgList(String lgCode) {
+		List<CategoryDto> list2 = adminService.selectMdList(lgCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax2");
+		mv.addObject("list2", list2);
+		return mv;
+	}
+	
+	@RequestMapping("selectSmList.do")
+	public ModelAndView selectSmList(String lgCode) {
+		List<CategoryDto> list3 = adminService.selectSmList(lgCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax3");
+		mv.addObject("list3", list3);
+		System.out.println(list3);
+		return mv;
+	}
+	
+	@RequestMapping("selectMdRealList.do")
+	public ModelAndView selectMdRealList(String mdCode) {
+		List<CategoryDto> list2 = adminService.selectMdRealList(mdCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax2");
+		mv.addObject("list2", list2);
+		return mv;
+	}
+	
+	@RequestMapping("selectSmRealList.do")
+	public ModelAndView selectSmRealList(String mdCode) {
+		List<CategoryDto> list3 = adminService.selectSmRealList(mdCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax3");
+		mv.addObject("list3", list3);
+		return mv;
+	}
+	
+	@RequestMapping("selectSmRealList2.do")
+	public ModelAndView selectSmRealList2(String smCode) {
+		List<CategoryDto> list3 = adminService.selectSmRealList2(smCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax3");
+		mv.addObject("list3", list3);
+		return mv;
+	}
+	
 
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
@@ -602,6 +658,7 @@ public class AdminController {
 
 
 	/*민지:10.18 시험등록  끝*/
+
 
 	
 		}

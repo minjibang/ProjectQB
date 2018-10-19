@@ -15,7 +15,7 @@ public interface TeacherDao {
 	public List<QuestionDto> question();
 	public List<Question_choiceDto> question_choice();
 	public List<Question_levelDto> question_level();
-
+	
 	/*10.17 시험지체크 시작*/
 	public String examPaperCheck(String exam_paper_name);
 
@@ -30,6 +30,12 @@ public interface TeacherDao {
 	public int examQuestionDelete(String exam_paper_num);
 	/*한결 끝*/
 
+	/*재훈 10.19:강사 - 내 문제함 */
+	
+	public List<QuestionDto> teacherMyQuestion(String member_id);
+	
+	/*재훈 10.19:강사 - 내 문제함 끝 */
+	
 	/* 영준 - 10.16 시험관리 관련 시작 */
 	public List<ExamPaperDto> examPaperList(ExamPaperDto dto);
 	/* 영준 - 10.16 시험관리 관련 끝 */
