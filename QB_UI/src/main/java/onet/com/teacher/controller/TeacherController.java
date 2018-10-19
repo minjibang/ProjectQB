@@ -107,7 +107,7 @@ public class TeacherController {
 	
 	/* 영준 18.10.16 선생님 시험일정 시작 */
 		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList();
+		examScheduleList = teacherService.examScheduleList(class_num);
 		model.addAttribute("examScheduleList", examScheduleList);
 	/* 영준 18.10.16 선생님 시험일정 끝 */	
 		

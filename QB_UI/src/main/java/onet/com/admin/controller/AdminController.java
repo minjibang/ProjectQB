@@ -235,7 +235,7 @@ public class AdminController {
 		model.addAttribute("examPaperList", examPaperList);
 		
 		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList();
+		examScheduleList = teacherService.examScheduleList(class_num);
 		model.addAttribute("examScheduleList", examScheduleList);
 		
 		return "common.adminClass.admin.exam.examManagement";
