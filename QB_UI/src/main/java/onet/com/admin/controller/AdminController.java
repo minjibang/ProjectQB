@@ -1,6 +1,5 @@
 ﻿package onet.com.admin.controller;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
@@ -648,7 +647,7 @@ public class AdminController {
 
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
+	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		System.out.println("시험등록컨트롤러들어옴");
 		int result = 0;
 		String viewpage="";
@@ -658,11 +657,6 @@ public class AdminController {
 			System.out.println("시험등록성공");
 			String class_name = dto.getClass_name();
 			System.out.println(class_name);
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('성공!');");
-			out.println("</script>");
-			out.flush();
 			
 			String url = URLEncoder.encode(class_name, "UTF-8");
 			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
