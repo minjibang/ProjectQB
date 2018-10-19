@@ -1,5 +1,7 @@
 ﻿package onet.com.admin.controller;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -577,7 +579,7 @@ public class AdminController {
 
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException {
+	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		System.out.println("시험등록컨트롤러들어옴");
 		int result = 0;
 		String viewpage="";
@@ -585,7 +587,12 @@ public class AdminController {
 		result=teacherService.examInfoInsert(dto);
 		if(result > 0) {
 			System.out.println("시험등록 성공");
-			viewpage = "redirect:examManagement.do?class_num="+dto.getClass_num()+"&class_name="+dto.getClass_name();
+			String class_name = dto.getClass_name();
+			System.out.println(class_name);
+			
+			
+			String url = URLEncoder.encode(class_name, "UTF-8");
+			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
 		}else {
 			System.out.println("시험등록 실패");
 			
