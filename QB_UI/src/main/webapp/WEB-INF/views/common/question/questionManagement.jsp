@@ -14,6 +14,81 @@
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
 
+
+<!-- <다수>선택 문제 삭제 모달창 시작 -->	
+		<div class="modal fade" id="multiDeleteModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">선택 문제 삭제</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<h5>문제 제출자 또는 다른 사용자가 해당 문제를 사용하여 <br>
+							 시험지 생성 또는 시험지 임시저장 했을 경우 <br>
+							 그 문제는 삭제/수정이 불가능합니다.
+							 </h5>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+									
+										<button id="multiDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" value="">
+										확인</button>
+										<button class="btn btn-theme04" type="button" data-dismiss="modal">
+										취소</button>
+										
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+<!-- <다수>선택 문제 삭제 모달창 끝 -->	
+
+<!-- 문제 한개 삭제 모달창 시작 -->	
+		<div class="modal fade" id="singleDeleteModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">문제 삭제</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<h5>문제 제출자 또는 다른 사용자가 해당 문제를 사용하여 <br>
+							 시험지 생성 또는 시험지 임시저장 했을 경우 <br>
+							 그 문제는 삭제/수정이 불가능합니다.
+							 </h5>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+									
+										<button id="singleDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" value="">
+										확인</button>
+										<button class="btn btn-theme04" type="button" data-dismiss="modal">
+										취소</button>
+										
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+<!-- <다수>선택 문제 삭제 모달창 끝 -->	
+
+
+
 <!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
 <!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
 
@@ -104,12 +179,19 @@
 							<hr>
 
 							<div class="row content-panel" id="myQuestionPanel">
-					                           <div id="myQuestions">
+								<form action="" method="post" id="pickQuestionForm" onsubmit="return false;">
+					                           
+					                           <!-- 문제 하나의 div 시작 -->
+					                           <div id="myQuestions"> 
 													
 					                           </div>
+					                           <!-- 문제 하나의 div 끝 -->
+					            </form>
 							</div>
 							
-							<button type="button" class="btn btn-theme04 btnDeIn">선택 문제 삭제</button>
+							<button type="button" id="myQuestionPickDeleteBtn" class="btn btn-theme04 btnDeIn">
+							<i class="fa fa-trash-o"></i>
+							선택 문제 삭제</button>
 							
 						</div>
 						
