@@ -528,19 +528,25 @@ public class AdminController {
 	@RequestMapping("lgDelete.do")
 	public @ResponseBody Map<String, Object> lgDelete(String lgDeleteCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		CategoryDto dto = new CategoryDto();
-			dto.setLg_category_code(lgDeleteCode);
-			adminService.lgDelete(dto);
-			return null;
+		int result = adminService.lgDelete(lgDeleteCode);
+		if(result == 0) {
+			map.put("result", "삭제불가");
+		}else {
+			map.put("result", "삭제가능");
+		}	
+			return map;
 	} 
 	
 	@RequestMapping("mdDelete.do")
 	public @ResponseBody Map<String, Object> mdDelete(String mdDeleteCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		CategoryDto dto = new CategoryDto();
-			dto.setMd_category_code(mdDeleteCode);
-			adminService.mdDelete(dto);
-			return null;
+		int result = adminService.mdDelete(mdDeleteCode);
+		if(result == 0) {
+			map.put("result", "삭제불가");
+		}else {
+			map.put("result", "삭제가능");
+		}
+			return map;
 	}
 	
 	@RequestMapping("smDelete.do")

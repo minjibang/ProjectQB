@@ -288,27 +288,43 @@ public class AdminService {
 	/*민지 - 10.17 클래스 수정 이름 중복체크 끝  */
 
 	/* 정원 - 문제분류관리 삭제 */
-	public int lgDelete(CategoryDto dto) {
+	public int lgDelete(String lgDeleteCode) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.lgDelete(dto);
-		return result;
+		CategoryDto dto = new CategoryDto();
+		int result=0;
+		List<CategoryDto> mdSearch = dao.questionDeleteMdSearch(lgDeleteCode);
+		if(mdSearch.isEmpty()) {
+			dto.setLg_category_code(lgDeleteCode);
+			result = dao.lgDelete(dto);
+			return result;
+		}else {
+			return result;
+		}
 	}
 	
-	public int mdDelete(CategoryDto dto) {
+	public int mdDelete(String mdDeleteCode) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.mdDelete(dto);
-		return result;
+		CategoryDto dto = new CategoryDto();
+		int result = 0;
+		List<CategoryDto> smSearch = dao.questionDeleteSmSearch(mdDeleteCode);
+		if(smSearch.isEmpty()) {
+			dto.setMd_category_code(mdDeleteCode);
+			result = dao.mdDelete(dto);
+			return result;
+		}else {
+			return result;
+		}
 	}
 	
 	public int smDelete(String smDeleteCode) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = 0;
-		List<QuestionDto> qSearch = dao.questionDeleteSearch(smDeleteCode);
+		List<CategoryDto> qSearch = dao.questionDeleteSearch(smDeleteCode);
 		System.out.println(qSearch);
 		CategoryDto dto = new CategoryDto();
 		dto.setSm_category_code(smDeleteCode);
 		System.out.println(qSearch);
-		if(qSearch == null) {
+		if(qSearch.isEmpty()) {
 			result = dao.smDelete(dto);
 			return result;
 		}else {
