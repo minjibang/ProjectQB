@@ -329,7 +329,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping(value="questionSearch.do")
+	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
 			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
@@ -339,7 +339,7 @@ public class AdminController {
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.setViewName("ajax.common.questionManagement_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
 		

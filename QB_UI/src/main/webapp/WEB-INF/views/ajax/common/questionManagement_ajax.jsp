@@ -44,7 +44,8 @@
 					</div>
 				</div>
 				<div class="col-lg-1">
-					<button type="button" class="btn btn-theme buttonGroup " id="updateMyQuestionBtn">
+					<button type="button" class="btn btn-theme buttonGroup " id="updateMyQuestionBtn"
+					onclick="questionUpdate()">
 					<i class="fa fa-pencil"></i> 수정</button>
 					
 					<button type="button" id="deleteMyQuestionBtn" name="deleteMyQuestionBtn"

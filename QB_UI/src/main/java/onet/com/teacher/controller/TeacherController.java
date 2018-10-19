@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
@@ -261,6 +262,23 @@ public class TeacherController {
 			
 			return mv;
 		}
+		
+		@RequestMapping(value="myQuestionSearch.do")
+		public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+				@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+				@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			
+			List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.common.questionManagement_ajax");
+			mv.addObject("question", question);
+			mv.addObject("question_choice",question_choice);
+			
+			return mv;
+		}
+	
 		
 	/*재훈 18.10.18  */
 
