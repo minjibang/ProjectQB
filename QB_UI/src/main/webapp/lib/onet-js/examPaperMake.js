@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
 		var selected = new Array();
 		
 		/*선택된 애들의 html 끌어오기*/
-		$('input[name="checkbox[]"]:checked').each(function() {
+		$('.questions input[name="checkbox[]"]:checked').each(function() {
 			selected.push("<li><div class='row'>" 
 					+ $(this).parents(".qnumdiv").parents(".questionDiv").html()
 					+ "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
@@ -31,6 +31,24 @@ jQuery(document).ready(function() {
 		/*이동한 문제수 만큼 문제 개수 카운트*/
 		$('#qnum').text(sortable_li_num);
 	});
+	$('#miriBtn').click(function(){
+		var miriselected = new Array();
+		var miricount = 0;
+		var mirilength = Math.round($('#sortable>li').length/2);
+		var change = "mirileft";
+		
+		$('#miriright').children().remove();
+		$('#mirileft').children().remove();
+		$("#sortable>li").each(function(index){
+			if(mirilength == index){
+				change ="miriright"
+			}
+			$('#'+change).append("<span>"+(index+1)+". </span>"
+			+$(this).find("#questiontitle").html());
+			
+			miricount++;
+		});	
+	})
 	
 	/*선택문제 삭제 + 문제 수 -카운트 / 점수 -카운트*/
 	$('#pickQuestionDeleteBtn').click(function(){
@@ -39,7 +57,7 @@ jQuery(document).ready(function() {
 		var qc = Number($('#qcore').text());
 		
 		/*체크된 애들만 실행*/
-		$('input[name="checkbox[]"]:checked').each(function() {
+		$('#sortable input[name="checkbox[]"]:checked').each(function() {
 			/*선택문제 삭제부분*/
 			$(this).closest("li").remove();
 			sortable_li_num--;
