@@ -55,7 +55,7 @@ public interface TeacherDao {
 
 
 	/*--성태용 시작--*/
-	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype);
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword);
 	
 	/*--성태용 끝--*/
 	

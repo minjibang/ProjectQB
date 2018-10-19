@@ -31,6 +31,8 @@ jQuery(document).ready(function() {
 		/*이동한 문제수 만큼 문제 개수 카운트*/
 		$('#qnum').text(sortable_li_num);
 	});
+	
+	/*시험지 미리보기*/
 	$('#miriBtn').click(function(){
 		var miriselected = new Array();
 		var miricount = 0;

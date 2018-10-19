@@ -336,7 +336,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	/*
 	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
@@ -353,7 +353,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	*/
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
 	/*양회준 18.10.15 문제 수정 시작	*/

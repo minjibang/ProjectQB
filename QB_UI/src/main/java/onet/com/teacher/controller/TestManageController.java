@@ -41,9 +41,10 @@ public class TestManageController {
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			@RequestParam("leveltype") String leveltype,@RequestParam("keyword") String keyword,
+			@RequestParam("questiontype") String questiontype) {
 		
-		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		
 		ModelAndView mv = new ModelAndView();
