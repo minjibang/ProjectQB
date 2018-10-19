@@ -534,19 +534,25 @@ public class AdminController {
 	@RequestMapping("lgDelete.do")
 	public @ResponseBody Map<String, Object> lgDelete(String lgDeleteCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		CategoryDto dto = new CategoryDto();
-			dto.setLg_category_code(lgDeleteCode);
-			adminService.lgDelete(dto);
-			return null;
+		int result = adminService.lgDelete(lgDeleteCode);
+		if(result == 0) {
+			map.put("result", "삭제불가");
+		}else {
+			map.put("result", "삭제가능");
+		}	
+			return map;
 	} 
 	
 	@RequestMapping("mdDelete.do")
 	public @ResponseBody Map<String, Object> mdDelete(String mdDeleteCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		CategoryDto dto = new CategoryDto();
-			dto.setMd_category_code(mdDeleteCode);
-			adminService.mdDelete(dto);
-			return null;
+		int result = adminService.mdDelete(mdDeleteCode);
+		if(result == 0) {
+			map.put("result", "삭제불가");
+		}else {
+			map.put("result", "삭제가능");
+		}
+			return map;
 	}
 	
 	@RequestMapping("smDelete.do")
@@ -662,7 +668,20 @@ public class AdminController {
 
 
 	/*민지:10.18 시험등록  끝*/
-
+		@RequestMapping("examScheduleRegist.do")
+		public String examScheduleRegist(Model model, int class_num) {
+			
+			List<MemberDto> classMemberList;
+			classMemberList= adminService.classMemberList(class_num);
+			model.addAttribute("classMemberList", classMemberList);
+			
+			List<ExamPaperDto> examPaperList;
+			examPaperList = teacherService.examPaperList(class_num);
+			model.addAttribute("examPaperList", examPaperList);
+			System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+			
+			return "common.admin.exam.examScheduleRegist";
+		}
 
 	
 		}

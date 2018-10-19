@@ -119,7 +119,11 @@ public interface AdminDao {
 	
 	public int smDelete(CategoryDto dto);
 	
-	public List<QuestionDto> questionDeleteSearch(String smDeleteCode);
+	public List<CategoryDto> questionDeleteSmSearch(String mdDeleteCode);
+	
+	public List<CategoryDto> questionDeleteSearch(String smDeleteCode);
+	
+	public List<CategoryDto> questionDeleteMdSearch(String lgDeleteCode);
 	
 	public List<CategoryDto> selectLgList(CategoryDto dto);
 	

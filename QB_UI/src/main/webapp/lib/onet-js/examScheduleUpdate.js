@@ -115,17 +115,27 @@ function checktime(){
 	var min = parseInt((difftime%3600)/60);
 	var sec = difftime%60;
 
-	
-	if(hour<10 &&min<10){
+	if(hour <0 || min < 0){
+		
+		time.value="00:00:00";
+		
+	}
+	else if(hour<10 &&min<10){
 		hour="0"+hour;
-		min = "0"+min;}
+		min = "0"+min;
+		time.value=hour+":"+min+":0"+sec;
+	}
+	
+	
 	else if(hour>=10 && min <10){
 		min = "0"+min;
+		time.value=hour+":"+min+":0"+sec;
 	}
 	else if(hour < 10 && min>=10){
 		hour="0"+hour;
-	}
-	time.value=hour+":"+min+":0"+sec;
+		time.value=hour+":"+min+":0"+sec;
+	}else{
+	time.value=hour+":"+min+":0"+sec;}
 	}
 
 
