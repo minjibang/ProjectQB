@@ -39,7 +39,7 @@ public interface TeacherDao {
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
 	
 	/* 영준 - 10.16 시험일정 리스트 불러오기 시작 */
-	public List<ExamInfoDto> examScheduleList();
+	public List<ExamInfoDto> examScheduleList(ExamInfoDto dto);
 	/* 영준 - 10.16 시험일정 리스트 불러오기 끝 */
 
 	

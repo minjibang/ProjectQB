@@ -75,9 +75,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
 <select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
-	SELECT * FROM exam_info
-	WHERE exam_paper_num = (select exam_paper_num from exam_paper 
-	WHERE exam_paper_name =#{exam_paper_name})
+	select * from exam_info
+	where class_name = (select class_name from class where class_name =
+	(select c.class_name from class c where c.class_num=#{class_num}))
 </select>
 
 
