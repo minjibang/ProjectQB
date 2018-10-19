@@ -186,10 +186,10 @@ public class AdminController {
 	public String adminClassMain(Model model, String class_name) {
 
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(class_name);
+		notice=commonService.admin_Main(class_name);
 		model.addAttribute("notice", notice);
 		
-		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
+		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -668,7 +668,20 @@ public class AdminController {
 
 
 	/*민지:10.18 시험등록  끝*/
-
+		@RequestMapping("examScheduleRegist.do")
+		public String examScheduleRegist(Model model, int class_num) {
+			
+			List<MemberDto> classMemberList;
+			classMemberList= adminService.classMemberList(class_num);
+			model.addAttribute("classMemberList", classMemberList);
+			
+			List<ExamPaperDto> examPaperList;
+			examPaperList = teacherService.examPaperList(class_num);
+			model.addAttribute("examPaperList", examPaperList);
+			System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+			
+			return "common.admin.exam.examScheduleRegist";
+		}
 
 	
 		}
