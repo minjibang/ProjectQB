@@ -1,5 +1,6 @@
 package onet.com.teacher.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.teacher.service.TeacherService;
-import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
@@ -59,7 +59,6 @@ public class TestManageController {
 	@RequestMapping("checkExam_paper.do")
 	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
 		String result = teacherService.examPaperCheck(exam_paper_name);
-		System.out.println(exam_paper_name);
 		return result;
 	}	
 	
@@ -68,7 +67,6 @@ public class TestManageController {
 	@RequestMapping("examPaperInsert.do")
 	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
 			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
-		System.out.println(exam_paper_name +"//"+ member_id +"\\"+ exam_paper_desc);
 		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
 		return result;
 	}
@@ -92,7 +90,6 @@ public class TestManageController {
 	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") String exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
 			@RequestParam("exam_question_score") String exam_question_score) {
-		System.out.println(exam_paper_num + question_num+ exam_question_seq+ exam_question_score);
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
 	}

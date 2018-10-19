@@ -1,5 +1,7 @@
 ﻿package onet.com.admin.controller;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -73,6 +75,9 @@ public class AdminController {
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
 	public String adminMember(Model model) throws Exception {
+		List<ClassDto> classList;
+		classList=adminService.classList();
+		model.addAttribute("classList", classList);
 		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
@@ -127,6 +132,7 @@ public class AdminController {
 	@RequestMapping(value = "adminClassMemberUpdate.do", method = RequestMethod.POST)
 	public @ResponseBody String adminClassMemberUpdate(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
 	{	
+		
 		/*deptService.insertDept(dto);
 		return dto.toString();*/
 		int result = adminService.classMemberUpdate(dto);
@@ -177,13 +183,13 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, Principal principal) {
-		String member_id = principal.getName();
+	public String adminClassMain(Model model, String class_name) {
+
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(member_id);
+		notice=commonService.teacher_student_Main(class_name);
 		model.addAttribute("notice", notice);
 		
-		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -329,7 +335,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping(value="questionSearch.do")
+	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
 			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
@@ -339,7 +345,7 @@ public class AdminController {
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.setViewName("ajax.common.questionManagement_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
 		
@@ -639,26 +645,23 @@ public class AdminController {
 
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException {
+	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		System.out.println("시험등록컨트롤러들어옴");
 		int result = 0;
 		String viewpage="";
-		String date = dto.getExam_info_date();
-		System.out.println(date);
 		
-		String monthdate = date.substring(0, 5);
-		String year = date.substring(6);
-		String date2 = year+"-"+monthdate;
-		System.out.println("합친 날짜>>" + date2);
-		dto.setExam_info_date(date2);
-		System.out.println("클래스이름:" + dto.getClass_name());
 		result=teacherService.examInfoInsert(dto);
 		if(result > 0) {
 			System.out.println("시험등록 성공");
-			viewpage = "redirect:examManagement.do?class_num="+dto.getClass_num()+"&class_name="+dto.getClass_name();
+			String class_name = dto.getClass_name();
+			System.out.println(class_name);
+			
+			
+			String url = URLEncoder.encode(class_name, "UTF-8");
+			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
 		}else {
 			System.out.println("시험등록 실패");
-			 
+			
 		}
 		return viewpage;
 	}

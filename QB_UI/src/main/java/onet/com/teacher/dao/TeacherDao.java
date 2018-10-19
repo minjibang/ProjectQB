@@ -41,7 +41,7 @@ public interface TeacherDao {
 	/* 영준 - 10.16 시험관리 관련 끝 */
 
 	/* 영준 - 10.17 내 시험지 삭제 시작 */
-	public int examPaperDelete(ExamPaperDto dto);
+	public int examPaperDelete(int exam_paper_num);
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
 	
 	/* 영준 - 10.16 시험일정 리스트 불러오기 시작 */
@@ -60,7 +60,7 @@ public interface TeacherDao {
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 시험일정 삭제 시작 */
-	public int examScheduleDelete(ExamInfoDto dto);
+	public int examScheduleDelete(int exam_info_num);
 	/* 영준 - 10.18 시험일정 삭제 끝 */
 
 }

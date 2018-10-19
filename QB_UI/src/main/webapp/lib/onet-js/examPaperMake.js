@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
 		var selected = new Array();
 		
 		/*선택된 애들의 html 끌어오기*/
-		$('input[name="checkbox[]"]:checked').each(function() {
+		$('.questions input[name="checkbox[]"]:checked').each(function() {
 			selected.push("<li><div class='row'>" 
 					+ $(this).parents(".qnumdiv").parents(".questionDiv").html()
 					+ "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
@@ -31,6 +31,24 @@ jQuery(document).ready(function() {
 		/*이동한 문제수 만큼 문제 개수 카운트*/
 		$('#qnum').text(sortable_li_num);
 	});
+	$('#miriBtn').click(function(){
+		var miriselected = new Array();
+		var miricount = 0;
+		var mirilength = Math.round($('#sortable>li').length/2);
+		var change = "mirileft";
+		
+		$('#miriright').children().remove();
+		$('#mirileft').children().remove();
+		$("#sortable>li").each(function(index){
+			if(mirilength == index){
+				change ="miriright"
+			}
+			$('#'+change).append("<span>"+(index+1)+". </span>"
+			+$(this).find("#questiontitle").html());
+			
+			miricount++;
+		});	
+	})
 	
 	/*선택문제 삭제 + 문제 수 -카운트 / 점수 -카운트*/
 	$('#pickQuestionDeleteBtn').click(function(){
@@ -39,7 +57,7 @@ jQuery(document).ready(function() {
 		var qc = Number($('#qcore').text());
 		
 		/*체크된 애들만 실행*/
-		$('input[name="checkbox[]"]:checked').each(function() {
+		$('#sortable input[name="checkbox[]"]:checked').each(function() {
 			/*선택문제 삭제부분*/
 			$(this).closest("li").remove();
 			sortable_li_num--;
@@ -51,14 +69,7 @@ jQuery(document).ready(function() {
 		$('#qcore').text(qc);
 	});
 	
-	/*점수가 100점일때만 시험지생성 활성화*/
-	$('#makeExamSubmitModalBtn').click(function(){
-		if($('#qcore').text()==100){
-			$('#makeExamSubmitModal').modal();
-		}else{
-			swal("현재 총 배점을 확인해주세요.\n총 배점이 100점일때만 시험지를 생성할 수 있습니다.");
-		}
-	});
+	
 	
 	/*모달창 내부 임시저장 클릭시*/
 	$('#pickQuestionTempSaveBtn').click(function(){
@@ -70,14 +81,15 @@ jQuery(document).ready(function() {
 			$('.exam-paper-desc').focus();
 		}else{
 			console.log("이제부터 데이터를 뿌려보자~");
-			
+
+			var ajson = new Object();
 			var examName = $('.exam-paper-name').val();
 			var examDesc = $('.exam-paper-desc').val();
 			var memId = $('.dpn1').val();
 			console.log("시험지이름 및 기타 등등 설정 >> " + examName +"//"+examDesc + "\\" +memId);
 			
 			/*시험지 이름으로 시험지가 있는지 확인 >> 시험지 번호를 받아온다.*/
-			var promise = $.ajax({
+			$.ajax({
 				url:"checkExam_paper.do",
 				type:"get",
 				data:{"exam_paper_name":$('.exam-paper-name').val()},
@@ -86,7 +98,7 @@ jQuery(document).ready(function() {
 					if(data == ""){
 						/*공백 >> 데이터 없음(null) >> 시험지를 만든다.*/
 						console.log("2-1. data 값이 null 값이다. >> 새로운 시험지를 insert한다.")
-						$.ajax({
+						var promise = $.ajax({
 							url:"examPaperInsert.do",
 							type:"get",
 							dataType:"json",
@@ -94,51 +106,12 @@ jQuery(document).ready(function() {
 								"exam_paper_name":examName, 
 								"member_id":memId,
 								"exam_paper_desc":examDesc
-								},
-							success:function(data){
-								if(data == "0"){
-									console.log("실패");
-								}else if(data == "1"){
-									console.log("성공");
 								}
-							},
-							error:function(xml){
-								swal("저장을 실패하였습니다.");
-							}
 						});
-						/*만든 시험지 번호를 받아온다.*/
-						/*$.ajax({
-							url:"",
-							type:"get",
-							data:{"exam_paper_name":$('.exam-paper-name').val()},
-							success:function(epn){
-								console.log("3-1. 만든 시험지 번호를 받아온다. 시험지 번호는 [" + epn+ "] 이다. 두번째 checkExam_paper.do");
-								받아온 시험지 번호로 시험지 문제 테이블에 문제를 넣는다.
-								
-							}
-						});           이 방식은 받아오질 못하네..*/
-						$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-							console.log("	시험지 번호 = " + epn);
-							console.log("	문제번호 = "+$(this).val());
-							console.log("	문제 배치번호 = " + (Number(index) + 1));
-							var EQSeq=(Number(index) + 1);
-							console.log("	점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-							$.ajax({
-								url:"examQuestionInsert.do",
-								type:"get",
-								dataType:"json",
-								data:{
-									"exam_paper_num":epn,
-									"question_num":$(this).val(),
-									"exam_question_seq":EQSeq,
-									"exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
-								},
-								success:function(data){
-									console.log(data);
-								}
-							});
-							console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
-						});
+						
+						/*시험지를 저장한 후 그 다음에 successFunction을 실행한다.*/
+						promise.done(successFunction);
+					
 					} else{
 						console.log("2-1. data값이 있다. data 값은 [" + data + "] 이다.")
 						/*그 외... 데이터 있음 >> update*/
@@ -204,10 +177,78 @@ jQuery(document).ready(function() {
 					swal("문제가 생겨부럿네");
 				}
 			});
+			
+			/*시험지생성 modal의 시험지이름, 설명에 텍스트 복사*/
+			$('.createEPaper').val(examName);
+			$('.createEPDesc').val(examDesc);
+			
 			$('#pickQuestionTempSaveModal').modal('hide');
 		}
 	});
+	
+
+	/*점수가 100점일때만 시험지생성 활성화*/
+	$('#makeExamSubmitModalBtn').click(function(){
+		if($('#qcore').text()==100){
+			$('#makeExamSubmitModal').modal();
+		}else{
+			swal("현재 총 배점을 확인해주세요.\n총 배점이 100점일때만 시험지를 생성할 수 있습니다.");
+		}
+	});
+	
+	/*시험지 생성 모달창*/
+	$('#makeExamSubmitBtn').click(function(){
+		if($('.createEPaper').val()==""){
+			/*최초 1회 저장 >> insert*/
+			
+		}else{
+			/*임시저장 후 시험지 생성 >> update*/
+			
+		}
+		return false;
+	});
 });
+
+/*상단 시험지 생성이후 실행되는 successFunction()*/
+function successFunction(data){
+	$.ajax({
+		url:"checkExam_paper.do",
+		type:"get",
+		data:{"exam_paper_name":$('.exam-paper-name').val()},
+		success:function(epnum){
+			
+			/*시험지 번호를 저장시킨다.*/
+			
+			$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+			console.log("	시험지 번호 = " + epnum);
+			console.log("	문제번호 = "+$(this).val());
+			console.log("	문제 배치번호 = " + (Number(index) + 1));
+			var EQSeq=(Number(index) + 1);
+			console.log("	점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+			$.ajax({
+				url:"examQuestionInsert.do",
+				type:"get",
+				dataType:"json",
+				data:{
+					"exam_paper_num":epnum,
+					"question_num":$(this).val(),
+					"exam_question_seq":EQSeq,
+					"exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
+				},
+				success:function(data){
+					console.log(data);
+				}
+			});
+			console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
+		});			
+		},
+		error:function(xml){
+			console.log("에러가 나부렀네 ㅠㅠ 왜일까용? 뭘까용?");
+		}
+	});
+}
+
+
 
 function plusqcore(){
 	var qc = Number($('#qcore').val());

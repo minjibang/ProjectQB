@@ -54,7 +54,7 @@
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>        
-                      <form action="examInfoInsert.do" class="form-horizontal style-form" method="post">
+                      <form action="examInfoInsert.do" class="form-horizontal style-form" method="post" onsubmit="return check()">
                       <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>
                          <input type="hidden" id="class_num" name="class_num" value="${param.class_num}"/>
                          <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/>
@@ -62,9 +62,7 @@
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-
-                              <input class="form-control form-control-inline input-medium default-date-picker" id="exam_info_date" name="exam_info_date" size="16" type="text" required >
-
+                              <input type="text" class="form-control form-control-inline dpd1" name="exam_info_date" id="exam_info_date"  size="16" required>
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
                         </div>
@@ -72,7 +70,7 @@
                           <label class="control-label col-md-2">시간</label>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" required>
+                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" required>
                                  <span class="input-group-btn">
                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -81,18 +79,19 @@
                             </div>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" required>
+                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" required>
                                   <span class="input-group-btn">
                                     <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                   </span>
                               </div>
                               <label class="control-label">까지</label>
                             </div>
+                            <div id="timeinfo"></div>
                           </div>
                         <!--timepicker group end-->
                           <div class="form-group">
                             <label class="control-label col-md-2">시험시간</label>
-                            <input type="text" id="exam_info_time" name="exam_info_time"  value="1:00:00" readonly />
+                            <input type="text" id="exam_info_time" name="exam_info_time"  readonly >
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">종료알림</label>
