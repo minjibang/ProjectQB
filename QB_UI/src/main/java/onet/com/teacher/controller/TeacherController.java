@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
@@ -234,9 +235,7 @@ public class TeacherController {
 		
 		return "common.teacher.question.questionManagement";
 	}
-	/*재훈 18.10.15 내 문제함 관련 끝 */
-	/*재훈 18.10.18 새 문제 만들기 시작 */
-	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 	
 		if (dto2.getQuestion_type().equals("객관식")) {
@@ -247,7 +246,23 @@ public class TeacherController {
 		}
 		return "common.teacher.question.questionManagement";
 	}
-	/*재훈 18.10.18 새 문제 만들기 끝 */
+		
+		@RequestMapping(value="myQuestionView.do")
+		public @ResponseBody ModelAndView classListView(@RequestParam("member_id") String member_id) {
+			
+			
+			List<QuestionDto> question = teacherService.teacherMyQuestion(member_id);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.common.questionManagement_ajax");
+			mv.addObject("question", question);
+			mv.addObject("question_choice",question_choice);
+			
+			return mv;
+		}
+		
+	/*재훈 18.10.18  */
 
 	
 	/*현이 18.10.09 강사 마이페이지 시작*/

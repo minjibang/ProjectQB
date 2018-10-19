@@ -38,7 +38,12 @@
 							<div class="row">
 								<div class="col-lg-12">
 
-									<h3 id="h3id">내가 만든 문제</h3>
+									<h3 id="h3id">내가 만든 문제
+										<input type="text" name="member_id" id="member_id"
+										value="${memberDto.member_id}" style="display: none">
+									
+									</h3>
+									
 									<hr>
 
 									<select id="question_lg_category" class="form-control-static myQuestionSelectCategory"
@@ -74,12 +79,14 @@
 										<option value="단답형">단답형</option>
 									</select> 
 									
-									<input type="button"
+									<input type="button" id="viewAll"
 										class="btn btn-theme myQuestionSelectBtn pull-right"
-										value="전체조회"> <input type="button"
+										value="전체조회"> 
+										<input type="button"
 										class="btn btn-theme myQuestionSelectBtn pull-right"
 										id="questionsearch"
-										value="검색"> <input type="text"
+										value="검색"> 
+										<input type="text"
 										class="form-control myQuestionTextField pull-right"
 										id="keyword" placeholder="키워드를 입력하세요.">
 
@@ -102,8 +109,8 @@
 					                           </div>
 							</div>
 							
-							<button type="button" class="btn btn-theme btnDeIn">선택 문제 삭제</button>
-							<button type="button" class="btn btn-theme pull-right btnDeIn">새 문제 등록</button>
+							<button type="button" class="btn btn-theme04 btnDeIn">선택 문제 삭제</button>
+							
 						</div>
 						
 						<!-- /OVERVIEW -->
@@ -383,7 +390,7 @@
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
 										<button type="button" class="btn btn-secondary quesCategory">
-										취소</button>
+										취소 - 입력값 초기화</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										
@@ -418,7 +425,7 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/questionManagement.js"
 	type="text/javascript"></script>
 
-<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-전체문제 스크립트 시작  -->
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
 	$(document).ready(function() {
 		$('#question_lg_category')

@@ -10,7 +10,7 @@
 	<c:forEach items="${question }" var="question">
 		<div class="myQuestions">
 			<div
-				class="questionDiv col-lg-11 questionDiv_${question.question_num }">
+				class="questionDiv col-lg-12 questionDiv_${question.question_num }">
 				<div class="col-lg-1 qnumdiv">
 					<input type="checkbox" value="${question.question_num }"
 						name="checkbox[]" />
@@ -23,7 +23,7 @@
 					정답률:${question.question_correct_ratio}%<br> 출제자:
 					${question.member_id }<br>
 				</div>
-				<div class="col-lg-8">
+				<div class="col-lg-7">
 					<b>${question.question_name }</b><br> <br>
 					<div class="questionImgDiv">
 						<c:if test="${question.question_img  ne null }">
@@ -42,6 +42,24 @@
 							</c:if>
 						</c:forEach>
 					</div>
+				</div>
+				<div class="col-lg-1">
+					<button type="button" class="btn btn-theme buttonGroup " id="updateMyQuestionBtn">
+					<i class="fa fa-pencil"></i> 수정</button>
+					
+					<button type="button" id="deleteMyQuestionBtn" name="deleteMyQuestionBtn"
+					class="btn btn-theme04 buttonGroup " data-toggle="modal"
+					data-target="#DeleteModal" value="${question.question_num}">
+					<i class="fa fa-trash-o"></i> 삭제</button>
+					
+				
+					<%-- 
+					<button type="button" id="deleteExamPaperBtn" name="deleteExamPaperBtn"
+					class="btn btn-theme04 buttonGroup" data-toggle="modal"
+					data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
+					<button type="button" class="btn btn-theme buttonGroup"
+					onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지 수정</button>
+					 --%>
 				</div>
 			</div>
 		</div>

@@ -5,18 +5,51 @@
  /*관리자-  전체문제 보여주기 시작*/
 $(function() {
 	
+	/*내가 만든 문제 탭 - 페이지 로드시 전체문제 보여주기*/
+	var member_id = document.getElementById("member_id").value;
+	
 	$.ajax({
 		url : "myQuestionView.do",
 		type:'GET',
+		data : {
+			  'member_id' : member_id
+		},
 		dataType:"html",
 		success:function(data){
 			$('#myQuestions').html(data);
-		},
-		error : function(error) {
-			console.log("===========실패");
 		}
 	});
 	
+	
+	/*내가 만든 문제 탭 - 전체조회 버튼*/
+	$('#viewAll').click(function(){
+		if($.trim(member_id) == "admin"){
+			$.ajax({
+			url : "myQuestionView.do",
+			type:'GET',
+			dataType:"html",
+			success:function(data){
+				$('#myQuestions').html(data);
+			}
+			});
+			
+		}else{
+			$.ajax({
+				url : "myQuestionView.do",
+				type:'GET',
+				data : {
+					  'member_id' : member_id
+				},
+				dataType:"html",
+				success:function(data){
+					$('#myQuestions').html(data);
+				}
+			});
+			
+		}
+	})
+	
+	/*내가 만든 문제 탭 - 검색 버튼*/
 	$('#questionsearch').click(function(){
 		   var lgsearchtype = document.getElementById("question_lg_category").value;
 		   var mdsearchtype = document.getElementById("question_md_category").value;
@@ -24,13 +57,16 @@ $(function() {
 		   var leveltype = document.getElementById("level_type").value;
 		   var questiontype = document.getElementById("questiontype").value;
 		   var keyword = document.getElementById("keyword").value;
+		   var member_id = document.getElementById("member_id").value;
 		   
-		   alert(" lgsearchtype: " + lgsearchtype
+		   alert( "=== 검색 조건 확인용 alert ==="
+				  + "\n lgsearchtype: " + lgsearchtype
 				  + "\n mdsearchtype: " + mdsearchtype
 				  + "\n smsearchtype: " + smsearchtype
 				  + "\n leveltype: " + leveltype
 				  + "\n questiontype: " + questiontype
 				  + "\n keyword: " + keyword
+				  + "\n member_id: " + member_id
 		   		);
 		   
 			$.ajax({
@@ -42,7 +78,8 @@ $(function() {
 					  'smsearchtype' : smsearchtype,
 					  'leveltype' : leveltype,
 					  'questiontype' : questiontype,
-					  'keyword':keyword
+					  'keyword': keyword,
+					  'member_id': member_id
 				  },
 				  dataType:"html",
 				  success:function(data){
@@ -51,10 +88,9 @@ $(function() {
 			   });
 	   });
 })
-/*관리자-  전체문제 보여주기 끝*/
 
 
-/*문제 타입 변경 시 div 보여주기 시작*/
+/*새 문제 만들기 탭 - 문제 타입 (객관식, 단답형) 변경 시 정답 입력 div 변경 */
 function questionType(id){
 	if (id == "questionChoice") {
 		document.all["questionChoice"].style.display = ''; // 보이게
@@ -65,10 +101,6 @@ function questionType(id){
 		document.all["questionShortAnswer"].style.display = ''; // 보이게
 	}
 }
-/* 문제 타입 변경 시 div 보여주기 끝 */
-
-/*객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 시작 */
-
 $(function() {
 		$("#question_type_1").click(function(){ 
 	        $("#questionAnswerRadio1").attr("disabled", false);
@@ -92,7 +124,7 @@ $(function() {
 	   });
 });
 		
-    
+/*새 문제 만들기 탭 - 객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 */  
 $(function() {
 	$('#howManyChoices')
 		.change(
@@ -151,8 +183,8 @@ $(function() {
 				}	
 		})
 });
-/* 객관식 보기 개수 선택시 보기내용 입력창, 정답선택 버튼 갯수 조절 비동기 스크립트 끝 */	
 
+/* 문제 등록 버튼 - 유효성 검사 */
 function check(){
 	
 	var _smCategory = $("#question_sm_category2 option:selected").val();
