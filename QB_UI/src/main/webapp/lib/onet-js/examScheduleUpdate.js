@@ -116,10 +116,18 @@ function checktime(){
 	var sec = difftime%60;
 
 	
-	
-	time.value=hour+":"+min+":"+sec;
-	
-}
+	if(hour<10 &&min<10){
+		hour="0"+hour;
+		min = "0"+min;}
+	else if(hour>=10 && min <10){
+		min = "0"+min;
+	}
+	else if(hour < 10 && min>=10){
+		hour="0"+hour;
+	}
+	time.value=hour+":"+min+":0"+sec;
+	}
+
 
 
 
