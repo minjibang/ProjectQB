@@ -141,11 +141,11 @@ $(function() {
 				var remove1 = document.getElementById("answerChoiceText");
 				remove1.innerHTML="";
 							
-				var _choiceInput1 ='<b><input type="text" name="question_choice_num" value="1" style="display: none">1.</b> <input type="text" name="question_choice_content" class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요." required> <span class="fileupload fileupload-new imageup" data-provides="fileupload"> <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div> <span> <span class="btn btn-theme02 btn-file"> <span class="fileupload-new"> <i class="fa fa-paperclip"></i>image </span> <span class="fileupload-exists"><i class="fa fa-undo"></i>Change </span> <input type="file" class="default" /> </span> <a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a> </span> </span><br>'
-				var _choiceInput2 ="<b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' required> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
-				var _choiceInput3 ="<b><input type='text' name='question_choice_num' value='3' style='display: none'>3.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='3번 보기 내용을 입력해주세요.' required> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
-				var _choiceInput4 ="<b><input type='text' name='question_choice_num' value='4' style='display: none'>4.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='4번 보기 내용을 입력해주세요.' required> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
-				var _choiceInput5 ="<b><input type='text' name='question_choice_num' value='5' style='display: none'>5.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='5번 보기 내용을 입력해주세요.' required> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
+				var _choiceInput1 ='<b><input type="text" name="question_choice_num" value="1" style="display: none">1.</b> <input type="text" name="question_choice_content" class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요." id="question_choice_content1"> <span class="fileupload fileupload-new imageup" data-provides="fileupload"> <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div> <span> <span class="btn btn-theme02 btn-file"> <span class="fileupload-new"> <i class="fa fa-paperclip"></i>image </span> <span class="fileupload-exists"><i class="fa fa-undo"></i>Change </span> <input type="file" class="default" /> </span> <a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a> </span> </span><br>'
+				var _choiceInput2 ="<b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' id='question_choice_content2'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
+				var _choiceInput3 ="<b><input type='text' name='question_choice_num' value='3' style='display: none'>3.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='3번 보기 내용을 입력해주세요.' id='question_choice_content3'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
+				var _choiceInput4 ="<b><input type='text' name='question_choice_num' value='4' style='display: none'>4.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='4번 보기 내용을 입력해주세요.' id='question_choice_content4'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
+				var _choiceInput5 ="<b><input type='text' name='question_choice_num' value='5' style='display: none'>5.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='5번 보기 내용을 입력해주세요.' id='question_choice_content5'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
 				var _answerBtn1 ='<label class="questionChoiceRadioButton"> <input type="radio" name="question_answer" value="1" >1번 </label>&nbsp;&nbsp;'
 				var _answerBtn2 ='<label class="questionChoiceRadioButton"> <input type="radio" name="question_answer" value="2" >2번 </label>&nbsp;&nbsp;'
 				var _answerBtn3 ='<label class="questionChoiceRadioButton"> <input type="radio" name="question_answer" value="3" >3번 </label>&nbsp;&nbsp;'
@@ -207,7 +207,7 @@ function check(){
 	var _questionChoiceContent4 = $("input[type=text][id=question_choice_content4]").val();
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
-
+	var _choiceQuantity = document.getElementById("howManyChoices").value;
 	alert( "=== 문제 생성 입력값 확인용 alert ==="
 			  + "문제 타입: " + _shortAnswerQuestion
 			  + "\n 소분류: " + _smCategory
@@ -219,6 +219,7 @@ function check(){
 			  + "\n 객관식보기3번: " + _questionChoiceContent3
 			  + "\n 객관식보기4번: " + _questionChoiceContent4
 			  + "\n 객관식보기5번: " + _questionChoiceContent5
+			  + "\n 객관식보기숫자: " + _choiceQuantity
 			
 	   		);
 	
@@ -235,21 +236,55 @@ function check(){
 			swal("문제의 난이도를 선택해주세요");
 			document.getElementById("level_type2").focus();
 			return false;
-		} else if ($.trim(_questionChoiceContent1) == "") {
-			swal("객관식 1번 보기를 입력해주세요");
-			return false;
-		} else if ($.trim(_questionChoiceContent2) == "") {
-			swal("객관식 2번 보기를 입력해주세요");
-			return false;
-		} else if ($.trim(_questionChoiceContent3) == "") {
-			swal("객관식 3번 보기를 입력해주세요");
-			return false;
-		} else if ($.trim(_questionChoiceContent4) == "") {
-			swal("객관식 4번 보기를 입력해주세요");
-			return false;
-		} else if ($.trim(_questionChoiceContent5) == "") {
-			swal("객관식 5번 보기를 입력해주세요");
-			return false;
+		} else if ($.trim(_choiceQuantity) == "5"){
+			if ($.trim(_questionChoiceContent1) == "") {
+				swal("객관식 1번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent2) == "") {
+				swal("객관식 2번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent3) == "") {
+				swal("객관식 3번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent4) == "") {
+				swal("객관식 4번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent5) == "") {
+				swal("객관식 5번 보기를 입력해주세요");
+			}
+		} else if ($.trim(_choiceQuantity) == "4"){
+			if ($.trim(_questionChoiceContent1) == "") {
+				swal("객관식 1번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent2) == "") {
+				swal("객관식 2번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent3) == "") {
+				swal("객관식 3번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent4) == "") {
+				swal("객관식 4번 보기를 입력해주세요");
+				return false;
+			} 
+		} else if ($.trim(_choiceQuantity) == "3"){
+			if ($.trim(_questionChoiceContent1) == "") {
+				swal("객관식 1번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent2) == "") {
+				swal("객관식 2번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent3) == "") {
+				swal("객관식 3번 보기를 입력해주세요");
+				return false;
+			}
+		} else if ($.trim(_choiceQuantity) == "2"){
+			if ($.trim(_questionChoiceContent1) == "") {
+				swal("객관식 1번 보기를 입력해주세요");
+				return false;
+			} else if ($.trim(_questionChoiceContent2) == "") {
+				swal("객관식 2번 보기를 입력해주세요");
+				return false;
+			}
 		} else {
 				var questionInsertConfirm = confirm(
 						"문제를 정말로 등록하시겠습니까?");
