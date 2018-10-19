@@ -23,7 +23,7 @@
 					정답률:${question.question_correct_ratio}%<br> 출제자:
 					${question.member_id }<br>
 				</div>
-				<div class="col-lg-8">
+				<div class="col-lg-8" id="questiontitle">
 					<b>${question.question_name }</b><br> <br>
 					<div class="questionImgDiv">
 						<c:if test="${question.question_img  ne null }">
