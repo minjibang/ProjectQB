@@ -38,36 +38,59 @@
 							<div class="row">
 								<div class="col-lg-12">
 
-									<h3 id="h3id">내가 만든 문제</h3>
+									<h3 id="h3id">내가 만든 문제
+										<input type="text" name="member_id" id="member_id"
+										value="${memberDto.member_id}" style="display: none">
+									
+									</h3>
+									
 									<hr>
 
-									<select id="question_lg_category" class="form-control-static"
+									<select id="question_lg_category" class="form-control-static myQuestionSelectCategory"
 										name="lg_category_name">
 										<option value="" selected disabled>대분류 선택</option>
 										<c:forEach items="${lgCatList}" var="lgCatList">
 											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
 										</c:forEach>
-									</select> <select id="question_md_category" class="form-control-static"
+									</select> 
+									
+									<select id="question_md_category" class="form-control-static myQuestionSelectCategory"
 										name="md_category_name">
 										<option value="">중분류 선택</option>
-									</select> <select id="question_sm_category" class="form-control-static"
+									</select> 
+									
+									<select id="question_sm_category" class="form-control-static myQuestionSelectCategory"
 										name="sm_category_name">
 										<option value="">소분류 선택</option>
-									</select> <select class="form-control-static" name="QuestionLevel">
-										<option value="quesLevel">난이도</option>
+									</select> 
+									
+									<select class="form-control-static myQuestionSelectCategory" name="QuestionLevel" id="level_type">
+										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
-											<option value="">${quesLevelList.level_name}</option>
+											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
 										</c:forEach>
-									</select> <input type="button"
+									</select> 
+									
+									<select class="form-control-static myQuestionSelectCategory" 
+									id="questiontype" name="questionType">
+										<option value="">문제타입</option>
+										<option value="">전체</option>
+										<option value="객관식">객관식</option>
+										<option value="단답형">단답형</option>
+									</select> 
+									
+									<input type="button" id="viewAll"
 										class="btn btn-theme myQuestionSelectBtn pull-right"
-										value="전체조회"> <input type="button"
+										value="전체조회"> 
+										<input type="button"
 										class="btn btn-theme myQuestionSelectBtn pull-right"
-										value="검색"> <input type="text"
-										class="form-control myQuestionSelectCategory2 pull-right"
-										placeholder="키워드를 입력하세요.">
+										id="questionsearch"
+										value="검색"> 
+										<input type="text"
+										class="form-control myQuestionTextField pull-right"
+										id="keyword" placeholder="키워드를 입력하세요.">
 
 								</div>
-								<a href=""></a>
 								<!-- /detailed -->
 							</div>
 							<div class="row mt hrRow">
@@ -78,112 +101,18 @@
 									</label>
 								</div>
 							</div>
-
-
 							<hr>
 
-							<!-- /col-md-6 -->
 							<div class="row content-panel" id="myQuestionPanel">
-								<div class="myQuestionDiv">
-									<div class="row mt">
-
-										<div class="col-lg-1 myQuestionCheck">
-											<input type="checkbox" value="" name="" id="checkLa">
-											<!-- value에 문제고유번호 들어간다 -->
-										</div>
-										<div class="col-lg-2 myQuestionCategory">
-											Java <br> 메서드와 변수 <br> 난이도: 중 <br> 정답:3<br>
-											정답률:72%<br> 출제자:서정원<br>
-										</div>
-										<div class="col-lg-3 myQuestionFont">
-											<div>
-												<b>문제 : </b>
-											</div>
-											<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> <img
-												src="${pageContext.request.contextPath}/img/500.png"
-												class="myQuestionImg"> <br>
-
-										</div>
-										<div class="col-lg-5 myQuestionFont">
-											<div>
-												<b>보기 : </b>
-											</div>
-											<br> 1. 멤버 변수와 메서드에 static을 지정할 수 있다<br> <br>
-											2. static 형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br>
-											<br> 3. static 메서드 안에 선언되는 변수들은 모두 static 변수이다.<br>
-											<br> 4. static 메서드 안에서는 this 나 super를 사용할 수 있다.<br>
-
-
-										</div>
-										<div class="col-lg-1 btnUpDe">
-											<br> <br> <a href="questionUpdate.do"><button
-													type="button" class="btn btn-theme">수정</button></a>
-											&nbsp;&nbsp;
-											<button type="button" class="btn btn-theme04">삭제</button>
-
-										</div>
-
-
-										<!-- /col-md-6 -->
-									</div>
-									<hr class="hr">
-
-									<!-- /col-md-6 -->
-									<div class="row mt">
-										<div class="myQuestionDiv">
-											<div class="col-lg-1 myQuestionCheck">
-												<input type="checkbox" value="" name="">
-												<!-- value에 문제고유번호 들어간다 -->
-											</div>
-											<div class="col-lg-2 myQuestionCategory">
-												Java<br> 메서드와 변수<br> 난이도: 중<br> 정답:3<br>
-												정답률:72%<br> 출제자:서정원<br>
-											</div>
-											<div class="col-lg-3 myQuestionFont">
-												<div>
-													<b>문제 : </b>
-												</div>
-												<b>다음은 static에 대한 설명이다. 틀린 것은?</b><br> <br> <img
-													src="${pageContext.request.contextPath}/img/404.png"
-													class="myQuestionImg"> <br>
-
-											</div>
-											<div class="col-lg-5 myQuestionFont">
-												<div>
-													<b>보기 : </b>
-												</div>
-												<br> 1. 멤버 변수와 메서드에 static을 지정할 수 있다<br> <br>
-												2. static 형 변수는 클래스 로딩시에 메모리가 할당되어 프로그램 종료까지 그 영역이 고정된다.<br>
-												<br> 3. static 메서드 안에 선언되는 변수들은 모두 static 변수이다.<br>
-												<br> 4. static 메서드 안에서는 this 나 super를 사용할 수 있다.<br>
-
-
-											</div>
-											<div class="col-lg-1 btnUpDe">
-												<br> <br> <a href="questionUpdate.do"><button
-														type="button" class="btn btn-theme">수정</button></a>
-												&nbsp;&nbsp;
-												<button type="button" class="btn btn-theme04">삭제</button>
-
-											</div>
-
-										</div>
-										<!-- /col-md-6 -->
-									</div>
-
-
-
-
-								</div>
-
+					                           <div id="myQuestions">
+													
+					                           </div>
 							</div>
-							<button type="button" class="btn btn-theme btnDeIn">선택
-								문제 수정</button>
-							<button type="button" class="btn btn-theme pull-right btnDeIn">새
-								문제 등록</button>
-
-
+							
+							<button type="button" class="btn btn-theme04 btnDeIn">선택 문제 삭제</button>
+							
 						</div>
+						
 						<!-- /OVERVIEW -->
 						<!-- 정원 추가 끝 -->
 
@@ -222,7 +151,7 @@
 											</select> <select id="question_sm_category2"
 												class="form-control-static" name="sm_category_code">
 												<option value="">소분류 선택</option>
-											</select> <select id="question_level" class="form-control-static"
+											</select> <select id="level_type" class="form-control-static"
 												name="level_code">
 												<option value="">난이도</option>
 												<c:forEach items="${quesLevelList}" var="quesLevelList">
@@ -461,7 +390,7 @@
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
 										<button type="button" class="btn btn-secondary quesCategory">
-										취소</button>
+										취소 - 입력값 초기화</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										
@@ -496,9 +425,9 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/questionManagement.js"
 	type="text/javascript"></script>
 
-<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 시작 -->
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
-	$(function() {
+	$(document).ready(function() {
 		$('#question_lg_category')
 				.change(
 						function() {
@@ -522,7 +451,7 @@
 							<c:forEach items="${smCatList}" var="smlist">
 							if (document.getElementById("question_md_category").value == "${smlist.md_category_code}") {
 								$('#question_sm_category')
-										.append("<option value=${mdlist.md_category_code}>${smlist.sm_category_name}</option>")
+										.append("<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
 							}
 							</c:forEach>
 						})
@@ -557,13 +486,7 @@
 							</c:forEach>
 						})
 						
-		$('#answerSelect')
-				.change(
-						function() {
-							var st = $("#answerSelect option:selected").val();
-							console.log(st);
-						})
-	})
+})
 </script>
-<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기 비동기 스크립트 끝 -->
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-전체문제 스크립트 끝 -->
 

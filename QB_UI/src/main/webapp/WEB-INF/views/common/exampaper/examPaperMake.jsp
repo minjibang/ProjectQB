@@ -38,11 +38,6 @@
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_md_category" id="question_md_category">
                                  <option value="">중분류</option>
-                              <c:forEach items="${list2}" var="mdCategoryList">
-                                 <option value="${mdCategoryList.md_category_code}">
-                                 ${mdCategoryList.md_category_name}
-                                 </option>
-                              </c:forEach>
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_sm_category" id="question_sm_category">
                                  <option value="">소분류</option>
