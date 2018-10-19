@@ -57,19 +57,8 @@ public class TestManageController {
 	
 	/*한결 시작*/
 	@RequestMapping("checkExam_paper.do")
-	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("jsonArray1") ArrayList<String>[] jsonArray1, @RequestParam("jsonArray2") ArrayList<String>[] jsonArray2,
-			@RequestParam("jsonArray3") ArrayList<String>[] jsonArray3) {	
+	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
 		String result = teacherService.examPaperCheck(exam_paper_name);
-		System.out.println(exam_paper_name);
-
-		System.out.println(jsonArray1.length);
-		for(int i=0; i < jsonArray1.length ; i++) {
-			System.out.println(i+"번째 index 값 아마 object >> "+jsonArray1[i]);
-			System.out.println(i+"번째 index 값 아마 object >> "+jsonArray2[i]);
-			System.out.println(i+"번째 index 값 아마 object >> "+jsonArray3[i]);
-			
-		}
 		return result;
 	}	
 	
@@ -78,7 +67,6 @@ public class TestManageController {
 	@RequestMapping("examPaperInsert.do")
 	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
 			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
-		System.out.println(exam_paper_name +"//"+ member_id +"\\"+ exam_paper_desc);
 		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
 		return result;
 	}
@@ -102,7 +90,6 @@ public class TestManageController {
 	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") String exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
 			@RequestParam("exam_question_score") String exam_question_score) {
-		System.out.println(exam_paper_num + question_num+ exam_question_seq+ exam_question_score);
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
 	}
