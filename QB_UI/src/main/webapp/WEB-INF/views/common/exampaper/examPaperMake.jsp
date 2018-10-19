@@ -185,6 +185,7 @@
                               <button type="button" class="close" data-dismiss="modal"
                                  aria-hidden="true">&times;</button>
                               <h4 class="modal-title" id="myModalLabel">시험지 임시저장</h4>
+                              <input type="hidden" id="saveEP" value="0"/>
                            </div>
                            <form action="" method="post">
                               <div class="modal-body">
@@ -220,6 +221,7 @@
                               <button type="button" class="close" data-dismiss="modal"
                                  aria-hidden="true">&times;</button>
                               <h4 class="modal-title" id="myModalLabel">시험지 생성</h4>
+                              <input type="hidden" id="createEP" value="1"/>
                            </div>
                            <form action="" method="post">
                               <div class="modal-body">

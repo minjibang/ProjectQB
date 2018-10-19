@@ -73,14 +73,14 @@ public class TeacherService {
 	}
 	
 
-	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc) {
+	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
+		int result = dao.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
 		return result;
 	}
-	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num) {
+	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num,String exam_paper_status) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num);
+		int result = dao.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num,exam_paper_status);
 		return result;
 	}
 	public int examQuestionSelect(String exam_paper_num, String question_num) {
@@ -91,11 +91,6 @@ public class TeacherService {
 	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
-		return result;
-	}
-	public int examQuestionUpdate(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
-		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examQuestionUpdate(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
 	}
 	public int examQuestionDelete(String exam_paper_num) {
