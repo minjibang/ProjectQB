@@ -46,6 +46,12 @@ public class TeacherService {
 		return result;
 	}
 	
+	public List<QuestionDto> myQuestionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype);
+		return result;
+	}
+	
 	/*재훈 - 10.19 강사 문제관리 - 내가 만든 문제 끝 */
 	
 	
