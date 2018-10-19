@@ -75,6 +75,9 @@ public class AdminController {
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
 	public String adminMember(Model model) throws Exception {
+		List<ClassDto> classList;
+		classList=adminService.classList();
+		model.addAttribute("classList", classList);
 		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
@@ -129,6 +132,7 @@ public class AdminController {
 	@RequestMapping(value = "adminClassMemberUpdate.do", method = RequestMethod.POST)
 	public @ResponseBody String adminClassMemberUpdate(@RequestBody MemberDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
 	{	
+		
 		/*deptService.insertDept(dto);
 		return dto.toString();*/
 		int result = adminService.classMemberUpdate(dto);

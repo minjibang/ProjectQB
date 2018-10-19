@@ -118,9 +118,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody String exam_paper_name)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody int exam_paper_num)
 	{
-		int result = teacherService.examPaperDelete(exam_paper_name);
+		int result = teacherService.examPaperDelete(exam_paper_num);
 		String result2 = String.valueOf(result);
 		return result2;
 	}
@@ -128,9 +128,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
 	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody String exam_info_name)
+	public @ResponseBody String teacherExamSchedultDelete(@RequestBody int exam_info_num)
 	{
-		int result = teacherService.examScheduleDelete(exam_info_name);
+		int result = teacherService.examScheduleDelete(exam_info_num);
 		String result2 = String.valueOf(result);
 		return result2;
 	}

@@ -90,8 +90,10 @@
                           </div>
                         <!--timepicker group end-->
                           <div class="form-group">
+
                             <label class="control-label col-md-2">시험시간</label>
                             <input type="text" id="exam_info_time" name="exam_info_time"  readonly >
+
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">종료알림</label>
