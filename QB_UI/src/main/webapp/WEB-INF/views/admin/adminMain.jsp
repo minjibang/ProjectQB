@@ -158,21 +158,23 @@ $(document).ready(function(){
 			}
 		});
 	});
-	function classCheck() {
-		if(classcheck == false){
-			alert("클래스 명을 확인해주세요");
-			document.getElementById("class_name").focus();
-			return false;
+
+});
+function classCheck() {
+	if(classcheck == false){
+		alert("클래스 명을 확인해주세요");
+		document.getElementById("class_name").focus();
+		return false;
+	}else{
+		var classconfirm = confirm("클래스 생성 하시겠습니까");
+		if(classconfirm == true){
+			return true;
 		}else{
-			var classconfirm = confirm("회원가입 하시겠습니까");
-			if(classconfirm == true){
-				return true;
-			}else{
-				return false;
-			}
+			return false;
 		}
 	}
-	function confirmClass() {
+}
+function confirmClass() {
 		
 		var val = document.getElementById("class_name").value;
 		var iddiv = document.getElementById("classdiv");
@@ -202,7 +204,4 @@ $(document).ready(function(){
 			});
 		}
 	}
-
-})
-
 </script>

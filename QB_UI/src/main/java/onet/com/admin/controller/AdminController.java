@@ -322,7 +322,7 @@ public class AdminController {
 		model.addAttribute("question_choice", question_choice);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.setViewName("ajax.common.questionManagement_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
 		
@@ -332,7 +332,8 @@ public class AdminController {
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
+			@RequestParam("keyword") String keyword) {
 		
 		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
