@@ -100,7 +100,7 @@
 														 onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지 수정</button>
 														<button type="button" class="btn btn-theme buttonGroup" 
 
-														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?class_num=${param.class_num}&exam_paper_name=${examPaperList.exam_paper_name}&exam_paper_num=${examPaperList.exam_paper_num}&class_name=${param.class_name}'">시험 등록</button>
+														onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?class_num=${param.class_num}&exam_paper_name=${examPaperList.exam_paper_name}&exam_paper_num=${examPaperList.exam_paper_num}&class_name=${param.class_name}'">시험 등록</button>
 											
 
 														

@@ -662,7 +662,20 @@ public class AdminController {
 
 
 	/*민지:10.18 시험등록  끝*/
-
+		@RequestMapping("examScheduleRegist.do")
+		public String examScheduleRegist(Model model, int class_num) {
+			
+			List<MemberDto> classMemberList;
+			classMemberList= adminService.classMemberList(class_num);
+			model.addAttribute("classMemberList", classMemberList);
+			
+			List<ExamPaperDto> examPaperList;
+			examPaperList = teacherService.examPaperList(class_num);
+			model.addAttribute("examPaperList", examPaperList);
+			System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+			
+			return "common.admin.exam.examScheduleRegist";
+		}
 
 	
 		}
