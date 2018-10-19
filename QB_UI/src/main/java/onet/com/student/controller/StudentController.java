@@ -3,10 +3,7 @@ package onet.com.student.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import onet.com.common.service.CommonService;
+import onet.com.student.service.StudentService;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Student_answerDto;
+import onet.com.vo.Student_answerDtoList;
 
 @Controller
 @RequestMapping("/student/")
@@ -30,6 +30,9 @@ public class StudentController {
 
 	@Autowired
 	private CommonService commonService;
+	
+	@Autowired
+	private StudentService studentService;
 
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
@@ -166,7 +169,7 @@ public class StudentController {
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
 
 
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 시작 */
+	/* 현이 18.10.15 학생 시험응시 페이지 시작 */
 	@RequestMapping("examPaperDo2.do")
 	public String examPaperDo2(Model model, int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
 		
@@ -185,11 +188,46 @@ public class StudentController {
 		
 		return "exam.student.examPaperDo2";
 	}
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
+	/* 현이 18.10.15 학생 시험응시 페이지 끝 */
+
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 현이 18.10.19 학생 답안지 insert 시작 */
+	@RequestMapping(value="examPaperDo2.do", method=RequestMethod.POST)
+	public void examAnswerInsert(Student_answerDtoList answerList) throws ClassNotFoundException, SQLException, IOException {
+		
+		List<Student_answerDto> items = answerList.getStudent_answer();	
+		int result = studentService.examAnswerInsert(answerList);
+		
+	}
+	/* 현이 18.10.19 학생 답안지 insert 끝 */
 	
 	
 	
