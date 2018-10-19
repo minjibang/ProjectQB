@@ -54,18 +54,18 @@ public class StudentController {
 
 	
 	// 학생 notice 관련
-	/*한결 10월 12일 학생메인페이지 시작*/
-	@RequestMapping("studentMain.do")
-	public String studentMain(Model model, String class_name) {
-
-		List<NoticeDto> notice = commonService.teacher_student_Main(class_name);
-		model.addAttribute("notice", notice);
-		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
-		model.addAttribute("exam_info", exam_info);
-		
-		return "common.student.notice.notice";
-	}
-	/*한결 10월 12일 학생메인페이지 끝*/
+	   /*한결 10월 12일 학생메인페이지 시작*/
+	   @RequestMapping("studentMain.do")
+	   public String studentMain(Model model, Principal principal) {
+	      String member_id = principal.getName();
+	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+	      model.addAttribute("notice", notice);
+	      List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+	      model.addAttribute("exam_info", exam_info);
+	      
+	      return "common.student.notice.notice";
+	   }
+	   /*한결 10월 12일 학생메인페이지 끝*/
 
 	/* 재훈:10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")

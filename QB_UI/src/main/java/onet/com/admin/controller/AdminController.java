@@ -186,10 +186,10 @@ public class AdminController {
 	public String adminClassMain(Model model, String class_name) {
 
 		List<NoticeDto> notice;
-		notice=commonService.teacher_student_Main(class_name);
+		notice=commonService.admin_Main(class_name);
 		model.addAttribute("notice", notice);
 		
-		List<ExamInfoDto> exam_info = commonService.exam_info(class_name);
+		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
