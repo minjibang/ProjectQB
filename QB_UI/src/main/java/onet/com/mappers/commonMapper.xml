@@ -54,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	member_enable=#{member_enable}
 	where member_id=#{member_id}
 </update>
+
 <!-- 양회준 10.15 내 정보 수정 끝 -->
 
 
