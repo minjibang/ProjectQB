@@ -91,7 +91,7 @@
                           </div>
                         <!--timepicker group end-->
                           <div class="form-group">
-                            <label class="control-label col-md-2">시험시간</label>
+                            <label class="control-label col-md-2">시험시간</label>&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="text" id="exam_info_time" name="exam_info_time"  value="1:00:00" readonly />
                           </div>
                           <div class="form-group">

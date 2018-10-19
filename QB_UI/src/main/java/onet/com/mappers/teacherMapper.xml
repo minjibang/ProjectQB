@@ -67,9 +67,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 영준 10.16 내 시험지 끝 -->
 <!-- 영준 10.17 내 시험지  삭제 시작 -->
-<delete id="examPaperDelete" parameterType="onet.com.vo.ExamPaperDto">
+<delete id="examPaperDelete" parameterType="int">
 	DELETE FROM exam_paper
-	WHERE exam_paper_name=#{exam_paper_name}
+	WHERE exam_paper_num=#{exam_paper_num}
 </delete>
 <!-- 영준 10.17 내 시험지  삭제 끝 -->
 
@@ -117,9 +117,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 한결 10.17 끝-->
 
 <!-- 영준 10.18 시험 일정 삭제 시작 -->
-<delete id="examScheduleDelete" parameterType="onet.com.vo.ExamInfoDto">
+<delete id="examScheduleDelete" parameterType="int">
 	DELETE FROM exam_info
-	WHERE exam_info_name=#{exam_info_name}
+	WHERE exam_info_num=#{exam_info_num}
 </delete>
 
 </mapper>

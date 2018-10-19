@@ -83,7 +83,7 @@
 													
 													<c:forEach items="${examPaperList}" var="examPaperList">
 
-													<input type="hidden" id="exam_paper_num" value='${examPaperList.exam_paper_num}'/>
+													<input type="hidden" id="exam-paper-num" value='${examPaperList.exam_paper_num}'/>
 														
 
 														<!-- 시험지 한 개 시작 -->
@@ -221,7 +221,7 @@
 												<div id="examScheduleDiv">
 													<c:forEach items="${examScheduleList}" var="examScheduleList">
 													
-													<input type="hidden" id="exam_info_num" value='${examScheduleList.exam_info_num}'/>
+													<input type="hidden" id="exam-info-num" value='${examScheduleList.exam_info_num}'/>
 													
 														<div class="exam_info_name">
 														<h4 id="exam-info-name"><strong>${examScheduleList.exam_info_name}</strong></h4>
