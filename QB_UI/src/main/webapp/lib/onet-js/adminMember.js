@@ -47,6 +47,8 @@ $(function(){
 	});
 });
 
+$(function(){
+	
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
 		action='modify';
@@ -60,13 +62,14 @@ $(function(){
 		var member_email_modal=tr.eq(4).text();
 		var member_phone_modal=tr.eq(5).text();
 		var member_name_modal=tr.eq(3).text();
-		var role_code_modal = tr.eq(6).text();
+		var member_enable_modal = tr.eq(6).text();
 		var class_name_modal = tr.eq(1).text();
+		var role_code_modal = tr.eq(7).text();
 		
-		$('#member_id').val(member_id_modal);
-		$('#member_email').val(member_email_modal);
-		$('#member_phone').val(member_phone_modal);
-		$('#member_name').val(member_name_modal);
+		$('#cid').val(member_id_modal);
+		$('#cemail').val(member_email_modal);
+		$('#curl').val(member_phone_modal);
+		$('#cname').val(member_name_modal);
 		$('#class_name').val(class_name_modal);
 		
 		if(role_code_modal == '학생'){
@@ -77,6 +80,7 @@ $(function(){
 			$("#agree_t").attr("checked", true);
 			$("#agree_s").attr("checked", false);
 		}
+
 		
 	});
 	
@@ -92,9 +96,10 @@ $(function(){
 			role_code_val=$('#agree_t').val();
 		}
 		
-	console.log("바뀌는 권한 값 ??>>>" + role_code_val);
-		var _param = {member_email:$("#member_email").val(), member_phone:$("#member_phone").val()
-				, member_id:$("#member_id").val(), class_name:$("#class_name option:selected").text()
+		
+		console.log("바뀌는 권한 값 ??>>>" + role_code_val);
+		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
+				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
 				, role_code:role_code_val }
 
 		var _data = JSON.stringify(_param); //jsonString으로 변환	                                                      
@@ -111,14 +116,19 @@ $(function(){
    				  location.href="adminMember.do";
    			  },
    			  error: function(request, status, error){
-   				  console.log("request 값이 뭐냐  >>>> "+ request);
-   				  alert("에러에러에러에러에러에러");
-   			 }
+   				  
+   				  if($("#agree_s").attr("checked", false) && $("#agree_t").attr("checked", false)){
+   					  
+   				  alert("권한을 확인해주세요");
+   				  }
+   			  }
    		});
 		
 	});	
+});
 
-
+$(function(){
+	
 	/* 멤버 삭제(실제 삭제X) */
 	
 	$("button[name='deletebtn']").click(function(){
@@ -148,12 +158,22 @@ $(function(){
 			}
 		});
 	});
-
+	});
 });
 
-/* 회원 권한 셀렉트메뉴 선택시 호출되는 함수 */
-$(function(){
-	$("#role_code option:selected").val();
-	
-});
+function oneCheckbox(a){
+
+    var obj = document.getElementsByName("agree");
+
+    for(var i=0; i<obj.length; i++){
+
+        if(obj[i] != a){
+
+            obj[i].checked = false;
+
+        }
+
+    }
+
+}
 

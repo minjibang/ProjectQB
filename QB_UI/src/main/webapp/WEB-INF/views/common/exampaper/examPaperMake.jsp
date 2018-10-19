@@ -17,6 +17,7 @@
 .ppp{
 	background-color:yellow;
 }
+
 </style>
 <section id="main-content">
    <section class="wrapper">
@@ -28,6 +29,7 @@
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
                         <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
+                        <input type="hidden" class="dpn_EPN" value="" />
                         <div class="makeExamFirstRow">
                            <hr>
                            <select class="form-control makeExamSelectCategory" name="question_lg_category" id="question_lg_category">
@@ -113,10 +115,9 @@
                            data-target="#pickQuestionTempSaveModal"
                            id="pickQuestionTempSaveModalBtn">
                            <input type="hidden" id="copyTempSave" value="">
-                        <!--                                <input type="button" class="btn btn-theme" value="시험지 미리보기" id="">  우선순위에서 제외-->
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
-                           data-toggle="modal">시험지 미리보기</button>
+                           data-toggle="modal" id="miriBtn">시험지 미리보기</button>
                         <div id="exam_preview" class="modal fade modal_preview">
                            <div class="modal-dialog" style="width: 70%;">
                               <!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
@@ -132,70 +133,23 @@
                                           </div>
 
                                           <hr>
+                                          
+                                          
+                                          <!-- 미리보기  -->
                                           <div class="panel-body">
                                              <div class="row content-panel exampaneldetailed">
                                                 <div class="col-lg-6" id="examBox"
                                                    style="border-right: 1px solid black;">
-                                                   <div id="exam"
-                                                      style="text-align: left; padding-top: 10px;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
+                                                   
+                                                   <div id="mirileft" style="text-align: left; padding-top: 10px;">
+                                                      
                                                    </div>
-                                                   <div id="exam" style="text-align: left;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                   </div>
-                                                   <div id="exam" style="text-align: left;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                   </div>
-                                                   <div id="exam" style="text-align: left;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                   </div>
-
                                                 </div>
                                                 <div class="col-lg-6">
-                                                   <div id="exam" style="text-align: left;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
+                                                   <div id="miriright" style="text-align: left;">
+                                                      
                                                    </div>
-                                                   <div id="exam" style="text-align: left;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                   </div>
-                                                   <div id="exam" style="text-align: left;">
-                                                      1)다음은 static에 대한 설명이다. 틀린것은?(3점)<br> <br>
-                                                      <div>1.멤버 변수와 메서드에 static을 지정할 수 있다.</div>
-                                                      <div>2.static형 변수는 클래스 로딩시에 메로리가 할당되어 프로그램종료까지 그
-                                                         영역이 고정된다.</div>
-                                                      <div>3.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                      <div>4.static메서드 안에 선언되는 변수들은 모두 static변수이다.</div>
-                                                   </div>
+                                                   
                                                 </div>
 
                                              </div>
@@ -203,6 +157,8 @@
                                                 class="btn btn-large btn-primary exampaneldetailBtn"
                                                 data-dismiss="modal">확인</button>
                                           </div>
+                                          
+                                          <!-- 미리보기  끝 -->
                                        </div>
                                     </div>
                                  </div>
@@ -268,10 +224,10 @@
                            <form action="" method="post">
                               <div class="modal-body">
 
-                                 시험지 이름 <input type="text" class="form-control"
+                                 시험지 이름 <input type="text" class="form-control createEPaper"
                                     placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
                                  설명
-                                 <textarea type="textarea" class="form-control"
+                                 <textarea type="textarea" class="form-control createEPDesc"
                                     placeholder="시험지 설명을 입력하세요." name=""></textarea>
                               </div>
                               <div class="modal-footer">

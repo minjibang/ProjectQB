@@ -5,11 +5,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.common.dao.CommonDao">
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 시작 -->
 <select id="notice" parameterType="String" resultType="onet.com.vo.NoticeDto">
-	select * from notice where class_name = (select class_name from member where member_id = #{member_id});
+   select * from notice where class_name = (select class_name from member where member_id = #{member_id});
 </select>
 <select id="exam_info" parameterType="String" resultType="onet.com.vo.Exam_infoDto">
-	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id});
+   select * from exam_info where class_name = (select class_name from member where member_id = #{member_id});
 </select>
+<!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
+
+<!-- 민지 10.19 관리자 공지사하 및 시험일정시작 -->
+<select id="adminnotice" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice where class_name = #{class_name}
+</select>
+<select id="adminexam_info" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where class_name = #{class_name}
+</select>
+<!-- 민지 10.19 관리자 공지사하 및 시험일정 끝 -->
+
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 끝 -->
 
 

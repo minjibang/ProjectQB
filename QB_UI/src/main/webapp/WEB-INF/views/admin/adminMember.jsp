@@ -35,10 +35,10 @@
 									<form class="cmxform form-horizontal style-form"
 										id="commentForm" method="get" action="">
 										<div class="form-group ">
-											<label for="cname" class="control-label col-lg-2">ID</label>
+											<label for="cid" class="control-label col-lg-2">ID</label>
 											<div class="col-lg-10">
-											
-											<input class="form-control" type="text"  name="member_id" maxlength="10" value="" readonly  id="member_id">
+												<input class="form-control" type="text"  name="member_id" 
+												maxlength="10" value="" readonly  id="cid">
 												
 											</div>
 										</div>
@@ -46,20 +46,23 @@
 											<label for="cname" class="control-label col-lg-2">이름</label>
 											<div class="col-lg-10">
 											
-											<input class="form-control" type="text"  name="member_name" maxlength="10" value="" readonly  id="member_name">
+											<input class="form-control" type="text"  name="member_name" 
+											maxlength="10" value="" readonly  id="cname">
 												
 											</div>
 										</div>
 										<div class="form-group ">
 											<label for="cemail" class="control-label col-lg-2">E-Mail</label>
 											<div class="col-lg-10">
-												<input class="form-control" type="email"  name="member_email" maxlength="30" value="" id="member_email">
+												<input class="form-control" type="email" name="member_email" 
+												maxlength="30" value="" id="cemail">
 											</div>
 										</div>
 										<div class="form-group ">
 											<label for="curl" class="control-label col-lg-2">핸드폰</label>
 											<div class="col-lg-10">
-												<input class="form-control" type="text"  name="member_phone" maxlength="15" value=""id="member_phone" >
+												<input class="form-control" type="text"  name="member_phone" 
+												maxlength="15" value=""id="curl" >
 											</div>
 										</div>
 										<div class="form-group ">
@@ -266,7 +269,9 @@
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">
 																<i class="fa fa-trash-o"></i>
-															</button></td>
+															</button>
+															
+															</td>
 													</tr>
 												</c:forEach>
 											</tbody>

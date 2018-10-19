@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
@@ -41,19 +43,19 @@ public class TeacherController {
 
 	// 강사 notice 관련
 	/* 민지:10.08 강사 메인추가 */
-	@RequestMapping("teacherMain.do")
-	public String teacherMain(Model model, Principal principal) {
-		String member_id = principal.getName();
-		List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
-		model.addAttribute("notice", notice);
-		List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
-		model.addAttribute("exam_info", exam_info);
-		
-		for(int i=0; i<exam_info.size();i++) {
-			System.out.println(exam_info.get(i).getExam_info_name());
-		}
-		return "common.teacher.notice.notice";
-	}
+	   @RequestMapping("teacherMain.do")
+	   public String teacherMain(Model model, Principal principal) {
+	      String member_id = principal.getName();
+	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+	      model.addAttribute("notice", notice);
+	      List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+	      model.addAttribute("exam_info", exam_info);
+	      
+	      for(int i=0; i<exam_info.size();i++) {
+	         System.out.println(exam_info.get(i).getExam_info_name());
+	      }
+	      return "common.teacher.notice.notice";
+	   }
 
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
@@ -107,7 +109,7 @@ public class TeacherController {
 	
 	/* 영준 18.10.16 선생님 시험일정 시작 */
 		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList();
+		examScheduleList = teacherService.examScheduleList(class_num);
 		model.addAttribute("examScheduleList", examScheduleList);
 	/* 영준 18.10.16 선생님 시험일정 끝 */	
 		
@@ -116,9 +118,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody ExamPaperDto dto, String exam_paper_name)
+	public @ResponseBody String teacherMyExamDelete(@RequestBody int exam_paper_num)
 	{
-		int result = teacherService.examPaperDelete(exam_paper_name);
+		int result = teacherService.examPaperDelete(exam_paper_num);
 		String result2 = String.valueOf(result);
 		return result2;
 	}
@@ -126,9 +128,9 @@ public class TeacherController {
 	
 	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
 	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody ExamInfoDto dto, String exam_info_name)
+	public @ResponseBody String teacherExamSchedultDelete(@RequestBody int exam_info_num)
 	{
-		int result = teacherService.examScheduleDelete(exam_info_name);
+		int result = teacherService.examScheduleDelete(exam_info_num);
 		String result2 = String.valueOf(result);
 		return result2;
 	}
@@ -190,8 +192,10 @@ public class TeacherController {
 	
 	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 시작 */
 	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist() {
-		
+	public String examScheduleRegist(Model model, int class_num) {
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList(class_num);
+		model.addAttribute("classMemberList", classMemberList);
 		return "common.teacher.exam.examScheduleRegist";
 	}
 	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 끝 */
@@ -234,9 +238,7 @@ public class TeacherController {
 		
 		return "common.teacher.question.questionManagement";
 	}
-	/*재훈 18.10.15 내 문제함 관련 끝 */
-	/*재훈 18.10.18 새 문제 만들기 시작 */
-	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 	
 		if (dto2.getQuestion_type().equals("객관식")) {
@@ -247,7 +249,40 @@ public class TeacherController {
 		}
 		return "common.teacher.question.questionManagement";
 	}
-	/*재훈 18.10.18 새 문제 만들기 끝 */
+		
+		@RequestMapping(value="myQuestionView.do")
+		public @ResponseBody ModelAndView classListView(@RequestParam("member_id") String member_id) {
+			
+			
+			List<QuestionDto> question = teacherService.teacherMyQuestion(member_id);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.common.questionManagement_ajax");
+			mv.addObject("question", question);
+			mv.addObject("question_choice",question_choice);
+			
+			return mv;
+		}
+		
+		@RequestMapping(value="myQuestionSearch.do")
+		public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+				@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+				@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			
+			List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.common.questionManagement_ajax");
+			mv.addObject("question", question);
+			mv.addObject("question_choice",question_choice);
+			
+			return mv;
+		}
+	
+		
+	/*재훈 18.10.18  */
 
 	
 	/*현이 18.10.09 강사 마이페이지 시작*/
@@ -297,7 +332,10 @@ public class TeacherController {
 	
 	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
 	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate() {
+	public String examScheduleUpdate(Model model, int class_num) {
+		List<MemberDto> classMemberList;
+		classMemberList= adminService.classMemberList(class_num);
+		model.addAttribute("classMemberList", classMemberList);
 		return "common.teacher.exam.examScheduleUpdate";
 	}
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */

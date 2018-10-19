@@ -73,6 +73,23 @@
         .btnUpDe{
             margin-top: 60px;
         }
+        #viewAll{
+        	margin-left: 10px;
+        	}
+        #keyword{
+        	margin-right: 10px;
+        	width:26%;
+        }
+        
+        #updateMyQuestionBtn{
+        margin-top: 25px;
+        
+        }
+        
+        #deleteMyQuestionBtn{
+        margin-top: 10px;
+        
+        }
         
 	/*회준*/
 	.form-control-inline {

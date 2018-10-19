@@ -14,6 +14,8 @@
 <%-- <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleDetail.js"></script> --%>
 
+
+
 <section id="main-content">
 	<section class="wrapper">
 		<div class="row mt">
@@ -117,7 +119,6 @@
 		var time1 = exam_info_date.split('-');
 		var time2 = exam_info_start.split(':');
 		var time3 = exam_info_end.split(':');
-
 					
 		var exam_info_date='${dto.exam_info_date}';
 		var exam_info_start='${dto.exam_info_start}';
