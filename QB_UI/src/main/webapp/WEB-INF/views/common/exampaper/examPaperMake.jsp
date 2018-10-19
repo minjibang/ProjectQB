@@ -56,7 +56,7 @@
                               <option value="단답형">단답형</option>
                            </select> <br> <input type="text"
                               class="form-control makeExamTextField"
-                              placeholder="키워드를 입력하세요."> <input type="button"
+                              placeholder="키워드를 입력하세요." id="keyword" name="keyword"> <input type="button"
                               class="btn btn-theme" value="검색" id="questionsearch">
                         </div>
                         <hr>
@@ -159,6 +159,8 @@
                                           </div>
                                           
                                           <!-- 미리보기  끝 -->
+                                          
+                                          
                                        </div>
                                     </div>
                                  </div>
@@ -254,7 +256,6 @@
    <!-- /wrapper -->
 </section>
    <!-- /wrapper -->
-</section>
 
 <script>
 $(document).ready(function(){
@@ -300,6 +301,9 @@ $(document).ready(function(){
 	   var smsearchtype = document.getElementById("question_sm_category").value;
 	   var leveltype = document.getElementById("level_type").value;
 	   var questiontype = document.getElementById("questiontype").value;
+	   var keyword = $("#keyword").val();
+	   
+	   console.log(keyword);
 	   
 		$.ajax({
 			  url : "questionSearch.do",
@@ -309,7 +313,8 @@ $(document).ready(function(){
 				  'mdsearchtype' : mdsearchtype,
 				  'smsearchtype' : smsearchtype,
 				  'leveltype' : leveltype,
-				  'questiontype' : questiontype
+				  'questiontype' : questiontype,
+				  'keyword' : keyword
 			  },
 			  dataType:"html",
 			  success:function(data){
