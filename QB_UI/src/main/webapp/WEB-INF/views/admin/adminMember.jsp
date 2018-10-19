@@ -11,6 +11,7 @@
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/adminMember.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- main content start -->
 <section id="main-content">
 	<section class="wrapper">
@@ -122,9 +123,13 @@
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
 										<button id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal">예</button>
+											data-dismiss="modal" value="">예
+
+										</button>
+										
 										<button class="btn btn-theme04" type="button"
 											data-dismiss="modal">아니오</button>
+											
 									</div>
 								</div>
 							</div>
@@ -246,6 +251,7 @@
 													<th class="member_name">이름</th>
 													<th class="member_email">이메일</th>
 													<th class="member_phone">핸드폰</th>
+													<th class="role_code">권한</th>
 													<th class="member_enable">관리</th>
 													<th class="member_enable">수정&삭제</th>
 												</tr>
@@ -259,7 +265,8 @@
 														<td class="member_name">${memberList.member_name}</td>
 														<td class="member_email">${memberList.member_email}</td>
 														<td class="member_phone">${memberList.member_phone}</td>
-														<td class="member_enable">${memberList.member_enable}</td>
+														<td class="role_code">${memberList.role_desc}</td>
+														<td class="member_enable" id="member_enable">${memberList.member_enable}</td>
 														<td><button type="button" class="btn btn-info"
 																id="updatebtn" name="updatebtn" data-toggle="modal"
 																data-target="#UpdateModal" value="${memberList.member_id}">
@@ -268,7 +275,12 @@
 															<button type="button" class="btn btn-danger"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">
+															<input type="hidden" id="agree_m" name="agree_m" 
+																   value="ROLE_MEMBER" />
+															<input type="hidden" id="member_enable" name="member_enable" 
+																   value="0" />	
 																<i class="fa fa-trash-o"></i>
+															
 															</button>
 															
 															</td>

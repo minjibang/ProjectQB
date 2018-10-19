@@ -76,13 +76,12 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 영준 - 10.10 회원관리 관련 시작 -->
 <select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
-	select class_name, member_id, member_name, member_email,
-	member_phone, member_enable from member
+	select m.class_name, m.member_id, m.member_name, m.member_email,
+	m.member_phone, mr.role_code, r.role_desc,m.member_enable 
+	from member m, member_role mr, role r
+	where m.member_id=mr.member_id and mr.role_code = r.role_code
 </select>
-<select id="roleList" parameterType="hashmap" resultType="onet.com.vo.RoleDto">
-	SELECT * FROM role
-	WHERE NOT role_code='ROLE_ADMIN'
-</select>
+
 
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 
@@ -229,9 +228,9 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
 <update id="deleteMember" parameterType="onet.com.vo.MemberDto">
-	UPDATE member 
-	SET member_enable=0
-	WHERE member_id=#{member_id}
+	UPDATE member m, member_role mr
+	SET mr.role_code='ROLE_MEMBER', m.member_enable=0
+	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
 
