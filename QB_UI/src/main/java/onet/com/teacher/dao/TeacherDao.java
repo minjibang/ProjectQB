@@ -15,7 +15,7 @@ public interface TeacherDao {
 	public List<QuestionDto> question();
 	public List<Question_choiceDto> question_choice();
 	public List<Question_levelDto> question_level();
-
+	
 	/*10.17 시험지체크 시작*/
 	public String examPaperCheck(String exam_paper_name);
 
@@ -30,17 +30,29 @@ public interface TeacherDao {
 	public int examQuestionDelete(String exam_paper_num);
 	/*한결 끝*/
 
+	/*재훈 10.19:강사 - 내 문제함 */
+	
+	public List<QuestionDto> teacherMyQuestion(String member_id);
+	
+	/*재훈 10.19:강사 - 내 문제함 끝 */
+	
 	/* 영준 - 10.16 시험관리 관련 시작 */
 	public List<ExamPaperDto> examPaperList(ExamPaperDto dto);
 	/* 영준 - 10.16 시험관리 관련 끝 */
 
 	/* 영준 - 10.17 내 시험지 삭제 시작 */
-	public int examPaperDelete(ExamPaperDto dto);
+	public int examPaperDelete(String exam_paper_name);
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
 	
 	/* 영준 - 10.16 시험일정 리스트 불러오기 시작 */
-	public List<ExamInfoDto> examScheduleList();
+	public List<ExamInfoDto> examScheduleList(ExamInfoDto dto);
 	/* 영준 - 10.16 시험일정 리스트 불러오기 끝 */
+
+	
+	/*민지 - 10.18 시험등록*/
+	public int examInfoInsert(ExamInfoDto dto);
+	/*민지 - 10.18 시험등록 끝*/
+
 
 	/*--성태용 시작--*/
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype);
@@ -48,6 +60,7 @@ public interface TeacherDao {
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 시험일정 삭제 시작 */
-	public int examScheduleDelete(ExamInfoDto dto);
+	public int examScheduleDelete(String exam_info_name);
 	/* 영준 - 10.18 시험일정 삭제 끝 */
+
 }

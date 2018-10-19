@@ -316,6 +316,54 @@ public class AdminService {
 		}
 	}
 	
+	public List<CategoryDto> selectLgList(String lgCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		dto.setLg_category_code(lgCode);
+		List<CategoryDto> list = dao.selectLgList(dto);
+		return list;
+	}
+	
+	public List<CategoryDto> selectMdList(String lgCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		dto.setLg_category_code(lgCode);
+		List<CategoryDto> list = dao.selectMdList(dto);
+		return list;
+	}
+	
+	public List<CategoryDto> selectSmList(String lgCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		dto.setLg_category_code(lgCode);
+		List<CategoryDto> list = dao.selectSmList(dto);
+		return list;
+	}
+	
+	public List<CategoryDto> selectMdRealList(String mdCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		dto.setMd_category_code(mdCode);
+		List<CategoryDto> list = dao.selectMdRealList(dto);
+		return list;
+	}
+	
+	public List<CategoryDto> selectSmRealList(String mdCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		dto.setMd_category_code(mdCode);
+		List<CategoryDto> list = dao.selectSmRealList(dto);
+		return list;
+	}
+	
+	public List<CategoryDto> selectSmRealList2(String smCode) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		CategoryDto dto = new CategoryDto();
+		dto.setSm_category_code(smCode);
+		List<CategoryDto> list = dao.selectSmRealList2(dto);
+		return list;
+	}
+	
 	
 	
 }

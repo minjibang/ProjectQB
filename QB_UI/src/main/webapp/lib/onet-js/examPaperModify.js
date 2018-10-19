@@ -52,8 +52,8 @@ jQuery(document).ready(function() {
 		$('#qcore').text(qc);
 	});
 	
-	/*점수가 100점일때만 시험지생성 활성화*/
-	$('#makeExamSubmitModalBtn').click(function(){
+	/*점수가 100점일때만 시험지수정 활성화*/
+	$('#modifyExamSubmitModalBtn').click(function(){
 		if($('#qcore').text()==100){
 			$('#makeExamSubmitModal').modal();
 		}else{

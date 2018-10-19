@@ -1,5 +1,6 @@
 package onet.com.teacher.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.teacher.service.TeacherService;
-import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
@@ -57,9 +57,19 @@ public class TestManageController {
 	
 	/*한결 시작*/
 	@RequestMapping("checkExam_paper.do")
-	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
+	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name,
+			@RequestParam("jsonArray1") ArrayList<String>[] jsonArray1, @RequestParam("jsonArray2") ArrayList<String>[] jsonArray2,
+			@RequestParam("jsonArray3") ArrayList<String>[] jsonArray3) {	
 		String result = teacherService.examPaperCheck(exam_paper_name);
 		System.out.println(exam_paper_name);
+
+		System.out.println(jsonArray1.length);
+		for(int i=0; i < jsonArray1.length ; i++) {
+			System.out.println(i+"번째 index 값 아마 object >> "+jsonArray1[i]);
+			System.out.println(i+"번째 index 값 아마 object >> "+jsonArray2[i]);
+			System.out.println(i+"번째 index 값 아마 object >> "+jsonArray3[i]);
+			
+		}
 		return result;
 	}	
 	

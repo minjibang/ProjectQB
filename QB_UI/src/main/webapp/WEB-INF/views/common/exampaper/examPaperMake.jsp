@@ -38,11 +38,6 @@
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_md_category" id="question_md_category">
                                  <option value="">중분류</option>
-                              <c:forEach items="${list2}" var="mdCategoryList">
-                                 <option value="${mdCategoryList.md_category_code}">
-                                 ${mdCategoryList.md_category_name}
-                                 </option>
-                              </c:forEach>
                            </select> 
                            <select class="form-control makeExamSelectCategory" name="question_sm_category" id="question_sm_category">
                                  <option value="">소분류</option>
@@ -118,7 +113,6 @@
                            data-target="#pickQuestionTempSaveModal"
                            id="pickQuestionTempSaveModalBtn">
                            <input type="hidden" id="copyTempSave" value="">
-                        <!--                                <input type="button" class="btn btn-theme" value="시험지 미리보기" id="">  우선순위에서 제외-->
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
                            data-toggle="modal">시험지 미리보기</button>
@@ -273,10 +267,10 @@
                            <form action="" method="post">
                               <div class="modal-body">
 
-                                 시험지 이름 <input type="text" class="form-control"
+                                 시험지 이름 <input type="text" class="form-control createEPaper"
                                     placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
                                  설명
-                                 <textarea type="textarea" class="form-control"
+                                 <textarea type="textarea" class="form-control createEPDesc"
                                     placeholder="시험지 설명을 입력하세요." name=""></textarea>
                               </div>
                               <div class="modal-footer">

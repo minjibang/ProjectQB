@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link href="${pageContext.request.contextPath}/css/Memberjoin.css"
 	rel="stylesheet">
@@ -22,12 +23,10 @@
 					class="form-control" placeholder="Password" autofocus
 					id="member_pwd_check" onblur="confirmPwd2()">
 				<div id="pwdcheckdiv"></div>
-				<label>CLASS</label> <select class="form-control" name="class_name">
-					<option>109기</option>
-					<option>110기</option>
-					<option>111기</option>
-					<option>112기</option>
-					<option>113기</option>
+				<label>CLASS</label> <select class="form-control" name="class_name" id="class_name">
+					<c:forEach items="${classList}" var="classList">
+                         <option value="${classList.class_name}">${classList.class_name}</option>
+                    </c:forEach>
 				</select> <br> <label>NAME</label> <input type="text"
 					class="form-control" placeholder="Name"
 					pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name"

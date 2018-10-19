@@ -252,6 +252,29 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select sm_category_code from question where sm_category_code=#{smDeleteCode}
 </select>
 
+<select id="selectLgList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
+	select lg_category_code, lg_category_name from question_lg_category where lg_category_code = #{lg_category_code}
+</select>
 
+<select id="selectMdList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
+	select lg_category_code, md_category_code, md_category_name from question_md_category where lg_category_code = #{lg_category_code}
+</select>
+
+<select id="selectSmList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
+	select md_category_code, sm_category_code, sm_category_name from question_sm_category
+	where md_category_code = ANY(select md_category_code from question_md_category where lg_category_code = #{lg_category_code})
+</select>
+
+<select id="selectMdRealList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
+	select md_category_code, md_category_name from question_md_category where md_category_code = #{md_category_code}
+</select>
+
+<select id="selectSmRealList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
+	select sm_category_code, sm_category_name from question_sm_category where md_category_code = #{md_category_code}
+</select>
+
+<select id="selectSmRealList2" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
+	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code}
+</select>
 
 </mapper>

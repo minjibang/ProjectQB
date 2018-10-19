@@ -38,33 +38,57 @@
 							<div class="row">
 								<div class="col-lg-12">
 
-									<h3 id="h3id">내가 만든 문제</h3>
+									<h3 id="h3id">내가 만든 문제
+										<input type="text" name="member_id" id="member_id"
+										value="${memberDto.member_id}" style="display: none">
+									
+									</h3>
+									
 									<hr>
 
-									<select id="question_lg_category" class="form-control-static"
+									<select id="question_lg_category" class="form-control-static myQuestionSelectCategory"
 										name="lg_category_name">
 										<option value="" selected disabled>대분류 선택</option>
 										<c:forEach items="${lgCatList}" var="lgCatList">
 											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
 										</c:forEach>
-									</select> <select id="question_md_category" class="form-control-static"
+									</select> 
+									
+									<select id="question_md_category" class="form-control-static myQuestionSelectCategory"
 										name="md_category_name">
 										<option value="">중분류 선택</option>
-									</select> <select id="question_sm_category" class="form-control-static"
+									</select> 
+									
+									<select id="question_sm_category" class="form-control-static myQuestionSelectCategory"
 										name="sm_category_name">
 										<option value="">소분류 선택</option>
-									</select> <select class="form-control-static" name="QuestionLevel">
-										<option value="quesLevel">난이도</option>
+									</select> 
+									
+									<select class="form-control-static myQuestionSelectCategory" name="QuestionLevel" id="level_type">
+										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
-											<option value="">${quesLevelList.level_name}</option>
+											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
 										</c:forEach>
-									</select> <input type="button"
+									</select> 
+									
+									<select class="form-control-static myQuestionSelectCategory" 
+									id="questiontype" name="questionType">
+										<option value="">문제타입</option>
+										<option value="">전체</option>
+										<option value="객관식">객관식</option>
+										<option value="단답형">단답형</option>
+									</select> 
+									
+									<input type="button" id="viewAll"
 										class="btn btn-theme myQuestionSelectBtn pull-right"
-										value="전체조회"> <input type="button"
+										value="전체조회"> 
+										<input type="button"
 										class="btn btn-theme myQuestionSelectBtn pull-right"
-										value="검색"> <input type="text"
-										class="form-control myQuestionSelectCategory2 pull-right"
-										placeholder="키워드를 입력하세요.">
+										id="questionsearch"
+										value="검색"> 
+										<input type="text"
+										class="form-control myQuestionTextField pull-right"
+										id="keyword" placeholder="키워드를 입력하세요.">
 
 								</div>
 								<!-- /detailed -->
@@ -85,8 +109,8 @@
 					                           </div>
 							</div>
 							
-							<button type="button" class="btn btn-theme btnDeIn">선택 문제 삭제</button>
-							<button type="button" class="btn btn-theme pull-right btnDeIn">새 문제 등록</button>
+							<button type="button" class="btn btn-theme04 btnDeIn">선택 문제 삭제</button>
+							
 						</div>
 						
 						<!-- /OVERVIEW -->
@@ -127,7 +151,7 @@
 											</select> <select id="question_sm_category2"
 												class="form-control-static" name="sm_category_code">
 												<option value="">소분류 선택</option>
-											</select> <select id="question_level" class="form-control-static"
+											</select> <select id="level_type" class="form-control-static"
 												name="level_code">
 												<option value="">난이도</option>
 												<c:forEach items="${quesLevelList}" var="quesLevelList">
@@ -366,7 +390,7 @@
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
 										<button type="button" class="btn btn-secondary quesCategory">
-										취소</button>
+										취소 - 입력값 초기화</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										
@@ -401,7 +425,7 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/questionManagement.js"
 	type="text/javascript"></script>
 
-<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-전체문제 스크립트 시작  -->
+<!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
 	$(document).ready(function() {
 		$('#question_lg_category')
@@ -427,7 +451,7 @@
 							<c:forEach items="${smCatList}" var="smlist">
 							if (document.getElementById("question_md_category").value == "${smlist.md_category_code}") {
 								$('#question_sm_category')
-										.append("<option value=${mdlist.md_category_code}>${smlist.sm_category_name}</option>")
+										.append("<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
 							}
 							</c:forEach>
 						})
@@ -462,17 +486,6 @@
 							</c:forEach>
 						})
 						
-		$.ajax({
-		url : "myQuestionView.do",
-		type:'GET',
-		dataType:"html",
-		success:function(data){
-			$('#myQuestions').html(data);
-		},
-		error : function(error) {
-			console.log("===========실패");
-		}
-	})
 })
 </script>
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-전체문제 스크립트 끝 -->

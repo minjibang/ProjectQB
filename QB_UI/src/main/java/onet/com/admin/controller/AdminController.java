@@ -223,7 +223,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
 	public String examScheduleDetail() {
-		
+		System.out.println("시험일정 상세 컨트롤러");
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 
@@ -235,7 +235,7 @@ public class AdminController {
 		model.addAttribute("examPaperList", examPaperList);
 		
 		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList();
+		examScheduleList = teacherService.examScheduleList(class_num);
 		model.addAttribute("examScheduleList", examScheduleList);
 		
 		return "common.adminClass.admin.exam.examManagement";
@@ -322,7 +322,7 @@ public class AdminController {
 		model.addAttribute("question_choice", question_choice);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.setViewName("ajax.common.questionManagement_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
 		
@@ -332,7 +332,8 @@ public class AdminController {
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
+			@RequestParam("keyword") String keyword) {
 		
 		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
@@ -573,6 +574,95 @@ public class AdminController {
 	}
 	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
+	@RequestMapping("selectLgList.do")
+	public ModelAndView selectLgList(String lgCode) {
+		List<CategoryDto> list1 = adminService.selectLgList(lgCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax");
+		mv.addObject("list1", list1);
+		return mv;
+	}
+
+
+	@RequestMapping("selectMdList.do")
+	public ModelAndView selectMgList(String lgCode) {
+		List<CategoryDto> list2 = adminService.selectMdList(lgCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax2");
+		mv.addObject("list2", list2);
+		return mv;
+	}
+	
+	@RequestMapping("selectSmList.do")
+	public ModelAndView selectSmList(String lgCode) {
+		List<CategoryDto> list3 = adminService.selectSmList(lgCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax3");
+		mv.addObject("list3", list3);
+		System.out.println(list3);
+		return mv;
+	}
+	
+	@RequestMapping("selectMdRealList.do")
+	public ModelAndView selectMdRealList(String mdCode) {
+		List<CategoryDto> list2 = adminService.selectMdRealList(mdCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax2");
+		mv.addObject("list2", list2);
+		return mv;
+	}
+	
+	@RequestMapping("selectSmRealList.do")
+	public ModelAndView selectSmRealList(String mdCode) {
+		List<CategoryDto> list3 = adminService.selectSmRealList(mdCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax3");
+		mv.addObject("list3", list3);
+		return mv;
+	}
+	
+	@RequestMapping("selectSmRealList2.do")
+	public ModelAndView selectSmRealList2(String smCode) {
+		List<CategoryDto> list3 = adminService.selectSmRealList2(smCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.questionCategory_ajax3");
+		mv.addObject("list3", list3);
+		return mv;
+	}
+	
+
+	/*민지:10.18 시험등록 */
+	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
+	public  String examInfoInsert(ExamInfoDto dto) throws ClassNotFoundException, SQLException {
+		System.out.println("시험등록컨트롤러들어옴");
+		int result = 0;
+		String viewpage="";
+		String date = dto.getExam_info_date();
+		System.out.println(date);
+		
+		String monthdate = date.substring(0, 5);
+		String year = date.substring(6);
+		String date2 = year+"-"+monthdate;
+		System.out.println("합친 날짜>>" + date2);
+		dto.setExam_info_date(date2);
+		System.out.println("클래스이름:" + dto.getClass_name());
+		result=teacherService.examInfoInsert(dto);
+		if(result > 0) {
+			System.out.println("시험등록 성공");
+			viewpage = "redirect:examManagement.do?class_num="+dto.getClass_num()+"&class_name="+dto.getClass_name();
+		}else {
+			System.out.println("시험등록 실패");
+			 
+		}
+		return viewpage;
+	}
+
+
+	/*민지:10.18 시험등록  끝*/
+
 
 	
-}
+		}
+
+
+

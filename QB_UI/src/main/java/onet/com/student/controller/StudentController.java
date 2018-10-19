@@ -2,9 +2,7 @@ package onet.com.student.controller;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -182,20 +180,20 @@ public class StudentController {
 	    String nowdate = date.format(today);
 	    String nowTime = time.format(today);
 	    //시험일, 시험시작시간, 시험종료시간 선언 및 초기화
-		Date exam_info_date = exam_info.getExam_info_date();
-		Time exam_info_start=exam_info.getExam_info_start();		
-		Time exam_info_end =exam_info.getExam_info_end();		
-		//시험일 변수
-		String examDate = date.format(exam_info_date);
+		String exam_info_date = exam_info.getExam_info_date();
+		String exam_info_start=exam_info.getExam_info_start();		
+		String exam_info_end =exam_info.getExam_info_end();		
+		
 		//시험시작시각-현시각, 시험종료시각-현시각 정수로 변환
-		exam_info_start.getTime();
-		exam_info_end.getTime();
-		java.util.Date nowdt = new SimpleDateFormat("HH:mm:ss").parse(nowTime);
-		nowdt.getTime();
-		long examIn = exam_info_start.getTime()-nowdt.getTime();
-		long examOut = exam_info_end.getTime()-nowdt.getTime();
+		java.util.Date eis = time.parse(exam_info_start);
+		java.util.Date eie = time.parse(exam_info_end);
+		java.util.Date nowdt = time.parse(nowTime);
+				
+		long examIn = eis.getTime()-nowdt.getTime();
+		long examOut = eie.getTime()-nowdt.getTime();
+		
 		//시험일 비교		
-		if(nowdate.equals(examDate)) {
+		if(nowdate.equals(exam_info_date)) {
 			System.out.println("현재 날짜와 시험 날짜가 동일합니다.");
 			//시험시간 확인
 			if(examIn<0 & 0<examOut) {
@@ -224,15 +222,7 @@ public class StudentController {
 		return url;
 	}
 	/* 양회준 18.10.19 학생 시험응시 페이지 테스트 시간제한 끝 */
-	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */
-	
-	
-	
-	
-	
-	
-	
-	
+	/* 현이 18.10.15 학생 시험응시 페이지 테스트 끝 */	
 
 
 }

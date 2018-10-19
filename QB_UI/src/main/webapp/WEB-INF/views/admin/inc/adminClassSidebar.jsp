@@ -42,7 +42,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/examManagement.do?class_num=${param.class_num}">
+            <a href="${pageContext.request.contextPath}/admin/examManagement.do?class_num=${param.class_num}&class_name=${param.class_name}">
               <i class="fa fa-desktop"></i>
               <span>시험 관리</span>
               </a>

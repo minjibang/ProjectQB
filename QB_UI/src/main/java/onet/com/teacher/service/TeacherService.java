@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.index.dao.IndexDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
@@ -37,6 +38,16 @@ public class TeacherService {
 		return result;
 	}
 	/*한결 - 10.17 새 시험지 만들기 문제 뿌리기 각 문제,문제보기,문제 난이도 끝*/
+	
+	/*재훈 - 10.19 강사 문제관리 - 내가 만든 문제 시작 */
+	public List<QuestionDto> teacherMyQuestion(String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<QuestionDto> result = dao.teacherMyQuestion(member_id);
+		return result;
+	}
+	
+	/*재훈 - 10.19 강사 문제관리 - 내가 만든 문제 끝 */
+	
 	
 	/* 영준 - 10.16 선생님 시험관리 페이지 시작 */
 	public List<ExamPaperDto> examPaperList(int class_num){
@@ -92,22 +103,32 @@ public class TeacherService {
 	
 	/* 영준 - 10.17 내 시험지 삭제 시작 */
 	public int examPaperDelete(String exam_paper_name) {
-		ExamPaperDto dto = new ExamPaperDto();
-		dto.setExam_paper_name(exam_paper_name);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperDelete(dto);
-		System.out.println("teacherService result값 : " + result);
+		int result = dao.examPaperDelete(exam_paper_name);
+		System.out.println("시험지 삭제 result값 : " + result);
 		return result;
 	}
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
 	
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 시작 */
-	public List<ExamInfoDto> examScheduleList(){
+	public List<ExamInfoDto> examScheduleList(int class_num){
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamInfoDto> result = dao.examScheduleList();
+		List<ExamInfoDto> result = dao.examScheduleList(dto);
 		return result;
 	}
 	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 끝 */
+
+	
+	/*민지 - 10.18 시험등록*/
+	public int examInfoInsert(ExamInfoDto dto){
+		
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examInfoInsert(dto);
+		return result;
+	}
+	/*민지- 10.18 시험등록 끝*/
 
 	/*--성태용 시작--*/
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype){
@@ -120,13 +141,12 @@ public class TeacherService {
 	
 	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
 	public int examScheduleDelete(String exam_info_name) {
-		ExamInfoDto dto = new ExamInfoDto();
-		dto.setExam_info_name(exam_info_name);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examScheduleDelete(dto);
-		System.out.println("teacherService result값 : " + result);
+		int result = dao.examScheduleDelete(exam_info_name);
+		System.out.println("시험일정삭제 result값 : " + result);
 		return result;
 	}
 	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
+
 
 }
