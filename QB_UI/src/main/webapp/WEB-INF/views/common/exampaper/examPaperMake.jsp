@@ -203,7 +203,7 @@
                                           data-toggle="modal" data-dismiss="modal" value="임시저장"
                                           id="pickQuestionTempSaveBtn"> -->
                                        <input type="button" class="btn btn-theme" value="임시저장"
-                                          id="pickQuestionTempSaveBtn"> <input type="button"
+                                          id="pickQuestionTempSaveBtn" onclick="makeExamSubmitBtn(0)"> <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
                                  </div>
@@ -235,9 +235,14 @@
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                       <input type="button" class="btn btn-theme"
+                                       <!-- <input type="button" class="btn btn-theme"
                                           data-toggle="modal" data-dismiss="modal" value="시험지 생성"
-                                          id="makeExamSubmitBtn"> <input type="button"
+                                          id="makeExamSubmitBtn" onclick="makeExamSubmitBtn(1)"> -->
+                                          <!-- <input type="button" class="btn btn-theme" value="시험지 생성"
+                                          id="makeExamSubmitBtn" onclick="makeExamSubmitBtn('1')" /> -->
+                                          <input type="button" class="btn btn-theme" value="시험지 생성"
+                                          id="makeExamSubmitBtn1" onclick="makeExamSubmitBtn(1)">
+                                          <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
                                  </div>
