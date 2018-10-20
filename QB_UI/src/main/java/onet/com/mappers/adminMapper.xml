@@ -82,6 +82,44 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	where m.member_id=mr.member_id and mr.role_code = r.role_code
 </select>
 
+<select id="adminMemberView" resultType="onet.com.vo.MemberDto">
+	SELECT m.class_name, m.member_id, m.member_name, m.member_email,
+	m.member_phone, mr.role_code, r.role_desc, m.member_enable
+    FROM member m, member_role mr, role r
+    WHERE m.member_id=mr.member_id and mr.role_code = r.role_code
+</select>
+<!-- 영준 10.20 회원관리 회원권한 셀렉트 시작 -->
+<select id="roleList" parameterType="hashmap" resultType="onet.com.vo.RoleDto">
+	SELECT * FROM role
+	WHERE not role_code='ROLE_ADMIN'
+</select>
+
+<!-- 영준 10.20 회원관리 회원권한 셀렉트 끝 -->
+
+<select id="memberSearch" resultType="onet.com.vo.MemberDto">
+	select m.class_name, m.member_id, m.member_name, m.member_email,
+	m.member_phone, mr.role_code, r.role_desc, m.member_enable  
+	from member m, member_role mr, role r
+	<include refid="search"></include>
+</select>
+
+<!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
+<update id="updateMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member m, member_role mr
+	SET m.member_email=#{member_email}, 
+	m.member_phone=#{member_phone}, m.class_name=#{class_name},
+	mr.role_code=#{role_code}
+	where m.member_id=#{member_id} and mr.member_id=#{member_id}
+</update>
+<!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
+
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
+<update id="deleteMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member m, member_role mr
+	SET mr.role_code='ROLE_MEMBER', m.member_enable=0
+	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
+</update>
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
 
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 
@@ -109,25 +147,12 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <!-- 민지 10.12 클래스멤버리스트 관련 끝 -->
 
 
-
-<!-- 영준 - 10.10 회원관리 전체조회 끝 -->
-
-
 <!-- 민지 10.15 클래스 수정 관련 -->
 <update id="classUpdate" parameterType="onet.com.vo.ClassDto">
  UPDATE class SET class_name=#{class_name}, teacher_name=#{teacher_name},class_start_date=#{class_start_date}, class_end_date=#{class_end_date} where class_num=#{class_num}
  </update>
 <!-- 민지 10.15 클래스 수정 관련 끝 -->
 
-<!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
-<update id="updateMember" parameterType="onet.com.vo.MemberDto">
-	UPDATE member m, member_role mr
-	SET m.member_email=#{member_email}, 
-	m.member_phone=#{member_phone}, m.class_name=#{class_name},
-	mr.role_code=#{role_code}
-	where m.member_id=#{member_id} and mr.member_id=#{member_id}
-</update>
-<!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
 <!-- 민지 10.13 클래스 멤버 삭제 관련 -->
  <update id="classMemberDelete" parameterType="onet.com.vo.MemberDto">
@@ -226,13 +251,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 정원 10.17 끝 -->
 
-<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
-<update id="deleteMember" parameterType="onet.com.vo.MemberDto">
-	UPDATE member m, member_role mr
-	SET mr.role_code='ROLE_MEMBER', m.member_enable=0
-	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
-</update>
-<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
 
 <!-- 정원 문제분류 삭제 -->
 <delete id="lgDelete" parameterType="onet.com.vo.MemberDto">

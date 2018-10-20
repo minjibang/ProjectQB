@@ -124,7 +124,10 @@
 									<div class="col-lg-offset-2 col-lg-10">
 										<button id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
 											data-dismiss="modal" value="">예
-
+										<input type="hidden" id="role_code" name="role_code" 
+											   value="일반회원" />
+										<input type="hidden" id="member_enable" name="member_enable" 
+											   value="0" />	
 										</button>
 										
 										<button class="btn btn-theme04" type="button"
@@ -212,28 +215,27 @@
 						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
-							<select id="role-desc" class="form-control searchControl"
-									name="role-desc">
-								<option value="" selected disabled>회원 권한 선택</option>
-								<option value="student">학생</option>
-								<option value="teacher">선생님</option>
-								<option value="member">일반회원</option>
+							<select id="searchRole" class="form-control searchControl"
+									name="searchRole">
+								<option value="">회원 권한 선택</option>
+							<c:forEach items="${roleList}" var="roleList">
+								<option value="${roleList.role_code}">${roleList.role_desc}</option>
+							</c:forEach>
 							</select> 
-							<select id="class_name" class="form-control searchControl"
-									name="class_name">
-								<option value="" selected disabled>클래스 선택</option>
-								<option value="">java 109</option>
-								<option value="">window 108</option>
-								<option value="">no_class</option>
-						
+							<select id="searchClassName" class="form-control searchControl"
+									name="searchClassName">
+								<option value="">클래스 선택</option>
+							<c:forEach items="${classList}" var="classList">
+								<option value="">${classList.class_name}</option>	
+							</c:forEach>
 							</select>
 							
-							<select id="member" class="form-control searchControl"
-									name="member">
-								<option value="" selected disabled>개인정보 선택</option>
-								<option value="">이름</option>
-								<option value="${member_id}">아이디</option>
-								<option value="${member_email}">이메일</option>
+							<select id="searchMemberInfo" class="form-control searchControl"
+									name="searchMemberInfo">
+								<option value="">개인정보 선택</option>
+								<option value="name">이름</option>
+								<option value="id">아이디</option>
+								<option value="email">이메일</option>
 							</select>
 							<input type="text" class="form-control searchControl" 
 								   id="searchBox" name="searchBox" placeholder="검색어를 입력">
@@ -257,17 +259,17 @@
 													<th class="member_enable">수정&삭제</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody id="memberListView">
 												<c:forEach items="${memberList}" var="memberList">
 													<tr>
 														<td><input type="checkbox" name="chk" value="chk"></td>
-														<td class="class_name">${memberList.class_name}</td>
-														<td class="member_id">${memberList.member_id}</td>
-														<td class="member_name">${memberList.member_name}</td>
-														<td class="member_email">${memberList.member_email}</td>
-														<td class="member_phone">${memberList.member_phone}</td>
-														<td class="role_code">${memberList.role_desc}</td>
-														<td class="member_enable" id="member_enable">${memberList.member_enable}</td>
+														<td id="class_name" class="class_name">${memberList.class_name}</td>
+														<td id="member_id" class="member_id">${memberList.member_id}</td>
+														<td id="member_name" class="member_name">${memberList.member_name}</td>
+														<td id="member_email" class="member_email">${memberList.member_email}</td>
+														<td id="member_phone" class="member_phone">${memberList.member_phone}</td>
+														<td id="role_code" class="role_code">${memberList.role_desc}</td>
+														<td id="member_enable" class="member_enable">${memberList.member_enable}</td>
 														<td><button type="button" class="btn btn-info"
 																id="updatebtn" name="updatebtn" data-toggle="modal"
 																data-target="#UpdateModal" value="${memberList.member_id}">
@@ -276,10 +278,7 @@
 															<button type="button" class="btn btn-danger"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">
-															<input type="hidden" id="agree_m" name="agree_m" 
-																   value="ROLE_MEMBER" />
-															<input type="hidden" id="member_enable" name="member_enable" 
-																   value="0" />	
+															
 																<i class="fa fa-trash-o"></i>
 															
 															</button>
@@ -326,28 +325,50 @@
 <!--main content end-->
 <script>
 $(document).ready(function(){
-	$("#memberSearchBtn").click(function(){
-		var roleDesc = document.getElementById("role-desc").value;
+	
+	var _param = {class_name:$("#class_name").val(), member_id:$("#member_id").val(),
+				  member_name:$("#member_name").val(), member_email:$("#member_email").val(),
+				  member_phone:$("#member_phone").val(), role_code:$("#role_code").val(),
+				  member_enable:$("#member_enable").val()};
+	
+	var _data = JSON.stringify(_param); //jsonString으로 변환	
+	
+	$.ajax({
+		url : "adminMemberView.do",
+		type:'GET',
+		data : _data,
+		dataType:"json",
+		success:function(data){
+			console.log("불러오는 데이터 값 : " + data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
+	});
+	
+		/* 검색 버튼 구현 */
+		$("#memberSerarchBtn").click(function(){
+		var searchRole = document.getElementById("searchRole").value;
 		var searchBox = document.getElementById("searchBox").value;
 		
-		console.log("회원 권한 선택 : " + roleDesc);
+		console.log(">>>>>> " +searchRole+ " <<<<<<");
 		
 		$.ajax({
-			url : "",
-			type : 'GET',
+			url : "memberSearch.do",
+			type : "GET",
 			data : {
-				'roleDesc' : roleDesc,
-				'searchBox' : searchBox
+					'searchRole' : searchRole,
+					'searchBox' : searchBox
 			},
 			dataType : "html",
-			success : function(data){
+			success:function(data){
 				$("#memberListView").html(data);
 			},
 			error : function(error){
-				swal("에러에러에러에러에러");
+				console.log("실패....");
 			}
 		});
-	
+		
 	});
 });
 </script>
