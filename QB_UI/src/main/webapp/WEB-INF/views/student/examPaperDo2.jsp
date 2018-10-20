@@ -29,6 +29,9 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
+	
+	
+	
 	//	프로그레스바 script 부분
 	var exam_info_time = "${exam_info.exam_info_time}";
 	var hour_ms = parseInt(exam_info_time.substr(0, 2)) * 3600000;
@@ -96,6 +99,15 @@
 			var ques_num = ques_num2 + "_answer";
 			$("#" + ques_num).val($(this).val());
 		});		
+		
+		
+		// 제출 버튼 눌렀을 때 form 제출 
+		$('#examPaperSubmit').click(function(){
+			$('#answerForm').submit();
+			self.close();
+			opener.location.href = '${pageContext.request.contextPath}/student/pastExam.do';	//시험 제출 후 자식창이 닫히고 부모창에서 페이지 이동하기, 나중에 뒤에 인자값 들고가야함
+		});
+		
 	});  // document.ready 종료 
 </script>
 </head>
@@ -124,7 +136,7 @@
 			<h3 class="mb exampaneldetailsubject">
 				<i class="fa fa-angle-right"></i> ${exam_info.exam_info_name}
 			</h3>
-			<h4>남은 시간: ${exam_info.exam_info_time}</h4>
+			<h4 id="remainTime">남은 시간: ${exam_info.exam_info_time}</h4>
 		</div>
 		<div id="progressbar1"></div>
 		<hr>
@@ -133,15 +145,19 @@
 				<c:set var="firstRow" value="<%=firstRow%>"/>
 				<c:set var="secondRow" value="<%=secondRow%>"/>
 			
-				<c:forEach var="question" items="${questionList}"> <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->		
+			<form method="post" id="answerForm">
+			
+				<c:forEach var="question" items="${questionList}" varStatus="status"> <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->		
 					<c:if test="${question.exam_question_seq < 2}">
 						<div class="col-lg-5 fst_div" id="examBox">	
 					</c:if>
-							<table class="questionTable"> 
-		                        <input type="hidden" name="question_num" value="${question.question_num}"> <!-- insert 때 사용할 문제번호, 문제배치번호 -->
-		                        <input type="hidden" name="exam_question_seq" value="${question.exam_question_seq}">
+							<table class="questionTable">
+ 								<input type="hidden" name="student_answer[${status.index}].member_id" value="${pageContext.request.userPrincipal.name}"> 
+								<input type="hidden" name="student_answer[${status.index}].exam_info_num" value="${exam_info.exam_info_num}">
+		                        <input type="hidden" name="student_answer[${status.index}].question_num" value="${question.question_num}"> 
+		                        <input type="hidden" name="student_answer[${status.index}].exam_question_seq" value="${question.exam_question_seq}"> 
 								<tr class="questionTr">
-									<td class="questionTd questionSpace"><b>${question.exam_question_seq}.</b></td>
+									<td class="questionTd questionSpace"><b>${question.exam_question_seq}. </b></td>
 									<td class="questionSpace"><b>${question.question_name} &nbsp;&nbsp;(${question.exam_question_score}점)</b></td>
 								</tr>
 								<c:if test="${not empty question.question_img}"> <!-- 이미지 있으면 추가 -->
@@ -163,7 +179,7 @@
 													${questionChoice.question_choice_num})
 												</td>  	
 												<td>
-													<input type="radio" name="ques_${question.exam_question_seq}" id="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+													<input type="radio" name="student_answer[${status.index}].student_answer_choice" id="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
 													value="${questionChoice.question_choice_num}">
 													<label for="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}">${questionChoice.question_choice_content}</label>
 												</td>
@@ -174,7 +190,7 @@
 									<c:when test="${question.question_type eq '단답형'}">
 										<tr class="ques_choice">
 											<td class="questionTd"></td>  
-											<td><input type="text" id="ques_${question.exam_question_seq}" class="" name="ques_${question.exam_question_seq}"></td>
+											<td><input type="text" id="ques_${question.exam_question_seq}" class="" name="student_answer[${status.index}].student_answer_choice"></td>
 										</tr>
 									</c:when>
 								</c:choose>
@@ -186,40 +202,94 @@
                 </c:forEach>
                 </div>
                 
+                </form>
+                
+                
+                
+                
 				<div class="col-lg-2 trd_div">
 					<!-- OMR 시작 div -->
-					<table class="tg">
-						<tr>
-							<th class="tg-baqh qname" colspan="6">답안지</th>
-						</tr>
-						<c:forEach var="question" items="${questionList}">
-							<tr>
-								<td class="tg-baqh qnumber">${question.exam_question_seq}</td>
-								<c:choose>
-									<c:when test="${question.question_type eq '객관식'}">
-										<c:forEach var="questionChoice" items="${questionChoiceList}" varStatus="status">
-											<c:if test="${questionChoice.question_num eq question.question_num}">
-												<td class="tg-baqh answer_choice">
-					                                <div class="wrap"><img class="answer_oximg_v oximg_v_ques_${question.exam_question_seq}" 
-					                                id="ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
-					                                src="${pageContext.request.contextPath}/img/oximg_v.png"></div>
-					                                ${questionChoice.question_choice_num} 
-					                            </td>
-											</c:if>
-										</c:forEach>
-									</c:when>
-									<c:when test="${question.question_type eq '단답형'}">
-										<td class="tg-baqh answer_choice" colspan="5"><input type="text" class="" name="" id="ques_${question.exam_question_seq}_answer" ></td>
-									</c:when>
-								</c:choose>
-							</tr>
-						</c:forEach>
-					</table>
+               <table class="tg">
+                  <tr>
+                     <th class="tg-baqh qname" colspan="6">답안지</th>
+                  </tr>
+                  <c:forEach var="question" items="${questionList}">
+                     <tr>
+                        <td class="tg-baqh qnumber">${question.exam_question_seq}</td>
+                        <c:choose>
+                           <c:when test="${question.question_type eq '객관식'}">
+                           <c:set var="count" value="0" />
+                              <c:forEach var="questionChoice" items="${questionChoiceList}" varStatus="status">
+                                 <c:if test="${questionChoice.question_num eq question.question_num}">                                 
+                                     <td class="tg-baqh answer_choice">
+                                             <div class="wrap"><img class="answer_oximg_v oximg_v_ques_${question.exam_question_seq}" 
+                                             id="ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+                                             src="${pageContext.request.contextPath}/img/oximg_v.png"></div>
+                                             ${questionChoice.question_choice_num}
+                                             <c:set var="count" value="${count+1 }"/>
+                                     </td>                                                                                          
+                                 </c:if>
+                              </c:forEach>
+                              <c:forEach begin="${count}" end="4">
+                                 <td class="tg-baqh qname"></td>
+                              </c:forEach>
+                           </c:when>
+                           <c:when test="${question.question_type eq '단답형'}">
+                              <td class="tg-baqh answer_choice" colspan="5"><input type="text" class="" name="" id="ques_${question.exam_question_seq}_answer" ></td>
+                           </c:when>
+                        </c:choose>
+                     </tr>
+                  </c:forEach>
+               </table>
 					<br>
 				</div>
 			</div>
-			<button class="btn btn-theme03 exampaneldetailBtn">제출하기</button>
+			<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperSubmit">제출하기</button>
 		</div>
 	</div>
+	
+<script>
+//남은시간 변화
+	
+	var remain;
+	function msToTime() {
+		
+		var exam_info_date = "${exam_info.exam_info_date}";
+		var year= parseInt(exam_info_date.substr(0, 4));
+		var month= parseInt(exam_info_date.substr(5, 7));
+		var date= parseInt(exam_info_date.substr(8));
+		
+		var exam_info_time = "${exam_info.exam_info_end}";
+		var hour_ms = parseInt(exam_info_time.substr(0, 2));
+		var minute_ms = parseInt(exam_info_time.substr(3, 5));
+		var second_ms = parseInt(exam_info_time.substr(6));
+		
+		var now = new Date();
+		var dday = new Date(year,month,date,hour_ms,minute_ms,second_ms);
+		var date = dday-now;
+		
+	  //var milliseconds = Math.floor(parseInt((date % 1000) / 100)),
+	   var seconds = parseInt((date / 1000) % 60),
+	    minutes = parseInt((date / (1000 * 60)) % 60),
+	    hours = parseInt((date / (1000 * 60 * 60)) % 24);
+	
+	  hours = (hours < 10) ? "0" + hours : hours;
+	  minutes = (minutes < 10) ? "0" + minutes : minutes;
+	  seconds = (seconds < 10) ? "0" + seconds : seconds;
+	
+	  remain= hours + ":" + minutes + ":" + seconds;
+	  console.log(remain);
+	  //document.getElementById("remainTime").innerHTML = remain;
+	  $("#remainTime").html(remain);
+	  
+	}
+	var interv = window.setInterval("msToTime()", 1000);
+	if(remain==dday){
+		clearInterval(interv);
+	}
+	
+	
+</script>
+
 </body>
 </html>

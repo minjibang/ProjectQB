@@ -41,9 +41,10 @@ public class TestManageController {
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
+			@RequestParam("leveltype") String leveltype,@RequestParam("keyword") String keyword,
+			@RequestParam("questiontype") String questiontype) {
 		
-		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		
 		ModelAndView mv = new ModelAndView();
@@ -66,16 +67,17 @@ public class TestManageController {
 
 	@RequestMapping("examPaperInsert.do")
 	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc) {
-		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc);
+			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc,
+			@RequestParam("exam_paper_status") String exam_paper_status) {
+		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
 		return result;
 	}
 	
 	@RequestMapping("examPaperUpdate.do")
 	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_name") String exam_paper_name,
 			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc,
-			@RequestParam("exam_paper_num") String exam_paper_num) {
-		int result = teacherService.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num);
+			@RequestParam("exam_paper_num") String exam_paper_num, @RequestParam("exam_paper_status") String exam_paper_status) {
+		int result = teacherService.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num, exam_paper_status);
 		return result;
 	}
 	
@@ -93,13 +95,7 @@ public class TestManageController {
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
 	}
-	@RequestMapping("examQuestionUpdate.do")
-	public @ResponseBody int examQuestionUpdate(@RequestParam("exam_paper_num") String exam_paper_num, 
-			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
-			@RequestParam("exam_question_score") String exam_question_score) {
-		int result = teacherService.examPaperUpdate(exam_paper_num,question_num, exam_question_seq, exam_question_score);
-		return result;
-	}
+
 	@RequestMapping("examQuestionDelete.do")
 	public @ResponseBody int examQuestionDelte(@RequestParam("exam_paper_num") String exam_paper_num) {
 		int result = teacherService.examQuestionDelete(exam_paper_num);

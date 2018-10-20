@@ -165,6 +165,8 @@ var mailcheck = false;
 var mailNumberChk = false;
 var mailtonumber;
 $('#emailCodeRquestBtn').click(function() {
+	$("#emailCodeRquestBtn").removeAttr("class");
+	$("#emailCodeRquestBtn").attr("class", "btn btn-theme02 myPageBtnControl");
 	$.ajax({
 		type : 'post',
 		url : $('#contextPath').val()+"/index/mail.do",
@@ -185,7 +187,7 @@ $('#emailCodeRquestBtn').click(function() {
 });
 
 //인증번호 확인
-$('#emailCodeCheckBtn').click(function() {
+$('#emailCodeCheckBtn').click(function() {	
 	var mailnumber = document.getElementById("emailCodeCheck");		
 	if(mailnumber.value != mailtonumber){
 		alert("인증번호가 일치하지 않습니다.");
@@ -194,6 +196,8 @@ $('#emailCodeCheckBtn').click(function() {
 	}
 	else {
 		alert("인증번호가 확인되었습니다.");
+		$("#emailCodeCheckBtn").removeAttr("class");
+		$("#emailCodeCheckBtn").attr("class", "btn btn-theme02 myPageBtnControl");
 		mailNumberChk = true;
 	}
 });

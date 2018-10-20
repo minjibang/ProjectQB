@@ -50,7 +50,7 @@
 					
 					<button type="button" id="deleteMyQuestionBtn" name="deleteMyQuestionBtn"
 					class="btn btn-theme04 buttonGroup " data-toggle="modal"
-					data-target="#DeleteModal" value="${question.question_num}">
+					data-target="#singleDeleteModal" value="${question.question_num}">
 					<i class="fa fa-trash-o"></i> 삭제</button>
 					
 				

@@ -20,13 +20,12 @@ public interface TeacherDao {
 	public String examPaperCheck(String exam_paper_name);
 
 	/*10.18 시험지 테이블*/
-	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc);
-	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num); 
+	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status);
+	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num,String exam_paper_status); 
 	
 	/*10.18 시험지 문제 테이블*/
 	public int examQuestionSelect(String exam_paper_num, String question_num);
 	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
-	public int examQuestionUpdate(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
 	public int examQuestionDelete(String exam_paper_num);
 	/*한결 끝*/
 
@@ -55,7 +54,7 @@ public interface TeacherDao {
 
 
 	/*--성태용 시작--*/
-	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype);
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword);
 	
 	/*--성태용 끝--*/
 	

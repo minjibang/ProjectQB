@@ -48,7 +48,6 @@ $(function(){
 });
 
 $(function(){
-	
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
 		action='modify';
@@ -62,9 +61,9 @@ $(function(){
 		var member_email_modal=tr.eq(4).text();
 		var member_phone_modal=tr.eq(5).text();
 		var member_name_modal=tr.eq(3).text();
-		var member_enable_modal = tr.eq(6).text();
+		var member_enable_modal = tr.eq(7).text();
 		var class_name_modal = tr.eq(1).text();
-		var role_code_modal = tr.eq(7).text();
+		var role_code_modal = tr.eq(6).text();
 		
 		$('#cid').val(member_id_modal);
 		$('#cemail').val(member_email_modal);
@@ -72,11 +71,11 @@ $(function(){
 		$('#cname').val(member_name_modal);
 		$('#class_name').val(class_name_modal);
 		
-		if(role_code_modal == '학생'){
+		if(role_code_modal == $("#agree_s")){
 			$("#agree_s").attr("checked", true);
 			$("#agree_t").attr("checked", false);
 		}
-		else if(role_code_modal == '선생님'){
+		else if(role_code_modal == $("#agree_t")){
 			$("#agree_t").attr("checked", true);
 			$("#agree_s").attr("checked", false);
 		}
@@ -112,14 +111,13 @@ $(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
-   				  alert("해당아이디값"+memberid);
    				  location.href="adminMember.do";
    			  },
    			  error: function(request, status, error){
    				  
    				  if($("#agree_s").attr("checked", false) && $("#agree_t").attr("checked", false)){
    					  
-   				  alert("권한을 확인해주세요");
+   				  swal("권한을 확인해주세요");
    				  }
    			  }
    		});
@@ -128,16 +126,24 @@ $(function(){
 });
 
 $(function(){
-	
 	/* 멤버 삭제(실제 삭제X) */
 	
 	$("button[name='deletebtn']").click(function(){
 		action = 'modify';
 		type = 'PUT';
 		memberid = this.value;
+		
 	});
 	$('#deleteMemberBtn').click(function() {
-		var _param = {member_id:$('#member_id').val(), member_enable:$('#member_enable').val()}
+		var role_code_val;
+		var member_enable_val;
+		
+		role_code_val = $("#agree_m").val();
+		member_enable_val = $("#member_enable").val();
+		
+		var _param = {member_id:$("#cid").val(),
+					  role_code:role_code_val,
+					  member_enable:member_enable_val}
 		
 		var _data = JSON.stringify(_param); //jsonString으로 변환
 		
@@ -150,16 +156,15 @@ $(function(){
 			processData : false,
 			contentType : "application/json; charset=utf-8",
 			success : function(data, status){
-				alert("삭제되었습니다");
 				location.href="adminMember.do";
 			},
 			error: function(request, status, error){
-				alert("에러에러에러에러에러");
+				swal("에러에러에러에러에러");
 			}
 		});
 	});
-	});
 });
+
 
 function oneCheckbox(a){
 
@@ -176,4 +181,4 @@ function oneCheckbox(a){
     }
 
 }
-
+});

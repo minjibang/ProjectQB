@@ -56,7 +56,7 @@
                               <option value="단답형">단답형</option>
                            </select> <br> <input type="text"
                               class="form-control makeExamTextField"
-                              placeholder="키워드를 입력하세요."> <input type="button"
+                              placeholder="키워드를 입력하세요." id="keyword" name="keyword"> <input type="button"
                               class="btn btn-theme" value="검색" id="questionsearch">
                         </div>
                         <hr>
@@ -159,6 +159,8 @@
                                           </div>
                                           
                                           <!-- 미리보기  끝 -->
+                                          
+                                          
                                        </div>
                                     </div>
                                  </div>
@@ -185,6 +187,7 @@
                               <button type="button" class="close" data-dismiss="modal"
                                  aria-hidden="true">&times;</button>
                               <h4 class="modal-title" id="myModalLabel">시험지 임시저장</h4>
+                              <input type="hidden" id="saveEP" value="0"/>
                            </div>
                            <form action="" method="post">
                               <div class="modal-body">
@@ -202,7 +205,7 @@
                                           data-toggle="modal" data-dismiss="modal" value="임시저장"
                                           id="pickQuestionTempSaveBtn"> -->
                                        <input type="button" class="btn btn-theme" value="임시저장"
-                                          id="pickQuestionTempSaveBtn"> <input type="button"
+                                          id="pickQuestionTempSaveBtn" onclick="makeExamSubmitBtn(0)"> <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
                                  </div>
@@ -220,6 +223,7 @@
                               <button type="button" class="close" data-dismiss="modal"
                                  aria-hidden="true">&times;</button>
                               <h4 class="modal-title" id="myModalLabel">시험지 생성</h4>
+                              <input type="hidden" id="createEP" value="1"/>
                            </div>
                            <form action="" method="post">
                               <div class="modal-body">
@@ -233,9 +237,14 @@
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                       <input type="button" class="btn btn-theme"
+                                       <!-- <input type="button" class="btn btn-theme"
                                           data-toggle="modal" data-dismiss="modal" value="시험지 생성"
-                                          id="makeExamSubmitBtn"> <input type="button"
+                                          id="makeExamSubmitBtn" onclick="makeExamSubmitBtn(1)"> -->
+                                          <!-- <input type="button" class="btn btn-theme" value="시험지 생성"
+                                          id="makeExamSubmitBtn" onclick="makeExamSubmitBtn('1')" /> -->
+                                          <input type="button" class="btn btn-theme" value="시험지 생성"
+                                          id="makeExamSubmitBtn1" onclick="makeExamSubmitBtn(1)">
+                                          <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
                                  </div>
@@ -252,7 +261,6 @@
    <!-- /wrapper -->
 </section>
    <!-- /wrapper -->
-</section>
 
 <script>
 $(document).ready(function(){
@@ -298,6 +306,9 @@ $(document).ready(function(){
 	   var smsearchtype = document.getElementById("question_sm_category").value;
 	   var leveltype = document.getElementById("level_type").value;
 	   var questiontype = document.getElementById("questiontype").value;
+	   var keyword = $("#keyword").val();
+	   
+	   console.log(keyword);
 	   
 		$.ajax({
 			  url : "questionSearch.do",
@@ -307,7 +318,8 @@ $(document).ready(function(){
 				  'mdsearchtype' : mdsearchtype,
 				  'smsearchtype' : smsearchtype,
 				  'leveltype' : leveltype,
-				  'questiontype' : questiontype
+				  'questiontype' : questiontype,
+				  'keyword' : keyword
 			  },
 			  dataType:"html",
 			  success:function(data){

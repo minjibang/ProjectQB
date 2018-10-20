@@ -11,6 +11,7 @@
 	rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/adminMember.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- main content start -->
 <section id="main-content">
 	<section class="wrapper">
@@ -122,9 +123,13 @@
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
 										<button id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal">예</button>
+											data-dismiss="modal" value="">예
+
+										</button>
+										
 										<button class="btn btn-theme04" type="button"
 											data-dismiss="modal">아니오</button>
+											
 									</div>
 								</div>
 							</div>
@@ -207,31 +212,32 @@
 						<!-- <div class="tab-content"> -->
 							<div class="row searchRowDiv">
 							<!-- selectBox -->
-							<select id="roleList" class="form-control searchControl"
-									name="roleList">
+							<select id="role-desc" class="form-control searchControl"
+									name="role-desc">
 								<option value="" selected disabled>회원 권한 선택</option>
-								<c:forEach var="roleList" items="${roleList}" varStatus="i">
-									<option value="${roleList.role_code}">${roleList.role_code}</option>
-								</c:forEach>
+								<option value="student">학생</option>
+								<option value="teacher">선생님</option>
+								<option value="member">일반회원</option>
 							</select> 
 							<select id="class_name" class="form-control searchControl"
 									name="class_name">
 								<option value="" selected disabled>클래스 선택</option>
-								<option value="java109">java 109</option>
-								<option value="class_name">window 108</option>
-								<option value="class_name">no_class</option>
+								<option value="">java 109</option>
+								<option value="">window 108</option>
+								<option value="">no_class</option>
 						
 							</select>
 							
 							<select id="member" class="form-control searchControl"
 									name="member">
 								<option value="" selected disabled>개인정보 선택</option>
-								<option value="${member_name}">이름</option>
+								<option value="">이름</option>
 								<option value="${member_id}">아이디</option>
 								<option value="${member_email}">이메일</option>
 							</select>
-							<input type="text" class="form-control searchControl" id="searchBox" placeholder="검색어를 입력">
-							<button class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
+							<input type="text" class="form-control searchControl" 
+								   id="searchBox" name="searchBox" placeholder="검색어를 입력">
+							<button type="button" class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
@@ -246,6 +252,7 @@
 													<th class="member_name">이름</th>
 													<th class="member_email">이메일</th>
 													<th class="member_phone">핸드폰</th>
+													<th class="role_code">권한</th>
 													<th class="member_enable">관리</th>
 													<th class="member_enable">수정&삭제</th>
 												</tr>
@@ -259,7 +266,8 @@
 														<td class="member_name">${memberList.member_name}</td>
 														<td class="member_email">${memberList.member_email}</td>
 														<td class="member_phone">${memberList.member_phone}</td>
-														<td class="member_enable">${memberList.member_enable}</td>
+														<td class="role_code">${memberList.role_desc}</td>
+														<td class="member_enable" id="member_enable">${memberList.member_enable}</td>
 														<td><button type="button" class="btn btn-info"
 																id="updatebtn" name="updatebtn" data-toggle="modal"
 																data-target="#UpdateModal" value="${memberList.member_id}">
@@ -268,7 +276,12 @@
 															<button type="button" class="btn btn-danger"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">
+															<input type="hidden" id="agree_m" name="agree_m" 
+																   value="ROLE_MEMBER" />
+															<input type="hidden" id="member_enable" name="member_enable" 
+																   value="0" />	
 																<i class="fa fa-trash-o"></i>
+															
 															</button>
 															
 															</td>
@@ -292,40 +305,7 @@
 								<!-- /OVERVIEW -->
 							<!-- </div> -->
 							<!-- /tab-pane -->
-							<!-- <div id="contact" class="tab-pane">
-								<div class="row">
-									<div class="col-md-6">
-										<div id="map"></div>
-									</div>
-									/col-md-6
-									<div class="col-md-6 detailed">
-										<h4>Location</h4>
-										<div class="col-md-8 col-md-offset-2 mt">
-											<p>
-												Postal Address<br /> PO BOX 12988, Sutter Ave<br />
-												Brownsville, New York.
-											</p>
-											<br>
-											<p>
-												Headquarters<br /> 844 Sutter Ave,<br /> 9003, New York.
-											</p>
-										</div>
-										<h4>Contacts</h4>
-										<div class="col-md-8 col-md-offset-2 mt">
-											<p>
-												Phone: +33 4898-4303<br /> Cell: 48 4389-4393<br />
-											</p>
-											<br>
-											<p>
-												Email: hello@dashiotheme.com<br /> Skype: UseDashio<br />
-												Website: http://Alvarez.is
-											</p>
-										</div>
-									</div>
-									/col-md-6
-								</div>
-								/row
-							</div> -->
+							
 
 						</div>
 						<!-- /tab-content -->
@@ -344,5 +324,31 @@
 </section>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
-
+<script>
+$(document).ready(function(){
+	$("#memberSearchBtn").click(function(){
+		var roleDesc = document.getElementById("role-desc").value;
+		var searchBox = document.getElementById("searchBox").value;
+		
+		console.log("회원 권한 선택 : " + roleDesc);
+		
+		$.ajax({
+			url : "",
+			type : 'GET',
+			data : {
+				'roleDesc' : roleDesc,
+				'searchBox' : searchBox
+			},
+			dataType : "html",
+			success : function(data){
+				$("#memberListView").html(data);
+			},
+			error : function(error){
+				swal("에러에러에러에러에러");
+			}
+		});
+	
+	});
+});
+</script>
 
