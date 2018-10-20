@@ -27,11 +27,11 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
-import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.RoleDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -84,9 +84,23 @@ public class AdminController {
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
 		model.addAttribute("memberList", memberList);
+
+		List<RoleDto> roleList;
+		roleList = adminService.roleList();
+		model.addAttribute("roleList", roleList);
 				
 		return "admin.adminMember";
 		
+	}
+	@RequestMapping(value="adminMemberView.do")
+	public @ResponseBody ModelAndView adminMemberView() {
+		List<MemberDto> memberList = adminService.adminMemberView();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("admin.adminMember");
+		mv.addObject("memberList", memberList);
+		
+		return mv;
 	}
 	
 	

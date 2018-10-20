@@ -1,13 +1,12 @@
 ﻿package onet.com.admin.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
-import onet.com.vo.Question_choiceDto;
+import onet.com.vo.RoleDto;
 
 
 public interface AdminDao {
@@ -29,6 +28,15 @@ public interface AdminDao {
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList();
+	public List<RoleDto> roleList();
+	
+	public List<MemberDto> adminMemberView();
+	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
+	public int updateMember(MemberDto dto);
+	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
+	public int deleteMember(MemberDto dto);
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	/* 영준 - 10.10 회원관리 관련 끝 */
 	
 
@@ -52,12 +60,6 @@ public interface AdminDao {
 	public int classUpdate(ClassDto dto);
 	
 	/*민지 10.15 클래스 수정 관련 끝*/
-	
-
-	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public int updateMember(MemberDto dto);
-	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
-	
 
 
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
@@ -67,12 +69,7 @@ public interface AdminDao {
 	public List<ClassDto> adminMainView();
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
-
-	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
-	public int deleteMember(MemberDto dto);
-	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
-	
-	
+		
 	/*민지 - 10.17 클래스 수정시 중복체크 */
 	public String joinCheckId(String class_name);
 
