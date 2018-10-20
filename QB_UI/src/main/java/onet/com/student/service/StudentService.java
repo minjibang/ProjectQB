@@ -29,7 +29,7 @@ public class StudentService {
 			
 			int question_num = item.getQuestion_num();
 			String answer = dao.searchAnswer(question_num);
-			
+			System.out.println("___" + item.getStudent_answer_choice());
 /*			if(item.getStudent_answer_choice().equals(answer)) {	//	정답
 				item.setStudent_answer_status(1);
 			} else if (!(item.getStudent_answer_choice().equals(answer)) || item.getStudent_answer_choice() == null) {	//	오답
