@@ -30,8 +30,6 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
 	
-	
-	
 	//	프로그레스바 script 부분
 	var exam_info_time = "${exam_info.exam_info_time}";
 	var hour_ms = parseInt(exam_info_time.substr(0, 2)) * 3600000;
@@ -39,7 +37,7 @@
 	var second_ms = parseInt(exam_info_time.substr(6)) * 1000;
 
 	var total_time = hour_ms + minute_ms + second_ms;
-	console.log("토탈 타임: " + total_time);
+	//console.log("토탈 타임: " + total_time);
 	var current_time = 0;
 	var refresh_interval = 50;
 	var timer;
@@ -101,12 +99,31 @@
 		});		
 		
 		
-		// 제출 버튼 눌렀을 때 form 제출 
+		// 제출 버튼 눌렀을 때 form 제출 (폼의 타깃을 부모창으로 설정해 controller에서 페이지 이동 경로 지정해줌)
 		$('#examPaperSubmit').click(function(){
-			$('#answerForm').submit();
-			self.close();
-			opener.location.href = '${pageContext.request.contextPath}/student/pastExam.do';	//시험 제출 후 자식창이 닫히고 부모창에서 페이지 이동하기, 나중에 뒤에 인자값 들고가야함
+			if(confirm("시험을 제출하시겠습니까?")){
+				$('#answerForm').target = opener.name;
+				$('#answerForm').submit();
+ 	            if (opener != null) {
+	                opener.insert = null;
+	                self.close();
+	            } 
+			} else {
+				return false;
+			}
 		});
+		
+		// 시험 시간 완료되었을 경우 강제 제출
+		setTimeout(function(){
+			alert("시험 시간이 완료되었습니다.\n시험을 제출하겠습니다.");
+			$('#answerForm').target = opener.name;
+			$('#answerForm').submit();
+	            if (opener != null) {
+                opener.insert = null;
+                self.close();
+            } 
+		}, total_time);
+		
 		
 	});  // document.ready 종료 
 </script>
@@ -145,7 +162,7 @@
 				<c:set var="firstRow" value="<%=firstRow%>"/>
 				<c:set var="secondRow" value="<%=secondRow%>"/>
 			
-			<form method="post" id="answerForm">
+			<form method="post" id="answerForm" target="examScheduleDetail">
 			
 				<c:forEach var="question" items="${questionList}" varStatus="status"> <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->		
 					<c:if test="${question.exam_question_seq < 2}">
@@ -250,7 +267,7 @@
 	
 <script>
 //남은시간 변화
-	
+	 
 	var remain;
 	function msToTime() {
 		
@@ -287,7 +304,7 @@
 	if(remain==dday){
 		clearInterval(interv);
 	}
-	
+	 
 	
 </script>
 
