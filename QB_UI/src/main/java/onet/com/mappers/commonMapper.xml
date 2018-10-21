@@ -95,4 +95,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 현이 - ExamPaperDo 10.18 끝 -->
 
 
+<!-- 재훈 - 문제관리 관련 10.21 시작 -->
+<select id="singleQuestionDeleteSearch" parameterType="int" resultType="onet.com.vo.ExamQuestionDto">
+	select * from exam_question where question_num = #{question_num}
+</select>
+<delete id="singleQuestionDelete" parameterType="onet.com.vo.QuestionDto">
+	delete from question where question_num = #{question_num}
+</delete>
+<delete id="singleQuestionChoiceDelete" parameterType="onet.com.vo.Question_choiceDto">
+	delete from question_choice where question_num = #{question_num}
+</delete>
+
+<!-- 재훈 - 문제관리 관련 10.21 끝 -->
 </mapper>
