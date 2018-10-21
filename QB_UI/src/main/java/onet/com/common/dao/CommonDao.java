@@ -5,9 +5,11 @@ import java.util.List;
 
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
 public interface CommonDao {
@@ -33,5 +35,11 @@ public interface CommonDao {
 	public List<Question_choiceDto> examPaperDoQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException;
 	public int questionCount(int exam_info_num) throws ClassNotFoundException, SQLException;
 	/*현이 - ExamPaperDo 10.18 끝 */
+	
+	/*재훈 - 문제관리 관련 10.21 시작 */
+	public List<ExamQuestionDto> singleQuestionDeleteSearch(int question_num);
+	public int singleQuestionDelete(QuestionDto qdto);
+	public int singleQuestionChoiceDelete(Question_choiceDto cdto);
+	/*재훈 - 문제관리 관련 10.21 끝 */
 
 }

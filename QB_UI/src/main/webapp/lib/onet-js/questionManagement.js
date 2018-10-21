@@ -97,6 +97,82 @@ $(function() {
 			 "그래도 진행하시겠습니까?")
 	}
 
+$(function() {
+	/* <<다수의>> 선택 문제 삭제 버튼*/
+	$("#myQuestionPickDeleteBtn").click(function(){
+		if($('.myQuestions input[name="checkbox[]"]').is(':checked')){
+			action='modify';
+			type='PUT';
+			swal("선택된 문제가 있을 시 이 창이 떠야함.");
+		}else{
+			swal("선택된 문제가 없습니다. \n 먼저 삭제할 문제를 선택해주세요.");
+		}
+	})
+	
+	$('#multiDeleteConfirmBtn').click(function(){
+		
+		$('.myQuestions input[name="checkbox[]"]:checked').each(function(index) {
+				alert("선택된 문제 갯수 확인용 index:" + index);
+		})
+		
+			/*$.ajax({
+				url : "myQuestionDelete.do",
+				type:'GET',
+				data : {
+					  'question_num' : question_num
+				},
+				dataType:"html",
+				success:function(data){
+					swal('삭제성공');
+				}
+			})*/
+	})
+	
+	/* 문제 한개 삭제 버튼*/
+	
+	$('#singleDeleteModal').on('show.bs.modal', function(question_num){
+		action='modify';
+		type='PUT';
+		var question_num = $(question_num.relatedTarget).data('modal-id'); //question_num 받아오기
+		console.log("가져온 문제 번호값: " + question_num);
+		$('#singleDeleteConfirmBtn').val(question_num); //버튼에 value값을 가져온 question_num으로 넣어준다
+	})
+	
+	$('#singleDeleteConfirmBtn').click(function(){
+		var question_num = document.getElementById('singleDeleteConfirmBtn').value;
+		swal("이제부터 삭제 기능 시작!" + question_num);
+		
+			$.ajax({
+				url : "singleQuestionDelete.do",
+				type:'post',
+				data : {
+					  'question_num' : question_num
+				},
+				success:function(data){
+					if((data.result)=="삭제가능"){
+						swal({
+							title: "문제가 삭제되었습니다.",
+							text: "",
+							icon: "success"
+						}).then(function(){
+							window.location = "questionManagement.do"
+						});
+					}else{
+						swal("문제를 삭제 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+					}
+				},
+				error: function(error){
+					swal('문제 삭제 도중 에러가 발생했습니다.')
+				}
+			})
+		
+	})	
+		
+})
+
+
+
+
 /*새 문제 만들기 탭 - 문제 타입 (객관식, 단답형) 변경 시 정답 입력 div 변경 */
 function questionType(id){
 	if (id == "questionChoice") {
@@ -322,55 +398,5 @@ function check(){
 }
 
 
-$(function() {
-	/* <<다수의>> 선택 문제 삭제 버튼*/
-	$("#myQuestionPickDeleteBtn").click(function(){
-		if($('.myQuestions input[name="checkbox[]"]').is(':checked')){
-			action='modify';
-			type='PUT';
-			swal("선택된 문제가 있을 시 이 창이 떠야함.");
-		}else{
-			swal("선택된 문제가 없습니다. \n 먼저 삭제할 문제를 선택해주세요.");
-		}
-		
-	})
-	
-	
-	$('#multiDeleteConfirmBtn').click(function(){
-		
-		$('.myQuestions input[name="checkbox[]"]:checked').each(function(index) {
-				alert("선택된 문제 갯수 확인용 index:" + index);
-		})
-		
-			/*$.ajax({
-				url : "myQuestionDelete.do",
-				type:'GET',
-				data : {
-					  'question_num' : question_num
-				},
-				dataType:"html",
-				success:function(data){
-					swal('삭제성공');
-				}
-			})*/
-	})
-	
-	/* 문제 한개 삭제 버튼*/
-	$('#singleDeleteConfirmBtn').click(function(){
-		swal("이제부터 삭제 기능 시작!");
-		
-			/*$.ajax({
-				url : "myQuestionDelete.do",
-				type:'GET',
-				data : {
-					  'question_num' : question_num
-				},
-				dataType:"html",
-				success:function(data){
-					swal('삭제성공');
-				}
-			})*/
-	})	
-		
-})
+
 

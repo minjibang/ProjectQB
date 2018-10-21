@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import onet.com.common.dao.CommonDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
+import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
 @Service
@@ -108,6 +110,33 @@ public class CommonService {
 	}
 	/*현이 - ExamPaperDo 10.18 끝 */ 
 	
+	/*재훈 - 문제관리 관련 10.21 시작 */
+	
+	public int singleQuestionDelete(int question_num) {
+		System.out.println("서비스 진입>>>>>> question_num: " + question_num);
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		QuestionDto qdto = new QuestionDto();
+		Question_choiceDto cdto = new Question_choiceDto();
+		ExamQuestionDto edto = new ExamQuestionDto();
+		int result = 0;
+		
+		List<ExamQuestionDto> qSearch = dao.singleQuestionDeleteSearch(question_num);
+		if(qSearch.isEmpty()) {
+			System.out.println("qSearch결과 문제를 사용한 시험지 데이터가 없음 >>>> " + question_num);
+			cdto.setQuestion_num(question_num);
+			System.out.println("cdto에 세팅된 question_num값:" + cdto.getQuestion_num());
+			qdto.setQuestion_num(question_num);
+			System.out.println("qdto에 세팅된 question_num값:" + qdto.getQuestion_num());
+			dao.singleQuestionChoiceDelete(cdto);
+			result = dao.singleQuestionDelete(qdto);
+			System.out.println("singleQuestionDelete함수 실행 결과>>>" + result);
+			return result;
+		}else {
+			System.out.println("qSearch결과 문제를 사용한 시험지 데이터 존재 >>>> question_num: " + question_num);
+			System.out.println("result 값은 0 이어야함 >>>" + result);
+			return result;
+		}
+	}
 }
 
 
