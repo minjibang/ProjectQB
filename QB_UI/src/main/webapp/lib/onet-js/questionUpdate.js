@@ -298,7 +298,47 @@ $('#howManyChoices').change(
 			}
 	})	
 
+/* 취소 버튼 */
+$("#btnUpdateCancel").click(function(){
+	location.href="questionManagement.do"
+})
 
+/* 문제 삭제 버튼*/
+$('#singleDeleteModal').on('show.bs.modal', function(question_num){
+	action='modify';
+	type='PUT';
+	var question_num = $('#qdto_question_num').val();  //question_num 받아오기
+	console.log (question_num); 
+	$('#singleDeleteConfirmBtn').val(question_num); //버튼에 value값을 가져온 question_num으로 넣어준다
+})
+	
+$('#singleDeleteConfirmBtn').click(function(){
+	var question_num = document.getElementById('singleDeleteConfirmBtn').value;
+		
+		$.ajax({
+			url : "singleQuestionDelete.do",
+			type:'post',
+			data : {
+					 'question_num' : question_num
+					},
+			success:function(data){
+				if((data.result)=="삭제가능"){
+					swal({
+						title: "문제가 삭제되었습니다.",
+						text: "",
+						icon: "success"
+					}).then(function(){
+						window.location = "questionManagement.do"
+					});
+				}else{
+					swal("문제를 삭제 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+				}
+			},
+			error: function(error){
+				swal('문제 삭제 도중 에러가 발생했습니다.')
+			}
+		})
+})	
 
 /* 문제 등록 버튼 - 유효성 검사 */
 function check(){
