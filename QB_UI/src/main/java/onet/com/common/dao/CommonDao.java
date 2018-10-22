@@ -47,6 +47,8 @@ public interface CommonDao {
 
 	/*재훈 - 문제관리 관련 10.21 시작 */
 	public List<ExamQuestionDto> singleQuestionDeleteSearch(int question_num);
+	public List<QuestionDto> questionInfo(QuestionDto qdto);
+	public List<Question_choiceDto> questionChoiceInfo(Question_choiceDto qdto);
 	public int singleQuestionDelete(QuestionDto qdto);
 	public int singleQuestionChoiceDelete(Question_choiceDto cdto);
 	/*재훈 - 문제관리 관련 10.21 끝 */
