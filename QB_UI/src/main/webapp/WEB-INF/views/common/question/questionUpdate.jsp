@@ -17,6 +17,45 @@
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
 
+<!-- 문제 삭제 모달창 시작 -->	
+		<div class="modal fade" id="singleDeleteModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true"
+					data-modal-id="">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">문제 삭제</h4>
+								<!-- modal-header 끝 -->
+							</div>
+							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<h5>문제 제출자 또는 다른 사용자가 해당 문제를 사용하여 <br>
+							 시험지 생성 또는 시험지 임시저장 했을 경우 <br>
+							 그 문제는 삭제/수정이 불가능합니다.
+							 </h5>
+							</div>
+							<div class="modal-footer">
+								<div class="form-group">
+									<div class="col-lg-offset-2 col-lg-10">
+									
+										<button id="singleDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" 
+										value="" data-dismiss="modal" aria-label="Close">
+										확인</button>
+										<button class="btn btn-theme04" type="button" data-dismiss="modal">
+										취소</button>
+										
+									</div>
+								</div>
+							</div>
+							<!-- modal-content 끝 -->
+						</div>
+						<!-- modal-dialog 끝 -->
+					</div>
+				</div>
+<!-- 문제 삭제 모달창 끝 -->	
+
+
 <!--main content start-->
 <section id="main-content">
 
@@ -30,7 +69,7 @@
 						 <c:forEach items="${qdto}" var="qdto"> 
 						 ${qdto}<br>
 						 ${cdto}<br>
-						 
+						 <input type="text" id="qdto_question_num" name="qdto_question_num" style="display: none" value="${qdto.question_num}">
 						 <input type="text" name="qdto_question_answer" style="display: none" value="${qdto.question_answer}">
 						 <c:forEach items="${cdto}" var="cdto">
 						 <input type="text" name="cdto_question_num" style="display: none" value="${cdto.question_num}">  
@@ -196,8 +235,16 @@
 							</div>
 							<!--문제 내용, 정답, 보기 입력 종료 -->
 							<hr>
-							<button type="reset" class="btn btn-secondary quesCategory">
+							<button type="button" class="btn btn-secondary quesCategory"
+								id="btnUpdateCancel">
 								취소</button>
+								
+							<button type="button" id="deleteQuestionBtn" name="deleteQuestionBtn"
+								class="btn btn-theme04 buttonGroup quesCategory" data-toggle="modal"
+								data-target="#singleDeleteModal"
+								data-modal-id="${question.question_num}">
+								<i class="fa fa-trash-o"></i>문제 삭제</button>
+								
 							<button type="submit"
 								class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 								수정 완료</button>
