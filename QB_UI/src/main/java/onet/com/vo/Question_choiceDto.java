@@ -8,9 +8,9 @@ import java.util.Map;
 public class Question_choiceDto {
 
 	private int question_num;
-
 	private String question_choice_num;
 	private String question_choice_content;
+	private String question_choice_image;  	// 10.22 추가
 	
 	public int getQuestion_num() {
 		return question_num;
@@ -30,6 +30,14 @@ public class Question_choiceDto {
 	public void setQuestion_choice_content(String question_choice_content) {
 		this.question_choice_content = question_choice_content;
 	}
+	public String getQuestion_choice_image() {
+		return question_choice_image;
+	}
+	public void setQuestion_choice_image(String question_choice_image) {
+		this.question_choice_image = question_choice_image;
+	}
+	
+
 	
 	
 

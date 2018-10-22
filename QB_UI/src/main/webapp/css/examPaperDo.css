@@ -350,4 +350,11 @@ OMR 표시
         width: 300px;
         margin-bottom: 20px;
     }
+    
+    
+    /* 문제 보기에서 이미지 크기 조절 */
+    .answer_choice_image {
+    	width: 500px;
+    	margin-bottom: 10px;
+    }
  

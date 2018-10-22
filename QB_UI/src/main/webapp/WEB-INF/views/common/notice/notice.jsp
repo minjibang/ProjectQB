@@ -100,7 +100,7 @@
 							</a></li>
 							<li><a href="#"> <i class="fa fa-file-text-o"></i>
 									Drafts <span
-									class="label label-info pull-right inbox-notification">8</span></a></a>
+									class="label label-info pull-right inbox-notification">8</span></a>
 							</li>
 							<li><a href="#"> <i class="fa fa-trash-o"></i> Trash
 							</a></li>
@@ -112,6 +112,7 @@
 	</section>
 	<!-- /wrapper -->
 </section>
+
 <script>
 $(document).ready(function(){
 	var class_name1 = $('.notice_classname').val();
@@ -132,5 +133,6 @@ $(document).ready(function(){
 
 
 </script>
+
 <!-- /MAIN CONTENT -->
 <!--main content end-->
