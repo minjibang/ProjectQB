@@ -110,21 +110,7 @@ public class TeacherController {
 	}
 	/* 한결 : 시험일정 > 시험응시 페이지 끝 */
 
-	/* 현이 18.10.11 선생님 시험관리 시작 */
-	@RequestMapping("examManagement.do")
-	public String examManagement(Model model, int class_num) {
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
 	
-	/* 영준 18.10.16 선생님 시험일정 시작 */
-		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList(class_num);
-		model.addAttribute("examScheduleList", examScheduleList);
-	/* 영준 18.10.16 선생님 시험일정 끝 */	
-		
-		return "common.teacher.exam.examManagement";
-	}
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
@@ -187,28 +173,7 @@ public class TeacherController {
 	}
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 
-	/* 현이 18.10.11 시험지 수정 페이지 시작 */
-	/* 영준 18.10.18 시험지 수정 시작 */
-	@RequestMapping("examPaperModify.do")
-	public String examPaperModify(Model model, int class_num) {
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-		return "common.teacher.exampaper.examPaperModify";
-	}
-	/* 현이 18.10.11 시험지 수정 페이지 끝 */
-	/* 영준 18.10.18 시험지 수정 끝 */
 	
-	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 시작 */
-	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist(Model model, int class_num) {
-		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
-		model.addAttribute("classMemberList", classMemberList);
-		return "common.teacher.exam.examScheduleRegist";
-	}
-	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 끝 */
 	
 	/* 민지 18.10.10 강사 시험감독 페이지 시작 */
 	@RequestMapping("examPaper.do")
@@ -355,15 +320,6 @@ public class TeacherController {
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
-	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
-	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate(Model model, int class_num) {
-		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
-		model.addAttribute("classMemberList", classMemberList);
-		return "common.teacher.exam.examScheduleUpdate";
-	}
-	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
 	@RequestMapping("studentInfo.do")

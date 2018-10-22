@@ -36,7 +36,7 @@
 	                        <ul class="chat-available-user" id ="checkboxNameUl">
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox"  name="chk" value="chk">${classMemberList.member_name}
+	                            	<input type="checkbox"  name="chk" value="chk">(${classMemberList.member_id })${classMemberList.member_name}
 	                            </label>
 	                          </div>
 	                        </ul>
@@ -49,16 +49,17 @@
                         <div>
                           <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
                         </div>
-                        <h3>시험명 : ${param.exam_paper_name}</h3>
+                        <<h3>시험명 : ${param.exam_paper_name}</h3>
                         
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>        
                       <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
-                      <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>
-                         <input type="hidden" id="class_num" name="class_num" value="${param.class_num}"/>
-                         <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/>
-                         <input type="hidden" id="class_name" name="class_name" value="${param.class_name}"/>
+                         <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>                         
+                         <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/> 
+                         <input type="hidden" id="class_num" name="class_num" value="${class_num}"/>
+                         <input type="hidden" id="class_name" name="class_name" value="${class_name}"/> 
+
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
