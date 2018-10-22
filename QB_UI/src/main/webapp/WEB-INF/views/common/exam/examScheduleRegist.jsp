@@ -54,7 +54,7 @@
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>        
-                      <form action="examInfoInsert.do" class="form-horizontal style-form" method="post" onsubmit="return check()">
+                      <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
                       <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>
                          <input type="hidden" id="class_num" name="class_num" value="${param.class_num}"/>
                          <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/>
@@ -90,8 +90,8 @@
                           </div>
                         <!--timepicker group end-->
                           <div class="form-group">
-                            <label class="control-label col-md-2">시험시간</label>
-                            <input type="text" id="exam_info_time" name="exam_info_time"  readonly >
+                            <label class="control-label col-md-2"  style="margin-right:15px;" id="examtimelabel">시험시간</label>
+                            <input style="width:20%;" id="exam_info_time" class="form-control"  type="text" name="exam_info_time"  readonly >
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">종료알림</label>
@@ -161,3 +161,51 @@
 </section>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
+
+<script>
+function check(){
+	var timeinfodiv = document.getElementById("timeinfo");
+	
+	var datecheck = false;
+	var start = $('#exam_info_start').val();
+	var end = $('#exam_info_end').val();
+	
+	var start_hour = start.substring(0,2);
+	var end_hour=end.substring(0,2);
+	
+	var start_m=start.substring(3);
+	var end_m = end.substring(3);
+
+	
+	if(start_hour > end_hour){
+		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+		timeinfodiv.style.color = 'red';
+		
+		return false;
+	}else if(start_hour == end_hour){
+		if(start_m > end_m){
+			timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+			timeinfodiv.style.color = 'red';
+			return false;
+		}else if(start_m== end_m){
+			timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+			timeinfodiv.style.color = 'red';
+			return false;
+		}
+	}else if(start=="" && end==""){
+		timeinfodiv.innerHTML = "시간설정을 해주세요.";
+		timeinfodiv.style.color = 'bule';
+		return false;
+		
+	}else {
+		var insertconfirm = confirm("시험등록 하시겠습니까?");
+		if(insertconfirm == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+
+}
+</script>
