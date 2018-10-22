@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -281,6 +282,21 @@ public class TeacherController {
 			return mv;
 		}*/
 	
+		/* 재훈 10.20 문제삭제 관련 start */
+		@RequestMapping("singleQuestionDelete.do")
+		public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
+			System.out.println("컨트롤러 진입>>>>>" + question_num);
+			Map<String,Object> map = new HashMap <String,Object>();
+			int result = commonService.singleQuestionDelete(question_num);
+			if(result == 0) {
+				System.out.println("컨트롤러 if문 >> result 값 0");
+				map.put("result", "삭제불가");
+			}else {
+				System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
+				map.put("result", "삭제가능");
+			}
+			return map;
+		}
 		
 	/*재훈 18.10.18  */
 

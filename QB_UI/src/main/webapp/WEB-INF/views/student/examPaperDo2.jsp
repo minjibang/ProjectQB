@@ -100,8 +100,9 @@
 		
 		
 		// 제출 버튼 눌렀을 때 form 제출 (폼의 타깃을 부모창으로 설정해 controller에서 페이지 이동 경로 지정해줌)
-		$('#examPaperSubmit').click(function(){
-			if(confirm("시험을 제출하시겠습니까?")){
+	 	$('#examPaperSubmit').click(function(){
+	 		
+ 			if(confirm("시험을 제출하시겠습니까?")){
 				$('#answerForm').target = opener.name;
 				$('#answerForm').submit();
  	            if (opener != null) {
@@ -111,10 +112,11 @@
 			} else {
 				return false;
 			}
-		});
+		});  // 제출 버튼 눌렀을 때 스크립트 종료 부분
+		
 		
 		// 시험 시간 완료되었을 경우 강제 제출
-		setTimeout(function(){
+ 		setTimeout(function(){
 			alert("시험 시간이 완료되었습니다.\n시험을 제출하겠습니다.");
 			$('#answerForm').target = opener.name;
 			$('#answerForm').submit();
@@ -122,8 +124,7 @@
                 opener.insert = null;
                 self.close();
             } 
-		}, total_time);
-		
+		}, total_time); 
 		
 	});  // document.ready 종료 
 </script>
@@ -161,6 +162,7 @@
 			<div class="row content-panel exampaneldetail">
 				<c:set var="firstRow" value="<%=firstRow%>"/>
 				<c:set var="secondRow" value="<%=secondRow%>"/>
+				<c:set var="questionCount" value="<%=questionCount%>"/>
 			
 			<form method="post" id="answerForm" target="examScheduleDetail">
 			
@@ -207,7 +209,7 @@
 									<c:when test="${question.question_type eq '단답형'}">
 										<tr class="ques_choice">
 											<td class="questionTd"></td>  
-											<td><input type="text" id="ques_${question.exam_question_seq}" class="" name="student_answer[${status.index}].student_answer_choice"></td>
+											<td><input type="text" id="ques_${question.exam_question_seq}" name="student_answer[${status.index}].student_answer_choice"></td>
 										</tr>
 									</c:when>
 								</c:choose>

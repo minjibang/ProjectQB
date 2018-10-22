@@ -54,6 +54,8 @@ $(function(){
 		type='PUT';
 		memberid=this.value;
 		
+		console.log("불러오는 아이디 값 : " + memberid);
+		
 		var row =$(this).parent().parent();
 		var tr = row.children();
 		
@@ -71,12 +73,21 @@ $(function(){
 		$('#cname').val(member_name_modal);
 		$('#class_name').val(class_name_modal);
 		
-		if(role_code_modal == $("#agree_s")){
+		if(role_code_modal == "학생"){
 			$("#agree_s").attr("checked", true);
 			$("#agree_t").attr("checked", false);
 		}
-		else if(role_code_modal == $("#agree_t")){
+		else if(role_code_modal == "선생님"){
 			$("#agree_t").attr("checked", true);
+			$("#agree_s").attr("checked", false);
+		} 
+		else if(role_code_modal == "일반회원"){
+			$("#agree_t").attr("checked", false);
+			$("#agree_s").attr("checked", false);
+		} 
+		// 관리자일 경우
+		else{
+			$("#agree_t").attr("checked", false);
 			$("#agree_s").attr("checked", false);
 		}
 
@@ -132,21 +143,26 @@ $(function(){
 		action = 'modify';
 		type = 'PUT';
 		memberid = this.value;
+		var row =$(this).parent().parent();
+		var tr = row.children();
+		
+		var role_code_modal = tr.eq(6).text();
+		var member_enable_modal = tr.eq(7).text();
+		
+		$('#role_code').role_code_modal;
+		$('#member_enable').member_enable_modal;
+		
+		console.log("변경할 값 : " + memberid);
+		
+	
 		
 	});
 	$('#deleteMemberBtn').click(function() {
-		var role_code_val;
-		var member_enable_val;
 		
-		role_code_val = $("#agree_m").val();
-		member_enable_val = $("#member_enable").val();
+		var _param = {role_code_modal:$("#role_code").val(),
+					member_enable_modal:$("#member_enable").val()}
 		
-		var _param = {member_id:$("#cid").val(),
-					  role_code:role_code_val,
-					  member_enable:member_enable_val}
-		
-		var _data = JSON.stringify(_param); //jsonString으로 변환
-		
+		var _data = JSON.stringify(_param); //jsonString으로 변환	
 		$.ajax({
 			type : "post",
 			url : "adminMemberDelete.do",

@@ -53,7 +53,8 @@
 
 <!-- 문제 한개 삭제 모달창 시작 -->	
 		<div class="modal fade" id="singleDeleteModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
+					aria-labelledby="myModalLabel" aria-hidden="true"
+					data-modal-id="${question.question_num}">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -72,7 +73,8 @@
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
 									
-										<button id="singleDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" value="">
+										<button id="singleDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" 
+										value="" data-dismiss="modal" aria-label="Close">
 										확인</button>
 										<button class="btn btn-theme04" type="button" data-dismiss="modal">
 										취소</button>
