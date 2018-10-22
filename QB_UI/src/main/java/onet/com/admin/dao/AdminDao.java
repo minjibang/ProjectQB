@@ -135,7 +135,8 @@ public interface AdminDao {
 	public List<CategoryDto> selectSmRealList2(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
 
-	
+	//양회준 10-22 admin 회원관리 비동기 검색
+	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
 
 }
 

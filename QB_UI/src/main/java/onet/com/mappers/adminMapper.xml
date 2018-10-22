@@ -75,7 +75,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
 
 <!-- 영준 - 10.10 회원관리 관련 시작 -->
-<select id="memberList" parameterType="hashmap" resultType="onet.com.vo.MemberDto">
+<select id="memberList" resultType="onet.com.vo.MemberDto">
 	select m.class_name, m.member_id, m.member_name, m.member_email,
 	m.member_phone, mr.role_code, r.role_desc,m.member_enable 
 	from member m, member_role mr, role r
@@ -88,6 +88,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
     FROM member m, member_role mr, role r
     WHERE m.member_id=mr.member_id and mr.role_code = r.role_code
 </select>
+
 <!-- 영준 10.20 회원관리 회원권한 셀렉트 시작 -->
 <select id="roleList" parameterType="hashmap" resultType="onet.com.vo.RoleDto">
 	SELECT * FROM role
@@ -298,4 +299,37 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code}
 </select>
 
+<!-- 양회준 10-22 admin 회원관리 비동기 검색 시작 -->
+<sql id="memberSrch">
+	<where>
+		<if test="param1 != ''">
+			mr.role_code = #{param1}		
+		</if>
+		<if test="param2 != ''">
+			and m.class_name = #{param2}
+		</if>			
+		<if test="param3 != ''">
+			<choose>
+				<when test='param3 == "name"'>
+					and m.member_name like concat('%',#{param4},'%')
+				</when>
+				<when test='param3 == "id"'>
+					and m.member_id like concat('%',#{param4},'%')
+				</when>
+				<when test='param3 == "email"'>
+					and m.member_email like concat('%',#{param4},'%')
+				</when>
+			</choose>
+		</if>		
+	</where>
+</sql>
+
+<select id="memberSearchAjax" resultType="onet.com.vo.MemberDto">
+	select m.class_name, m.member_id, m.member_name, m.member_email,
+	m.member_phone, mr.role_code, r.role_desc, m.member_enable
+	from member m join member_role mr join role r
+	on m.member_id=mr.member_id and mr.role_code = r.role_code
+	<include refid="memberSrch"></include>
+</select>
+<!-- 양회준 10-22 admin 회원관리 비동기 검색 끝 -->
 </mapper>

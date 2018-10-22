@@ -83,7 +83,7 @@ public class AdminController {
 		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
-		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberDto", memberList);
 
 		List<RoleDto> roleList;
 		roleList = adminService.roleList();
@@ -644,10 +644,21 @@ public class AdminController {
 	}
 
 	/*민지:10.18 시험등록  끝*/
-		
 
 	
-		}
+		
+	//양회준 10-22 admin 회원관리 비동기 검색
+	@RequestMapping(value="memberSearchAjax.do", method=RequestMethod.POST)
+	public @ResponseBody List<MemberDto> memberSearchAjax(@RequestParam("searchRole") String searchRole, 
+			@RequestParam("searchClassName") String searchClassName, @RequestParam("searchMemberInfo") String searchMemberInfo,
+			@RequestParam("searchBox") String searchBox) throws IOException, ClassNotFoundException, SQLException {
+				
+		List<MemberDto> memberDto = adminService.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);
+		
+		return memberDto;
+	}
+	
+}
 
 
 
