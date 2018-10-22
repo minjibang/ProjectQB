@@ -390,6 +390,16 @@ public class AdminService {
 		return list;
 	}
 	
-	
+	//양회준 10-22 admin 회원관리 비동기 검색
+	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, 
+			String searchMemberInfo, String searchBox) {
+		System.out.println("intoAjaxservice");
+		System.out.println(searchRole+"/"+ searchClassName+"/"+ searchMemberInfo+"/"+ searchBox);
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<MemberDto> result = dao.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);		
+		System.out.println(result);
+		
+		return result;
+	}
 	
 }

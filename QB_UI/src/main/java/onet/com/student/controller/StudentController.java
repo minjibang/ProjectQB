@@ -250,5 +250,4 @@ public class StudentController {
 	}
 	/* 현이 18.10.19 학생 답안지 insert 끝 */
 
-
 }
