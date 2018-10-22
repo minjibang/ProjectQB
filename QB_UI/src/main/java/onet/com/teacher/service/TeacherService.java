@@ -96,6 +96,7 @@ public class TeacherService {
 		int result = dao.examQuestionDelete(exam_paper_num);
 		return result;
 	}
+
 	/*한결 - 10.17 시험지 체크  및 insert 끝*/
 
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */

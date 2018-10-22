@@ -91,56 +91,58 @@ $(function() {
 	
 })
 
-/*내가 만든 문제 - 수정 버튼*/
-	function questionUpdate(){
-		swal("문제를 수정하면 정답률, 출제빈도가 초기화됩니다. \n" +
-			 "그래도 진행하시겠습니까?")
-	}
 
 $(function() {
-	/* <<다수의>> 선택 문제 삭제 버튼*/
-	$("#myQuestionPickDeleteBtn").click(function(){
-		if($('.myQuestions input[name="checkbox[]"]').is(':checked')){
-			action='modify';
-			type='PUT';
-			swal("선택된 문제가 있을 시 이 창이 떠야함.");
-		}else{
-			swal("선택된 문제가 없습니다. \n 먼저 삭제할 문제를 선택해주세요.");
-		}
+	
+	/* 문제 수정 버튼*/
+	$('#singleUpdateModal').on('show.bs.modal', function(question_num){
+		action='modify';
+		type='PUT';
+		var question_num = $(question_num.relatedTarget).data('modal-id'); //question_num 받아오기
+		$('#singleUpdateConfirmBtn').val(question_num); //버튼에 value값을 가져온 question_num으로 넣어준다
 	})
 	
-	$('#multiDeleteConfirmBtn').click(function(){
+	$('#singleUpdateConfirmBtn').click(function(){
+		var question_num = document.getElementById('singleUpdateConfirmBtn').value;
 		
-		$('.myQuestions input[name="checkbox[]"]:checked').each(function(index) {
-				alert("선택된 문제 갯수 확인용 index:" + index);
-		})
-		
-			/*$.ajax({
-				url : "myQuestionDelete.do",
-				type:'GET',
+			$.ajax({
+				url : "singleUpdateCheck.do",
+				type:'get',
 				data : {
 					  'question_num' : question_num
 				},
-				dataType:"html",
-				success:function(data){
-					swal('삭제성공');
+				success:function(data, question_num){
+					if((data.result)=="삭제가능"){
+						var question_num = document.getElementById('singleUpdateConfirmBtn').value;
+						alert(question_num);
+						$("#question_num").html(question_num);
+						window.location.href = "questionUpdate.do?question_num=" + question_num
+					}else{
+						swal({
+							title: "문제를 수정할 수 없습니다.",
+							text: "해당 문제를 사용하는 시험지가 존재합니다.",
+							icon: "error"
+						});
+					}
+				},
+				error: function(error){
+					swal('문제 수정 도중 에러가 발생했습니다.')
 				}
-			})*/
-	})
+			})
+	})	
 	
-	/* 문제 한개 삭제 버튼*/
+	
+	/* 문제 삭제 버튼*/
 	
 	$('#singleDeleteModal').on('show.bs.modal', function(question_num){
 		action='modify';
 		type='PUT';
 		var question_num = $(question_num.relatedTarget).data('modal-id'); //question_num 받아오기
-		console.log("가져온 문제 번호값: " + question_num);
 		$('#singleDeleteConfirmBtn').val(question_num); //버튼에 value값을 가져온 question_num으로 넣어준다
 	})
 	
 	$('#singleDeleteConfirmBtn').click(function(){
 		var question_num = document.getElementById('singleDeleteConfirmBtn').value;
-		swal("이제부터 삭제 기능 시작!" + question_num);
 		
 			$.ajax({
 				url : "singleQuestionDelete.do",
@@ -327,7 +329,16 @@ function check(){
 				return false;
 			} else if ($.trim(_questionChoiceContent5) == "") {
 				swal("객관식 5번 보기를 입력해주세요");
-			}
+			} else {
+				var questionInsertConfirm = confirm(
+				"문제를 정말로 등록하시겠습니까?");
+				if(questionInsertConfirm == true){
+					alert("새로운 문제가 등록되었습니다.")
+					return true;
+				}else{
+					return false;
+				}
+			} 
 		//객관식 문제 보기가 4개일때	
 		} else if ($.trim(_choiceQuantity) == "4"){
 			if ($.trim(_questionChoiceContent1) == "") {
@@ -342,6 +353,15 @@ function check(){
 			} else if ($.trim(_questionChoiceContent4) == "") {
 				swal("객관식 4번 보기를 입력해주세요");
 				return false;
+			} else {
+				var questionInsertConfirm = confirm(
+				"문제를 정말로 등록하시겠습니까?");
+				if(questionInsertConfirm == true){
+					alert("새로운 문제가 등록되었습니다.")
+					return true;
+				}else{
+					return false;
+				}
 			} 
 		//객관식 문제 보기가 3개일때
 		} else if ($.trim(_choiceQuantity) == "3"){
@@ -354,7 +374,17 @@ function check(){
 			} else if ($.trim(_questionChoiceContent3) == "") {
 				swal("객관식 3번 보기를 입력해주세요");
 				return false;
-			}
+			}else {
+				var questionInsertConfirm = confirm(
+				"문제를 정말로 등록하시겠습니까?");
+				if(questionInsertConfirm == true){
+					alert("새로운 문제가 등록되었습니다.")
+					return true;
+				}else{
+					return false;
+				}
+			} 
+			
 		//객관식 문제 보기가 2개일때	
 		} else if ($.trim(_choiceQuantity) == "2"){
 			if ($.trim(_questionChoiceContent1) == "") {
@@ -363,16 +393,17 @@ function check(){
 			} else if ($.trim(_questionChoiceContent2) == "") {
 				swal("객관식 2번 보기를 입력해주세요");
 				return false;
-			}
-		} else {
+			}else {
 				var questionInsertConfirm = confirm(
-						"문제를 정말로 등록하시겠습니까?");
+				"문제를 정말로 등록하시겠습니까?");
 				if(questionInsertConfirm == true){
 					alert("새로운 문제가 등록되었습니다.")
 					return true;
 				}else{
 					return false;
 				}
+			} 
+			
 		} 
 	}else {
 		/*주관식 문제 생성 유효성검사*/
