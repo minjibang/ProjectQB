@@ -107,4 +107,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 
 <!-- 재훈 - 문제관리 관련 10.21 끝 -->
+<insert id="insertBoardList" parameterType="onet.com.vo.NoticeDto">
+	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_file3},#{notice_date})
+</insert>
+
+
 </mapper>
