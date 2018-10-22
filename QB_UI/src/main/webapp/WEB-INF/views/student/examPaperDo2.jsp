@@ -29,19 +29,17 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
-	
-	
-	
+		
 	//	프로그레스바 script 부분
 	var exam_info_time = "${exam_info.exam_info_time}";
 	var hour_ms = parseInt(exam_info_time.substr(0, 2)) * 3600000;
 	var minute_ms = parseInt(exam_info_time.substr(3, 5)) * 60000;
-	var second_ms = parseInt(exam_info_time.substr(6)) * 1000;
-
+	var second_ms = parseInt(exam_info_time.substr(6)) * 1000; 
+	
 	var total_time = hour_ms + minute_ms + second_ms;
 	console.log("토탈 타임: " + total_time);
 	var current_time = 0;
-	var refresh_interval = 50;
+	var refresh_interval = 1000;
 	var timer;
 
 	function refresh_bar() {
@@ -51,7 +49,7 @@
 		current_time += refresh_interval;
 		if (current_time > total_time)
 			clearInterval(timer);
-	}
+	}	
 
 	// document.ready 시작 
 	$(function() {
@@ -62,7 +60,6 @@
 			value : current_time
 		});
 		timer = setInterval(refresh_bar, refresh_interval);
-
 		
 		// 문제 및 답지 체크 script 시작 
 		// 문제 보기를 클릭했을 때 답안지에도 표시 
@@ -251,7 +248,9 @@
 <script>
 //남은시간 변화
 	
-	var remain;
+	var remainPrint;
+	var remainTime;
+	//남은 시간 생성 함수
 	function msToTime() {
 		
 		var exam_info_date = "${exam_info.exam_info_date}";
@@ -265,29 +264,31 @@
 		var second_ms = parseInt(exam_info_time.substr(6));
 		
 		var now = new Date();
-		var dday = new Date(year,month,date,hour_ms,minute_ms,second_ms);
-		var date = dday-now;
+		var dday = new Date(year,month-1,date,hour_ms,minute_ms,second_ms);
+		var remainTime = dday-now;
 		
-	  //var milliseconds = Math.floor(parseInt((date % 1000) / 100)),
-	   var seconds = parseInt((date / 1000) % 60),
-	    minutes = parseInt((date / (1000 * 60)) % 60),
-	    hours = parseInt((date / (1000 * 60 * 60)) % 24);
+	   	var seconds = parseInt((remainTime / 1000) % 60),
+	    minutes = parseInt((remainTime / (1000 * 60)) % 60),
+	    hours = parseInt((remainTime / (1000 * 60 * 60)) % 24);
 	
 	  hours = (hours < 10) ? "0" + hours : hours;
 	  minutes = (minutes < 10) ? "0" + minutes : minutes;
 	  seconds = (seconds < 10) ? "0" + seconds : seconds;
 	
-	  remain= hours + ":" + minutes + ":" + seconds;
-	  console.log(remain);
-	  //document.getElementById("remainTime").innerHTML = remain;
-	  $("#remainTime").html(remain);
+	  remainPrint= hours + ":" + minutes + ":" + seconds;
+	  console.log(remainPrint);
+	  $("#remainTime").html(remainPrint);
+	  console.log("remainTime : "+remainTime);
+	  
+	  //남은 제한시간 0보다 작을 경우 종료
+	  if(remainTime<0){
+			clearInterval(interv);
+			self.close();
+		}
 	  
 	}
+	//남은 시간 생성 함수 반복실행
 	var interv = window.setInterval("msToTime()", 1000);
-	if(remain==dday){
-		clearInterval(interv);
-	}
-	
 	
 </script>
 
