@@ -54,6 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </if>
 </where>
 </sql>
+
+<!-- 시험지만들기 문제 검색 -->
 <select id="questionSearch" resultType="onet.com.vo.QuestionDto">
 	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
 	join question_md_category md on (sm.md_category_code = md.md_category_code) 
@@ -62,6 +64,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="search"></include>
 	order by question_num;
 </select>
+
+<!-- 내시험지 리스트 뿌려주기 -->
+<select id="myExamPaperList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where member_id = #{param1} and exam_paper_status = true order by exam_paper_num desc
+</select>
+<!-- 내 임시시헙지 리스트 뿌려주기 -->
+<select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where member_id = #{param1} and exam_paper_status = false order by exam_paper_num desc
+</select>
+
+<!-- 시험 일정 리스트 뿌려주기 -->
+<select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
+</select>
+
 <!-- 태용 끝 -->
 
 <!-- 한결 : 강사 문제 리스트 불러오기 시작-->
@@ -115,12 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 <!-- 영준 10.17 내 시험지  삭제 끝 -->
 
-<!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
-<select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
-	select * from exam_info
-	where class_name = (select class_name from class where class_name =
-	(select c.class_name from class c where c.class_num=#{class_num}))
-</select>
+
 
 
 

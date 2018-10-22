@@ -266,8 +266,7 @@
 $(document).ready(function(){
 	
 	$.ajax({
-		url : "classListView.do",
-		/* url:"${pageContext.request.contextPath}/examPaperMake2.jsp", */
+		url : "questionListView.do",
 		type:'GET',
 		dataType:"html",
 		success:function(data){

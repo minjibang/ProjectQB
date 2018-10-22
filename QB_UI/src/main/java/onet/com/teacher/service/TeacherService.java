@@ -57,10 +57,8 @@ public class TeacherService {
 	
 	/* 영준 - 10.16 선생님 시험관리 페이지 시작 */
 	public List<ExamPaperDto> examPaperList(int class_num){
-		ExamPaperDto dto = new ExamPaperDto();
-		dto.setClass_num(class_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamPaperDto> result = dao.examPaperList(dto);
+		List<ExamPaperDto> result = dao.examPaperList(class_num);
 		return result;	
 	}
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
@@ -111,17 +109,6 @@ public class TeacherService {
 	}
 	/* 영준 - 10.17 내 시험지 삭제 끝 */
 	
-	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 시작 */
-	public List<ExamInfoDto> examScheduleList(int class_num){
-		ExamInfoDto dto = new ExamInfoDto();
-		dto.setClass_num(class_num);
-		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamInfoDto> result = dao.examScheduleList(dto);
-		return result;
-	}
-	/* 영준 - 10.16 선생님 시험일정 리스트 불러오기 끝 */
-
-	
 	/*민지 - 10.18 시험등록*/
 	public int examInfoInsert(ExamInfoDto dto){
 		
@@ -135,6 +122,21 @@ public class TeacherService {
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype, keyword);
+		return result;
+	}
+	public List<ExamPaperDto> myExamPaperList(String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamPaperDto> result = dao.myExamPaperList(member_id);
+		return result;	
+	}
+	public List<ExamPaperDto> myTempExamList(String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamPaperDto> result = dao.myTempExamList(member_id);
+		return result;	
+	}
+	public List<ExamInfoDto> examScheduleList(String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamInfoDto> result = dao.examScheduleList(member_id);
 		return result;
 	}
 	

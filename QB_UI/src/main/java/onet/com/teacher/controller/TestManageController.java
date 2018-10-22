@@ -1,5 +1,6 @@
 package onet.com.teacher.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
@@ -23,7 +26,8 @@ public class TestManageController {
 	private TeacherService teacherService;
 
 	/*성태용 시작*/
-	@RequestMapping(value="classListView.do")
+	/*문제리스트 뿌려주기*/
+	@RequestMapping(value="questionListView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);
@@ -37,7 +41,7 @@ public class TestManageController {
 		
 		return mv;
 	}
-	
+	/*문제 검색*/
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
@@ -53,6 +57,29 @@ public class TestManageController {
 		mv.addObject("question_choice",question_choice);
 		
 		return mv;
+	}
+	
+	/*시험지 리스트 뿌려주기*/
+	@RequestMapping("examManagement.do")
+	public String examManagement(Model model, Principal principal ) {
+		String member_id = principal.getName();
+		
+		List<ExamPaperDto> examPaperList;
+		List<ExamPaperDto> examTempList;
+		
+		examPaperList = teacherService.myExamPaperList(member_id);
+		model.addAttribute("myexamPaperList", examPaperList);
+		
+		examTempList = teacherService.myTempExamList(member_id);
+		model.addAttribute("myTempExamList",examTempList);
+		
+	
+		List<ExamInfoDto> examScheduleList;
+		examScheduleList = teacherService.examScheduleList(member_id);
+		model.addAttribute("examScheduleList", examScheduleList);
+
+		
+		return "common.teacher.exam.examManagement";
 	}
 	/*성태용 끝*/
 	
