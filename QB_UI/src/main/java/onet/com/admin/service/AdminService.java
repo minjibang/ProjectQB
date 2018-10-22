@@ -1,23 +1,21 @@
 ﻿package onet.com.admin.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.admin.dao.AdminDao;
-import onet.com.index.dao.IndexDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.RoleDto;
 
 @Service
 public class AdminService {
@@ -85,6 +83,18 @@ public class AdminService {
 	public List<MemberDto> memberList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<MemberDto> result = dao.memberList();
+		return result;
+	}
+	/* 영준 - 10.20 회원권한 선택 셀렉트메뉴 시작 */
+	public List<RoleDto> roleList(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<RoleDto> result = dao.roleList();
+		return result;
+	}
+	/* 영준 - 10.20 회원권한 선택 셀렉트메뉴 끝 */
+	public List<MemberDto> adminMemberView(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<MemberDto> result = dao.adminMemberView();
 		return result;
 	}
 	/*영준 - 10.10 회원관리 관련 끝 */

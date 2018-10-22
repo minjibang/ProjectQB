@@ -234,10 +234,18 @@ public class StudentController {
 	
 	/* 현이 18.10.19 학생 답안지 insert 시작 */
 	@RequestMapping(value="examPaperDo2.do", method=RequestMethod.POST)
-	public void examAnswerInsert(Student_answerDtoList answerList) throws ClassNotFoundException, SQLException, IOException {
+	public String examAnswerInsert(Student_answerDtoList answerList) throws ClassNotFoundException, SQLException, IOException {
+		
+		//System.out.println("controller에 들어옴");
 		
 		List<Student_answerDto> items = answerList.getStudent_answer();	
+		for(Student_answerDto item : items) {
+			//System.out.println(item.getExam_question_seq() + " : " +  item.getStudent_answer_choice());
+		}
+		
 		int result = studentService.examAnswerInsert(answerList);
+		
+		return "student.pastExam";
 		
 	}
 	/* 현이 18.10.19 학생 답안지 insert 끝 */

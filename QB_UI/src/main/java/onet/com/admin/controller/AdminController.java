@@ -27,11 +27,11 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
-import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.RoleDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -84,9 +84,23 @@ public class AdminController {
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
 		model.addAttribute("memberList", memberList);
+
+		List<RoleDto> roleList;
+		roleList = adminService.roleList();
+		model.addAttribute("roleList", roleList);
 				
 		return "admin.adminMember";
 		
+	}
+	@RequestMapping(value="adminMemberView.do")
+	public @ResponseBody ModelAndView adminMemberView() {
+		List<MemberDto> memberList = adminService.adminMemberView();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("admin.adminMember");
+		mv.addObject("memberList", memberList);
+		
+		return mv;
 	}
 	
 	
@@ -336,7 +350,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+	/*
 	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
@@ -353,7 +367,26 @@ public class AdminController {
 		
 		return mv;
 	}
+	*/
+
 	
+	/* 재훈 10.20 문제삭제 관련 start */
+	@RequestMapping("singleQuestionDelete.do")
+	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
+		System.out.println("컨트롤러 진입>>>>>" + question_num);
+		Map<String,Object> map = new HashMap <String,Object>();
+		int result = commonService.singleQuestionDelete(question_num);
+		if(result == 0) {
+			System.out.println("컨트롤러 if문 >> result 값 0");
+			map.put("result", "삭제불가");
+		}else {
+			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
+			map.put("result", "삭제가능");
+		}
+		return map;
+	}
+	
+
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
 	
 	/*양회준 18.10.15 문제 수정 시작	*/

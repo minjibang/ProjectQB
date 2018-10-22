@@ -94,6 +94,7 @@
 <script>
 	$(document).ready(function(){		
 		/*시험 응시*/
+		
 		$('#examBtn').click(function() {
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
 				//var popupX = (window.screen.width / 2) - (200 / 2);
@@ -102,10 +103,13 @@
 				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 				//window.open('', '', 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 				
+				
+				
 				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
 				var popOption = "width=100%, height=100%";
-		
-				window.open(popUrl, "지난 시험보기",popOption);
+				
+				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
+				window.open(popUrl, "지난 시험보기", popOption);
 			}else{
 				alert("시험이 종료되었습니다.")
 			}
