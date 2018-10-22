@@ -51,4 +51,5 @@ public interface CommonDao {
 	public int singleQuestionChoiceDelete(Question_choiceDto cdto);
 	/*재훈 - 문제관리 관련 10.21 끝 */
 
+	public int insertBoardList(NoticeDto dto);
 }

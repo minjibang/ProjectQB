@@ -389,6 +389,7 @@ public class AdminService {
 		List<CategoryDto> list = dao.selectSmRealList2(dto);
 		return list;
 	}
+	/*정원 문제분류 끝*/
 	
 	//양회준 10-22 admin 회원관리 비동기 검색
 	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, 
