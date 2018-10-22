@@ -100,12 +100,7 @@ public class TestManageController {
 		List<MemberDto> classMemberList;
 		classMemberList= teacherService.classMemberList(exam_paper_num);
 		model.addAttribute("classMemberList", classMemberList);
-		/*
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-		*/
+
 		ClassDto classInfo;
 		classInfo = teacherService.classInfo(exam_paper_num);
 		
@@ -113,8 +108,6 @@ public class TestManageController {
 		int class_num = classInfo.getClass_num();
 		model.addAttribute("class_name", class_name);
 		model.addAttribute("class_num", class_num);
-		System.out.println("===================="+class_name);
-		System.out.println("\\\\\\\\\\\\\\\\\\\\"+class_num);
 		
 		return "common.teacher.exam.examScheduleRegist";
 	}
