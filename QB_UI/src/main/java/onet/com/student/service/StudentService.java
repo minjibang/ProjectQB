@@ -42,6 +42,7 @@ public class StudentService {
 	            //System.out.println("정답");
 	            item.setStudent_answer_status(1);
 	         }
+
 			
 			result += dao.examAnswerInsert(item);
 		}

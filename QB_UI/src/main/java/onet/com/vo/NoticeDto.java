@@ -1,9 +1,13 @@
 package onet.com.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class NoticeDto {
 	
 	private int class_num;
-	private String notice_num;
+	private int notice_num;
 	private String class_name;
 	private String notice_name;
 	private String member_id;
@@ -13,17 +17,16 @@ public class NoticeDto {
 	private String notice_file3;
 	private String notice_date;
 	
-	
 	public int getClass_num() {
 		return class_num;
 	}
 	public void setClass_num(int class_num) {
 		this.class_num = class_num;
 	}
-	public String getNotice_num() {
+	public int getNotice_num() {
 		return notice_num;
 	}
-	public void setNotice_num(String notice_num) {
+	public void setNotice_num(int notice_num) {
 		this.notice_num = notice_num;
 	}
 	public String getClass_name() {
@@ -74,5 +77,9 @@ public class NoticeDto {
 	public void setNotice_date(String notice_date) {
 		this.notice_date = notice_date;
 	}
+	
+	
+	
+	
 
 }
