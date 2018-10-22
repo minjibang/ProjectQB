@@ -114,13 +114,20 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
-<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 시작 -->
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X)/선택회원 일괄삭제 시작 -->
 <update id="deleteMember" parameterType="onet.com.vo.MemberDto">
 	UPDATE member m, member_role mr
 	SET mr.role_code='ROLE_MEMBER', m.member_enable=0
 	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
 </update>
-<!-- 영준 10.15 회원정보 삭제(실제 삭제X) 끝 -->
+<!-- 영준 10.15 회원정보 삭제(실제 삭제X)/선택회원 일괄삭제 끝 -->
+
+<!-- 영준 10.22 선택회원 일괄 학생 등록 시작  -->
+<update id="insertMember" parameterType="onet.com.vo.MemberDto">
+	UPDATE member m, member_role mr
+	SET mr.role_code='ROLE_STUDENT'
+	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
+</update>
 
 <!-- 영준 - 10.10 회원관리 관련 끝 -->
 

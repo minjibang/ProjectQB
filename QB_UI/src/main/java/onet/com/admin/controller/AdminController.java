@@ -113,14 +113,26 @@ public class AdminController {
 		
 	}
 	
+	/* 영준 - 10.22 회원관리 회원 삭제 시작 */
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
 	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
 	{
 		int result = adminService.deleteMember(dto);
 		String result2 = String.valueOf(result);
+		System.out.println("삭제회원 결과 값 : " + result);
 		return result2;
 	}
-	
+	/* 영준 - 10.22 회원관리 회원 삭제 끝 */
+
+	/* 영준 - 10.22 선택회원 등록 시작 */
+	@RequestMapping(value="adminMemberInsert.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberInsert(@RequestBody MemberDto dto)
+	{
+		int result = adminService.insertMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+	}
+	/* 영준 - 10.22 선택회원 등록 끝 */
 	
 	/* 영준 10.15 회원관리관련 끝 */
 	
