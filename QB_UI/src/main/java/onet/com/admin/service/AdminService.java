@@ -97,6 +97,34 @@ public class AdminService {
 		List<MemberDto> result = dao.adminMemberView();
 		return result;
 	}
+	
+	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
+	public int updateMember(MemberDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.updateMember(dto);
+		return result;
+	}
+	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
+	
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
+	public int deleteMember(MemberDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.deleteMember(dto);
+		return result;
+	}
+
+	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
+	
+	
+	/* 영준 - 10.22 선택회원 일괄 학생 등록 시작 */
+	public int insertMember(MemberDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.insertMember(dto);
+		System.out.println("선택회원 결과 값 : " + result);
+		return result;
+	}
+	/* 영준 - 10.22 선택회원 일괄 학생 등록 끝 */
+	
 	/*영준 - 10.10 회원관리 관련 끝 */
 
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
@@ -146,13 +174,6 @@ public class AdminService {
 		return result;
 	}
 	/*민지 10.15 클래스 수정 끝*/
-	/* 영준 - 10.12 회원관리 회원정보 수정 시작 */
-	public int updateMember(MemberDto dto) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.updateMember(dto);
-		return result;
-	}
-	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 
 
 	// 정원 - 10.15 문제분류 insert 
@@ -218,18 +239,6 @@ public class AdminService {
 	}
 	// 정원 - 10.15 문제분류 insert 끝
 
-
-	
-	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
-	public int deleteMember(MemberDto dto) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.deleteMember(dto);
-		return result;
-	}
-
-	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
-
-	/* 영준 - 10.15 강사 시험관지 페이지 끝 */
 	
 	// 정원 - 10.16  시작
 	public List<CategoryDto> lgProblemCategoryList(){
