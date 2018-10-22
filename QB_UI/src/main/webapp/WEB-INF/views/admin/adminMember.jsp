@@ -246,7 +246,7 @@
 										<table id="adminMember_table" class="display">
 											<thead>
 												<tr>
-													<th><input type="checkbox" id="checkall">&nbsp;&nbsp;전체 선택</th>
+													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>
@@ -260,7 +260,7 @@
 											<tbody id="memberListView">
 												<c:forEach items="${memberDto}" var="memberList">
 													<tr>
-														<td><input type="checkbox" name="chk" value="chk"></td>
+														<td><input type="checkbox" id="chk" name="chk" value="chk"></td>
 														<td id="class_name" class="class_name">${memberList.class_name}</td>
 														<td id="member_id" class="member_id">${memberList.member_id}</td>
 														<td id="member_name" class="member_name">${memberList.member_name}</td>
@@ -286,11 +286,11 @@
 										<div id="adminMemberBtnDiv">
 											
 											<button class="insert-member btn btn-theme"
-													id="insertbtn" data-toggle="modal"
+													id="selectInsertbtn" name="selectInsertbtn" data-toggle="modal"
 													data-target="#InsertMemberModal">선택 회원 일괄
 											학생 등록</button>
 											<button type="button" class="delete-member btn btn-theme04"
-													id="deletebtn" data-toggle="modal" 
+													id="selectDeletebtn" name="selectDeletebtn" data-toggle="modal" 
 													data-target="#DeleteMemberModal">선택 회원 일괄 삭제</button>
 										</div>
 									</div>
