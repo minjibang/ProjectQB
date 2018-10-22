@@ -80,6 +80,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <!-- 태용 끝 -->
+<!-- 민지 시작 -->
+<select id="classMemberList" resultType="onet.com.vo.MemberDto">
+	select member_id, member_name from member where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
+</select>
+<select id="classInfo" resultType="onet.com.vo.ClassDto">
+	select class_num,class_name from class where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
+</select>
+<!-- 민지끝  -->
 
 <!-- 한결 : 강사 문제 리스트 불러오기 시작-->
 <select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">

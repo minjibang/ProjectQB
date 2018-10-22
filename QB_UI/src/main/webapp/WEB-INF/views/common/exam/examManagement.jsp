@@ -97,9 +97,9 @@
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지
 																수정</button>
-															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?class_num=${param.class_num}&exam_paper_name=${myexamPaperList.exam_paper_name}&exam_paper_num=${myexamPaperList.exam_paper_num}&class_name=${param.class_name}'">시험
-																등록</button>
+															<%-- <button type="button" class="btn btn-theme buttonGroup"
+																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?class_num=${param.class_num}&exam_paper_name=${myexamPaperList.exam_paper_name}&exam_paper_num=${myexamPaperList.exam_paper_num}&class_name=${param.class_name}'">시험등록</button> --%>
+																<button type="button" class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
 															<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
 														</div>
 														<hr>

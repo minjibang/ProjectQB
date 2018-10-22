@@ -2,9 +2,10 @@ package onet.com.teacher.dao;
 
 import java.util.List;
 
+import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
-import onet.com.vo.ExamQuestionDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Question_levelDto;
@@ -46,6 +47,8 @@ public interface TeacherDao {
 	
 	/*민지 - 10.18 시험등록*/
 	public int examInfoInsert(ExamInfoDto dto);
+	public List<MemberDto> classMemberList(int exam_paper_num);
+	public ClassDto classInfo(int exam_paper_num);
 	/*민지 - 10.18 시험등록 끝*/
 
 

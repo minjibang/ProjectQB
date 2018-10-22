@@ -6,11 +6,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import onet.com.index.dao.IndexDao;
 import onet.com.teacher.dao.TeacherDao;
+import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
-import onet.com.vo.ExamQuestionDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Question_levelDto;
@@ -141,6 +141,19 @@ public class TeacherService {
 	}
 	
 	/*--성태용 끝--*/
+	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
+	public List<MemberDto> classMemberList(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		List<MemberDto> result = dao.classMemberList(exam_paper_num);
+		return result;
+	}
+	public ClassDto classInfo(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		ClassDto result = dao.classInfo(exam_paper_num);
+		return result;
+		
+	}
 	
 	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
 	public int examScheduleDelete(int exam_info_num) {

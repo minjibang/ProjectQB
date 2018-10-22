@@ -1,20 +1,27 @@
 package onet.com.teacher.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
@@ -24,6 +31,8 @@ public class TestManageController {
 
 	@Autowired
 	private TeacherService teacherService;
+	
+	
 
 	/*성태용 시작*/
 	/*문제리스트 뿌려주기*/
@@ -82,6 +91,56 @@ public class TestManageController {
 		return "common.teacher.exam.examManagement";
 	}
 	/*성태용 끝*/
+	
+	/*민지 시작*/
+	@RequestMapping("examScheduleRegist.do")
+	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
+		System.out.println("======================"+exam_paper_num);
+		
+		List<MemberDto> classMemberList;
+		classMemberList= teacherService.classMemberList(exam_paper_num);
+		model.addAttribute("classMemberList", classMemberList);
+		/*
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList(class_num);
+		model.addAttribute("examPaperList", examPaperList);
+		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+		*/
+		ClassDto classInfo;
+		classInfo = teacherService.classInfo(exam_paper_num);
+		
+		String class_name = classInfo.getClass_name();
+		int class_num = classInfo.getClass_num();
+		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
+		System.out.println("===================="+class_name);
+		System.out.println("\\\\\\\\\\\\\\\\\\\\"+class_num);
+		
+		return "common.teacher.exam.examScheduleRegist";
+	}
+	/*민지:10.18 시험등록 */
+	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
+	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+		System.out.println("시험등록컨트롤러들어옴");
+		int result = 0;
+		String viewpage="";
+		
+		result=teacherService.examInfoInsert(dto);
+		if(result > 0) {
+			System.out.println("시험등록성공");
+			String class_name = dto.getClass_name();
+			System.out.println(class_name);
+			
+			String url = URLEncoder.encode(class_name, "UTF-8");
+			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+		}else {
+			System.out.println("시험등록 실패");
+			
+		}
+		return viewpage;
+	}
+	
+	/*민지 끝*/
 	
 	/*한결 시작*/
 	@RequestMapping("checkExam_paper.do")

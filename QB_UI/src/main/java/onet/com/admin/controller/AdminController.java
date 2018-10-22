@@ -139,7 +139,7 @@ public class AdminController {
 		model.addAttribute("classlist", classlist);
 		
 		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
+		classMemberList= teacherService.classMemberList(class_num);
 		model.addAttribute("classMemberList", classMemberList);
 		return "admin.adminClassInfo";
 	}
@@ -587,24 +587,6 @@ public class AdminController {
 	}
 	
 	
-	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
-	/*민지 :10.17 수정*/
-	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate(Model model, int class_num) {
-		
-		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
-		model.addAttribute("classMemberList", classMemberList);
-		
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-		
-		return "common.admin.exam.examScheduleUpdate";
-	}
-	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
-	
 	@RequestMapping("selectLgList.do")
 	public ModelAndView selectLgList(String lgCode) {
 		List<CategoryDto> list1 = adminService.selectLgList(lgCode);
@@ -660,48 +642,9 @@ public class AdminController {
 		mv.addObject("list3", list3);
 		return mv;
 	}
-	
-
-	/*민지:10.18 시험등록 */
-	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-		System.out.println("시험등록컨트롤러들어옴");
-		int result = 0;
-		String viewpage="";
-		
-		result=teacherService.examInfoInsert(dto);
-		if(result > 0) {
-			System.out.println("시험등록성공");
-			String class_name = dto.getClass_name();
-			System.out.println(class_name);
-			
-			String url = URLEncoder.encode(class_name, "UTF-8");
-			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
-		}else {
-			System.out.println("시험등록 실패");
-			
-		}
-		return viewpage;
-	}
-
 
 	/*민지:10.18 시험등록  끝*/
-		@RequestMapping("examScheduleRegist.do")
-		public String examScheduleRegist(Model model, int class_num) {
-			
-			List<MemberDto> classMemberList;
-			classMemberList= adminService.classMemberList(class_num);
-			model.addAttribute("classMemberList", classMemberList);
-			
-			List<ExamPaperDto> examPaperList;
-			examPaperList = teacherService.examPaperList(class_num);
-			model.addAttribute("examPaperList", examPaperList);
-			System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-			
-			
-			
-			return "common.admin.exam.examScheduleRegist";
-		}
+		
 
 	
 		}
