@@ -167,7 +167,7 @@
                 opener.insert = null;
                 self.close();
             } 
-		}, remain_time+lose_time); 
+		}, remain_time); 
 		
 		
 	});  // document.ready 종료 
@@ -244,6 +244,9 @@
 												<td>
 													<input type="radio" name="student_answer[${status.index}].student_answer_choice" id="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
 													value="${questionChoice.question_choice_num}">
+													
+													
+													
 													<label for="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}">${questionChoice.question_choice_content}</label>
 												</td>
 											</tr>
