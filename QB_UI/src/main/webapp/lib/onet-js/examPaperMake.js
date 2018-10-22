@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
          selected.push("<li><div class='row'>" 
                + $(this).parents(".qnumdiv").parents(".questionDiv").html()
                + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
-                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' min='1' max='5'  " +
+                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
                      "onchange='plusqcore()' /><hr></div></div></li>");
          /*문제 수 +1*/
          sortable_li_num++;
@@ -71,53 +71,38 @@ jQuery(document).ready(function() {
       $('#qnum').text(sortable_li_num);
       $('#qcore').text(qc);
    });
-   
-   
-   
-   /*모달창 내부 임시저장 클릭시*/
-   /*$('#pickQuestionTempSaveBtn').click(function(){
-      if($('.exam-paper-name').val() == ""){
-         swal("시험지 이름을 작성해주세요");
-         $('.exam-paper-name').focus();
-      }else if($('.exam-paper-desc').val() == ""){
-         swal("시험지 설명을 입력하세요(ex.기초 자바문제");
-         $('.exam-paper-desc').focus();
-      }else{
-         console.log("이제부터 데이터를 뿌려보자~");
 
-
-         
-         시험지 이름으로 시험지가 있는지 확인 >> 시험지 번호를 받아온다.
-         
-         
-         시험지생성 modal의 시험지이름, 설명에 텍스트 복사
-         $('.createEPaper').val(examName);
-         $('.createEPDesc').val(examDesc);
-         
-         $('#pickQuestionTempSaveModal').modal('hide');
-      }
-   });*/
-   
-
-   /*점수가 100점일때만 시험지생성 활성화*/
-   $('#makeExamSubmitModalBtn').click(function(){
-      if($('#qcore').text()==100){
-         $('#makeExamSubmitModal').modal();
-      }else{
-         swal("현재 총 배점을 확인해주세요.\n총 배점이 100점일때만 시험지를 생성할 수 있습니다.");
-      }
+   /*임시저장 버튼 눌렀을 떄*/
+   $('#pickQuestionTempSaveModalBtn').click(function(){
+	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+		   if($(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()==""){
+			   $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val("0");
+			   
+		   }
+	   });
+	   $('#pickQuestionTempSaveModal').modal(); 
    });
    
-  /* 시험지 생성 모달창
-   $('#makeExamSubmitBtn').click(function(){
-	   var examName = $('.createEPaper').val();
-	   var memId = $('.dpn1').val();
-	   var examDesc = $('.createEPDesc').val();
-	   var examPStatus = $('#createEP').val();
+   /*점수가 100점일때 그리고 배점에 빈칸이 없을 떄 시험지생성 활성화*/
+   $('#makeExamSubmitModalBtn').click(function(){
+	   var count = [];
+	   var score = [];
 	   
+	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+		   var eachScore = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
+		   count.push(index);
+		   if(eachScore!=""){
+			   score.push(eachScore);
+		   }
+	   });
+	   if(count.length == score.length && $('#qcore').text()==100){
+		   $('#makeExamSubmitModal').modal();
+	   }else{
+		   swal("각 문제의 배점 및 총 배점을 확인해주세요.\n총 배점이 100점일때만 시험지를 생성할 수 있습니다.\n");
+	   }
 	   
-	   
-   });*/
+   });
+   
 });
 
 function makeExamSubmitBtn(num){
@@ -127,15 +112,29 @@ function makeExamSubmitBtn(num){
 	var examDesc = "";
 	var examPStatus = num;
 	if(num==0){
-		examName=$('.exam-paper-name').val();
-		examDesc=$('.exam-paper-desc').val();
-
+		if($('.exam-paper-name').val()==""){
+			swal("시험지 이름을 작성해주세요");
+		}else if($('.exam-paper-desc').val()==""){
+			swal("시험지 설명을 작성해주세요\n(ex.기초 자바문제)");
+		}
+		examName=$('.exam-paper-name').val().trim();
+		examDesc=$('.exam-paper-desc').val().trim();
+		$('.createEPaper').val(examName);
+		$('.createEPDesc').val(examDesc);
 	}else{
-		examName=$('.createEPaper').val();
-		examDesc=$('.createEPDesc').val();
+		if($('.createEPaper').val()==""){
+			swal("시험지 이름을 작성해주세요");
+		}else if($('.createEPDesc').val()==""){
+			swal("시험지 설명을 작성해주세요\n(ex.기초 자바문제)");
+		}
+		examName=$('.createEPaper').val().trim();
+		examDesc=$('.createEPDesc').val().trim();
 
 	}
 	console.log("================="+examDesc);
+
+	console.log(examName);
+	console.log(examDesc);
 	
 	$.ajax({
         url:"checkExam_paper.do",
@@ -183,6 +182,9 @@ function makeExamSubmitBtn(num){
                 	            },
                 	            success:function(data){
                 	               console.log(data);
+                	               if(num!=0){
+                	            	   location.href="examManagement.do";
+                	               }
                 	            }
                 	         });
                 	         console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
@@ -242,7 +244,7 @@ function makeExamSubmitBtn(num){
                  var EQSeq=(Number(index) + 1);
                  console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
                  var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
-                    /*insert자리*/
+                    insert자리
                     $.ajax({
                        url:"examQuestionInsert.do",
                        type:"get",
@@ -255,6 +257,9 @@ function makeExamSubmitBtn(num){
                        },
                        success:function(data){
                           console.log(data);
+                          /*if(num!=0){
+       	            	   location.href="examManagement.do?class_num"+???;
+       	               	  }*/
                        }
                     });
                  });
@@ -273,10 +278,10 @@ function makeExamSubmitBtn(num){
 function plusqcore(){
 	var qc = Number($('#qcore').val());
 	$('.questionScoreInputTag').each(function(){
-		if($(this).val()>101){
-			swal("한 문제당 최대 배점은 5점까지 인정됩니다.");
-			$(this).val(5);
-			qc += Number(5);
+		if($(this).val()>20){
+			swal("한 문제당 최대 배점은 20점까지 인정됩니다.");
+			$(this).val(20);
+			qc += Number(20);
 		} else {
 			qc += Number($(this).val());
 		}
@@ -288,15 +293,6 @@ function plusqcore(){
 		$('#qcore').text(qc);
 };
 
-function CRUD(exam_paper_name, member_id, exam_paper_desc, exam_paper_status){
-	
-}
-
-/*상단 시험지 생성이후 실행되는 successFunction()*/
-function successFunction(data,tt){
-	console.log("================successFunction 이후 성공 >> "+tt);
-   
-}
 
 $(function() {
 	$("#sortable").sortable();
