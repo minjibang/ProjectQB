@@ -61,6 +61,8 @@ $(document).ready(function(){
 			}
 		
 		
+		
+		
 	var class_num_parameter=$('#hidden_class_num2').val();
 	console.log("파라미터 클래스이름>>"+class_num_parameter);
 		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
@@ -77,12 +79,19 @@ $(document).ready(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
+   				if($('#cemail').val()==""||$('#curl').val()==""){
+   					swal("입력칸을 채워주세요.", "", "error");
+   				}else{
+   					swal({
+   	                   title: "수정 되었습니다",
+   	                  text: "",
+   	                  icon:"success"
+   	               }).then(function() {
+   	                   window.location = "adminClassInfo.do?class_num="+class_num_parameter;
+   	               });
 
-
-   				  alert("수정성공");
-
-   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
-
+   				  
+   				}
 
    			  },
    			  error: function(request, status, error){
@@ -169,8 +178,19 @@ $(document).ready(function(){
    			 processData: false,
   			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
-   				  alert("수정성공");
-   				  location.href="adminClassInfo.do?class_num="+class_num_parameter;
+   				  if($('#teacher_name').val()==""|| $('#form').val()==""||$('#to').val()==""||$('#updatetab_class_name').val()=="" ){
+   					swal("입력칸을 채워주세요.", "칸을 채워주세요", "error");
+   					  
+   				  }
+   				  else{
+   					swal({
+    	                   title: "수정 되었습니다",
+    	                  text: "",
+    	                  icon:"success"
+    	               }).then(function() {
+    	                   window.location = "adminClassInfo.do?class_num="+class_num_parameter;
+    	               });
+   				  }
    			  }
    		});
 		
@@ -215,6 +235,7 @@ function confirmName() {
 			},
 			dataType : 'json',
 			success : function(data) {
+			
 				if (data.result == true) {
 					iddiv.innerHTML = "사용가능한 이름 입니다.";
 					iddiv.style.color = 'blue';
@@ -230,6 +251,7 @@ function confirmName() {
 					iddiv.style.color = "red";
 					namecheck = false;
 				}
+	
 			}
 		});
 	}

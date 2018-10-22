@@ -45,7 +45,7 @@
 							</table>
 						</div>
 						<div>
-							<button id="noticeWrite_btn" class="btn btn-theme" onclick="location.href='noticeWrite.do'">글쓰기</button>
+							<button id="noticeWrite_btn" class="btn btn-theme" >글쓰기</button>
 						</div>
 					</div>
 				</section>
@@ -111,5 +111,6 @@
 	</section>
 	<!-- /wrapper -->
 </section>
+
 <!-- /MAIN CONTENT -->
 <!--main content end-->
