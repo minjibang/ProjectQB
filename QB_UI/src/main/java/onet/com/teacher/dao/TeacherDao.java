@@ -28,6 +28,7 @@ public interface TeacherDao {
 	public int examQuestionSelect(String exam_paper_num, String question_num);
 	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
 	public int examQuestionDelete(String exam_paper_num);
+
 	/*한결 끝*/
 
 	/*재훈 10.19:강사 - 내 문제함 */
@@ -57,6 +58,7 @@ public interface TeacherDao {
 	public List<ExamPaperDto> myExamPaperList(String member_id);
 	public List<ExamPaperDto> myTempExamList(String member_id);
 	public List<ExamInfoDto> examScheduleList(String member_id);
+	public int deleteExam(int exam_paper_num);
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 시험일정 삭제 시작 */

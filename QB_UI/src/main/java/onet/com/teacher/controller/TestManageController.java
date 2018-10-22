@@ -90,6 +90,17 @@ public class TestManageController {
 		
 		return "common.teacher.exam.examManagement";
 	}
+	@RequestMapping("deleteExam.do")
+	public String deleteExam(int exam_paper_num) {
+		
+		int result = teacherService.deleteExam(exam_paper_num);	
+		
+		if(result == 0) {
+			System.out.println("삭제실패");
+		}
+		
+		return "redirect:examManagement.do";
+	}
 	/*성태용 끝*/
 	
 	/*민지 시작*/
@@ -100,12 +111,7 @@ public class TestManageController {
 		List<MemberDto> classMemberList;
 		classMemberList= teacherService.classMemberList(exam_paper_num);
 		model.addAttribute("classMemberList", classMemberList);
-		/*
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-		*/
+
 		ClassDto classInfo;
 		classInfo = teacherService.classInfo(exam_paper_num);
 		
@@ -113,8 +119,6 @@ public class TestManageController {
 		int class_num = classInfo.getClass_num();
 		model.addAttribute("class_name", class_name);
 		model.addAttribute("class_num", class_num);
-		System.out.println("===================="+class_name);
-		System.out.println("\\\\\\\\\\\\\\\\\\\\"+class_num);
 		
 		return "common.teacher.exam.examScheduleRegist";
 	}
@@ -187,7 +191,7 @@ public class TestManageController {
 		int result = teacherService.examQuestionDelete(exam_paper_num);
 		return result;
 	}
-	
+
 	/*한결 끝*/
 	
 	
