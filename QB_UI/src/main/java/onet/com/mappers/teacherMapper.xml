@@ -173,6 +173,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="examQuestionDelete" parameterType="String">
 	delete from exam_question where exam_paper_num=#{param1}
 </delete>
+
 <!-- 한결 10.17 끝-->
 
 <!-- 영준 10.18 시험 일정 삭제 시작 -->
