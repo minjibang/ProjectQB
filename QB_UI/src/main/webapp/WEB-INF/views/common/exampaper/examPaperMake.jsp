@@ -10,15 +10,6 @@
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style>
-.dpn{
-	display:none;
-}
-.ppp{
-	background-color:yellow;
-}
-
-</style>
 <section id="main-content">
    <section class="wrapper">
       <div class="row mt">
@@ -110,9 +101,12 @@
                      <div class="col-lg-6 makeExamBtnDiv">
                         <input type="button" class="btn btn-theme04" value="선택문제 삭제"
                            id="pickQuestionDeleteBtn">
-                           <input type="button"
+                           <!-- <input type="button"
                            class="btn btn-theme" value="임시저장" data-toggle="modal"
                            data-target="#pickQuestionTempSaveModal"
+                           id="pickQuestionTempSaveModalBtn"> -->
+                           <input type="button"
+                           class="btn btn-theme" value="임시저장" 
                            id="pickQuestionTempSaveModalBtn">
                            <input type="hidden" id="copyTempSave" value="">
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
