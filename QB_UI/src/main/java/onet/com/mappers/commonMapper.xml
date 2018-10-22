@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="examPaperDoQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->
-	select question_num, question_choice_num, question_choice_content 
+	select question_num, question_choice_num, question_choice_content, question_choice_image 
 	from question_choice
 	where question_num in 	
 	(select q.question_num

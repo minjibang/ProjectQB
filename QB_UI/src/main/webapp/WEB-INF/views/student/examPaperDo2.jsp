@@ -244,12 +244,14 @@
 												<td>
 													<input type="radio" name="student_answer[${status.index}].student_answer_choice" id="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
 													value="${questionChoice.question_choice_num}">
-													
-													
-													
 													<label for="ques_${question.exam_question_seq}_${questionChoice.question_choice_num}">${questionChoice.question_choice_content}</label>
 												</td>
 											</tr>
+												<c:if test="${questionChoice.question_choice_image ne null}">
+													<tr>
+														<td></td><td><img class="answer_choice_image" src="${pageContext.request.contextPath}/img/${questionChoice.question_choice_image}"></td>
+													</tr>
+												</c:if>
 											</c:if>
 										</c:forEach>
 									</c:when>
