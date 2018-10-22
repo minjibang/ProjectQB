@@ -33,19 +33,20 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${notice}" var="notice">
-										<tr class="" onClick="location.href='noticeDetail.do'">
+										<tr class="notice_tr" onClick="location.href='noticeDetail.do'">
 											<td class="notice_num">${notice.notice_num}</td>
 											<td class="notice_name">${notice.notice_name}</td>
 											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
 											<td class="notice_member_id">${notice.member_id}</td>
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
+										<input type="hidden" class="notice_classname" value="${notice.class_name}">
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
 						<div>
-							<button id="noticeWrite_btn" class="btn btn-theme" onclick="location.href='noticeWrite.do'">글쓰기</button>
+							<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
 						</div>
 					</div>
 				</section>
@@ -99,7 +100,7 @@
 							</a></li>
 							<li><a href="#"> <i class="fa fa-file-text-o"></i>
 									Drafts <span
-									class="label label-info pull-right inbox-notification">8</span></a></a>
+									class="label label-info pull-right inbox-notification">8</span></a>
 							</li>
 							<li><a href="#"> <i class="fa fa-trash-o"></i> Trash
 							</a></li>
@@ -111,5 +112,27 @@
 	</section>
 	<!-- /wrapper -->
 </section>
+
+<script>
+$(document).ready(function(){
+	var class_name1 = $('.notice_classname').val();
+	document.getElementById('noticeWrite_btn').setAttribute('value', class_name1);
+	
+	$('#noticeWrite_btn').click(function(){
+		
+		var notice_num = $('.notice_tr').length + 1;
+		
+		var class_name2 = $('#noticeWrite_btn').val();
+		console.log(notice_num);
+		console.log(class_name2);
+		location.href="noticeWrite.do?notice_num="+ notice_num +"&class_name=" + class_name2;
+		 
+	});
+	
+});
+
+
+</script>
+
 <!-- /MAIN CONTENT -->
 <!--main content end-->

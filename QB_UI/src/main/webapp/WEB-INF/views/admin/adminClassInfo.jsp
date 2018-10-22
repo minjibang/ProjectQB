@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/adminClassInfo.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--main content start-->
 
 <section id="main-content">
@@ -48,14 +48,14 @@
 											<div class="form-group">
 												<label for="cemail" class="control-label col-lg-2">이메일</label>
 												<div class="col-lg-10">
-													<input class="form-control" id="cemail" name="member_email" type='email' required/>
+													<input class="form-control" id="cemail" name="member_email" type="email" placeholder="이메일을 입력해주세요" required/>
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="curl" class="control-label col-lg-2">핸드폰</label>
 												<div class="col-lg-10">
 													<input class="form-control" id="curl" type="text"
-														name="member_phone" />
+														name="member_phone" placeholder="번호를 입력해주세요" required/>
 												</div>
 											</div>
 											<div class="form-group">
@@ -217,7 +217,7 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">클래스</label>
 															<div class="col-md-6">
-																<input class="form-control" id="updatetab_class_name"  type="text" value='${classlist.class_name}' onblur="confirmName()"/>
+																<input class="form-control" id="updatetab_class_name"  type="text" value='${classlist.class_name}' onblur="confirmName()" required/>
 																<input id="hiddenName" value="${classlist.class_name}" type="hidden"/>
 																<div id="namediv"></div>
 															</div>
@@ -228,8 +228,8 @@
 																<div class="input-group input-large"
 																	data-date="01/01/2014" data-date-format="mm-dd-yyyy">
 																	<input type="text" class="form-control dpd1"
-																		name="from" id="from" value='${classlist.class_start_date}'> <span class="input-group-addon">To</span>
-																	<input type="text" class="form-control dpd2" name="to" id="to" value='${classlist.class_end_date}'>
+																		name="from" id="from" value='${classlist.class_start_date}' required/> <span class="input-group-addon">To</span>
+																	<input type="text" class="form-control dpd2" name="to" id="to" value='${classlist.class_end_date}' required/>
 																
 																</div>
 																<span class="help-block">Select date range</span>
@@ -238,7 +238,7 @@
 														<div class="form-group">
 															<label class="control-label col-md-3">강사</label>
 															<div class="col-md-6 col-xs-12">
-																<input class="form-control" id="teacher_name" type="text" value='${classlist.teacher_name}'/>
+																<input class="form-control" id="teacher_name" type="text" value='${classlist.teacher_name}' required/>
 															</div>
 														</div>
 														<div class="col-md-9 col-xs-12" id="AdminUpdateBtn" >

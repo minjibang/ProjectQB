@@ -7,6 +7,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+
 <!-- 강사 공지사항 글쓰기 -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -21,20 +23,21 @@
 								<table class="table">
 									<tr>
 										<td class="fst_td">제목</td>
-										<td class="scd_td"><input type="text" id="notice_title"
+										<td class="scd_td"><input type="text" id="notice_title" name="notice_name"
 											class="notice_input" placeholder="제목을 입력해주세요" required /></td>
 									</tr>
 									<tr>
 										<td class="fst_td">내용</td>
-										<td class="sec_td"><textarea id="notice_content" class="summernote1 notice_input" 
+										<td class="sec_td"><textarea id="notice_content" name="notice_content" class="summernote1 notice_input" 
 												rows="20" placeholder="내용을 입력해주세요" required></textarea></td>
 									</tr>
 									<tr>
 										<td class="fst_td">파일 첨부</td>
 										<td>
-											<input type="file" id="txtFile" name="files[0]" />
-											<input type="file" id="txtFile" name="files[1]" />
-											<input type="file" id="txtFile" name="files[2]" />
+											<input type="file" id="txtFile1" name="files1" />
+											<input type="file" id="txtFile2" name="files2" />
+											<input type="hidden" id="notice_num" name="notice_num" value="${notice_num}">
+											<input type="hidden" id="class_name" name="class_name" value="${class_name}"> 
 										</td>
 									</tr>
 									<tr>

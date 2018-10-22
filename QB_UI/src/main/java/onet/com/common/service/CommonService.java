@@ -154,6 +154,17 @@ public class CommonService {
 			return result;
 		}
 	}
+	
+	public int insertBoardList(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.insertBoardList(dto);
+		
+		
+		return result;
+	}
+	
+	
+	
 }
 
 
