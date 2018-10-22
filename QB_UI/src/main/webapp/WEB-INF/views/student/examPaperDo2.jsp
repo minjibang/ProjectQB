@@ -82,6 +82,11 @@
 			var img_ques_id = $(this).find('img').attr('id').substr(4);
 			$("#" + img_ques_id).css("display", "block"); //  문제 보기에 체크 이미지 보이게  
 			$(this).find('img').css("display", "block"); // 답지에 체크 이미지 보이게 
+					
+			// 답안지에서 체크했을 때 문제의 라디오 버튼 체크하기
+			var answer_id2 = $(this).find('img').attr('id');	
+			var radio_id = answer_id2.substr(8);
+			$('#' + radio_id).attr('checked', 'checked');
 		});
 
 		// 단답형 답 문제지와 답지 동시에 입력하기 
@@ -102,16 +107,37 @@
 		// 제출 버튼 눌렀을 때 form 제출 (폼의 타깃을 부모창으로 설정해 controller에서 페이지 이동 경로 지정해줌)
 	 	$('#examPaperSubmit').click(function(){
 	 		
- 			if(confirm("시험을 제출하시겠습니까?")){
-				$('#answerForm').target = opener.name;
-				$('#answerForm').submit();
- 	            if (opener != null) {
-	                opener.insert = null;
-	                self.close();
-	            } 
-			} else {
-				return false;
-			}
+	 		var questionCount = ${questionCount};
+	 		for(var i = 0; i < questionCount; i++){   
+	 			// console.log(i + " : " + $('input[name="student_answer['+i+'].student_answer_choice"]:checked').length);
+	 			if($('input[name="student_answer['+i+'].student_answer_choice"]:checked').length == 0 ||  
+	 					$('.ques_choice input[type="text"]').val() == ""){	//	문제를 모두 풀지 않았을 때 
+	 				if(confirm("문제를 모두 풀지 않았습니다. \n제출하시겠습니까? ")){
+	 					$('#answerForm').target = opener.name;
+	 					$('#answerForm').submit();
+	 	 	            if (opener != null) {
+	 		                opener.insert = null;
+	 		                self.close();
+	 		            }
+	 	 	        break;
+	 				} else {
+	 					return false;
+	 				}
+	 			} else {  
+	 				if(confirm("시험을 제출하시겠습니까?")){   	//	문제를 모두 풀었을 때 
+	 					$('#answerForm').target = opener.name;
+	 					$('#answerForm').submit();
+	 	 	            if (opener != null) {
+	 		                opener.insert = null;
+	 		                self.close();
+	 		            } 
+	 	 	        break;    
+	 				} else {
+	 					return false;
+	 				}
+	 			}
+	 		} 
+
 		});  // 제출 버튼 눌렀을 때 스크립트 종료 부분
 		
 		
@@ -125,6 +151,7 @@
                 self.close();
             } 
 		}, total_time); 
+		
 		
 	});  // document.ready 종료 
 </script>
