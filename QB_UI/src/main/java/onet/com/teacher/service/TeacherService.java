@@ -164,5 +164,25 @@ public class TeacherService {
 	}
 	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
 
-
+	/*민지 - 10.22 시험일정 수정*/
+	
+	public List<ExamInfoDto> classExamList(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setExam_info_num(exam_info_num);
+		List<ExamInfoDto> result = dao.classExamList(dto);
+		return result;
+	}
+	
+	
+	public int examInfoIUpdate(ExamInfoDto dto) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		int result = dao.examInfoIUpdate(dto);
+		
+		return result;
+	}
+	
+	/*민지 - 10.22 시험일정 수정 끝*/
+	
 }

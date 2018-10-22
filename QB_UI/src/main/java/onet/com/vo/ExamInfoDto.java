@@ -13,6 +13,8 @@ public class ExamInfoDto {
 	private String exam_info_end;
 	private String exam_info_time;
 	private int class_num;
+	
+	
 	public int getExam_info_num() {
 		return exam_info_num;
 	}

@@ -216,7 +216,7 @@
 																class="btn btn-theme04 buttonGroup" data-toggle="modal"
 																data-target="#scheduleDeleteModal" value="">삭제</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_paper_num=${examScheduleList.exam_info_name}&exam_paper_name=${examScheduleList.exam_info_name}'">시험
+																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
 																일정 수정</button>
 
 															<input type="hidden" id="hidden_class_num"

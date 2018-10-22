@@ -189,4 +189,40 @@ public class TestManageController {
 	}
 	
 	/*한결 끝*/
+	
+	
+	/*민지 시험일정 수정 시작*/
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate(Model model, int exam_info_num) {
+
+		
+		List<ExamInfoDto> classExamList;
+		classExamList= teacherService.classExamList(exam_info_num);
+		model.addAttribute("classExamList", classExamList);
+		/*
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList(class_num);
+		model.addAttribute("examPaperList", examPaperList);
+		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+		*/
+		
+		
+		return "common.teacher.exam.examScheduleUpdate";
+	}
+	
+	@RequestMapping("examInfoIUpdate.do")
+	public String examInfoIUpdate(ExamInfoDto dto) {
+		
+		System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
+		
+		int result = teacherService.examInfoIUpdate(dto);
+		
+		if(result == 0) {
+			System.out.println("에에에엥에에러 안바꼇어 바보들아");
+		}
+		
+		return "redirect:examManagement.do";
+	}
+		
+	/*민지 시험일정 수정 끝*/
 }

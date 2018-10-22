@@ -1,5 +1,5 @@
 /* 체크박스 체크시 전체선택 체크 여부 */
-$(document).ready(function(){
+
 	function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 }
@@ -39,51 +39,14 @@ function oneCheckFunc( obj )
 		});
 	});
 	
-});
 
 
-
-function check(){
-	var timeinfodiv = document.getElementById("timeinfo");
-	console.log("@@@@@@@@@@@@@@");
-	var datecheck = false;
-	var start = $('#exam_info_start').val();
-	var end = $('#exam_info_end').val();
-	console.log("시작:"+start +"종료:" +end);
-	var start_hour = start.substring(0,2);
-	var end_hour=end.substring(0,2);
-	console.log("시작hour:"+ start_hour+"종료hour:"+ end_hour);
-	var start_m=start.substring(3);
-	var end_m = end.substring(3);
-	console.log("시작 m:"+ start_m+"종료 m"+end_m);
 	
-	if(start_hour > end_hour){
-		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
-		timeinfodiv.style.color = 'red';
-		
-		return false;
-	}else if(start_hour == end_hour){
-		if(start_m > end_m){
-			timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
-			timeinfodiv.style.color = 'red';
-			return false;
-		}else if(start_m== end_m){
-			timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
-			timeinfodiv.style.color = 'red';
-			return false;
-		}
-	}else if(start==""&& end==""){
-		timeinfodiv.innerHTML = "시간설정을 해주세요.";
-		timeinfodiv.style.color = 'bule';
-		return false;
-		
-	}else{
-		
-		
-		return true;
-	}
 
-}
+
+
+
+
 
 function checktime(){
 	var start = $('#exam_info_start').val();
@@ -137,9 +100,6 @@ function checktime(){
 	}else{
 	time.value=hour+":"+min+":0"+sec;}
 	}
-
-
-
 
 
 

@@ -62,5 +62,10 @@ public interface TeacherDao {
 	/* 영준 - 10.18 시험일정 삭제 시작 */
 	public int examScheduleDelete(int exam_info_num);
 	/* 영준 - 10.18 시험일정 삭제 끝 */
-
+	
+	/*민지 -10.22 시험일정  수정시작*/
+	public List<ExamInfoDto>classExamList(ExamInfoDto dto);
+	
+	public int examInfoIUpdate(ExamInfoDto dto);
+	/*민지 - 10.22 시험일정 수정 끝*/
 }

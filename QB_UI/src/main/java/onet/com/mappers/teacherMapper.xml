@@ -177,9 +177,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 영준 10.18 시험 일정 삭제 시작 -->
 <delete id="examScheduleDelete" parameterType="int">
-	DELETE FROM exam_info
-	WHERE exam_info_num=#{exam_info_num}
+	DELETE FROM exam_infoWHERE exam_info_num=#{exam_info_num}
 </delete>
+
+<!-- 민지 10.22 시험일정 수정 시작 -->
+<select id="classExamList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
+select * from exam_info where exam_info_num=#{exam_info_num}
+
+</select>
+
+<update id="examInfoIUpdate" parameterType="onet.com.vo.ExamInfoDto">
+	update exam_info set exam_info_desc=#{exam_info_desc}, exam_info_member=#{exam_info_member}, exam_info_date=#{exam_info_date}, exam_info_start=#{exam_info_start},exam_info_end=#{exam_info_end}, exam_info_time=#{exam_info_time} where exam_info_num = #{exam_info_num}
+</update>
+<!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>
 
