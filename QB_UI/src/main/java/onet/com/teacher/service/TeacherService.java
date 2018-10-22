@@ -139,6 +139,11 @@ public class TeacherService {
 		List<ExamInfoDto> result = dao.examScheduleList(member_id);
 		return result;
 	}
+	public int deleteExam(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.deleteExam(exam_paper_num);
+		return result;
+	}
 	
 	/*--성태용 끝--*/
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/

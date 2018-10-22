@@ -41,46 +41,20 @@
 						<!-- 내 시험지 탭 시작 -->
 						<div id="overview" class="tab-pane active">
 							<div class="row">
-								<!-- 내 시험지 DeleteModal 시작-->
-								<div class="modal fade" id="DeleteModal" tabindex="-1"
-									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
-												<h4 class="modal-title" id="myModalLabel">시험지 삭제</h4>
-												<!-- modal-header 끝 -->
-											</div>
-											<div class="modal-body">정말 삭제하시겠습니까?</div>
-											<div class="modal-footer">
-												<div class="form-group">
-													<div class="col-lg-offset-2 col-lg-10">
-														<button id="deletebtn" name="deletebtn"
-															class="btn btn-theme" data-toggle="modal"
-															data-dismiss="modal">예</button>
-														<button class="btn btn-theme04" type="button"
-															data-dismiss="modal">아니오</button>
-													</div>
-												</div>
-											</div>
-											<!-- modal-content 끝 -->
-										</div>
-										<!-- modal-dialog 끝 -->
-									</div>
-									<!-- 내 시험지 DeleteModal 끝 -->
-								</div>
-
-
-								<div id="div_myExam" class="col-md-12">									
-									<a href="${pageContext.request.contextPath}/teacher/examPaperMake.do" class="examPaper-insert"> <img src="../img/material-icon.png"> <strong>새 시험지 만들기</strong></a>
+								<div id="div_myExam" class="col-md-12">
+									<a
+										href="${pageContext.request.contextPath}/teacher/examPaperMake.do"
+										class="examPaper-insert"> <img
+										src="../img/material-icon.png"> <strong>새 시험지
+											만들기</strong></a>
 									<hr>
 									<form action="" method="post" id="pickMyExamPaperForm">
 										<div class="col-lg-12">
 											<!-- 시험지 하나의 div 시작 -->
 											<div id="examPaperDiv">
 												<c:forEach items="${myexamPaperList}" var="myexamPaperList">
-													<input type="hidden" id="exam_paper_num" value='${myexamPaperList.exam_paper_num}' />
+													<input type="hidden" id="exam_paper_num"
+														value='${myexamPaperList.exam_paper_num}' />
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
 														<h4 id="exam_paper_name">
@@ -88,19 +62,18 @@
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
 
+														
 														<div class="pdf_download text-right">
-															<a href="#">PDF 다운로드 <img src="../img/file-download.png"></a>
-															<button type="button" id="deleteExamPaperBtn"
-																name="deleteExamPaperBtn"
-																class="btn btn-theme04 buttonGroup" data-toggle="modal"
-																data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
+															<a href="#">PDF 다운로드 <img
+																src="../img/file-download.png"></a>
+															<button type="button" id="${myexamPaperList.exam_paper_num}" class="btn btn-theme04 buttonGroup" onclick="deleteExamCheck()">삭제</button>
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지
-																수정</button>
-															<%-- <button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?class_num=${param.class_num}&exam_paper_name=${myexamPaperList.exam_paper_name}&exam_paper_num=${myexamPaperList.exam_paper_num}&class_name=${param.class_name}'">시험등록</button> --%>
-																<button type="button" class="btn btn-theme buttonGroup" onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
-															<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
+																수정</button>											
+															<button type="button" class="btn btn-theme buttonGroup"
+																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
+															<input type="hidden" id="hidden_class_num"
+																value='${param.class_num}'>
 														</div>
 														<hr>
 													</div>
@@ -119,14 +92,19 @@
 						<div id="tempExamPaper" class="tab-pane">
 							<div class="row">
 								<div id="div_tempExam" class="col-md-12">
-									<a href="${pageContext.request.contextPath}/teacher/examPaperMake.do" class="examPaper-insert"> <img src="../img/material-icon.png"> <strong>새 시험지 만들기</strong></a>
+									<a
+										href="${pageContext.request.contextPath}/teacher/examPaperMake.do"
+										class="examPaper-insert"> <img
+										src="../img/material-icon.png"> <strong>새 시험지
+											만들기</strong></a>
 									<hr>
 									<form action="" method="post" id="pickMyExamPaperForm">
 										<div class="col-lg-12">
 											<!-- 시험지 하나의 div 시작 -->
 											<div id="examPaperDiv">
 												<c:forEach items="${myTempExamList}" var="myTempExamList">
-													<input type="hidden" id="exam_paper_num" value='${myTempExamList.exam_paper_num}' />
+													<input type="hidden" id="exam_paper_num"
+														value='${myTempExamList.exam_paper_num}' />
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
 														<h4 id="exam_paper_name">
@@ -134,8 +112,10 @@
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myTempExamList.exam_paper_desc}
 
+														
 														<div class="pdf_download text-right">
-															<a href="#">PDF 다운로드 <img src="../img/file-download.png"></a>
+															<a href="#">PDF 다운로드 <img
+																src="../img/file-download.png"></a>
 															<button type="button" id="deleteExamPaperBtn"
 																name="deleteExamPaperBtn"
 																class="btn btn-theme04 buttonGroup" data-toggle="modal"
@@ -143,7 +123,8 @@
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지
 																수정</button>
-															<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
+															<input type="hidden" id="hidden_class_num"
+																value='${param.class_num}'>
 														</div>
 														<hr>
 													</div>
@@ -225,14 +206,9 @@
 														<hr>
 													</div>
 												</c:forEach>
-
 											</div>
 										</div>
-
 									</form>
-
-
-
 									<!-- /col-md-12 -->
 								</div>
 								<!-- /row -->
@@ -248,13 +224,9 @@
 					</div>
 					<!-- /row content-panel div_table -->
 				</div>
-
-
 			</div>
-
 		</div>
 		<!-- row content-panel div_table -->
-
 	</section>
 	<!-- wrapper site-min-height -->
 </section>
@@ -268,3 +240,14 @@
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examManagement.js"
 	type="text/javascript"></script>
+	
+<script>
+function deleteExamCheck(){
+	var button_id = window.event.target.id;
+	var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
+	if(deleteconfirm == true){
+		location.href="deleteExam.do?exam_paper_num="+button_id;
+	}else{
+	}
+}
+</script>

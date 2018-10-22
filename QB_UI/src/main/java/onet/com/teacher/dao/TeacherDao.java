@@ -57,6 +57,7 @@ public interface TeacherDao {
 	public List<ExamPaperDto> myExamPaperList(String member_id);
 	public List<ExamPaperDto> myTempExamList(String member_id);
 	public List<ExamInfoDto> examScheduleList(String member_id);
+	public int deleteExam(int exam_paper_num);
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 시험일정 삭제 시작 */

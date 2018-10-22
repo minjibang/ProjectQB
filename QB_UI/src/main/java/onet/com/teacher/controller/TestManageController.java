@@ -90,6 +90,17 @@ public class TestManageController {
 		
 		return "common.teacher.exam.examManagement";
 	}
+	@RequestMapping("deleteExam.do")
+	public String deleteExam(int exam_paper_num) {
+		
+		int result = teacherService.deleteExam(exam_paper_num);	
+		
+		if(result == 0) {
+			System.out.println("삭제실패");
+		}
+		
+		return "redirect:examManagement.do";
+	}
 	/*성태용 끝*/
 	
 	/*민지 시작*/

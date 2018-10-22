@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 내시험지 리스트 뿌려주기 -->
 <select id="myExamPaperList" resultType="onet.com.vo.ExamPaperDto">
-	select * from exam_paper where member_id = #{param1} and exam_paper_status = true order by exam_paper_num desc
+	select * from exam_paper where member_id = #{param1} and exam_paper_status = true and exam_paper_enable = true order by exam_paper_num desc
 </select>
 <!-- 내 임시시헙지 리스트 뿌려주기 -->
 <select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto">
@@ -78,6 +78,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
 	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
 </select>
+
+<update id="deleteExam">
+	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
+</update>
 
 <!-- 태용 끝 -->
 <!-- 민지 시작 -->
