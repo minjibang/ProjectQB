@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ public class IndexController {
 
 	@Autowired
 	private IndexService indexService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 
 	
@@ -95,7 +99,11 @@ public class IndexController {
 		
 		int result = 0;
 		String viewpage="";
+		
+		dto.setMember_pwd(this.bCryptPasswordEncoder.encode(dto.getMember_pwd()));
 		result = indexService.insertMember(dto);
+		
+		
 		
 		if(result > 0) {
 			System.out.println("가입성공");

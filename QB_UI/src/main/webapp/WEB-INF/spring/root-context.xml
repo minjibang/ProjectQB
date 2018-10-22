@@ -56,6 +56,11 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
+	<!-- 암호화 빈객체 -->
+	<bean id="bCryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</bean>
+	
 	
 	
 </beans>
