@@ -101,6 +101,6 @@ public class TestManageController {
 		int result = teacherService.examQuestionDelete(exam_paper_num);
 		return result;
 	}
-	
+
 	/*한결 끝*/
 }

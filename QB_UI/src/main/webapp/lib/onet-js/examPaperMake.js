@@ -15,20 +15,46 @@ jQuery(document).ready(function() {
       /*선택한 애들의 순서 지정할 배열 생성*/
       var selected = new Array();
       
-      /*선택된 애들의 html 끌어오기*/
-      $('.questions input[name="checkbox[]"]:checked').each(function() {
-         selected.push("<li><div class='row'>" 
-               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
-               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
-                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
-                     "onchange='plusqcore()' /><hr></div></div></li>");
-         /*문제 수 +1*/
-         sortable_li_num++;
-      });
-      /*오른쪽 구역으로 이동*/
+      
+      if($('#sortable input[name="checkbox[]"]').length == 0){
+    	  /*오른쪽 선택문제가 아무것도 없을 때 >> 최초 선택문제 출제시*/
+    	  $('.questions input[name="checkbox[]"]:checked').each(function() {
+    	         selected.push("<li><div class='row'>" 
+    	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
+    	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
+    	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
+    	                     "onchange='plusqcore()' /><hr></div></div></li>");
+    	         /*문제 수 +1*/
+    	         sortable_li_num++;
+    	      });
+      }else{
+    	  /*오른쪽 선택문제에 데이터가 있을 때 경고문*/
+    	  var chkArray = [];
+    	  $('#sortable input[name="checkbox[]"]').each(function(){
+    		 chkArray.push($(this).val()); 
+    	  });
+    	  for(i=0;i<chkArray.length;i++){
+    		  $('.questions input[name="checkbox[]"]:checked').each(function() {
+    			 if(chkArray[i] == $(this).val()){
+    				 swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목 : "+$(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text());
+    			 }
+    		  });
+    	  }
+    	  
+    	  $('.questions input[name="checkbox[]"]:checked').each(function() {
+ 	         selected.push("<li><div class='row'>" 
+ 	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
+ 	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
+ 	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
+ 	                     "onchange='plusqcore()' /><hr></div></div></li>");
+ 	         /*문제 수 +1*/
+ 	         sortable_li_num++;
+ 	      });
+      }
+
       $('.task-list').append(selected);
-      /*선택한 애들 선택해제*/
       $('input[name="checkbox[]"]:checked').prop('checked',false);
+      
       /*이동한 문제수 만큼 문제 개수 카운트*/
       $('#qnum').text(sortable_li_num);
    });
@@ -167,6 +193,7 @@ function makeExamSubmitBtn(num){
                 	         $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
                 	         console.log("   시험지 번호 = " + epnum);
                 	         console.log("   문제번호 = "+$(this).val());
+                	         var questionNum = $(this).val();
                 	         console.log("   문제 배치번호 = " + (Number(index) + 1));
                 	         var EQSeq=(Number(index) + 1);
                 	         console.log("   점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
@@ -182,9 +209,7 @@ function makeExamSubmitBtn(num){
                 	            },
                 	            success:function(data){
                 	               console.log(data);
-                	               if(num!=0){
-                	            	   location.href="examManagement.do";
-                	               }
+                	               
                 	            }
                 	         });
                 	         console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
@@ -196,9 +221,6 @@ function makeExamSubmitBtn(num){
                 	   });
                   }
               });
-              
-              /*시험지를 저장한 후 그 다음에 successFunction을 실행한다.*/
-             
            
            } else{
               console.log("2-1. data값이 있다. data 값은 [" + data + "] 이다.")
@@ -240,6 +262,7 @@ function makeExamSubmitBtn(num){
               $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
                  console.log("시험지 번호 = " + data);
                  console.log("문제번호 = "+$(this).val());
+                 var questionNum = $(this).val();
                  console.log("문제 배치번호 = " + index + 1);
                  var EQSeq=(Number(index) + 1);
                  console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
@@ -257,9 +280,8 @@ function makeExamSubmitBtn(num){
                        },
                        success:function(data){
                           console.log(data);
-                          /*if(num!=0){
-       	            	   location.href="examManagement.do?class_num"+???;
-       	               	  }*/
+                          
+                          
                        }
                     });
                  });
@@ -269,7 +291,9 @@ function makeExamSubmitBtn(num){
            swal("문제가 생겨부럿네");
         }
      });
-	
+	if(num==1){
+	location.href="common.teacher.exam.examManagement";
+	}
 
 }
 
