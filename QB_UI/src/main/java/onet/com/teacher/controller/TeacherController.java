@@ -218,8 +218,28 @@ public class TeacherController {
 		return "common.teacher.question.questionManagement";
 	}
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, MultipartHttpServletRequest request) throws ClassNotFoundException, SQLException {
 	
+			
+		String[] imgArray;
+		
+		
+		
+		System.out.println(dto.getQuestion_choice_image());
+		imgArray = dto.getQuestion_choice_image().split(",");
+		for(int i=0; i<imgArray.length;i++) {
+
+			System.out.println(imgArray[i]);
+			String path =  request.getServletContext().getRealPath("resources/upload/question_choice/");
+			UUID uuid = UUID.randomUUID();
+			String savaFile1 = uuid.toString()+"_" + imgArray[i];
+			String safeFile1 = path + savaFile1;
+			if(imgArray[i] != "") {
+				
+				
+			}
+		}
+		
 		if (dto2.getQuestion_type().equals("객관식")) {
 		adminService.insertQuestion(dto2);
 		adminService.insertQuestionChoice(dto2, dto);
@@ -227,6 +247,35 @@ public class TeacherController {
 		adminService.insertQuestion(dto2);
 		}
 		return "common.teacher.question.questionManagement";
+		/*
+		 MultipartFile file1 = request.getFile("files1");
+		MultipartFile file2 = request.getFile("files2");
+		String originFileName1 = file1.getOriginalFilename();
+		String originFileName2 = file2.getOriginalFilename();
+		long fileSize1 = file1.getSize();
+		long fileSize2 = file2.getSize();
+		String path =  request.getServletContext().getRealPath("resources/upload/board/");
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		System.out.println("safeFile : " + safeFile1);
+		if(fileSize1 > 0 && fileSize2 > 0) {
+			file1.transferTo(new File(safeFile1));
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file1(savaFile1);
+			dto.setNotice_file2(saveFile2);
+		}else if(fileSize1 > 0 && fileSize2 == 0){
+			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
+		}else if(fileSize2 > 0 && fileSize1 == 0) {
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file2(saveFile2);
+		}
+		 */
 	}
 		
 		@RequestMapping(value="myQuestionView.do")

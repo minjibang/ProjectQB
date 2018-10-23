@@ -25,7 +25,8 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
-	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content);
+	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content, String question_choice_image);
+	public int insertQuestionChoiceNoImg(int question_num, String question_choice_num, String question_choice_content);
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
