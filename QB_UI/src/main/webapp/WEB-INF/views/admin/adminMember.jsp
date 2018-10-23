@@ -226,7 +226,7 @@
 									name="searchClassName">
 								<option value="">클래스 선택</option>
 							<c:forEach items="${classList}" var="classList">
-								<option value="">${classList.class_name}</option>	
+								<option value="${classList.class_name}">${classList.class_name}</option>	
 							</c:forEach>
 							</select>
 							
@@ -244,11 +244,9 @@
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
 										<table id="adminMember_table" class="display">
-
 											<thead>
-
 												<tr>
-													<th><input type="checkbox" id="checkall">&nbsp;&nbsp;전체 선택</th>
+													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>
@@ -260,9 +258,9 @@
 												</tr>
 											</thead>
 											<tbody id="memberListView">
-												<c:forEach items="${memberList}" var="memberList">
+												<c:forEach items="${memberDto}" var="memberList">
 													<tr>
-														<td><input type="checkbox" name="chk" value="chk"></td>
+														<td><input type="checkbox" id="chk" name="chk" value="chk"></td>
 														<td id="class_name" class="class_name">${memberList.class_name}</td>
 														<td id="member_id" class="member_id">${memberList.member_id}</td>
 														<td id="member_name" class="member_name">${memberList.member_name}</td>
@@ -277,13 +275,10 @@
 															</button>
 															<button type="button" class="btn btn-danger"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
-																data-target="#DeleteModal" value="${memberList.member_id}">
-															
-																<i class="fa fa-trash-o"></i>
-															
-															</button>
-															
-															</td>
+																data-target="#DeleteModal" value="${memberList.member_id}">															
+																<i class="fa fa-trash-o"></i>															
+															</button>															
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -291,11 +286,11 @@
 										<div id="adminMemberBtnDiv">
 											
 											<button class="insert-member btn btn-theme"
-													id="insertbtn" data-toggle="modal"
+													id="selectInsertbtn" name="selectInsertbtn" data-toggle="modal"
 													data-target="#InsertMemberModal">선택 회원 일괄
 											학생 등록</button>
 											<button type="button" class="delete-member btn btn-theme04"
-													id="deletebtn" data-toggle="modal" 
+													id="selectDeletebtn" name="selectDeletebtn" data-toggle="modal" 
 													data-target="#DeleteMemberModal">선택 회원 일괄 삭제</button>
 										</div>
 									</div>
@@ -325,7 +320,6 @@
 <!--main content end-->
 <script>
 $(document).ready(function(){
-	
 	var _param = {class_name:$("#class_name").val(), member_id:$("#member_id").val(),
 				  member_name:$("#member_name").val(), member_email:$("#member_email").val(),
 				  member_phone:$("#member_phone").val(), role_code:$("#role_code").val(),
@@ -345,29 +339,57 @@ $(document).ready(function(){
 			console.log("===========실패");
 		}
 	});
-	
 		/* 검색 버튼 구현 */
-		$("#memberSerarchBtn").click(function(){
-		var searchRole = document.getElementById("searchRole").value;
-		var searchBox = document.getElementById("searchBox").value;
-		
-		console.log(">>>>>> " +searchRole+ " <<<<<<");
-		
-		$.ajax({
-			url : "memberSearch.do",
-			type : "GET",
-			data : {
-					'searchRole' : searchRole,
-					'searchBox' : searchBox
-			},
-			dataType : "html",
-			success:function(data){
-				$("#memberListView").html(data);
-			},
-			error : function(error){
-				console.log("실패....");
-			}
-		});
+		$("#memberSearchBtn").click(function(){
+			var html = "";
+			var searchRole = $("#searchRole").val();			
+			var searchClassName = $("#searchClassName").val();
+			var searchMemberInfo = $("#searchMemberInfo").val();
+			var searchBox = $("#searchBox").val();
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/admin/memberSearchAjax.do",
+				type : "post",
+				data : {
+						'searchRole' : searchRole,
+						'searchClassName' : searchClassName,
+						'searchMemberInfo' : searchMemberInfo,
+						'searchBox' : searchBox
+				},
+				dataType : "json",
+				success:function(data){
+					$(data).each(function(index, element){
+						console.log(index+" : "+element.member_id);
+						/* $(".class_name").text(element.class_name);
+						$(".member_id").text(element.member_id);
+						$(".member_name").text(element.member_name);
+						$(".member_email").text(element.member_email);
+						$(".member_phone").text(element.member_phone);
+						$(".role_desc").text(element.role_desc);
+						$(".member_enable").text(element.member_enable);
+						$(".updatebtn").val(element.member_id);
+						$(".deletebtn").val(element.member_id); */
+						
+						html += "<tr><td><input type='checkbox' name='chk' value='chk'></td>";
+						html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
+						html += "<td id='member_id' class='member_id'>"+element.member_id+"</td>";
+						html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
+						html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
+						html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
+						html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
+						html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
+						html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
+						html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
+						html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
+						html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
+						
+						$("#memberListView").empty().append(html);
+					});
+				},
+				error : function(error){
+					console.log("실패....");
+				}
+			});
 		
 	});
 });

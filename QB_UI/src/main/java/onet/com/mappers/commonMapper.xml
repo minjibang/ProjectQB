@@ -105,6 +105,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="singleQuestionChoiceDelete" parameterType="onet.com.vo.Question_choiceDto">
 	delete from question_choice where question_num = #{question_num}
 </delete>
+<select id="questionInfo" parameterType="int" resultType="onet.com.vo.QuestionDto">
+	select * from question where question_num = ${question_num}
+</select>
+<select id="questionChoiceInfo" parameterType="int" resultType="onet.com.vo.Question_choiceDto">
+	select * from question_choice where question_num = ${question_num}
+</select>
 
 <!-- 재훈 - 문제관리 관련 10.21 끝 -->
 <insert id="insertBoardList" parameterType="onet.com.vo.NoticeDto">

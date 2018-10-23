@@ -1,17 +1,27 @@
 package onet.com.teacher.controller;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.ClassDto;
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 
@@ -21,9 +31,12 @@ public class TestManageController {
 
 	@Autowired
 	private TeacherService teacherService;
+	
+	
 
 	/*성태용 시작*/
-	@RequestMapping(value="classListView.do")
+	/*문제리스트 뿌려주기*/
+	@RequestMapping(value="questionListView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
 		List<QuestionDto> question = teacherService.question();
 		model.addAttribute("question", question);
@@ -37,7 +50,7 @@ public class TestManageController {
 		
 		return mv;
 	}
-	
+	/*문제 검색*/
 	@RequestMapping(value="questionSearch.do")
 	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
@@ -54,7 +67,84 @@ public class TestManageController {
 		
 		return mv;
 	}
+	
+	/*시험지 리스트 뿌려주기*/
+	@RequestMapping("examManagement.do")
+	public String examManagement(Model model, Principal principal ) {
+		String member_id = principal.getName();
+		
+		List<ExamPaperDto> examPaperList;
+		List<ExamPaperDto> examTempList;
+		
+		examPaperList = teacherService.myExamPaperList(member_id);
+		model.addAttribute("myexamPaperList", examPaperList);
+		
+		examTempList = teacherService.myTempExamList(member_id);
+		model.addAttribute("myTempExamList",examTempList);
+		
+	
+		List<ExamInfoDto> examScheduleList;
+		examScheduleList = teacherService.examScheduleList(member_id);
+		model.addAttribute("examScheduleList", examScheduleList);
+
+		
+		return "common.teacher.exam.examManagement";
+	}
+	@RequestMapping("deleteExam.do")
+	public String deleteExam(int exam_paper_num) {
+		
+		int result = teacherService.deleteExam(exam_paper_num);	
+		
+		if(result == 0) {
+			System.out.println("삭제실패");
+		}
+		
+		return "redirect:examManagement.do";
+	}
 	/*성태용 끝*/
+	
+	/*민지 시작*/
+	@RequestMapping("examScheduleRegist.do")
+	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
+		System.out.println("======================"+exam_paper_num);
+		
+		List<MemberDto> classMemberList;
+		classMemberList= teacherService.classMemberList(exam_paper_num);
+		model.addAttribute("classMemberList", classMemberList);
+
+		ClassDto classInfo;
+		classInfo = teacherService.classInfo(exam_paper_num);
+		
+		String class_name = classInfo.getClass_name();
+		int class_num = classInfo.getClass_num();
+		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
+		
+		return "common.teacher.exam.examScheduleRegist";
+	}
+	/*민지:10.18 시험등록 */
+	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
+	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+		System.out.println("시험등록컨트롤러들어옴");
+		int result = 0;
+		String viewpage="";
+		
+		result=teacherService.examInfoInsert(dto);
+		if(result > 0) {
+			System.out.println("시험등록성공");
+			String class_name = dto.getClass_name();
+			System.out.println(class_name);
+			
+			String url = URLEncoder.encode(class_name, "UTF-8");
+			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+		}else {
+			System.out.println("시험등록 실패");
+			
+		}
+		return viewpage;
+	}
+	
+	/*민지 끝*/
 	
 	/*한결 시작*/
 	@RequestMapping("checkExam_paper.do")
@@ -101,6 +191,42 @@ public class TestManageController {
 		int result = teacherService.examQuestionDelete(exam_paper_num);
 		return result;
 	}
-	
+
 	/*한결 끝*/
+	
+	
+	/*민지 시험일정 수정 시작*/
+	@RequestMapping("examScheduleUpdate.do")
+	public String examScheduleUpdate(Model model, int exam_info_num) {
+
+		
+		List<ExamInfoDto> classExamList;
+		classExamList= teacherService.classExamList(exam_info_num);
+		model.addAttribute("classExamList", classExamList);
+		/*
+		List<ExamPaperDto> examPaperList;
+		examPaperList = teacherService.examPaperList(class_num);
+		model.addAttribute("examPaperList", examPaperList);
+		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
+		*/
+		
+		
+		return "common.teacher.exam.examScheduleUpdate";
+	}
+	
+	@RequestMapping("examInfoIUpdate.do")
+	public String examInfoIUpdate(ExamInfoDto dto) {
+		
+		System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
+		
+		int result = teacherService.examInfoIUpdate(dto);
+		
+		if(result == 0) {
+			System.out.println("에에에엥에에러 안바꼇어 바보들아");
+		}
+		
+		return "redirect:examManagement.do";
+	}
+		
+	/*민지 시험일정 수정 끝*/
 }

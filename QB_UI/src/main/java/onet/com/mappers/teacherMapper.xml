@@ -54,6 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </if>
 </where>
 </sql>
+
+<!-- 시험지만들기 문제 검색 -->
 <select id="questionSearch" resultType="onet.com.vo.QuestionDto">
 	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
 	join question_md_category md on (sm.md_category_code = md.md_category_code) 
@@ -62,7 +64,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="search"></include>
 	order by question_num;
 </select>
+
+<!-- 내시험지 리스트 뿌려주기 -->
+<select id="myExamPaperList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where member_id = #{param1} and exam_paper_status = true and exam_paper_enable = true order by exam_paper_num desc
+</select>
+<!-- 내 임시시헙지 리스트 뿌려주기 -->
+<select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where member_id = #{param1} and exam_paper_status = false order by exam_paper_num desc
+</select>
+
+<!-- 시험 일정 리스트 뿌려주기 -->
+<select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
+</select>
+
+<update id="deleteExam">
+	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
+</update>
+
 <!-- 태용 끝 -->
+<!-- 민지 시작 -->
+<select id="classMemberList" resultType="onet.com.vo.MemberDto">
+	select member_id, member_name from member where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
+</select>
+<select id="classInfo" resultType="onet.com.vo.ClassDto">
+	select class_num,class_name from class where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
+</select>
+<!-- 민지끝  -->
 
 <!-- 한결 : 강사 문제 리스트 불러오기 시작-->
 <select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
@@ -115,12 +144,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 <!-- 영준 10.17 내 시험지  삭제 끝 -->
 
-<!-- 영준 10.16 시험 일정 리스트 불러오기 시작 -->
-<select id="examScheduleList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
-	select * from exam_info
-	where class_name = (select class_name from class where class_name =
-	(select c.class_name from class c where c.class_num=#{class_num}))
-</select>
+
 
 
 
@@ -153,13 +177,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="examQuestionDelete" parameterType="String">
 	delete from exam_question where exam_paper_num=#{param1}
 </delete>
+
 <!-- 한결 10.17 끝-->
 
 <!-- 영준 10.18 시험 일정 삭제 시작 -->
 <delete id="examScheduleDelete" parameterType="int">
-	DELETE FROM exam_info
-	WHERE exam_info_num=#{exam_info_num}
+	DELETE FROM exam_infoWHERE exam_info_num=#{exam_info_num}
 </delete>
+
+<!-- 민지 10.22 시험일정 수정 시작 -->
+<select id="classExamList" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
+select * from exam_info where exam_info_num=#{exam_info_num}
+
+</select>
+
+<update id="examInfoIUpdate" parameterType="onet.com.vo.ExamInfoDto">
+	update exam_info set exam_info_desc=#{exam_info_desc}, exam_info_member=#{exam_info_member}, exam_info_date=#{exam_info_date}, exam_info_start=#{exam_info_start},exam_info_end=#{exam_info_end}, exam_info_time=#{exam_info_time} where exam_info_num = #{exam_info_num}
+</update>
+<!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>
 

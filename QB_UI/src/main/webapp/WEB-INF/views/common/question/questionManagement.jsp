@@ -14,29 +14,32 @@
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
 
-
-<!-- <다수>선택 문제 삭제 모달창 시작 -->	
-		<div class="modal fade" id="multiDeleteModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 문제 수정 모달창 시작 -->	
+		<div class="modal fade" id="singleUpdateModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true"
+					data-modal-id="${question.question_num}">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">선택 문제 삭제</h4>
+								<h4 class="modal-title" id="myModalLabel">문제 수정</h4>
 								<!-- modal-header 끝 -->
 							</div>
-							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
+							<div class="modal-body"><h4>정말 수정하시겠습니까?</h4><br>
 							<h5>문제 제출자 또는 다른 사용자가 해당 문제를 사용하여 <br>
 							 시험지 생성 또는 시험지 임시저장 했을 경우 <br>
-							 그 문제는 삭제/수정이 불가능합니다.
+							 그 문제는 삭제/수정이 불가능합니다.<br><br>
+							 
+							 "확인"버튼을 누르시면 문제 수정 페이지로 이동합니다.
 							 </h5>
 							</div>
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
 									
-										<button id="multiDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" value="">
+										<button id="singleUpdateConfirmBtn" name="updatebtn" class="btn btn-theme" 
+										value="" data-dismiss="modal" aria-label="Close">
 										확인</button>
 										<button class="btn btn-theme04" type="button" data-dismiss="modal">
 										취소</button>
@@ -49,9 +52,9 @@
 						<!-- modal-dialog 끝 -->
 					</div>
 				</div>
-<!-- <다수>선택 문제 삭제 모달창 끝 -->	
+<!-- 문제 수정 모달창 끝 -->	
 
-<!-- 문제 한개 삭제 모달창 시작 -->	
+<!-- 문제 삭제 모달창 시작 -->	
 		<div class="modal fade" id="singleDeleteModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true"
 					data-modal-id="${question.question_num}">
@@ -87,7 +90,7 @@
 						<!-- modal-dialog 끝 -->
 					</div>
 				</div>
-<!-- <다수>선택 문제 삭제 모달창 끝 -->	
+<!-- 문제 삭제 모달창 끝 -->	
 
 
 
@@ -118,7 +121,8 @@
 									<h3 id="h3id">내가 만든 문제
 										<input type="text" name="member_id" id="member_id"
 										value="${memberDto.member_id}" style="display: none">
-									
+										<input type="text" name="question_num" id="question_num"
+										value="" style="display: none">
 									</h3>
 									
 									<hr>
@@ -170,14 +174,6 @@
 								</div>
 								<!-- /detailed -->
 							</div>
-							<div class="row mt hrRow">
-								<div class="col-lg-2 mt">
-									<label class="checkbox-inline" id="totalCheckLabel"> <input
-										type="checkbox" id="totalCheckbox" value="option1">
-										&nbsp;전체선택
-									</label>
-								</div>
-							</div>
 							<hr>
 
 							<div class="row content-panel" id="myQuestionPanel">
@@ -191,10 +187,7 @@
 					            </form>
 							</div>
 							
-							<button type="button" id="myQuestionPickDeleteBtn" class="btn btn-theme04 btnDeIn">
-							<i class="fa fa-trash-o"></i>
-							선택 문제 삭제</button>
-							
+						 <p> 페이징 처리 들어갈 자리 </p>
 						</div>
 						
 						<!-- /OVERVIEW -->

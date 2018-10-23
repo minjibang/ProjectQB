@@ -13,6 +13,98 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="searchAnswer" parameterType="int" resultType="String">
 	select question_answer from question where question_num = #{question_num}
 </select>
+
+<insert id="score_chartInsert">
+	insert into score_chart (member_id, exam_info_num, score_chart_score, score_chart_rank, class_name)
+	values (#{param1}, #{param2}, 
+	(select 
+	IFNULL(sum(exam_question_score), 0)
+	from exam_question 
+	where question_num in 
+	(select question_num 
+	from student_answer
+	where (student_answer_status = #{param2})
+	and (exam_paper_num = 
+	(select exam_paper_num from exam_info 
+	where exam_info_num = #{param2}))
+	and (member_id = #{param1}))),
+	0, 
+	(select class_name from member where member_id = #{param1})); 
+</insert>
+
+<select id="selectRank" parameterType="int" resultType="onet.com.vo.Score_chartDto">
+	select member_id, score_chart_score, rank() over(order by score_chart_score desc) as score_chart_rank 
+	from score_chart
+	where exam_info_num = #{exam_info_num}
+	order by score_chart_score desc;
+</select>
+
+<update id="updateRank">
+	update score_chart
+	set score_chart_rank = 
+		case 
+		<foreach item="item" collection="param1" separator=" ">
+			 	when member_id = #{item.member_id} then #{item.score_chart_rank}
+		</foreach>
+		end 
+	where exam_info_num = #{param2};
+</update>
+
+<select id="countClassChart" parameterType="int" resultType="int">
+	select count(*) 
+	from class_chart
+	where exam_info_num = #{exam_info_num}
+</select>
+
+<insert id="class_chartInsert">
+	insert into class_chart (class_name, exam_info_num, class_chart_avg)
+	values(
+	(select class_name from member where member_id=#{param1}), 
+	#{param2}, 
+	(select avg(score_chart_score) 
+	from score_chart
+	group by exam_info_num
+	having exam_info_num = #{param2})
+	);
+</insert>
+
+<update id="class_chartUpdate">
+	update class_chart 
+	set 
+	class_name = (select class_name from member where member_id=#{param1}), 
+	exam_info_num = #{param2}, 
+	class_chart_avg = 	(select avg(score_chart_score) 
+						from score_chart
+						group by exam_info_num
+						having exam_info_num = #{param2})
+	where exam_info_num = #{param2};
+</update>
+
+<select id="selectQuestion" parameterType="int" resultType="int">
+	select question_num 
+	from exam_question 
+	where exam_paper_num = 
+		(select exam_paper_num 
+		from exam_info 
+		where exam_info_num = #{param1});
+</select>
+
+<update id="updateCorrectRatio" parameterType="int">
+	update question
+	set question_correct_ratio = 
+	(
+		(select count(*) 
+		from student_answer
+		where question_num = #{param1}
+		and student_answer_status = 1)
+	/ 
+		(select count(*) 
+		from student_answer 
+		where question_num = #{param1})
+	) 
+	* 100
+	where question_num = #{param1};
+</update>
 <!-- 10.19 현이 학생 답안지 제출 끝 -->
 
 </mapper>

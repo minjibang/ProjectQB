@@ -9,12 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -112,21 +114,7 @@ public class TeacherController {
 	}
 	/* 한결 : 시험일정 > 시험응시 페이지 끝 */
 
-	/* 현이 18.10.11 선생님 시험관리 시작 */
-	@RequestMapping("examManagement.do")
-	public String examManagement(Model model, int class_num) {
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
 	
-	/* 영준 18.10.16 선생님 시험일정 시작 */
-		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList(class_num);
-		model.addAttribute("examScheduleList", examScheduleList);
-	/* 영준 18.10.16 선생님 시험일정 끝 */	
-		
-		return "common.teacher.exam.examManagement";
-	}
 	
 	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
 	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
@@ -189,28 +177,7 @@ public class TeacherController {
 	}
 	/* 영준 18.10.11 시험지 생성 페이지 끝 */
 
-	/* 현이 18.10.11 시험지 수정 페이지 시작 */
-	/* 영준 18.10.18 시험지 수정 시작 */
-	@RequestMapping("examPaperModify.do")
-	public String examPaperModify(Model model, int class_num) {
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-		return "common.teacher.exampaper.examPaperModify";
-	}
-	/* 현이 18.10.11 시험지 수정 페이지 끝 */
-	/* 영준 18.10.18 시험지 수정 끝 */
 	
-	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 시작 */
-	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist(Model model, int class_num) {
-		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
-		model.addAttribute("classMemberList", classMemberList);
-		return "common.teacher.exam.examScheduleRegist";
-	}
-	/* 영준 18.10.18 내 시험지 - 시험등록 페이지 추가 끝 */
 	
 	/* 민지 18.10.10 강사 시험감독 페이지 시작 */
 	@RequestMapping("examPaper.do")
@@ -357,15 +324,6 @@ public class TeacherController {
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
-	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
-	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate(Model model, int class_num) {
-		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
-		model.addAttribute("classMemberList", classMemberList);
-		return "common.teacher.exam.examScheduleUpdate";
-	}
-	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
 	@RequestMapping("studentInfo.do")
@@ -397,7 +355,7 @@ public class TeacherController {
 	/* 정원 10.22 공지사항 글쓰기*/
 	
 	@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
-	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws IOException {
+	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
 		String member_id = principal.getName();
 		dto.setMember_id(member_id);
 		long time = System.currentTimeMillis(); 
@@ -412,26 +370,36 @@ public class TeacherController {
 		long fileSize1 = file1.getSize();
 		long fileSize2 = file2.getSize();
 		String path =  request.getServletContext().getRealPath("resources/upload/board/");
-		String safeFile1 = path + System.currentTimeMillis() + originFileName1;
-		String safeFile2 = path + System.currentTimeMillis() + originFileName2;
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
 		System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
-			dto.setNotice_file1(System.currentTimeMillis()+originFileName1);
 			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file2(System.currentTimeMillis()+originFileName2);
+			dto.setNotice_file1(savaFile1);
+			dto.setNotice_file2(saveFile2);
 		}else if(fileSize1 > 0 && fileSize2 == 0){
 			file1.transferTo(new File(safeFile1));
-			dto.setNotice_file1(System.currentTimeMillis()+originFileName1);
+			dto.setNotice_file1(savaFile1);
 		}else if(fileSize2 > 0 && fileSize1 == 0) {
 			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file2(System.currentTimeMillis()+originFileName2);
+			dto.setNotice_file2(saveFile2);
 		}
-		
-		
 		int result = commonService.insertBoardList(dto);
 		
+	
 		return "redirect:teacherMain.do";
 	}
+	
+	
+	
+	
+	
+	
 
 }

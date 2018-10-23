@@ -36,7 +36,7 @@
 	                        <ul class="chat-available-user" id ="checkboxNameUl">
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox"  name="chk" value="chk">${classMemberList.member_name}
+	                            	<input type="checkbox"  name="chk" value="chk">(${classMemberList.member_id })${classMemberList.member_name}
 	                            </label>
 	                          </div>
 	                        </ul>
@@ -49,20 +49,20 @@
                         <div>
                           <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
                         </div>
-                        <h3>시험명 : ${param.exam_paper_name}</h3>
-                        
+                        <h3>시험명 : ${param.exam_info_name}</h3>
+                     
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>        
-                      <form action="examInfoInsert.do" class="form-horizontal style-form" method="post" onsubmit="return check()">
-                      <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>
-                         <input type="hidden" id="class_num" name="class_num" value="${param.class_num}"/>
-                         <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/>
-                         <input type="hidden" id="class_name" name="class_name" value="${param.class_name}"/>
+                      <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
+                           <input type="hidden" value="${param.exam_info_name}" id="exam_info_name" name="exam_info_name"/>
+                         <input type="hidden" id="exam_info_num" name="exam_info_num" value="${param.exam_info_num}"/>  
+                         
+                       <c:forEach items="${classExamList}" var="classExamList">
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-                              <input type="text" class="form-control form-control-inline dpd1" name="exam_info_date" id="exam_info_date"  size="16" required>
+                              <input type="text" class="form-control form-control-inline dpd1" name="exam_info_date" id="exam_info_date"  size="16" value="${classExamList.exam_info_date}" required>
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                           <label class="control-label col-md-2">시간</label>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" required>
+                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" value="${classExamList.exam_info_start}" required>
                                  <span class="input-group-btn">
                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" required>
+                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" value="${classExamList.exam_info_end}"required>
                                   <span class="input-group-btn">
                                     <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                   </span>
@@ -90,8 +90,8 @@
                           </div>
                         <!--timepicker group end-->
                           <div class="form-group">
-                            <label class="control-label col-md-2">시험시간</label>
-                            <input type="text" id="exam_info_time" name="exam_info_time"  readonly >
+                            <label class="control-label col-md-2"  style="margin-right:15px;" id="examtimelabel">시험시간</label>
+                            <input style="width:20%;" id="exam_info_time" class="form-control"  type="text" name="exam_info_time"  value="${classExamList.exam_info_time}" readonly >
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">종료알림</label>
@@ -100,13 +100,13 @@
                           <div class="form-group">
                             <label class="control-label col-md-2">응시대상</label>
                               <div class="col-md-10 col-xs-11">
-                                <input type="text" class="form-control" placeholder="응시대상을 입력하세요" id="exam_info_member" name="exam_info_member" required>
+                                <input type="text" class="form-control" placeholder="응시대상을 입력하세요" id="exam_info_member" name="exam_info_member"  value="${classExamList.exam_info_member}" required>
                               </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">설명</label>
                               <div class="col-md-10 col-xs-10">
-                                <textarea rows="3" class="form-control" placeholder="설명을 입력하세요" id="exam_info_desc" name="exam_info_desc" required></textarea>
+                                <textarea rows="3" class="form-control" placeholder="설명을 입력하세요" id="exam_info_desc" name="exam_info_desc" required>${classExamList.exam_info_desc}</textarea>
                               </div>
                           </div>
                           <br>
@@ -122,9 +122,10 @@
                       </div>
                       <div class="col-md-4">
 
-                        <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn">시험 일정 등록</button>
+                        <button class="btn btn-primary btn-lg btn-block" id="examUpdateBtn">시험 일정 수정</button>
                       </div>
                     </div>
+                    </c:forEach>
                         </form>
                         <%-- 폼 양식 끝 --%>
 
@@ -161,3 +162,51 @@
 </section>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
+
+<script>
+function check(){
+	var timeinfodiv = document.getElementById("timeinfo");
+	
+	var datecheck = false;
+	var start = $('#exam_info_start').val();
+	var end = $('#exam_info_end').val();
+	
+	var start_hour = start.substring(0,2);
+	var end_hour=end.substring(0,2);
+	
+	var start_m=start.substring(3);
+	var end_m = end.substring(3);
+
+	
+	if(start_hour > end_hour){
+		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+		timeinfodiv.style.color = 'red';
+		
+		return false;
+	}else if(start_hour == end_hour){
+		if(start_m > end_m){
+			timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+			timeinfodiv.style.color = 'red';
+			return false;
+		}else if(start_m== end_m){
+			timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+			timeinfodiv.style.color = 'red';
+			return false;
+		}
+	}else if(start=="" && end==""){
+		timeinfodiv.innerHTML = "시간설정을 해주세요.";
+		timeinfodiv.style.color = 'bule';
+		return false;
+		
+	}else {
+		var insertconfirm = confirm("시험일정을 수정하시겠습니까?");
+		if(insertconfirm == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+
+}
+</script>

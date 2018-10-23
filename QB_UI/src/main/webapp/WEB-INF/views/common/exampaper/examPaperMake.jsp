@@ -20,7 +20,7 @@
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
                         <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
-                        <input type="hidden" class="dpn_EPN" value="" />
+                        <input type="hidden" class="dpn_EPN" value="${pageContext.request.contextPath}" />
                         <div class="makeExamFirstRow">
                            <hr>
                            <select class="form-control makeExamSelectCategory" name="question_lg_category" id="question_lg_category">
@@ -101,10 +101,6 @@
                      <div class="col-lg-6 makeExamBtnDiv">
                         <input type="button" class="btn btn-theme04" value="선택문제 삭제"
                            id="pickQuestionDeleteBtn">
-                           <!-- <input type="button"
-                           class="btn btn-theme" value="임시저장" data-toggle="modal"
-                           data-target="#pickQuestionTempSaveModal"
-                           id="pickQuestionTempSaveModalBtn"> -->
                            <input type="button"
                            class="btn btn-theme" value="임시저장" 
                            id="pickQuestionTempSaveModalBtn">
@@ -163,9 +159,6 @@
 
                            </div>
                         </div>
-                        <!-- <input type="button" class="btn btn-theme" value="시험지 생성"
-                           data-toggle="modal" data-target="#makeExamSubmitModal"
-                           id="makeExamSubmitModalBtn"> -->
                         <input type="button" class="btn btn-theme" value="시험지 생성"
                         id="makeExamSubmitModalBtn">
                      </div>
@@ -195,9 +188,6 @@
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                       <!-- <input type="button" class="btn btn-theme"
-                                          data-toggle="modal" data-dismiss="modal" value="임시저장"
-                                          id="pickQuestionTempSaveBtn"> -->
                                        <input type="button" class="btn btn-theme" value="임시저장"
                                           id="pickQuestionTempSaveBtn" onclick="makeExamSubmitBtn(0)"> <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
@@ -231,11 +221,6 @@
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                       <!-- <input type="button" class="btn btn-theme"
-                                          data-toggle="modal" data-dismiss="modal" value="시험지 생성"
-                                          id="makeExamSubmitBtn" onclick="makeExamSubmitBtn(1)"> -->
-                                          <!-- <input type="button" class="btn btn-theme" value="시험지 생성"
-                                          id="makeExamSubmitBtn" onclick="makeExamSubmitBtn('1')" /> -->
                                           <input type="button" class="btn btn-theme" value="시험지 생성"
                                           id="makeExamSubmitBtn1" onclick="makeExamSubmitBtn(1)">
                                           <input type="button"
@@ -260,8 +245,7 @@
 $(document).ready(function(){
 	
 	$.ajax({
-		url : "classListView.do",
-		/* url:"${pageContext.request.contextPath}/examPaperMake2.jsp", */
+		url : "questionListView.do",
 		type:'GET',
 		dataType:"html",
 		success:function(data){

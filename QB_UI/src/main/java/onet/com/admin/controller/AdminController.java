@@ -83,7 +83,7 @@ public class AdminController {
 		
 		List<MemberDto> memberList;
 		memberList=adminService.memberList();
-		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberDto", memberList);
 
 		List<RoleDto> roleList;
 		roleList = adminService.roleList();
@@ -113,14 +113,26 @@ public class AdminController {
 		
 	}
 	
+	/* 영준 - 10.22 회원관리 회원 삭제 시작 */
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
 	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
 	{
 		int result = adminService.deleteMember(dto);
 		String result2 = String.valueOf(result);
+		System.out.println("삭제회원 결과 값 : " + result);
 		return result2;
 	}
-	
+	/* 영준 - 10.22 회원관리 회원 삭제 끝 */
+
+	/* 영준 - 10.22 선택회원 등록 시작 */
+	@RequestMapping(value="adminMemberInsert.do", method = RequestMethod.POST)
+	public @ResponseBody String adminMemberInsert(@RequestBody MemberDto dto)
+	{
+		int result = adminService.insertMember(dto);
+		String result2 = String.valueOf(result);
+		return result2;
+	}
+	/* 영준 - 10.22 선택회원 등록 끝 */
 	
 	/* 영준 10.15 회원관리관련 끝 */
 	
@@ -139,7 +151,7 @@ public class AdminController {
 		model.addAttribute("classlist", classlist);
 		
 		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
+		classMemberList= teacherService.classMemberList(class_num);
 		model.addAttribute("classMemberList", classMemberList);
 		return "admin.adminClassInfo";
 	}
@@ -248,22 +260,6 @@ public class AdminController {
 		System.out.println("시험일정 상세 컨트롤러");
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
-
-	/* 영준 18.10.17 관리자 시험관리 시작 */
-	@RequestMapping("examManagement.do")
-	public String examManagement(Model model, int class_num) {
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		
-		List<ExamInfoDto> examScheduleList;
-		examScheduleList = teacherService.examScheduleList(class_num);
-		model.addAttribute("examScheduleList", examScheduleList);
-		
-		return "common.adminClass.admin.exam.examManagement";
-	}
-
-	/* 영준 18.10.17 관리자 시험관리 끝 */
 	
 	@RequestMapping("examPaperUpdate.do")
 	public String examPaperUpdate() {
@@ -385,18 +381,59 @@ public class AdminController {
 		}
 		return map;
 	}
+	/* 재훈 10.21 문제수정 관련 start */
+	@RequestMapping("singleUpdateCheck.do")
+	public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
+		System.out.println("문제수정 컨트롤러 진입>>>>>" + question_num);
+		Map<String,Object> map = new HashMap <String,Object>();
+		int result = commonService.singleUpdateCheck(question_num);
+		if(result == 0) {
+			System.out.println("컨트롤러 if문 >> result 값 0");
+			map.put("result", "삭제불가");
+		}else {
+			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
+			map.put("result", "삭제가능");
+		}
+		return map;
+	}
+	/*문제수정페이지로 이동시 문제 &문제보기 정보 가져와서 뿌려주기*/
+
+	/* 재훈 10.15 문제 관리 페이지 관련 end */
+
+	@RequestMapping("questionUpdate.do")
+	public String questionUpdate(Model model, int question_num) {
+		System.out.println("컨트롤러 진입>>> question_num값: " +question_num);
+		
+		List<QuestionDto> qdto;
+		qdto=commonService.questionInfo(question_num);
+		model.addAttribute("qdto",qdto);
+		
+		List<Question_choiceDto> cdto;
+		cdto=commonService.questionChoiceInfo(question_num);
+		model.addAttribute("cdto",cdto);
+		
+		List<CategoryDto> lgCatList;
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
+		
+		return "common.adminClass.admin.question.questionUpdate";
+	}	
+	
 	
 
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
-	
-	/*양회준 18.10.15 문제 수정 시작	*/
-	@RequestMapping("questionUpdate.do")
-	public String questionUpdate() {		
-		return "common.adminClass.admin.question.questionUpdate";
-	}	
-	/*양회준 18.10.15 문제 수정 끝*/
-
-
 	
 
 	/*현이 18.10.09 관리자 마이페이지 시작*/
@@ -603,24 +640,6 @@ public class AdminController {
 	}
 	
 	
-	/*회준:10.08 시험 일정등록/수정 페이지 시작 */
-	/*민지 :10.17 수정*/
-	@RequestMapping("examScheduleUpdate.do")
-	public String examScheduleUpdate(Model model, int class_num) {
-		
-		List<MemberDto> classMemberList;
-		classMemberList= adminService.classMemberList(class_num);
-		model.addAttribute("classMemberList", classMemberList);
-		
-		List<ExamPaperDto> examPaperList;
-		examPaperList = teacherService.examPaperList(class_num);
-		model.addAttribute("examPaperList", examPaperList);
-		System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-		
-		return "common.admin.exam.examScheduleUpdate";
-	}
-	/*회준:10.08 시험 일정등록/수정 페이지 끝 */
-	
 	@RequestMapping("selectLgList.do")
 	public ModelAndView selectLgList(String lgCode) {
 		List<CategoryDto> list1 = adminService.selectLgList(lgCode);
@@ -676,51 +695,23 @@ public class AdminController {
 		mv.addObject("list3", list3);
 		return mv;
 	}
-	
-
-	/*민지:10.18 시험등록 */
-	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-		System.out.println("시험등록컨트롤러들어옴");
-		int result = 0;
-		String viewpage="";
-		
-		result=teacherService.examInfoInsert(dto);
-		if(result > 0) {
-			System.out.println("시험등록성공");
-			String class_name = dto.getClass_name();
-			System.out.println(class_name);
-			
-			String url = URLEncoder.encode(class_name, "UTF-8");
-			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
-		}else {
-			System.out.println("시험등록 실패");
-			
-		}
-		return viewpage;
-	}
-
 
 	/*민지:10.18 시험등록  끝*/
-		@RequestMapping("examScheduleRegist.do")
-		public String examScheduleRegist(Model model, int class_num) {
-			
-			List<MemberDto> classMemberList;
-			classMemberList= adminService.classMemberList(class_num);
-			model.addAttribute("classMemberList", classMemberList);
-			
-			List<ExamPaperDto> examPaperList;
-			examPaperList = teacherService.examPaperList(class_num);
-			model.addAttribute("examPaperList", examPaperList);
-			System.out.println("examPaperList 값은>>>>>>>>>>>>>>>>>>>>>"+examPaperList);
-			
-			
-			
-			return "common.admin.exam.examScheduleRegist";
-		}
 
 	
-		}
+		
+	//양회준 10-22 admin 회원관리 비동기 검색
+	@RequestMapping(value="memberSearchAjax.do", method=RequestMethod.POST)
+	public @ResponseBody List<MemberDto> memberSearchAjax(@RequestParam("searchRole") String searchRole, 
+			@RequestParam("searchClassName") String searchClassName, @RequestParam("searchMemberInfo") String searchMemberInfo,
+			@RequestParam("searchBox") String searchBox) throws IOException, ClassNotFoundException, SQLException {
+				
+		List<MemberDto> memberDto = adminService.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);
+		
+		return memberDto;
+	}
+	
+}
 
 
 

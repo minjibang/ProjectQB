@@ -37,6 +37,11 @@ public interface AdminDao {
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
 	public int deleteMember(MemberDto dto);
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
+	
+	/* 영준 - 10.22 회원관리 선택회원 등록 시작 */
+	public int insertMember(MemberDto dto);
+	/* 영준 - 10.22 회원관리 선택회원 등록 끝 */
+	
 	/* 영준 - 10.10 회원관리 관련 끝 */
 	
 
@@ -135,7 +140,8 @@ public interface AdminDao {
 	public List<CategoryDto> selectSmRealList2(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
 
-	
+	//양회준 10-22 admin 회원관리 비동기 검색
+	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
 
 }
 
