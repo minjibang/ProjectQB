@@ -1,6 +1,6 @@
 package onet.com.vo;
 
-public class CategoryDto {
+public class CategoryDto extends QuestionDto{
 
 	private String lg_category_code;
 	private String lg_category_name;

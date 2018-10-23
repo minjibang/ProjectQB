@@ -3,6 +3,7 @@ package onet.com.common.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import onet.com.vo.CategoryDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
@@ -49,8 +50,11 @@ public interface CommonDao {
 	public List<ExamQuestionDto> singleQuestionDeleteSearch(int question_num);
 	public List<QuestionDto> questionInfo(QuestionDto qdto);
 	public List<Question_choiceDto> questionChoiceInfo(Question_choiceDto qdto);
+	/*public CategoryDto questionCatInfo(QuestionDto qdto);*/
+	public List<CategoryDto> questionCategoryInfo(int question_num);
 	public int singleQuestionDelete(QuestionDto qdto);
 	public int singleQuestionChoiceDelete(Question_choiceDto cdto);
+	
 	/*재훈 - 문제관리 관련 10.21 끝 */
 
 	/* 정원 10.22*/

@@ -2,9 +2,10 @@
  * 18.10.21 재훈 questionUpdate.js 파일 추가 
  */
 
-/*문제 수정 페이지 시작 */
 
+/*문제 수정 페이지 시작 */
 /*페이지 로드시 수정할 문제 정보 관련 함수*/
+
 $(function() {
 		var _choiceInput1 ="<b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.' id='question_choice_content1'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
 		var _choiceInput2 ="<b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' id='question_choice_content2'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
@@ -16,8 +17,8 @@ $(function() {
 		var _answerBtn3 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio3" name="question_answer" value="3"  >3번 </label>&nbsp;&nbsp;'
 		var _answerBtn4 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio4" name="question_answer" value="4"  >4번 </label>&nbsp;&nbsp;'
 		var _answerBtn5 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio5" name="question_answer" value="5"  >5번 </label>&nbsp;&nbsp;'
-		var qdto_question_answer = $("input[type=text][name=qdto_question_answer]").val();
 		var _questionType = $("input[type=radio][name=question_type]:checked").val();
+		var qdto_question_answer = $("input[type=text][name=qdto_question_answer]").val();
 		
 		if ($.trim(_questionType) == "단답형"){
 			document.all["questionChoice"].style.display = 'none'; // 안보이게
@@ -348,7 +349,6 @@ function check(){
 	var _questionName = $("input[type=text][name=question_name]").val();
 /*	var _questionName1 = $("input[type=text][name=question_name]").val();
 	var _questionName = _questionName1.value.replace(/(\n|\r|\r\n|)/g,'<br>');*/
-
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
 	var _questionChoiceContent1 = $("input[type=text][id=question_choice_content1]").val();
 	var _questionChoiceContent2 = $("input[type=text][id=question_choice_content2]").val();
@@ -357,7 +357,7 @@ function check(){
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
-	alert( "=== 문제 생성 입력값 확인용 alert ==="
+	alert( "=== 문제 수정 입력값 확인용 alert ==="
 			  + "문제 타입: " 			+ _shortAnswerQuestion
 			  + "\n 소분류: " 		+ _smCategory
 			  + "\n 난이도: " 		+ _questionLevel
@@ -370,6 +370,8 @@ function check(){
 			  + "\n 객관식보기5번: " 	+ _questionChoiceContent5
 			  + "\n 객관식보기갯수: " 	+ _choiceQuantity
 	   		);
+	
+	
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
 		/*객관식 문제 생성 유효성검사*/
@@ -402,9 +404,9 @@ function check(){
 				swal("객관식 5번 보기를 입력해주세요");
 			} else {
 				var questionInsertConfirm = confirm(
-				"문제를 정말로 등록하시겠습니까?");
+				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					alert("문제가 수정되었습니다.")
 					return true;
 				}else{
 					return false;
@@ -426,9 +428,9 @@ function check(){
 				return false;
 			} else {
 				var questionInsertConfirm = confirm(
-				"문제를 정말로 등록하시겠습니까?");
+				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					alert("문제가 수정되었습니다.")
 					return true;
 				}else{
 					return false;
@@ -447,9 +449,9 @@ function check(){
 				return false;
 			}else {
 				var questionInsertConfirm = confirm(
-				"문제를 정말로 등록하시겠습니까?");
+				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					alert("문제가 수정되었습니다.")
 					return true;
 				}else{
 					return false;
@@ -466,9 +468,9 @@ function check(){
 				return false;
 			}else {
 				var questionInsertConfirm = confirm(
-				"문제를 정말로 등록하시겠습니까?");
+				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					alert("문제가 수정되었습니다.")
 					return true;
 				}else{
 					return false;
@@ -488,9 +490,9 @@ function check(){
 			return false;
 		}else{
 			var questionInsertConfirm = confirm(
-					"문제를 정말로 등록하시겠습니까?");
+					"문제를 정말로 수정하시겠습니까?");
 			if(questionInsertConfirm == true){
-				alert("새로운 문제가 등록되었습니다.")
+				alert("새로운 문제가 수정되었습니다.")
 				return true;
 			}else{
 				return false;
