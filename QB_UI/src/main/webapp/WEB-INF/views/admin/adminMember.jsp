@@ -122,7 +122,7 @@
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
-										<button id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
+										<button type="button" id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
 											data-dismiss="modal" value="">예
 										<input type="hidden" id="role_code" name="role_code" 
 											   value="일반회원" />
@@ -158,7 +158,7 @@
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
-										<button class="btn btn-theme" data-toggle="modal"
+										<button id="insertMembersPermit" class="btn btn-theme" data-toggle="modal"
 											data-dismiss="modal">예</button>
 										<button class="btn btn-theme04" type="button"
 											data-dismiss="modal">아니오</button>
@@ -187,7 +187,7 @@
 							<div class="modal-footer">
 								<div class="form-group">
 									<div class="col-lg-offset-2 col-lg-10">
-										<button class="btn btn-theme" data-toggle="modal"
+										<button id="deleteMembersPermit" class="btn btn-theme" data-toggle="modal"
 											data-dismiss="modal">예</button>
 										<button class="btn btn-theme04" type="button"
 											data-dismiss="modal">아니오</button>
@@ -243,7 +243,7 @@
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
-										<table id="adminMember_table" class="display">
+										<table id="adminMemberTable">
 											<thead>
 												<tr>
 													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
@@ -263,7 +263,7 @@
 														<td><input type="checkbox" id="chk" name="chk" value="chk"></td>
 														<td id="class_name" class="class_name">${memberList.class_name}</td>
 														<td id="member_id" class="member_id">${memberList.member_id}</td>
-														<td id="member_name" class="member_name">${memberList.member_name}</td>
+														<td id="member_name" class="member_name"name='member_id'>${memberList.member_name}</td>
 														<td id="member_email" class="member_email">${memberList.member_email}</td>
 														<td id="member_phone" class="member_phone">${memberList.member_phone}</td>
 														<td id="role_code" class="role_code">${memberList.role_desc}</td>
@@ -273,11 +273,11 @@
 																data-target="#UpdateModal" value="${memberList.member_id}">
 																<i class="fa fa-pencil"> </i>
 															</button>
-															<button type="button" class="btn btn-danger"
+															<button type="button" class="btn btn-danger deletebtn"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">															
 																<i class="fa fa-trash-o"></i>															
-															</button>															
+															</button>													
 														</td>
 													</tr>
 												</c:forEach>
@@ -285,7 +285,7 @@
 										</table>
 										<div id="adminMemberBtnDiv">
 											
-											<button class="insert-member btn btn-theme"
+											<button type="button" class="insert-member btn btn-theme"
 													id="selectInsertbtn" name="selectInsertbtn" data-toggle="modal"
 													data-target="#InsertMemberModal">선택 회원 일괄
 											학생 등록</button>
@@ -318,80 +318,106 @@
 </section>
 <!-- /MAIN CONTENT -->
 <!--main content end-->
-<script>
-$(document).ready(function(){
-	var _param = {class_name:$("#class_name").val(), member_id:$("#member_id").val(),
-				  member_name:$("#member_name").val(), member_email:$("#member_email").val(),
-				  member_phone:$("#member_phone").val(), role_code:$("#role_code").val(),
-				  member_enable:$("#member_enable").val()};
-	
-	var _data = JSON.stringify(_param); //jsonString으로 변환	
-	
-	$.ajax({
-		url : "adminMemberView.do",
-		type:'GET',
-		data : _data,
-		dataType:"json",
-		success:function(data){
-			console.log("불러오는 데이터 값 : " + data);
-		},
-		error : function(error) {
-			console.log("===========실패");
-		}
-	});
-		/* 검색 버튼 구현 */
-		$("#memberSearchBtn").click(function(){
-			var html = "";
-			var searchRole = $("#searchRole").val();			
-			var searchClassName = $("#searchClassName").val();
-			var searchMemberInfo = $("#searchMemberInfo").val();
-			var searchBox = $("#searchBox").val();
-			
-			$.ajax({
-				url : "${pageContext.request.contextPath}/admin/memberSearchAjax.do",
-				type : "post",
-				data : {
-						'searchRole' : searchRole,
-						'searchClassName' : searchClassName,
-						'searchMemberInfo' : searchMemberInfo,
-						'searchBox' : searchBox
-				},
-				dataType : "json",
-				success:function(data){
-					$(data).each(function(index, element){
-						console.log(index+" : "+element.member_id);
-						/* $(".class_name").text(element.class_name);
-						$(".member_id").text(element.member_id);
-						$(".member_name").text(element.member_name);
-						$(".member_email").text(element.member_email);
-						$(".member_phone").text(element.member_phone);
-						$(".role_desc").text(element.role_desc);
-						$(".member_enable").text(element.member_enable);
-						$(".updatebtn").val(element.member_id);
-						$(".deletebtn").val(element.member_id); */
-						
-						html += "<tr><td><input type='checkbox' name='chk' value='chk'></td>";
-						html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
-						html += "<td id='member_id' class='member_id'>"+element.member_id+"</td>";
-						html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
-						html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
-						html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
-						html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
-						html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
-						html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
-						html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
-						html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
-						html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
-						
-						$("#memberListView").empty().append(html);
-					});
-				},
-				error : function(error){
-					console.log("실패....");
-				}
-			});
+<!-- <script>
+$(document).ready(function(){	
+	/* 검색 버튼 구현 */
+	$("#memberSearchBtn").click(function(){
+		var html = "";
+		var searchRole = $("#searchRole").val();			
+		var searchClassName = $("#searchClassName").val();
+		var searchMemberInfo = $("#searchMemberInfo").val();
+		var searchBox = $("#searchBox").val();
 		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/admin/memberSearchAjax.do",
+			type : "post",
+			data : {
+					'searchRole' : searchRole,
+					'searchClassName' : searchClassName,
+					'searchMemberInfo' : searchMemberInfo,
+					'searchBox' : searchBox
+			},
+			dataType : "json",
+			success:function(data){
+				$(data).each(function(index, element){
+					console.log(index+" : "+element.member_id);
+					
+					html += "<tr><td><input type='checkbox' id='chk' name='chk' value='chk'></td>";
+					html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
+					html += "<td id='member_id' class='member_id' name='member_id'>"+element.member_id+"</td>";
+					html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
+					html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
+					html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
+					html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
+					html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
+					html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
+					html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
+					html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
+					html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
+					
+					$("#memberListView").empty().append(html);
+				});
+			},
+			error : function(error){
+				console.log("실패....");
+			}
+		});		
+	});
+	//체크박스값 가져와 일괄학생등록
+	$("#insertMembersPermit").click(function(){
+		var updateStudentArr = new Array();
+		$("input[name=chk]:checked").each(function(i){
+			var row = $(this).parent().parent().children(".member_id").text().trim();
+			updateStudentArr.push(row);			
+		});
+		console.log(updateStudentArr);
+		console.log(JSON.stringify(updateStudentArr));
+		jQuery.ajaxSettings.traditional = true;
+
+		$.ajax({
+			url : "${pageContext.request.contextPath}/admin/updateStudentsAjax.do",
+			type : "post",
+			data : {
+				"updateStudentArr" : updateStudentArr
+			},
+			dataType : "text",
+			success:function(data){
+				console.log("성공");
+				location.href="adminMember.do";
+			},
+			error : function(error){
+				console.log("헷갈림 실패....");
+			}
+		});
+	});
+	
+	//체크박스 값 일괄 삭제
+	$("#deleteMembersPermit").click(function(){
+		var deleteStudentArr = new Array();
+		$("input[name=chk]:checked").each(function(i){
+			var row = $(this).parent().parent().children(".member_id").text().trim();
+			deleteStudentArr.push(row);			
+		});
+		console.log(deleteStudentArr);
+		console.log(JSON.stringify(deleteStudentArr));
+		jQuery.ajaxSettings.traditional = true;
+
+		$.ajax({
+			url : "${pageContext.request.contextPath}/admin/deleteStudentsAjax.do",
+			type : "post",
+			data : {
+				"deleteStudentArr" : deleteStudentArr
+			},
+			dataType : "text",
+			success:function(data){
+				console.log("성공");
+				location.href="adminMember.do";
+			},
+			error : function(error){
+				console.log("헷갈림 실패....");
+			}
+		});
 	});
 });
-</script>
+</script> -->
 

@@ -33,7 +33,7 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${notice}" var="notice">
-										<tr class="notice_tr" onClick="location.href='noticeDetail.do'">
+										<tr class="notice_tr" onClick="location.href='noticeDetail.do?class_name=${notice.class_name}&notice_num=${notice.notice_num}'">
 											<td class="notice_num">${notice.notice_num}</td>
 											<td class="notice_name">${notice.notice_name}</td>
 											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
@@ -119,13 +119,8 @@ $(document).ready(function(){
 	document.getElementById('noticeWrite_btn').setAttribute('value', class_name1);
 	
 	$('#noticeWrite_btn').click(function(){
-		
-		var notice_num = $('.notice_tr').length + 1;
-		
 		var class_name2 = $('#noticeWrite_btn').val();
-		console.log(notice_num);
-		console.log(class_name2);
-		location.href="noticeWrite.do?notice_num="+ notice_num +"&class_name=" + class_name2;
+		location.href="noticeWrite.do?class_name=" + class_name2;
 		 
 	});
 	

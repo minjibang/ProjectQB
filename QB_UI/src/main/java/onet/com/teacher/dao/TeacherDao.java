@@ -34,7 +34,7 @@ public interface TeacherDao {
 	/*재훈 10.19:강사 - 내 문제함 */
 	
 	public List<QuestionDto> teacherMyQuestion(String member_id);
-	
+	public List<QuestionDto> teacherMyQuestionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword, String member_id);
 	/*재훈 10.19:강사 - 내 문제함 끝 */
 	
 	/* 영준 - 10.16 시험관리 관련 시작 */
@@ -63,7 +63,7 @@ public interface TeacherDao {
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 시험일정 삭제 시작 */
-	public int examScheduleDelete(int exam_info_num);
+	public int teacherExamSchedultDelete(ExamInfoDto dto);
 	/* 영준 - 10.18 시험일정 삭제 끝 */
 	
 	/*민지 -10.22 시험일정  수정시작*/

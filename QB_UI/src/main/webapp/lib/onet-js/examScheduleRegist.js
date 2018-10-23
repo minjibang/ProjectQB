@@ -1,5 +1,16 @@
 /* 체크박스 체크시 전체선택 체크 여부 */
 
+
+$(document).ready(function(){
+	
+	 $( "#exam_info_date" ).datepicker({ minDate: 0, maxDate: "+1M +10D",dateFormat: 'yy-mm-dd' });
+	 
+
+
+});
+ 
+ 
+ 
 	function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 }

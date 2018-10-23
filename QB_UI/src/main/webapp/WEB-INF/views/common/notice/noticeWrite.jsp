@@ -36,7 +36,6 @@
 										<td>
 											<input type="file" id="txtFile1" name="files1" />
 											<input type="file" id="txtFile2" name="files2" />
-											<input type="hidden" id="notice_num" name="notice_num" value="${notice_num}">
 											<input type="hidden" id="class_name" name="class_name" value="${class_name}"> 
 										</td>
 									</tr>

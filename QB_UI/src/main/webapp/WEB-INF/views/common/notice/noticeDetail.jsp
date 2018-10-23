@@ -13,7 +13,7 @@
 					<div class="panel-body ">
 						<div class="mail-header row">
 							<div class="col-md-8 noticeContent">
-								<h4 class="pull-left">공지사항 글 제목 자리입니다.</h4>
+								<h4 class="pull-left">${result[0].notice_name}</h4>
 							</div>
 							<div class="col-md-4">
 								<div class="compose-btn pull-right"></div>
@@ -24,29 +24,15 @@
 								<div class="col-md-8"></div>
 								<div class="col-md-4 pull-right noticeDetailWriterDiv">
 									<p class="date">
-										<strong>강사 홍길동</strong>&nbsp; &nbsp; 2018.10.08 &nbsp; &nbsp;
-										10:48:52 am
+										<strong>${result[0].member_id}</strong>&nbsp; &nbsp; ${result[0].notice_date} &nbsp; &nbsp;
+										
 									</p>
 								</div>
 							</div>
 						</div>
 
 						<div class="view-mail noticeContent">
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다. 내용테스트를 위한 글 길이 늘이기1 내용테스트를 위한 글 길이 늘이기2
-								내용테스트를 위한 글 길이 늘이기3 내용테스트를 위한 글 길이 늘이기4 내용테스트를 위한 글 길이 늘이기5
-								내용테스트를 위한 글 길이 늘이기6 내용테스트를 위한 글 길이 늘이기7 내용테스트를 위한 글 길이 늘이기8
-								내용테스트를 위한 글 길이 늘이기9 내용테스트를 위한 글 길이 늘이기10 내용테스트를 위한 글 길이 늘이기11
-								내용테스트를 위한 글 길이 늘이기12 내용테스트를 위한 글 길이 늘이기13 내용테스트를 위한 글 길이 늘이기14
-								내용테스트를 위한 글 길이 늘이기15 내용테스트를 위한 글 길이 늘이기16 내용테스트를 위한 글 길이 늘이기17
-								내용테스트를 위한 글 길이 늘이기18 내용테스트를 위한 글 길이 늘이기19</p>
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다.</p>
-							<p>공지사항 글 내용 자리입니다.</p>
+							${result[0].notice_content}
 						</div>
 						<div class="attachment-mail noticeContent">
 							<p>
@@ -54,19 +40,16 @@
 									href="#">모두 다운로드</a>
 							</p>
 							<ul>
-								<li><a class="atch-thumb" href="#"> <img
-										src="img/instagram.jpg">
-								</a> <a class="name" href="#"> IMG_001.jpg <span>20KB</span>
+								<li><a class="name" href="#"><img src="${pageContext.request.contextPath}/resources/upload/board/${result[0].notice_file1}"><span>20KB</span>
 								</a>
 									<div class="links">
-										<a href="#">미리보기</a> - <a href="#">다운로드</a>
+										<a href="#">미리보기</a> - <a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
 									</div></li>
-								<li><a class="atch-thumb" href="#"> <img
-										src="img/weather.jpg">
-								</a> <a class="name" href="#"> IMG_002.jpg <span>20KB</span>
+								<li><a class="atch-thumb" href="#"> 
+								</a> <a class="name" href="#"><img src="${pageContext.request.contextPath}/resources/upload/board/${result[0].notice_file2}"><span>20KB</span>
 								</a>
 									<div class="links">
-										<a href="#">미리보기</a> - <a href="#">다운로드</a>
+										<a href="#">미리보기</a> - <a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do">다운로드</a>
 									</div></li>
 							</ul>
 						</div>

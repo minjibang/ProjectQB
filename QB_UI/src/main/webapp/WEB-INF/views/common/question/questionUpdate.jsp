@@ -66,9 +66,10 @@
 					<div class="col-lg-12 ">
 						<form class="formNewQuestion" action="insertQuestion.do"
 							method="post" onsubmit="return check()">
+						<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
 						 <c:forEach items="${qdto}" var="qdto"> 
-						 ${qdto}<br>
-						 ${cdto}<br>
+						 <c:forEach items="${qcat}" var="qcat">
+	
 						 <input type="text" id="qdto_question_num" name="qdto_question_num" style="display: none" value="${qdto.question_num}">
 						 <input type="text" name="qdto_question_answer" style="display: none" value="${qdto.question_answer}">
 						 <c:forEach items="${cdto}" var="cdto">
@@ -76,16 +77,20 @@
 						 <input type="text" name="cdto_question_choice_num" style="display: none" value="${cdto.question_choice_num}">  
 						 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}"> 
 						 </c:forEach>
-						 
+						 <input type="text" name="qcat_smCatCode" style="display: none" value="${qcat.sm_category_code}">  
+						 <input type="text" name="qcat_mdCatCode" style="display: none" value="${qcat.md_category_code}">  
+						 <input type="text" name="qcat_lgCatCode" style="display: none" value="${qcat.lg_category_code}"> 
+						
+						 <!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 끝 -->
 						 	
-							<input type="text" name="member_id"
-								value="${qdto.member_id}" style="display: none">
+						<input type="text" name="member_id"
+							value="${qdto.member_id}" style="display: none">
 						
 							<h3 id="h3id">문제 수정</h3>
 							<hr>
 							<h4>
 							
-								<i class="fa fa-angle-right"></i> 출제자:
+								<i class="fa fa-angle-right"></i> 출제자 id:
 								 ( ${qdto.member_id} )<br>
 								 
 							</h4>
@@ -98,27 +103,40 @@
 									name="lg_category_name">
 									<option value="" selected disabled>대분류 선택</option>
 									<c:forEach items="${lgCatList}" var="lgCatList">
-										<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
+										<option value="${lgCatList.lg_category_code}"
+										<c:if test="${lgCatList.lg_category_code eq qcat.lg_category_code}"> selected </c:if>
+										>${lgCatList.lg_category_name}</option>
 									</c:forEach>
+									
 								</select> <select id="question_md_category2" class="form-control-static"
 									name="md_category_name">
 									<option value="">중분류 선택</option>
+									<c:forEach items="${mdCatList}" var="mdCatList">
+										<c:if test="${mdCatList.lg_category_code eq qcat.lg_category_code}">
+										<option value="${mdCatList.md_category_code}"
+											<c:if test="${mdCatList.md_category_code eq qcat.md_category_code}"> selected </c:if>
+										>${mdCatList.md_category_name}</option>
+										</c:if>
+									</c:forEach>
+									
 								</select> <select id="question_sm_category2" class="form-control-static"
 									name="sm_category_code">
 									<option value="">소분류 선택</option>
-									<%-- <c:forEach items="${smCatList}" var="smCatList">
-										<option value="${smCatList.sm_category_code}" <c:if test='${smCatList.sm_category_code eq qdto.sm_category_code}''> selected </c:if>>
-										${smCatList.sm_category_name}</option>
-									</c:forEach> --%>
-								</select> <select id="level_type" class="form-control-static"
+									<c:forEach items="${smCatList}" var="smCatList">
+										<c:if test="${smCatList.md_category_code eq qcat.md_category_code}">
+										<option value="${smCatList.sm_category_code}"
+											<c:if test="${smCatList.sm_category_code eq qcat.sm_category_code}"> selected </c:if>
+										>${smCatList.sm_category_name}</option>
+										</c:if>
+									</c:forEach>
+									
+								</select> <select id="level_type2" class="form-control-static"
 									name="level_code">
 									<option value="">난이도</option>
 									<c:forEach items="${quesLevelList}" var="quesLevelList">
-									
 										<option value="${quesLevelList.level_code}"
-										<c:if test="${quesLevelList.level_code eq qdto.level_code}"> selected </c:if>>
-										${quesLevelList.level_name}</option>
-									
+										<c:if test="${quesLevelList.level_code eq qdto.level_code}"> selected </c:if>
+										>${quesLevelList.level_name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -249,6 +267,7 @@
 								class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 								수정 완료</button>
 						</c:forEach>
+						</c:forEach>
 						</form>
 						<!-- 문제만들기 패널 종료 -->
 						<!-- /form-panel -->
@@ -271,31 +290,7 @@
 
 <script>
 $(document).ready(function() {	
-		$('#question_lg_category').change(
-						function() {
-							$('#question_md_category').children(
-									'option:not(:first)').remove();
-							<c:forEach items="${mdCatList}" var="mdlist">
-							if (document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}") {
-								$('#question_md_category')
-										.append("<option value=${mdlist.md_category_code}>${mdlist.md_category_name}</option>")
-							}
-							</c:forEach>
-							$('#question_sm_category').children(
-							'option:not(:first)').remove();
-						})
-
-		$('#question_md_category').change(
-						function() {
-							$('#question_sm_category').children(
-									'option:not(:first)').remove();
-							<c:forEach items="${smCatList}" var="smlist">
-							if (document.getElementById("question_md_category").value == "${smlist.md_category_code}") {
-								$('#question_sm_category')
-										.append("<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
-							}
-							</c:forEach>
-						})
+	
 
 		$('#question_lg_category2').change(
 						function() {

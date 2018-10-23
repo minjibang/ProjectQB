@@ -159,7 +159,7 @@
 												<div class="form-group">
 													<div class="col-lg-offset-2 col-lg-10">
 														<button class="btn btn-theme" data-toggle="modal"
-															data-dismiss="modal" id="deletebtn" name="deletebtn">예</button>
+															data-dismiss="modal" id="examScheduleDeletebtn" name="examScheduleDeletebtn">예</button>
 														<button class="btn btn-theme04" type="button"
 															data-dismiss="modal">아니오</button>
 													</div>
@@ -171,6 +171,7 @@
 									</div>
 									<!-- 시험 일정 DeleteModal 끝 -->
 								</div>
+
 								<div id="div_examSchedule" class="col-md-12">
 									<form class="insertForm">
 										<a href="" class="exam-insert"> <img
@@ -195,20 +196,21 @@
 															<p>[${examScheduleList.exam_info_time}]</p>
 															<p>응시 대상 : ${examScheduleList.exam_info_member}</p>
 
-															<button type="button" id="deleteExamScheduleBtn"
+															<button type="button" id="${examScheduleList.exam_info_num}"
 																name="deleteExamScheduleBtn"
-																class="btn btn-theme04 buttonGroup" data-toggle="modal"
-																data-target="#scheduleDeleteModal" value="">삭제</button>
+																class="btn btn-theme04 buttonGroup" onclick="deleteExamInfo()">삭제</button>
+																
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
 																일정 수정</button>
 
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
-														</div>
+														</div><br><br>
 														<hr>
 													</div>
 												</c:forEach>
+
 											</div>
 										</div>
 									</form>

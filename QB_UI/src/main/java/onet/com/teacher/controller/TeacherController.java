@@ -9,12 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,22 +68,24 @@ public class TeacherController {
 
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
-	public String noticeWrite(int notice_num, String class_name, Model model) {
-		System.out.println("***" + notice_num);
+	public String noticeWrite(String class_name, Model model) {
 		System.out.println(class_name);
-		model.addAttribute("notice_num", notice_num);
 		model.addAttribute("class_name",class_name);
 		return "common.teacher.notice.noticeWrite";
 	}
 	/* 한결 10월 12일 강사 글쓰기 페이지 끝 */
 
-	/* 재훈:10.08 게시판 글 상세보기 페이지 시작 */
+	/* 10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
-
+	public String noticeDetail(Model model, String class_name, int notice_num) {
+		
+		System.out.println("class_name : " + class_name);
+		System.out.println("notice_num : " + notice_num);
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		model.addAttribute("result", result);
 		return "common.teacher.notice.noticeDetail";
 	}
-	/* 재훈:10.08 게시판 글 상세보기 페이지 끝 */
+	/* 10.08 게시판 글 상세보기 페이지 끝 */
 
 	@RequestMapping("noticeUpdate.do")
 	public String noticeUpdate() {
@@ -122,15 +126,7 @@ public class TeacherController {
 	}
 	/* 영준 - 18.10.17 내 시험지 삭제 끝 */
 	
-	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
-	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody int exam_info_num)
-	{
-		int result = teacherService.examScheduleDelete(exam_info_num);
-		String result2 = String.valueOf(result);
-		return result2;
-	}
-	/* 영준 - 18.10.18 시험 일정 삭제 끝 */
+
 	
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 
@@ -186,8 +182,10 @@ public class TeacherController {
 	
 	
 	
-	// 강사 문제 관련 
-	/*재훈 18.10.15 내 문제함 관련 시작 */
+	
+	/*%%%%%%%%%%%%%%%%%%%%%%%    재훈 시작      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+	
+	//강사 - 내 문제함 페이지 문제분류 셀렉트박스 데이터 출력
 	@RequestMapping("questionManagement.do")
 	public String questionManagement(Model model, Principal principal) throws Exception{
 		List<CategoryDto> lgCatList;
@@ -213,55 +211,62 @@ public class TeacherController {
 		
 		return "common.teacher.question.questionManagement";
 	}
-		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 	
-		if (dto2.getQuestion_type().equals("객관식")) {
-		adminService.insertQuestion(dto2);
-		adminService.insertQuestionChoice(dto2, dto);
-		} else {
-		adminService.insertQuestion(dto2);
-		}
-		return "common.teacher.question.questionManagement";
+	//강사 - 내 문제함에 본인이 제출한 문제 정보 출력
+	@RequestMapping(value="myQuestionView.do")
+	public @ResponseBody ModelAndView classListView(@RequestParam("member_id") String member_id) {
+		
+		List<QuestionDto> question = teacherService.teacherMyQuestion(member_id);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.questionManagement_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
+	}
+
+	//강사 - 문제 검색기능 
+	 @RequestMapping(value="myQuestionSearch.do")
+	   public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+	         @RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+	         @RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
+	         @RequestParam("keyword") String keyword, @RequestParam("member_id") String member_id) {
+	    
+	     List<QuestionDto> question = teacherService.teacherMyQuestionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword,member_id);
+	     List<Question_choiceDto> question_choice = teacherService.question_choice();
+	      
+	     ModelAndView mv = new ModelAndView();
+	     mv.setViewName("ajax.common.questionManagement_ajax");
+	     mv.addObject("question", question);
+	     mv.addObject("question_choice",question_choice);
+	      
+	     return mv;
+	  }
+
+
+	
+	//강사 - 새 문제 만들기 
+		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+	
+			if (dto2.getQuestion_type().equals("객관식")) {
+				adminService.insertQuestion(dto2);
+				adminService.insertQuestionChoice(dto2, dto);
+			} else {
+				adminService.insertQuestion(dto2);
+			}
+		return "redirect:questionManagement.do";
 	}
 		
-		@RequestMapping(value="myQuestionView.do")
-		public @ResponseBody ModelAndView classListView(@RequestParam("member_id") String member_id) {
-			
-			
-			List<QuestionDto> question = teacherService.teacherMyQuestion(member_id);
-			List<Question_choiceDto> question_choice = teacherService.question_choice();
-			
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("ajax.common.questionManagement_ajax");
-			mv.addObject("question", question);
-			mv.addObject("question_choice",question_choice);
-			
-			return mv;
-		}
-		/*
-		@RequestMapping(value="myQuestionSearch.do")
-		public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
-				@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-				@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype) {
-			
-			List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
-			List<Question_choiceDto> question_choice = teacherService.question_choice();
-			
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("ajax.common.questionManagement_ajax");
-			mv.addObject("question", question);
-			mv.addObject("question_choice",question_choice);
-			
-			return mv;
-		}*/
-	
-		/* 재훈 10.20 문제삭제 관련 start */
+	//강사 - 문제 삭제
 		@RequestMapping("singleQuestionDelete.do")
 		public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
 			System.out.println("컨트롤러 진입>>>>>" + question_num);
 			Map<String,Object> map = new HashMap <String,Object>();
 			int result = commonService.singleQuestionDelete(question_num);
+			
 			if(result == 0) {
 				System.out.println("컨트롤러 if문 >> result 값 0");
 				map.put("result", "삭제불가");
@@ -272,7 +277,60 @@ public class TeacherController {
 			return map;
 		}
 		
-	/*재훈 18.10.18  */
+	//강사 - 문제 수정 버튼 클릭시 확인 창 + 문제가 수정 가능한지 확인하는 기능
+		@RequestMapping("singleUpdateCheck.do")
+		public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
+			System.out.println("singleUpdateCheck.do 컨트롤러 진입>>>>>" + question_num);
+			Map<String,Object> map = new HashMap <String,Object>();
+			int result = commonService.singleUpdateCheck(question_num);
+			if(result == 0) {
+				System.out.println("컨트롤러 if문 >> result 값 0");
+				map.put("result", "삭제불가");
+			}else {
+				System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
+				map.put("result", "삭제가능");
+			}
+			return map;
+		}
+	
+	//강사 - 문제 수정 페이지로 이동시 선택한 문제와 보기 정보 데이터를 출력
+		@RequestMapping("questionUpdate.do")
+		public String questionUpdate(Model model, int question_num) {
+			System.out.println("questionUpdate.do 컨트롤러 진입>>> question_num값: " +question_num);
+			
+			List<QuestionDto> qdto;
+			qdto=commonService.questionInfo(question_num);
+			model.addAttribute("qdto",qdto);
+			
+			List<Question_choiceDto> cdto;
+			cdto=commonService.questionChoiceInfo(question_num);
+			model.addAttribute("cdto",cdto);
+			
+			List<CategoryDto> qcat;
+			qcat=commonService.questionCategoryInfo(question_num);
+			model.addAttribute("qcat",qcat);
+			
+			List<CategoryDto> lgCatList;
+			lgCatList=adminService.lgCategoryList();
+			model.addAttribute("lgCatList",lgCatList);
+			
+			List<CategoryDto> mdCatList;
+			mdCatList=adminService.mdCategoryList();
+			model.addAttribute("mdCatList",mdCatList);
+			
+			List<CategoryDto> smCatList;
+			smCatList=adminService.smCategoryList();
+			model.addAttribute("smCatList",smCatList);
+			
+			List<CategoryDto> quesLevelList;
+			quesLevelList=adminService.questionLevelList();
+			model.addAttribute("quesLevelList",quesLevelList);
+			
+			return "common.teacher.question.questionUpdate";
+			
+		}
+
+	/*%%%%%%%%%%%%%%%%%%%%%%%    재훈 끝       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 
 	
 	/*현이 18.10.09 강사 마이페이지 시작*/
@@ -328,14 +386,6 @@ public class TeacherController {
 	}
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
-	/*양회준 18.10.12 문제 수정 시작	*/
-	@RequestMapping("questionUpdate.do")
-	public String questionUpdate() {		
-		return "common.teacher.question.questionUpdate";
-
-	}
-	/* 양회준 18.10.12 문제 수정 끝 */
-	
 	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
 	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
 	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
@@ -351,19 +401,14 @@ public class TeacherController {
 	/* 정원 10.22 공지사항 글쓰기*/
 	
 	@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
-	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws IOException {
+	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
 		String member_id = principal.getName();
 		dto.setMember_id(member_id);
 		long time = System.currentTimeMillis(); 
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
 		dto.setNotice_date(str);
-		int noticeNum = dto.getNotice_num();
-		System.out.println("_____" + noticeNum);
-		dto.setNotice_num(noticeNum);
 		
-		String FileName1 ="";
-		String FileName2 ="";
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
 		String originFileName1 = file1.getOriginalFilename();
@@ -371,30 +416,36 @@ public class TeacherController {
 		long fileSize1 = file1.getSize();
 		long fileSize2 = file2.getSize();
 		String path =  request.getServletContext().getRealPath("resources/upload/board/");
-		String safeFile1 = path + System.currentTimeMillis() + originFileName1;
-		String safeFile2 = path + System.currentTimeMillis() + originFileName2;
 		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
-			FileName1 = dto.getMember_id() + originFileName1;
-			FileName2 = dto.getMember_id() + originFileName2;
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file1(FileName1);
-			dto.setNotice_file2(FileName2);
+			dto.setNotice_file1(savaFile1);
+			dto.setNotice_file2(saveFile2);
 		}else if(fileSize1 > 0 && fileSize2 == 0){
-			FileName1 = dto.getMember_id() + originFileName1;
-			dto.setNotice_file1(FileName1);
 			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
 		}else if(fileSize2 > 0 && fileSize1 == 0) {
-			FileName2 = dto.getMember_id() + originFileName2;
 			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file2(FileName2);
+			dto.setNotice_file2(saveFile2);
 		}
-		
-		
 		int result = commonService.insertBoardList(dto);
 		
+	
 		return "redirect:teacherMain.do";
 	}
+	
+	
+	
+	
+	
+	
 
 }

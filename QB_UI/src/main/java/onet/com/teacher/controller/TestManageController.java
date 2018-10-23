@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,8 +89,6 @@ public class TestManageController {
 		
 		return "common.teacher.exam.examManagement";
 	}
-	
-	
 	@RequestMapping("deleteExam.do")
 	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
@@ -238,4 +237,17 @@ public class TestManageController {
 	}
 		
 	/*민지 시험일정 수정 끝*/
+	
+	/* 민지 - 18.10.23 시험 일정 삭제 시작 */
+	@RequestMapping(value = "teacherExamSchedultDelete.do", method = RequestMethod.POST)
+	public @ResponseBody String teacherExamSchedultDelete(@RequestParam("exam_info_num") int exam_info_num) //@RequestBody (비동기: 객체 형태로 받아요) 
+	{	
+		/*deptService.insertDept(dto);
+		return dto.toString();*/
+		int result = teacherService.teacherExamSchedultDelete(exam_info_num);
+		String result2 = String.valueOf(result);
+		return result2;
+		
+	}
+	/* 민지 - 18.10.23 시험 일정 삭제 끝 */
 }
