@@ -29,6 +29,7 @@ public interface AdminDao {
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
+	
 	public List<MemberDto> memberList();
 	public List<RoleDto> roleList();
 	
@@ -44,7 +45,14 @@ public interface AdminDao {
 	public int insertMember(MemberDto dto);
 	/* 영준 - 10.22 회원관리 선택회원 등록 끝 */
 	
-	/* 영준 - 10.10 회원관리 관련 끝 */
+	//양회준 10-22 admin 회원관리 비동기 검색
+	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
+	//양회준 10-22 admin 회원관리 비동기 일괄학생등록
+	public int updateStudentsAjax(String updateStudent);
+	//양회준 10-22 admin 회원관리 비동기 일괄학생삭제
+	public int deleteStudentsAjax(String deleteStudent);
+		
+	/* 영준 - 10.23 회원관리 관련 끝 */
 	
 
 	/*민지 10.12 클래스멤버리스트 관련*/
@@ -142,11 +150,5 @@ public interface AdminDao {
 	public List<CategoryDto> selectSmRealList2(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
 
-	//양회준 10-22 admin 회원관리 비동기 검색
-	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
-	//양회준 10-22 admin 회원관리 비동기 일괄학생등록
-	public int updateStudentsAjax(String updateStudent);
-	//양회준 10-22 admin 회원관리 비동기 일괄학생삭제
-	public int deleteStudentsAjax(String deleteStudent);
 }
 

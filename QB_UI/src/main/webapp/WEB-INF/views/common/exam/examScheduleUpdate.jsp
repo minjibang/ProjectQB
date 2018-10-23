@@ -71,6 +71,7 @@
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
                                 <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" value="${classExamList.exam_info_start}" required>
+                                 <input type="hidden" value="${classExamList.exam_info_start}" id="start_time_hidden"/>
                                  <span class="input-group-btn">
                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -164,6 +165,8 @@
 <!--main content end-->
 
 <script>
+
+
 function check(){
 	var timeinfodiv = document.getElementById("timeinfo");
 	

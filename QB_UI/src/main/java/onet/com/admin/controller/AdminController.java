@@ -124,17 +124,39 @@ public class AdminController {
 	}
 	/* 영준 - 10.22 회원관리 회원 삭제 끝 */
 
-	/* 영준 - 10.22 선택회원 등록 시작 */
-	@RequestMapping(value="adminMemberInsert.do", method = RequestMethod.POST)
-	public @ResponseBody String adminMemberInsert(@RequestBody MemberDto dto)
-	{
-		int result = adminService.insertMember(dto);
-		String result2 = String.valueOf(result);
-		return result2;
-	}
-	/* 영준 - 10.22 선택회원 등록 끝 */
+	//양회준 10-22 admin 회원관리 비동기 검색
+		@RequestMapping(value="memberSearchAjax.do", method=RequestMethod.POST)
+		public @ResponseBody List<MemberDto> memberSearchAjax(@RequestParam("searchRole") String searchRole, 
+				@RequestParam("searchClassName") String searchClassName, @RequestParam("searchMemberInfo") String searchMemberInfo,
+				@RequestParam("searchBox") String searchBox) throws IOException, ClassNotFoundException, SQLException {
+					
+			List<MemberDto> memberDto = adminService.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);
+			
+			return memberDto;
+		}
+		
+		//양회준 10-23 admin 회원관리 비동기 일괄등록
+		@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
+		public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
+				throws IOException, ClassNotFoundException, SQLException {
+			System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
+			
+			int result = adminService.updateStudentsAjax(updateStudentArr);
+			
+			return ""+result;
+		}
+		//양회준 10-23 admin 회원관리 비동기 일괄삭제
+		@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
+		public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
+				throws IOException, ClassNotFoundException, SQLException {
+			System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
+			
+			int result = adminService.deleteStudentsAjax(deleteStudentArr);
+			
+			return ""+result;
+		}
 	
-	/* 영준 10.15 회원관리관련 끝 */
+	/* 영준 10.23 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
@@ -234,7 +256,6 @@ public class AdminController {
 			
 		}
 	
-
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num) {
 		
@@ -344,6 +365,25 @@ public class AdminController {
 		
 		return mv;
 	}
+
+	//관리자 - 문제관리 페이지 분류별/키워드별 검색 기능
+	@RequestMapping(value="myQuestionSearch.do")
+	public @ResponseBody ModelAndView myQuestionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+			@RequestParam("leveltype") String leveltype,@RequestParam("keyword") String keyword,
+			@RequestParam("questiontype") String questiontype) {
+		
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.questionManagement_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
+	}
+
 	//관리자 - 문제관리 페이지 새 문제 만들기 기능
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
@@ -685,36 +725,6 @@ public class AdminController {
 
 	
 		
-	//양회준 10-22 admin 회원관리 비동기 검색
-	@RequestMapping(value="memberSearchAjax.do", method=RequestMethod.POST)
-	public @ResponseBody List<MemberDto> memberSearchAjax(@RequestParam("searchRole") String searchRole, 
-			@RequestParam("searchClassName") String searchClassName, @RequestParam("searchMemberInfo") String searchMemberInfo,
-			@RequestParam("searchBox") String searchBox) throws IOException, ClassNotFoundException, SQLException {
-				
-		List<MemberDto> memberDto = adminService.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);
-		
-		return memberDto;
-	}
 	
-	//양회준 10-23 admin 회원관리 비동기 일괄등록
-	@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
-	public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
-			throws IOException, ClassNotFoundException, SQLException {
-		System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
-		
-		int result = adminService.updateStudentsAjax(updateStudentArr);
-		
-		return ""+result;
-	}
-	//양회준 10-23 admin 회원관리 비동기 일괄삭제
-	@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
-	public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
-			throws IOException, ClassNotFoundException, SQLException {
-		System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
-		
-		int result = adminService.deleteStudentsAjax(deleteStudentArr);
-		
-		return ""+result;
-	}
 	
 }
