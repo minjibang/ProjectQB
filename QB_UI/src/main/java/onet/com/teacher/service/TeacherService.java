@@ -146,6 +146,13 @@ public class TeacherService {
 		return result;
 	}
 	
+	public List<QuestionDto> updateExamView(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<QuestionDto> result = dao.updateExamView(exam_paper_num);
+		return result;
+	}
+	
+	
 	/*--성태용 끝--*/
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
 	public List<MemberDto> classMemberList(int exam_paper_num){
