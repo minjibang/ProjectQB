@@ -87,10 +87,10 @@ public class TestManageController {
 		List<ExamInfoDto> examScheduleList;
 		examScheduleList = teacherService.examScheduleList(member_id);
 		model.addAttribute("examScheduleList", examScheduleList);
-
 		
 		return "common.teacher.exam.examManagement";
 	}
+	
 	@RequestMapping("deleteExam.do")
 	public String deleteExam(int exam_paper_num) {
 		

@@ -409,6 +409,9 @@
                     this.meridian = meridian;
                 } else if (defaultTime === 'value') {
                     this.setValues(this.$element.val());
+                    if(){
+                    	 this.setValues("현재시간보다 전 이다.");
+                    }
                 } else {
                     this.setValues(defaultTime);
                 }

@@ -41,24 +41,33 @@ $(document).ready(function(){
 		/* 시험 일정 페이지 삭제 버튼 구현 */
 
 			/* 시험 일정 삭제 모달창  */
-			$('#examScheduleDeletebtn').click(function(){
-			
-				console.log("exam_info_num>>"+$('#deleteExamScheduleBtn').val());
-				
-				$.ajax({
-					type : "post",
-		   			  url : "teacherExamSchedultDelete.do",
-		   			  dataType : "html",
-		   			  data:{'exam_info_num':$('#deleteExamScheduleBtn').val()},
-		   			  success : function(data){
-						alert("시험 일정 삭제성공");
-						location.href="examManagement.do";
-						},
-						error: function(request, status, error){
-						alert("시험 일정 삭제 실패");
-					}
-				});
-			});
+
 			
 			
 	});
+
+function deleteExamInfo(){
+	
+	var button_id = window.event.target.id;
+	
+	console.log("exam_info_num>>>>"+button_id);
+	var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
+	if(deleteconfirm == true){
+		$.ajax({
+			type : "post",
+   			  url : "teacherExamSchedultDelete.do",
+   			  dataType : "json",
+   			  data:{'exam_info_num':button_id},
+   			  success : function(data){
+				alert("시험 일정 삭제성공");
+				location.href="examManagement.do";
+				},
+				error: function(request, status, error){
+				alert("시험 일정 삭제 실패");
+			}
+		});
+	}else{
+		
+	}
+
+};

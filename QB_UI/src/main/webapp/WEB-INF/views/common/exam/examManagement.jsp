@@ -193,10 +193,9 @@
 															<p>[${examScheduleList.exam_info_time}]</p>
 															<p>응시 대상 : ${examScheduleList.exam_info_member}</p>
 
-															<button type="button" id="deleteExamScheduleBtn"
+															<button type="button" id="${examScheduleList.exam_info_num}"
 																name="deleteExamScheduleBtn"
-																class="btn btn-theme04 buttonGroup" data-toggle="modal"
-																data-target="#scheduleDeleteModal" value="${examScheduleList.exam_info_num}">삭제</button>
+																class="btn btn-theme04 buttonGroup" onclick="deleteExamInfo()">삭제</button>
 																
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험

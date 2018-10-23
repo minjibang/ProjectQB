@@ -1,5 +1,10 @@
 /* 체크박스 체크시 전체선택 체크 여부 */
 
+
+
+
+
+
 function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 }
