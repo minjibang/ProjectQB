@@ -128,13 +128,13 @@ public class CommonService {
 	}
 	/*현이 - ExamPaperDo 10.18 끝 */ 
 	
-	/*재훈 - 문제관리 관련 10.21 시작 */
-	
+/*######################      재훈 시작             ######################*/
+
+//문제관리 - 문제삭제 전 삭제가능여부 판단
 	public int singleQuestionDelete(int question_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		QuestionDto qdto = new QuestionDto();
 		Question_choiceDto cdto = new Question_choiceDto();
-		ExamQuestionDto edto = new ExamQuestionDto();
 		int result = 0;
 		
 		List<ExamQuestionDto> qSearch = dao.singleQuestionDeleteSearch(question_num);
@@ -149,8 +149,46 @@ public class CommonService {
 			return result;
 		}
 	}
+//문제관리 - 문제 수정 전 수정가능여부 판단
+	public int singleUpdateCheck(int question_num) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = 0;
+		
+		List<ExamQuestionDto> qSearch = dao.singleQuestionDeleteSearch(question_num);
+		if(qSearch.isEmpty()) {
+			result = 1;
+			return result;
+		}else {
+			return result;
+		}
+	}
+//문제 수정 페이지 - 문제 정보 가져오기
+	public List<QuestionDto> questionInfo(int question_num) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		QuestionDto qdto = new QuestionDto();
+		qdto.setQuestion_num(question_num);
+		List<QuestionDto> result = commonDao.questionInfo(qdto);
+			
+		return result;
+	}	
+//문제 수정 페이지 - 문제 보기정보 가져오기
+	public List<Question_choiceDto> questionChoiceInfo(int question_num) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		Question_choiceDto cdto = new Question_choiceDto();
+		cdto.setQuestion_num(question_num);
+		List<Question_choiceDto> result = commonDao.questionChoiceInfo(cdto);
+			
+		return result;
+	}	
+//문제 수정 페이지 - 문제카테고리 가져오기
+	public List<CategoryDto> questionCategoryInfo(int question_num) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<CategoryDto> result = commonDao.questionCategoryInfo(question_num);
+			
+		return result;
+	}
 	
-
+/*######################      재훈 끝             ######################*/
 	
 
 	public int insertBoardList(NoticeDto dto) {
@@ -171,59 +209,6 @@ public class CommonService {
 		return result;
 	}
 
-	public int singleUpdateCheck(int question_num) {
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		ExamQuestionDto edto = new ExamQuestionDto();
-		int result = 0;
-		
-		List<ExamQuestionDto> qSearch = dao.singleQuestionDeleteSearch(question_num);
-		if(qSearch.isEmpty()) {
-			result = 1;
-			return result;
-		}else {
-			return result;
-		}
-	}
-	
-	//문제정보 가져오기
-	public List<QuestionDto> questionInfo(int question_num) {
-		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		QuestionDto qdto = new QuestionDto();
-		qdto.setQuestion_num(question_num);
-		List<QuestionDto> result = commonDao.questionInfo(qdto);
-		
-		return result;
-	}	
-	//문제보기 가져오기
-	public List<Question_choiceDto> questionChoiceInfo(int question_num) {
-		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		Question_choiceDto cdto = new Question_choiceDto();
-		cdto.setQuestion_num(question_num);
-		List<Question_choiceDto> result = commonDao.questionChoiceInfo(cdto);
-		
-		return result;
-	}	
-	//문제카테고리 가져오기
-	public List<CategoryDto> questionCategoryInfo(int question_num) {
-		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		CategoryDto qcat = new CategoryDto();
-		QuestionDto qdto = new QuestionDto();
-		/*qcat.setSm_category_code(qdto.getSm_category_code());*/
-		List<CategoryDto> result = commonDao.questionCategoryInfo(question_num);
-		
-		return result;
-	}
-	
-	//문제 수정
-/*	public String myPageUpdate(MemberDto memberDto)
-			throws ClassNotFoundException, SQLException, IOException {
-		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		commonDao.myPageUpdate(memberDto);
-		System.out.println("test");
-		return "redirect:myPage.do";
-	}*/
-	
-	
 	
 }
 

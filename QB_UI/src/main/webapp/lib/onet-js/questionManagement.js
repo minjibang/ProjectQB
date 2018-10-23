@@ -275,9 +275,6 @@ function check(){
 	var _smCategory = $("#question_sm_category2 option:selected").val();
 	var _questionLevel = $("#level_type2 option:selected").val();
 	var _questionName = $("input[type=text][name=question_name]").val();
-/*	var _questionName1 = $("input[type=text][name=question_name]").val();
-	var _questionName = _questionName1.value.replace(/(\n|\r|\r\n|)/g,'<br>');*/
-
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
 	var _questionChoiceContent1 = $("input[type=text][id=question_choice_content1]").val();
 	var _questionChoiceContent2 = $("input[type=text][id=question_choice_content2]").val();
@@ -286,7 +283,9 @@ function check(){
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
-	alert( "=== 문제 생성 입력값 확인용 alert ==="
+	
+/*	
+  		alert( "=== 문제 생성 입력값 확인용 alert ==="
 			  + "문제 타입: " 			+ _shortAnswerQuestion
 			  + "\n 소분류: " 		+ _smCategory
 			  + "\n 난이도: " 		+ _questionLevel
@@ -299,6 +298,7 @@ function check(){
 			  + "\n 객관식보기5번: " 	+ _questionChoiceContent5
 			  + "\n 객관식보기갯수: " 	+ _choiceQuantity
 	   		);
+*/	
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
 		/*객관식 문제 생성 유효성검사*/
@@ -313,7 +313,7 @@ function check(){
 			swal("문제의 난이도를 선택해주세요");
 			document.getElementById("level_type2").focus();
 			return false;
-		//객관식 문제 보기가 5개일때 
+		/*객관식 문제 보기 5개인 경우*/
 		} else if ($.trim(_choiceQuantity) == "5"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -333,13 +333,17 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 등록하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					swal({
+						title: "문제 등록",
+						text: "새로운 문제가 등록되었습니다.",
+						icon: "success"
+					});
 					return true;
 				}else{
 					return false;
 				}
 			} 
-		//객관식 문제 보기가 4개일때	
+		/*객관식 문제 보기 4개인 경우*/	
 		} else if ($.trim(_choiceQuantity) == "4"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -357,13 +361,17 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 등록하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					swal({
+						title: "문제 등록",
+						text: "새로운 문제가 등록되었습니다.",
+						icon: "success"
+					});
 					return true;
 				}else{
 					return false;
 				}
 			} 
-		//객관식 문제 보기가 3개일때
+		/*객관식 문제 보기 3개인 경우*/
 		} else if ($.trim(_choiceQuantity) == "3"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -378,14 +386,18 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 등록하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					swal({
+						title: "문제 등록",
+						text: "새로운 문제가 등록되었습니다.",
+						icon: "success"
+					});
 					return true;
 				}else{
 					return false;
 				}
 			} 
 			
-		//객관식 문제 보기가 2개일때	
+		/*객관식 문제 보기 2개인 경우*/	
 		} else if ($.trim(_choiceQuantity) == "2"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -397,16 +409,20 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 등록하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("새로운 문제가 등록되었습니다.")
+					swal({
+						title: "문제 등록",
+						text: "새로운 문제가 등록되었습니다.",
+						icon: "success"
+					});
 					return true;
 				}else{
 					return false;
 				}
 			} 
 			
-		} 
-	}else {
-		/*주관식 문제 생성 유효성검사*/
+		}
+	/*주관식 문제 생성 유효성검사*/
+	}else{
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
 			document.getElementById("question_sm_category2").focus();
@@ -419,7 +435,11 @@ function check(){
 			var questionInsertConfirm = confirm(
 					"문제를 정말로 등록하시겠습니까?");
 			if(questionInsertConfirm == true){
-				alert("새로운 문제가 등록되었습니다.")
+				swal({
+					title: "문제 등록",
+					text: "새로운 문제가 등록되었습니다.",
+					icon: "success"
+				});
 				return true;
 			}else{
 				return false;

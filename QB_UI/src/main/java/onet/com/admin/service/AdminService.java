@@ -28,7 +28,8 @@ public class AdminService {
 	
 	HttpServletRequest request;
 	
-	/*재훈 - 10.08 문제분류관련 시작*/ 
+/*##################        재훈 시작              ##################*/
+	//문제분류 페이지 - 문제분류 리스트 시작 
 	public List<CategoryDto> lgCategoryList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.lgCategoryList();
@@ -44,24 +45,21 @@ public class AdminService {
 		List<CategoryDto> result = dao.smCategoryList();
 		return result;
 	}
-	/*재훈 - 10.08 문제분류관련 끝*/
 	
-	/*재훈 - 10.15 문제난이도관련 시작*/
+	//문제 난이도 리스트
 	public List<CategoryDto> questionLevelList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.questionLevelList();
 		return result;
 	}
-	/*재훈 - 10.15 문제난이도관련 끝*/
 	
-	/*재훈 - 10.16 새 문제 만들기 관련 시작*/
+	//새 문제 만들기 
 	@Transactional
 	public int insertQuestion(QuestionDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.insertQuestion(dto);
 		return result;
 	}
-	
 	@Transactional
 	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
 		int result = 0;		
@@ -80,7 +78,9 @@ public class AdminService {
 		return result;
 	}
 	
-	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
+/*##################        재훈 시작              ##################*/
+	
+	
 
 	/*영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList(){
@@ -118,15 +118,37 @@ public class AdminService {
 
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
-	
-	/* 영준 - 10.22 선택회원 일괄 학생 등록 시작 */
-	public int insertMember(MemberDto dto) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.insertMember(dto);
-		System.out.println("선택회원 결과 값 : " + result);
-		return result;
-	}
-	/* 영준 - 10.22 선택회원 일괄 학생 등록 끝 */
+	//양회준 10-22 admin 회원관리 비동기 검색
+		public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, 
+				String searchMemberInfo, String searchBox) {
+			System.out.println(searchRole+"/"+ searchClassName+"/"+ searchMemberInfo+"/"+ searchBox);
+			AdminDao dao = sqlsession.getMapper(AdminDao.class);
+			List<MemberDto> result = dao.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);		
+			System.out.println(result);
+			
+			return result;
+		}
+		//양회준 10-23 admin 회원관리 비동기 일괄등록
+		public int updateStudentsAjax(ArrayList<String> updateStudentArr) {
+			AdminDao dao = sqlsession.getMapper(AdminDao.class);
+			int result=0;
+			for(String updateStudent : updateStudentArr) {
+				System.out.println("service data="+updateStudent);
+				result = dao.updateStudentsAjax(updateStudent);		
+			}				
+			return result;
+		}
+		//양회준 10-23 admin 회원관리 비동기 일괄삭제
+		public int deleteStudentsAjax(ArrayList<String> deleteStudentArr) {
+			AdminDao dao = sqlsession.getMapper(AdminDao.class);
+			int result=0;
+			for(String deleteStudent : deleteStudentArr) {
+				System.out.println("service data="+deleteStudent);
+				result = dao.deleteStudentsAjax(deleteStudent);		
+			}				
+			return result;
+		}
+
 	
 	/*영준 - 10.10 회원관리 관련 끝 */
 
@@ -396,34 +418,5 @@ public class AdminService {
 	}
 	/*정원 문제분류 끝*/
 	
-	//양회준 10-22 admin 회원관리 비동기 검색
-	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, 
-			String searchMemberInfo, String searchBox) {
-		System.out.println(searchRole+"/"+ searchClassName+"/"+ searchMemberInfo+"/"+ searchBox);
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<MemberDto> result = dao.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);		
-		System.out.println(result);
-		
-		return result;
-	}
-	//양회준 10-23 admin 회원관리 비동기 일괄등록
-	public int updateStudentsAjax(ArrayList<String> updateStudentArr) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result=0;
-		for(String updateStudent : updateStudentArr) {
-			System.out.println("service data="+updateStudent);
-			result = dao.updateStudentsAjax(updateStudent);		
-		}				
-		return result;
-	}
-	//양회준 10-23 admin 회원관리 비동기 일괄삭제
-	public int deleteStudentsAjax(ArrayList<String> deleteStudentArr) {
-		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result=0;
-		for(String deleteStudent : deleteStudentArr) {
-			System.out.println("service data="+deleteStudent);
-			result = dao.deleteStudentsAjax(deleteStudent);		
-		}				
-		return result;
-	}
+	
 }
