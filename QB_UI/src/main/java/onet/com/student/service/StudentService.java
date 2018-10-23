@@ -1,12 +1,14 @@
 package onet.com.student.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.student.dao.StudentDao;
+import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
@@ -71,6 +73,25 @@ public class StudentService {
 		return result;
 	}
 	/* 10.19 현이 학생 답안지 제출 끝 */ 
+	
+	/*10.23 현이 지난 시험 보기 시작 */
+	public List<ExamInfoDto> searchPastExam(String member_id){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<ExamInfoDto> examInfoList = dao.searchPastExam(member_id);
+		
+		return examInfoList;
+	}
+	
+	public String searchStudentName(String member_id) {
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		String member_name = dao.searchStudentName(member_id);
+		
+		return member_name;
+	}
+	
+	/*10.23 현이 지난 시험 보기 끝 */
 	
 	
 	
