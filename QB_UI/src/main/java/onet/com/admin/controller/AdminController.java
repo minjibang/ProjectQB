@@ -116,12 +116,11 @@ public class AdminController {
 	
 	/* 영준 - 10.22 회원관리 회원 삭제 시작 */
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
-	{
-		int result = adminService.deleteMember(dto);
-		String result2 = String.valueOf(result);
-		System.out.println("삭제회원 결과 값 : " + result);
-		return result2;
+	public @ResponseBody int adminMemberDelete(@RequestParam String member_id)
+	{	
+		System.out.println(member_id);
+		int result = adminService.deleteMember(member_id);
+		return result;
 	}
 	/* 영준 - 10.22 회원관리 회원 삭제 끝 */
 
@@ -212,7 +211,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name) {
+	public String adminClassMain(Model model, String class_name) { 
 
 		List<NoticeDto> notice;
 		notice=commonService.admin_Main(class_name);
@@ -237,7 +236,11 @@ public class AdminController {
 	
 
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
+	public String noticeDetail(Model model, String class_name, int notice_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		model.addAttribute("result", result);		
 		
 		return "common.adminClass.admin.notice.noticeDetail";
 	}
@@ -257,8 +260,12 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
-		System.out.println("시험일정 상세 컨트롤러");
+	public String examScheduleDetail(Model model, int exam_info_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);  
+		model.addAttribute("dto", dto);
+		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 	

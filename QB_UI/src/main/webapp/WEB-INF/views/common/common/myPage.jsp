@@ -172,3 +172,4 @@
 <%-- javascript --%>
 <input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
 <script src="${pageContext.request.contextPath}/lib/onet-js/myPage.js" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

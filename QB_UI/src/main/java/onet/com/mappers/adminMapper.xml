@@ -115,10 +115,10 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X)/선택회원 일괄삭제 시작 -->
-<update id="deleteMember" parameterType="onet.com.vo.MemberDto">
-	UPDATE member m, member_role mr
-	SET mr.role_code='ROLE_MEMBER', m.member_enable=0
-	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
+<update id="deleteMember" parameterType="String">
+	UPDATE member
+	SET member_enable=0
+	WHERE member_id=#{member_id}
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X)/선택회원 일괄삭제 끝 -->
 
