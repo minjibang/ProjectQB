@@ -156,8 +156,7 @@ public class AdminController {
 			return ""+result;
 		}
 	
-	
-	/* 영준 10.15 회원관리관련 끝 */
+	/* 영준 10.23 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
