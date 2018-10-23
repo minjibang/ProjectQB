@@ -243,7 +243,7 @@
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
-										<table id="adminMember_table" class="display">
+										<table id="adminMemberTable">
 											<thead>
 												<tr>
 													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
