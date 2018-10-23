@@ -146,29 +146,6 @@
 								<!-- 시험 일정 DeleteModal 시작-->
 								<div class="modal fade" id="scheduleDeleteModal" tabindex="-1"
 									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
-												<h4 class="modal-title" id="myModalLabel">시험 일정 삭제</h4>
-												<!-- modal-header 끝 -->
-											</div>
-											<div class="modal-body">정말 삭제하시겠습니까?</div>
-											<div class="modal-footer">
-												<div class="form-group">
-													<div class="col-lg-offset-2 col-lg-10">
-														<button class="btn btn-theme" data-toggle="modal"
-															data-dismiss="modal" id="examScheduleDeletebtn" name="examScheduleDeletebtn">예</button>
-														<button class="btn btn-theme04" type="button"
-															data-dismiss="modal">아니오</button>
-													</div>
-												</div>
-											</div>
-											<!-- modal-content 끝 -->
-										</div>
-										<!-- modal-dialog 끝 -->
-									</div>
 									<!-- 시험 일정 DeleteModal 끝 -->
 								</div>
 
