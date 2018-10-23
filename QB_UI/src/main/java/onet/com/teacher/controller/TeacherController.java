@@ -249,7 +249,7 @@ public class TeacherController {
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, MultipartHttpServletRequest request) throws ClassNotFoundException, SQLException {
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 	
 			
 		String[] imgArray;
@@ -260,15 +260,15 @@ public class TeacherController {
 		imgArray = dto.getQuestion_choice_image().split(",");
 		for(int i=0; i<imgArray.length;i++) {
 
-			System.out.println(imgArray[i]);
-			String path =  request.getServletContext().getRealPath("resources/upload/question_choice/");
-			UUID uuid = UUID.randomUUID();
-			String savaFile1 = uuid.toString()+"_" + imgArray[i];
-			String safeFile1 = path + savaFile1;
-			if(imgArray[i] != "") {
-				
-				
-			}
+//			System.out.println(imgArray[i]);
+//			String path =  request.getServletContext().getRealPath("resources/upload/question_choice/");
+//			UUID uuid = UUID.randomUUID();
+//			String savaFile1 = uuid.toString()+"_" + imgArray[i];
+//			String safeFile1 = path + savaFile1;
+//			if(imgArray[i] != "") {
+//				
+//				
+//			}
 		}
 		
 		if (dto2.getQuestion_type().equals("객관식")) {
@@ -277,7 +277,7 @@ public class TeacherController {
 		} else {
 		adminService.insertQuestion(dto2);
 		}
-		return "common.teacher.question.questionManagement";
+		return "redirect:questionManagement.do";
 		/*
 		 MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
