@@ -212,7 +212,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name) {
+	public String adminClassMain(Model model, String class_name) { 
 
 		List<NoticeDto> notice;
 		notice=commonService.admin_Main(class_name);
@@ -237,7 +237,11 @@ public class AdminController {
 	
 
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
+	public String noticeDetail(Model model, String class_name, int notice_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		model.addAttribute("result", result);		
 		
 		return "common.adminClass.admin.notice.noticeDetail";
 	}
@@ -257,8 +261,12 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
-		System.out.println("시험일정 상세 컨트롤러");
+	public String examScheduleDetail(Model model, int exam_info_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);  
+		model.addAttribute("dto", dto);
+		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 	
