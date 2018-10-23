@@ -107,4 +107,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 <!-- 10.19 현이 학생 답안지 제출 끝 -->
 
+<!-- 10.23 현이 학생 지난 시험 보기 시작 -->
+<select id="searchPastExam" parameterType="String" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info 
+	where class_name = 
+		(select class_name from member where member_id = #{param1})
+</select>
+
+<select id="searchStudentName" parameterType="String" resultType="String">
+	select member_name from member
+	where member_id = #{param1}
+</select>
+
+<!-- 10.23 현이 학생 지난 시험 보기 끝 -->
+
 </mapper>
