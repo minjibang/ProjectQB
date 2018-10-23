@@ -73,7 +73,7 @@ public class AdminService {
 					
 		for(int i=0;i<question_choice_num.length;i++) {
 			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
-		}		
+		}
 		
 		return result;
 	}
@@ -402,7 +402,10 @@ public class AdminService {
 		System.out.println(searchRole+"/"+ searchClassName+"/"+ searchMemberInfo+"/"+ searchBox);
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<MemberDto> result = dao.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);		
-		System.out.println(result);
+		System.out.println("쿼리 후:"+result);
+		for(MemberDto test1 : result) {
+			System.out.println("list의 내부:"+test1.getMember_id());
+		}
 		
 		return result;
 	}

@@ -236,6 +236,12 @@ $(function(){
 		var searchClassName = $("#searchClassName").val();
 		var searchMemberInfo = $("#searchMemberInfo").val();
 		var searchBox = $("#searchBox").val();
+		//검색조건 유효성
+		if(searchRole==""&&searchClassName==""&&searchBox==""){
+			swal("Error!", "검색값을 입력해주십시오.", "error");
+		}else if(searchRole==""&&searchClassName==""&&searchMemberInfo==""){
+			swal("Error!", "검색할 조건 입력해주십시오.", "error");
+		}
 		
 		$.ajax({
 			url : "memberSearchAjax.do",
@@ -248,24 +254,29 @@ $(function(){
 			},
 			dataType : "json",
 			success:function(data){
-				$(data).each(function(index, element){
-					console.log(index+" : "+element.member_id);
-					
-					html += "<tr><td><input type='checkbox' id='chk' name='chk' value='chk'></td>";
-					html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
-					html += "<td id='member_id' class='member_id' name='member_id'>"+element.member_id+"</td>";
-					html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
-					html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
-					html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
-					html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
-					html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
-					html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
-					html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
-					html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
-					html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
-					
-					$("#memberListView").empty().append(html);
-				});
+				console.log(data.length);
+				if(data.length!=0){
+					$(data).each(function(index, element){
+						console.log(index+" : "+element.member_id);
+						
+						html += "<tr><td><input type='checkbox' id='chk' name='chk' value='chk'></td>";
+						html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
+						html += "<td id='member_id' class='member_id' name='member_id'>"+element.member_id+"</td>";
+						html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
+						html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
+						html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
+						html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
+						html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
+						html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
+						html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
+						html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
+						html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
+						
+						$("#memberListView").empty().append(html);
+					});
+				}else{
+					swal("Error!", "검색된 데이터가 없습니다.", "error");
+				}
 			},
 			error : function(error){
 				console.log("실패....");

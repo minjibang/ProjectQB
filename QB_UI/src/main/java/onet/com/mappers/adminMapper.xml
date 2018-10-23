@@ -309,13 +309,13 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <!-- 양회준 10-22 admin 회원관리 비동기 검색 시작 -->
 <sql id="memberSrch">
 	<where>
-		<if test="param1 != ''">
+		<if test='param1 != ""'>
 			mr.role_code = #{param1}		
 		</if>
-		<if test="param2 != ''">
+		<if test='param2 != ""'>
 			and m.class_name = #{param2}
 		</if>			
-		<if test="param3 != ''">
+		<if test='param3 != ""'>
 			<choose>
 				<when test='param3 == "name"'>
 					and m.member_name like concat('%',#{param4},'%')
@@ -332,11 +332,14 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </sql>
 
 <select id="memberSearchAjax" resultType="onet.com.vo.MemberDto">
-	select m.class_name, m.member_id, m.member_name, m.member_email,
-	m.member_phone, mr.role_code, r.role_desc, m.member_enable
-	from member m join member_role mr join role r
-	on m.member_id=mr.member_id and mr.role_code = r.role_code
+	SELECT m.class_name, m.member_id, m.member_name, m.member_email, m.member_phone, 
+	mr.role_code, r.role_desc, m.member_enable
+	fROM member m 
+	JOIN member_role mr 
+	JOIN role r
+	ON m.member_id=mr.member_id and mr.role_code = r.role_code	
 	<include refid="memberSrch"></include>
+	LIMIT 0, 10
 </select>
 <!-- 양회준 10-22 admin 회원관리 비동기 검색 끝 -->
 <!-- 양회준 10-23 admin 회원관리 비동기 일괄등록 -->
