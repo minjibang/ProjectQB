@@ -1,5 +1,8 @@
 ﻿package onet.com.admin.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -396,7 +399,6 @@ public class AdminService {
 	//양회준 10-22 admin 회원관리 비동기 검색
 	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, 
 			String searchMemberInfo, String searchBox) {
-		System.out.println("intoAjaxservice");
 		System.out.println(searchRole+"/"+ searchClassName+"/"+ searchMemberInfo+"/"+ searchBox);
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<MemberDto> result = dao.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);		
@@ -404,5 +406,24 @@ public class AdminService {
 		
 		return result;
 	}
-	
+	//양회준 10-23 admin 회원관리 비동기 일괄등록
+	public int updateStudentsAjax(ArrayList<String> updateStudentArr) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result=0;
+		for(String updateStudent : updateStudentArr) {
+			System.out.println("service data="+updateStudent);
+			result = dao.updateStudentsAjax(updateStudent);		
+		}				
+		return result;
+	}
+	//양회준 10-23 admin 회원관리 비동기 일괄삭제
+	public int deleteStudentsAjax(ArrayList<String> deleteStudentArr) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result=0;
+		for(String deleteStudent : deleteStudentArr) {
+			System.out.println("service data="+deleteStudent);
+			result = dao.deleteStudentsAjax(deleteStudent);		
+		}				
+		return result;
+	}
 }

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -670,7 +671,25 @@ public class AdminController {
 		return memberDto;
 	}
 	
+	//양회준 10-23 admin 회원관리 비동기 일괄등록
+	@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
+	public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
+			throws IOException, ClassNotFoundException, SQLException {
+		System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
+		
+		int result = adminService.updateStudentsAjax(updateStudentArr);
+		
+		return ""+result;
+	}
+	//양회준 10-23 admin 회원관리 비동기 일괄삭제
+	@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
+	public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
+			throws IOException, ClassNotFoundException, SQLException {
+		System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
+		
+		int result = adminService.deleteStudentsAjax(deleteStudentArr);
+		
+		return ""+result;
+	}
+	
 }
-
-
-

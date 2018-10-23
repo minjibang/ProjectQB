@@ -1,5 +1,7 @@
 ﻿package onet.com.admin.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import onet.com.vo.CategoryDto;
@@ -142,6 +144,9 @@ public interface AdminDao {
 
 	//양회준 10-22 admin 회원관리 비동기 검색
 	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
-
+	//양회준 10-22 admin 회원관리 비동기 일괄학생등록
+	public int updateStudentsAjax(String updateStudent);
+	//양회준 10-22 admin 회원관리 비동기 일괄학생삭제
+	public int deleteStudentsAjax(String deleteStudent);
 }
 

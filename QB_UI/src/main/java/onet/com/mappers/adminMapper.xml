@@ -339,4 +339,13 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	<include refid="memberSrch"></include>
 </select>
 <!-- 양회준 10-22 admin 회원관리 비동기 검색 끝 -->
+<!-- 양회준 10-23 admin 회원관리 비동기 일괄등록 -->
+<update id="updateStudentsAjax">	
+	update member_role set role_code = 'ROLE_STUDENT' where member_id = #{updateStudent};
+</update>
+<!-- 양회준 10-23 admin 회원관리 비동기 일괄삭제 -->	
+<update id="deleteStudentsAjax">	
+	update member set member_enable = 0 where member_id = #{deleteStudent};
+</update>
+<!-- 양회준 10-23 admin 회원관리 끝 -->
 </mapper>
