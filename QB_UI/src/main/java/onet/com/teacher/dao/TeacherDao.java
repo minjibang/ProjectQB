@@ -34,7 +34,7 @@ public interface TeacherDao {
 	/*재훈 10.19:강사 - 내 문제함 */
 	
 	public List<QuestionDto> teacherMyQuestion(String member_id);
-	
+	public List<QuestionDto> teacherMyQuestionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword, String member_id);
 	/*재훈 10.19:강사 - 내 문제함 끝 */
 	
 	/* 영준 - 10.16 시험관리 관련 시작 */

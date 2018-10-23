@@ -155,7 +155,6 @@ $(function(){
 	});	
 });
 
-$(function(){
 	/* 멤버 삭제(실제 삭제X) */
 	var role_code_table;
 	var role_code_table_value;
@@ -192,31 +191,45 @@ $(function(){
 		
 		console.log("변경할 값 : " + memberid);*/
 	});	
+	
+	var deleteId;
+	var index;
+	var memberEnable;
+	$(".deletebtn").click(function(){
+		index = $(".deletebtn").index(this);	
+		deleteId = $(this).parent().parent().children(".member_id").text();
+		memberEnable = $(this).parent().parent().children(".member_enable").text();
+		console.log("과연 index:"+index);
+		console.log("과연 ID는? :"+deleteId);
+		console.log("과연 :"+ memberEnable);
+	
+		if(memberEnable == 0){
+			swal("이미 삭제된 회원입니다");
+			return false;
+		} else{
+			return true;
+		}
+	});
+	
 	$('#deleteMemberBtn').click(function() {
-		
-		var _param = {role_code:role_code_table_value,
-					  member_enable:member_enable_table_value};
-		
-		var _data = JSON.stringify(_param); //jsonString으로 변환	
+		console.log("ajax:"+deleteId);
 		$.ajax({
 			type : "post",
 			url : "adminMemberDelete.do",
-			cache : false,
+			data : {"member_id":deleteId
+					},
 			dataType : "json",
-			data : _data,
-			processData : false,
-			contentType : "application/json; charset=utf-8",
+			
 			success : function(data, status){
-					alert("삭제 성공");
-					location.href="adminMember.do";
-				
+				alert("삭제 성공");
+				var test = $(".deletebtn:eq("+index+")").parent().parent().children(".member_enable").text("0");
+				console.log("관리:"+test);
 			},
 			error: function(request, status, error){
 				swal("에러에러에러에러에러");
 			}
 		});
 	});
-});
 
 	function oneCheckbox(a){
 	    var obj = document.getElementsByName("agree");
@@ -270,16 +283,47 @@ $(function(){
 			}
 		});		
 	});
+	var rowMemberAuth;
 	//체크박스값 가져와 일괄학생등록
+	$("#selectInsertbtn").click(function(){
+		var checkbox = $("input[name=chk]:checked").length;
+		console.log("등록 check 갯수는 : " + checkbox);
+		
+		if(checkbox == 0){
+			swal("등록할 회원을 선택해주세요");
+			return false;
+		} else{
+			return true;
+		}
+	});
 	$("#insertMembersPermit").click(function(){
+		
 		var updateStudentArr = new Array();
 		$("input[name=chk]:checked").each(function(i){
-			var row = $(this).parent().parent().children(".member_id").text().trim();
-			updateStudentArr.push(row);			
+			var rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
+			var roleCode = $(this).parent().parent().children(".role_code").text().trim();
+			updateStudentArr.push(rowMemberId);	
+			
+			console.log("회원 권한값 :" + roleCode);
+			
+			if(roleCode == "학생"){
+				swal("이미 등록된 회원입니다");
+				return false;
+			} else if(roleCode == "관리자"){
+				swal("등록할 수 없는 회원입니다.");
+				return false;
+			} else{
+				return true;
+			}
+			
+			
 		});
+		
 		console.log(updateStudentArr);
 		console.log(JSON.stringify(updateStudentArr));
 		jQuery.ajaxSettings.traditional = true;
+		
+
 
 		$.ajax({
 			url : "updateStudentsAjax.do",
@@ -289,26 +333,52 @@ $(function(){
 			},
 			dataType : "text",
 			success:function(data){
-				console.log("성공");
-				location.href="adminMember.do";
+				$("input[name=chk]:checked").each(function(i){
+					rowMemberAuth = $(this).parent().parent().children(".role_code").text("학생");
+				});
 			},
 			error : function(error){
-				console.log("헷갈림 실패....");
+				swal("에러가 발생했습니다.");
 			}
 		});
 	});
-	
 	//체크박스 값 일괄 삭제
+	var checkbox;
+	$("#selectDeletebtn").click(function(){
+		
+		checkbox = $("input[name=chk]:checked").length;
+		console.log("과연 check는 :" + checkbox);
+		
+		
+		if(checkbox == 0){
+			swal("삭제할 회원을 선택해주세요");
+			return false;
+		} else{
+			return true;
+		}
+	});
+	
 	$("#deleteMembersPermit").click(function(){
 		var deleteStudentArr = new Array();
+		
 		$("input[name=chk]:checked").each(function(i){
-			var row = $(this).parent().parent().children(".member_id").text().trim();
-			deleteStudentArr.push(row);			
+			var rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
+			var memberEnable = $(this).parent().parent().children(".member_enable").text().trim();
+			deleteStudentArr.push(rowMemberId);		
+			
+			
+			console.log("회원 활성값 :" + memberEnable);
+			
+			if(memberEnable == 0){
+				swal("이미 삭제된 회원입니다");
+				return false;
+			}
 		});
 		console.log(deleteStudentArr);
 		console.log(JSON.stringify(deleteStudentArr));
 		jQuery.ajaxSettings.traditional = true;
 
+		
 		$.ajax({
 			url : "deleteStudentsAjax.do",
 			type : "post",
@@ -317,8 +387,9 @@ $(function(){
 			},
 			dataType : "text",
 			success:function(data){
-				console.log("성공");
-				location.href="adminMember.do";
+				$("input[name=chk]:checked").each(function(i){
+					var rowMemberEnabled = $(this).parent().parent().children(".member_enable").text("0");
+				});
 			},
 			error : function(error){
 				console.log("헷갈림 실패....");

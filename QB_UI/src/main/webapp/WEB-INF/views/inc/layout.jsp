@@ -68,7 +68,6 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-
 </head>
 <body>
 	<section id="container"> <!-- 헤더 부분 --> 
@@ -106,9 +105,9 @@
     <script src="${pageContext.request.contextPath}/lib/summernote/lang/summernote-ko-KR.js"></script>
 <!-- 재훈 - summernote 관련 js 끝  -->
 
-	<script type="application/javascript">
+<script type="application/javascript">
 		
-    $(document).ready(function() {
+	$(document).ready(function() {
       $("#date-popover").popover({
         html: true,
         trigger: "manual"
@@ -140,7 +139,98 @@
           }
         ]
       });
-    });
+      //알수 없음 - 임시
+		/* $('#myTable').DataTable({
+			"columnDefs" : [{
+				"width" : "15%",
+				"targets" : 3
+			}]
+		}) */;
+	<!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
+	/* $('table.display').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	}); */
+	//공지사항
+	$('#noticetable').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	//학생&성적관리-클래스통계
+	$('#studentPerGrade').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	//시험공지
+	$('#noticetable2').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	//받은쪽지함, 보낸쪽지함
+	$('#example').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	$('#example2').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	//관리자 클래스 관리
+	$('#AdminTable').DataTable({
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	//관리자 문제 분류 관리(소,중,대)
+	$('#table_smCategory').DataTable({
+			"ordering": false,
+			"scrollY":"390px",
+	       "scrollCollapse": true,
+	       "paging": false,
+	       "searching": false,
+	       "language": {
+	            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+	        }
+		});
+	$('#table_mdCategory').DataTable({
+			"ordering":false,
+			"scrollY":"390px",
+	       "scrollCollapse": true,
+	       "paging":false,
+	       "searching": false,
+	       "language": {
+	            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+	        }
+	});
+	$('#table_lgCategory').DataTable({
+		"ordering":false,
+		"scrollY":"390px",
+       "scrollCollapse": true,
+       "paging":false,
+       "searching": false,
+       "language": {
+           "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+       }
+	 });
+	
+	//영준 - 관리자 회원관리 DataTable
+	$('#adminMemberTable').DataTable({
+		"ordering":true,
+		"paging": true,
+		"ordering":false,
+		"searching": false,
+		"bLengthChange" : false,
+		 "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+         }
+    });      
+});
 
     function myNavFunction(id) {
       $("#date-popover").hide();
@@ -151,59 +241,6 @@
   
 	</script>
 
-	<!-- 테이블 관련  -->
-	<script>
-		$(document).ready(function() {
-			$('#myTable').DataTable({
-				"columnDefs" : [ {
-					"width" : "15%",
-					"targets" : 3
-				} ]
-			});
-		});
-
-	</script>
-	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
-	 <script>
-	 	$(document).ready( function () {
-	 	    $('table.display').DataTable();
-	 	});
-	 	$(document).ready( function () {
-	 	    $('#noticetable').DataTable();
-	 	});
-	 	$(document).ready( function () {
-	 	    $('#noticetable2').DataTable();
-	 	});
-
-	 	
-	 	$(document).ready(function() {
-	 	    $('#example').DataTable();
-	 	   $('#example2').DataTable();
-	 	  $('#AdminTable').DataTable();
-	 	 $('#table_smCategory').DataTable({
-	 		"ordering": false,
-	 		"scrollY":"390px",
-	        "scrollCollapse": true,
-	        "paging": false
-	 		 });
-	 	 $('#table_mdCategory').DataTable({
-	 		"ordering":false,
-	 		"scrollY":"390px",
-	        "scrollCollapse": true,
-	        "paging":false
-	 	 });
-	 	$('#table_lgCategory').DataTable({
-	 		"ordering":false,
-	 		"scrollY":"390px",
-	        "scrollCollapse": true,
-	        "paging":false
-	 	 });
-	 	 
-	 	} );
-
-	 	</script>
-	 <!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 끝-->
-	 
 	 <!-- 재훈 - 문제 만들기 페이지 시작-->
 	 <script type="text/javascript">
 	  $(function() {
@@ -225,18 +262,6 @@
 		    });
 	  });
 	</script>
-	<!-- 재훈 - 문제 만들기 페이지 끝-->
-	
-	 
-	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 시작 -->
-	 <script>
-	 $(document).ready( function () {
-	        $('#adminMemberTable').DataTable();
-	    } 
-	    );
-	 </script>
-	 <!-- 영준 - 관리자 회원관리 페이지 데이터테이블 끝 -->
-
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 	<!-- 테이블 관련 end -->
@@ -264,7 +289,6 @@
 
 	<script
 		src="${pageContext.request.contextPath}/lib/advanced-form-components.js"></script>
-
 	
 </body>
 </html>

@@ -243,7 +243,7 @@
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
-										<table id="adminMember_table" class="display">
+										<table id="adminMemberTable">
 											<thead>
 												<tr>
 													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
@@ -273,11 +273,11 @@
 																data-target="#UpdateModal" value="${memberList.member_id}">
 																<i class="fa fa-pencil"> </i>
 															</button>
-															<button type="button" class="btn btn-danger"
+															<button type="button" class="btn btn-danger deletebtn"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">															
 																<i class="fa fa-trash-o"></i>															
-															</button>															
+															</button>													
 														</td>
 													</tr>
 												</c:forEach>
