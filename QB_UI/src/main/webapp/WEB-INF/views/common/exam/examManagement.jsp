@@ -168,6 +168,7 @@
 									</div>
 									<!-- 시험 일정 DeleteModal 끝 -->
 								</div>
+
 								<div id="div_examSchedule" class="col-md-12">
 									<form class="insertForm">
 										<a href="" class="exam-insert"> <img
@@ -202,10 +203,11 @@
 
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
-														</div>
+														</div><br><br>
 														<hr>
 													</div>
 												</c:forEach>
+
 											</div>
 										</div>
 									</form>
