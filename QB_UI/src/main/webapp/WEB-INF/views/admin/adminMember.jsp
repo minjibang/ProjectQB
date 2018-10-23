@@ -273,11 +273,11 @@
 																data-target="#UpdateModal" value="${memberList.member_id}">
 																<i class="fa fa-pencil"> </i>
 															</button>
-															<button type="button" class="btn btn-danger"
+															<button type="button" class="btn btn-danger deletebtn"
 																id="deletebtn" name="deletebtn" data-toggle="modal"
 																data-target="#DeleteModal" value="${memberList.member_id}">															
 																<i class="fa fa-trash-o"></i>															
-															</button>															
+															</button>													
 														</td>
 													</tr>
 												</c:forEach>

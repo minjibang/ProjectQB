@@ -37,7 +37,7 @@ public interface AdminDao {
 	public int updateMember(MemberDto dto);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
-	public int deleteMember(MemberDto dto);
+	public int deleteMember(String member_id);
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 	/* 영준 - 10.22 회원관리 선택회원 등록 시작 */

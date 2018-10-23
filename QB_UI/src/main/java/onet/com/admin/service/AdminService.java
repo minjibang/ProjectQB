@@ -110,9 +110,9 @@ public class AdminService {
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
-	public int deleteMember(MemberDto dto) {
+	public int deleteMember(String member_id) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		int result = dao.deleteMember(dto);
+		int result = dao.deleteMember(member_id);
 		return result;
 	}
 

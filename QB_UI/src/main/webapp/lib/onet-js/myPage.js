@@ -43,21 +43,21 @@ $("#emailChangeChk").change(function(){
 $('#infoModifiy').click(function() {
 	if(($("#passwordChangeChk").is(":checked")==true)&&($("#emailChangeChk").is(":checked")==true)){
 		if(pwdcheck==false || pwdcheck2==false){
-			alert("비밀번호를 다시 설정해 주십시오.");
-		}else if(mailcheck==false || mailNumberChk==false){
-			alert("이메일 인증이 안되었습니다.");
+			swal("Error!", "비밀번호를 다시 설정해 주십시오!", "error");
+		}else if(mailcheck==false || mailNumberChk==false){			
+			swal("Error!", "이메일 인증이 안되었습니다!", "error");
 		}else{
 			modifySubmit();
 		}
 	}else if($("#passwordChangeChk").is(":checked")==true){
 		if(pwdcheck==false || pwdcheck2==false){
-			alert("비밀번호를 다시 설정해 주십시오.");
+			swal("Error!", "비밀번호를 다시 설정해 주십시오!", "error");
 		}else{
 			modifySubmit();
 		}		
 	}else if($("#emailChangeChk").is(":checked")==true){
 		if(mailcheck==false || mailNumberChk==false){
-			alert("이메일 인증이 안되었습니다.");
+			swal("Error!", "이메일 인증이 안되었습니다!", "error");
 		}else{
 			modifySubmit();
 		}
@@ -76,7 +76,7 @@ function modifySubmit(){
 				},
 		success : function(data) {
 			if (data == 0){
-				alert("비밀번호가 입력되지 않았거나 일치하지 않습니다.");
+				swal("Error!", "비밀번호가 입력되지 않았거나 일치하지 않습니다!", "error");
 			} else {
 				if(confirm("정말 수정하시겠습니까?")){
 					document.getElementById('memberModifyFrm').submit();
@@ -86,7 +86,7 @@ function modifySubmit(){
 			}			
 		},
 		error : function(error) {
-			alert("전송 실패");
+			swal("Error!", "전송 실패!", "error");
 			console.log(error);
 			console.log(error.status);
 		}
@@ -103,17 +103,29 @@ $('#memberDropBtn').click(function() {
 				},
 		success : function(data) {
 			if (data == 0){
-				alert("비밀 번호가 입력되지 않았거나 일치하지 않습니다.");
+				swal("Error!", "비밀번호가 입력되지 않았거나 일치하지 않습니다!", "error");
 			} else {
-				if(confirm("정말 탈퇴하시겠습니까?")){
-					document.getElementById('memberDropFrm').submit();
-				}else{
-					
-				}				
+				swal({
+					  title:"탈퇴 확인",
+					  text: "정말 탈퇴 하시겠습니까?",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDrop) => {
+					  if (willDrop) {
+					    swal("성공적으로 탈퇴하였습니다.", {
+					      icon: "success",					      
+					    });
+					    document.getElementById('memberDropFrm').submit();
+					  } else {
+					    swal("탈퇴가 취소되었습니다.");
+					  }
+					});
 			}			
 		},
 		error : function(error) {
-			alert("전송 실패");
+			swal("Error!", "전송 실패!", "error");
 			console.log(error);
 			console.log(error.status);
 		}
@@ -174,12 +186,12 @@ $('#emailCodeRquestBtn').click(function() {
 			mailto : $('#member_email').val()
 		},
 		success : function(data) {
-			alert(data);
+			swal("성공!", "메일로 인증번호가 전송되었습니다!"+data, "success");
 			mailtonumber = data;
 			mailcheck = true;
 		},
 		error : function(error) {
-			alert("인증 메일 전송 실패"+error.status);
+			swal("실패!", "인증 메일 전송 실패!"+error.status, "error");
 			console.log(error);
 			console.log(error.status);
 		}
@@ -190,12 +202,12 @@ $('#emailCodeRquestBtn').click(function() {
 $('#emailCodeCheckBtn').click(function() {	
 	var mailnumber = document.getElementById("emailCodeCheck");		
 	if(mailnumber.value != mailtonumber){
-		alert("인증번호가 일치하지 않습니다.");
+		swal("Error!", "인증번호가 일치하지 않습니다!", "error");
 		document.getElementById("emailCodeCheck").focus();
 		mailNumberChk = false;
 	}
 	else {
-		alert("인증번호가 확인되었습니다.");
+		swal("성공!", "인증번호가 확인되었습니다!", "success");
 		$("#emailCodeCheckBtn").removeAttr("class");
 		$("#emailCodeCheckBtn").attr("class", "btn btn-theme02 myPageBtnControl");
 		mailNumberChk = true;

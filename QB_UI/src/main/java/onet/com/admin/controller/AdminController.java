@@ -116,12 +116,11 @@ public class AdminController {
 	
 	/* 영준 - 10.22 회원관리 회원 삭제 시작 */
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
-	{
-		int result = adminService.deleteMember(dto);
-		String result2 = String.valueOf(result);
-		System.out.println("삭제회원 결과 값 : " + result);
-		return result2;
+	public @ResponseBody int adminMemberDelete(@RequestParam String member_id)
+	{	
+		System.out.println(member_id);
+		int result = adminService.deleteMember(member_id);
+		return result;
 	}
 	/* 영준 - 10.22 회원관리 회원 삭제 끝 */
 
