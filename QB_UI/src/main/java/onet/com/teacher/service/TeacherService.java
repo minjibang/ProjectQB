@@ -162,9 +162,11 @@ public class TeacherService {
 	}
 	
 	/* 영준 - 10.18 선생님 시험일정 삭제 시작 */
-	public int examScheduleDelete(int exam_info_num) {
+	public int teacherExamSchedultDelete(int exam_info_num) {
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setExam_info_num(exam_info_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examScheduleDelete(exam_info_num);
+		int result = dao.teacherExamSchedultDelete(dto);
 		System.out.println("시험일정삭제 result값 : " + result);
 		return result;
 	}
@@ -190,5 +192,6 @@ public class TeacherService {
 	}
 	
 	/*민지 - 10.22 시험일정 수정 끝*/
+	
 	
 }

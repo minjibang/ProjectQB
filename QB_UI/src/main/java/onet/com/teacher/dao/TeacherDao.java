@@ -62,7 +62,7 @@ public interface TeacherDao {
 	/*--성태용 끝--*/
 	
 	/* 영준 - 10.18 시험일정 삭제 시작 */
-	public int examScheduleDelete(int exam_info_num);
+	public int teacherExamSchedultDelete(ExamInfoDto dto);
 	/* 영준 - 10.18 시험일정 삭제 끝 */
 	
 	/*민지 -10.22 시험일정  수정시작*/

@@ -122,15 +122,7 @@ public class TeacherController {
 	}
 	/* 영준 - 18.10.17 내 시험지 삭제 끝 */
 	
-	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
-	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody int exam_info_num)
-	{
-		int result = teacherService.examScheduleDelete(exam_info_num);
-		String result2 = String.valueOf(result);
-		return result2;
-	}
-	/* 영준 - 18.10.18 시험 일정 삭제 끝 */
+
 	
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 
