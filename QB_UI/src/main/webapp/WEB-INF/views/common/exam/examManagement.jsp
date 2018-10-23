@@ -237,7 +237,7 @@
 															onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?class_num=${param.class_num}&exam_paper_name=${examScheduleList.exam_info_name}'">시험 일정 수정</button>
 															
 															<input type="hidden" id="hidden_class_num" value='${param.class_num}'>
-													</div>		
+													</div><br><br>		
 													<hr>	
 													</div>										
 													</c:forEach>
