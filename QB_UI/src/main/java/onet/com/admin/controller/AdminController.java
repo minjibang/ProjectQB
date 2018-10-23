@@ -325,9 +325,11 @@ public class AdminController {
 	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
 	
 		if (dto2.getQuestion_type().equals("객관식")) {
+			System.out.println("insertQuestion.do 컨트롤러 진입 (객관식)");
 		adminService.insertQuestion(dto2);
 		adminService.insertQuestionChoice(dto2, dto);
 		} else {
+			System.out.println("insertQuestion.do 컨트롤러 진입 (객관식)");
 		adminService.insertQuestion(dto2);
 		}
 		return "common.adminClass.admin.question.questionManagement";
@@ -352,7 +354,7 @@ public class AdminController {
 	/* 재훈 10.20 문제삭제 관련 start */
 	@RequestMapping("singleQuestionDelete.do")
 	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
-		System.out.println("컨트롤러 진입>>>>>" + question_num);
+		System.out.println("singleQuestionDelete.do 컨트롤러 진입>>>>>" + question_num);
 		Map<String,Object> map = new HashMap <String,Object>();
 		int result = commonService.singleQuestionDelete(question_num);
 		if(result == 0) {
@@ -367,7 +369,7 @@ public class AdminController {
 	/* 재훈 10.21 문제수정 관련 start */
 	@RequestMapping("singleUpdateCheck.do")
 	public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
-		System.out.println("문제수정 컨트롤러 진입>>>>>" + question_num);
+		System.out.println("singleUpdateCheck.do 컨트롤러 진입>>>>>" + question_num);
 		Map<String,Object> map = new HashMap <String,Object>();
 		int result = commonService.singleUpdateCheck(question_num);
 		if(result == 0) {
@@ -383,7 +385,7 @@ public class AdminController {
 
 	@RequestMapping("questionUpdate.do")
 	public String questionUpdate(Model model, int question_num) {
-		System.out.println("컨트롤러 진입>>> question_num값: " +question_num);
+		System.out.println("questionUpdate.do 컨트롤러 진입>>> question_num값: " +question_num);
 		
 		List<QuestionDto> qdto;
 		qdto=commonService.questionInfo(question_num);
@@ -417,22 +419,6 @@ public class AdminController {
 		
 		return "common.adminClass.admin.question.questionUpdate";
 	}	
-	
-	@RequestMapping(value="updateQuestion.do")
-	public @ResponseBody Map<String,Object> updateQuestion(int question_num){
-		System.out.println("업데이트 컨트롤러 진입>>>>>" + question_num);
-		Map<String,Object> map = new HashMap <String,Object>();
-		int result = commonService.singleQuestionDelete(question_num);
-		if(result == 0) {
-			System.out.println("컨트롤러 if문 >> result 값 0");
-			map.put("result", "삭제불가");
-		}else {
-			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
-			map.put("result", "삭제가능");
-		}
-		return map;
-	}
-	
 	
 
 	/* 재훈 10.15 문제 관리 페이지 관련 end */

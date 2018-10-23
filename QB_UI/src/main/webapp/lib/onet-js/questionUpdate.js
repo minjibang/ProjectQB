@@ -347,8 +347,6 @@ function check(){
 	var _smCategory = $("#question_sm_category2 option:selected").val();
 	var _questionLevel = $("#level_type2 option:selected").val();
 	var _questionName = $("input[type=text][name=question_name]").val();
-/*	var _questionName1 = $("input[type=text][name=question_name]").val();
-	var _questionName = _questionName1.value.replace(/(\n|\r|\r\n|)/g,'<br>');*/
 	var _questionChoiceAnswer = $("input[type=radio][name=question_answer]:checked").val();
 	var _questionChoiceContent1 = $("input[type=text][id=question_choice_content1]").val();
 	var _questionChoiceContent2 = $("input[type=text][id=question_choice_content2]").val();
@@ -357,8 +355,10 @@ function check(){
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
+	var question_num = $('#qdto_question_num').val();
 	alert( "=== 문제 수정 입력값 확인용 alert ==="
-			  + "문제 타입: " 			+ _shortAnswerQuestion
+			  + "\n 문제번호: " 		+ question_num
+			  + "\n 문제 타입: " 		+ _shortAnswerQuestion
 			  + "\n 소분류: " 		+ _smCategory
 			  + "\n 난이도: " 		+ _questionLevel
 			  + "\n 문제내용: " 		+ _questionName
@@ -372,9 +372,8 @@ function check(){
 	   		);
 	
 	
-	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
-		/*객관식 문제 생성 유효성검사*/
+		alert("객관식유효성검사 진입 >> _choiceQuantity = " + $.trim(_choiceQuantity) );
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
 			document.getElementById("question_sm_category2").focus();
@@ -386,8 +385,8 @@ function check(){
 			swal("문제의 난이도를 선택해주세요");
 			document.getElementById("level_type2").focus();
 			return false;
-		//객관식 문제 보기가 5개일때 
 		} else if ($.trim(_choiceQuantity) == "5"){
+			alert("객관식5개유효성검사 진입");
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
 				return false;
@@ -406,13 +405,32 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("문제가 수정되었습니다.")
+					var question_num = $('#qdto_question_num').val();
+					alert("유효성검사 통과 후 ajax 실행 전")
+					
+					$.ajax({
+						url : "singleQuestionDelete.do",
+						type:'post',
+						data : {
+								 'question_num' : question_num
+								},
+						success:function(data){
+							if((data.result)=="삭제가능"){
+							}else{
+								swal("문제를 수정 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+							}
+						},
+						error: function(error){
+							swal('문제 수정 도중 에러가 발생했습니다.')
+						}
+					})
+					
+					alert("문제가 수정되었습니다.");
 					return true;
 				}else{
 					return false;
 				}
 			} 
-		//객관식 문제 보기가 4개일때	
 		} else if ($.trim(_choiceQuantity) == "4"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -430,13 +448,32 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("문제가 수정되었습니다.")
+					var question_num = $('#qdto_question_num').val();
+					alert("유효성검사 통과 후 ajax 실행 전")
+					
+					$.ajax({
+						url : "singleQuestionDelete.do",
+						type:'post',
+						data : {
+								 'question_num' : question_num
+								},
+						success:function(data){
+							if((data.result)=="삭제가능"){
+							}else{
+								swal("문제를 수정 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+							}
+						},
+						error: function(error){
+							swal('문제 수정 도중 에러가 발생했습니다.')
+						}
+					})
+					
+					alert("문제가 수정되었습니다.");
 					return true;
 				}else{
 					return false;
 				}
 			} 
-		//객관식 문제 보기가 3개일때
 		} else if ($.trim(_choiceQuantity) == "3"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -451,14 +488,32 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("문제가 수정되었습니다.")
+					var question_num = $('#qdto_question_num').val();
+					alert("유효성검사 통과 후 ajax 실행 전")
+					
+					$.ajax({
+						url : "singleQuestionDelete.do",
+						type:'post',
+						data : {
+								 'question_num' : question_num
+								},
+						success:function(data){
+							if((data.result)=="삭제가능"){
+							}else{
+								swal("문제를 수정 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+							}
+						},
+						error: function(error){
+							swal('문제 수정 도중 에러가 발생했습니다.')
+						}
+					})
+					
+					alert("문제가 수정되었습니다.");
 					return true;
 				}else{
 					return false;
 				}
 			} 
-			
-		//객관식 문제 보기가 2개일때	
 		} else if ($.trim(_choiceQuantity) == "2"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -470,7 +525,27 @@ function check(){
 				var questionInsertConfirm = confirm(
 				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
-					alert("문제가 수정되었습니다.")
+					var question_num = $('#qdto_question_num').val();
+					alert("유효성검사 통과 후 ajax 실행 전")
+					
+					$.ajax({
+						url : "singleQuestionDelete.do",
+						type:'post',
+						data : {
+								 'question_num' : question_num
+								},
+						success:function(data){
+							if((data.result)=="삭제가능"){
+							}else{
+								swal("문제를 수정 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+							}
+						},
+						error: function(error){
+							swal('문제 수정 도중 에러가 발생했습니다.')
+						}
+					})
+					
+					alert("문제가 수정되었습니다.");
 					return true;
 				}else{
 					return false;
@@ -478,8 +553,9 @@ function check(){
 			} 
 			
 		} 
+		
+		
 	}else {
-		/*주관식 문제 생성 유효성검사*/
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
 			document.getElementById("question_sm_category2").focus();
@@ -492,7 +568,27 @@ function check(){
 			var questionInsertConfirm = confirm(
 					"문제를 정말로 수정하시겠습니까?");
 			if(questionInsertConfirm == true){
-				alert("새로운 문제가 수정되었습니다.")
+				var question_num = $('#qdto_question_num').val();
+				alert("유효성검사 통과 후 ajax 실행 전")
+				
+				$.ajax({
+					url : "singleQuestionDelete.do",
+					type:'post',
+					data : {
+							 'question_num' : question_num
+							},
+					success:function(data){
+						if((data.result)=="삭제가능"){
+						}else{
+							swal("문제를 수정 할 수 없습니다.", "해당 문제를 사용하는 시험지가 존재합니다", "error");
+						}
+					},
+					error: function(error){
+						swal('문제 수정 도중 에러가 발생했습니다.')
+					}
+				})
+				
+				alert("문제가 수정되었습니다.");
 				return true;
 			}else{
 				return false;
