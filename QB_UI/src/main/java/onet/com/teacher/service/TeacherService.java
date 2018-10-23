@@ -96,6 +96,7 @@ public class TeacherService {
 		int result = dao.examQuestionDelete(exam_paper_num);
 		return result;
 	}
+
 	/*한결 - 10.17 시험지 체크  및 insert 끝*/
 
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
@@ -139,6 +140,11 @@ public class TeacherService {
 		List<ExamInfoDto> result = dao.examScheduleList(member_id);
 		return result;
 	}
+	public int deleteExam(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.deleteExam(exam_paper_num);
+		return result;
+	}
 	
 	/*--성태용 끝--*/
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
@@ -164,5 +170,25 @@ public class TeacherService {
 	}
 	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
 
-
+	/*민지 - 10.22 시험일정 수정*/
+	
+	public List<ExamInfoDto> classExamList(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		ExamInfoDto dto = new ExamInfoDto();
+		dto.setExam_info_num(exam_info_num);
+		List<ExamInfoDto> result = dao.classExamList(dto);
+		return result;
+	}
+	
+	
+	public int examInfoIUpdate(ExamInfoDto dto) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		int result = dao.examInfoIUpdate(dto);
+		
+		return result;
+	}
+	
+	/*민지 - 10.22 시험일정 수정 끝*/
+	
 }

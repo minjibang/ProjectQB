@@ -93,148 +93,36 @@
 																<thead>
 																	<tr>
 																		<th>선택</th>
-																		<th>Position</th>
-																		<th>Office</th>
-																		<th>Age</th>
-																		<th>Start date</th>
-																		<th>Salary</th>
+																		<th>보낸사람</th>
+																		<th>제목</th>
+																		<th>받는사람</th>
+																		<th>받은날짜</th>
 																	</tr>
 																</thead>
 																<tbody>
 																	<tr class="unread">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
 																		<td class="view-message "><a
-																			href="mail_view.html">Google Inc.</a></td>
+																			href="mail_view.html">학생</a></td>
 																		<td class="view-message "><a id="updatebtn"
 																			data-toggle="modal" data-target="#MessageModal">Your
 																				new account is ready.</a></td>
-																		<td class="view-message  inbox-small-cells"><i
-																			class="fa fa-paperclip"></i></td>
+																		<td class="view-message  inbox-small-cells">나</td>
 																		<td class="view-message  text-right">08:10 AM</td>
 																	</tr>
-																	<tr class="unread">
+																	<tr class="read">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show"><a
-																			href="mail_view.html">Mark Thompson</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Last
-																				project updates</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 15</td>
+																		<td class="view-message "><a
+																			href="mail_view.html">학생2</a></td>
+																		<td class="view-message "><a id="updatebtn"
+																			data-toggle="modal" data-target="#MessageModal">Your
+																				안녕하세요</a></td>
+																		<td class="view-message  inbox-small-cells">나</td>
+																		<td class="view-message  text-right">08:10 AM</td>
 																	</tr>
-																	<tr class="unread">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show"><a
-																			href="mail_view.html">Wonder Corp.</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Thanks
-																				for your registration</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 15</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show"><a
-																			href="mail_view.html">Facebook</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">New
-																				Friendship Request</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 13</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star inbox-started"></i></td>
-																		<td class="view-message dont-show"><a
-																			id="updatebtn" data-toggle="modal"
-																			data-target="#MessageModal">Mark Webber</a></td>
-																		<td class="view-message"><a
-																			class="accordion-toggle" data-toggle="collapse"
-																			data-parent="#accordion2"
-																			href="adminMessage.jsp#collapseOne">The server is
-																				down</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 09</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star inbox-started"></i></td>
-																		<td class="view-message dont-show"><a
-																			class="accordion-toggle" data-toggle="collapse"
-																			data-parent="#accordion2"
-																			href="adminMessage.jsp#collapseOne">Facebook</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">New
-																				message from Patrick S.</a></td>
-																		<td class="view-message inbox-small-cells"><i
-																			class="fa fa-paperclip"></i></td>
-																		<td class="view-message text-right">March 08</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star inbox-started"></i></td>
-																		<td class="view-message dont-show">Paypal inc.</td>
-																		<td class="view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">New
-																			payment received</td>
-																		<td class="view-message inbox-small-cells"><i
-																			class="fa fa-paperclip"></i></td>
-																		<td class="view-message text-right">March 04</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show">Andrea</td>
-																		<td class="view-message view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Weekend
-																			plans</td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 04</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show">David Green</td>
-																		<td class="view-message view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Soccer
-																			tickets</td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">February 22</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show">Evelyn</td>
-																		<td class="view-message view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Surprise
-																			party</td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">February 19</td>
-																	</tr>
+																
 																</tbody>
 															</table>
 														</div>
@@ -261,148 +149,36 @@
 																<thead>
 																	<tr>
 																		<th>선택</th>
-																		<th>Position</th>
-																		<th>Office</th>
-																		<th>Age</th>
-																		<th>Start date</th>
-																		<th>Salary</th>
+																		<th>보낸사람</th>
+																		<th>제목</th>
+																		<th>받는사람</th>
+																		<th>보낸날짜</th>
 																	</tr>
 																</thead>
 																<tbody>
 																	<tr class="unread">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
 																		<td class="view-message "><a
-																			href="mail_view.html">Google Inc.</a></td>
+																			href="mail_view.html">나</a></td>
 																		<td class="view-message "><a id="updatebtn"
 																			data-toggle="modal" data-target="#MessageModal">Your
 																				new account is ready.</a></td>
-																		<td class="view-message  inbox-small-cells"><i
-																			class="fa fa-paperclip"></i></td>
+																		<td class="view-message  inbox-small-cells">학생</td>
 																		<td class="view-message  text-right">08:10 AM</td>
 																	</tr>
-																	<tr class="unread">
+																	<tr class="read">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show"><a
-																			href="mail_view.html">Mark Thompson</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Last
-																				project updates</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 15</td>
+																		<td class="view-message "><a
+																			href="mail_view.html">나</a></td>
+																		<td class="view-message "><a id="updatebtn"
+																			data-toggle="modal" data-target="#MessageModal">Your
+																				안녕하세요</a></td>
+																		<td class="view-message  inbox-small-cells">학생2</td>
+																		<td class="view-message  text-right">08:10 AM</td>
 																	</tr>
-																	<tr class="unread">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show"><a
-																			href="mail_view.html">Wonder Corp.</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Thanks
-																				for your registration</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 15</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show"><a
-																			href="mail_view.html">Facebook</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">New
-																				Friendship Request</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 13</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star inbox-started"></i></td>
-																		<td class="view-message dont-show"><a
-																			id="updatebtn" data-toggle="modal"
-																			data-target="#MessageModal">Mark Webber</a></td>
-																		<td class="view-message"><a
-																			class="accordion-toggle" data-toggle="collapse"
-																			data-parent="#accordion2"
-																			href="adminMessage.jsp#collapseOne">The server is
-																				down</a></td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 09</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star inbox-started"></i></td>
-																		<td class="view-message dont-show"><a
-																			class="accordion-toggle" data-toggle="collapse"
-																			data-parent="#accordion2"
-																			href="adminMessage.jsp#collapseOne">Facebook</a></td>
-																		<td class="view-message"><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">New
-																				message from Patrick S.</a></td>
-																		<td class="view-message inbox-small-cells"><i
-																			class="fa fa-paperclip"></i></td>
-																		<td class="view-message text-right">March 08</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star inbox-started"></i></td>
-																		<td class="view-message dont-show">Paypal inc.</td>
-																		<td class="view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">New
-																			payment received</td>
-																		<td class="view-message inbox-small-cells"><i
-																			class="fa fa-paperclip"></i></td>
-																		<td class="view-message text-right">March 04</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show">Andrea</td>
-																		<td class="view-message view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Weekend
-																			plans</td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">March 04</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show">David Green</td>
-																		<td class="view-message view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Soccer
-																			tickets</td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">February 22</td>
-																	</tr>
-																	<tr class="">
-																		<td class="inbox-small-cells"><input
-																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="inbox-small-cells"><i
-																			class="fa fa-star"></i></td>
-																		<td class="view-message dont-show">Evelyn</td>
-																		<td class="view-message view-message" id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Surprise
-																			party</td>
-																		<td class="view-message inbox-small-cells"></td>
-																		<td class="view-message text-right">February 19</td>
-																	</tr>
+																
 																</tbody>
 															</table>
 														</div>

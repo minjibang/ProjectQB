@@ -382,18 +382,59 @@ public class AdminController {
 		}
 		return map;
 	}
+	/* 재훈 10.21 문제수정 관련 start */
+	@RequestMapping("singleUpdateCheck.do")
+	public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
+		System.out.println("문제수정 컨트롤러 진입>>>>>" + question_num);
+		Map<String,Object> map = new HashMap <String,Object>();
+		int result = commonService.singleUpdateCheck(question_num);
+		if(result == 0) {
+			System.out.println("컨트롤러 if문 >> result 값 0");
+			map.put("result", "삭제불가");
+		}else {
+			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
+			map.put("result", "삭제가능");
+		}
+		return map;
+	}
+	/*문제수정페이지로 이동시 문제 &문제보기 정보 가져와서 뿌려주기*/
+
+	/* 재훈 10.15 문제 관리 페이지 관련 end */
+
+	@RequestMapping("questionUpdate.do")
+	public String questionUpdate(Model model, int question_num) {
+		System.out.println("컨트롤러 진입>>> question_num값: " +question_num);
+		
+		List<QuestionDto> qdto;
+		qdto=commonService.questionInfo(question_num);
+		model.addAttribute("qdto",qdto);
+		
+		List<Question_choiceDto> cdto;
+		cdto=commonService.questionChoiceInfo(question_num);
+		model.addAttribute("cdto",cdto);
+		
+		List<CategoryDto> lgCatList;
+		lgCatList=adminService.lgCategoryList();
+		model.addAttribute("lgCatList",lgCatList);
+		
+		List<CategoryDto> mdCatList;
+		mdCatList=adminService.mdCategoryList();
+		model.addAttribute("mdCatList",mdCatList);
+		
+		List<CategoryDto> smCatList;
+		smCatList=adminService.smCategoryList();
+		model.addAttribute("smCatList",smCatList);
+		
+		List<CategoryDto> quesLevelList;
+		quesLevelList=adminService.questionLevelList();
+		model.addAttribute("quesLevelList",quesLevelList);
+		
+		return "common.adminClass.admin.question.questionUpdate";
+	}	
+	
 	
 
 	/* 재훈 10.15 문제 관리 페이지 관련 end */
-	
-	/*양회준 18.10.15 문제 수정 시작	*/
-	@RequestMapping("questionUpdate.do")
-	public String questionUpdate() {		
-		return "common.adminClass.admin.question.questionUpdate";
-	}	
-	/*양회준 18.10.15 문제 수정 끝*/
-
-
 	
 
 	/*현이 18.10.09 관리자 마이페이지 시작*/
