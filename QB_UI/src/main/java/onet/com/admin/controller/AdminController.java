@@ -38,7 +38,6 @@ import onet.com.vo.RoleDto;
 @RequestMapping(value="/admin/")
 public class AdminController {
 	
-	/*재훈 10.08 문제분류관련 start*/
 	@Autowired
 	private AdminService adminService;
 
@@ -56,6 +55,7 @@ public class AdminController {
 	}
 	/*양회준 10.14 관리자 메인 끝*/
 	
+	/*정원 - 문제분류페이지 관련 시작 */
 	@RequestMapping("questionCategory.do")
 	public String questionCategory(Model model) throws Exception {
 		
@@ -73,7 +73,7 @@ public class AdminController {
 		
 		return "admin.questionCategory";
 	}
-	/*재훈 10.08 문제분류관련 end*/
+	/*정원 - 문제분류페이지 관련 끝*/
 	
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
@@ -293,8 +293,10 @@ public class AdminController {
 	}
 	
 	
-	// 관리자 클래스 상세보기 - 문제 관리 
-	/* 재훈 10.15 문제 관리 페이지 관련 start */
+
+	/*###################     재훈 시작         ####################*/
+	
+	//관리자 - 문제관리 페이지 문제분류 셀렉트박스 데이터값 출력
 	@RequestMapping("questionManagement.do")
 	public String questionManagement(Model model, Principal principal) throws Exception {
 		List<CategoryDto> lgCatList;
@@ -320,21 +322,7 @@ public class AdminController {
 		
 		return "common.adminClass.admin.question.questionManagement";
 	}
-	
-	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
-	
-		if (dto2.getQuestion_type().equals("객관식")) {
-			System.out.println("insertQuestion.do 컨트롤러 진입 (객관식)");
-		adminService.insertQuestion(dto2);
-		adminService.insertQuestionChoice(dto2, dto);
-		} else {
-			System.out.println("insertQuestion.do 컨트롤러 진입 (객관식)");
-		adminService.insertQuestion(dto2);
-		}
-		return "common.adminClass.admin.question.questionManagement";
-	}
-	
+	//관리자 - 문제 관리 페이지 문제 출력 
 	@RequestMapping(value="myQuestionView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
 		List<QuestionDto> question = teacherService.question();
@@ -349,43 +337,49 @@ public class AdminController {
 		
 		return mv;
 	}
-	
-	
-	/* 재훈 10.20 문제삭제 관련 start */
+	//관리자 - 문제관리 페이지 새 문제 만들기 기능
+		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+		
+			if (dto2.getQuestion_type().equals("객관식")) {
+			adminService.insertQuestion(dto2);
+			adminService.insertQuestionChoice(dto2, dto);
+			} else {
+			adminService.insertQuestion(dto2);
+			}
+			return "common.adminClass.admin.question.questionManagement";
+		}
+	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단
 	@RequestMapping("singleQuestionDelete.do")
 	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
-		System.out.println("singleQuestionDelete.do 컨트롤러 진입>>>>>" + question_num);
+		
 		Map<String,Object> map = new HashMap <String,Object>();
 		int result = commonService.singleQuestionDelete(question_num);
+		
 		if(result == 0) {
-			System.out.println("컨트롤러 if문 >> result 값 0");
 			map.put("result", "삭제불가");
 		}else {
-			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
 			map.put("result", "삭제가능");
 		}
 		return map;
 	}
-	/* 재훈 10.21 문제수정 관련 start */
+	//관리자 - 문제관리 페이지 문제수정 전 수정가능여부 판단
 	@RequestMapping("singleUpdateCheck.do")
 	public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
-		System.out.println("singleUpdateCheck.do 컨트롤러 진입>>>>>" + question_num);
+		
 		Map<String,Object> map = new HashMap <String,Object>();
 		int result = commonService.singleUpdateCheck(question_num);
+		
 		if(result == 0) {
-			System.out.println("컨트롤러 if문 >> result 값 0");
 			map.put("result", "삭제불가");
 		}else {
-			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
 			map.put("result", "삭제가능");
 		}
 		return map;
 	}
-	/*문제수정페이지로 이동시 문제 &문제보기 정보 가져와서 뿌려주기*/
-
+	//관리자 - 문제수정 페이지 이동시 관련 데이터 출력
 	@RequestMapping("questionUpdate.do")
 	public String questionUpdate(Model model, int question_num) {
-		System.out.println("questionUpdate.do 컨트롤러 진입>>> question_num값: " +question_num);
 		
 		List<QuestionDto> qdto;
 		qdto=commonService.questionInfo(question_num);
@@ -415,15 +409,11 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
-		
-		
 		return "common.adminClass.admin.question.questionUpdate";
 	}	
 	
-
-	/* 재훈 10.15 문제 관리 페이지 관련 end */
+	/*###################     재훈 끝         ####################*/
 	
-
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	/*양회준 10.15 내 정보 수정 시작*/
 	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)

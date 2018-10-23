@@ -4,8 +4,8 @@
 
 
 /*문제 수정 페이지 시작 */
-/*페이지 로드시 수정할 문제 정보 관련 함수*/
 
+/*페이지 로드시 수정할 문제 정보 관련 함수*/
 $(function() {
 		var _choiceInput1 ="<b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.' id='question_choice_content1'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
 		var _choiceInput2 ="<b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' id='question_choice_content2'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
@@ -188,12 +188,9 @@ $(function() {
    });
 });
 
-
-
-/*객관식 문제 보기 개수 변경 함수*/
+/*객관식 문제 보기 개수 셀렉트박스 값 변경*/
 $('#howManyChoices').change(
 		function() {
-			
 			var remove = document.getElementById("choiceInput");
 			remove.innerHTML="";
 			var remove1 = document.getElementById("answerChoiceText");
@@ -312,7 +309,7 @@ $('#singleDeleteModal').on('show.bs.modal', function(question_num){
 	console.log (question_num); 
 	$('#singleDeleteConfirmBtn').val(question_num); //버튼에 value값을 가져온 question_num으로 넣어준다
 })
-	
+
 $('#singleDeleteConfirmBtn').click(function(){
 	var question_num = document.getElementById('singleDeleteConfirmBtn').value;
 		
@@ -341,7 +338,7 @@ $('#singleDeleteConfirmBtn').click(function(){
 		})
 })	
 
-/* 문제 등록 버튼 - 유효성 검사 */
+/* 문제 수정 완료 버튼 - 유효성 검사 */
 function check(){
 	
 	var _smCategory = $("#question_sm_category2 option:selected").val();
@@ -356,7 +353,9 @@ function check(){
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
 	var question_num = $('#qdto_question_num').val();
-	alert( "=== 문제 수정 입력값 확인용 alert ==="
+	
+/*	
+ 		alert( "=== 문제 수정 입력값 확인용 alert ==="
 			  + "\n 문제번호: " 		+ question_num
 			  + "\n 문제 타입: " 		+ _shortAnswerQuestion
 			  + "\n 소분류: " 		+ _smCategory
@@ -370,10 +369,10 @@ function check(){
 			  + "\n 객관식보기5번: " 	+ _questionChoiceContent5
 			  + "\n 객관식보기갯수: " 	+ _choiceQuantity
 	   		);
-	
+*/
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
-		alert("객관식유효성검사 진입 >> _choiceQuantity = " + $.trim(_choiceQuantity) );
+		/*객관식 문제 유효성검사*/
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
 			document.getElementById("question_sm_category2").focus();
@@ -385,8 +384,8 @@ function check(){
 			swal("문제의 난이도를 선택해주세요");
 			document.getElementById("level_type2").focus();
 			return false;
+		/*객관식 문제 보기 5개인 경우*/
 		} else if ($.trim(_choiceQuantity) == "5"){
-			alert("객관식5개유효성검사 진입");
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
 				return false;
@@ -406,7 +405,6 @@ function check(){
 				"문제를 정말로 수정하시겠습니까?");
 				if(questionInsertConfirm == true){
 					var question_num = $('#qdto_question_num').val();
-					alert("유효성검사 통과 후 ajax 실행 전")
 					
 					$.ajax({
 						url : "singleQuestionDelete.do",
@@ -424,13 +422,18 @@ function check(){
 							swal('문제 수정 도중 에러가 발생했습니다.')
 						}
 					})
+					swal({
+							title: "문제 수정",
+							text: "해당 문제가 수정되었습니다.",
+							icon: "success"
+						});
 					
-					alert("문제가 수정되었습니다.");
 					return true;
 				}else{
 					return false;
 				}
 			} 
+		/*객관식 문제 보기 4개인 경우*/
 		} else if ($.trim(_choiceQuantity) == "4"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -467,13 +470,17 @@ function check(){
 							swal('문제 수정 도중 에러가 발생했습니다.')
 						}
 					})
-					
-					alert("문제가 수정되었습니다.");
+					swal({
+							title: "문제 수정",
+							text: "해당 문제가 수정되었습니다.",
+							icon: "success"
+						});
 					return true;
 				}else{
 					return false;
 				}
-			} 
+			}
+		/*객관식 문제 보기 3개인 경우*/
 		} else if ($.trim(_choiceQuantity) == "3"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -507,13 +514,17 @@ function check(){
 							swal('문제 수정 도중 에러가 발생했습니다.')
 						}
 					})
-					
-					alert("문제가 수정되었습니다.");
+					swal({
+							title: "문제 수정",
+							text: "해당 문제가 수정되었습니다.",
+							icon: "success"
+						});
 					return true;
 				}else{
 					return false;
 				}
-			} 
+			}
+		/*객관식 문제 보기 2개인 경우*/	
 		} else if ($.trim(_choiceQuantity) == "2"){
 			if ($.trim(_questionChoiceContent1) == "") {
 				swal("객관식 1번 보기를 입력해주세요");
@@ -544,8 +555,11 @@ function check(){
 							swal('문제 수정 도중 에러가 발생했습니다.')
 						}
 					})
-					
-					alert("문제가 수정되었습니다.");
+					swal({
+							title: "문제 수정",
+							text: "해당 문제가 수정되었습니다.",
+							icon: "success"
+						});
 					return true;
 				}else{
 					return false;
@@ -553,8 +567,7 @@ function check(){
 			} 
 			
 		} 
-		
-		
+	/*주관식 문제 생성 유효성검사*/
 	}else {
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
@@ -587,8 +600,11 @@ function check(){
 						swal('문제 수정 도중 에러가 발생했습니다.')
 					}
 				})
-				
-				alert("문제가 수정되었습니다.");
+				swal({
+							title: "문제 수정",
+							text: "해당 문제가 수정되었습니다.",
+							icon: "success"
+						});
 				return true;
 			}else{
 				return false;
