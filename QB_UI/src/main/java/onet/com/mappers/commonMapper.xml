@@ -111,5 +111,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_file3},#{notice_date})
 </insert>
 
+<select id="noticeDetail" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice where class_name = #{class_name} and notice_num=#{notice_num}
+</select>
+
+<select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="int">
+	select max(notice_num) from notice where class_name=#{class_name} order by notice_num desc;
+</select>
 
 </mapper>

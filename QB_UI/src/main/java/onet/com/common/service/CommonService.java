@@ -155,11 +155,22 @@ public class CommonService {
 		}
 	}
 	
+	/* 정원  10.22*/
 	public int insertBoardList(NoticeDto dto) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int notice_num = dao.noticeNumFind(dto);
+		System.out.println(notice_num);
+		dto.setNotice_num(notice_num+1);
 		int result = dao.insertBoardList(dto);
-		
-		
+		return result;
+	}
+	
+	public List<NoticeDto> noticeDetail(String class_name, int notice_num){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		NoticeDto dto = new NoticeDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<NoticeDto> result = dao.noticeDetail(dto);
 		return result;
 	}
 	
