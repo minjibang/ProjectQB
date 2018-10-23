@@ -32,7 +32,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	(select class_name from member where member_id = #{param1})); 
 </insert>
 
-<!-- 랭크 구해오기 -->
 <select id="selectRank" parameterType="int" resultType="onet.com.vo.Score_chartDto">
 	select member_id, score_chart_score, rank() over(order by score_chart_score desc) as score_chart_rank 
 	from score_chart
@@ -79,6 +78,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						group by exam_info_num
 						having exam_info_num = #{param2})
 	where exam_info_num = #{param2};
+</update>
+
+<select id="selectQuestion" parameterType="int" resultType="int">
+	select question_num 
+	from exam_question 
+	where exam_paper_num = 
+		(select exam_paper_num 
+		from exam_info 
+		where exam_info_num = #{param1});
+</select>
+
+<update id="updateCorrectRatio" parameterType="int">
+	update question
+	set question_correct_ratio = 
+	(
+		(select count(*) 
+		from student_answer
+		where question_num = #{param1}
+		and student_answer_status = 1)
+	/ 
+		(select count(*) 
+		from student_answer 
+		where question_num = #{param1})
+	) 
+	* 100
+	where question_num = #{param1};
 </update>
 <!-- 10.19 현이 학생 답안지 제출 끝 -->
 

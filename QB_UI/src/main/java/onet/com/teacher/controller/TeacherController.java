@@ -9,12 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,10 +68,8 @@ public class TeacherController {
 
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
-	public String noticeWrite(int notice_num, String class_name, Model model) {
-		System.out.println("***" + notice_num);
+	public String noticeWrite(String class_name, Model model) {
 		System.out.println(class_name);
-		model.addAttribute("notice_num", notice_num);
 		model.addAttribute("class_name",class_name);
 		return "common.teacher.notice.noticeWrite";
 	}
@@ -77,8 +77,12 @@ public class TeacherController {
 
 	/* 재훈:10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
-
+	public String noticeDetail(Model model, String class_name, int notice_num) {
+		
+		System.out.println("class_name : " + class_name);
+		System.out.println("notice_num : " + notice_num);
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		model.addAttribute("result", result);
 		return "common.teacher.notice.noticeDetail";
 	}
 	/* 재훈:10.08 게시판 글 상세보기 페이지 끝 */
@@ -343,19 +347,14 @@ public class TeacherController {
 	/* 정원 10.22 공지사항 글쓰기*/
 	
 	@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
-	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws IOException {
+	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
 		String member_id = principal.getName();
 		dto.setMember_id(member_id);
 		long time = System.currentTimeMillis(); 
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
 		dto.setNotice_date(str);
-		int noticeNum = dto.getNotice_num();
-		System.out.println("_____" + noticeNum);
-		dto.setNotice_num(noticeNum);
 		
-		String FileName1 ="";
-		String FileName2 ="";
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
 		String originFileName1 = file1.getOriginalFilename();
@@ -363,30 +362,36 @@ public class TeacherController {
 		long fileSize1 = file1.getSize();
 		long fileSize2 = file2.getSize();
 		String path =  request.getServletContext().getRealPath("resources/upload/board/");
-		String safeFile1 = path + System.currentTimeMillis() + originFileName1;
-		String safeFile2 = path + System.currentTimeMillis() + originFileName2;
 		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
-			FileName1 = dto.getMember_id() + originFileName1;
-			FileName2 = dto.getMember_id() + originFileName2;
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file1(FileName1);
-			dto.setNotice_file2(FileName2);
+			dto.setNotice_file1(savaFile1);
+			dto.setNotice_file2(saveFile2);
 		}else if(fileSize1 > 0 && fileSize2 == 0){
-			FileName1 = dto.getMember_id() + originFileName1;
-			dto.setNotice_file1(FileName1);
 			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
 		}else if(fileSize2 > 0 && fileSize1 == 0) {
-			FileName2 = dto.getMember_id() + originFileName2;
 			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file2(FileName2);
+			dto.setNotice_file2(saveFile2);
 		}
-		
-		
 		int result = commonService.insertBoardList(dto);
 		
+	
 		return "redirect:teacherMain.do";
 	}
+	
+	
+	
+	
+	
+	
 
 }

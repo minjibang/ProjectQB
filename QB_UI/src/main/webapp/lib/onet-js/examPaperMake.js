@@ -141,7 +141,7 @@ function makeExamSubmitBtn(num){
 		if($('.exam-paper-name').val()==""){
 			swal("시험지 이름을 작성해주세요");
 		}else if($('.exam-paper-desc').val()==""){
-			swal("시험지 설명을 작성해주세요\n(ex.기초 자바문제)");
+			swal("시험지 설명을 작성해주세요\n(ex.총 10문제)");
 		}
 		examName=$('.exam-paper-name').val().trim();
 		examDesc=$('.exam-paper-desc').val().trim();
@@ -151,7 +151,7 @@ function makeExamSubmitBtn(num){
 		if($('.createEPaper').val()==""){
 			swal("시험지 이름을 작성해주세요");
 		}else if($('.createEPDesc').val()==""){
-			swal("시험지 설명을 작성해주세요\n(ex.기초 자바문제)");
+			swal("시험지 설명을 작성해주세요\n(ex.총 10문제)");
 		}
 		examName=$('.createEPaper').val().trim();
 		examDesc=$('.createEPDesc').val().trim();
@@ -161,7 +161,7 @@ function makeExamSubmitBtn(num){
 
 	console.log(examName);
 	console.log(examDesc);
-	
+
 	$.ajax({
         url:"checkExam_paper.do",
         type:"get",
@@ -214,6 +214,13 @@ function makeExamSubmitBtn(num){
                 	         });
                 	         console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
                 	      });         
+                	         /*내 시험지로 이동*/
+                	         if(num==1){
+                	         location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
+                	         }else{
+                	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
+	 							 swal("임시 저장되었습니다.");
+                	         }
                 	      },
                 	      error:function(xml){
                 	         console.log("에러가 나부렀네 ㅠㅠ 왜일까용? 뭘까용?");
@@ -267,7 +274,7 @@ function makeExamSubmitBtn(num){
                  var EQSeq=(Number(index) + 1);
                  console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
                  var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
-                    insert자리
+                    /*insert자리*/
                     $.ajax({
                        url:"examQuestionInsert.do",
                        type:"get",
@@ -285,24 +292,27 @@ function makeExamSubmitBtn(num){
                        }
                     });
                  });
+              /*내 시험지로 이동*/
+              if(num==1){
+              location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
+              }else{
+            	  $('#pickQuestionTempSaveModal').modal('hide'); 
+	 			  swal("임시 저장되었습니다.");
+              }
            }
         },
         error:function(xml){
            swal("문제가 생겨부럿네");
         }
      });
-	if(num==1){
-	location.href="common.teacher.exam.examManagement";
-	}
-
+	
+	
 }
-
-
 
 function plusqcore(){
 	var qc = Number($('#qcore').val());
 	$('.questionScoreInputTag').each(function(){
-		if($(this).val()>20){
+		if($(this).val()>100){
 			swal("한 문제당 최대 배점은 20점까지 인정됩니다.");
 			$(this).val(20);
 			qc += Number(20);
