@@ -111,11 +111,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="questionChoiceInfo" parameterType="int" resultType="onet.com.vo.Question_choiceDto">
 	select * from question_choice where question_num = ${question_num}
 </select>
+<select id="questionCategoryInfo" resultType="onet.com.vo.CategoryDto">
+select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
+   join question_md_category md on (sm.md_category_code = md.md_category_code) 
+   join question_lg_category lg on (lg.lg_category_code = md.lg_category_code)
+   where question_num=#{param1}
+</select>
 
 <!-- 재훈 - 문제관리 관련 10.21 끝 -->
 <insert id="insertBoardList" parameterType="onet.com.vo.NoticeDto">
 	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_file3},#{notice_date})
 </insert>
 
+<select id="noticeDetail" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice where class_name = #{class_name} and notice_num=#{notice_num}
+</select>
+
+<select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="int">
+	select max(notice_num) from notice where class_name=#{class_name} order by notice_num desc;
+</select>
 
 </mapper>

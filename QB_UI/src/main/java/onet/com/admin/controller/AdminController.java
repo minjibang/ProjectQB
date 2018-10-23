@@ -211,7 +211,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name) {
+	public String adminClassMain(Model model, String class_name) { 
 
 		List<NoticeDto> notice;
 		notice=commonService.admin_Main(class_name);
@@ -236,7 +236,11 @@ public class AdminController {
 	
 
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
+	public String noticeDetail(Model model, String class_name, int notice_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		model.addAttribute("result", result);		
 		
 		return "common.adminClass.admin.notice.noticeDetail";
 	}
@@ -256,8 +260,12 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
-		System.out.println("시험일정 상세 컨트롤러");
+	public String examScheduleDetail(Model model, int exam_info_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);  
+		model.addAttribute("dto", dto);
+		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 	
@@ -346,25 +354,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	/*
-	@RequestMapping(value="myQuestionSearch.do")
-	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
-			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
-			@RequestParam("keyword") String keyword) {
-		
-		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.questionManagement_ajax");
-		mv.addObject("question", question);
-		mv.addObject("question_choice",question_choice);
-		
-		return mv;
-	}
-	*/
-
+	
 	
 	/* 재훈 10.20 문제삭제 관련 start */
 	@RequestMapping("singleQuestionDelete.do")
@@ -398,8 +388,6 @@ public class AdminController {
 	}
 	/*문제수정페이지로 이동시 문제 &문제보기 정보 가져와서 뿌려주기*/
 
-	/* 재훈 10.15 문제 관리 페이지 관련 end */
-
 	@RequestMapping("questionUpdate.do")
 	public String questionUpdate(Model model, int question_num) {
 		System.out.println("컨트롤러 진입>>> question_num값: " +question_num);
@@ -411,6 +399,10 @@ public class AdminController {
 		List<Question_choiceDto> cdto;
 		cdto=commonService.questionChoiceInfo(question_num);
 		model.addAttribute("cdto",cdto);
+		
+		List<CategoryDto> qcat;
+		qcat=commonService.questionCategoryInfo(question_num);
+		model.addAttribute("qcat",qcat);
 		
 		List<CategoryDto> lgCatList;
 		lgCatList=adminService.lgCategoryList();
@@ -428,8 +420,25 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
+		
+		
 		return "common.adminClass.admin.question.questionUpdate";
 	}	
+	
+	@RequestMapping(value="updateQuestion.do")
+	public @ResponseBody Map<String,Object> updateQuestion(int question_num){
+		System.out.println("업데이트 컨트롤러 진입>>>>>" + question_num);
+		Map<String,Object> map = new HashMap <String,Object>();
+		int result = commonService.singleQuestionDelete(question_num);
+		if(result == 0) {
+			System.out.println("컨트롤러 if문 >> result 값 0");
+			map.put("result", "삭제불가");
+		}else {
+			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
+			map.put("result", "삭제가능");
+		}
+		return map;
+	}
 	
 	
 
