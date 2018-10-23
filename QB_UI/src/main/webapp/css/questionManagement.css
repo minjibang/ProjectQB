@@ -90,6 +90,19 @@
         margin-top: 10px;
         
         }
+        #choiceCount{
+        margin-top: 10px;
+        }
+        
+        #warning_text{
+        	float:right;
+        	font-size:14px;
+        	color:red;
+        	margin-top:10px;
+        	margin-left:5px;
+        	margin-right:10px;
+        	margin-bottom:20px;
+        }
         
 	/*회준*/
 	.form-control-inline {

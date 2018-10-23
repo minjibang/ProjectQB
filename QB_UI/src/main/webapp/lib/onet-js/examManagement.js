@@ -1,19 +1,7 @@
-/**
- * 18.10.15 영준 examManagement.js 파일 추가 
- */
 
 
 $(document).ready(function(){
 
-		/* 내 시험지 페이지 삭제 버튼 구현 */
-
-		$("button[name='deleteExamPaperBtn']").click(function(){
-			var index = $("button[name='deleteExamPaperBtn']").index(this);
-		
-			console.log("시험지 이름 가져오기 : " + index);
-		
-		});
-		
 		/* 시험지 삭제 모달창 */
 		$("#examPaperDeletebtn").click(function(){	
 			
