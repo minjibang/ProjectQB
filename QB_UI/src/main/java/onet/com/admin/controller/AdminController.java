@@ -365,6 +365,7 @@ public class AdminController {
 		
 		return mv;
 	}
+
 	//관리자 - 문제관리 페이지 분류별/키워드별 검색 기능
 	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView myQuestionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
@@ -382,7 +383,7 @@ public class AdminController {
 		
 		return mv;
 	}
-	
+
 	//관리자 - 문제관리 페이지 새 문제 만들기 기능
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {

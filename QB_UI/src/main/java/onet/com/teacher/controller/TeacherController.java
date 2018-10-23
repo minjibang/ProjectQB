@@ -234,6 +234,7 @@ public class TeacherController {
 		
 		return mv;
 	}
+
 	//강사 - 문제 검색기능 
 	 @RequestMapping(value="myQuestionSearch.do")
 	   public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
@@ -251,6 +252,7 @@ public class TeacherController {
 	      
 	     return mv;
 	  }
+
 
 	
 	//강사 - 새 문제 만들기 
