@@ -76,7 +76,7 @@
 					</div>
 					<div class="row examScheduleBtnDiv">
 						<div class="col-lg-5">
-							<button type="button" class="btn btn-default">뒤로 가기</button>
+							<button type="button" class="btn btn-default" id="examScheduleBackBtn">뒤로 가기</button>
 						</div>
 						<!-- 강사일 경우 버튼이 "시험 시작" / 학생일 경우 버튼이 "시험 응시"-->
 						<div class="col-lg-7">
@@ -106,7 +106,7 @@
 				
 				
 				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-				var popOption = "width=100%, height=100%";
+				var popOption = "width='1920px', height=1080px'";
 				
 				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
 				window.open(popUrl, "지난 시험보기", popOption);
@@ -179,6 +179,10 @@
 			$('#daysRound').html("시험이 종료 되었습니다. 수고하셨습니다.");
 			$('#examBtn').attr('disabled', true);
 		}
+		
+		$('#examScheduleBackBtn').click(function(){
+			history.back();
+		});
 		
 	});
 </script>
