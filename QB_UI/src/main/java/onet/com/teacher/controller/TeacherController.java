@@ -126,15 +126,7 @@ public class TeacherController {
 	}
 	/* 영준 - 18.10.17 내 시험지 삭제 끝 */
 	
-	/* 영준 - 18.10.18 시험 일정 삭제 시작 */
-	@RequestMapping(value="teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestBody int exam_info_num)
-	{
-		int result = teacherService.examScheduleDelete(exam_info_num);
-		String result2 = String.valueOf(result);
-		return result2;
-	}
-	/* 영준 - 18.10.18 시험 일정 삭제 끝 */
+
 	
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 
@@ -234,6 +226,26 @@ public class TeacherController {
 		
 		return mv;
 	}
+
+	//강사 - 문제 검색기능 
+	 @RequestMapping(value="myQuestionSearch.do")
+	   public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+	         @RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+	         @RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
+	         @RequestParam("keyword") String keyword, @RequestParam("member_id") String member_id) {
+	    
+	     List<QuestionDto> question = teacherService.teacherMyQuestionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword,member_id);
+	     List<Question_choiceDto> question_choice = teacherService.question_choice();
+	      
+	     ModelAndView mv = new ModelAndView();
+	     mv.setViewName("ajax.common.questionManagement_ajax");
+	     mv.addObject("question", question);
+	     mv.addObject("question_choice",question_choice);
+	      
+	     return mv;
+	  }
+
+
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)

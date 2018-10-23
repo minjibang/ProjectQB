@@ -66,7 +66,7 @@
                   </div>
                   <!-- div 윗 줄의 문항검색 부분  -->
 
-
+					<!-- 화면의 왼쪽, 시험 출제 문항 부분이다  -->
                   <div class="row">
                      <div class="col-lg-6" id="leftMakeExamDiv">
                         <form aciton="" method="post" id="pickQuestionForm" onsubmit="return false;">
@@ -74,7 +74,7 @@
                            
                            <!-- 문제 하나의 div 시작  -->
                            <div id="questions">
-
+							
                            </div>
                            
                            
@@ -87,6 +87,49 @@
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
                               <ul id="sortable" class="task-list selectedBox">
+                              <c:forEach items="${examquestion}" var="examquestion">
+								<li>
+								<div class='row'>
+									<div class="col-lg-1 qnumdiv">
+										 <input type="checkbox" value="${examquestion.question_num }"
+											name="checkbox[]" /> 
+										<!-- value에 문제고유번호 들어간다 -->
+									</div>
+									<div class="col-lg-3">
+										${examquestion.md_category_name}<br> ${examquestion.sm_category_name }<br>
+										난이도: ${examquestion.level_name}<br> 정답:
+										${examquestion.question_answer }<br>
+										정답률:${examquestion.question_correct_ratio}%<br> 출제자:
+										${examquestion.member_id }<br>
+									</div>
+									<div class="col-lg-8" id="questiontitle">
+										<b>${examquestion.question_name }</b><br> <br>
+										<div class="questionImgDiv">
+											<c:if test="${examquestion.question_img  ne null }">
+												<img
+													src="${pageContext.request.contextPath}/img/${examquestion.question_img }"
+													alt="questionImg" class="questionImg" />
+												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+											</c:if>
+										</div>
+										<br>
+										<div>
+											<c:forEach items="${examquestion_choice}" var="examquestion_choice">
+												<c:if
+													test="${examquestion_choice.question_num eq examquestion.question_num}">
+													<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									<hr>
+									<div class="col-lg-123 qscore">배점:&nbsp; 
+										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" val="1" min="1" max="20" onchange="plusqcore()"/>
+										<hr>
+									</div>
+								</div>
+								</li>	
+							  </c:forEach>
                               </ul>
                            </div>
                         </form>
@@ -254,7 +297,7 @@ $(document).ready(function(){
 		error : function(error) {
 			console.log("===========실패");
 		}
-	})
+	});
    $('#question_lg_category').change(function(){
       $('#question_md_category').children('option:not(:first)').remove();
       $('#question_sm_category').children('option:not(:first)').remove();

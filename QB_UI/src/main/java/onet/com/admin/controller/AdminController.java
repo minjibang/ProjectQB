@@ -256,7 +256,6 @@ public class AdminController {
 			
 		}
 	
-
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num) {
 		
@@ -366,6 +365,25 @@ public class AdminController {
 		
 		return mv;
 	}
+
+	//관리자 - 문제관리 페이지 분류별/키워드별 검색 기능
+	@RequestMapping(value="myQuestionSearch.do")
+	public @ResponseBody ModelAndView myQuestionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+			@RequestParam("leveltype") String leveltype,@RequestParam("keyword") String keyword,
+			@RequestParam("questiontype") String questiontype) {
+		
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.questionManagement_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		return mv;
+	}
+
 	//관리자 - 문제관리 페이지 새 문제 만들기 기능
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {

@@ -11,6 +11,11 @@
 <meta name="description" content="">
 <title>Welcome Bitcamp</title>
 
+
+<!-- jquery UI -->
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
 <!-- Favicons -->
 <link href="img/favicon.png" rel="icon">
 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -25,24 +30,32 @@
 	rel="stylesheet" />
 <%-- 회준 css 시작 --%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
-<link rel="stylesheet" type="text/css"
+<%-- <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-datepicker/css/datepicker.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/daterangepicker.css" />
+	
+	--%>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-timepicker/compiled/timepicker.css" />
-<%-- 양회준 link 경로 수정 (/css 추가)--%>
+
+<%--
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/css/datertimepicker.css" />
-<%-- 회준 css 끝 --%>
+--%>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/zabuto_calendar.css">
+	href="${pageContext.request.contextPath}/css/zabuto_calendar.css"> 
+	
+	
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" />
 <link href="${pageContext.request.contextPath}/css/style.css"
 	type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/style-responsive.css"
 	type="text/css" rel="stylesheet" />
+	
 	
 <!-- 재훈 - summernote 관련 css  시작  -->
 <link href="${pageContext.request.contextPath}/lib/summernote/summernote.css" rel="stylesheet">
@@ -258,7 +271,7 @@
 		src="${pageContext.request.contextPath}/lib/jquery-ui-1.9.2.custom.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-	<script type="text/javascript"
+	<%-- <script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/date.js"></script>
@@ -267,12 +280,13 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/lang/ko.min.js"></script>
-	<%-- 회준 js 시작 --%>
+	회준 js 시작
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+		--%>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-	<%-- 회준 js 끝 --%>
+
 	<script
 		src="${pageContext.request.contextPath}/lib/advanced-form-components.js"></script>
 	
