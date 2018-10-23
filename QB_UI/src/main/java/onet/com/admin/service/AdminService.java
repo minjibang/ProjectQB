@@ -28,7 +28,8 @@ public class AdminService {
 	
 	HttpServletRequest request;
 	
-	/*재훈 - 10.08 문제분류관련 시작*/ 
+/*##################        재훈 시작              ##################*/
+	//문제분류 페이지 - 문제분류 리스트 시작 
 	public List<CategoryDto> lgCategoryList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.lgCategoryList();
@@ -44,24 +45,21 @@ public class AdminService {
 		List<CategoryDto> result = dao.smCategoryList();
 		return result;
 	}
-	/*재훈 - 10.08 문제분류관련 끝*/
 	
-	/*재훈 - 10.15 문제난이도관련 시작*/
+	//문제 난이도 리스트
 	public List<CategoryDto> questionLevelList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.questionLevelList();
 		return result;
 	}
-	/*재훈 - 10.15 문제난이도관련 끝*/
 	
-	/*재훈 - 10.16 새 문제 만들기 관련 시작*/
+	//새 문제 만들기 
 	@Transactional
 	public int insertQuestion(QuestionDto dto) {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.insertQuestion(dto);
 		return result;
 	}
-	
 	@Transactional
 	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
 		int result = 0;		
@@ -80,7 +78,9 @@ public class AdminService {
 		return result;
 	}
 	
-	/*재훈 - 10.15 새 문제 만들기 관련 끝*/
+/*##################        재훈 시작              ##################*/
+	
+	
 
 	/*영준 - 10.10 회원관리 관련 시작 */
 	public List<MemberDto> memberList(){

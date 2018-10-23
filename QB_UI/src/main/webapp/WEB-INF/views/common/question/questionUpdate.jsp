@@ -64,7 +64,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-lg-12 ">
-						<form class="formNewQuestion" action="updateQuestion.do"
+						<form class="formNewQuestion" action="insertQuestion.do"
 							method="post" onsubmit="return check()">
 						<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
 						 <c:forEach items="${qdto}" var="qdto"> 
@@ -130,7 +130,7 @@
 										</c:if>
 									</c:forEach>
 									
-								</select> <select id="level_type" class="form-control-static"
+								</select> <select id="level_type2" class="form-control-static"
 									name="level_code">
 									<option value="">난이도</option>
 									<c:forEach items="${quesLevelList}" var="quesLevelList">
