@@ -62,7 +62,7 @@
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-                              <input type="text" class="form-control form-control-inline dpd1" name="exam_info_date" id="exam_info_date"  size="16" value="${classExamList.exam_info_date}" required>
+                             <input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16"  value="${classExamList.exam_info_date}" readonly required>
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
                         </div>
@@ -70,19 +70,19 @@
                           <label class="control-label col-md-2">시간</label>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" value="${classExamList.exam_info_start}" required>
+                                <input style="z-index:0;" type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" value="${classExamList.exam_info_start}" required>
                                  <input type="hidden" value="${classExamList.exam_info_start}" id="start_time_hidden"/>
                                  <span class="input-group-btn">
-                                   <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
+                                   <button  style="z-index:0;" class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
                               </div>
                               <label class="control-label">부터</label>
                             </div>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" value="${classExamList.exam_info_end}"required>
+                                <input style="z-index:0;" type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" value="${classExamList.exam_info_end}"required>
                                   <span class="input-group-btn">
-                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
+                                    <button style="z-index:0;"  class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                   </span>
                               </div>
                               <label class="control-label">까지</label>
@@ -168,9 +168,13 @@
 
 
 function check(){
+	
+	var date2 = $('#exam_info_date').val();
+	console.log("date값>>"+date2);
 	var timeinfodiv = document.getElementById("timeinfo");
 	
 	var datecheck = false;
+	
 	var start = $('#exam_info_start').val();
 	var end = $('#exam_info_end').val();
 	
@@ -179,7 +183,9 @@ function check(){
 	
 	var start_m=start.substring(3);
 	var end_m = end.substring(3);
-
+	
+	
+	
 	
 	if(start_hour > end_hour){
 		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
@@ -201,6 +207,9 @@ function check(){
 		timeinfodiv.style.color = 'bule';
 		return false;
 		
+	} else if($('#exam_info_date').val()==""){
+		alert("날짜를 입력하세요");
+		return false;
 	}else {
 		var insertconfirm = confirm("시험일정을 수정하시겠습니까?");
 		if(insertconfirm == true){

@@ -4,7 +4,7 @@
 $(document).ready(function(){
 	
 	 $( "#exam_info_date" ).datepicker({ minDate: 0, maxDate: "+1M +10D",dateFormat: 'yy-mm-dd' });
-	 
+	
 
 
 });
@@ -60,6 +60,7 @@ function oneCheckFunc( obj )
 
 
 function checktime(){
+		
 	var start = $('#exam_info_start').val();
 	var end = $('#exam_info_end').val();
 	

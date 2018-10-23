@@ -65,7 +65,7 @@
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-                            <p><input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" required></p>
+                            <p><input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" readonly required></p>
                              
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
