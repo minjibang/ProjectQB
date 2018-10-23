@@ -113,7 +113,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 한결 : 강사 문제 리스트 불러오기 끝-->
 
-<!-- 재훈 10.19: 강사 내가만든문제 리스트 시작  -->
+<!-- ################ 재훈 시작 #################  -->
+<!-- 강사 내가만든문제 리스트 -->
 <select id="teacherMyQuestion" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
 	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
 	(select md_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_code',
@@ -123,9 +124,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    (select lg_category_name from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_name',
    (select level_name from question_level where level_code = question.level_code) as 'level_name',
    member_id
-   from question where member_id=#{param1}
+   from question where member_id=#{param1} order by question_num desc;
 </select>
-<!-- 재훈 10.19: 강사 내가만든문제 리스트  끝-->
+<!-- 강사 내가만든문제 조건&키워드별 검색 -->
+<select id="teacherMyQuestionSearch" resultType="onet.com.vo.QuestionDto">
+	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
+	join question_md_category md on (sm.md_category_code = md.md_category_code) 
+	join question_lg_category lg on (lg.lg_category_code = md.lg_category_code)
+	join question_level lv on (qs.level_code = lv.level_code)
+	<include refid="search"></include> and qs.member_id=#{param7}
+	order by question_num desc;
+</select>
+<!-- ################ 재훈 끝 #################  -->
 
 
 <!-- 영준 10.16 내 시험지 리스트 불러오기 시작 -->

@@ -45,13 +45,13 @@ public class TeacherService {
 		List<QuestionDto> result = dao.teacherMyQuestion(member_id);
 		return result;
 	}
-	/*
-	public List<QuestionDto> myQuestionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype){
+	
+	public List<QuestionDto> teacherMyQuestionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword, String member_id){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype);
+		List<QuestionDto> result = dao.teacherMyQuestionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype, keyword, member_id);
 		return result;
 	}
-	*/
+	
 	/*재훈 - 10.19 강사 문제관리 - 내가 만든 문제 끝 */
 	
 	
