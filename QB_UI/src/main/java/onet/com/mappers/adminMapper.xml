@@ -68,6 +68,10 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </insert>
 
 <insert id="insertQuestionChoice">
+	insert into question_choice(question_num, question_choice_num, question_choice_content, question_choice_image) 
+	values(#{param1},#{param2},#{param3}, #{param4});
+</insert>
+<insert id="insertQuestionChoiceNoImg">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{param1},#{param2},#{param3});
 </insert>
