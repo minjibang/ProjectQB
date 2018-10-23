@@ -207,6 +207,10 @@ public class TestManageController {
 	@RequestMapping("examScheduleUpdate.do")
 	public String examScheduleUpdate(Model model, int exam_info_num) {
 
+
+		List<MemberDto> classMemberListUpdate;
+		classMemberListUpdate= teacherService.classMemberListUpdate(exam_info_num);
+		model.addAttribute("classMemberListUpdate", classMemberListUpdate);
 		
 		List<ExamInfoDto> classExamList;
 		classExamList= teacherService.classExamList(exam_info_num);

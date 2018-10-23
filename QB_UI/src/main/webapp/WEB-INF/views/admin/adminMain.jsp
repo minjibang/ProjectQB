@@ -15,7 +15,8 @@
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/adminMain.js"></script>
 
-
+<script
+	src="${pageContext.request.contextPath}/lib/onet-js/jquery-ui.js"></script>
 
 <section id="main-content">
 	<section class="wrapper">
@@ -61,8 +62,6 @@
 										<h4 class="modal-title" id="myModalLabel">클래스 개설</h4>
 									</div>
 									<div class="modal-body">
-										<div class="form-panel">
-											
 												<div class="form-group">
 													<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
 													<div class="col-sm-10">
@@ -76,8 +75,9 @@
 													<div class="col-md-10">
 														<div class="input-group input-large">
 															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date" required>
-															<span class="input-group-addon"> 에서 </span> <input
-																type="text" class="form-control dpd2" name="class_end_date" id="class_end_date" required>
+															<span class="input-group-addon"> 에서 </span> 
+															<input type="text" class="form-control dpd2" name="class_end_date" id="class_end_date" required>
+																
 														</div>
 														<span class="help-block">기간을 선택하세요.</span>
 													</div>
@@ -89,7 +89,7 @@
 															placeholder="강사님 이름을 입력해주세요." id="teacher_name" name="teacher_name">
 													</div>
 												</div>
-										</div>
+										
 										<!-- /col-lg-12 -->
 									</div>
 									<div class="modal-footer">
@@ -123,6 +123,38 @@
 var classcheck = false;
 
 $(document).ready(function(){
+	
+	
+	var dateFormat = "yy-mm-dd",
+    from = $( "#class_start_date" )
+      .datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,
+        minDate:0
+      })
+      .on( "change", function() {
+        to.datepicker( "option", "minDate", getDate( this ) );
+      }),
+    to = $( "#class_end_date" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3
+    })
+    .on( "change", function() {
+      from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+
+  function getDate( element ) {
+    var date;
+    try {
+      date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+      date = null;
+    }
+
+    return date;
+  }
 	
 	$.ajax({
 		url : "adminMainView.do",

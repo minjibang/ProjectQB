@@ -7,6 +7,9 @@
 
 $(document).ready(function(){
 	
+	
+	
+	
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
 		

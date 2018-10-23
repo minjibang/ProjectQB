@@ -32,11 +32,11 @@
 	                      <label>
 	                        <input type="checkbox"  id="checkall">전체선택
 	                      </label>
-	                      	<c:forEach items="${classMemberList}" var="classMemberList">
+	                      	<c:forEach items="${classMemberListUpdate}" var="classMemberListUpdate">
 	                        <ul class="chat-available-user" id ="checkboxNameUl">
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox"  name="chk" value="chk">(${classMemberList.member_id })${classMemberList.member_name}
+	                            	<input type="checkbox"  name="chk" value="chk">(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}
 	                            </label>
 	                          </div>
 	                        </ul>

@@ -232,6 +232,13 @@
 																	<input type="text" class="form-control dpd2" name="to" id="to" value='${classlist.class_end_date}' required/>
 																
 																</div>
+																
+															<%-- 	<div class="input-group input-large">
+															<input type="text" class="form-control dpd1" name="from" id="from" value='${classlist.class_start_date}' required>
+															<span class="input-group-addon"> 에서 </span> 
+															<input type="text" class="form-control dpd2" name="to" id="to" value='${classlist.class_end_date}' required>
+																
+														</div> --%>
 																<span class="help-block">Select date range</span>
 															</div>
 														</div>

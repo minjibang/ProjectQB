@@ -161,6 +161,15 @@ public class TeacherService {
 		List<MemberDto> result = dao.classMemberList(exam_paper_num);
 		return result;
 	}
+	public List<MemberDto> classMemberListUpdate(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		List<MemberDto> result = dao.classMemberListUpdate(exam_info_num);
+		return result;
+	}
+	
+	
+	
 	public ClassDto classInfo(int exam_paper_num){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		ClassDto result = dao.classInfo(exam_paper_num);

@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link
-	href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
+	href="${pageContext.request.contextPath}/css/examScheduleRegist.css"
 	rel="stylesheet">
  <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleRegist.js"></script> 
@@ -16,7 +16,7 @@
 
 <section id="main-content">
   <section class="wrapper-low">
-  
+ 
     <div class="row mt">
       <div class="col-lg-12 mt">
         <div class="row content-panel">
@@ -185,7 +185,8 @@ function check(){
 	
 	var start_m=start.substring(3);
 	var end_m = end.substring(3);
-
+	
+	console.log("date값>>>"+$('#exam_info_date').val()+"<<");
 	
 	if(start_hour > end_hour){
 		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
@@ -207,6 +208,9 @@ function check(){
 		timeinfodiv.style.color = 'bule';
 		return false;
 		
+	}else if($('#exam_info_date').val()==""){
+		alert("날짜를 입력하세요");
+		return false;
 	}else {
 		var insertconfirm = confirm("시험등록 하시겠습니까?");
 		if(insertconfirm == true){

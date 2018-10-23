@@ -92,6 +92,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="classMemberList" resultType="onet.com.vo.MemberDto">
 	select member_id, member_name from member where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
 </select>
+<select id="classMemberListUpdate" resultType="onet.com.vo.MemberDto">
+select member_id, member_name from member where class_name=(select class_name from exam_info where exam_info_num = #{exam_info_num});
+</select>
+
 <select id="classInfo" resultType="onet.com.vo.ClassDto">
 	select class_num,class_name from class where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
 </select>
