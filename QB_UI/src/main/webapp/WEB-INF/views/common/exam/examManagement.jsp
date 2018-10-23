@@ -17,8 +17,6 @@
 <link
 	href="${pageContext.request.contextPath}/css/teacherExamManagement.css"
 	rel="stylesheet">
-<%-- <script
-	src="${pageContext.request.contextPath}/lib/onet-js/teacherMyExamPaper.js"></script>	 --%>
 <!--main content start-->
 
 <section id="main-content">
@@ -50,26 +48,30 @@
 									<hr>
 									<form action="" method="post" id="pickMyExamPaperForm">
 										<div class="col-lg-12">
+
 											<!-- 시험지 하나의 div 시작 -->
-											<div id="examPaperDiv">
+											<div id="myExamPaperDiv">
 												<c:forEach items="${myexamPaperList}" var="myexamPaperList">
-													<input type="hidden" id="exam_paper_num"
-														value='${myexamPaperList.exam_paper_num}' />
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
-														<h4 id="exam_paper_name">
+														<h4 id="exam_paper_name" >
 															<strong>${myexamPaperList.exam_paper_name}</strong>
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
+
 
 														
 														<div class="pdf_download text-right">
 															<a href="#">PDF 다운로드 <img
 																src="../img/file-download.png"></a>
-															<button type="button" id="${myexamPaperList.exam_paper_num}" class="btn btn-theme04 buttonGroup" onclick="deleteExamCheck()">삭제</button>
-															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지
-																수정</button>											
+															<button type="button"
+																id="${myexamPaperList.exam_paper_num}"
+																class="btn btn-theme04 buttonGroup"
+																onclick="deleteExamCheck()">삭제</button>
+															<button type="button"
+																id="${myexamPaperList.exam_paper_num}"
+																class="btn btn-theme buttonGroup"
+																onclick="updateExamCheck()">시험지수정</button>
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
 															<input type="hidden" id="hidden_class_num"
@@ -100,8 +102,9 @@
 									<hr>
 									<form action="" method="post" id="pickMyExamPaperForm">
 										<div class="col-lg-12">
+
 											<!-- 시험지 하나의 div 시작 -->
-											<div id="examPaperDiv">
+											<div id="examTempPaperDiv">
 												<c:forEach items="${myTempExamList}" var="myTempExamList">
 													<input type="hidden" id="exam_paper_num"
 														value='${myTempExamList.exam_paper_num}' />
@@ -240,14 +243,35 @@
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examManagement.js"
 	type="text/javascript"></script>
-	
+
 <script>
-function deleteExamCheck(){
-	var button_id = window.event.target.id;
-	var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
-	if(deleteconfirm == true){
-		location.href="deleteExam.do?exam_paper_num="+button_id;
-	}else{
+function updateExamCheck() {
+		var button_id = window.event.target.id;
+		var deleteconfirm = confirm("시험지 수정을 하시겠습니까?");
+		if (deleteconfirm == true) {
+			location.href = "updateExamView.do?exam_paper_num=" + button_id;
+		} else {
+		}
 	}
-}
+function deleteExamCheck() {
+		var exam_paper_num = window.event.target.id;
+		var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
+		if (deleteconfirm == true) {
+			$.ajax({
+				url : "deleteExam.do",
+				type:'GET',
+				dataType:"json",
+				data:{
+					'exam_paper_num':exam_paper_num
+				},
+				success:function(data){
+					$('#'+exam_paper_num).parent().parent(".exam-paper-name").remove();
+				},
+				error : function(error) {
+					console.log("===========실패");
+				}
+			});
+		} else {
+		}
+	}
 </script>

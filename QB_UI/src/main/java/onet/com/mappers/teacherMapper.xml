@@ -83,6 +83,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
 </update>
 
+<select id="updateExamView" resultType="onet.com.vo.QuestionDto">
+	select * from question where question_num = ANY(select question_num from exam_question where exam_paper_num = #{param1})
+</select>
+
 <!-- 태용 끝 -->
 <!-- 민지 시작 -->
 <select id="classMemberList" resultType="onet.com.vo.MemberDto">

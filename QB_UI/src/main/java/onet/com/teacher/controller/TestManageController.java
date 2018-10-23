@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.ClassDto;
@@ -70,28 +71,27 @@ public class TestManageController {
 	
 	/*시험지 리스트 뿌려주기*/
 	@RequestMapping("examManagement.do")
-	public String examManagement(Model model, Principal principal ) {
+	public String examManagement(Model model, Principal principal) {
 		String member_id = principal.getName();
 		
-		List<ExamPaperDto> examPaperList;
-		List<ExamPaperDto> examTempList;
-		
-		examPaperList = teacherService.myExamPaperList(member_id);
-		model.addAttribute("myexamPaperList", examPaperList);
-		
-		examTempList = teacherService.myTempExamList(member_id);
-		model.addAttribute("myTempExamList",examTempList);
-		
-	
+		List<ExamPaperDto> myexamPaperList;
+		List<ExamPaperDto> myTempExamList;
 		List<ExamInfoDto> examScheduleList;
+		
+		myexamPaperList = teacherService.myExamPaperList(member_id);			
+		myTempExamList = teacherService.myTempExamList(member_id);			
 		examScheduleList = teacherService.examScheduleList(member_id);
+		
+		model.addAttribute("myexamPaperList", myexamPaperList);
+		model.addAttribute("myTempExamList", myTempExamList);
 		model.addAttribute("examScheduleList", examScheduleList);
-
 		
 		return "common.teacher.exam.examManagement";
 	}
+	
+	
 	@RequestMapping("deleteExam.do")
-	public String deleteExam(int exam_paper_num) {
+	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
 		int result = teacherService.deleteExam(exam_paper_num);	
 		
@@ -99,14 +99,23 @@ public class TestManageController {
 			System.out.println("삭제실패");
 		}
 		
-		return "redirect:examManagement.do";
+		return result;
+	}
+	
+	@RequestMapping("updateExamView.do")
+	public String updateExamView(RedirectAttributes redirectAttributes, int exam_paper_num) {
+		List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
+		redirectAttributes.addFlashAttribute("examquestion", question);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		redirectAttributes.addFlashAttribute("examquestion_choice", question_choice);
+		
+		return "redirect:examPaperMake.do";
 	}
 	/*성태용 끝*/
 	
 	/*민지 시작*/
 	@RequestMapping("examScheduleRegist.do")
 	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
-		System.out.println("======================"+exam_paper_num);
 		
 		List<MemberDto> classMemberList;
 		classMemberList= teacherService.classMemberList(exam_paper_num);
