@@ -86,6 +86,13 @@ public class AdminService {
 			for(int f = imgCount; f<question_choice_num.length; f++) {
 				result=dao.insertQuestionChoiceNoImg(question_num, question_choice_num[f], question_choice_content[f]);
 			}
+
+					
+		/* 재훈쓰 원본
+		 * for(int i=0;i<question_choice_num.length;i++) {
+			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
+		}*/
+
 		
 		return result;
 	}
@@ -429,6 +436,5 @@ public class AdminService {
 		return list;
 	}
 	/*정원 문제분류 끝*/
-	
 	
 }

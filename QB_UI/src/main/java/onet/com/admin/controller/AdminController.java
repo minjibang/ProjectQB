@@ -348,8 +348,8 @@ public class AdminController {
 		String member_id = principal.getName();
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
-		
-		return "common.adminClass.admin.question.questionManagement";
+
+		return "common.admin.question.questionManagement";
 	}
 	//관리자 - 문제 관리 페이지 문제 출력 
 	@RequestMapping(value="myQuestionView.do")

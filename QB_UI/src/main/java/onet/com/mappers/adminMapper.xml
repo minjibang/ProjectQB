@@ -164,8 +164,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <!-- 양회준 10-23 admin 회원관리 끝 -->
 
 
-
-
 <!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
 
 <select id="classList" parameterType="hashmap" resultType="onet.com.vo.ClassDto">
