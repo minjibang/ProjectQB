@@ -16,7 +16,7 @@
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="row content-panel noticePageContent">
-						
+					<div class="panel-content">
 						<div class="panel-heading">
 							<header class="panel-heading wht-bg">
 								<h4 class="gen-case">
@@ -54,14 +54,14 @@
 							<div>
 								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
 							</div>
-						
+						</div><!-- panel-content -->
 						
 						
 					</div><!-- panel-body -->
 				</div><!-- row content-panel -->
 				
 				<div class="row content-panel noticePageContent">
-					
+					<div class="panel-content">
 						<div class="panel-heading">
 							<header class="panel-heading wht-bg">
 								<h4 class="gen-case">
@@ -92,10 +92,9 @@
 								</tbody>
 							</table>
 						
-				
+						</div>
 					</div>
 				</div>
-				
 			</div><!-- /col-lg-12 -->
 		</div><!-- /row mt -->
 	</section><!-- /wrapper -->
