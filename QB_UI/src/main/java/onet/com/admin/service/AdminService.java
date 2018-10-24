@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import onet.com.admin.dao.AdminDao;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
@@ -62,6 +63,12 @@ public class AdminService {
 		return result;
 	}
 	
+	//문제 검색
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype, keyword);
+		return result;
+	}
 	
 	//문제 난이도 리스트
 	public List<CategoryDto> questionLevelList(){
