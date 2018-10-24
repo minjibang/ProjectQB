@@ -248,7 +248,6 @@
 									<section class="panel">
 										<div class="panel-body">
 											<table id="studentList" class="table table-hover">
-												<h4>${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
 									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
@@ -283,7 +282,7 @@
 														<i class="fa fa-angle-right"></i> 각 시험 평균
 													</h4>
 													<div class="panel-body text-center">
-														<canvas id="bar2" height="200"></canvas>
+														<canvas id="bar2" height="240"></canvas>
 													</div>
 												</div>
 											</div>
@@ -294,18 +293,27 @@
 														<i class="fa fa-angle-right"></i> 반 등수
 													</h4>
 													<div class="btn-group pull-right">
-														<button type="button"
+														<select id="searchExam" class="form-control searchControl"
+																name="searchExam">
+															<option value="">시험 목록</option>		
+															<c:forEach items="${classChart}" var="classChart">
+																<option value="">${classChart.exam_info_name}</option>		
+															</c:forEach>
+														</select>
+														<!-- <!-- <button type="button"
 															class="btn btn-theme-right dropdown-toggle"
-															data-toggle="dropdown">
+															data-toggle="dropdown" id="examList">
 															시험 목록 <span class="caret"></span>
+															
 														</button>
 														<ul class="dropdown-menu" role="menu">
 															<li><a href="#">Java</a></li>
 															<li><a href="#">Oracle</a></li>
 															<li><a href="#">Web</a></li>
-															<li><a href="#">Spring</a></li>
-														</ul>
+															<li><a href="#">Spring</a></li> 
+														</ul> -->
 													</div>
+													<br><br>
 													<div class="panel-body text-center">
 														<div class="table-inbox-wrap">
 															<table
@@ -369,17 +377,13 @@
 														<i class="fa fa-angle-right"></i> 점수별 학생 분포
 													</h4>
 													<div class="btn-group pull-right">
-														<button type="button"
-															class="btn btn-theme-right dropdown-toggle"
-															data-toggle="dropdown">
-															시험 목록 <span class="caret"></span>
-														</button>
-														<ul class="dropdown-menu" role="menu">
-															<li><a href="#">Java</a></li>
-															<li><a href="#">Oracle</a></li>
-															<li><a href="#">Web</a></li>
-															<li><a href="#">Spring</a></li>
-														</ul>
+														<select id="searchExam" class="form-control searchControl"
+																name="searchExam">
+															<option value="">시험 목록</option>		
+															<c:forEach items="${classChart}" var="classChart">
+																<option value="">${classChart.exam_info_name}</option>		
+															</c:forEach>
+														</select>
 													</div>
 													<div class="panel-body text-center">
 														<canvas id="line2" height=75%></canvas>
@@ -633,7 +637,7 @@ $(document).ready(function(){
 	}
 	//첫화면 차트
 	
-	//클래스 통계화면 첫 차트
+	//클래스 통계화면 첫 차트 시작
 	function functionChart2(){
 		var ctx = document.getElementById('bar2').getContext('2d');
 		var myBarChart = new Chart(ctx, {
@@ -669,7 +673,9 @@ $(document).ready(function(){
 				}
 			}
 		});
-	}
+	} //클래스 통계화면 첫 차트 끝
+	
+	
 	
 })
 </script>
