@@ -37,6 +37,7 @@ import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Score_chartDto;
 
 @Controller
 @RequestMapping("/teacher/")
@@ -423,17 +424,32 @@ public class TeacherController {
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
 	public String myMessage() {
-
+		
 		return "common.teacher.common.myMessage";
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
+	//학생정보 불러오기
 	@RequestMapping("studentInfo.do")
-	public String studentInfo(){		
+	public String studentInfo(Model model, Principal principal){
+		//양회준 10-24
+		String member_id = principal.getName();
+		List<MemberDto> studentList = commonService.studentInfo(member_id);	
+		//List<Score_chartDto> studentChart = commonService.studentChartInfo(member_id);		
+		model.addAttribute("studentList",studentList);
 		return "common.teacher.grade.studentInfo";
 	}
+	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> studentChartInfo(@RequestParam("member_id") String member_id){
+		//양회준 10-24
+		List<Score_chartDto> studentChart = commonService.studentChartInfo(member_id);
+		System.out.println("chart 리턴확인");
+		System.out.println(studentChart);
+		return studentChart;
+	}
+	
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
 	/* 양회준 10.16 내정보 비밀번호 확인 시작*/

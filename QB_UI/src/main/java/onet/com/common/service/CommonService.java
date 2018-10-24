@@ -18,6 +18,7 @@ import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Score_chartDto;
 
 @Service
 public class CommonService {
@@ -209,6 +210,21 @@ public class CommonService {
 		return result;
 	}
 
+	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
+	public List<MemberDto> studentInfo(String member_id){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> studentList = dao.studentInfo(member_id);
+		
+		return studentList;
+	}
+	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
+	public List<Score_chartDto> studentChartInfo(String member_id){
+		
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> studentChart = dao.studentChartInfo(member_id);
+		return studentChart;
+	}
+	
 	
 }
 

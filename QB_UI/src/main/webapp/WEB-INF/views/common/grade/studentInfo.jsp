@@ -40,53 +40,34 @@
 								<%-- 학생 목록 시작 --%>
 								<div class="col-lg-2">
 									<section class="panel">
-										<div class="panel-body grey-panel">
-											<a href="mail_compose.html" class="btn btn-compose"> <i
-												class="fa fa-pencil"></i> 자바 109기
-											</a>
-											<ul class="nav nav-pills nav-stacked mail-nav">
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 김현이
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 서정원
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 방민지
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 조재훈
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 우한결
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 양회준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 유영준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 성태용
-												</a></li>
-											</ul>
+										<div class="panel-body">																					
+											<table id="studentList" class="table table-hover">
+												<h4>${studentList[0].class_name}</h4>
+									                <thead>
+									                  <tr>
+									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
+									                  </tr>
+									                </thead>
+									                <tbody>									                
+												<c:forEach items="${studentList}" var="studentList">												
+								                  <tr>
+								                    <td id="${studentList.member_id}" class="studentListMembers">
+								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+															class="img-circle" width="25"> ${studentList.member_name}
+								                    </td>
+								                   </tr>												
+												</c:forEach>
+											</tbody>
+											</table>
 										</div>
 									</section>
 								</div>
 								<%-- 학생 목록 끝 --%>
 								<%-- 선택 학생 정보 영역 시작 --%>
 								<div class="col-lg-10">
-									<h3>김하나</h3>
-									<h4>이메일 :</h4>
-									<h4>핸드폰 :</h4>
+									<h3 id="studentListName">${studentList[0].member_name}</h3>
+									<h4 id="studentListEmail">이메일 : ${studentList[0].member_email}</h4>
+									<h4 id="studentListPhone">핸드폰 : ${studentList[0].member_phone}</h4>
 
 									<!-- page start-->
 									<div class="tab-pane" id="chartjs">
@@ -495,3 +476,88 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <%--ChartJS 차트 경로--%>
 <script src="${pageContext.request.contextPath}/lib/onet-js/studentInfo.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
+	
+	var studentArr
+	$(".studentListMembers").click(function(){
+		var memberName=$(this).text().trim();
+		var memberIndex=$(".studentListMembers").index(this);
+		studentArr = new Array();
+		<c:forEach items="${studentList}" var="studentList">
+			var json=new Object();
+			json.member_id="${studentList.member_id}";
+			json.member_email="${studentList.member_email}";
+			json.member_name="${studentList.member_name}";
+			json.member_phone="${studentList.member_phone}";
+			json.class_name="${studentList.class_name}";
+			studentArr.push(json);
+		</c:forEach>
+		//alert("jsoninfo="+JSON.stringify(studentArr));
+		//console.log(memberName);
+		$("#studentListName").text(memberName);
+		$("#studentListEmail").text("이메일 : "+studentArr[memberIndex].member_email);
+		$("#studentListPhone").text("핸드폰 : "+studentArr[memberIndex].member_phone);
+		var memberId=studentArr[memberIndex].member_id;
+		console.log("선택한 아이디:"+memberId);
+		var chartLabels = new Array();
+		var chartStudentDatas = new Array();
+		$.ajax({
+			type:"post",
+			url:"studentChartInfo.do",
+			data:{"member_id":memberId},
+			datatype:"text",
+			success:function(data, status){
+				console.log("성공");
+				$(data).each(function(index, element){
+					chartLabels.push(element.exam_info_num);
+					chartStudentDatas.push(element.score_chart_score);					
+				});
+				console.log("과목:"+chartLabels);
+				console.log("과목점수:"+chartStudentDatas);
+				
+				//각 시험 성적 바 차트 시작
+				var ctx = document.getElementById('bar1').getContext('2d');
+				var myBarChart = new Chart(ctx, {
+				    type: 'bar',
+				    data: {
+				      labels: chartLabels,
+				      datasets: [
+				        {
+				          label: "반 평균",
+				          backgroundColor: 'rgb(255, 99, 132)',
+				          borderColor: 'rgb(255, 99, 132)',
+				          data: chartStudentDatas,
+				        }
+				      ]
+				    },
+				    options:{
+				      layout: {
+				          padding: {
+				              left: 10,
+				              right: 10,
+				              top: 10,
+				              bottom: 10
+				          }
+				      },
+				      scales: {
+				        yAxes: [{
+				         ticks: {
+				             max: 100,
+				             min: 0,
+				             stepSize: 10
+				         }
+				     }]
+				       }
+				    }
+				});
+				//각 시험 성적 바 차트 끝
+			},
+			error:function(error, status){
+				console.log("실패:"+status);
+			}
+		});
+		
+	});
+})
+</script>
