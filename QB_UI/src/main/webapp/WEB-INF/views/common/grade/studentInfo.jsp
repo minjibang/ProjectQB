@@ -246,44 +246,25 @@
 								<%-- 클래스 학생 목록 시작--%>
 								<div class="col-lg-2">
 									<section class="panel">
-										<div class="panel-body grey-panel">
-											<a href="mail_compose.html" class="btn btn-compose"> <i
-												class="fa fa-pencil"></i> 자바 109기
-											</a>
-											<ul class="nav nav-pills nav-stacked mail-nav">
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 김현이
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 서정원
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 방민지
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 조재훈
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 우한결
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 양회준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 유영준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 성태용
-												</a></li>
-											</ul>
+										<div class="panel-body">
+											<table id="studentList" class="table table-hover">
+												<h4>${studentList[0].class_name}</h4>
+									                <thead>
+									                  <tr>
+									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
+									                  </tr>
+									                </thead>
+									                <tbody>									                
+												<c:forEach items="${studentList}" var="studentList">												
+								                  <tr>
+								                    <td id="${studentList.member_id}" class="studentListMembers">
+								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+															class="img-circle" width="25"> ${studentList.member_name}
+								                    </td>
+								                   </tr>												
+												</c:forEach>
+											</tbody>
+											</table>
 										</div>
 									</section>
 								</div>
@@ -291,8 +272,7 @@
 								
 								<%-- 클래스 학생 표/차트 시작 --%>
 								<div class="col-lg-10">
-									<h3>109기</h3>
-									<h4>JAVA 웹 프로그래밍 과정</h4>
+									<h3>${studentList[0].class_name}</h3>
 									<!-- page start-->
 									<div class="tab-pane" id="chartjs">
 										<div class="row mt">
@@ -300,10 +280,10 @@
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
 													<h4>
-														<i class="fa fa-angle-right"></i> 반 평균
+														<i class="fa fa-angle-right"></i> 각 시험 평균
 													</h4>
 													<div class="panel-body text-center">
-														<canvas id="bar2"></canvas>
+														<canvas id="bar2" height="200"></canvas>
 													</div>
 												</div>
 											</div>
@@ -496,6 +476,8 @@ $(document).ready(function(){
 	
 	//첫 화면 차트	
 	functionChart();
+	//두번째 화면 차트
+	functionChart2();
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
 	//학생목록 배열에 jstl값 담기		
@@ -545,6 +527,7 @@ $(document).ready(function(){
 					chartClassDatas.push(element.class_chart_avg);					
 				});
 				functionChart();
+				functionChart2();
 			},
 			error:function(error, status){
 				console.log("실패:"+status);
@@ -649,5 +632,44 @@ $(document).ready(function(){
 		//반/학생 평균 선 차트 끝
 	}
 	//첫화면 차트
+	
+	//클래스 통계화면 첫 차트
+	function functionChart2(){
+		var ctx = document.getElementById('bar2').getContext('2d');
+		var myBarChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: chartLabels,
+				datasets: [
+					{
+						label: "각 시험 평균",
+						backgroundColor: 'rgb(255, 99, 132)',
+						borderColor: 'rgb(255, 99, 132)',
+						data: chartClassDatas,
+					}
+					]
+			},
+			options:{
+				layout: {
+					padding: {
+						left: 10,
+						right: 10,
+						top: 10,
+						bottom: 10
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							max: 100,
+							min: 0,
+							stepSize: 10
+						}
+					}]
+				}
+			}
+		});
+	}
+	
 })
 </script>

@@ -101,6 +101,18 @@ public class StudentService {
 	
 	/*10.23 현이 지난 시험 보기 끝 */
 	
+	/*10.24 현이 지난 시험지 보기 시작*/
+	public List<Student_answerDto> selectStudentAnswer(String member_id, int exam_info_num){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<Student_answerDto> studentAnswerList = dao.selectStudentAnswer(member_id, exam_info_num);
+		
+		return studentAnswerList;
+	
+		
+	}
+	/*10.24 현이 지난 시험지 보기 끝*/
+	
 	
 	
 	

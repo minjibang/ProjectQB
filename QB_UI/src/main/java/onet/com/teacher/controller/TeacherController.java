@@ -228,7 +228,7 @@ public class TeacherController {
 	     mv.setViewName("ajax.common.questionManagement_ajax");
 	     mv.addObject("question", question);
 	     mv.addObject("question_choice",question_choice);
-	      
+	     
 	     return mv;
 	  }
 

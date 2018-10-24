@@ -7,42 +7,8 @@
 
 //ChartJS
 
-//반평균 막대 차트 시작
-var ctx = document.getElementById('bar2').getContext('2d');
-var myBarChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ["Java", "Oracle", "MySQL", "Web기초", "Jqery&Ajax", "Spring", "MyBatis"],
-      datasets: [
-        {
-          label: "각 시험 평균",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [40, 30, 85, 72, 10, 30, 45],
-        }
-      ]
-    },
-    options:{
-      layout: {
-          padding: {
-              left: 10,
-              right: 10,
-              top: 10,
-              bottom: 10
-          }
-      },
-      scales: {
-        yAxes: [{
-         ticks: {
-             max: 100,
-             min: 0,
-             stepSize: 10
-         }
-     }]
-       }
-    }
-});
-//반 평균 막대 차트 끝
+// 각 시험평균 막대 차트 시작
+$(document).ready(function(){
 
 //점수별 학생 분포 차트
 var ctx = document.getElementById('line2').getContext('2d');
@@ -71,6 +37,10 @@ var myBarChart = new Chart(ctx, {
       }
     }
 });
+
+	})
+
+
 //점수별 학생 분포 차트 끝
 
 //DataTable - 있으면 alert 출력 이유를 모르겠다
