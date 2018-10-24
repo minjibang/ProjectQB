@@ -114,20 +114,6 @@ public class TeacherController {
 		return "exam.student.examPaperDo";
 	}
 	/* 한결 : 시험일정 > 시험응시 페이지 끝 */
-
-	
-	
-	/* 영준 - 18.10.17 내 시험지 삭제 시작 */
-	@RequestMapping(value="teacherMyExamDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherMyExamDelete(@RequestBody int exam_paper_num)
-	{
-		int result = teacherService.examPaperDelete(exam_paper_num);
-		String result2 = String.valueOf(result);
-		return result2;
-	}
-	/* 영준 - 18.10.17 내 시험지 삭제 끝 */
-	
-
 	
 	/* 현이 18.10.11 선생님 시험관리 끝 */
 

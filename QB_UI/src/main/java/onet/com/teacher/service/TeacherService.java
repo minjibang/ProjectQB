@@ -102,15 +102,6 @@ public class TeacherService {
 
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
 	
-	/* 영준 - 10.17 내 시험지 삭제 시작 */
-	public int examPaperDelete(int exam_paper_num) {
-		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperDelete(exam_paper_num);
-		System.out.println("시험지 삭제 result값 : " + result);
-		return result;
-	}
-	/* 영준 - 10.17 내 시험지 삭제 끝 */
-	
 	/*민지 - 10.18 시험등록*/
 	public int examInfoInsert(ExamInfoDto dto){
 		
@@ -180,6 +171,11 @@ public class TeacherService {
 		}else if(checkinfo != 0 && checkdate != 0){
 			result = 3; //삭제불가
 		}
+		return result;
+	}
+	public int deleteTempExam(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.deleteExam(exam_paper_num);
 		return result;
 	}
 

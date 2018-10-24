@@ -12,15 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import onet.com.admin.service.AdminService;
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
@@ -35,6 +35,9 @@ public class TestManageController {
 
 	@Autowired
 	private TeacherService teacherService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	
 
@@ -100,14 +103,39 @@ public class TestManageController {
 		return result;
 	}
 	
-	@RequestMapping("updateExamView.do")
-	public String updateExamView(RedirectAttributes redirectAttributes, int exam_paper_num) {
-		List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
-		redirectAttributes.addFlashAttribute("examquestion", question);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		redirectAttributes.addFlashAttribute("examquestion_choice", question_choice);
+	@RequestMapping("deleteTempExam.do")
+	public @ResponseBody int deleteTempExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
-		return "redirect:examPaperMake.do";
+		int result = teacherService.deleteTempExam(exam_paper_num);
+		
+		return result;
+	}
+	
+	@RequestMapping("updateExamView.do")
+	public String updateExamView(Model model, int exam_paper_num) {
+		
+		List<CategoryDto> list1;
+		list1 = adminService.lgCategoryList();
+		model.addAttribute("list1", list1);
+
+		List<CategoryDto> list2;
+		list2 = adminService.mdCategoryList();
+		model.addAttribute("list2", list2);
+
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		List<CategoryDto> levellist;
+		levellist = adminService.questionLevelList();
+		model.addAttribute("levellist",levellist);
+		
+		List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
+		model.addAttribute("examquestion", question);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		model.addAttribute("examquestion_choice", question_choice);
+		
+		return "common.teacher.exampaper.examPaperUpdate";
 	}
 	/*성태용 끝*/
 	
