@@ -32,6 +32,7 @@ public interface StudentDao {
 	/* 10.23 현이 학생 지난 시험보기 시작 */
 	public List<ExamInfoDto> searchPastExam(String member_id);
 	public String searchStudentName(String member_id);
+	public List<ExamInfoDto> searchPastExamKeyword(String member_id, String keyword);
 	/* 10.23 현이 학생 지난 시험보기 끝 */
 }
 
