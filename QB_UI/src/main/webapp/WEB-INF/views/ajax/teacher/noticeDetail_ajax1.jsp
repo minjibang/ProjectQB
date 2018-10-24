@@ -10,9 +10,11 @@
 							<div class="col-sm-3">
 								<strong>${comment.member_id}</strong><br> ${comment.comment_date}
 							</div>
-							<div class="col-sm-8">${comment.comment_content}</div>
-							<div class="col-sm-1">
-								<a class="reply"><i class="fa fa-reply"></i>댓글</a> 
+							<div class="col-sm-6">${comment.comment_content}</div>
+							<div class="col-sm-3">&nbsp;&nbsp;
+								<a class="reply"><i class="fa fa-reply"></i>댓글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a class="update"><i class="fa fa-pencil"></i>수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a class="delete"><i class="fa fa-trash-o"></i>삭제</a>
 							</div>
 							
 						</div>
@@ -26,9 +28,11 @@
 							<div class="col-sm-3">
 								<strong>ㄴ ${commentGroup.member_id}</strong><br>${commentGroup.comment_date}
 							</div>
-							<div class="col-sm-8">${commentGroup.comment_content}</div>
-							<div class="col-sm-1">
-								<a class="replyReply"><i class="fa fa-reply"></i>댓글</a>
+							<div class="col-sm-6">${commentGroup.comment_content}</div>
+							<div class="col-sm-3">
+								<a class="replyReply"><i class="fa fa-reply"></i>댓글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a class="replyUpdate"><i class="fa fa-pencil"></i>수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a class="replyDelete"><i class="fa fa-trash-o"></i>삭제</a>
 							</div>
 						</div>
 						</c:when>
