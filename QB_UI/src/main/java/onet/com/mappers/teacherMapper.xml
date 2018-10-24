@@ -78,15 +78,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
 	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id}) order by exam_info_date desc
 </select>
-
+<!-- 시험지 삭제 -->
 <delete id="deleteExam">
 	delete from exam_paper where exam_paper_num = #{param1}
 </delete>
+<!-- 내시험지 삭제 -->
 <update id="updateExam">
 	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
 </update>
-<select id="updateExamView" resultType="onet.com.vo.QuestionDto">
-	select * from question where question_num = ANY(select question_num from exam_question where exam_paper_num = #{param1})
+
+<select id="updateExamView" resultType="onet.com.vo.ExamPaperUpdateDto">
+	select q.question_num, q.question_name, q.question_img, q.question_answer, q.question_correct_ratio, eq.exam_question_score, eq.exam_question_seq, ql.level_name, md.md_category_name, sm.sm_category_name, q.member_id 
+	from exam_paper ep join exam_question eq on(ep.exam_paper_num = eq.exam_paper_num) 
+	join question q on(eq.question_num = q.question_num) 
+	join question_sm_category sm on(q.sm_category_code = sm.sm_category_code)
+	join question_md_category md on(sm.md_category_code = md.md_category_code) 
+	join question_level ql on(q.level_code = ql.level_code)
+	where eq.exam_paper_num =#{param1} order by eq.exam_question_seq asc
 </select>
 
 <select id="checkExamInfo" resultType="int">
@@ -163,15 +171,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 <!-- 영준 10.16 내 시험지 끝 -->
-<!-- 영준 10.17 내 시험지  삭제 시작 -->
-<delete id="examPaperDelete" parameterType="int">
-	DELETE FROM exam_paper
-	WHERE exam_paper_num=#{exam_paper_num}
-</delete>
-<!-- 영준 10.17 내 시험지  삭제 끝 -->
-
-
-
 
 
 <!-- 민지-10.18 시험등록 -->

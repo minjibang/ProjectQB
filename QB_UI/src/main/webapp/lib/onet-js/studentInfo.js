@@ -8,61 +8,7 @@
 //ChartJS
 
 
-//반/학생 평균 선 차트 시작
-var ctx = document.getElementById('line1').getContext('2d');
-var chart = new Chart(ctx, {
-  // The type of chart we want to create
-  type: 'line',
-  // The data for our dataset
-  data: {
-      labels: ["Java", "Oracle", "MySQL", "Web기초", "Jqery&Ajax", "Spring", "MyBatis"],
-      datasets: [
-        {
-          label: "반 평균 성적",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          fill : false,
-          lineTension : 0,
-          data: [30, 10, 5, 2, 20, 30, 45],
-      },
-      {
-          label: "학생 성적",
-          backgroundColor: 'rgb(122, 99, 132)',
-          borderColor: 'rgb(122, 99, 132)',
-          fill : false,
-          lineTension : 0,
-          data: [20, 10, 25, 32, 44, 12, 77],
-        }
-      ]
-    },
-    options: {
-        scale: {
-            ticks: {
-              beginAtZero:true,
-                min:0,
-                max:100
-            }
-        },
-        layout: {
-            padding: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10
-            }
-        },
-        scales: {
-          yAxes: [{
-           ticks: {
-               max: 100,
-               min: 0,
-               stepSize: 10
-           }
-       }]
-         }
-    }
-});
-//반/학생 평균 선 차트 끝
+
 
 //반평균 막대 차트 시작
 var ctx = document.getElementById('bar2').getContext('2d');

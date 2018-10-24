@@ -481,86 +481,173 @@
 <script src="${pageContext.request.contextPath}/lib/onet-js/studentInfo.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
+	//차트 데이터 담을 배열
+	var chartStudentDatas = new Array();
+	var chartClassDatas = new Array();
+	var chartLabels = new Array();	
+	//학생목록 배열에 jstl값 담기
+	<c:forEach items="${studentChart}" var="studentChart">
+		chartStudentDatas.push("${studentChart.score_chart_score}");
+	</c:forEach>
+	<c:forEach items="${classChart}" var="classChart">
+		chartClassDatas.push("${classChart.class_chart_avg}");
+		chartLabels.push("${classChart.exam_info_name}");
+	</c:forEach>
 	
-	var studentArr
+	//첫 화면 차트	
+	functionChart();
+	//학생&성적관리 학생목록 데이터 담은 배열
+	var studentArr= new Array();
+	//학생목록 배열에 jstl값 담기		
+	<c:forEach items="${studentList}" var="studentList">
+		var json=new Object();
+		json.member_id="${studentList.member_id}";
+		json.member_email="${studentList.member_email}";
+		json.member_name="${studentList.member_name}";
+		json.member_phone="${studentList.member_phone}";
+		json.class_name="${studentList.class_name}";
+		studentArr.push(json);
+	</c:forEach>
+	//학생 목록 선택 이벤트
 	$(".studentListMembers").click(function(){
+		//가져온 차트데이터 담을 배열(학생점수, 반평균, 과목)	
+		chartStudentDatas = [];
+		chartClassDatas = [];
+		chartLabels = [];		
+		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
-		var memberIndex=$(".studentListMembers").index(this);
-		studentArr = new Array();
-		<c:forEach items="${studentList}" var="studentList">
-			var json=new Object();
-			json.member_id="${studentList.member_id}";
-			json.member_email="${studentList.member_email}";
-			json.member_name="${studentList.member_name}";
-			json.member_phone="${studentList.member_phone}";
-			json.class_name="${studentList.class_name}";
-			studentArr.push(json);
-		</c:forEach>
-		//alert("jsoninfo="+JSON.stringify(studentArr));
-		//console.log(memberName);
 		$("#studentListName").text(memberName);
+		//학생 목록의 인덱스 가져오기
+		var memberIndex=$(".studentListMembers").index(this);
+		//선택한 학생의 이메일과 핸드폰 값 가져와 출력하기
 		$("#studentListEmail").text("이메일 : "+studentArr[memberIndex].member_email);
 		$("#studentListPhone").text("핸드폰 : "+studentArr[memberIndex].member_phone);
+		//ajax 차트 요청할 parameter
 		var memberId=studentArr[memberIndex].member_id;
-		console.log("선택한 아이디:"+memberId);
-		var chartLabels = new Array();
-		var chartStudentDatas = new Array();
+		var className=studentArr[memberIndex].class_name;
+		
+		//비동기 실행
 		$.ajax({
 			type:"post",
 			url:"studentChartInfo.do",
-			data:{"member_id":memberId},
-			datatype:"text",
+			data:{"member_id":memberId,
+				"class_name":className
+				},
+			datatype:"json",
 			success:function(data, status){
-				console.log("성공");
-				$(data).each(function(index, element){
-					chartLabels.push(element.exam_info_num);
-					chartStudentDatas.push(element.score_chart_score);					
+				//넘어온 map객체의 학생차트정보
+				$(data.studentName).each(function(index, element){					
+					chartStudentDatas.push(element.score_chart_score);
 				});
-				console.log("과목:"+chartLabels);
-				console.log("과목점수:"+chartStudentDatas);
-				
-				//각 시험 성적 바 차트 시작
-				var ctx = document.getElementById('bar1').getContext('2d');
-				var myBarChart = new Chart(ctx, {
-				    type: 'bar',
-				    data: {
-				      labels: chartLabels,
-				      datasets: [
-				        {
-				          label: "반 평균",
-				          backgroundColor: 'rgb(255, 99, 132)',
-				          borderColor: 'rgb(255, 99, 132)',
-				          data: chartStudentDatas,
-				        }
-				      ]
-				    },
-				    options:{
-				      layout: {
-				          padding: {
-				              left: 10,
-				              right: 10,
-				              top: 10,
-				              bottom: 10
-				          }
-				      },
-				      scales: {
-				        yAxes: [{
-				         ticks: {
-				             max: 100,
-				             min: 0,
-				             stepSize: 10
-				         }
-				     }]
-				       }
-				    }
+				//넘어온 map객체의 클래스차트정보
+				$(data.className).each(function(index, element){
+					chartLabels.push(element.exam_info_name);
+					chartClassDatas.push(element.class_chart_avg);					
 				});
-				//각 시험 성적 바 차트 끝
+				functionChart();
 			},
 			error:function(error, status){
 				console.log("실패:"+status);
 			}
-		});
-		
+		});		
 	});
+	//학생목록 이벤트 종료
+	
+	//첫화면 차트
+	function functionChart(){
+		//각 시험 성적 바 차트 시작				
+		var ctx = document.getElementById('bar1').getContext('2d');
+		var myBarChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		      labels: chartLabels,
+		      datasets: [
+		        {
+		          label: "반 평균",
+		          backgroundColor: 'rgb(255, 99, 132)',
+		          borderColor: 'rgb(255, 99, 132)',
+		          data: chartClassDatas
+		        }
+		      ]
+		    },
+		    options:{
+		      layout: {
+		          padding: {
+		              left: 10,
+		              right: 10,
+		              top: 10,
+		              bottom: 10
+		          }
+		      },
+		      scales: {
+		        yAxes: [{
+		         ticks: {
+		             max: 100,
+		             min: 0,
+		             stepSize: 10
+		         }
+		     }]
+		       }
+		    }
+		});
+		//각 시험 성적 바 차트 끝
+		
+		//반/학생 평균 선 차트 시작
+		var ctx = document.getElementById('line1').getContext('2d');
+		var chart = new Chart(ctx, {
+		  // The type of chart we want to create
+		  type: 'line',
+		  // The data for our dataset
+		  data: {
+		      labels: chartLabels,
+		      datasets: [
+		        {
+		          label: "반 평균 성적",
+		          backgroundColor: 'rgb(255, 99, 132)',
+		          borderColor: 'rgb(255, 99, 132)',
+		          fill : false,
+		          lineTension : 0,
+		          data: chartClassDatas,
+		      },
+		      {
+		          label: "학생 성적",
+		          backgroundColor: 'rgb(122, 99, 132)',
+		          borderColor: 'rgb(122, 99, 132)',
+		          fill : false,
+		          lineTension : 0,
+		          data: chartStudentDatas,
+		        }
+		      ]
+		    },
+		    options: {
+		        scale: {
+		            ticks: {
+		              beginAtZero:true,
+		                min:0,
+		                max:100
+		            }
+		        },
+		        layout: {
+		            padding: {
+		                left: 10,
+		                right: 10,
+		                top: 10,
+		                bottom: 10
+		            }
+		        },
+		        scales: {
+		          yAxes: [{
+		           ticks: {
+		               max: 100,
+		               min: 0,
+		               stepSize: 10
+		           }
+		       }]
+		         }
+		    }
+		});
+		//반/학생 평균 선 차트 끝
+	}
+	//첫화면 차트
 })
 </script>
