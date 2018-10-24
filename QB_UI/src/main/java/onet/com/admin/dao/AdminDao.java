@@ -15,6 +15,7 @@ import onet.com.vo.RoleDto;
 public interface AdminDao {
 	
 	/*##################    재훈 시작         #####################*/
+	
 	/* 문제 분류 리스트 */
 	public List<CategoryDto> lgCategoryList();
 	public List<CategoryDto> mdCategoryList();
@@ -28,6 +29,7 @@ public interface AdminDao {
 	public int insertQuestion(QuestionDto dto);
 	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content, String question_choice_image);
 	public int insertQuestionChoiceNoImg(int question_num, String question_choice_num, String question_choice_content);
+	
 	/*##################    재훈 끝          ######################*/
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
