@@ -3,8 +3,8 @@
  */
 
 
-/*문제 수정 페이지 시작 */
 
+/*문제 수정 페이지 시작 */
 /*페이지 로드시 수정할 문제 정보 관련 함수*/
 $(function() {
 		var _choiceInput1 ="<b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.' id='question_choice_content1'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
@@ -353,23 +353,6 @@ function check(){
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
 	var question_num = $('#qdto_question_num').val();
-	
-/*	
- 		alert( "=== 문제 수정 입력값 확인용 alert ==="
-			  + "\n 문제번호: " 		+ question_num
-			  + "\n 문제 타입: " 		+ _shortAnswerQuestion
-			  + "\n 소분류: " 		+ _smCategory
-			  + "\n 난이도: " 		+ _questionLevel
-			  + "\n 문제내용: " 		+ _questionName
-			  + "\n 정답: " 			+ _questionChoiceAnswer
-			  + "\n 객관식보기1번: " 	+ _questionChoiceContent1
-			  + "\n 객관식보기2번: " 	+ _questionChoiceContent2
-			  + "\n 객관식보기3번: " 	+ _questionChoiceContent3
-			  + "\n 객관식보기4번: " 	+ _questionChoiceContent4
-			  + "\n 객관식보기5번: " 	+ _questionChoiceContent5
-			  + "\n 객관식보기갯수: " 	+ _choiceQuantity
-	   		);
-*/
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
 		/*객관식 문제 유효성검사*/

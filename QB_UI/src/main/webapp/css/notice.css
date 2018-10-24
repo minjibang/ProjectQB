@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+.noticePageContent{
+	margin-bottom: 20px;
+}
 
 .noticePanelDiv {
 	margin-bottom: 20px;

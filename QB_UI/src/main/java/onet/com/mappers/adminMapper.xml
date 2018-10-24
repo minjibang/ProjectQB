@@ -34,6 +34,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 태용 끝 -->
 
 <!-- #####################    재훈 시작       ####################### -->
+<!-- 관리자 - 문제관리 페이지 문제 검색 기능 -->
+<sql id="adminQuestionSearch">
+<where>
+   <if test="param1 !=''">
+      lg.lg_category_code = #{param1}
+      <if test="param2 != ''">
+         and md.md_category_code = #{param2}
+         <if test="param3 != ''">
+            and sm.sm_category_code = #{param3}
+            <if test = "param6 != ''">
+               and (qs.question_type like concat('%',#{param6},'%') 
+               or qs.question_name like concat('%',#{param6},'%') 
+               or qs.member_id like concat('%',#{param6},'%') 
+               or lv.level_name like concat('%',#{param6},'%'))
+            </if>
+         </if>
+         <if test="param3 =='' and param6 !=''">
+            and (qs.question_type like concat('%',#{param6},'%') 
+               or qs.question_name like concat('%',#{param6},'%') 
+               or qs.member_id like concat('%',#{param6},'%') 
+               or lv.level_name like concat('%',#{param6},'%')
+               or sm.sm_category_code = #{param3})
+         </if>
+      </if>
+      <if test="param2 =='' and param6 !=''">
+         and (qs.question_type like concat('%',#{param6},'%') 
+               or qs.question_name like concat('%',#{param6},'%') 
+               or qs.member_id like concat('%',#{param6},'%') 
+               or lv.level_name like concat('%',#{param6},'%')
+               or sm.sm_category_code = #{param3}
+               or md.md_category_code = #{param2})
+      </if>
+   </if>
+   <if test="param4 !=''">
+      and lv.level_code=#{param4}
+   </if>
+   <if test="param5 !=''">
+      and qs.question_type=#{param5}
+   </if>
+    <if test="param1 == '' and param6 != ''">
+      and qs.question_type like concat('%',#{param6},'%') 
+            or qs.question_name like concat('%',#{param6},'%') 
+            or qs.member_id like concat('%',#{param6},'%') 
+            or lv.level_name like concat('%',#{param6},'%') 
+            or sm.sm_category_name like concat('%',#{param6},'%') 
+            or md.md_category_name like concat('%',#{param6},'%') 
+            or lg.lg_category_name like concat('%',#{param6},'%')
+   </if>
+</where>
+</sql>
+
+<!-- 문제관리 문제 검색 -->
+<select id="questionSearch" resultType="onet.com.vo.QuestionDto">
+	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
+	join question_md_category md on (sm.md_category_code = md.md_category_code) 
+	join question_lg_category lg on (lg.lg_category_code = md.lg_category_code)
+	join question_level lv on (qs.level_code = lv.level_code)
+	<include refid="adminQuestionSearch"></include>
+	order by question_num desc;
+</select>
 
 <!-- 문제분류 리스트 -->
 <select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">

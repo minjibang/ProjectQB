@@ -369,12 +369,12 @@ public class AdminController {
 	//관리자 - 문제관리 페이지 분류별/키워드별 검색 기능
 	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView myQuestionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
-			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype,@RequestParam("keyword") String keyword,
-			@RequestParam("questiontype") String questiontype) {
+	         @RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
+	         @RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
+	         @RequestParam("keyword") String keyword) {
 		
-		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		List<QuestionDto> question = adminService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
+		List<Question_choiceDto> question_choice = adminService.question_choice();
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.common.questionManagement_ajax");
