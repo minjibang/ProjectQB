@@ -68,6 +68,10 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </insert>
 
 <insert id="insertQuestionChoice">
+	insert into question_choice(question_num, question_choice_num, question_choice_content, question_choice_image) 
+	values(#{param1},#{param2},#{param3}, #{param4});
+</insert>
+<insert id="insertQuestionChoiceNoImg">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{param1},#{param2},#{param3});
 </insert>
@@ -97,13 +101,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 영준 10.20 회원관리 회원권한 셀렉트 끝 -->
 
-<select id="memberSearch" resultType="onet.com.vo.MemberDto">
-	select m.class_name, m.member_id, m.member_name, m.member_email,
-	m.member_phone, mr.role_code, r.role_desc, m.member_enable  
-	from member m, member_role mr, role r
-	<include refid="search"></include>
-</select>
-
 <!-- 영준 - 10.12 회원관리 회원정보 수정 시작 -->
 <update id="updateMember" parameterType="onet.com.vo.MemberDto">
 	UPDATE member m, member_role mr
@@ -115,21 +112,56 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <!-- 영준 - 10.12 회원관리 회원정보 수정 끝 -->
 
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X)/선택회원 일괄삭제 시작 -->
-<update id="deleteMember" parameterType="onet.com.vo.MemberDto">
-	UPDATE member m, member_role mr
-	SET mr.role_code='ROLE_MEMBER', m.member_enable=0
-	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
+<update id="deleteMember" parameterType="String">
+	UPDATE member
+	SET member_enable=0
+	WHERE member_id=#{member_id}
 </update>
 <!-- 영준 10.15 회원정보 삭제(실제 삭제X)/선택회원 일괄삭제 끝 -->
 
-<!-- 영준 10.22 선택회원 일괄 학생 등록 시작  -->
-<update id="insertMember" parameterType="onet.com.vo.MemberDto">
-	UPDATE member m, member_role mr
-	SET mr.role_code='ROLE_STUDENT'
-	WHERE m.member_id=#{member_id} and mr.member_id=#{member_id}
+<!-- 양회준 10-22 admin 회원관리 비동기 검색 시작 -->
+<sql id="memberSrch">
+	<where>
+		<if test="param1 != ''">
+			mr.role_code = #{param1}		
+		</if>
+		<if test="param2 != ''">
+			and m.class_name = #{param2}
+		</if>			
+		<if test="param3 != ''">
+			<choose>
+				<when test='param3 == "name"'>
+					and m.member_name like concat('%',#{param4},'%')
+				</when>
+				<when test='param3 == "id"'>
+					and m.member_id like concat('%',#{param4},'%')
+				</when>
+				<when test='param3 == "email"'>
+					and m.member_email like concat('%',#{param4},'%')
+				</when>
+			</choose>
+		</if>		
+	</where>
+</sql>
+
+<select id="memberSearchAjax" resultType="onet.com.vo.MemberDto">
+	select m.class_name, m.member_id, m.member_name, m.member_email,
+	m.member_phone, mr.role_code, r.role_desc, m.member_enable
+	from member m join member_role mr join role r
+	on m.member_id=mr.member_id and mr.role_code = r.role_code
+	<include refid="memberSrch"></include>
+</select>
+<!-- 양회준 10-22 admin 회원관리 비동기 검색 끝 -->
+<!-- 양회준 10-23 admin 회원관리 비동기 일괄등록 -->
+<update id="updateStudentsAjax">	
+	update member_role set role_code = 'ROLE_STUDENT' where member_id = #{updateStudent};
+</update>
+<!-- 양회준 10-23 admin 회원관리 비동기 일괄삭제 -->	
+<update id="deleteStudentsAjax">	
+	update member set member_enable = 0 where member_id = #{deleteStudent};
 </update>
 
-<!-- 영준 - 10.10 회원관리 관련 끝 -->
+<!-- 양회준 10-23 admin 회원관리 끝 -->
 
 
 <!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
@@ -306,37 +338,4 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code}
 </select>
 
-<!-- 양회준 10-22 admin 회원관리 비동기 검색 시작 -->
-<sql id="memberSrch">
-	<where>
-		<if test="param1 != ''">
-			mr.role_code = #{param1}		
-		</if>
-		<if test="param2 != ''">
-			and m.class_name = #{param2}
-		</if>			
-		<if test="param3 != ''">
-			<choose>
-				<when test='param3 == "name"'>
-					and m.member_name like concat('%',#{param4},'%')
-				</when>
-				<when test='param3 == "id"'>
-					and m.member_id like concat('%',#{param4},'%')
-				</when>
-				<when test='param3 == "email"'>
-					and m.member_email like concat('%',#{param4},'%')
-				</when>
-			</choose>
-		</if>		
-	</where>
-</sql>
-
-<select id="memberSearchAjax" resultType="onet.com.vo.MemberDto">
-	select m.class_name, m.member_id, m.member_name, m.member_email,
-	m.member_phone, mr.role_code, r.role_desc, m.member_enable
-	from member m join member_role mr join role r
-	on m.member_id=mr.member_id and mr.role_code = r.role_code
-	<include refid="memberSrch"></include>
-</select>
-<!-- 양회준 10-22 admin 회원관리 비동기 검색 끝 -->
 </mapper>

@@ -409,6 +409,7 @@
                     this.meridian = meridian;
                 } else if (defaultTime === 'value') {
                     this.setValues(this.$element.val());
+                  
                 } else {
                     this.setValues(defaultTime);
                 }
@@ -797,7 +798,7 @@
       minuteStep: 15
     , secondStep: 15
     , disableFocus: false
-    , defaultTime: 'current'
+    , defaultTime: 'value'
     , showSeconds: false
     , showInputs: true
     , showMeridian: false

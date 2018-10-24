@@ -338,116 +338,116 @@
 														value="1" style="display: none">1.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content1"
 														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new imageup"
-														data-provides="fileupload">
-														   <div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-															<span> 
-																<span class="btn btn-theme02 btn-file">
-																	<span class="fileupload-new">
-																		<i class="fa fa-paperclip"></i>image
-																	</span>
-																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
-																	</span> 
-																	<input type="file" class="default" />
-																</span>
-																<a href="" class="btn btn-theme04 fileupload-exists"
-																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																Remove</a>
+													  <div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 400px; max-height: 250px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_choice_img[0]" class="default"/>
 															</span>
-														</span><br>
+															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</a>
+														</span>
+													</div><br>
 													<!-- 2번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="2" style="display: none">2.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content2"
 														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new imageup"
-														data-provides="fileupload">
-														   <div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-															<span> 
-																<span class="btn btn-theme02 btn-file">
-																	<span class="fileupload-new">
-																		<i class="fa fa-paperclip"></i>image
-																	</span>
-																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
-																	</span> 
-																	<input type="file" class="default" />
-																</span>
-																<a href="" class="btn btn-theme04 fileupload-exists"
-																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																Remove</a>
+													   <div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 400px; max-height: 250px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_choice_img[1]" class="default"/>
 															</span>
-														</span><br>
+															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</a>
+														</span>
+													</div><br>
 													<!-- 3번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="3" style="display: none">3.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content3"
 														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new imageup"
-														data-provides="fileupload">
-														   <div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-															<span> 
-																<span class="btn btn-theme02 btn-file">
-																	<span class="fileupload-new">
-																		<i class="fa fa-paperclip"></i>image
-																	</span>
-																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
-																	</span> 
-																	<input type="file" class="default" />
-																</span>
-																<a href="" class="btn btn-theme04 fileupload-exists"
-																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																Remove</a>
+													   <div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 400px; max-height: 250px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_choice_img[2]" class="default"/>
 															</span>
-														</span><br>
+															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</a>
+														</span>
+													</div><br>
 													<!-- 4번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content4"
 														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new imageup"
-														data-provides="fileupload">
-														   <div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-															<span> 
-																<span class="btn btn-theme02 btn-file">
-																	<span class="fileupload-new">
-																		<i class="fa fa-paperclip"></i>image
-																	</span>
-																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
-																	</span> 
-																	<input type="file" class="default" />
-																</span>
-																<a href="" class="btn btn-theme04 fileupload-exists"
-																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																Remove</a>
+													   <div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 400px; max-height: 250px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_choice_img[3]" class="default"/>
 															</span>
-														</span><br>
+															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</a>
+														</span>
+													</div><br>
 													<!-- 5번 보기 -->
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content5"
 														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new imageup"
-														data-provides="fileupload">
-														   <div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;"></div>
-															<span> 
-																<span class="btn btn-theme02 btn-file">
-																	<span class="fileupload-new">
-																		<i class="fa fa-paperclip"></i>image
-																	</span>
-																	<span class="fileupload-exists"><i class="fa fa-undo"></i>Change
-																	</span> 
-																	<input type="file" class="default" />
-																</span>
-																<a href="" class="btn btn-theme04 fileupload-exists"
-																data-dismiss="fileupload"><i class="fa fa-trash-o"></i>
-																Remove</a>
+													   <div class="fileupload fileupload-new" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 400px; max-height: 250px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_choice_img[4]" class="default"/>
 															</span>
-														</span><br>
+															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</a>
+														</span>
+													</div><br>
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
 

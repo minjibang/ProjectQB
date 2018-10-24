@@ -121,7 +121,7 @@ $(document).ready(function(){
 		
 		if($(this).text()=='답글'){
 			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent'><div class='col-sm-3'>ㄴ <input type='text'></div></div>");
-			$(this).html('답글취소');	
+			$(this).html('<i class="fa fa-share"></i>취소');	
 		}else{
 			$(this).parent().parent().next().remove();
 			$(this).html('<i class="fa fa-reply"></i>답글');

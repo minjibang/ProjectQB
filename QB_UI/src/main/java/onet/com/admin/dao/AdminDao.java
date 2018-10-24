@@ -1,5 +1,7 @@
 ﻿package onet.com.admin.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import onet.com.vo.CategoryDto;
@@ -23,10 +25,12 @@ public interface AdminDao {
 	
 	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
 	public int insertQuestion(QuestionDto dto);
-	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content);
+	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content, String question_choice_image);
+	public int insertQuestionChoiceNoImg(int question_num, String question_choice_num, String question_choice_content);
 	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
+	
 	public List<MemberDto> memberList();
 	public List<RoleDto> roleList();
 	
@@ -35,14 +39,21 @@ public interface AdminDao {
 	public int updateMember(MemberDto dto);
 	/* 영준 - 10.12 회원관리 회원정보 수정 끝 */
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 시작 */
-	public int deleteMember(MemberDto dto);
+	public int deleteMember(String member_id);
 	/* 영준 - 10.15 회원관리 회원정보 삭제(실제 삭제X) 끝 */
 	
 	/* 영준 - 10.22 회원관리 선택회원 등록 시작 */
 	public int insertMember(MemberDto dto);
 	/* 영준 - 10.22 회원관리 선택회원 등록 끝 */
 	
-	/* 영준 - 10.10 회원관리 관련 끝 */
+	//양회준 10-22 admin 회원관리 비동기 검색
+	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
+	//양회준 10-22 admin 회원관리 비동기 일괄학생등록
+	public int updateStudentsAjax(String updateStudent);
+	//양회준 10-22 admin 회원관리 비동기 일괄학생삭제
+	public int deleteStudentsAjax(String deleteStudent);
+		
+	/* 영준 - 10.23 회원관리 관련 끝 */
 	
 
 	/*민지 10.12 클래스멤버리스트 관련*/
@@ -139,9 +150,6 @@ public interface AdminDao {
 	
 	public List<CategoryDto> selectSmRealList2(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
-
-	//양회준 10-22 admin 회원관리 비동기 검색
-	public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, String searchMemberInfo, String searchBox);
 
 }
 

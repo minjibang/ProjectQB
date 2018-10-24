@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
@@ -37,7 +39,6 @@ import onet.com.vo.RoleDto;
 @RequestMapping(value="/admin/")
 public class AdminController {
 	
-	/*재훈 10.08 문제분류관련 start*/
 	@Autowired
 	private AdminService adminService;
 
@@ -55,6 +56,7 @@ public class AdminController {
 	}
 	/*양회준 10.14 관리자 메인 끝*/
 	
+	/*정원 - 문제분류페이지 관련 시작 */
 	@RequestMapping("questionCategory.do")
 	public String questionCategory(Model model) throws Exception {
 		
@@ -72,7 +74,7 @@ public class AdminController {
 		
 		return "admin.questionCategory";
 	}
-	/*재훈 10.08 문제분류관련 end*/
+	/*정원 - 문제분류페이지 관련 끝*/
 	
 	/* 영준 10.08 회원관리관련 시작 */
 	@RequestMapping("adminMember.do")
@@ -115,26 +117,47 @@ public class AdminController {
 	
 	/* 영준 - 10.22 회원관리 회원 삭제 시작 */
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String adminMemberDelete(@RequestBody MemberDto dto)
-	{
-		int result = adminService.deleteMember(dto);
-		String result2 = String.valueOf(result);
-		System.out.println("삭제회원 결과 값 : " + result);
-		return result2;
+	public @ResponseBody int adminMemberDelete(@RequestParam String member_id)
+	{	
+		System.out.println(member_id);
+		int result = adminService.deleteMember(member_id);
+		return result;
 	}
 	/* 영준 - 10.22 회원관리 회원 삭제 끝 */
 
-	/* 영준 - 10.22 선택회원 등록 시작 */
-	@RequestMapping(value="adminMemberInsert.do", method = RequestMethod.POST)
-	public @ResponseBody String adminMemberInsert(@RequestBody MemberDto dto)
-	{
-		int result = adminService.insertMember(dto);
-		String result2 = String.valueOf(result);
-		return result2;
-	}
-	/* 영준 - 10.22 선택회원 등록 끝 */
+	//양회준 10-22 admin 회원관리 비동기 검색
+		@RequestMapping(value="memberSearchAjax.do", method=RequestMethod.POST)
+		public @ResponseBody List<MemberDto> memberSearchAjax(@RequestParam("searchRole") String searchRole, 
+				@RequestParam("searchClassName") String searchClassName, @RequestParam("searchMemberInfo") String searchMemberInfo,
+				@RequestParam("searchBox") String searchBox) throws IOException, ClassNotFoundException, SQLException {
+					
+			List<MemberDto> memberDto = adminService.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);
+			
+			return memberDto;
+		}
+		
+		//양회준 10-23 admin 회원관리 비동기 일괄등록
+		@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
+		public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
+				throws IOException, ClassNotFoundException, SQLException {
+			System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
+			
+			int result = adminService.updateStudentsAjax(updateStudentArr);
+			
+			return ""+result;
+		}
+		//양회준 10-23 admin 회원관리 비동기 일괄삭제
+		@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
+		public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
+				throws IOException, ClassNotFoundException, SQLException {
+			System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
+			
+			int result = adminService.deleteStudentsAjax(deleteStudentArr);
+			
+			return ""+result;
+		}
 	
-	/* 영준 10.15 회원관리관련 끝 */
+	/* 영준 10.23 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
 	@RequestMapping("adminClassInfo.do")
@@ -211,7 +234,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name) {
+	public String adminClassMain(Model model, String class_name) { 
 
 		List<NoticeDto> notice;
 		notice=commonService.admin_Main(class_name);
@@ -234,9 +257,12 @@ public class AdminController {
 			
 		}
 	
-
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
+	public String noticeDetail(Model model, String class_name, int notice_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		model.addAttribute("result", result);		
 		
 		return "common.adminClass.admin.notice.noticeDetail";
 	}
@@ -256,8 +282,12 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험 관리 
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail() {
-		System.out.println("시험일정 상세 컨트롤러");
+	public String examScheduleDetail(Model model, int exam_info_num) {
+		
+		// 10.23 현이 추가 (TeacherController에서 가져옴) 
+		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);  
+		model.addAttribute("dto", dto);
+		
 		return "common.adminClass.admin.exam.examScheduleDetail";
 	}  
 	
@@ -292,8 +322,10 @@ public class AdminController {
 	}
 	
 	
-	// 관리자 클래스 상세보기 - 문제 관리 
-	/* 재훈 10.15 문제 관리 페이지 관련 start */
+
+	/*###################     재훈 시작         ####################*/
+	
+	//관리자 - 문제관리 페이지 문제분류 셀렉트박스 데이터값 출력
 	@RequestMapping("questionManagement.do")
 	public String questionManagement(Model model, Principal principal) throws Exception {
 		List<CategoryDto> lgCatList;
@@ -316,22 +348,10 @@ public class AdminController {
 		String member_id = principal.getName();
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
-		
-		return "common.adminClass.admin.question.questionManagement";
+
+		return "common.admin.question.questionManagement";
 	}
-	
-	@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
-	
-		if (dto2.getQuestion_type().equals("객관식")) {
-		adminService.insertQuestion(dto2);
-		adminService.insertQuestionChoice(dto2, dto);
-		} else {
-		adminService.insertQuestion(dto2);
-		}
-		return "common.adminClass.admin.question.questionManagement";
-	}
-	
+	//관리자 - 문제 관리 페이지 문제 출력 
 	@RequestMapping(value="myQuestionView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
 		List<QuestionDto> question = teacherService.question();
@@ -346,14 +366,15 @@ public class AdminController {
 		
 		return mv;
 	}
-	/*
+
+	//관리자 - 문제관리 페이지 분류별/키워드별 검색 기능
 	@RequestMapping(value="myQuestionSearch.do")
-	public @ResponseBody ModelAndView questionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
+	public @ResponseBody ModelAndView myQuestionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
 			@RequestParam("mdsearchtype") String mdsearchtype, @RequestParam("smsearchtype") String smsearchtype,
-			@RequestParam("leveltype") String leveltype, @RequestParam("questiontype") String questiontype,
-			@RequestParam("keyword") String keyword) {
+			@RequestParam("leveltype") String leveltype,@RequestParam("keyword") String keyword,
+			@RequestParam("questiontype") String questiontype) {
 		
-		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype);
+		List<QuestionDto> question = teacherService.questionSearch(lgsearchtype,mdsearchtype,smsearchtype,leveltype,questiontype,keyword);
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		
 		ModelAndView mv = new ModelAndView();
@@ -363,46 +384,50 @@ public class AdminController {
 		
 		return mv;
 	}
-	*/
 
-	
-	/* 재훈 10.20 문제삭제 관련 start */
+	//관리자 - 문제관리 페이지 새 문제 만들기 기능
+		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
+		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+		
+			if (dto2.getQuestion_type().equals("객관식")) {
+			adminService.insertQuestion(dto2);
+			adminService.insertQuestionChoice(dto2, dto);
+			} else {
+			adminService.insertQuestion(dto2);
+			}
+			return "common.adminClass.admin.question.questionManagement";
+		}
+	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단
 	@RequestMapping("singleQuestionDelete.do")
 	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
-		System.out.println("컨트롤러 진입>>>>>" + question_num);
+		
 		Map<String,Object> map = new HashMap <String,Object>();
 		int result = commonService.singleQuestionDelete(question_num);
+		
 		if(result == 0) {
-			System.out.println("컨트롤러 if문 >> result 값 0");
 			map.put("result", "삭제불가");
 		}else {
-			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
 			map.put("result", "삭제가능");
 		}
 		return map;
 	}
-	/* 재훈 10.21 문제수정 관련 start */
+	//관리자 - 문제관리 페이지 문제수정 전 수정가능여부 판단
 	@RequestMapping("singleUpdateCheck.do")
 	public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
-		System.out.println("문제수정 컨트롤러 진입>>>>>" + question_num);
+		
 		Map<String,Object> map = new HashMap <String,Object>();
 		int result = commonService.singleUpdateCheck(question_num);
+		
 		if(result == 0) {
-			System.out.println("컨트롤러 if문 >> result 값 0");
 			map.put("result", "삭제불가");
 		}else {
-			System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
 			map.put("result", "삭제가능");
 		}
 		return map;
 	}
-	/*문제수정페이지로 이동시 문제 &문제보기 정보 가져와서 뿌려주기*/
-
-	/* 재훈 10.15 문제 관리 페이지 관련 end */
-
+	//관리자 - 문제수정 페이지 이동시 관련 데이터 출력
 	@RequestMapping("questionUpdate.do")
 	public String questionUpdate(Model model, int question_num) {
-		System.out.println("컨트롤러 진입>>> question_num값: " +question_num);
 		
 		List<QuestionDto> qdto;
 		qdto=commonService.questionInfo(question_num);
@@ -411,6 +436,10 @@ public class AdminController {
 		List<Question_choiceDto> cdto;
 		cdto=commonService.questionChoiceInfo(question_num);
 		model.addAttribute("cdto",cdto);
+		
+		List<CategoryDto> qcat;
+		qcat=commonService.questionCategoryInfo(question_num);
+		model.addAttribute("qcat",qcat);
 		
 		List<CategoryDto> lgCatList;
 		lgCatList=adminService.lgCategoryList();
@@ -431,11 +460,8 @@ public class AdminController {
 		return "common.adminClass.admin.question.questionUpdate";
 	}	
 	
+	/*###################     재훈 끝         ####################*/
 	
-
-	/* 재훈 10.15 문제 관리 페이지 관련 end */
-	
-
 	/*현이 18.10.09 관리자 마이페이지 시작*/
 	/*양회준 10.15 내 정보 수정 시작*/
 	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
@@ -700,18 +726,6 @@ public class AdminController {
 
 	
 		
-	//양회준 10-22 admin 회원관리 비동기 검색
-	@RequestMapping(value="memberSearchAjax.do", method=RequestMethod.POST)
-	public @ResponseBody List<MemberDto> memberSearchAjax(@RequestParam("searchRole") String searchRole, 
-			@RequestParam("searchClassName") String searchClassName, @RequestParam("searchMemberInfo") String searchMemberInfo,
-			@RequestParam("searchBox") String searchBox) throws IOException, ClassNotFoundException, SQLException {
-				
-		List<MemberDto> memberDto = adminService.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);
-		
-		return memberDto;
-	}
+	
 	
 }
-
-
-

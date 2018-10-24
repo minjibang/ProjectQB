@@ -11,7 +11,9 @@
 	href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
 	rel="stylesheet">
  <script
-	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
+	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleRegist.js"></script> 
+
+
 <section id="main-content">
   <section class="wrapper-low">
   
@@ -49,7 +51,7 @@
                         <div>
                           <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
                         </div>
-                        <<h3>시험명 : ${param.exam_paper_name}</h3>
+                        <h3>시험명 : ${param.exam_paper_name}</h3>
                         
                      </div>
                     <div class="col-md-8 detailed">
@@ -63,26 +65,28 @@
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-                              <input type="text" class="form-control form-control-inline dpd1" name="exam_info_date" id="exam_info_date"  size="16" required>
+                            <p><input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" required></p>
+                             
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
+
                         </div>
                         <div class="form-group">
                           <label class="control-label col-md-2">시간</label>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" required>
+                                <input style="z-index:0;" type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" required>
                                  <span class="input-group-btn">
-                                   <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
+                                   <button class="btn btn-theme04" type="button" style="z-index:0;"><i class="fa fa-clock-o" style="z-index:0;"></i></button>
                                 </span>
                               </div>
                               <label class="control-label">부터</label>
                             </div>
                             <div class="col-md-4">
                               <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" required>
+                                <input style="z-index:0;" type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" required>
                                   <span class="input-group-btn">
-                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
+                                    <button class="btn btn-theme04" type="button" style="z-index:0;"><i class="fa fa-clock-o"></i></button>
                                   </span>
                               </div>
                               <label class="control-label">까지</label>
@@ -164,6 +168,11 @@
 <!--main content end-->
 
 <script>
+
+
+
+
+
 function check(){
 	var timeinfodiv = document.getElementById("timeinfo");
 	

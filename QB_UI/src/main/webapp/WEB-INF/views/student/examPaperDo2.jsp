@@ -157,6 +157,10 @@
 
 		});  // 제출 버튼 눌렀을 때 스크립트 종료 부분
 		
+		// 시험 시간 5분 전 알람 
+		setTimeout(function(){
+			alert("시험이 5분 뒤에 제출됩니다. \n제출을 완료하여 주세요.");
+		}, remain_time - 300000);
 		
 		// 시험 시간 완료되었을 경우 강제 제출
  		setTimeout(function(){
