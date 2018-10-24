@@ -12,8 +12,19 @@ public class ClassDto {
 	private String class_end_date;
 	private int class_enable;
 	
+	//반인원수
+	private int class_student_count;
 	
 	
+	
+	
+	
+	public int getClass_student_count() {
+		return class_student_count;
+	}
+	public void setClass_student_count(int class_student_count) {
+		this.class_student_count = class_student_count;
+	}
 	public int getClass_num() {
 		return class_num;
 	}

@@ -7,6 +7,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -57,7 +58,11 @@
                         <div class="makeExamFirstRow">
                            <hr>
                            <div id="makeExamFirstRowText">
-                              <div> 출제된 문항 수 : <span id="qnum">0</span></div><br><div> 현재 총 배점 : <span id="qcore">0</span> / 100 </div>
+                           <c:set var="sum" value="0"/>
+                           <c:forEach items="${examquestion}" var="examquestion">
+                           	<c:set var="sum" value="${sum + examquestion.exam_question_score }"/>
+                           </c:forEach>
+                              <div> 출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span></div><br><div> 현재 총 배점 : <span id="qcore"><c:out value="${sum }"/></span> / 100 </div>
                            </div>
                         </div>
                         <hr>
@@ -87,7 +92,50 @@
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
                               <ul id="sortable" class="task-list selectedBox">
-                              
+                              <c:forEach items="${examquestion}" var="examquestion">
+								<li>
+								<div class='row'>
+									<div class="col-lg-1 qnumdiv">
+										 <input type="checkbox" value="${examquestion.question_num }"
+											name="checkbox[]" /> 
+										<!-- value에 문제고유번호 들어간다 -->
+									</div>
+									<div class="col-lg-3">
+										${examquestion.md_category_name}<br> ${examquestion.sm_category_name }<br>
+										난이도: ${examquestion.level_name}<br> 정답:
+										${examquestion.question_answer }<br>
+										정답률:${examquestion.question_correct_ratio}%<br> 출제자:
+										${examquestion.member_id }<br>
+									</div>
+									<div class="col-lg-8" id="questiontitle">
+										<b>${examquestion.question_name }</b><br> <br>
+										<div class="questionImgDiv">
+											<c:if test="${examquestion.question_img  ne null }">
+												<img
+													src="${pageContext.request.contextPath}/img/${examquestion.question_img }"
+													alt="questionImg" class="questionImg" />
+												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+											</c:if>
+										</div>
+										<br>
+										<div>
+											<c:forEach items="${examquestion_choice}" var="examquestion_choice">
+												<c:if
+													test="${examquestion_choice.question_num eq examquestion.question_num}">
+													<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									<hr>
+									<div class="col-lg-12 qscore">배점:&nbsp; 
+										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" value="${examquestion.exam_question_score }" min="1" max="20" onchange="plusqcore()"/>
+										<hr>
+									</div>
+								</div>
+								
+								</li>	
+							  </c:forEach>
                               </ul>
                            </div>
                         </form>
@@ -102,9 +150,7 @@
                      <div class="col-lg-6 makeExamBtnDiv">
                         <input type="button" class="btn btn-theme04" value="선택문제 삭제"
                            id="pickQuestionDeleteBtn">
-                           <input type="button"
-                           class="btn btn-theme" value="임시저장" 
-                           id="pickQuestionTempSaveModalBtn">
+                           
                            <input type="hidden" id="copyTempSave" value="">
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
@@ -160,46 +206,12 @@
 
                            </div>
                         </div>
-                        <input type="button" class="btn btn-theme" value="시험지 생성"
+                        <input type="button" class="btn btn-theme" value="시험지 수정"
                         id="makeExamSubmitModalBtn">
                      </div>
                   </div>
                   <!-- 모달창 -->
-                  <!-- 임시저장 모달 -->
-                  <div class="modal fade" id="pickQuestionTempSaveModal"
-                     tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal"
-                                 aria-hidden="true">&times;</button>
-                              <h4 class="modal-title" id="myModalLabel">시험지 임시저장</h4>
-                              <input type="hidden" id="saveEP" value="0"/>
-                           </div>
-                           <form action="" method="post">
-                              <div class="modal-body">
-
-                                 시험지 이름 <input type="text" class="form-control exam-paper-name"
-                                    placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
-                                 설명
-                                 <textarea type="textarea" class="form-control exam-paper-desc"
-                                    placeholder="시험지 설명을 입력하세요." name=""></textarea>
-                              </div>
-                              <div class="modal-footer">
-                                 <div class="form-group">
-                                    <div class="col-lg-offset-2 col-lg-10">
-                                       <input type="button" class="btn btn-theme" value="임시저장"
-                                          id="pickQuestionTempSaveBtn" onclick="makeExamSubmitBtn(0)"> <input type="button"
-                                          class="btn btn-theme04" data-dismiss="modal" value="취소">
-                                    </div>
-                                 </div>
-                              </div>
-                           </form>
-                        </div>
-                     </div>
-                  </div>
-                  <!-- 시험지 생성 모달 -->
+                  <!-- 시험지 수정 모달 -->
                   <div class="modal fade" id="makeExamSubmitModal" tabindex="-1"
                      role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                      <div class="modal-dialog">
@@ -222,7 +234,7 @@
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                          <input type="button" class="btn btn-theme" value="시험지 생성"
+                                          <input type="button" class="btn btn-theme" value="시험지 수정"
                                           id="makeExamSubmitBtn1" onclick="makeExamSubmitBtn(1)">
                                           <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
@@ -256,7 +268,7 @@ $(document).ready(function(){
 			console.log("===========실패");
 		}
 	});
-    $('#question_lg_category').change(function(){
+   $('#question_lg_category').change(function(){
       $('#question_md_category').children('option:not(:first)').remove();
       $('#question_sm_category').children('option:not(:first)').remove();
       <c:forEach items="${list2}" var="mdlist">
@@ -300,7 +312,7 @@ $(document).ready(function(){
 				  $('#questions').html(data);
 			  }
 		   });
-   }); 
+   });
 })
 
 </script>
