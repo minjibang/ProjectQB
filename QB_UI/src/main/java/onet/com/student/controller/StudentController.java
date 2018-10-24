@@ -97,6 +97,18 @@ public class StudentController {
 
 		return "student.pastExam";
 	}
+	
+	// 10.24 현이 
+	// keyword 검색 ajax
+	@RequestMapping("searchPastExamKeyword.do")
+	public @ResponseBody List<ExamInfoDto> searchPastExamKeyword(
+			@RequestParam("keyword") String keyword, Principal principal){
+		
+		String member_id = principal.getName();
+		List<ExamInfoDto> examInfoList = studentService.searchPastExamKeyword(member_id, keyword);
+		
+		return examInfoList;
+	}
 
 	@RequestMapping("pastExamPaper.do")
 	public String pastExamPaper() {
@@ -251,7 +263,8 @@ public class StudentController {
 		
 		int result = studentService.examAnswerInsert(answerList);
 		
-		return "student.pastExam";
+		//return "student.pastExam";
+		return "redirect:pastExam.do";
 		
 	}
 	/* 현이 18.10.19 학생 답안지 insert 끝 */

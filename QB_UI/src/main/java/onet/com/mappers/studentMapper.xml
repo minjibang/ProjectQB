@@ -109,15 +109,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 10.23 현이 학생 지난 시험 보기 시작 -->
 <select id="searchPastExam" parameterType="String" resultType="onet.com.vo.ExamInfoDto">
-	select * from exam_info 
-	where class_name = 
-		(select class_name from member where member_id = #{param1})
+	select * from exam_info
+	where exam_info_num in (select distinct exam_info_num from student_answer where member_id=#{param1})
 </select>
 
 <select id="searchStudentName" parameterType="String" resultType="String">
 	select member_name from member
 	where member_id = #{param1}
 </select>
+
+<select id="searchPastExamKeyword" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info
+	where (exam_info_num in (select distinct exam_info_num from student_answer where member_id=#{param1}))
+	and (exam_info_name like concat('%', #{param2}, '%') || exam_info_desc like concat('%', #{param2}, '%'))
+</select>	
 
 <!-- 10.23 현이 학생 지난 시험 보기 끝 -->
 

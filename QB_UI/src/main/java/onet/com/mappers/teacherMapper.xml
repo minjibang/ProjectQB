@@ -76,19 +76,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 시험 일정 리스트 뿌려주기 -->
 <select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
-	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
+	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id}) order by exam_info_date desc
 </select>
 
 <select id="examScheduleList2" resultType="onet.com.vo.ExamInfoDto">
 	select * from exam_info where exam_paper_num = #{exam_paper_num}
 </select>
 
-<update id="deleteExam">
+
+
+<delete id="deleteExam">
+	delete from exam_paper where exam_paper_num = #{param1}
+</delete>
+
+
+<update id="updateExam">
+
 	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
 </update>
-
 <select id="updateExamView" resultType="onet.com.vo.QuestionDto">
 	select * from question where question_num = ANY(select question_num from exam_question where exam_paper_num = #{param1})
+</select>
+
+<select id="checkExamInfo" resultType="int">
+	select count(*) from exam_info where exam_paper_num = #{param1}
+</select>
+
+<select id="checkDate" resultType="int">
+<![CDATA[
+	select count(*) from exam_info where exam_paper_num = #{param1} and exam_info_date > now()
+]]>
 </select>
 
 <!-- 태용 끝 -->

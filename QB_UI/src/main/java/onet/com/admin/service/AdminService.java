@@ -50,6 +50,19 @@ public class AdminService {
 		return result;
 	}
 	
+	//문제관리 페이지 - 전체 문제정보 
+	public List<QuestionDto> question(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<QuestionDto> result = dao.question();
+		return result;
+	}
+	public List<Question_choiceDto> question_choice(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<Question_choiceDto> result = dao.question_choice();
+		return result;
+	}
+	
+	
 	//문제 난이도 리스트
 	public List<CategoryDto> questionLevelList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
@@ -66,11 +79,11 @@ public class AdminService {
 	}
 	@Transactional
 	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
+		System.out.println("adminService 진입>>> \n" + dto2 +"\n" + dto);
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
 		String[] question_choice_image;
-		
 		
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		
@@ -78,9 +91,10 @@ public class AdminService {
 		question_choice_num=dto.getQuestion_choice_num().split(",");
 		question_choice_content=dto.getQuestion_choice_content().split(",");
 		question_choice_image=dto.getQuestion_choice_image().split(",");
-
+		System.out.println("adminService 진입 >>> 스트링배열값 확인 \n" + question_choice_num +", \n" 
+				+question_choice_content +",\n" + question_choice_image );
 		int imgCount = question_choice_image.length;
-			for(int i=0;i<question_choice_image.length;i++) {
+			for(int i=0; i<question_choice_image.length; i++) {
 				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], question_choice_image[i]);
 				}
 			for(int f = imgCount; f<question_choice_num.length; f++) {
@@ -97,7 +111,7 @@ public class AdminService {
 		return result;
 	}
 	
-/*##################        재훈 시작              ##################*/
+/*##################        재훈 끝              ##################*/
 	
 	
 

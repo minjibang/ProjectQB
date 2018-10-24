@@ -91,6 +91,14 @@ public class StudentService {
 		return member_name;
 	}
 	
+	public List<ExamInfoDto> searchPastExamKeyword(String member_id, String keyword){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<ExamInfoDto> examInfoList = dao.searchPastExamKeyword(member_id, keyword);
+		
+		return examInfoList;
+	}
+	
 	/*10.23 현이 지난 시험 보기 끝 */
 	
 	

@@ -129,21 +129,28 @@ public class TeacherService {
 	/*민지- 10.18 시험등록 끝*/
 
 	/*--성태용 시작--*/
+	
+	//문제 검색
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype, keyword);
 		return result;
 	}
+	
+	//내시험지 리스트
 	public List<ExamPaperDto> myExamPaperList(String member_id){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.myExamPaperList(member_id);
 		return result;	
 	}
+	//내임시시험지 리스트
 	public List<ExamPaperDto> myTempExamList(String member_id){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.myTempExamList(member_id);
 		return result;	
 	}
+	
+	//시험등록 일정리스트
 	public List<ExamInfoDto> examScheduleList(String member_id){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamInfoDto> result = dao.examScheduleList(member_id);
@@ -156,10 +163,26 @@ public class TeacherService {
 	}
 	public int deleteExam(int exam_paper_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.deleteExam(exam_paper_num);
+		
+		int result = 0;
+		int checkdate = dao.checkDate(exam_paper_num); //0이 아닐경우 현재 날짜보다 높다
+		int checkinfo = dao.checkExamInfo(exam_paper_num); // 0이면 등록된 일정이 없다
+		
+		System.out.println("============="+checkdate);
+		System.out.println("++++++++++++++"+checkinfo);
+		
+		if(checkinfo == 0 && checkdate == 0) {
+			dao.deleteExam(exam_paper_num);
+			result = 1; //delete
+		}else if(checkinfo != 0 && checkdate == 0) {
+			dao.updateExam(exam_paper_num);
+			result = 2; //update
+		}else if(checkinfo != 0 && checkdate != 0){
+			result = 3; //삭제불가
+		}
 		return result;
 	}
-	
+
 	public List<QuestionDto> updateExamView(int exam_paper_num){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<QuestionDto> result = dao.updateExamView(exam_paper_num);

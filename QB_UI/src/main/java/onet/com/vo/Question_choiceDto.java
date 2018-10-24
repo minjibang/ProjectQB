@@ -1,9 +1,8 @@
 package onet.com.vo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class Question_choiceDto {
 
@@ -11,6 +10,16 @@ public class Question_choiceDto {
 	private String question_choice_num;
 	private String question_choice_content;
 	private String question_choice_image;  	// 10.22 추가
+	
+	/*임시 파일받기용*/
+	private List<CommonsMultipartFile> files;
+    public List<CommonsMultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<CommonsMultipartFile> files) {
+		this.files = files;
+	}
+	/*임시 파일받기용*/
 	
 	public int getQuestion_num() {
 		return question_num;

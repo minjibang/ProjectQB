@@ -91,14 +91,11 @@ public class TestManageController {
 		
 		return "common.teacher.exam.examManagement";
 	}
+	//시험지 삭제
 	@RequestMapping("deleteExam.do")
 	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
-		int result = teacherService.deleteExam(exam_paper_num);	
-		
-		if(result == 0) {
-			System.out.println("삭제실패");
-		}
+		int result = teacherService.deleteExam(exam_paper_num);
 		
 		return result;
 	}

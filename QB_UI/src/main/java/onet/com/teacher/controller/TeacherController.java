@@ -11,12 +11,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,19 +23,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
+import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
-import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Score_chartDto;
 
 @Controller
 @RequestMapping("/teacher/")
@@ -249,17 +250,30 @@ public class TeacherController {
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request ) throws Exception {
 	
-			
-		String[] imgArray;
+		String[] imgArray = dto.getQuestion_choice_image().split(",");
+		List<CommonsMultipartFile> files = dto.getFiles();
+		System.out.println("files >> " + files + "\ndto >> " + dto.getQuestion_choice_image());
+		String path =  request.getServletContext().getRealPath("resources/upload/board/");
+		System.out.println("path >> " + path);
 		
-		
-		
-		System.out.println(dto.getQuestion_choice_image());
-		imgArray = dto.getQuestion_choice_image().split(",");
-		for(int i=0; i<imgArray.length;i++) {
 
+		for(int i=0; i<imgArray.length;i++) {
+			UUID uuid = UUID.randomUUID();
+			String saveFileName = uuid.toString()+ "_" + imgArray[i];
+			String saveFile = path + saveFileName;
+			System.out.println("name >> " + saveFileName + "\n"+"saveFile >> " + saveFile);
+		}
+//		file1.transferTo(new File(safeFile1));
+//		String[] imgArray;
+		
+		
+		
+//		System.out.println(dto.getQuestion_choice_image());
+//		imgArray = dto.getQuestion_choice_image().split(",");
+//		for(int i=0; i<imgArray.length;i++) {
+//		
 //			System.out.println(imgArray[i]);
 //			String path =  request.getServletContext().getRealPath("resources/upload/question_choice/");
 //			UUID uuid = UUID.randomUUID();
@@ -269,7 +283,7 @@ public class TeacherController {
 //				
 //				
 //			}
-		}
+//		}
 		
 		if (dto2.getQuestion_type().equals("객관식")) {
 		adminService.insertQuestion(dto2);
@@ -279,7 +293,16 @@ public class TeacherController {
 		}
 		return "redirect:questionManagement.do";
 		/*
-		 MultipartFile file1 = request.getFile("files1");
+		@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
+	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String str = dayTime.format(new Date(time));
+		dto.setNotice_date(str);
+		
+		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
@@ -306,6 +329,11 @@ public class TeacherController {
 			file2.transferTo(new File(safeFile2));
 			dto.setNotice_file2(saveFile2);
 		}
+		int result = commonService.insertBoardList(dto);
+		
+	
+		return "redirect:teacherMain.do";
+	}
 		 */
 
 	}
@@ -423,17 +451,41 @@ public class TeacherController {
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
 	public String myMessage() {
-
+		
 		return "common.teacher.common.myMessage";
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
+	//학생정보 불러오기
 	@RequestMapping("studentInfo.do")
-	public String studentInfo(){		
+	public String studentInfo(Model model, Principal principal){
+		//양회준 10-24
+		String member_id = principal.getName();
+		List<MemberDto> studentList = commonService.studentInfo(member_id);
+		//첫번째 학생의 데이터로 차트 가져오기
+		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
+		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
+		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
+		model.addAttribute("studentList",studentList);
+		model.addAttribute("classChart",classChart);
+		model.addAttribute("studentChart",studentChart);
 		return "common.teacher.grade.studentInfo";
 	}
+	
+	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+			@RequestParam("class_name") String class_name){
+		//양회준 10-24
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		for(Class_chartDto data : studentChart) {
+			System.out.println("과연"+data.getExam_info_name());
+		}
+		return chart;
+	}
+	
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
 	/* 양회준 10.16 내정보 비밀번호 확인 시작*/

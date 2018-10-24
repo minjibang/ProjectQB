@@ -66,7 +66,6 @@ $(function(){
 	});
 
 
-$(function(){
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
 		action='modify';
@@ -153,7 +152,7 @@ $(function(){
    		});
 		
 	});	
-});
+
 
 	/* 멤버 삭제(실제 삭제X) */
 	var role_code_table;
@@ -252,7 +251,7 @@ $(function(){
 			swal("Error!", "검색값을 입력해주십시오.", "error");
 			return false;
 		}else if(searchRole==""&&searchClassName==""&&searchMemberInfo==""){
-			swal("Error!", "검색할 조건 입력해주십시오.", "error");
+			swal("Error!", "검색할 조건을 입력해주십시오.", "error");
 			return false;
 		}
 		
@@ -314,22 +313,16 @@ $(function(){
 		var updateStudentArr = new Array();
 		$("input[name=chk]:checked").each(function(i){
 			var rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
-			var roleCode = $(this).parent().parent().children(".role_code").text().trim();
+			rowMemberAuth = $(this).parent().parent().children(".role_code").text().trim();
 			updateStudentArr.push(rowMemberId);	
 			
-			console.log("회원 권한값 :" + roleCode);
+			console.log("가져오는 회원값 : " + rowMemberId);
+			console.log("회원 권한값 :" + rowMemberAuth);
 			
-			if(roleCode == "학생"){
+			if(rowMemberAuth == "학생"){
 				swal("이미 등록된 회원입니다");
 				return false;
-			} else if(roleCode == "관리자"){
-				swal("등록할 수 없는 회원입니다.");
-				return false;
-			} else{
-				return true;
-			}
-			
-			
+			} 
 		});
 		
 		console.log(updateStudentArr);
@@ -349,6 +342,7 @@ $(function(){
 				$("input[name=chk]:checked").each(function(i){
 					rowMemberAuth = $(this).parent().parent().children(".role_code").text("학생");
 				});
+				console.log("성공한 값 : " + data);
 			},
 			error : function(error){
 				swal("에러가 발생했습니다.");
