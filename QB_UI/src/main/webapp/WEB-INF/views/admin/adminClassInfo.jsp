@@ -5,7 +5,8 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/adminClassInfo.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--main content start-->
-
+<script
+	src="${pageContext.request.contextPath}/lib/onet-js/jquery-ui.js"></script>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
