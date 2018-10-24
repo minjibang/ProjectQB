@@ -36,102 +36,72 @@
 						</div>
 						<div class="attachment-mail noticeContent">
 							<p>
-								<span><i class="fa fa-paperclip"></i> 첨부된 파일 - 2 </span> <a
-									href="#">모두 다운로드</a>
+								<span><i class="fa fa-paperclip"></i> 첨부된 파일</span>
 							</p>
 							<ul>
-								<li><a class="name" href="#"><img src="${pageContext.request.contextPath}/resources/upload/board/${result[0].notice_file1}"><span>20KB</span>
+								<c:choose>
+								<c:when test="${not empty result[0].notice_file1}">
+								<li><a class="name" href="#">
+								<img src="${pageContext.request.contextPath}/resources/upload/board/${result[0].notice_file1}">
 								</a>
 									<div class="links">
-										<a href="#">미리보기</a> - <a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
+										<a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
 									</div></li>
+								</c:when>
+								</c:choose>
+								<c:choose>
+								<c:when test="${not empty result[0].notice_file2}">
 								<li><a class="atch-thumb" href="#"> 
-								</a> <a class="name" href="#"><img src="${pageContext.request.contextPath}/resources/upload/board/${result[0].notice_file2}"><span>20KB</span>
+								</a> <a class="name" href="#"><img src="${pageContext.request.contextPath}/resources/upload/board/${result[0].notice_file2}">
 								</a>
 									<div class="links">
-										<a href="#">미리보기</a> - <a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do">다운로드</a>
+										<a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do">다운로드</a>
 									</div></li>
+								</c:when>
+								</c:choose>
 							</ul>
 						</div>
 						
-
-						<div class="row noticeView_Comments_1 noticeContent">
+						<c:forEach items="${comment}" var="comment">
+						<c:choose>
+						<c:when test="${comment.comment_group eq 0}">
+						<div class="row noticeView_Comments_1 noticeContent" id="${comment.comment_num}">
 							<div class="col-sm-3">
-								<strong>양회준</strong> <br> 2018.10.08 &nbsp;&nbsp; 12:02:33
-								pm
+								<strong>${comment.member_id}</strong><br> ${comment.comment_date}
 							</div>
-							<div class="col-sm-8">댓글번호 1번 댓글내용이 들어가는 자리입니다. 이자리는
-								댓글내용자리! 내용테스트를 위한 글 길이 늘이기1 내용테스트를 위한 글 길이 늘이기2 내용테스트를 위한 글 길이
-								늘이기3 내용테스트를 위한 글 길이 늘이기4 내용테스트를 위한 글 길이 늘이기5 내용테스트를 위한 글 길이 늘이기6
-								내용테스트를 위한 글 길이 늘이기7 내용테스트를 위한 글 길이 늘이기8 내용테스트를 위한 글 길이 늘이기9
-								내용테스트를 위한 글 길이 늘이기10 내용테스트를 위한 글 길이 늘이기11</div>
+							<div class="col-sm-8">${comment.comment_content}</div>
 							<div class="col-sm-1">
-								<a href=""><i class="fa fa-reply"></i>답글달기</a>
+								<a class="gg"><i class="fa fa-reply"></i>답글</a> 
 							</div>
-
+							
 						</div>
-						<br>
+						</c:when>
+						</c:choose>
+						
+						<c:forEach items="${commentGroup}" var="commentGroup">
+						<c:choose>
+						<c:when test="${commentGroup.comment_group eq comment.comment_num}">
 						<div class="row noticeView_Comments_2 noticeContent">
 							<div class="col-sm-3">
-								<strong>우한결</strong> <br> 2018.10.08 &nbsp;&nbsp; 12:12:11
-								pm
+								<strong>ㄴ ${commentGroup.member_id}</strong><br>${commentGroup.comment_date}
 							</div>
-							<div class="col-sm-8">ㄴ 대댓글번호 1번 내용이 들어가는 자리입니다. 이자리는
-								대댓글내용자리!</div>
+							<div class="col-sm-8">${commentGroup.comment_content}</div>
 							<div class="col-sm-1">
-								<a href=""><i class="fa fa-reply"></i>답글달기</a>
+								<a href=""><i class="fa fa-reply"></i>답글</a>
 							</div>
 						</div>
+						</c:when>
+						</c:choose>
+						</c:forEach>
+						</c:forEach>
+						
 						<br>
-						<div class="row noticeView_Comments_1 noticeContent">
-							<div class="col-sm-3">
-								<strong>조재훈 </strong><br> 2018.10.08 &nbsp;&nbsp; 12:35:09
-								pm
-							</div>
-							<div class="col-sm-8">댓글번호 2번 댓글내용이 들어가는 자리입니다. 이자리는
-								댓글내용자리! 내용테스트를 위한 글 길이 늘이기1 내용테스트를 위한 글 길이 늘이기2 내용테스트를 위한 글 길이
-								늘이기3 내용테스트를 위한 글 길이 늘이기4 내용테스트를 위한 글 길이 늘이기5 내용테스트를 위한 글 길이 늘이기6
-								내용테스트를 위한 글 길이 늘이기7 내용테스트를 위한 글 길이 늘이기8 내용테스트를 위한 글 길이 늘이기9
-								내용테스트를 위한 글 길이 늘이기10 내용테스트를 위한 글 길이 늘이기11</div>
-							<div class="col-sm-1">
-								<a href=""><i class="fa fa-reply"></i>답글달기</a> &nbsp;&nbsp; <a
-									href=""><i class="fa fa-trash-o"></i>삭제</a>
-							</div>
-						</div>
-						<br>
-						<div class="row noticeView_Comments_1 noticeContent">
-							<div class="col-sm-3">
-								<strong>강사 홍길동</strong> <br> 2018.10.08 &nbsp;&nbsp;
-								12:35:09 pm
-							</div>
-							<div class="col-sm-8">댓글번호 3번 댓글내용이 들어가는 자리입니다. 이자리는
-								댓글내용자리! 내용테스트를 위한 글 길이 늘이기1 내용테스트를 위한 글 길이 늘이기2 내용테스트를 위한 글 길이
-								늘이기3 내용테스트를 위한 글 길이 늘이기4 내용테스트를 위한 글 길이 늘이기5 내용테스트를 위한 글 길이 늘이기6
-								내용테스트를 위한 글 길이 늘이기7 내용테스트를 위한 글 길이 늘이기8 내용테스트를 위한 글 길이 늘이기9
-								내용테스트를 위한 글 길이 늘이기10 내용테스트를 위한 글 길이 늘이기11</div>
-							<div class="col-sm-1">
-								<a href=""><i class="fa fa-reply"></i>답글달기</a>
-							</div>
-						</div>
-						<br>
+						
+						
 
-						<div class="row noticeView_CommentsWrite noticeContent">
-
-							<div class="form-group">
-								<label id="commentWriter" class="col-sm-2 control-label"><strong>조재훈</strong></label>
-								<div class="col-sm-8">
-									<textarea class="wysihtml5 form-control" rows="2"></textarea>
-								</div>
-								<div class="col-sm-1">
-									<button type="button" id="commentSubmit" class="btn btn-theme">
-										댓글 등록</button>
-								</div>
-
-							</div>
-
-						</div>
+						
 						<div class="row noticeDetailBtnDiv">
-							<button type="button" class="btn btn-theme">글 목록</button>
+							<a href="teacherMain.do" class="btn btn-theme">글 목록</a>
 							<button type="button" class="btn btn-theme">글 수정</button>
 							<button type="button" class="btn btn-theme04">글 삭제</button>
 						</div>
@@ -143,3 +113,41 @@
 		</div>
 	</section>
 </section>
+
+<script>
+$(document).ready(function(){
+	
+	$('.gg').click(function (){
+		
+		if($(this).text()=='답글'){
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent'><div class='col-sm-3'>ㄴ <input type='text'></div></div>");
+			$(this).html('답글취소');	
+		}else{
+			$(this).parent().parent().next().remove();
+			$(this).html('<i class="fa fa-reply"></i>답글');
+		}	
+		});
+					});
+
+	/* $.ajax({
+	 type : "post",
+	 url : "${pageContext.request.contextPath}/teacher/commentReply.do",
+	 data:{lgCatCode:$('#lgCode').val(), lgCatName:$('#lgName').val(), lgBeforeName:$('#updateLgBtn').val()},  
+	 success : function(data){
+	 if(data.result =="Notnull"){
+	 swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
+	 }else{
+	 swal({
+	 title: "대분류 정보가 수정되었습니다",
+	 text: "",
+	 icon:"success"
+	 }).then(function() {
+	 window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+	 });
+	 }	   			 
+	 },
+	 error: function(error){
+	 alert("에러야!");
+	 }
+	 }); */
+</script>

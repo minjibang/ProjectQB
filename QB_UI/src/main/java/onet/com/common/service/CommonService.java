@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
+import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
@@ -160,11 +161,20 @@ public class CommonService {
 
 	public int insertBoardList(NoticeDto dto) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int notice_num = dao.noticeNumFind(dto);
+		String notice_num = dao.noticeNumFind(dto);
 		System.out.println(notice_num);
-		dto.setNotice_num(notice_num+1);
-		int result = dao.insertBoardList(dto);
-		return result;
+		if(notice_num != null) {
+			int notice_number = Integer.parseInt(notice_num);
+			dto.setNotice_num(notice_number+1);
+			int result = dao.insertBoardList(dto);
+			return result;
+		}else {
+			dto.setNotice_num(1);
+			int result = dao.insertBoardList(dto);
+			return result;
+		}
+			
+		
 	}
 	
 	public List<NoticeDto> noticeDetail(String class_name, int notice_num){
@@ -225,6 +235,29 @@ public class CommonService {
 		return "redirect:myPage.do";
 	}*/
 	
+	public List<MemberDto> boardNull(String member_id){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> boardNull = commonDao.noticeNullCheck(member_id);
+		return boardNull;
+	}
+	
+	public List<CommentDto> comment(String class_name, int notice_num){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		CommentDto dto = new CommentDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<CommentDto> comment = commonDao.comment(dto);
+		return comment;
+	}
+	
+	public List<CommentDto> commentGroup(String class_name, int notice_num){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		CommentDto dto = new CommentDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<CommentDto> commentGroup = commonDao.commentGroup(dto);
+		return commentGroup;
+	}
 	
 	
 }

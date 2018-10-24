@@ -3,6 +3,7 @@ package onet.com.common.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
@@ -58,5 +59,11 @@ public interface CommonDao {
 	
 	public List<NoticeDto> noticeDetail(NoticeDto dto);
 	
-	public int noticeNumFind(NoticeDto dto);
+	public String noticeNumFind(NoticeDto dto);
+	
+	public List<MemberDto> noticeNullCheck(String member_id);
+	
+	public List<CommentDto> comment(CommentDto dto);
+	
+	public List<CommentDto> commentGroup(CommentDto dto);
 }

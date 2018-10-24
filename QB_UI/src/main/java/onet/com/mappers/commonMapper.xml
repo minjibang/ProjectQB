@@ -121,8 +121,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from notice where class_name = #{class_name} and notice_num=#{notice_num}
 </select>
 
-<select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="int">
+<select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="String">
 	select max(notice_num) from notice where class_name=#{class_name} order by notice_num desc;
 </select>
+
+<select id="noticeNullCheck" parameterType="String" resultType="onet.com.vo.MemberDto">
+	select * from member where member_id=#{member_id}
+</select>
+
+<select id="comment" parameterType="onet.com.vo.CommentDto" resultType="onet.com.vo.CommentDto">
+	select * from comment where class_name=#{class_name} and notice_num=#{notice_num}
+</select>
+
+<select id="commentGroup" parameterType="onet.com.vo.CommentDto" resultType="onet.com.vo.CommentDto">
+	select * from comment where class_name=#{class_name} and notice_num=#{notice_num} and comment_group != 0
+</select>
+
 
 </mapper>
