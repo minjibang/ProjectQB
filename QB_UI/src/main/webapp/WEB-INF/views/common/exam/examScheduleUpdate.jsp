@@ -22,6 +22,7 @@
               <div id="updateExam" class="tab-pane">
                 <div class="row">
                   <div class="col-md-12">
+                   <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">         
                   	<h2><strong>시험 일정 수정</strong></h2>
                     <div class="col-md-2" id="examScheduleUpdateMember">
 	                    <div class="invite-row">
@@ -33,14 +34,27 @@
 	                        <input type="checkbox"  id="checkall">전체선택
 	                      </label>
 	                      	<c:forEach items="${classMemberListUpdate}" var="classMemberListUpdate">
-	                        <ul class="chat-available-user" id ="checkboxNameUl">
+	                        <ul class="chat-available-user" id ="checkboxNameUl">                      
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox"  name="chk" value="chk">(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}
+	                            <c:forEach items="${classExamMemberList}" var="classExamMemberList">
+	                            <c:when  test="${classMemberListUpdate.member_id}==${classExamMemberList.member_id}">
+	                           
+	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" checked>(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}
+	                           </c:when>
+	                            <c:when test="${classMemberListUpdate.member_id}!=${classExamMemberList.member_id}">
+	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}
+	                            </c:when>
+	                            </c:forEach>
 	                            </label>
+	                            
 	                          </div>
+	                     
 	                        </ul>
 	                        </c:forEach>
+	                         <c:forEach items="${classExamMemberList}" var="classExamMemberList">
+	                             <input type="text" value="${classExamMemberList.member_id}">
+	                             </c:forEach>
 	                      </div>
                      </div>
                   </div>
@@ -54,10 +68,10 @@
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>        
-                      <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
+                   
                            <input type="hidden" value="${param.exam_info_name}" id="exam_info_name" name="exam_info_name"/>
                          <input type="hidden" id="exam_info_num" name="exam_info_num" value="${param.exam_info_num}"/>  
-                         
+                          <input type="hidden" id="memberarray2" name="memberarray2" />
                        <c:forEach items="${classExamList}" var="classExamList">
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
@@ -125,8 +139,9 @@
 
                         <button class="btn btn-primary btn-lg btn-block" id="examUpdateBtn">시험 일정 수정</button>
                       </div>
-                    </div>
+                   </div>
                     </c:forEach>
+                     </div></div>
                         </form>
                         <%-- 폼 양식 끝 --%>
 
@@ -152,9 +167,8 @@
           </div>
           <!-- /panel-body -->
 
-        </div>
         <!-- /col-lg-12 -->
-      </div>
+
       <!-- /row -->
 
     <!-- /container -->
@@ -168,6 +182,19 @@
 
 
 function check(){
+	
+	/*체크박스 값 설정*/
+
+	var memberarray = new Array();
+	$("input:checkbox[name=chk]:checked").each(function(){
+		memberarray.push($(this).val());
+	});
+    console.log("memberarray>>"+memberarray+"<<");
+    
+    document.getElementById("memberarray2").setAttribute('value',memberarray);
+    console.log("memberarray2>>"+$('#memberarray2').val()+"<<");
+    
+	/*체크박스 값 설정 끝*/
 	
 	var date2 = $('#exam_info_date').val();
 	console.log("date값>>"+date2);
@@ -209,6 +236,9 @@ function check(){
 		
 	} else if($('#exam_info_date').val()==""){
 		alert("날짜를 입력하세요");
+		return false;
+	}else if(memberarray==""){
+		alert("학생을 선택하세요.");
 		return false;
 	}else {
 		var insertconfirm = confirm("시험일정을 수정하시겠습니까?");

@@ -23,8 +23,8 @@
           <div class="panel-body">
               <div id="updateExam" class="tab-pane">
                 <div class="row">
-                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
-                  <div class="col-md-12">
+                 <div class="col-md-12">
+                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">             
                   	<h2><strong>시험 일정 등록</strong></h2>
                   	
                     <div class="col-md-2" id="examScheduleUpdateMember">
@@ -63,7 +63,7 @@
                          <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/> 
                          <input type="hidden" id="class_num" name="class_num" value="${class_num}"/>
                          <input type="hidden" id="class_name" name="class_name" value="${class_name}"/> 
-			<input type="hidden" id="memberarray2" name="memberarray2" />
+						 <input type="hidden" id="memberarray2" name="memberarray2" />
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
@@ -132,7 +132,7 @@
 
                         <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn">시험 일정 등록</button>
                       </div>
-                    </div>
+                    </div></div></div>
                         </form>
                         <%-- 폼 양식 끝 --%>
 
@@ -158,9 +158,7 @@
           </div>
           <!-- /panel-body -->
 
-        </div>
-        <!-- /col-lg-12 -->
-      </div>
+ 
       <!-- /row -->
 
     <!-- /container -->

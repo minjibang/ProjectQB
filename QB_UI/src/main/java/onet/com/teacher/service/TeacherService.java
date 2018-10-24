@@ -240,7 +240,15 @@ public class TeacherService {
 		return result;
 	}
 	
-	
+	public List<ExamMemberDto> classExamMemberList(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		ExamMemberDto dto = new ExamMemberDto();
+		System.out.println("exam_info_num >>> " +exam_info_num +"  <<");
+		dto.setExam_info_num(exam_info_num);
+		List<ExamMemberDto> result = dao.classExamMemberList(dto);
+		System.out.println("result " + result);
+		return result;
+	}
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
 	

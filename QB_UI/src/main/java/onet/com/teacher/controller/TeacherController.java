@@ -30,6 +30,7 @@ import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
+import onet.com.vo.CommentDto;
 import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
@@ -57,9 +58,12 @@ public class TeacherController {
 	      String member_id = principal.getName();
 	      System.out.println(member_id);
 	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
-	      model.addAttribute("notice", notice);
-	      List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
-	      model.addAttribute("exam_info", exam_info);
+	      List<MemberDto> boardNull = commonService.boardNull(member_id);
+	      System.out.println(boardNull);
+	    	model.addAttribute("boardNull", boardNull);
+	        model.addAttribute("notice", notice);
+		  List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+		  	model.addAttribute("exam_info", exam_info);
 	      
 	      /*for(int i=0; i<exam_info.size();i++) {
 	         System.out.println(exam_info.get(i).getExam_info_name());
@@ -78,12 +82,16 @@ public class TeacherController {
 
 	/* 10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail(Model model, String class_name, int notice_num) {
+	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
 		
-		System.out.println("class_name : " + class_name);
-		System.out.println("notice_num : " + notice_num);
 		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		List<CommentDto> comment = commonService.comment(class_name, notice_num);
+		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
+		String name = principal.getName();
 		model.addAttribute("result", result);
+		model.addAttribute("comment", comment);
+		model.addAttribute("commentGroup", commentGroup);
+		model.addAttribute("name", name);
 		return "common.teacher.notice.noticeDetail";
 	}
 	/* 10.08 게시판 글 상세보기 페이지 끝 */
@@ -455,9 +463,45 @@ public class TeacherController {
 	}
 	
 	
+	@RequestMapping("commentReply.do")
+	public @ResponseBody int commentReply(int notice_num, String class_name, int comment_num, String replyInput, Principal principal){
+		String member_id = principal.getName();
+		CommentDto dto = new CommentDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		dto.setComment_num(comment_num);
+		dto.setMember_id(member_id);
+		dto.setComment_content(replyInput);
+		int result = commonService.commentReply(dto);
+		return result;
+		
+	}
 	
+	@RequestMapping("noticeDetailAjax.do")
+	public ModelAndView noticeDetailAjax(Model model, String class_name, int notice_num, Principal principal) {
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		List<CommentDto> comment = commonService.comment(class_name, notice_num);
+		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
+		String name = principal.getName();
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.teacher.noticeDetail_ajax1");
+		mv.addObject("result", result);
+		mv.addObject("comment", comment);
+		mv.addObject("commentGroup", commentGroup);
+		mv.addObject("name", name);
+		return mv;
+	}
 	
+	@RequestMapping("commentInsert.do")
+	public @ResponseBody int commentInsert(Model model, String class_name, int notice_num, String textarea, Principal principal) {
+		String name = principal.getName();
+		CommentDto dto = new CommentDto();
+		dto.setMember_id(name);
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		dto.setComment_content(textarea);
+		int result = commonService.commentInsert(dto);
+		return 0;
+	}
 	
-	
-
 }
