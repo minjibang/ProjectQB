@@ -25,6 +25,9 @@ public interface AdminDao {
 	/*  문제관리 페이지 전체문제 리스트  */
 	public List<QuestionDto> question();
 	public List<Question_choiceDto> question_choice();
+	/*	문제관리 페이지 문제검색 */
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword);
+	
 	/*  새 문제 만들기 */
 	public int insertQuestion(QuestionDto dto);
 	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content, String question_choice_image);
