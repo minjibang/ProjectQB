@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
@@ -101,21 +102,20 @@ public class TeacherService {
 
 	/* 영준 - 10.16 선생님 시험관리 페이지 끝 */
 	
-	/* 영준 - 10.17 내 시험지 삭제 시작 */
-	public int examPaperDelete(int exam_paper_num) {
-		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperDelete(exam_paper_num);
-		System.out.println("시험지 삭제 result값 : " + result);
-		return result;
-	}
-	/* 영준 - 10.17 내 시험지 삭제 끝 */
-	
 	/*민지 - 10.18 시험등록*/
 	public int examInfoInsert(ExamInfoDto dto){
 		
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examInfoInsert(dto);
 		return result;
+	}
+	
+	public int examMemberInsert(ExamMemberDto dto) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		int result = dao.examMemberInsert(dto);
+		return result;
+		
 	}
 	/*민지- 10.18 시험등록 끝*/
 
@@ -147,6 +147,11 @@ public class TeacherService {
 		List<ExamInfoDto> result = dao.examScheduleList(member_id);
 		return result;
 	}
+	public List<ExamInfoDto> examScheduleList2(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamInfoDto> result = dao.examScheduleList2(exam_paper_num);
+		return result;
+	}
 	public int deleteExam(int exam_paper_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		
@@ -168,6 +173,11 @@ public class TeacherService {
 		}
 		return result;
 	}
+	public int deleteTempExam(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.deleteExam(exam_paper_num);
+		return result;
+	}
 
 	public List<QuestionDto> updateExamView(int exam_paper_num){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
@@ -184,6 +194,15 @@ public class TeacherService {
 		List<MemberDto> result = dao.classMemberList(exam_paper_num);
 		return result;
 	}
+	public List<MemberDto> classMemberListUpdate(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		List<MemberDto> result = dao.classMemberListUpdate(exam_info_num);
+		return result;
+	}
+	
+	
+	
 	public ClassDto classInfo(int exam_paper_num){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		ClassDto result = dao.classInfo(exam_paper_num);
@@ -220,6 +239,7 @@ public class TeacherService {
 		
 		return result;
 	}
+	
 	
 	/*민지 - 10.22 시험일정 수정 끝*/
 	

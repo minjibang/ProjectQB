@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link
-	href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
+	href="${pageContext.request.contextPath}/css/examScheduleRegist.css"
 	rel="stylesheet">
  <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleRegist.js"></script> 
@@ -16,15 +16,17 @@
 
 <section id="main-content">
   <section class="wrapper-low">
-  
+ 
     <div class="row mt">
       <div class="col-lg-12 mt">
         <div class="row content-panel">
           <div class="panel-body">
               <div id="updateExam" class="tab-pane">
                 <div class="row">
+                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
                   <div class="col-md-12">
                   	<h2><strong>시험 일정 등록</strong></h2>
+                  	
                     <div class="col-md-2" id="examScheduleUpdateMember">
 	                    <div class="invite-row">
 	                      <h4 class="pull-left">응시대상자</h4>
@@ -38,7 +40,7 @@
 	                        <ul class="chat-available-user" id ="checkboxNameUl">
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox"  name="chk" value="chk">(${classMemberList.member_id })${classMemberList.member_name}
+	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}">(${classMemberList.member_id })${classMemberList.member_name}
 	                            </label>
 	                          </div>
 	                        </ul>
@@ -56,16 +58,16 @@
                      </div>
                     <div class="col-md-8 detailed">
                     <%-- 폼 양식 시작 --%>        
-                      <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">
+                     
                          <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>                         
                          <input type="hidden" id="exam_paper_num" name="exam_paper_num" value="${param.exam_paper_num}"/> 
                          <input type="hidden" id="class_num" name="class_num" value="${class_num}"/>
                          <input type="hidden" id="class_name" name="class_name" value="${class_name}"/> 
-
+			<input type="hidden" id="memberarray2" name="memberarray2" />
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
-                            <p><input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" required></p>
+                            <p><input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" readonly required></p>
                              
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
@@ -125,6 +127,7 @@
                       </div>
                       <div class="col-md-2">
                       </div>
+                      <input type="hidden" id="memberlistbox" name="memberlistbox"/>
                       <div class="col-md-4">
 
                         <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn">시험 일정 등록</button>
@@ -173,7 +176,23 @@
 
 
 
+	
+
 function check(){
+	
+	/*체크박스 값 설정*/
+
+	var memberarray = new Array();
+	$("input:checkbox[name=chk]:checked").each(function(){
+		memberarray.push($(this).val());
+	});
+    console.log("memberarray>>"+memberarray+"<<");
+    
+    document.getElementById("memberarray2").setAttribute('value',memberarray);
+    console.log("memberarray2>>"+$('#memberarray2').val()+"<<");
+    
+	/*체크박스 값 설정 끝*/
+	
 	var timeinfodiv = document.getElementById("timeinfo");
 	
 	var datecheck = false;
@@ -185,8 +204,9 @@ function check(){
 	
 	var start_m=start.substring(3);
 	var end_m = end.substring(3);
-
 	
+	console.log("date값>>>"+$('#exam_info_date').val()+"<<");
+
 	if(start_hour > end_hour){
 		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
 		timeinfodiv.style.color = 'red';
@@ -207,9 +227,16 @@ function check(){
 		timeinfodiv.style.color = 'bule';
 		return false;
 		
+	}else if($('#exam_info_date').val()==""){
+		alert("날짜를 입력하세요");
+		return false;
+	}else if(memberarray==""){
+		alert("학생을 선택하세요.");
+		return false;
 	}else {
 		var insertconfirm = confirm("시험등록 하시겠습니까?");
 		if(insertconfirm == true){
+	
 			return true;
 		}else{
 			return false;

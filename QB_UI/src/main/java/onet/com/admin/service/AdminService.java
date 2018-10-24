@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import onet.com.admin.dao.AdminDao;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
@@ -47,6 +48,25 @@ public class AdminService {
 	public List<CategoryDto> smCategoryList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<CategoryDto> result = dao.smCategoryList();
+		return result;
+	}
+	
+	//문제관리 페이지 - 전체 문제정보 
+	public List<QuestionDto> question(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<QuestionDto> result = dao.question();
+		return result;
+	}
+	public List<Question_choiceDto> question_choice(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<Question_choiceDto> result = dao.question_choice();
+		return result;
+	}
+	
+	//문제 검색
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype, keyword);
 		return result;
 	}
 	
@@ -98,7 +118,7 @@ public class AdminService {
 		return result;
 	}
 	
-/*##################        재훈 시작              ##################*/
+/*##################        재훈 끝              ##################*/
 	
 	
 
