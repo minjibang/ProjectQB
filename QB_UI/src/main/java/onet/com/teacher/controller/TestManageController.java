@@ -6,22 +6,24 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import onet.com.admin.service.AdminService;
 import onet.com.teacher.service.TeacherService;
+import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
@@ -33,6 +35,9 @@ public class TestManageController {
 
 	@Autowired
 	private TeacherService teacherService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	
 
@@ -89,26 +94,48 @@ public class TestManageController {
 		
 		return "common.teacher.exam.examManagement";
 	}
+	//시험지 삭제
 	@RequestMapping("deleteExam.do")
 	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
-		int result = teacherService.deleteExam(exam_paper_num);	
+		int result = teacherService.deleteExam(exam_paper_num);
 		
-		if(result == 0) {
-			System.out.println("삭제실패");
-		}
+		return result;
+	}
+	
+	@RequestMapping("deleteTempExam.do")
+	public @ResponseBody int deleteTempExam(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		int result = teacherService.deleteTempExam(exam_paper_num);
 		
 		return result;
 	}
 	
 	@RequestMapping("updateExamView.do")
-	public String updateExamView(RedirectAttributes redirectAttributes, int exam_paper_num) {
-		List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
-		redirectAttributes.addFlashAttribute("examquestion", question);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		redirectAttributes.addFlashAttribute("examquestion_choice", question_choice);
+	public String updateExamView(Model model, int exam_paper_num) {
 		
-		return "redirect:examPaperMake.do";
+		List<CategoryDto> list1;
+		list1 = adminService.lgCategoryList();
+		model.addAttribute("list1", list1);
+
+		List<CategoryDto> list2;
+		list2 = adminService.mdCategoryList();
+		model.addAttribute("list2", list2);
+
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		List<CategoryDto> levellist;
+		levellist = adminService.questionLevelList();
+		model.addAttribute("levellist",levellist);
+		
+		List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
+		model.addAttribute("examquestion", question);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		model.addAttribute("examquestion_choice", question_choice);
+		
+		return "common.teacher.exampaper.examPaperUpdate";
 	}
 	/*성태용 끝*/
 	
@@ -132,8 +159,12 @@ public class TestManageController {
 	}
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+	public  String examInfoInsert(ExamInfoDto dto,String memberarray2,int exam_paper_num ,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		System.out.println("시험등록컨트롤러들어옴");
+		System.out.println("memberarray2값>>"+memberarray2+"<<");
+		
+		String [] memberchecklist= memberarray2.split(",");
+		int checkresult;
 		int result = 0;
 		String viewpage="";
 		
@@ -142,9 +173,33 @@ public class TestManageController {
 			System.out.println("시험등록성공");
 			String class_name = dto.getClass_name();
 			System.out.println(class_name);
-			
+	
 			String url = URLEncoder.encode(class_name, "UTF-8");
+			String memberid="";
+			for(int i = 0; i<=memberchecklist.length-1;i++) {
+				
+				 memberid = memberchecklist[i];
+				ExamMemberDto exammemberdto = new ExamMemberDto();
+				System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+				List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
+				int infonum = examinfolist.size()-1;
+				System.out.println(examinfolist.toString());
+				int infonum2 = examinfolist.get(infonum).getExam_info_num();
+	
+				System.out.println("examinfolist>>>" + infonum2+ "    <<");
+				exammemberdto.setExam_info_num(infonum2);
+				exammemberdto.setMember_id(memberid);
+				checkresult=teacherService.examMemberInsert(exammemberdto);
+				
+				if(checkresult>0) {
+					System.out.println("체크리스트 insert 성공");
+				}else {
+					System.out.println("체크리스트 insert 실패");
+				
+			}
+			}
 			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+
 		}else {
 			System.out.println("시험등록 실패");
 			
@@ -207,10 +262,19 @@ public class TestManageController {
 	@RequestMapping("examScheduleUpdate.do")
 	public String examScheduleUpdate(Model model, int exam_info_num) {
 
+
+		List<MemberDto> classMemberListUpdate;
+		classMemberListUpdate= teacherService.classMemberListUpdate(exam_info_num);
+		model.addAttribute("classMemberListUpdate", classMemberListUpdate);
 		
 		List<ExamInfoDto> classExamList;
 		classExamList= teacherService.classExamList(exam_info_num);
 		model.addAttribute("classExamList", classExamList);
+		
+		List<ExamMemberDto> classExamMemberList;
+		classExamMemberList= teacherService.classExamMemberList(exam_info_num);
+		model.addAttribute("classExamMemberList", classExamMemberList);
+		System.out.println("classExamMemberList>>   " + classExamMemberList + "   <<");
 		/*
 		List<ExamPaperDto> examPaperList;
 		examPaperList = teacherService.examPaperList(class_num);

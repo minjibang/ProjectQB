@@ -10,17 +10,24 @@
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
+
 <section id="main-content">
-	<section class="wrapper">
-		<!-- page start-->
+	<section class="wrapper site-min-height">
 		<div class="row mt">
-			<div class="col-sm-9">
-				<section class="panel">
-					<header class="panel-heading wht-bg">
-						<h4 class="gen-case">공지사항</h4>
-					</header>
-					<div class="panel-body minimal">
-						<div class="table-inbox-notice-wrap ">
+			<div class="col-lg-12">
+				<div class="row content-panel noticePageContent">
+					<div class="panel-content">
+						<div class="panel-heading">
+							<header class="panel-heading wht-bg">
+								<h4 class="gen-case">
+								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;공지사항</h4>
+							</header>
+						</div>
+					
+						<div class="panel-body">
+					
+						
+						
 							<table class="table table-inbox-notice table-hover" id="noticetable">
 								<thead>
 									<tr>
@@ -46,18 +53,24 @@
 										</c:forEach>
 								</tbody>
 							</table>
+							<div>
+								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
+							</div>
+						</div><!-- panel-body -->
+						
+						
+					</div><!-- panel-content -->
+				</div><!-- row content-panel -->
+				
+				<div class="row content-panel noticePageContent">
+					<div class="panel-content">
+						<div class="panel-heading">
+							<header class="panel-heading wht-bg">
+								<h4 class="gen-case">
+								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;시험 일정</h4>
+							</header>
 						</div>
-						<div>
-							<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
-						</div>
-					</div>
-				</section>
-				<section class="panel">
-					<header class="panel-heading wht-bg">
-						<h4 class="gen-case">시험 일정</h4>
-					</header>
-					<div class="panel-body minimal">
-						<div class="table-inbox-wrap ">
+						<div class="panel-body">
 							<table class="table table-inbox-exam table-hover" id="noticetable2">
 								<thead>
 									<tr>
@@ -80,40 +93,15 @@
 									</c:forEach>
 								</tbody>
 							</table>
+						
 						</div>
 					</div>
-				</section>
-			</div>
-			<div class="col-sm-3">
-				<section class="panel">
-					<div class="panel-body">
-						<div class="profile-text">
-							<h3>Today Exam</h3>
-						</div>
-						<ul class="nav nav-pillsnav-stacked  mail-nav">
-							<li class="active"><a href="inbox.html"> <i
-									class="fa fa-inbox"></i> Inbox <span
-									class="label label-theme pull-right inbox-notification">3</span></a></li>
-							<li><a href="#"> <i class="fa fa-envelope-o"></i> Send
-									Mail
-							</a></li>
-							<li><a href="#"> <i class="fa fa-exclamation-circle"></i>
-									Important
-							</a></li>
-							<li><a href="#"> <i class="fa fa-file-text-o"></i>
-									Drafts <span
-									class="label label-info pull-right inbox-notification">8</span></a>
-							</li>
-							<li><a href="#"> <i class="fa fa-trash-o"></i> Trash
-							</a></li>
-						</ul>
-					</div>
-				</section>
-			</div>
-		</div>
-	</section>
-	<!-- /wrapper -->
-</section>
+				</div>
+			</div><!-- /col-lg-12 -->
+		</div><!-- /row mt -->
+	</section><!-- /wrapper -->
+</section> <!-- /main-content -->
+
 
 <script>
 $(document).ready(function(){

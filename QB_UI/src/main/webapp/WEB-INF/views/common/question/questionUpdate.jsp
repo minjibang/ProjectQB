@@ -58,37 +58,38 @@
 
 <!--main content start-->
 <section id="main-content">
-
 	<section class="wrapper site-min-height">
-		<div class="content-panel">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-12 ">
-						<form class="formNewQuestion" action="insertQuestion.do"
-							method="post" onsubmit="return check()">
-						<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
-						 <c:forEach items="${qdto}" var="qdto"> 
-						 <c:forEach items="${qcat}" var="qcat">
-	
-						 <input type="text" id="qdto_question_num" name="qdto_question_num" style="display: none" value="${qdto.question_num}">
-						 <input type="text" name="qdto_question_answer" style="display: none" value="${qdto.question_answer}">
-						 <c:forEach items="${cdto}" var="cdto">
-						 <input type="text" name="cdto_question_num" style="display: none" value="${cdto.question_num}">  
-						 <input type="text" name="cdto_question_choice_num" style="display: none" value="${cdto.question_choice_num}">  
-						 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}"> 
-						 </c:forEach>
-						 <input type="text" name="qcat_smCatCode" style="display: none" value="${qcat.sm_category_code}">  
-						 <input type="text" name="qcat_mdCatCode" style="display: none" value="${qcat.md_category_code}">  
-						 <input type="text" name="qcat_lgCatCode" style="display: none" value="${qcat.lg_category_code}"> 
-						
-						 <!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 끝 -->
-						 	
-						<input type="text" name="member_id"
-							value="${qdto.member_id}" style="display: none">
-						
-							<h3 id="h3id">문제 수정</h3>
-							<hr>
-							<h4>
+		<div class="row mt">
+			<div class="col-lg-12">
+				<div class="row content-panel">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12 ">
+							<form class="formNewQuestion" action="insertQuestion.do"
+								method="post" onsubmit="return check()">
+							<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
+							 <c:forEach items="${qdto}" var="qdto"> 
+							 <c:forEach items="${qcat}" var="qcat">
+		
+							 <input type="text" id="qdto_question_num" name="qdto_question_num" style="display: none" value="${qdto.question_num}">
+							 <input type="text" name="qdto_question_answer" style="display: none" value="${qdto.question_answer}">
+							 <c:forEach items="${cdto}" var="cdto">
+							 <input type="text" name="cdto_question_num" style="display: none" value="${cdto.question_num}">  
+							 <input type="text" name="cdto_question_choice_num" style="display: none" value="${cdto.question_choice_num}">  
+							 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}"> 
+							 </c:forEach>
+							 <input type="text" name="qcat_smCatCode" style="display: none" value="${qcat.sm_category_code}">  
+							 <input type="text" name="qcat_mdCatCode" style="display: none" value="${qcat.md_category_code}">  
+							 <input type="text" name="qcat_lgCatCode" style="display: none" value="${qcat.lg_category_code}"> 
+							
+							 <!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 끝 -->
+							 	
+								<input type="text" name="member_id"
+								value="${qdto.member_id}" style="display: none">
+							
+								<h3 id="h3id">문제 수정</h3>
+								<hr>
+								<h4>
 							
 								<i class="fa fa-angle-right"></i> 출제자 id:
 								 ( ${qdto.member_id} )<br>
@@ -271,10 +272,12 @@
 						</form>
 						<!-- 문제만들기 패널 종료 -->
 						<!-- /form-panel -->
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</section>
 	<!-- /wrapper -->
 

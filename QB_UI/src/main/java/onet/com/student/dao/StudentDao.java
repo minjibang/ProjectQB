@@ -32,6 +32,13 @@ public interface StudentDao {
 	/* 10.23 현이 학생 지난 시험보기 시작 */
 	public List<ExamInfoDto> searchPastExam(String member_id);
 	public String searchStudentName(String member_id);
+	public List<ExamInfoDto> searchPastExamKeyword(String member_id, String keyword);
 	/* 10.23 현이 학생 지난 시험보기 끝 */
+	
+	/*<select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerDto">*/
+	/*10.24 현이 학생 지난 시험지 보기 시작*/
+	public List<Student_answerDto> selectStudentAnswer(String member_id, int exam_info_num);
+	
+	
 }
 

@@ -8,6 +8,8 @@ import onet.com.vo.CommentDto;
 
 import onet.com.vo.CategoryDto;
 
+import onet.com.vo.Class_chartDto;
+
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
@@ -16,6 +18,7 @@ import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Score_chartDto;
 
 public interface CommonDao {
 	   /*한결 - 메인페이지 데이터 뿌리기 10.10*/
@@ -64,6 +67,7 @@ public interface CommonDao {
 	
 	public List<NoticeDto> noticeDetail(NoticeDto dto);
 	
+
 	public String noticeNumFind(NoticeDto dto);
 	
 	public List<MemberDto> noticeNullCheck(String member_id);
@@ -75,5 +79,12 @@ public interface CommonDao {
 	public int commentReply(CommentDto dto);
 	
 	public int commentInsert(CommentDto dto);
+		
 	
+	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
+	public List<MemberDto> studentInfo(String member_id);
+	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
+	public List<Score_chartDto> studentChartInfo(String member_id);
+	public List<Class_chartDto> classChartInfo(String class_name);
+
 }

@@ -2,10 +2,10 @@
  * 18.10.15 재훈 questionManagement.js 파일 추가 
  */
 
- /*관리자-  전체문제 보여주기 시작*/
+
+
+/*내가 만든 문제 탭 - 페이지 로드시 전체문제 보여주기*/
 $(function() {
-	
-	/*내가 만든 문제 탭 - 페이지 로드시 전체문제 보여주기*/
 	var member_id = document.getElementById("member_id").value;
 	
 	$.ajax({
@@ -59,16 +59,6 @@ $(function() {
 		   var keyword = document.getElementById("keyword").value;
 		   var member_id = document.getElementById("member_id").value;
 		   
-		   swal( "=== 검색 조건 확인용 alert ==="
-				  + "\n lgsearchtype: " + lgsearchtype
-				  + "\n mdsearchtype: " + mdsearchtype
-				  + "\n smsearchtype: " + smsearchtype
-				  + "\n leveltype: " + leveltype
-				  + "\n questiontype: " + questiontype
-				  + "\n keyword: " + keyword
-				  + "\n member_id: " + member_id
-		   		);
-		   
 			$.ajax({
 				  url : "myQuestionSearch.do",
 				  type:'GET',
@@ -93,7 +83,6 @@ $(function() {
 
 
 $(function() {
-	
 	/* 문제 수정 버튼*/
 	$('#singleUpdateModal').on('show.bs.modal', function(question_num){
 		action='modify';
@@ -217,8 +206,7 @@ $(function() {
 				var remove = document.getElementById("choiceInput");
 				remove.innerHTML="";
 				var remove1 = document.getElementById("answerChoiceText");
-				remove1.innerHTML="";
-							
+				remove1.innerHTML="";	
 				var _choiceInput1 ='<b><input type="text" name="question_choice_num" value="1" style="display: none">1.</b> <input type="text" name="question_choice_content" class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요." id="question_choice_content1"> <span class="fileupload fileupload-new imageup" data-provides="fileupload"> <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div> <span> <span class="btn btn-theme02 btn-file"> <span class="fileupload-new"> <i class="fa fa-paperclip"></i>image </span> <span class="fileupload-exists"><i class="fa fa-undo"></i>Change </span> <input type="file"  name="question_choice_image" class="default" /> </span> <a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a> </span> </span><br>'
 				var _choiceInput2 ="<b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' id='question_choice_content2'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_image' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
 				var _choiceInput3 ="<b><input type='text' name='question_choice_num' value='3' style='display: none'>3.</b> <input type='text' name='question_choice_content' class='form-control-inline' placeholder='3번 보기 내용을 입력해주세요.' id='question_choice_content3'> <span class='fileupload fileupload-new imageup' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_image' class='default' /> </span> <a href='' class='btn btn-theme04 fileupload-exists' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</a> </span> </span><br>"
@@ -283,24 +271,10 @@ function check(){
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
 	var _choiceQuantity = document.getElementById("howManyChoices").value;
-	
-/*	
-  		alert( "=== 문제 생성 입력값 확인용 alert ==="
-			  + "문제 타입: " 			+ _shortAnswerQuestion
-			  + "\n 소분류: " 		+ _smCategory
-			  + "\n 난이도: " 		+ _questionLevel
-			  + "\n 문제내용: " 		+ _questionName
-			  + "\n 정답: " 			+ _questionChoiceAnswer
-			  + "\n 객관식보기1번: " 	+ _questionChoiceContent1
-			  + "\n 객관식보기2번: " 	+ _questionChoiceContent2
-			  + "\n 객관식보기3번: " 	+ _questionChoiceContent3
-			  + "\n 객관식보기4번: " 	+ _questionChoiceContent4
-			  + "\n 객관식보기5번: " 	+ _questionChoiceContent5
-			  + "\n 객관식보기갯수: " 	+ _choiceQuantity
-	   		);
-*/	
+	_questionName= _questionName.replace("\r\n|\r|\n","<br>");
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
+		
 		/*객관식 문제 생성 유효성검사*/
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");

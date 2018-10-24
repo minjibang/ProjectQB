@@ -76,15 +76,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 시험 일정 리스트 뿌려주기 -->
 <select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
-	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
+	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id}) order by exam_info_date desc
 </select>
 
-<update id="deleteExam">
+
+<select id="examScheduleList2" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where exam_paper_num = #{exam_paper_num}
+</select>
+
+
+
+
+<!-- 시험지 삭제 -->
+<delete id="deleteExam">
+	delete from exam_paper where exam_paper_num = #{param1}
+</delete>
+<!-- 내시험지 삭제 -->
+
+<update id="updateExam">
+
 	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
 </update>
 
-<select id="updateExamView" resultType="onet.com.vo.QuestionDto">
-	select * from question where question_num = ANY(select question_num from exam_question where exam_paper_num = #{param1})
+<select id="updateExamView" resultType="onet.com.vo.ExamPaperUpdateDto">
+	select q.question_num, q.question_name, q.question_img, q.question_answer, q.question_correct_ratio, eq.exam_question_score, eq.exam_question_seq, ql.level_name, md.md_category_name, sm.sm_category_name, q.member_id 
+	from exam_paper ep join exam_question eq on(ep.exam_paper_num = eq.exam_paper_num) 
+	join question q on(eq.question_num = q.question_num) 
+	join question_sm_category sm on(q.sm_category_code = sm.sm_category_code)
+	join question_md_category md on(sm.md_category_code = md.md_category_code) 
+	join question_level ql on(q.level_code = ql.level_code)
+	where eq.exam_paper_num =#{param1} order by eq.exam_question_seq asc
+</select>
+
+<select id="checkExamInfo" resultType="int">
+	select count(*) from exam_info where exam_paper_num = #{param1}
+</select>
+
+<select id="checkDate" resultType="int">
+<![CDATA[
+	select count(*) from exam_info where exam_paper_num = #{param1} and exam_info_date > now()
+]]>
 </select>
 
 <!-- 태용 끝 -->
@@ -92,6 +123,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="classMemberList" resultType="onet.com.vo.MemberDto">
 	select member_id, member_name from member where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
 </select>
+<select id="classMemberListUpdate" resultType="onet.com.vo.MemberDto">
+select member_id, member_name from member where class_name=(select class_name from exam_info where exam_info_num = #{exam_info_num});
+</select>
+
 <select id="classInfo" resultType="onet.com.vo.ClassDto">
 	select class_num,class_name from class where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
 </select>
@@ -151,21 +186,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 <!-- 영준 10.16 내 시험지 끝 -->
-<!-- 영준 10.17 내 시험지  삭제 시작 -->
-<delete id="examPaperDelete" parameterType="int">
-	DELETE FROM exam_paper
-	WHERE exam_paper_num=#{exam_paper_num}
-</delete>
-<!-- 영준 10.17 내 시험지  삭제 끝 -->
-
-
-
 
 
 <!-- 민지-10.18 시험등록 -->
 <insert id="examInfoInsert" parameterType="onet.com.vo.ExamInfoDto">
  INSERT INTO exam_info(exam_paper_num, class_name, exam_info_name,exam_info_desc,exam_info_member,exam_info_date,exam_info_start,exam_info_end,exam_info_time)
         VALUES(#{exam_paper_num},#{class_name},#{exam_info_name},#{exam_info_desc},#{exam_info_member},#{exam_info_date},#{exam_info_start},#{exam_info_end},#{exam_info_time})     
+</insert>
+
+<insert id="examMemberInsert" parameterType="onet.com.vo.ExamMemberDto">
+INSERT INTO exam_member values(#{exam_info_num},#{member_id})
 </insert>
 <!-- 민지 10.18 시험등록 끝 -->
 
@@ -208,6 +238,10 @@ select * from exam_info where exam_info_num=#{exam_info_num}
 <update id="examInfoIUpdate" parameterType="onet.com.vo.ExamInfoDto">
 	update exam_info set exam_info_desc=#{exam_info_desc}, exam_info_member=#{exam_info_member}, exam_info_date=#{exam_info_date}, exam_info_start=#{exam_info_start},exam_info_end=#{exam_info_end}, exam_info_time=#{exam_info_time} where exam_info_num = #{exam_info_num}
 </update>
+
+<select id="classExamMemberList" parameterType="onet.com.vo.ExamMemberDto" resultType="onet.com.vo.ExamMemberDto">
+select * from exam_member where exam_info_num = #{exam_info_num}
+</select>
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>
