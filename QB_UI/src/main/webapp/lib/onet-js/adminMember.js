@@ -250,8 +250,10 @@ $(function(){
 		//검색조건 유효성
 		if(searchRole==""&&searchClassName==""&&searchBox==""){
 			swal("Error!", "검색값을 입력해주십시오.", "error");
+			return false;
 		}else if(searchRole==""&&searchClassName==""&&searchMemberInfo==""){
 			swal("Error!", "검색할 조건 입력해주십시오.", "error");
+			return false;
 		}
 		
 		$.ajax({
