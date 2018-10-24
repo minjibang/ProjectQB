@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,7 +86,14 @@ public class StudentController {
 	/* 지난 시험보기 */
 	/*한결 10.12 지난 시험보기 페이지 로드 시작*/
 	@RequestMapping("pastExam.do")
-	public String pastExam() {
+	public String pastExam(Model model, Principal principal) {
+		
+		// 10.23 현이 추가 
+		String member_id = principal.getName();
+		List<ExamInfoDto> examInfoList = studentService.searchPastExam(member_id);
+		String member_name = studentService.searchStudentName(member_id);
+		model.addAttribute("examInfoList", examInfoList);
+		model.addAttribute("member_name", member_name);
 
 		return "student.pastExam";
 	}
@@ -98,8 +106,8 @@ public class StudentController {
 	
 	/*시험일정 > 시험응시 활성화*/
 	@RequestMapping("examPaperDo.do")
-	public String examPaperDo() {
-
+	public String examPaperDo() {			//	현재 examPaperDo2 로 매핑 중
+		
 		return "exam.student.examPaperDo";
 	}
 	/* 한결 10.12 지난 시험보기 및 시험응시 페이지 로드 끝 */

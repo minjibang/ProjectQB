@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.admin.service.AdminService;
@@ -347,8 +348,8 @@ public class AdminController {
 		String member_id = principal.getName();
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
-		
-		return "common.adminClass.admin.question.questionManagement";
+
+		return "common.admin.question.questionManagement";
 	}
 	//관리자 - 문제 관리 페이지 문제 출력 
 	@RequestMapping(value="myQuestionView.do")
