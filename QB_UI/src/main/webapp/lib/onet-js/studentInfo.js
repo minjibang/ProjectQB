@@ -7,9 +7,6 @@
 
 //ChartJS
 
-
-
-
 //반평균 막대 차트 시작
 var ctx = document.getElementById('bar2').getContext('2d');
 var myBarChart = new Chart(ctx, {
