@@ -1,9 +1,11 @@
 ﻿package onet.com.admin.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import onet.com.admin.dao.AdminDao;
 import onet.com.vo.CategoryDto;
@@ -62,18 +66,34 @@ public class AdminService {
 	}
 	@Transactional
 	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
+		System.out.println("adminService 진입>>> \n" + dto2 +"\n" + dto);
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
+		String[] question_choice_image;
+		
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		
 		int question_num=dto2.getQuestion_num();		
 		question_choice_num=dto.getQuestion_choice_num().split(",");
 		question_choice_content=dto.getQuestion_choice_content().split(",");
+		question_choice_image=dto.getQuestion_choice_image().split(",");
+		System.out.println("adminService 진입 >>> 스트링배열값 확인 \n" + question_choice_num +", \n" 
+				+question_choice_content +",\n" + question_choice_image );
+		int imgCount = question_choice_image.length;
+			for(int i=0; i<question_choice_image.length; i++) {
+				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], question_choice_image[i]);
+				}
+			for(int f = imgCount; f<question_choice_num.length; f++) {
+				result=dao.insertQuestionChoiceNoImg(question_num, question_choice_num[f], question_choice_content[f]);
+			}
+
 					
-		for(int i=0;i<question_choice_num.length;i++) {
+		/* 재훈쓰 원본
+		 * for(int i=0;i<question_choice_num.length;i++) {
 			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
-		}		
+		}*/
+
 		
 		return result;
 	}
@@ -417,6 +437,5 @@ public class AdminService {
 		return list;
 	}
 	/*정원 문제분류 끝*/
-	
 	
 }
