@@ -345,7 +345,7 @@
 													  <span class="fileupload fileupload-new" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;">
-															<input type="file" name="files[0]" class="default"/>
+															
 														</div>
 														<span>
 															<span class="btn btn-theme02 btn-file">
@@ -355,7 +355,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="files[0]" class="default"/>
+																<input type="file" name="question_choice_image" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -378,7 +378,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="files[1]" class="default"/>
+																<input type="file" name="question_choice_image" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -401,7 +401,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="files[2]" class="default"/>
+																<input type="file" name="question_choice_image" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -424,7 +424,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="files[3]" class="default"/>
+																<input type="file" name="question_choice_image" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -447,7 +447,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="files[4]" class="default"/>
+																<input type="file" name="question_choice_image" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
