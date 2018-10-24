@@ -395,7 +395,8 @@ public class AdminController {
 			} else {
 			adminService.insertQuestion(dto2);
 			}
-			return "common.adminClass.admin.question.questionManagement";
+			
+			return "redirect:questionManagement.do";
 		}
 	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단
 	@RequestMapping("singleQuestionDelete.do")
