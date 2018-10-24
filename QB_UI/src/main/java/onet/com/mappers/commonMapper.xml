@@ -143,5 +143,8 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	select * from comment where class_name=#{class_name} and notice_num=#{notice_num} and comment_group != 0
 </select>
 
+<insert id="commentReply" parameterType="onet.com.vo.CommentDto">
+	insert into comment(comment_group,class_name,notice_num,member_id,comment_content) values(#{comment_num},#{class_name},#{notice_num},#{member_id},#{comment_content})
+</insert>
 
 </mapper>

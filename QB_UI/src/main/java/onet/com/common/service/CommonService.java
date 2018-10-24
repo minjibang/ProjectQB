@@ -187,7 +187,7 @@ public class CommonService {
 
 
 //문제관리 - 문제 수정 전 수정가능여부 판단
-
+	/*######################      재훈 끝             ######################*/
 	public int singleUpdateCheck(int question_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = 0;
@@ -251,7 +251,16 @@ public class CommonService {
 		return commentGroup;
 	}
 		
-/*######################      재훈 끝             ######################*/
+	public int commentReply(CommentDto dto){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentReply(dto);
+		return result;
+	}
+
+
+	
+
+
 }
 
 	

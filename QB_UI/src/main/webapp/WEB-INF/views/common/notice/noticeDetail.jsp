@@ -25,7 +25,6 @@
 								<div class="col-md-4 pull-right noticeDetailWriterDiv">
 									<p class="date">
 										<strong>${result[0].member_id}</strong>&nbsp; &nbsp; ${result[0].notice_date} &nbsp; &nbsp;
-										
 									</p>
 								</div>
 							</div>
@@ -61,17 +60,17 @@
 								</c:choose>
 							</ul>
 						</div>
-						
+						<div id="list1body">
 						<c:forEach items="${comment}" var="comment">
 						<c:choose>
 						<c:when test="${comment.comment_group eq 0}">
-						<div class="row noticeView_Comments_1 noticeContent" id="${comment.comment_num}">
+						<div class="row noticeView_Comments_1 noticeContent comment_number" id="${comment.comment_num}">
 							<div class="col-sm-3">
 								<strong>${comment.member_id}</strong><br> ${comment.comment_date}
 							</div>
 							<div class="col-sm-8">${comment.comment_content}</div>
 							<div class="col-sm-1">
-								<a class="gg"><i class="fa fa-reply"></i>답글</a> 
+								<a class="reply"><i class="fa fa-reply"></i>댓글</a> 
 							</div>
 							
 						</div>
@@ -81,20 +80,20 @@
 						<c:forEach items="${commentGroup}" var="commentGroup">
 						<c:choose>
 						<c:when test="${commentGroup.comment_group eq comment.comment_num}">
-						<div class="row noticeView_Comments_2 noticeContent">
+						<div class="row noticeView_Comments_2 noticeContent" id="${commentGroup.comment_group}">
 							<div class="col-sm-3">
 								<strong>ㄴ ${commentGroup.member_id}</strong><br>${commentGroup.comment_date}
 							</div>
 							<div class="col-sm-8">${commentGroup.comment_content}</div>
 							<div class="col-sm-1">
-								<a href=""><i class="fa fa-reply"></i>답글</a>
+								<a class="replyReply"><i class="fa fa-reply"></i>댓글</a>
 							</div>
 						</div>
 						</c:when>
 						</c:choose>
 						</c:forEach>
 						</c:forEach>
-						
+						</div>
 						<br>
 						
 						
@@ -116,38 +115,82 @@
 
 <script>
 $(document).ready(function(){
+	var notice_num = "<c:out value='${result[0].notice_num}'/>";
+	var class_name = "<c:out value='${result[0].class_name}'/>";
 	
-	$('.gg').click(function (){
+	$(document).on('click','.reply',function(){
 		
-		if($(this).text()=='답글'){
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent'><div class='col-sm-3'>ㄴ <input type='text'></div></div>");
+		if($(this).text()=='댓글'){
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent'><div class='col-sm-3'>ㄴ <input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');	
 		}else{
 			$(this).parent().parent().next().remove();
-			$(this).html('<i class="fa fa-reply"></i>답글');
+			$(this).html('<i class="fa fa-reply"></i>댓글');
+		}	
+	});
+	
+	$(document).on('click','.replyAdd',function(){
+		var replyInput = $(this).siblings('.replyInput').eq(0).val();
+		var comment_num = $(this).parent().parent().prev().attr('id');
+		$.ajax({
+			 type : "post",
+			 url : "${pageContext.request.contextPath}/teacher/commentReply.do",
+			 data:"notice_num="+notice_num+"&class_name="+class_name+"&comment_num="+comment_num+"&replyInput="+replyInput,  
+			 success : function(data){
+			 	   	$.ajax({
+			 	   		type : "post",
+			 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
+			 	   		success: function(data){
+			 	   				$('#list1body').html(data);
+			 	   		}
+			 	   	});
+			 },
+			 error: function(error){
+			 alert("에러야!");
+			 }
+			 }); 
+		
+	});
+	
+	$(document).on('click','.replyReply',function(){
+		
+		if($(this).text()=='댓글'){
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent'><div class='col-sm-3'>ㄴ <input type='text' class='replyInput' style=width:500px;><a class='replyReplyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).html('<i class="fa fa-share"></i>취소');	
+		}else{
+			$(this).parent().parent().next().remove();
+			$(this).html('<i class="fa fa-reply"></i>댓글');
 		}	
 		});
+	
+	$(document).on('click','.replyReplyAdd',function(){
+		var replyInput = $(this).siblings('.replyInput').eq(0).val();
+		var comment_num = $(this).parent().parent().prev().attr('id');
+		console.log(replyInput);
+		console.log(comment_num);
+		$.ajax({
+			 type : "post",
+			 url : "${pageContext.request.contextPath}/teacher/commentReply.do",
+			 data:"notice_num="+notice_num+"&class_name="+class_name+"&comment_num="+comment_num+"&replyInput="+replyInput,  
+			 success : function(data){
+			 	   	$.ajax({
+			 	   		type : "post",
+			 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
+			 	   		success: function(data){
+			 	   				$('#list1body').html(data);
+			 	   		}
+			 	   	});
+			 },
+			 error: function(error){
+			  alert("에러야!"); 
+			 }
+			 });
+	
+	
+	
 					});
 
-	/* $.ajax({
-	 type : "post",
-	 url : "${pageContext.request.contextPath}/teacher/commentReply.do",
-	 data:{lgCatCode:$('#lgCode').val(), lgCatName:$('#lgName').val(), lgBeforeName:$('#updateLgBtn').val()},  
-	 success : function(data){
-	 if(data.result =="Notnull"){
-	 swal("중복된 이름이 있습니다", "다른 이름을 사용하여 수정해주세요", "error");
-	 }else{
-	 swal({
-	 title: "대분류 정보가 수정되었습니다",
-	 text: "",
-	 icon:"success"
-	 }).then(function() {
-	 window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
-	 });
-	 }	   			 
-	 },
-	 error: function(error){
-	 alert("에러야!");
-	 }
-	 }); */
+});
 </script>
