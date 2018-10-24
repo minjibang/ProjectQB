@@ -17,6 +17,7 @@
 <link
 	href="${pageContext.request.contextPath}/css/teacherExamManagement.css"
 	rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--main content start-->
 
 <section id="main-content">
@@ -244,7 +245,26 @@ function deleteExamCheck() {
 					'exam_paper_num':exam_paper_num
 				},
 				success:function(data){
-					$('#'+exam_paper_num).parent().parent(".exam-paper-name").remove();
+					if(data == 1){
+						swal({
+							  title: "삭제완료",
+							  icon: "success",
+							});
+						$('#'+exam_paper_num).parent().parent(".exam-paper-name").remove();
+					}else if(data == 2){
+						swal({
+							  title: "삭제완료",
+							  text: "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
+							  icon: "success",
+							});
+						$('#'+exam_paper_num).parent().parent(".exam-paper-name").remove();
+					}else{
+						swal({
+							  title: "삭제불가",
+							  text: "등록된 시험일정이 있습니다.",
+							  icon: "warning",
+							});
+					}
 				},
 				error : function(error) {
 					console.log("===========실패");

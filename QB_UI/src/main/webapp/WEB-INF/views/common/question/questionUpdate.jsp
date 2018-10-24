@@ -58,12 +58,12 @@
 
 <!--main content start-->
 <section id="main-content">
-
 	<section class="wrapper site-min-height">
-		<div class="content-panel">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-12 ">
+		<div class="col-lg-12 mt">
+			<div class="row content-panel">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-12 ">
 						<form class="formNewQuestion" action="insertQuestion.do"
 							method="post" onsubmit="return check()">
 						<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
@@ -271,6 +271,7 @@
 						</form>
 						<!-- 문제만들기 패널 종료 -->
 						<!-- /form-panel -->
+						</div>
 					</div>
 				</div>
 			</div>

@@ -12,31 +12,31 @@
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="col-lg-12 mt">
-			<div class="row content-panel">
-			
-				<%-- 탭 머리 시작 --%>
-				<div class="panel-heading">
-       				<ul class="nav nav-tabs nav-justified">
-          				<li class="active">
-            				<a data-toggle="tab" href="#studentInfo">학생정보</a>
-          				</li>
-          				<li>
-            				<a data-toggle="tab" href="#studentChart">학생 개인 성적확인</a>
-          				</li>
-          				<li>
-            				<a data-toggle="tab" href="#classChart">클래스 통계</a>
-          				</li>
-        			</ul>
-      			</div>
-      			<%-- 탭 머리 종료 --%>
-			
-				<%-- 탭 본문 영역 시작--%>
-				<div class="panel-body">
-					<div class="tab-content">
-						<%-- 학생 정보 탭 시작 --%>
-						<div id="studentInfo" class="tab-pane active">
-							<div class="row">
+		<div class="row mt">
+			<div class="col-lg-12">
+				<div class="row content-panel">
+					<%-- 탭 머리 시작 --%>
+					<div class="panel-heading">
+						<ul class="nav nav-tabs nav-justified">
+          					<li class="active">
+            					<a data-toggle="tab" href="#studentInfo">학생정보</a>
+          					</li>
+          					<li>
+            					<a data-toggle="tab" href="#studentChart">학생 개인 성적확인</a>
+          					</li>
+          					<li>
+            					<a data-toggle="tab" href="#classChart">클래스 통계</a>
+          					</li>
+        				</ul>
+					</div><!-- panel-heading -->
+					<%-- 탭 머리 종료 --%>
+					
+					<%-- 탭 본문 영역 시작--%>
+					<div class="panel-body">
+						<div class="tab-content">
+							<%-- 학생 정보 탭 시작 --%>
+							<div id="studentInfo" class="tab-pane active">
+								<div class="row">
 								<%-- 학생 목록 시작 --%>
 								<div class="col-lg-2">
 									<section class="panel">
@@ -69,20 +69,20 @@
 									<h4 id="studentListEmail">이메일 : ${studentList[0].member_email}</h4>
 									<h4 id="studentListPhone">핸드폰 : ${studentList[0].member_phone}</h4>
 
-									<!-- page start-->
-									<div class="tab-pane" id="chartjs">
-										<div class="row mt">
-											<%--각 시험 성적 바 차트 --%>
-											<div class="col-lg-6">
-												<div class="content-panel">
-													<h4>
-														<i class="fa fa-angle-right"></i> 각 시험 성적
-													</h4>
-													<div class="panel-body text-center">
-														<canvas id="bar1" height="300" width="400"></canvas>
+										<!-- page start-->
+										<div class="tab-pane" id="chartjs">
+											<div class="row mt">
+												<%--각 시험 성적 바 차트 --%>
+												<div class="col-lg-6">
+													<div class="content-panel">
+														<h4>
+															<i class="fa fa-angle-right"></i> 각 시험 성적
+														</h4>
+														<div class="panel-body text-center">
+															<canvas id="bar1" height="300" width="400"></canvas>
+														</div>
 													</div>
 												</div>
-											</div>
 											
 											<%-- 반/학생 평균 선 차트 --%>
 											<div class="col-lg-6">
@@ -99,11 +99,13 @@
 									</div>
 								</div>
 								<%-- 선택 학생 정보 영역 끝 --%>
-							</div>
-						</div>
-						<%-- 학생정보 탭 종료 --%>
-						
-						<%-- 학생 개인 성적 탭 시작 --%>
+								
+								
+								</div><!-- row -->
+							</div><!-- studentInfo -->
+							<%-- 학생 정보 탭 끝 --%>
+							
+							<%-- 학생 개인 성적 탭 시작 --%>
 						<div id="studentChart" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-2">
@@ -460,16 +462,17 @@
 								<%-- 클래스 학생 표/차트 끝 --%>
 							</div>
 							<!-- /row -->
-						</div>
-						<%-- 클래스 통계 탭 끝 --%>
-					</div>
-				</div>
-				<%-- 탭 본문 영역 끝 --%>
-			</div> <!-- row content-panel -->
-		</div>	<!-- row mt -->
-		
-	</section> 	<!-- wrapper -->
-</section>	<!-- /main-content -->
+							</div>
+							<%-- 클래스 통계 탭 끝 --%>
+						
+						</div> <!-- tab-content -->
+					</div> <!-- panel-body -->
+				</div><!-- /row content-panel-->
+			</div><!-- /col-lg-12 -->
+		</div><!-- /row mt -->
+	</section><!-- /wrapper -->
+</section><!-- /MAIN CONTENT -->
+
 
 <%--ChartJS--%>
 <%--ChartJS CDN--%>
