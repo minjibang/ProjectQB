@@ -7,6 +7,18 @@ public class Class_chartDto {
 	private String class_name;
 	private int exam_info_num;
 	private double class_chart_avg;
+	
+	// 양회준10.24추가
+	private String exam_info_name;
+
+	public String getExam_info_name() {
+		return exam_info_name;
+	}
+
+	public void setExam_info_name(String exam_info_name) {
+		this.exam_info_name = exam_info_name;
+	}
+	// 추가
 
 	public String getClass_name() {
 		return class_name;

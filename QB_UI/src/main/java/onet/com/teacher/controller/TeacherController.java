@@ -30,6 +30,7 @@ import onet.com.admin.service.AdminService;
 import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
+import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
@@ -462,18 +463,27 @@ public class TeacherController {
 	public String studentInfo(Model model, Principal principal){
 		//양회준 10-24
 		String member_id = principal.getName();
-		List<MemberDto> studentList = commonService.studentInfo(member_id);	
-		//List<Score_chartDto> studentChart = commonService.studentChartInfo(member_id);		
+		List<MemberDto> studentList = commonService.studentInfo(member_id);
+		//첫번째 학생의 데이터로 차트 가져오기
+		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
+		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
+		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
+		model.addAttribute("classChart",classChart);
+		model.addAttribute("studentChart",studentChart);
 		return "common.teacher.grade.studentInfo";
 	}
+	
 	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> studentChartInfo(@RequestParam("member_id") String member_id){
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		List<Score_chartDto> studentChart = commonService.studentChartInfo(member_id);
-		System.out.println("chart 리턴확인");
-		System.out.println(studentChart);
-		return studentChart;
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		for(Class_chartDto data : studentChart) {
+			System.out.println("과연"+data.getExam_info_name());
+		}
+		return chart;
 	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */

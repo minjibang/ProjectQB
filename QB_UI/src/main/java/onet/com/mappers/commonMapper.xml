@@ -133,9 +133,10 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 
 <!-- 양회준 10-24 관리자, 강사-학생&성적관리 페이지 -->
 <select id="studentInfo" parameterType="String" resultType="onet.com.vo.MemberDto">
-	select member_id, member_email, member_name, member_phone, class_name
-	from member
-	where not member_id=#{member_id} and class_name = 
+	select m.member_id, m.member_email, m.member_name, m.member_phone, m.class_name, mr.role_code
+	from member m join member_role mr on m.member_id=mr.member_id
+	where not m.member_id=#{member_id} and not m.member_enable=0 
+	and mr.role_code='ROLE_STUDENT' and m.class_name = 
 	(select class_name from member where member_id=#{member_id})
 </select>
 <!-- 학생 차트 정보 -->
@@ -143,6 +144,13 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	select * from score_chart 
 	where member_id=#{member_id} and class_name = 
 	(select class_name from member where member_id=#{member_id})
+</select>
+<!-- 클래스 차트 정보 -->
+<select id="classChartInfo" parameterType="String" resultType="onet.com.vo.Class_chartDto">
+	select c.class_name, c.exam_info_num, c.class_chart_avg, e.exam_info_name 
+	from class_chart c join exam_info e
+	on c.exam_info_num=e.exam_info_num
+	where c.class_name=#{class_name}
 </select>
 	
 </mapper>
