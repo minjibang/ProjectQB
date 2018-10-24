@@ -8,26 +8,27 @@ import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
+import onet.com.vo.Question_choiceDto;
 import onet.com.vo.RoleDto;
 
 
 public interface AdminDao {
-	/*  재훈 - 10.08  문제분류관리 관련 시작  */
+	
+	/*##################    재훈 시작         #####################*/
+	/* 문제 분류 리스트 */
 	public List<CategoryDto> lgCategoryList();
 	public List<CategoryDto> mdCategoryList();
 	public List<CategoryDto> smCategoryList();
-	
-	/*  재훈 - 10.08 문제분류관리 관련 끝  */
-	
-	/*  재훈 - 10.15  문제난이도 관련 시작  */
+	/*  문제 난이도 리스트  */
 	public List<CategoryDto> questionLevelList();
-	/*  재훈 - 10.15  문제난이도 관련 끝  */
-	
-	/*  재훈 - 10.16 새 문제 만들기 관련 시작 */
+	/*  문제관리 페이지 전체문제 리스트  */
+	public List<QuestionDto> question();
+	public List<Question_choiceDto> question_choice();
+	/*  새 문제 만들기 */
 	public int insertQuestion(QuestionDto dto);
 	public int insertQuestionChoice(int question_num, String question_choice_num, String question_choice_content, String question_choice_image);
 	public int insertQuestionChoiceNoImg(int question_num, String question_choice_num, String question_choice_content);
-	/*  재훈 - 10.16 새 문제 만들기 관련 끝 */
+	/*##################    재훈 끝          ######################*/
 	
 	/* 영준 - 10.10 회원관리 관련 시작 */
 	

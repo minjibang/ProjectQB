@@ -33,7 +33,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 태용 끝 -->
 
-<!-- 재훈 - 10.08 문제분류관련 (문제관리페이지 시작 -->
+<!-- #####################    재훈 시작       ####################### -->
+<!-- 문제분류 리스트 -->
 
 <select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
 	select * from question_lg_category
@@ -45,13 +46,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from question_sm_category
 </select>
 
-<!-- 재훈 - 10.08 문제분류관련 끝 -->
-
-<!-- 재훈 - 10.15 문제난이도 관련 시작 -->
+<!-- 문제난이도 리스트 -->
 <select id="questionLevelList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
 	select * from question_level
 </select>
-<!-- 재훈 - 10.15 문제난이도 관련 끝 -->
+
+<!-- 전체 문제 리스트   -->
+<select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
+	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
+	(select md_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_code',
+	(select lg_category_code from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_code',
+   (select sm_category_name from question_sm_category where sm_category_code = question.sm_category_code) as 'sm_category_name',
+   (select md_category_name from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_name',
+   (select lg_category_name from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_name',
+   (select level_name from question_level where level_code = question.level_code) as 'level_name',
+   member_id
+   from question order by question_num desc;
+</select>
+<select id="question_choice" parameterType="hashmap" resultType="onet.com.vo.Question_choiceDto">
+	select * from question_choice
+</select>
+
 
 <!-- 재훈 - 10.15 새 문제 만들기 관련 시작-->
 <insert id="insertQuestion" parameterType="onet.com.vo.QuestionDto"

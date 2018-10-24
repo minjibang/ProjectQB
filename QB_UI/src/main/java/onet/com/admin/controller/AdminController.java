@@ -354,9 +354,9 @@ public class AdminController {
 	//관리자 - 문제 관리 페이지 문제 출력 
 	@RequestMapping(value="myQuestionView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
-		List<QuestionDto> question = teacherService.question();
+		List<QuestionDto> question = adminService.question();
 		model.addAttribute("question", question);
-		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		List<Question_choiceDto> question_choice = adminService.question_choice();
 		model.addAttribute("question_choice", question_choice);
 		
 		ModelAndView mv = new ModelAndView();
@@ -366,7 +366,6 @@ public class AdminController {
 		
 		return mv;
 	}
-
 	//관리자 - 문제관리 페이지 분류별/키워드별 검색 기능
 	@RequestMapping(value="myQuestionSearch.do")
 	public @ResponseBody ModelAndView myQuestionSearch(@RequestParam("lgsearchtype") String lgsearchtype, 
