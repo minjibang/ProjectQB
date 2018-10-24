@@ -50,6 +50,19 @@ public class AdminService {
 		return result;
 	}
 	
+	//문제관리 페이지 - 전체 문제정보 
+	public List<QuestionDto> question(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<QuestionDto> result = dao.question();
+		return result;
+	}
+	public List<Question_choiceDto> question_choice(){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<Question_choiceDto> result = dao.question_choice();
+		return result;
+	}
+	
+	
 	//문제 난이도 리스트
 	public List<CategoryDto> questionLevelList(){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
@@ -98,7 +111,7 @@ public class AdminService {
 		return result;
 	}
 	
-/*##################        재훈 시작              ##################*/
+/*##################        재훈 끝              ##################*/
 	
 	
 
