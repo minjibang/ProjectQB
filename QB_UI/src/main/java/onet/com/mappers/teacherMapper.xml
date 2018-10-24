@@ -238,6 +238,10 @@ select * from exam_info where exam_info_num=#{exam_info_num}
 <update id="examInfoIUpdate" parameterType="onet.com.vo.ExamInfoDto">
 	update exam_info set exam_info_desc=#{exam_info_desc}, exam_info_member=#{exam_info_member}, exam_info_date=#{exam_info_date}, exam_info_start=#{exam_info_start},exam_info_end=#{exam_info_end}, exam_info_time=#{exam_info_time} where exam_info_num = #{exam_info_num}
 </update>
+
+<select id="classExamMemberList" parameterType="onet.com.vo.ExamMemberDto" resultType="onet.com.vo.ExamMemberDto">
+select * from exam_member where exam_info_num = #{exam_info_num}
+</select>
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>

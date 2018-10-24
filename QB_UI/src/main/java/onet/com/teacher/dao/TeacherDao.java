@@ -74,5 +74,7 @@ public interface TeacherDao {
 	public List<ExamInfoDto>classExamList(ExamInfoDto dto);
 	
 	public int examInfoIUpdate(ExamInfoDto dto);
+	
+	public List<ExamMemberDto>classExamMemberList(ExamMemberDto dto);
 	/*민지 - 10.22 시험일정 수정 끝*/
 }

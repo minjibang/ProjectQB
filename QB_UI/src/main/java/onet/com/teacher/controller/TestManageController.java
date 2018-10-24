@@ -182,7 +182,6 @@ public class TestManageController {
 				ExamMemberDto exammemberdto = new ExamMemberDto();
 				System.out.println("memberid>>>>>"+memberid+" <<<<<<");
 				List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
-			
 				int infonum = examinfolist.size()-1;
 				System.out.println(examinfolist.toString());
 				int infonum2 = examinfolist.get(infonum).getExam_info_num();
@@ -271,6 +270,11 @@ public class TestManageController {
 		List<ExamInfoDto> classExamList;
 		classExamList= teacherService.classExamList(exam_info_num);
 		model.addAttribute("classExamList", classExamList);
+		
+		List<ExamMemberDto> classExamMemberList;
+		classExamMemberList= teacherService.classExamMemberList(exam_info_num);
+		model.addAttribute("classExamMemberList", classExamMemberList);
+		System.out.println("classExamMemberList>>   " + classExamMemberList + "   <<");
 		/*
 		List<ExamPaperDto> examPaperList;
 		examPaperList = teacherService.examPaperList(class_num);
