@@ -262,6 +262,8 @@ public class TeacherController {
 			String saveFileName = uuid.toString()+ "_" + imgArray[i];
 			String saveFile = path + saveFileName;
 			System.out.println("name >> " + saveFileName + "\n"+"saveFile >> " + saveFile);
+			System.out.println("saveFileName class >> "+saveFileName.getClass());
+			
 		}
 //		file1.transferTo(new File(safeFile1));
 //		String[] imgArray;
@@ -283,13 +285,6 @@ public class TeacherController {
 //			}
 //		}
 		
-		if (dto2.getQuestion_type().equals("객관식")) {
-		adminService.insertQuestion(dto2);
-		adminService.insertQuestionChoice(dto2, dto);
-		} else {
-		adminService.insertQuestion(dto2);
-		}
-		return "redirect:questionManagement.do";
 		/*
 		@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
 	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
@@ -333,7 +328,13 @@ public class TeacherController {
 		return "redirect:teacherMain.do";
 	}
 		 */
-
+		if (dto2.getQuestion_type().equals("객관식")) {
+			adminService.insertQuestion(dto2);
+			adminService.insertQuestionChoice(dto2, dto);
+			} else {
+			adminService.insertQuestion(dto2);
+			}
+			return "redirect:questionManagement.do";
 	}
 		
 	//강사 - 문제 삭제
