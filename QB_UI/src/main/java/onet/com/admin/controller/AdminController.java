@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -386,13 +387,14 @@ public class AdminController {
 
 	//관리자 - 문제관리 페이지 새 문제 만들기 기능
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto) throws ClassNotFoundException, SQLException {
+		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request) 
+				throws IOException, ClassNotFoundException, SQLException {
 		
 			if (dto2.getQuestion_type().equals("객관식")) {
-			adminService.insertQuestion(dto2);
-			adminService.insertQuestionChoice(dto2, dto);
+				adminService.insertQuestion(dto2, request);
+				adminService.insertQuestionChoice(dto2, dto, request);
 			} else {
-			adminService.insertQuestion(dto2);
+				adminService.insertQuestion(dto2, request);
 			}
 			
 			return "redirect:questionManagement.do";

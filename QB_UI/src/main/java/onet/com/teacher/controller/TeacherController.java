@@ -236,92 +236,16 @@ public class TeacherController {
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request ) throws Exception {
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request)
+			throws IOException, ClassNotFoundException, SQLException{
 	
-		String[] imgArray = dto.getQuestion_choice_image().split(",");
-		List<CommonsMultipartFile> files = dto.getFiles();
-		System.out.println("files >> " + files + "\ndto >> " + dto.getQuestion_choice_image());
-		String path =  request.getServletContext().getRealPath("resources/upload/board/");
-		System.out.println("path >> " + path);
-		
-
-		for(int i=0; i<imgArray.length;i++) {
-			UUID uuid = UUID.randomUUID();
-			String saveFileName = uuid.toString()+ "_" + imgArray[i];
-			String saveFile = path + saveFileName;
-			System.out.println("name >> " + saveFileName + "\n"+"saveFile >> " + saveFile);
-		}
-//		file1.transferTo(new File(safeFile1));
-//		String[] imgArray;
-		
-		
-		
-//		System.out.println(dto.getQuestion_choice_image());
-//		imgArray = dto.getQuestion_choice_image().split(",");
-//		for(int i=0; i<imgArray.length;i++) {
-//		
-//			System.out.println(imgArray[i]);
-//			String path =  request.getServletContext().getRealPath("resources/upload/question_choice/");
-//			UUID uuid = UUID.randomUUID();
-//			String savaFile1 = uuid.toString()+"_" + imgArray[i];
-//			String safeFile1 = path + savaFile1;
-//			if(imgArray[i] != "") {
-//				
-//				
-//			}
-//		}
-		
-		if (dto2.getQuestion_type().equals("객관식")) {
-		adminService.insertQuestion(dto2);
-		adminService.insertQuestionChoice(dto2, dto);
-		} else {
-		adminService.insertQuestion(dto2);
-		}
-		return "redirect:questionManagement.do";
-		/*
-		@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
-	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
-		String member_id = principal.getName();
-		dto.setMember_id(member_id);
-		long time = System.currentTimeMillis(); 
-		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String str = dayTime.format(new Date(time));
-		dto.setNotice_date(str);
-		
-		MultipartFile file1 = request.getFile("files1");
-		MultipartFile file2 = request.getFile("files2");
-		String originFileName1 = file1.getOriginalFilename();
-		String originFileName2 = file2.getOriginalFilename();
-		long fileSize1 = file1.getSize();
-		long fileSize2 = file2.getSize();
-		String path =  request.getServletContext().getRealPath("resources/upload/board/");
-		
-		UUID uuid = UUID.randomUUID();
-		String savaFile1 = uuid.toString()+"_" + originFileName1;
-		String saveFile2 = uuid.toString()+"_" + originFileName2;
-		
-		String safeFile1 = path + savaFile1;
-		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
-		if(fileSize1 > 0 && fileSize2 > 0) {
-			file1.transferTo(new File(safeFile1));
-			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file1(savaFile1);
-			dto.setNotice_file2(saveFile2);
-		}else if(fileSize1 > 0 && fileSize2 == 0){
-			file1.transferTo(new File(safeFile1));
-			dto.setNotice_file1(savaFile1);
-		}else if(fileSize2 > 0 && fileSize1 == 0) {
-			file2.transferTo(new File(safeFile2));
-			dto.setNotice_file2(saveFile2);
-		}
-		int result = commonService.insertBoardList(dto);
-		
-	
-		return "redirect:teacherMain.do";
-	}
-		 */
-
+			if (dto2.getQuestion_type().equals("객관식")) {
+				adminService.insertQuestion(dto2, request);
+				adminService.insertQuestionChoice(dto2, dto, request);
+			} else {
+				adminService.insertQuestion(dto2, request);
+			}
+			return "redirect:questionManagement.do";
 	}
 		
 	//강사 - 문제 삭제
