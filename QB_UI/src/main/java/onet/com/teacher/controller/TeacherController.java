@@ -511,7 +511,6 @@ public class TeacherController {
 		dto.setMember_id(member_id);
 		dto.setComment_content(replyInput);
 		int result = commonService.commentReply(dto);
-		System.out.println(result);
 		return result;
 		
 	}
@@ -528,9 +527,19 @@ public class TeacherController {
 		mv.addObject("comment", comment);
 		mv.addObject("commentGroup", commentGroup);
 		mv.addObject("name", name);
-		System.out.println("에러2");
 		return mv;
 	}
 	
-
+	@RequestMapping("commentInsert.do")
+	public @ResponseBody int commentInsert(Model model, String class_name, int notice_num, String textarea, Principal principal) {
+		String name = principal.getName();
+		CommentDto dto = new CommentDto();
+		dto.setMember_id(name);
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		dto.setComment_content(textarea);
+		int result = commonService.commentInsert(dto);
+		return 0;
+	}
+	
 }

@@ -4,6 +4,16 @@
 
 <link href="${pageContext.request.contextPath}/css/noticeView.css"
 	rel="stylesheet">
+<style>
+#replyAddBtn{
+	width:100%;
+	height:100px;
+}
+#replyArea{
+	width:100%;
+	height:100px;
+}
+</style>
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -35,6 +45,7 @@
 						</div>
 						<div class="attachment-mail noticeContent">
 							<p>
+							<span></span>
 								<span><i class="fa fa-paperclip"></i> 첨부된 파일</span>
 							</p>
 							<ul>
@@ -71,8 +82,15 @@
 							<div class="col-sm-6">${comment.comment_content}</div>
 							<div class="col-sm-3">&nbsp;&nbsp;
 								<a class="reply"><i class="fa fa-reply"></i>댓글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<c:choose>
+								<c:when test="${name eq comment.member_id}">
 								<a class="update"><i class="fa fa-pencil"></i>수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<a class="delete"><i class="fa fa-trash-o"></i>삭제</a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+								</c:choose>
+								
 							</div>
 							
 						</div>
@@ -89,8 +107,14 @@
 							<div class="col-sm-6">${commentGroup.comment_content}</div>
 							<div class="col-sm-3">
 								<a class="replyReply"><i class="fa fa-reply"></i>댓글</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<c:choose>
+								<c:when test="${name eq comment.member_id}">
 								<a class="replyUpdate"><i class="fa fa-pencil"></i>수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<a class="replyDelete"><i class="fa fa-trash-o"></i>삭제</a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						</c:when>
@@ -99,6 +123,14 @@
 						</c:forEach>
 						</div>
 						<br>
+						<div class="row noticeView_Comments_2">
+						<div class="col-sm-9">
+						<textarea name="replyArea" cols="40" rows="3" id="replyArea"></textarea>
+						</div>
+						<div class="col-sm-2">
+						<button type="button" class="btn btn-default" id="replyAddBtn">등록</button>
+						</div> 
+						</div>
 						
 						
 
@@ -116,11 +148,12 @@
 		</div>
 	</section>
 </section>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){
 	var notice_num = "<c:out value='${result[0].notice_num}'/>";
 	var class_name = "<c:out value='${result[0].class_name}'/>";
+	var member_id = "${name}";
 	
 	$(document).on('click','.reply',function(){
 		
@@ -191,10 +224,39 @@ $(document).ready(function(){
 			  alert("에러야!"); 
 			 }
 			 });
-	
-	
-	
 					});
 
+	
+	$('#replyAddBtn').click(function(){
+		var textarea = $('#replyArea').val();
+		if(textarea == "" || textarea == null){
+			swal("댓글을 입력하지 않았습니다", "글을 입력 후 다시 등록버튼을 누르세요", "error");
+		}else{
+		$.ajax({
+			 type : "post",
+			 url : "${pageContext.request.contextPath}/teacher/commentInsert.do",
+			 data:"notice_num="+notice_num+"&class_name="+class_name+"&textarea="+textarea,  
+			 success : function(data){
+			 	   	$.ajax({
+			 	   		type : "post",
+			 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
+			 	   		success: function(data){
+			 	   				$('#list1body').html(data);
+			 	   				$('#replyArea').val("");
+			 	   		}
+			 	   	});
+			 },
+			 error: function(error){
+			  alert("에러야!"); 
+			 }
+			 });
+		}
+		
+	});
+	
+	
+	
+	
 });
 </script>

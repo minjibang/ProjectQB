@@ -73,4 +73,7 @@ public interface CommonDao {
 	public List<CommentDto> commentGroup(CommentDto dto);
 	
 	public int commentReply(CommentDto dto);
+	
+	public int commentInsert(CommentDto dto);
+	
 }

@@ -257,7 +257,12 @@ public class CommonService {
 		return result;
 	}
 
-
+	public int commentInsert(CommentDto dto){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentInsert(dto);
+		return result;
+	}
+	
 	
 
 
