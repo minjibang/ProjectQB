@@ -4,6 +4,7 @@ import java.util.List;
 
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
@@ -51,6 +52,9 @@ public interface TeacherDao {
 	public List<MemberDto> classMemberList(int exam_paper_num);
 	public List<MemberDto> classMemberListUpdate(int exam_info_num);
 	public ClassDto classInfo(int exam_paper_num);
+	
+	public int examMemberInsert(ExamMemberDto dto);
+	
 	/*민지 - 10.18 시험등록 끝*/
 
 
@@ -59,6 +63,7 @@ public interface TeacherDao {
 	public List<ExamPaperDto> myExamPaperList(String member_id);
 	public List<ExamPaperDto> myTempExamList(String member_id);
 	public List<ExamInfoDto> examScheduleList(String member_id);
+	public List<ExamInfoDto> examScheduleList2(int exam_paper_num);
 	public int deleteExam(int exam_paper_num);
 	public List<QuestionDto> updateExamView(int exam_paper_num);
 	/*--성태용 끝--*/

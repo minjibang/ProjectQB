@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
@@ -132,8 +134,12 @@ public class TestManageController {
 	}
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+	public  String examInfoInsert(ExamInfoDto dto,String memberarray2,int exam_paper_num ,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		System.out.println("시험등록컨트롤러들어옴");
+		System.out.println("memberarray2값>>"+memberarray2+"<<");
+		
+		String [] memberchecklist= memberarray2.split(",");
+		int checkresult;
 		int result = 0;
 		String viewpage="";
 		
@@ -142,9 +148,34 @@ public class TestManageController {
 			System.out.println("시험등록성공");
 			String class_name = dto.getClass_name();
 			System.out.println(class_name);
-			
+	
 			String url = URLEncoder.encode(class_name, "UTF-8");
+			String memberid="";
+			for(int i = 0; i<=memberchecklist.length-1;i++) {
+				
+				 memberid = memberchecklist[i];
+				ExamMemberDto exammemberdto = new ExamMemberDto();
+				System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+				List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
+			
+				int infonum = examinfolist.size()-1;
+				System.out.println(examinfolist.toString());
+				int infonum2 = examinfolist.get(infonum).getExam_info_num();
+	
+				System.out.println("examinfolist>>>" + infonum2+ "    <<");
+				exammemberdto.setExam_info_num(infonum2);
+				exammemberdto.setMember_id(memberid);
+				checkresult=teacherService.examMemberInsert(exammemberdto);
+				
+				if(checkresult>0) {
+					System.out.println("체크리스트 insert 성공");
+				}else {
+					System.out.println("체크리스트 insert 실패");
+				
+			}
+			}
 			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+
 		}else {
 			System.out.println("시험등록 실패");
 			

@@ -79,6 +79,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
 </select>
 
+<select id="examScheduleList2" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where exam_paper_num = #{exam_paper_num}
+</select>
+
 <update id="deleteExam">
 	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
 </update>
@@ -170,6 +174,10 @@ select member_id, member_name from member where class_name=(select class_name fr
 <insert id="examInfoInsert" parameterType="onet.com.vo.ExamInfoDto">
  INSERT INTO exam_info(exam_paper_num, class_name, exam_info_name,exam_info_desc,exam_info_member,exam_info_date,exam_info_start,exam_info_end,exam_info_time)
         VALUES(#{exam_paper_num},#{class_name},#{exam_info_name},#{exam_info_desc},#{exam_info_member},#{exam_info_date},#{exam_info_start},#{exam_info_end},#{exam_info_time})     
+</insert>
+
+<insert id="examMemberInsert" parameterType="onet.com.vo.ExamMemberDto">
+INSERT INTO exam_member values(#{exam_info_num},#{member_id})
 </insert>
 <!-- 민지 10.18 시험등록 끝 -->
 
