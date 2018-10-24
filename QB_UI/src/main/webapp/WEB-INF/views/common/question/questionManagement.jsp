@@ -100,16 +100,19 @@
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="col-lg-12 mt">
-			<div class="row content-panel">
-				<div class="panel-heading">
-					<ul class="nav nav-tabs nav-justified">
-						<li class="active"><a data-toggle="tab" href="#overview">내
-								문제함</a></li>
-						<li><a data-toggle="tab" href="#newQuestion"
-							class="contact-map">새 문제 만들기</a></li>
-					</ul>
-				</div>
+		<div class="row mt">
+			<div class="col-lg-12">
+				<div class="row content-panel">
+					<div class="panel-heading">
+						<ul class="nav nav-tabs nav-justified">
+							<li class="active">
+								<a data-toggle="tab" href="#overview">내 문제함</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a>
+							</li>
+						</ul>
+					</div>
 
 				<!-- /panel-heading -->
 				<div class="panel-body">
@@ -482,20 +485,14 @@
 
 
 
-						</div>
-						<!-- /tab-content -->
-					</div>
-					<!-- /panel-body -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /col-lg-12 -->
-	</section>
-	<!-- /wrapper -->
-</section>
-<!-- /MAIN CONTENT -->
+							</div><!-- /tab-content -->
+						</div><!-- /panel-body -->
+					</div><!-- /row -->
+				</div><!-- /container -->
+			</div><!-- /col-lg-12 -->
+		</div><!-- /row mt -->
+	</section><!-- /wrapper -->
+</section><!-- /MAIN CONTENT -->
 <!--main content end-->
 
 <script
