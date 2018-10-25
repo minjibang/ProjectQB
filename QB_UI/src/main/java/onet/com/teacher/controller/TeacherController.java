@@ -384,7 +384,6 @@ public class TeacherController {
 		//양회준 10-24
 		String member_id = principal.getName();
 		
-		
 		List<MemberDto> studentList = commonService.studentInfo(member_id);
 		
 		//첫번째 학생의 데이터로 차트 가져오기
@@ -409,7 +408,12 @@ public class TeacherController {
 		return chart;
 	}
 
-	
+	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
+		
+		return classRank;
+	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
