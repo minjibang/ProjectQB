@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -244,15 +245,18 @@ public class TeacherController {
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request)
+	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, MultipartHttpServletRequest request)
 			throws IOException, ClassNotFoundException, SQLException{
-	
+			System.out.println("오는가?1");
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);
 			} else {
+				System.out.println("오는가?2");
 				adminService.insertQuestion(dto2, request);
 			}
+			System.out.println("오는가?2");
+			adminService.insertQuestion(dto2, request);
 			return "redirect:questionManagement.do";
 	}
 		
@@ -381,7 +385,8 @@ public class TeacherController {
 	public String studentInfo(Model model, Principal principal){
 		//양회준 10-24
 		String member_id = principal.getName();
-		List<MemberDto> studentList = commonService.studentInfo(member_id);
+		String class_num = null;
+		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
 		//첫번째 학생의 데이터로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
@@ -389,6 +394,7 @@ public class TeacherController {
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
+		
 		return "common.teacher.grade.studentInfo";
 	}
 	

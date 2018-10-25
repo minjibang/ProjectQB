@@ -28,6 +28,7 @@ import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
@@ -35,6 +36,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.RoleDto;
+import onet.com.vo.Score_chartDto;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -317,11 +319,35 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 학생 & 성적관리 
 	@RequestMapping("studentInfo.do")
-	public String studentInfo(){
+	public String studentInfo(Model model, Principal principal, HttpServletRequest request){
+		String member_id = principal.getName();
+		String class_num=request.getParameter("class_num");
+		
+		System.out.println("반번호:"+class_num);
+		
+		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
+		//클래스 번호로 차트 가져오기
+		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
+		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
+		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
+		model.addAttribute("studentList",studentList);
+		model.addAttribute("classChart",classChart);
+		model.addAttribute("studentChart",studentChart);
 		
 		return "common.adminClass.admin.grade.studentInfo";
 	}
-	
+	// 관리자 클래스 상세보기 - 학생 & 성적관리 - 개별차트부르기
+	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+			@RequestParam("class_name") String class_name){
+		//양회준 10-24
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		for(Class_chartDto data : studentChart) {
+			System.out.println("과연"+data.getExam_info_name());
+		}
+		return chart;
+	}
 	
 
 	/*###################     재훈 시작         ####################*/

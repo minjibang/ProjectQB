@@ -511,7 +511,8 @@ $(document).ready(function(){
 		//ajax 차트 요청할 parameter
 		var memberId=studentArr[memberIndex].member_id;
 		var className=studentArr[memberIndex].class_name;
-		
+		console.log(memberId);
+		console.log(className);
 		//비동기 실행
 		$.ajax({
 			type:"post",

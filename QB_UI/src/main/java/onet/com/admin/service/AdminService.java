@@ -87,10 +87,13 @@ public class AdminService {
 			throws IOException, ClassNotFoundException, SQLException {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		//문제 이미지 파일 입력
+		System.out.println("여기1");
 		List<CommonsMultipartFile> files = dto.getQuestion_file();
+		System.out.println("여기1");
 		List<String> filenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
-		   
-	   if(files != null && files.size() > 0) {
+		if(files==null || files.size()==0){	   
+		
+		}else if(files != null && files.size() > 0) {
 		   for(CommonsMultipartFile multifile : files) {
 			    
 			    String filename = multifile.getOriginalFilename();

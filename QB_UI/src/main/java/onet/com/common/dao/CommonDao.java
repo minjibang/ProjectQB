@@ -83,6 +83,7 @@ public interface CommonDao {
 	
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id);
+	public List<MemberDto> adminStudentInfo(String class_num);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
 	public List<Score_chartDto> studentChartInfo(String member_id);
 	public List<Class_chartDto> classChartInfo(String class_name);
