@@ -198,6 +198,8 @@ public class TeacherService {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		
 		List<MemberDto> result = dao.classMemberListUpdate(exam_info_num);
+		
+		
 		return result;
 	}
 	
@@ -246,7 +248,21 @@ public class TeacherService {
 		System.out.println("exam_info_num >>> " +exam_info_num +"  <<");
 		dto.setExam_info_num(exam_info_num);
 		List<ExamMemberDto> result = dao.classExamMemberList(dto);
-		System.out.println("result " + result);
+		return result;
+	}
+	
+	public int teacherExamMemberDelete(int exam_info_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.teacherExamMemberDelete(exam_info_num);
+		
+		return result;
+	}
+	
+
+	public List<MemberDto> examNotcheckMemberList(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+
+		List<MemberDto> result = dao.examNotcheckMemberList(exam_info_num);
 		return result;
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
