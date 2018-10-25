@@ -127,9 +127,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 10.24 현이 학생 지난 시험지 보기 시작 -->
 
-<select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerDto">
-	select * from student_answer
-	where member_id = #{param1} and exam_info_num = #{param2};
+<select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerQuesDto">
+	select * 
+	from student_answer a join question q
+	on a.question_num = q.question_num
+	where a.member_id = #{param1}
+	and a.exam_info_num = #{param2}
 </select>
 
 <!-- 10.24 현이 학생 지난 시험지 보기 끝 -->

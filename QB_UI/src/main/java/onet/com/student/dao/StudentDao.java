@@ -1,11 +1,11 @@
 package onet.com.student.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
+import onet.com.vo.Student_answerQuesDto;
 
 public interface StudentDao {
 	
@@ -37,7 +37,7 @@ public interface StudentDao {
 	
 	/*<select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerDto">*/
 	/*10.24 현이 학생 지난 시험지 보기 시작*/
-	public List<Student_answerDto> selectStudentAnswer(String member_id, int exam_info_num);
+	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num);
 	
 	
 }
