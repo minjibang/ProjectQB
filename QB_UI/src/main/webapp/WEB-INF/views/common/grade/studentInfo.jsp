@@ -63,6 +63,8 @@
 									</section>
 								</div>
 								<%-- 학생 목록 끝 --%>
+								
+								
 								<%-- 선택 학생 정보 영역 시작 --%>
 								<div class="col-lg-10">
 									<h3 id="studentListName">${studentList[0].member_name}</h3>
@@ -105,57 +107,38 @@
 							</div><!-- studentInfo -->
 							<%-- 학생 정보 탭 끝 --%>
 							
-							<%-- 학생 개인 성적 탭 시작 --%>
+							<%-- 학생 개인 성적확인 탭 시작 --%>
 						<div id="studentChart" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-2">
 									<section class="panel">
-										<div class="panel-body grey-panel">
-											<a href="mail_compose.html" class="btn btn-compose"> <i
-												class="fa fa-pencil"></i> 자바 109기
-											</a>
-											<ul class="nav nav-pills nav-stacked mail-nav">
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 김현이
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 서정원
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 방민지
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 조재훈
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 우한결
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 양회준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 유영준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 성태용
-												</a></li>
-											</ul>
+										<div class="panel-body">
+											<table id="studentList" class="table table-hover">
+												<h4 id="tab2_className">${studentList[0].class_name}</h4>
+									                <thead>
+									                  <tr>
+									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
+									                  </tr>
+									                </thead>
+									                <tbody>									                
+												<c:forEach items="${studentList}" var="studentList">												
+								                  <tr>
+								                    <td id="${studentList.member_id}" class="tab2studentListMembers">
+								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+															class="img-circle" width="25"> ${studentList.member_name}
+								                    </td>
+								                   </tr>												
+												</c:forEach>
+											</tbody>
+											</table>
 										</div>
 									</section>
 								</div>
 								<div class="col-lg-10 unread">
 									<section class="panel">
 										<header class="panel-heading wht-bg">
-											<h4 class="gen-case">
-												김현이
+											<h4 id="tab2_studentName" class="gen-case">
+												${studentList[0].member_name}
 												<form action="#" class="pull-right mail-src-position">
 													<div class="input-append">
 														<input type="text" class="form-control "
@@ -167,59 +150,25 @@
 										<div class="panel-body minimal">
 											<div class="table-inbox-wrap">
 												<table class="table table-inbox table-hover">
-													<tbody>
+													<tbody id="studentExamScoreInfo">
 														<tr class="unread">
 															<td class="view-message  dont-show"><a
 																href="mail_view.html"><img
 																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
 																	class="img-thumbnail" width="150"></a></td>
 
-															<td class="view-message "><a href="mail_view.html"><h3>JAVA
+															<td class="view-message "><a href="mail_view.html"><h3 class="tab2_examPaper">JAVA
 																		기본</h3>
 																	<p>변수 | 배열 | for문 | if문</p></a></td>
-															<td class="view-message  text-right"><p>시험 날짜 :
+															<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 :
 																	2018.08.15</p>
-																<p>시험 시간 : 14:00~15:00[60분]</p></td>
+																<p class="tab2_examTime">시험 시간 : 14:00~15:00[60분]</p></td>
 															<td class="view-message  inbox-small-cells">
 																<button type="button" class="btn btn-round btn-info">성적확인</button>
 																<button type="button" class="btn btn-round btn-danger">삭제</button>
 															</td>
 														</tr>
-														<tr class="">
-															<td class="view-message  dont-show"><a
-																href="mail_view.html"><img
-																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																	class="img-thumbnail" width="150"></a></td>
-
-															<td class="view-message "><a href="mail_view.html"><h3>JAVA
-																		기본</h3>
-																	<p>변수 | 배열 | for문 | if문</p></a></td>
-															<td class="view-message  text-right"><p>시험 날짜 :
-																	2018.08.15</p>
-																<p>시험 시간 : 14:00~15:00[60분]</p></td>
-															<td class="view-message  inbox-small-cells">
-																<button type="button" class="btn btn-round btn-info">성적확인</button>
-																<button type="button" class="btn btn-round btn-danger">삭제</button>
-															</td>
-														</tr>
-														<tr class="">
-															<td class="view-message  dont-show"><a
-																href="mail_view.html"><img
-																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																	class="img-thumbnail" width="150"></a></td>
-
-															<td class="view-message "><a href="mail_view.html"><h3>JAVA
-																		기본</h3>
-																	<p>변수 | 배열 | for문 | if문</p></a></td>
-															<td class="view-message  text-right"><p>시험 날짜 :
-																	2018.08.15</p>
-																<p>시험 시간 : 14:00~15:00[60분]</p></td>
-															<td class="view-message  inbox-small-cells">
-																<button type="button" class="btn btn-round btn-info">성적확인</button>
-																<button type="button" class="btn btn-round btn-danger">삭제</button>
-															</td>
-														</tr>
-
+														
 													</tbody>
 												</table>
 											</div>
@@ -494,14 +443,16 @@ $(document).ready(function(){
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
-	//학생 목록 선택 이벤트
-	$(".studentListMembers").click(function(){
+	
+	//학생 목록 선택 이벤트-tab1
+	$(".studentListMembers").click(function(){		
 		//가져온 차트데이터 담을 배열(학생점수, 반평균, 과목)	
 		chartStudentDatas = [];
 		chartClassDatas = [];
 		chartLabels = [];		
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
+		console.log("tab1:"+memberName);
 		$("#studentListName").text(memberName);
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".studentListMembers").index(this);
@@ -511,8 +462,6 @@ $(document).ready(function(){
 		//ajax 차트 요청할 parameter
 		var memberId=studentArr[memberIndex].member_id;
 		var className=studentArr[memberIndex].class_name;
-		console.log(memberId);
-		console.log(className);
 		//비동기 실행
 		$.ajax({
 			type:"post",
@@ -533,6 +482,48 @@ $(document).ready(function(){
 				});
 				functionChart();
 				functionChart2();
+			},
+			error:function(error, status){
+				console.log("실패:"+status);
+			}
+		});		
+	});
+	//학생목록 이벤트 종료
+	
+	//학생 목록 선택 이벤트-tab2
+	$(".tab2studentListMembers").click(function(){	
+		//클릭한 목록의 학생이름 가져오기 & 출력
+		var memberName=$(this).text().trim();
+		var className=$("#tab2_className").text().trim();
+		$("#tab2_studentName").text(memberName);
+		//학생 목록의 인덱스 가져오기
+		var memberIndex=$(".tab2studentListMembers").index(this);
+		//ajax 시험 정보 요청할 parameter
+		var memberId=studentArr[memberIndex].member_id;
+		var className=studentArr[memberIndex].class_name;
+		//비동기 실행
+		$.ajax({
+			type:"post",
+			url:"studentExamScoreInfo.do",
+			data:{"member_id":memberId,
+				"class_name":className
+				},
+			datatype:"json",
+			success:function(data, status){
+				console.log("성공");
+				var studentExamScoreSrc = "";
+				$("#studentExamScoreInfo").empty();
+				$(data).each(function(index, element){
+					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
+					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3><p>변수 | 배열 | for문 | if문</p></td>';
+					studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
+					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
+					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
+					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-info">성적확인</button>';
+					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-danger">삭제</button></td></tr>';
+				});
+				$("#studentExamScoreInfo").append(studentExamScoreSrc);			
 			},
 			error:function(error, status){
 				console.log("실패:"+status);

@@ -27,6 +27,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 
 @Service
 public class CommonService {
@@ -292,7 +293,16 @@ public class CommonService {
 		chart.put("className", classChart);
 		return chart;
 	}
-
+	//양회준 10-25 학생&성적관리 학생개인 성적확인
+	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name){
+		System.out.println("service 확인");
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<StudentExamScoreInfo> result = dao.studentExamScoreInfo(member_id, class_name);
+		for(StudentExamScoreInfo data : result) {
+			System.out.println(data.getSm_category_name());
+		}
+		return result;
+	}
 
 }
 

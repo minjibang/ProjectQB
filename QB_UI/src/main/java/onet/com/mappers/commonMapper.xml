@@ -182,6 +182,13 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	on c.exam_info_num=e.exam_info_num
 	where c.class_name=#{class_name}
 </select>
-	
+<!-- 양회준 10-25 학생&성적관리 학생개인 성적확인 -->
+<select id="studentExamScoreInfo" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
+	SELECT DISTINCT sa.exam_info_num, ei.exam_info_name, ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, 
+	ep.exam_paper_desc
+	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep
+	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num
+	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
+</select>
 
 </mapper>

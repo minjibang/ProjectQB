@@ -40,6 +40,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 
 @Controller
 @RequestMapping("/teacher/")
@@ -509,6 +510,16 @@ public class TeacherController {
 		dto.setComment_content(textarea);
 		int result = commonService.commentInsert(dto);
 		return 0;
+	}
+	
+	//양회준 10-25 학생&성적관리 학생개인 성적확인
+	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+			@RequestParam("class_name") String class_name){
+		//양회준 10-24
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		System.out.println("controller 복귀");
+		return result;
 	}
 	
 }
