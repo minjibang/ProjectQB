@@ -203,7 +203,7 @@
 						<div id="newQuestion" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-12">
-									<form class="formNewQuestion" action="insertQuestion.do"
+									<form class="formNewQuestion" action="insertQuestion.do" enctype="multipart/form-data"
 										method="post" onsubmit="return check()">
 										
 										<input type="text" name="member_id"
@@ -273,7 +273,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_img" class="default"/>
+																<input type="file" name="question_file" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -355,7 +355,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[0]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -378,7 +378,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[1]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -401,7 +401,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[2]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -424,7 +424,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[3]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -447,7 +447,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[4]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -475,7 +475,8 @@
 										입력 취소</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
-										
+										<button type="button" class="btn btn-theme quesCategory pull-right" id="test">
+										테스트</button>
 									</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->
@@ -504,6 +505,14 @@
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
 	$(document).ready(function() {
+		$('#test').click(function(){
+			var testArr = new Array();
+			var testVar = $('input [type=hidden]');
+			
+			console.log(testVar);
+			
+		});
+		
 		$('#question_lg_category')
 				.change(
 						function() {

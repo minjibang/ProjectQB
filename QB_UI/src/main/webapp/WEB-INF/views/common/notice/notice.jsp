@@ -47,8 +47,10 @@
 											<td class="notice_member_id">${notice.member_id}</td>
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
-										<input type="hidden" class="notice_classname" value="${notice.class_name}">
-									</c:forEach>
+									</c:forEach>	
+										<c:forEach items="${boardNull}" var="boardNull">
+											<input type="hidden" class="notice_classname" value="${boardNull.class_name}">
+										</c:forEach>
 								</tbody>
 							</table>
 							<div>
