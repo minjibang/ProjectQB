@@ -22,9 +22,9 @@
 				<div class="col-lg-8">
 					<b>${question.question_name }</b><br> <br>
 					<div class="questionImgDiv">
-						<c:if test="${question.question_img  ne null }">
+						<c:if test="${question.question_img ne null }">
 							<img
-								src="${pageContext.request.contextPath}/img/${question.question_img }"
+								src="${pageContext.request.contextPath}/upload/${question.question_img}"
 								alt="questionImg" class="questionImg" />
 							<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 						</c:if>
@@ -35,6 +35,12 @@
 							<c:if
 								test="${question_choice.question_num eq question.question_num}">
 								<p>${question_choice.question_choice_num}.${question_choice.question_choice_content}</p>
+									<c:if test="${question_choice.question_choice_image ne null }">
+										<img
+										src="${pageContext.request.contextPath}/upload/${question_choice.question_choice_image}"
+										alt="choiceImg" class="choiceImg" />
+										<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+									</c:if>
 							</c:if>
 						</c:forEach>
 					</div>

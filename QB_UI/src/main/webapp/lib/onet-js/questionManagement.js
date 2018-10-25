@@ -162,8 +162,6 @@ $(function() {
 })
 
 
-
-
 /*새 문제 만들기 탭 - 문제 타입 (객관식, 단답형) 변경 시 정답 입력 div 변경 */
 function questionType(id){
 	if (id == "questionChoice") {
