@@ -1,5 +1,9 @@
 package onet.com.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class QuestionDto {
 
 	private int question_num;
@@ -20,6 +24,17 @@ public class QuestionDto {
 	private String lg_category_name;
 	private String lg_category_code;
 	private String level_name;
+	
+	//문제 파일 가져오기
+	private List<CommonsMultipartFile> question_file;    
+	
+	public List<CommonsMultipartFile> getQuestion_file() {
+		return question_file;
+	}
+	public void setQuestion_file(List<CommonsMultipartFile> question_file) {
+		this.question_file = question_file;
+	}
+	
 	
 	public int getQuestion_num() {
 		return question_num;
