@@ -69,4 +69,8 @@ public interface CommonDao {
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
 	public List<Score_chartDto> studentChartInfo(String member_id);
 	public List<Class_chartDto> classChartInfo(String class_name);
+	
+	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
+	public List<Score_chartDto> classRank(String exam_info_name);
+	
 }

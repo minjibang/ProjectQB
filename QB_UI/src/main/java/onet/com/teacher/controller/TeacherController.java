@@ -463,7 +463,10 @@ public class TeacherController {
 	public String studentInfo(Model model, Principal principal){
 		//양회준 10-24
 		String member_id = principal.getName();
+		
+		
 		List<MemberDto> studentList = commonService.studentInfo(member_id);
+		
 		//첫번째 학생의 데이터로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
@@ -485,6 +488,18 @@ public class TeacherController {
 		}
 		return chart;
 	}
+	// 영준 10.25 학생&성적관리 페이지 - 반 등수 추가
+	@RequestMapping(value="studentInfo.do")
+	public @ResponseBody ModelAndView ClassRank(String exam_info_name) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("common.teacher.grade.studentInfo");
+		mv.addObject("classRank", classRank);
+		
+		return mv;		
+	}
+	
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	

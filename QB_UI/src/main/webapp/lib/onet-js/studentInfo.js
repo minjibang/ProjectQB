@@ -12,6 +12,7 @@
 
 // 각 시험평균 막대 차트 시작
 $(document).ready(function(){
+
 	// 차트 데이터를 담을 배열
 	/*var chartClassDatas = new Array();
 	var chartLabels = new Array();
