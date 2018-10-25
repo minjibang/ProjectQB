@@ -98,7 +98,7 @@
 								
 									<div class="col-lg-1 qnumdiv">
 										 <input type="checkbox" value="${examquestion.question_num }"
-											name="checkbox[]" id="question_num"/> aaa
+											name="checkbox[]" id="question_num"/>
 										<!-- value에 문제고유번호 들어간다 -->
 									</div>
 									<div class="col-lg-3">
