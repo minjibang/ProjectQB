@@ -140,7 +140,7 @@ public class AdminService {
 			   }
 		   }
 		
-		int question_num=qDto.getQuestion_num();		
+		int question_num=qDto.getQuestion_num();
 		question_choice_num=qcDto.getQuestion_choice_num().split(",");
 		question_choice_content=qcDto.getQuestion_choice_content().split(",");
 		
