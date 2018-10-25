@@ -182,6 +182,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	on c.exam_info_num=e.exam_info_num
 	where c.class_name=#{class_name}
 </select>
+
 <!-- 양회준 10-25 학생&성적관리 학생개인 성적확인 -->
 <select id="studentExamScoreInfo" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
 	SELECT DISTINCT sa.exam_info_num, ei.exam_info_name, ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, 
@@ -190,5 +191,17 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num
 	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
 </select>
+
+<!-- 영준 10.25 - 반 등수 추가 시작 -->
+<select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+select sc.exam_info_num,e.exam_info_name,m.member_name, sc.score_chart_score, score_chart_rank
+from score_chart as sc, exam_info e, member m
+where sc.exam_info_num=e.exam_info_num
+and m.member_id=sc.member_id
+and e.exam_info_name=#{exam_info_name}
+order by
+sc.score_chart_score DESC
+</select>
+<!-- 영준 10.25 - 반 등수 추가 끝 -->
 
 </mapper>

@@ -102,7 +102,7 @@ public class TestManageController {
 		
 		return result;
 	}
-	
+	//임시저장 시험지 삭제
 	@RequestMapping("deleteTempExam.do")
 	public @ResponseBody int deleteTempExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
@@ -111,6 +111,7 @@ public class TestManageController {
 		return result;
 	}
 	
+	//시험지 수정페이지 데이터 뿌려주기
 	@RequestMapping("updateExamView.do")
 	public String updateExamView(Model model, int exam_paper_num) {
 		
@@ -135,8 +136,38 @@ public class TestManageController {
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		model.addAttribute("examquestion_choice", question_choice);
 		
+		ExamPaperDto namedesc = teacherService.examNameDesc(exam_paper_num);
+		
+		String exam_paper_name = namedesc.getExam_paper_name();
+		String exam_paper_desc = namedesc.getExam_paper_desc();
+		
+		model.addAttribute("exam_paper_name", exam_paper_name);
+		model.addAttribute("exam_paper_desc", exam_paper_desc);
+		
 		return "common.teacher.exampaper.examPaperUpdate";
 	}
+	
+	//시험지 문제 삭제
+	@RequestMapping("examquestionsdelete.do")
+	public @ResponseBody int examquestionsdelete(@RequestParam("exam_paper_num") int exam_paper_num,
+			@RequestParam("exam_name") String exam_name,@RequestParam("exam_desc") String exam_desc) {
+		
+		int result = teacherService.examquestionsdelete(exam_paper_num, exam_name, exam_desc);
+		
+		return result;
+	}
+	//삭제된 시험지에 문제 넣기
+	@RequestMapping("examquestionsinsert.do")
+	public @ResponseBody int examquestionsinsert(@RequestParam("exam_paper_num") int exam_paper_num,
+			@RequestParam("question_num") int question_num,@RequestParam("exam_question_seq") int exam_question_seq,
+			@RequestParam("exam_question_score") int exam_question_score) {
+		
+		int result = teacherService.examquestionsinsert(exam_paper_num,question_num,exam_question_seq,exam_question_score);
+		
+		return result;
+	}
+	
+	
 	/*성태용 끝*/
 	
 	/*민지 시작*/
@@ -198,7 +229,7 @@ public class TestManageController {
 				
 			}
 			}
-			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+			viewpage = "redirect:examManagement.do";
 
 		}else {
 			System.out.println("시험등록 실패");
@@ -271,6 +302,14 @@ public class TestManageController {
 		classExamList= teacherService.classExamList(exam_info_num);
 		model.addAttribute("classExamList", classExamList);
 		
+		/*체크한 학생 제외한 클래스 멤버 리스트*/
+		List<MemberDto> examNotcheckMemberList;
+		examNotcheckMemberList=teacherService.examNotcheckMemberList(exam_info_num);
+		model.addAttribute("examNotcheckMemberList", examNotcheckMemberList);
+
+		
+		
+		
 		List<ExamMemberDto> classExamMemberList;
 		 
 		classExamMemberList= teacherService.classExamMemberList(exam_info_num);
@@ -296,14 +335,54 @@ public class TestManageController {
 	}
 	
 	@RequestMapping("examInfoIUpdate.do")
-	public String examInfoIUpdate(ExamInfoDto dto) {
+	public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
 		
 		System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
+		System.out.println("memberarray2값>>"+memberarray2+"<<");
+		
+		String [] memberchecklist= memberarray2.split(",");
 		
 		int result = teacherService.examInfoIUpdate(dto);
 		
-		if(result == 0) {
-			System.out.println("에에에엥에에러 안바꼇어 바보들아");
+		if(result > 0) {
+			System.out.println("exam_info_num>>" + exam_info_num + "   <<");
+			int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
+			if(result2>0) {
+				System.out.println("수정할때 학생 리스트 삭제 성공");
+				String memberid="";
+				int result3;
+				for(int i = 0; i<=memberchecklist.length-1;i++) {
+					
+					 memberid = memberchecklist[i];
+					ExamMemberDto exammemberdto = new ExamMemberDto();
+					System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+					List<ExamInfoDto> list= teacherService.classExamList(exam_info_num);
+					int papernum= list.get(0).getExam_paper_num();
+					System.out.println("papernum  >>  "+ papernum + " <<");
+					List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
+					int infonum = examinfolist.size()-1;
+					System.out.println(examinfolist.toString());
+					int infonum2 = examinfolist.get(infonum).getExam_info_num();
+		
+					System.out.println("examinfolist>>>" + infonum2+ "    <<");
+					exammemberdto.setExam_info_num(infonum2);
+					exammemberdto.setMember_id(memberid);
+					result3=teacherService.examMemberInsert(exammemberdto);
+					
+					if(result3>0) {
+						System.out.println("수정할때 체크리스트 insert 성공");
+					}else {
+						System.out.println("체크리스트 insert 실패");
+					
+				}
+				}
+				
+			}else {
+				System.out.println("수정할때 학생 리스트 삭제 실패");
+			}
+			
+		}else {
+			System.out.println("수정실패");
 		}
 		
 		return "redirect:examManagement.do";

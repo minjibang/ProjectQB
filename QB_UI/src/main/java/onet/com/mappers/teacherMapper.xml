@@ -118,7 +118,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 ]]>
 </select>
 
+<delete id="examquestionsdelete">
+	delete from exam_question where exam_paper_num = #{param1}
+</delete>
+<update id="examNameUpdate">
+	update exam_paper set exam_paper_name=#{param2}, exam_paper_desc=#{param3} where exam_paper_num = #{param1}
+</update>
+<insert id="examquestionsinsert">
+	insert into exam_question(exam_paper_num, question_num, exam_question_seq, exam_question_score) values(#{param1},#{param2},#{param3},#{param4})
+</insert>
+
+<select id="examNameDesc" resultType="onet.com.vo.ExamPaperDto">
+	select exam_paper_name, exam_paper_desc from exam_paper where exam_paper_num = #{param1}
+</select>
+
 <!-- 태용 끝 -->
+
 <!-- 민지 시작 -->
 <select id="classMemberList" resultType="onet.com.vo.MemberDto">
 	select member_id, member_name from member where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
@@ -242,6 +257,19 @@ select * from exam_info where exam_info_num=#{exam_info_num}
 <select id="classExamMemberList" parameterType="onet.com.vo.ExamMemberDto" resultType="onet.com.vo.ExamMemberDto">
 select * from exam_member where exam_info_num = #{exam_info_num}
 </select>
+
+<delete id="teacherExamMemberDelete" parameterType="int">
+
+Delete From exam_member where exam_info_num = #{exam_info_num}
+</delete>
+
+
+<select id="examNotcheckMemberList" parameterType="int" resultType="onet.com.vo.ExamMemberDto">
+
+select member_id, member_name from member where class_name=(select class_name from exam_info where exam_info_num = #{exam_info_num}) and member_id not in (select member_id from exam_member where exam_info_num = #{exam_info_num});
+</select>
+
+
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>
