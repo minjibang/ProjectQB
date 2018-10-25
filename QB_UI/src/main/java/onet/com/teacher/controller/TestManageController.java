@@ -198,7 +198,7 @@ public class TestManageController {
 				
 			}
 			}
-			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+			viewpage = "redirect:examManagement.do";
 
 		}else {
 			System.out.println("시험등록 실패");
@@ -314,7 +314,7 @@ public class TestManageController {
 		int result = teacherService.examInfoIUpdate(dto);
 		
 		if(result > 0) {
-			
+			System.out.println("exam_info_num>>" + exam_info_num + "   <<");
 			int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
 			if(result2>0) {
 				System.out.println("수정할때 학생 리스트 삭제 성공");

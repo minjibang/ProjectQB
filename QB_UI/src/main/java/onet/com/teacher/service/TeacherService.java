@@ -198,6 +198,8 @@ public class TeacherService {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		
 		List<MemberDto> result = dao.classMemberListUpdate(exam_info_num);
+		
+		
 		return result;
 	}
 	
@@ -246,7 +248,6 @@ public class TeacherService {
 		System.out.println("exam_info_num >>> " +exam_info_num +"  <<");
 		dto.setExam_info_num(exam_info_num);
 		List<ExamMemberDto> result = dao.classExamMemberList(dto);
-		System.out.println("result " + result);
 		return result;
 	}
 	
