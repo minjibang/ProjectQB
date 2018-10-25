@@ -408,17 +408,7 @@ public class TeacherController {
 		}
 		return chart;
 	}
-	// 영준 10.25 학생&성적관리 페이지 - 반 등수 추가
-	@RequestMapping(value="studentInfo.do")
-	public @ResponseBody ModelAndView ClassRank(String exam_info_name) {
-		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("common.teacher.grade.studentInfo");
-		mv.addObject("classRank", classRank);
-		
-		return mv;		
-	}
+
 	
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */
