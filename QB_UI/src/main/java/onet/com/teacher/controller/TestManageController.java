@@ -272,10 +272,19 @@ public class TestManageController {
 		model.addAttribute("classExamList", classExamList);
 		
 		List<ExamMemberDto> classExamMemberList;
+		 
 		classExamMemberList= teacherService.classExamMemberList(exam_info_num);
-		model.addAttribute("classExamMemberList", classExamMemberList);
-		System.out.println("classExamMemberList>>   " + classExamMemberList + "   <<");
-		/*
+		System.out.println(classExamMemberList);
+		String [] iarray = new String[classExamMemberList.size()];
+		for(int i = 0 ; i<= classExamMemberList.size()-1 ; i++) {
+			iarray[i]=classExamMemberList.get(i).getMember_id();
+			System.out.println(iarray[i]);
+		}
+		
+		model.addAttribute("classExamMemberList", iarray);
+		
+		/*System.out.println("iarray>>   " + iarray[0] + "   <<");
+		
 		List<ExamPaperDto> examPaperList;
 		examPaperList = teacherService.examPaperList(class_num);
 		model.addAttribute("examPaperList", examPaperList);
