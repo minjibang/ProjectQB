@@ -24,7 +24,7 @@
 							</header>
 						</div>
 					
-					<div class="panel-body">
+						<div class="panel-body">
 					
 						
 						
@@ -47,17 +47,19 @@
 											<td class="notice_member_id">${notice.member_id}</td>
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
-										<input type="hidden" class="notice_classname" value="${notice.class_name}">
-									</c:forEach>
+									</c:forEach>	
+										<c:forEach items="${boardNull}" var="boardNull">
+											<input type="hidden" class="notice_classname" value="${boardNull.class_name}">
+										</c:forEach>
 								</tbody>
 							</table>
 							<div>
 								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
 							</div>
-						</div><!-- panel-content -->
+						</div><!-- panel-body -->
 						
 						
-					</div><!-- panel-body -->
+					</div><!-- panel-content -->
 				</div><!-- row content-panel -->
 				
 				<div class="row content-panel noticePageContent">
