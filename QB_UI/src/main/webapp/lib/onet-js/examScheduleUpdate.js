@@ -3,6 +3,12 @@
 
 $(document).ready(function(){
 	
+	if($('#chk').val()==$('#hcheck').val()){
+		 $("input:checkbox[id=chk]").attr("checked", true);
+
+	}
+	
+	
 	
 	 $( "#exam_info_date" ).datepicker({ minDate: 0, maxDate: "+1M +10D",dateFormat: 'yy-mm-dd' });
 	 function allCheckFunc( obj ) {

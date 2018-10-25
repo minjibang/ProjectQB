@@ -245,14 +245,15 @@ public class TeacherController {
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, MultipartHttpServletRequest request)
+		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request)
 			throws IOException, ClassNotFoundException, SQLException{
-			System.out.println("오는가?1");
+			System.out.println("컨트롤러 진입>>");
+			System.out.println(dto2.getQuestion_img() + "\n" + dto2.getQuestion_file() + "\n" + dto);
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);
-			} else {
-				System.out.println("오는가?2");
+			} else if(dto2.getQuestion_type().equals("단답형")) {
+				System.out.println("컨트롤러 단답형 엘스 진입>>");
 				adminService.insertQuestion(dto2, request);
 			}
 			System.out.println("오는가?2");

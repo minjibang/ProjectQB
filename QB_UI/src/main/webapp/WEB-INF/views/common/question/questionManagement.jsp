@@ -327,11 +327,11 @@
 													</h4>
 													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
 													
-														
 														<option value="2">보기 개수: 2개</option>
 														<option value="3">보기 개수: 3개</option>
 														<option value="4">보기 개수: 4개</option>
 														<option value="5" selected>보기 개수: 5개</option>
+														
 													</select> <br> <br>
 													
 													
