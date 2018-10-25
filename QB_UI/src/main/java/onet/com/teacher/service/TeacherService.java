@@ -256,6 +256,14 @@ public class TeacherService {
 		
 		return result;
 	}
+	
+
+	public List<MemberDto> examNotcheckMemberList(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+
+		List<MemberDto> result = dao.examNotcheckMemberList(exam_info_num);
+		return result;
+	}
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
 	

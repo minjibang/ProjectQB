@@ -247,6 +247,14 @@ select * from exam_member where exam_info_num = #{exam_info_num}
 
 Delete From exam_member where exam_info_num = #{exam_info_num}
 </delete>
+
+
+<select id="examNotcheckMemberList" parameterType="int" resultType="onet.com.vo.ExamMemberDto">
+
+select member_id, member_name from member where class_name=(select class_name from exam_info where exam_info_num = #{exam_info_num}) and member_id not in (select member_id from exam_member where exam_info_num = #{exam_info_num});
+</select>
+
+
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>

@@ -271,6 +271,14 @@ public class TestManageController {
 		classExamList= teacherService.classExamList(exam_info_num);
 		model.addAttribute("classExamList", classExamList);
 		
+		/*체크한 학생 제외한 클래스 멤버 리스트*/
+		List<MemberDto> examNotcheckMemberList;
+		examNotcheckMemberList=teacherService.examNotcheckMemberList(exam_info_num);
+		model.addAttribute("examNotcheckMemberList", examNotcheckMemberList);
+
+		
+		
+		
 		List<ExamMemberDto> classExamMemberList;
 		 
 		classExamMemberList= teacherService.classExamMemberList(exam_info_num);
