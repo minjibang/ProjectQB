@@ -165,11 +165,13 @@ $(function() {
 /*새 문제 만들기 탭 - 문제 타입 (객관식, 단답형) 변경 시 정답 입력 div 변경 */
 function questionType(id){
 	if (id == "questionChoice") {
+		$('#questionChoice').append('<div id="choiceInput"> <b><input type="text" name="question_choice_num" value="1" style="display: none">1.</b><input type="text" name="question_choice_content" id="question_choice_content1" class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[0]" class="default"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="2" style="display: none">2.</b><input type="text" name="question_choice_content" id="question_choice_content2" class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[1]" class="default"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="3" style="display: none">3.</b><input type="text" name="question_choice_content" id="question_choice_content3" class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail"style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[2]" class="default"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="4" style="display: none">4.</b><input type="text" name="question_choice_content" id="question_choice_content4" class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[3]" class="default"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="5" style="display: none">5.</b><input type="text" name="question_choice_content" id="question_choice_content5" class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[4]" class="default"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br></div>');
 		document.all["questionChoice"].style.display = ''; // 보이게
 		document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
 		
 	} else {
 		document.all["questionChoice"].style.display = 'none'; // 안보이게
+		$('#choiceInput').remove();
 		document.all["questionShortAnswer"].style.display = ''; // 보이게
 	}
 }
@@ -181,6 +183,7 @@ $(function() {
 	        $("#questionAnswerRadio4").attr("disabled", false);
 	        $("#questionAnswerRadio5").attr("disabled", false);
 	        $("#howManyChoices").prop("disabled", false);
+	 
 	        $("#questionType2Answer").attr("disabled", true);
 	   
 	        $("#choiceInput").attr("disabled", false);
@@ -195,6 +198,9 @@ $(function() {
 	        $("#questionAnswerRadio4").attr("disabled", true);
 	        $("#questionAnswerRadio5").attr("disabled", true);
 	        $("#howManyChoices").prop("disabled", true);
+	        $("#howManyChoices5").removeAttr("selected");
+	        $("#howManyChoices1").prop("selected", "selected");
+	        
 			$("#questionType2Answer").attr("disabled", false);
 	
 			$("#choiceInput").attr("disabled", true);
@@ -223,7 +229,10 @@ $(function() {
 				var _answerBtn3 ='<label class="questionChoiceRadioButton"> <input type="radio" name="question_answer" value="3" >3번 </label>&nbsp;&nbsp;'
 				var _answerBtn4 ='<label class="questionChoiceRadioButton"> <input type="radio" name="question_answer" value="4" >4번 </label>&nbsp;&nbsp;'
 				var _answerBtn5 ='<label class="questionChoiceRadioButton"> <input type="radio" name="question_answer" value="5" >5번 </label>&nbsp;&nbsp;'
-							
+				if (document.getElementById("howManyChoices").value == "1") {
+					remove.innerHTML="";
+					remove1.innerHTML="";	
+				}			
 				if (document.getElementById("howManyChoices").value == "2") {
 					$('#choiceInput').append(_choiceInput1);
 					$('#choiceInput').append(_choiceInput2);

@@ -102,6 +102,9 @@ public class AdminService {
 					fs.write(multifile.getBytes());
 					fs.close();
 				}
+				if(filename.equals("")) {
+					filename = null;
+				}
 				filenames.add(filename); //DB insert 파일명	
 		   }
 	   }
@@ -136,7 +139,11 @@ public class AdminService {
 						fs.write(multifile.getBytes());
 						fs.close();
 					}
+					if(filename.equals("")) {
+						filename = null;
+					}
 					qcFilenames.add(filename); //DB insert 파일명	
+					
 			   }
 		   }
 		
