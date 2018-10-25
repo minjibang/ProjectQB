@@ -123,7 +123,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where (exam_info_num in (select distinct exam_info_num from student_answer where member_id=#{param1}))
 	and (exam_info_name like concat('%', #{param2}, '%') || exam_info_desc like concat('%', #{param2}, '%'))
 </select>	
-
 <!-- 10.23 현이 학생 지난 시험 보기 끝 -->
 
+<!-- 10.24 현이 학생 지난 시험지 보기 시작 -->
+
+<select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerQuesDto">
+	select * 
+	from student_answer a join question q
+	on a.question_num = q.question_num
+	where a.member_id = #{param1}
+	and a.exam_info_num = #{param2}
+</select>
+
+<select id="selectStudentWrongAnswer" resultType="onet.com.vo.Student_answerQuesDto">
+	select * 
+	from student_answer a join question q
+	on a.question_num = q.question_num
+	where a.member_id = #{param1}
+	and a.exam_info_num = #{param2}
+	and a.student_answer_status = 0
+</select>
+
+<select id="examPaperDoWrongQuestion" resultType="onet.com.vo.ExamPaperDoQuestionDto">
+	select q.question_num, q.question_type, q.question_name, q.question_img, q.question_answer, 
+	eq.exam_question_seq, eq.exam_question_score 
+	from question q join exam_question eq
+	on (q.question_num = eq.question_num)
+	join student_answer a
+	on (q.question_num = a.question_num)
+	where eq.exam_paper_num = 
+	(select exam_paper_num from exam_info where exam_info_num = #{param2})
+	and a.student_answer_status = 0
+	and a.member_id = #{param1}
+	order by eq.exam_question_seq;
+</select>
+
+<select id="examPaperDoWrongQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->
+	select question_num, question_choice_num, question_choice_content, question_choice_image 
+	from question_choice
+	where question_num in 	
+	(select q.question_num
+	from question q join exam_question eq
+	on (q.question_num = eq.question_num)
+	where eq.exam_paper_num = 
+	(select exam_paper_num from exam_info 
+	where exam_info_num = #{param1})
+	)
+	order by question_num, question_choice_num
+</select>
+
+<select id="wrongQuestionCount" resultType="int"><!-- 한 시험지에 담긴 문제의 개수 -->
+	select count(*) as questionCount
+	from student_answer
+	where member_id = #{param1}
+	and student_answer_status = 0
+	and exam_info_num = #{param2}
+</select>
+<!-- 10.24 현이 학생 지난 시험지 보기 끝 -->
 </mapper>

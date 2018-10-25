@@ -78,12 +78,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
 	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id}) order by exam_info_date desc
 </select>
+
+
+<select id="examScheduleList2" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where exam_paper_num = #{exam_paper_num}
+</select>
+
+
+
+
 <!-- 시험지 삭제 -->
 <delete id="deleteExam">
 	delete from exam_paper where exam_paper_num = #{param1}
 </delete>
 <!-- 내시험지 삭제 -->
+
 <update id="updateExam">
+
 	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
 </update>
 
@@ -127,6 +138,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="classMemberList" resultType="onet.com.vo.MemberDto">
 	select member_id, member_name from member where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
 </select>
+<select id="classMemberListUpdate" resultType="onet.com.vo.MemberDto">
+select member_id, member_name from member where class_name=(select class_name from exam_info where exam_info_num = #{exam_info_num});
+</select>
+
 <select id="classInfo" resultType="onet.com.vo.ClassDto">
 	select class_num,class_name from class where class_name = (select class_name from member where member_id = (select member_id from exam_paper where exam_paper_num = #{param1}));
 </select>
@@ -193,6 +208,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  INSERT INTO exam_info(exam_paper_num, class_name, exam_info_name,exam_info_desc,exam_info_member,exam_info_date,exam_info_start,exam_info_end,exam_info_time)
         VALUES(#{exam_paper_num},#{class_name},#{exam_info_name},#{exam_info_desc},#{exam_info_member},#{exam_info_date},#{exam_info_start},#{exam_info_end},#{exam_info_time})     
 </insert>
+
+<insert id="examMemberInsert" parameterType="onet.com.vo.ExamMemberDto">
+INSERT INTO exam_member values(#{exam_info_num},#{member_id})
+</insert>
 <!-- 민지 10.18 시험등록 끝 -->
 
 <!-- 한결 10.17 
@@ -234,6 +253,23 @@ select * from exam_info where exam_info_num=#{exam_info_num}
 <update id="examInfoIUpdate" parameterType="onet.com.vo.ExamInfoDto">
 	update exam_info set exam_info_desc=#{exam_info_desc}, exam_info_member=#{exam_info_member}, exam_info_date=#{exam_info_date}, exam_info_start=#{exam_info_start},exam_info_end=#{exam_info_end}, exam_info_time=#{exam_info_time} where exam_info_num = #{exam_info_num}
 </update>
+
+<select id="classExamMemberList" parameterType="onet.com.vo.ExamMemberDto" resultType="onet.com.vo.ExamMemberDto">
+select * from exam_member where exam_info_num = #{exam_info_num}
+</select>
+
+<delete id="teacherExamMemberDelete" parameterType="int">
+
+Delete From exam_member where exam_info_num = #{exam_info_num}
+</delete>
+
+
+<select id="examNotcheckMemberList" parameterType="int" resultType="onet.com.vo.ExamMemberDto">
+
+select member_id, member_name from member where class_name=(select class_name from exam_info where exam_info_num = #{exam_info_num}) and member_id not in (select member_id from exam_member where exam_info_num = #{exam_info_num});
+</select>
+
+
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>

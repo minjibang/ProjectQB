@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
@@ -188,8 +190,12 @@ public class TestManageController {
 	}
 	/*민지:10.18 시험등록 */
 	@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-	public  String examInfoInsert(ExamInfoDto dto,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+	public  String examInfoInsert(ExamInfoDto dto,String memberarray2,int exam_paper_num ,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
 		System.out.println("시험등록컨트롤러들어옴");
+		System.out.println("memberarray2값>>"+memberarray2+"<<");
+		
+		String [] memberchecklist= memberarray2.split(",");
+		int checkresult;
 		int result = 0;
 		String viewpage="";
 		
@@ -198,9 +204,33 @@ public class TestManageController {
 			System.out.println("시험등록성공");
 			String class_name = dto.getClass_name();
 			System.out.println(class_name);
-			
+	
 			String url = URLEncoder.encode(class_name, "UTF-8");
-			viewpage = "redirect:examManagement.do?class_name="+url+"&class_num="+dto.getClass_num();
+			String memberid="";
+			for(int i = 0; i<=memberchecklist.length-1;i++) {
+				
+				 memberid = memberchecklist[i];
+				ExamMemberDto exammemberdto = new ExamMemberDto();
+				System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+				List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
+				int infonum = examinfolist.size()-1;
+				System.out.println(examinfolist.toString());
+				int infonum2 = examinfolist.get(infonum).getExam_info_num();
+	
+				System.out.println("examinfolist>>>" + infonum2+ "    <<");
+				exammemberdto.setExam_info_num(infonum2);
+				exammemberdto.setMember_id(memberid);
+				checkresult=teacherService.examMemberInsert(exammemberdto);
+				
+				if(checkresult>0) {
+					System.out.println("체크리스트 insert 성공");
+				}else {
+					System.out.println("체크리스트 insert 실패");
+				
+			}
+			}
+			viewpage = "redirect:examManagement.do";
+
 		}else {
 			System.out.println("시험등록 실패");
 			
@@ -263,11 +293,37 @@ public class TestManageController {
 	@RequestMapping("examScheduleUpdate.do")
 	public String examScheduleUpdate(Model model, int exam_info_num) {
 
+
+		List<MemberDto> classMemberListUpdate;
+		classMemberListUpdate= teacherService.classMemberListUpdate(exam_info_num);
+		model.addAttribute("classMemberListUpdate", classMemberListUpdate);
 		
 		List<ExamInfoDto> classExamList;
 		classExamList= teacherService.classExamList(exam_info_num);
 		model.addAttribute("classExamList", classExamList);
-		/*
+		
+		/*체크한 학생 제외한 클래스 멤버 리스트*/
+		List<MemberDto> examNotcheckMemberList;
+		examNotcheckMemberList=teacherService.examNotcheckMemberList(exam_info_num);
+		model.addAttribute("examNotcheckMemberList", examNotcheckMemberList);
+
+		
+		
+		
+		List<ExamMemberDto> classExamMemberList;
+		 
+		classExamMemberList= teacherService.classExamMemberList(exam_info_num);
+		System.out.println(classExamMemberList);
+		String [] iarray = new String[classExamMemberList.size()];
+		for(int i = 0 ; i<= classExamMemberList.size()-1 ; i++) {
+			iarray[i]=classExamMemberList.get(i).getMember_id();
+			System.out.println(iarray[i]);
+		}
+		
+		model.addAttribute("classExamMemberList", iarray);
+		
+		/*System.out.println("iarray>>   " + iarray[0] + "   <<");
+		
 		List<ExamPaperDto> examPaperList;
 		examPaperList = teacherService.examPaperList(class_num);
 		model.addAttribute("examPaperList", examPaperList);
@@ -279,14 +335,54 @@ public class TestManageController {
 	}
 	
 	@RequestMapping("examInfoIUpdate.do")
-	public String examInfoIUpdate(ExamInfoDto dto) {
+	public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
 		
 		System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
+		System.out.println("memberarray2값>>"+memberarray2+"<<");
+		
+		String [] memberchecklist= memberarray2.split(",");
 		
 		int result = teacherService.examInfoIUpdate(dto);
 		
-		if(result == 0) {
-			System.out.println("에에에엥에에러 안바꼇어 바보들아");
+		if(result > 0) {
+			System.out.println("exam_info_num>>" + exam_info_num + "   <<");
+			int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
+			if(result2>0) {
+				System.out.println("수정할때 학생 리스트 삭제 성공");
+				String memberid="";
+				int result3;
+				for(int i = 0; i<=memberchecklist.length-1;i++) {
+					
+					 memberid = memberchecklist[i];
+					ExamMemberDto exammemberdto = new ExamMemberDto();
+					System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+					List<ExamInfoDto> list= teacherService.classExamList(exam_info_num);
+					int papernum= list.get(0).getExam_paper_num();
+					System.out.println("papernum  >>  "+ papernum + " <<");
+					List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
+					int infonum = examinfolist.size()-1;
+					System.out.println(examinfolist.toString());
+					int infonum2 = examinfolist.get(infonum).getExam_info_num();
+		
+					System.out.println("examinfolist>>>" + infonum2+ "    <<");
+					exammemberdto.setExam_info_num(infonum2);
+					exammemberdto.setMember_id(memberid);
+					result3=teacherService.examMemberInsert(exammemberdto);
+					
+					if(result3>0) {
+						System.out.println("수정할때 체크리스트 insert 성공");
+					}else {
+						System.out.println("체크리스트 insert 실패");
+					
+				}
+				}
+				
+			}else {
+				System.out.println("수정할때 학생 리스트 삭제 실패");
+			}
+			
+		}else {
+			System.out.println("수정실패");
 		}
 		
 		return "redirect:examManagement.do";

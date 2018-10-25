@@ -1,6 +1,9 @@
 ﻿package onet.com.admin.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,8 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import onet.com.admin.dao.AdminDao;
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.MemberDto;
@@ -62,6 +67,12 @@ public class AdminService {
 		return result;
 	}
 	
+	//문제 검색
+	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<QuestionDto> result = dao.questionSearch(lgsearchtype, mdsearchtype, smsearchtype, leveltype, questiontype, keyword);
+		return result;
+	}
 	
 	//문제 난이도 리스트
 	public List<CategoryDto> questionLevelList(){
@@ -72,42 +83,80 @@ public class AdminService {
 	
 	//새 문제 만들기 
 	@Transactional
-	public int insertQuestion(QuestionDto dto) {
+	public int insertQuestion(QuestionDto dto, HttpServletRequest request) 
+			throws IOException, ClassNotFoundException, SQLException {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		//문제 이미지 파일 입력
+		List<CommonsMultipartFile> files = dto.getQuestion_file();
+		List<String> filenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
+		   
+	   if(files != null && files.size() > 0) {
+		   for(CommonsMultipartFile multifile : files) {
+			    
+			    String filename = multifile.getOriginalFilename();
+			    String path = request.getServletContext().getRealPath("/upload/question/");
+				String fpath = path + "\\" + filename;
+		
+				if(!filename.equals("")) { //파일 쓰기
+					FileOutputStream fs = new FileOutputStream(fpath);
+					fs.write(multifile.getBytes());
+					fs.close();
+				}
+				if(filename.equals("")) {
+					filename = null;
+				}
+				filenames.add(filename); //DB insert 파일명	
+		   }
+	   }
+		dto.setQuestion_img(filenames.get(0));
+		System.out.println("일단 문제이름:"+dto.getQuestion_num());
 		int result = dao.insertQuestion(dto);
 		return result;
 	}
 	@Transactional
-	public int insertQuestionChoice(QuestionDto dto2, Question_choiceDto dto) {
-		System.out.println("adminService 진입>>> \n" + dto2 +"\n" + dto);
+	public int insertQuestionChoice(QuestionDto qDto, Question_choiceDto qcDto, HttpServletRequest request) 
+			throws IOException, ClassNotFoundException, SQLException{
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
-		String[] question_choice_image;
 		
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		
-		int question_num=dto2.getQuestion_num();		
-		question_choice_num=dto.getQuestion_choice_num().split(",");
-		question_choice_content=dto.getQuestion_choice_content().split(",");
-		question_choice_image=dto.getQuestion_choice_image().split(",");
-		System.out.println("adminService 진입 >>> 스트링배열값 확인 \n" + question_choice_num +", \n" 
-				+question_choice_content +",\n" + question_choice_image );
-		int imgCount = question_choice_image.length;
-			for(int i=0; i<question_choice_image.length; i++) {
-				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], question_choice_image[i]);
+		//보기 이미지 파일 입력
+		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
+		List<String> qcFilenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
+		   
+		   if(qcFiles != null && qcFiles.size() > 0) {
+			   for(CommonsMultipartFile multifile : qcFiles) {
+				    
+				    String filename = multifile.getOriginalFilename();
+				    String path = request.getServletContext().getRealPath("/upload/question/");
+					String fpath = path + "\\" + filename;
+			
+					if(!filename.equals("")) { //파일 쓰기
+						FileOutputStream fs = new FileOutputStream(fpath);
+						fs.write(multifile.getBytes());
+						fs.close();
+					}
+					if(filename.equals("")) {
+						filename = null;
+					}
+					qcFilenames.add(filename); //DB insert 파일명	
+					
+			   }
+		   }
+		
+		int question_num=qDto.getQuestion_num();
+		question_choice_num=qcDto.getQuestion_choice_num().split(",");
+		question_choice_content=qcDto.getQuestion_choice_content().split(",");
+		
+		int imgCount = qcFilenames.size();
+			for(int i=0; i<qcFilenames.size(); i++) {
+				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], qcFilenames.get(i));
 				}
 			for(int f = imgCount; f<question_choice_num.length; f++) {
 				result=dao.insertQuestionChoiceNoImg(question_num, question_choice_num[f], question_choice_content[f]);
 			}
-
-					
-		/* 재훈쓰 원본
-		 * for(int i=0;i<question_choice_num.length;i++) {
-			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
-		}*/
-
-		
 		return result;
 	}
 	

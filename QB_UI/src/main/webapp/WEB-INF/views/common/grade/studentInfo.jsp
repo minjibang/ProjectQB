@@ -246,44 +246,24 @@
 								<%-- 클래스 학생 목록 시작--%>
 								<div class="col-lg-2">
 									<section class="panel">
-										<div class="panel-body grey-panel">
-											<a href="mail_compose.html" class="btn btn-compose"> <i
-												class="fa fa-pencil"></i> 자바 109기
-											</a>
-											<ul class="nav nav-pills nav-stacked mail-nav">
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 김현이
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 서정원
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 방민지
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 조재훈
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 우한결
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 양회준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 유영준
-												</a></li>
-												<li><a href="inbox.html"> <img
-														src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-														class="img-circle" width="25"> 성태용
-												</a></li>
-											</ul>
+										<div class="panel-body">
+											<table id="studentList" class="table table-hover">
+									                <thead>
+									                  <tr>
+									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
+									                  </tr>
+									                </thead>
+									                <tbody>									                
+												<c:forEach items="${studentList}" var="studentList">												
+								                  <tr>
+								                    <td id="${studentList.member_id}" class="studentListMembers">
+								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+															class="img-circle" width="25"> ${studentList.member_name}
+								                    </td>
+								                   </tr>												
+												</c:forEach>
+											</tbody>
+											</table>
 										</div>
 									</section>
 								</div>
@@ -291,8 +271,7 @@
 								
 								<%-- 클래스 학생 표/차트 시작 --%>
 								<div class="col-lg-10">
-									<h3>109기</h3>
-									<h4>JAVA 웹 프로그래밍 과정</h4>
+									<h3>${studentList[0].class_name}</h3>
 									<!-- page start-->
 									<div class="tab-pane" id="chartjs">
 										<div class="row mt">
@@ -300,10 +279,10 @@
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
 													<h4>
-														<i class="fa fa-angle-right"></i> 반 평균
+														<i class="fa fa-angle-right"></i> 각 시험 평균
 													</h4>
 													<div class="panel-body text-center">
-														<canvas id="bar2"></canvas>
+														<canvas id="bar2" height="240"></canvas>
 													</div>
 												</div>
 											</div>
@@ -314,65 +293,35 @@
 														<i class="fa fa-angle-right"></i> 반 등수
 													</h4>
 													<div class="btn-group pull-right">
-														<button type="button"
-															class="btn btn-theme-right dropdown-toggle"
-															data-toggle="dropdown">
-															시험 목록 <span class="caret"></span>
-														</button>
-														<ul class="dropdown-menu" role="menu">
-															<li><a href="#">Java</a></li>
-															<li><a href="#">Oracle</a></li>
-															<li><a href="#">Web</a></li>
-															<li><a href="#">Spring</a></li>
-														</ul>
+														<select id="searchExam" class="form-control searchControl"
+																name="searchExam">
+															<option value="" >시험 목록</option>		
+															<c:forEach items="${classChart}" var="classChart">
+																<option value="exam_info_name">${classChart.exam_info_name}</option>		
+															</c:forEach>
+														</select>
 													</div>
+													<br><br>
 													<div class="panel-body text-center">
 														<div class="table-inbox-wrap">
-															<table
+															<table id="classRankTable"
 																class="table table-bordered table-striped table-condensed">
-																<tbody>
-																	<tr class="unread">
-																		<td>1등</td>
-																		<td>2등</td>
-																		<td>3등</td>
-																		<td>4등</td>
-																		<td>5등</td>
-																	</tr>
+																<thead>
 																	<tr>
-																		<td>나일등</td>
-																		<td>나이등</td>
-																		<td>나삼등</td>
-																		<td>나사등</td>
-																		<td>나오등</td>
+																		<th class="member_name">이름</th>									
+																		<th class="score_chart_rank">순위</th>
 																	</tr>
-																	<tr class="unread">
-																		<td>6등</td>
-																		<td>7등</td>
-																		<td>8등</td>
-																		<td>9등</td>
-																		<td>10등</td>
-																	</tr>
+																</thead>
+																<tbody id="classRankView">
+																	<c:forEach items="${score_chartDto}" var="classRank">
+																	
 																	<tr>
-																		<td>나육등</td>
-																		<td>나칠등</td>
-																		<td>나팔등</td>
-																		<td>나구등</td>
-																		<td>나십등</td>
+																		<td id="member_name" class="member_name">${classRank.member_name}</td>																		
+																		<td id="score_chart_rank" class="score_chart_rank">${classRank.score_chart_rank}</td>
+																	
 																	</tr>
-																	<tr class="unread">
-																		<td>11등</td>
-																		<td>12등</td>
-																		<td>13등</td>
-																		<td>14등</td>
-																		<td>15등</td>
-																	</tr>
-																	<tr>
-																		<td>나육등</td>
-																		<td>나칠등</td>
-																		<td>나팔등</td>
-																		<td>나구등</td>
-																		<td>나십등</td>
-																	</tr>
+																	
+																	</c:forEach>
 																</tbody>
 															</table>
 														</div>
@@ -389,17 +338,13 @@
 														<i class="fa fa-angle-right"></i> 점수별 학생 분포
 													</h4>
 													<div class="btn-group pull-right">
-														<button type="button"
-															class="btn btn-theme-right dropdown-toggle"
-															data-toggle="dropdown">
-															시험 목록 <span class="caret"></span>
-														</button>
-														<ul class="dropdown-menu" role="menu">
-															<li><a href="#">Java</a></li>
-															<li><a href="#">Oracle</a></li>
-															<li><a href="#">Web</a></li>
-															<li><a href="#">Spring</a></li>
-														</ul>
+														<select id="searchExam" class="form-control searchControl"
+																name="searchExam">
+															<option value="">시험 목록</option>		
+															<c:forEach items="${classChart}" var="classChart">
+																<option value="exam_info_name">${classChart.exam_info_name}</option>		
+															</c:forEach>
+														</select>
 													</div>
 													<div class="panel-body text-center">
 														<canvas id="line2" height=75%></canvas>
@@ -496,6 +441,8 @@ $(document).ready(function(){
 	
 	//첫 화면 차트	
 	functionChart();
+	//두번째 화면 차트
+	functionChart2();
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
 	//학생목록 배열에 jstl값 담기		
@@ -545,6 +492,7 @@ $(document).ready(function(){
 					chartClassDatas.push(element.class_chart_avg);					
 				});
 				functionChart();
+				functionChart2();
 			},
 			error:function(error, status){
 				console.log("실패:"+status);
@@ -649,5 +597,87 @@ $(document).ready(function(){
 		//반/학생 평균 선 차트 끝
 	}
 	//첫화면 차트
+	
+	//클래스 통계화면 첫 차트 시작
+	function functionChart2(){
+		var ctx = document.getElementById('bar2').getContext('2d');
+		var myBarChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: chartLabels,
+				datasets: [
+					{
+						label: "각 시험 평균",
+						backgroundColor: 'rgb(255, 99, 132)',
+						borderColor: 'rgb(255, 99, 132)',
+						data: chartClassDatas,
+					}
+					]
+			},
+			options:{
+				layout: {
+					padding: {
+						left: 10,
+						right: 10,
+						top: 10,
+						bottom: 10
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							max: 100,
+							min: 0,
+							stepSize: 10
+						}
+					}]
+				}
+			}
+		});
+	} //클래스 통계화면 첫 차트 끝
+	
+	// 반 등수 - 시험목록 선택 시 해당 시험 등수 시작 
+	$("#searchExam").change(function() {
+	var index = $("#searchExam option").index($("#searchExam option:selected"));
+	
+	console.log("선택된 시험목록: " + index);
+	
+	
+	});
+	// 테이블 값 가져오는지 테스트 중
+	$("#classRankTable").click(function(){ 
+			var str = ""
+            var tdArr = new Array();    // 배열 선언
+            
+            // 현재 클릭된 Row(<tr>)
+            var tr = $(this);
+            var td = tr.children();
+            
+            // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
+            console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+            
+            // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+            td.each(function(i){
+                tdArr.push(td.eq(i).text());
+            });
+            
+            console.log("배열에 담긴 값 : "+tdArr);
+            
+            // td.eq(index)를 통해 값을 가져올 수도 있다.
+            var scoreChartRank = td.eq(2).text();
+            var scoreChartScore = td.eq(1).text();
+            var memberName = td.eq(0).text();
+           
+            
+            str +=    " * 클릭된 Row의 td값 = No. : <font color='red'>" + memberName + "</font>" +
+                    ", 점수 : <font color='red'>" + scoreChartScore + "</font>" +
+                    ", 순위 : <font color='red'>" + scoreChartRank + "</font>";
+                    
+
+        });
+
+
+		
+	
 })
 </script>

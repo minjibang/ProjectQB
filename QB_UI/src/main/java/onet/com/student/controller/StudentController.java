@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
@@ -26,6 +26,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
+import onet.com.vo.Student_answerQuesDto;
 
 @Controller
 @RequestMapping("/student/")
@@ -109,12 +110,94 @@ public class StudentController {
 		
 		return examInfoList;
 	}
-
+	
+	
+	// 10.24 현이 지난 시험지 보기
 	@RequestMapping("pastExamPaper.do")
-	public String pastExamPaper() {
-
+	public String pastExamPaper(Model model, int exam_info_num, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+		
+		ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
+		
+		model.addAttribute("exam_info", exam_info);
+				
+		/*// 문제, 문제보기 리스트 뽑아옴
+		List<ExamPaperDoQuestionDto> questionList = commonService.examPaperDoQuestion(exam_info_num);
+		List<Question_choiceDto> questionChoiceList = commonService.examPaperDoQuestion_choice(exam_info_num);*/
+		int questionCount = commonService.questionCount(exam_info_num);
+				/*
+		model.addAttribute("questionList", questionList);
+		model.addAttribute("questionChoiceList", questionChoiceList);*/
+		model.addAttribute("questionCount", questionCount);	
+				
 		return "exam.student.pastExamPaper";
 	}
+	
+	
+	// ajax로 시험지의 문제들 불러오기 
+	@RequestMapping("pastExamPaperView.do")
+	public @ResponseBody ModelAndView pastExamPaperView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("ajax.student.pastExamPaper_ajax");
+		
+		ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
+		mav.addObject("exam_info", exam_info);
+		
+		List<ExamPaperDoQuestionDto> questionList = null;
+		List<Question_choiceDto> questionChoiceList = null;
+		int questionCount = commonService.questionCount(exam_info_num);
+		
+		// 문제, 문제보기 리스트 뽑아옴
+		if(student_answer_status.equals("all")) {
+			questionList = commonService.examPaperDoQuestion(exam_info_num);
+			questionChoiceList = commonService.examPaperDoQuestion_choice(exam_info_num);
+			//questionCount = commonService.questionCount(exam_info_num);
+		} else if(student_answer_status.equals("wrong")){
+			System.out.println("controller : wrong 들어옴");
+			questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num);
+			questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+			//questionCount = studentService.wrongQuestionCount(principal.getName(), exam_info_num);
+			
+			System.out.println("questionChoiceList : " + questionChoiceList);  // 왜 보기 리스트를 못가지고 오지?
+			for(Question_choiceDto dto : questionChoiceList) {
+				System.out.println("문제 보기 번호 : " + dto.getQuestion_choice_num() + ", 문제 보기  : " + dto.getQuestion_choice_content());
+			}
+			System.out.println("controller wrong 나감");
+		}
+				
+		mav.addObject("questionList", questionList);
+		mav.addObject("questionChoiceList", questionChoiceList);
+		mav.addObject("questionCount", questionCount);	
+				
+		return mav;
+	}
+	
+	
+	// 10.24 ajax 학생 답안지 리스트 가져오기 
+	@RequestMapping("searchStudentAnswer.do")
+	public @ResponseBody List<Student_answerQuesDto> selectStudentAnswer(
+			@RequestParam("exam_info_num") int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, Principal principal){
+		
+		String member_id = principal.getName();
+		System.out.println("student_answer_status : " + student_answer_status);
+		
+		List<Student_answerQuesDto> studentAnswerList = studentService.selectStudentAnswer(member_id, exam_info_num, student_answer_status);
+		
+		return studentAnswerList;
+		
+	}
+	
+	
+	
+	
+	
+	/*@RequestMapping("pastExamPaperOrigin.do")
+	public String pastExamPaperorigin() {
+		
+		return "exam.student.pastExamPaperOrigin";
+	}*/
+	
+	
 	
 	/*시험일정 > 시험응시 활성화*/
 	@RequestMapping("examPaperDo.do")

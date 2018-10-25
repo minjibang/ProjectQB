@@ -203,7 +203,7 @@
 						<div id="newQuestion" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-12">
-									<form class="formNewQuestion" action="insertQuestion.do"
+									<form class="formNewQuestion" action="insertQuestion.do" enctype="multipart/form-data"
 										method="post" onsubmit="return check()">
 										
 										<input type="text" name="member_id"
@@ -273,7 +273,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_img" class="default"/>
+																<input type="file" name="question_file" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -326,12 +326,12 @@
 
 													</h4>
 													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
-													
+														<option id="howManyChoices1" value="1">보기개수 선택</option>
+														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
+														<option id="howManyChoices3" value="3">보기 개수: 3개</option>
+														<option id="howManyChoices4" value="4">보기 개수: 4개</option>
+														<option id="howManyChoices5" value="5" selected>보기 개수: 5개</option>
 														
-														<option value="2">보기 개수: 2개</option>
-														<option value="3">보기 개수: 3개</option>
-														<option value="4">보기 개수: 4개</option>
-														<option value="5" selected>보기 개수: 5개</option>
 													</select> <br> <br>
 													
 													
@@ -355,7 +355,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[0]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -378,7 +378,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[1]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -401,7 +401,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[2]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -424,7 +424,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[3]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -447,7 +447,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_image" class="default"/>
+																<input type="file" name="question_choice_files[4]" class="default"/>
 															</span>
 															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
@@ -475,7 +475,8 @@
 										입력 취소</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
-										
+										<button type="button" class="btn btn-theme quesCategory pull-right" id="test">
+										테스트</button>
 									</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->
@@ -504,6 +505,14 @@
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
 	$(document).ready(function() {
+		$('#test').click(function(){
+			var testArr = new Array();
+			var testVar = $('input [type=hidden]');
+			
+			console.log(testVar);
+			
+		});
+		
 		$('#question_lg_category')
 				.change(
 						function() {

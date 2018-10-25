@@ -127,9 +127,31 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	select * from notice where class_name = #{class_name} and notice_num=#{notice_num}
 </select>
 
-<select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="int">
+<select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="String">
 	select max(notice_num) from notice where class_name=#{class_name} order by notice_num desc;
 </select>
+
+
+<select id="noticeNullCheck" parameterType="String" resultType="onet.com.vo.MemberDto">
+	select * from member where member_id=#{member_id}
+</select>
+
+<select id="comment" parameterType="onet.com.vo.CommentDto" resultType="onet.com.vo.CommentDto">
+	select * from comment where class_name=#{class_name} and notice_num=#{notice_num}
+</select>
+
+<select id="commentGroup" parameterType="onet.com.vo.CommentDto" resultType="onet.com.vo.CommentDto">
+	select * from comment where class_name=#{class_name} and notice_num=#{notice_num} and comment_group != 0
+</select>
+
+<insert id="commentReply" parameterType="onet.com.vo.CommentDto">
+	insert into comment(comment_group,class_name,notice_num,member_id,comment_content) values(#{comment_num},#{class_name},#{notice_num},#{member_id},#{comment_content})
+</insert>
+
+<insert id="commentInsert" parameterType="onet.com.vo.CommentDto">
+	insert into comment(class_name,notice_num,member_id,comment_content) values(#{class_name},#{notice_num},#{member_id},#{comment_content})
+</insert>
+
 
 <!-- 양회준 10-24 관리자, 강사-학생&성적관리 페이지 -->
 <select id="studentInfo" parameterType="String" resultType="onet.com.vo.MemberDto">
@@ -152,5 +174,17 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	on c.exam_info_num=e.exam_info_num
 	where c.class_name=#{class_name}
 </select>
-	
+
+<!-- 영준 10.25 - 반 등수 추가 시작 -->
+<select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+select sc.exam_info_num,e.exam_info_name,m.member_name, sc.score_chart_score, score_chart_rank
+from score_chart as sc, exam_info e, member m
+where sc.exam_info_num=e.exam_info_num
+and m.member_id=sc.member_id
+and e.exam_info_name=#{exam_info_name}
+order by
+sc.score_chart_score DESC
+</select>
+<!-- 영준 10.25 - 반 등수 추가 끝 -->
+
 </mapper>

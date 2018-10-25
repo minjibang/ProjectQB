@@ -11,8 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
+
+import onet.com.vo.CommentDto;
+
 import onet.com.vo.CategoryDto;
+
 import onet.com.vo.Class_chartDto;
+
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
@@ -153,7 +158,41 @@ public class CommonService {
 			return result;
 		}
 	}
+
+	
+
+	
+
+	public int insertBoardList(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String notice_num = dao.noticeNumFind(dto);
+		System.out.println(notice_num);
+		if(notice_num != null) {
+			int notice_number = Integer.parseInt(notice_num);
+			dto.setNotice_num(notice_number+1);
+			int result = dao.insertBoardList(dto);
+			return result;
+		}else {
+			dto.setNotice_num(1);
+			int result = dao.insertBoardList(dto);
+			return result;
+		}
+			
+		
+	}
+	
+	public List<NoticeDto> noticeDetail(String class_name, int notice_num){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		NoticeDto dto = new NoticeDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<NoticeDto> result = dao.noticeDetail(dto);
+		return result;
+	}
+
+
 //문제관리 - 문제 수정 전 수정가능여부 판단
+	/*######################      재훈 끝             ######################*/
 	public int singleUpdateCheck(int question_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = 0;
@@ -192,26 +231,44 @@ public class CommonService {
 		return result;
 	}
 	
-/*######################      재훈 끝             ######################*/
-	
 
-	public int insertBoardList(NoticeDto dto) {
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int notice_num = dao.noticeNumFind(dto);
-		System.out.println(notice_num);
-		dto.setNotice_num(notice_num+1);
-		int result = dao.insertBoardList(dto);
-		return result;
+	public List<MemberDto> boardNull(String member_id){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> boardNull = commonDao.noticeNullCheck(member_id);
+		return boardNull;
 	}
 	
-	public List<NoticeDto> noticeDetail(String class_name, int notice_num){
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		NoticeDto dto = new NoticeDto();
+	public List<CommentDto> comment(String class_name, int notice_num){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		CommentDto dto = new CommentDto();
 		dto.setClass_name(class_name);
 		dto.setNotice_num(notice_num);
-		List<NoticeDto> result = dao.noticeDetail(dto);
+		List<CommentDto> comment = commonDao.comment(dto);
+		return comment;
+	}
+	
+	public List<CommentDto> commentGroup(String class_name, int notice_num){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		CommentDto dto = new CommentDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<CommentDto> commentGroup = commonDao.commentGroup(dto);
+		return commentGroup;
+	}
+		
+	public int commentReply(CommentDto dto){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentReply(dto);
 		return result;
 	}
+
+
+	public int commentInsert(CommentDto dto){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentInsert(dto);
+		return result;
+	}
+	
 
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id){
@@ -220,7 +277,7 @@ public class CommonService {
 		return studentList;
 	}
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
-	public Map<String, Object> studentChartInfo(String member_id, String class_name){		
+	public Map<String, Object> studentChartInfo(String member_id, String class_name){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		List<Score_chartDto> studentChart = dao.studentChartInfo(member_id);
 		List<Class_chartDto> classChart = dao.classChartInfo(class_name);
@@ -229,8 +286,24 @@ public class CommonService {
 		chart.put("className", classChart);
 		return chart;
 	}
+
+	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수
+	public List<Score_chartDto> classRank(String exam_info_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
+		System.out.println("과연 반 등수는? : " + classRank);
+		return classRank;
+	}
+
 	
+
+
 }
+
+	
+	
+	
+
 
 
 
