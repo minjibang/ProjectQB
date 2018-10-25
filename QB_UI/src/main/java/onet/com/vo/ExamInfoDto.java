@@ -81,9 +81,18 @@ public class ExamInfoDto {
 	public void setClass_num(int class_num) {
 		this.class_num = class_num;
 	}
+	@Override
+	public String toString() {
+		return "ExamInfoDto [exam_info_num=" + exam_info_num + ", exam_paper_num=" + exam_paper_num + ", class_name="
+				+ class_name + ", exam_info_name=" + exam_info_name + ", exam_info_desc=" + exam_info_desc
+				+ ", exam_info_member=" + exam_info_member + ", exam_info_date=" + exam_info_date + ", exam_info_start="
+				+ exam_info_start + ", exam_info_end=" + exam_info_end + ", exam_info_time=" + exam_info_time
+				+ ", class_num=" + class_num + "]";
+	}
 	
 	
-
+	
+	
 	
 	
 	

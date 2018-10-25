@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
+import onet.com.vo.Student_answerQuesDto;
 
 @Controller
 @RequestMapping("/student/")
@@ -109,12 +109,57 @@ public class StudentController {
 		
 		return examInfoList;
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	// 10.24 현이 지난 시험지 보기
 	@RequestMapping("pastExamPaper.do")
-	public String pastExamPaper() {
-
+	public String pastExamPaper(Model model, int exam_info_num, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+		
+		ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
+		
+		model.addAttribute("exam_info", exam_info);
+				
+		// 문제, 문제보기 리스트 뽑아옴
+		List<ExamPaperDoQuestionDto> questionList = commonService.examPaperDoQuestion(exam_info_num);
+		List<Question_choiceDto> questionChoiceList = commonService.examPaperDoQuestion_choice(exam_info_num);
+		int questionCount = commonService.questionCount(exam_info_num);
+				
+		model.addAttribute("questionList", questionList);
+		model.addAttribute("questionChoiceList", questionChoiceList);
+		model.addAttribute("questionCount", questionCount);	
+				
 		return "exam.student.pastExamPaper";
 	}
+	
+	
+	// 10.24 ajax 학생 답안지 리스트 가져오기 
+	@RequestMapping("searchStudentAnswer.do")
+	public @ResponseBody List<Student_answerQuesDto> selectStudentAnswer(
+			@RequestParam("exam_info_num") int exam_info_num, Principal principal){
+		
+		String member_id = principal.getName();
+		List<Student_answerQuesDto> studentAnswerList = studentService.selectStudentAnswer(member_id, exam_info_num);
+		
+		return studentAnswerList;
+		
+	}
+	
+	
+	
+	
+	
+	@RequestMapping("pastExamPaperOrigin.do")
+	public String pastExamPaperorigin() {
+		
+		return "exam.student.pastExamPaperOrigin";
+	}
+	
+	
 	
 	/*시험일정 > 시험응시 활성화*/
 	@RequestMapping("examPaperDo.do")

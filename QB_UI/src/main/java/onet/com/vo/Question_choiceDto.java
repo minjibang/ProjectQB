@@ -12,14 +12,14 @@ public class Question_choiceDto {
 	private String question_choice_image;  	// 10.22 추가
 	
 	/*임시 파일받기용*/
-	private List<CommonsMultipartFile> files;
-    public List<CommonsMultipartFile> getFiles() {
-		return files;
+	private List<CommonsMultipartFile> question_choice_files;
+	public List<CommonsMultipartFile> getQuestion_choice_files() {
+		return question_choice_files;
 	}
-	public void setFiles(List<CommonsMultipartFile> files) {
-		this.files = files;
+	public void setQuestion_choice_files(List<CommonsMultipartFile> question_choice_files) {
+		this.question_choice_files = question_choice_files;
 	}
-	/*임시 파일받기용*/
+	/*임시 파일받기용*/	
 	
 	public int getQuestion_num() {
 		return question_num;

@@ -1,7 +1,6 @@
 package onet.com.student.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
+import onet.com.vo.Student_answerQuesDto;
 
 @Service
 public class StudentService {
@@ -100,6 +100,22 @@ public class StudentService {
 	}
 	
 	/*10.23 현이 지난 시험 보기 끝 */
+	
+	/*10.24 현이 지난 시험지 보기 시작*/
+	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<Student_answerQuesDto> studentAnswerList = dao.selectStudentAnswer(member_id, exam_info_num);
+		
+	/*	for(Student_answerQuesDto dto : studentAnswerList) {
+			System.out.println("문제번호 : " + dto.getQuestion_num() +", 정답  : "+ dto.getQuestion_answer());
+		}*/
+		
+		return studentAnswerList;
+	
+		
+	}
+	/*10.24 현이 지난 시험지 보기 끝*/
 	
 	
 	
