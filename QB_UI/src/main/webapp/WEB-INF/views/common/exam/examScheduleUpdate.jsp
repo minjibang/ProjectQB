@@ -33,34 +33,15 @@
 	                      <label>
 	                        <input type="checkbox"  id="checkall">전체선택
 	                      </label>
-	                      	<c:forEach items="${classMemberListUpdate}" var="classMemberListUpdate">
+	                      	<c:forEach items="${classMemberListUpdate}" var="classMemberListUpdate" varStatus='status'>
 	                        <ul class="chat-available-user" id ="checkboxNameUl">                      
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                             <c:forEach items="${classExamMemberList}" var="classExamMemberList">
-	                            	<c:choose>
-	                            <c:when test="${classMemberListUpdate.member_id eq classExamMemberList}">
-	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" checked >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}                    
-	                            </c:when>
-	                            </c:choose>
-	                            </c:forEach>
-	                            <c:choose>
-	                             <c:when test="${classMemberListUpdate.member_id eq classExamMemberList}">
-	                            	<input style="display:none;" type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}    	                      	                
-	                           </c:when >
-	                           <c:otherwise>
-	                           <input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}
-	                           </c:otherwise>
-	                           </c:choose>
+	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberListUpdate.member_id}">(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}                           
 	                            </label>
-	                            
 	                          </div>
 	                        </ul>
 	                        </c:forEach>
-	                        
-	                         <c:forEach items="${classExamMemberList}" var="classExamMemberList">
-	                             <input type="text" id="hcheck" value="${classExamMemberList}">
-	                             </c:forEach>
 	                      </div>
                      </div>
                   </div>

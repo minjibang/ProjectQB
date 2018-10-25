@@ -242,6 +242,11 @@ select * from exam_info where exam_info_num=#{exam_info_num}
 <select id="classExamMemberList" parameterType="onet.com.vo.ExamMemberDto" resultType="onet.com.vo.ExamMemberDto">
 select * from exam_member where exam_info_num = #{exam_info_num}
 </select>
+
+<delete id="teacherExamMemberDelete" parameterType="int">
+
+Delete From exam_member where exam_info_num = #{exam_info_num}
+</delete>
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
 </mapper>
