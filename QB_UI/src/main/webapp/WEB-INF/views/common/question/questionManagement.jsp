@@ -436,7 +436,7 @@
 													   <input type="text" name="question_choice_content" id="question_choice_content5"
 														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new" data-provides="fileupload">
-															<div class="fileupload-preview fileupload-exists thumbnail"
+															<div class="fileupload-preview fileupload-exists thumbnail" name="thisNameFind"
 																style="max-width: 300px; max-height: 180px; line-height: 20px;">
 															</div>
 														<span>
@@ -449,7 +449,7 @@
 																</span> 
 																<input type="file" name="question_choice_files[4]" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
+															<a href="#" onclick="removeImg(5)" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</a>
 														</span>
 													</span><br>
