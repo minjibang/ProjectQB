@@ -95,9 +95,10 @@
                               <c:forEach items="${examquestion}" var="examquestion">
 								<li>
 								<div class='row'>
+								
 									<div class="col-lg-1 qnumdiv">
 										 <input type="checkbox" value="${examquestion.question_num }"
-											name="checkbox[]" /> 
+											name="checkbox[]" id="question_num"/> aaa
 										<!-- value에 문제고유번호 들어간다 -->
 									</div>
 									<div class="col-lg-3">
@@ -226,16 +227,16 @@
                               <div class="modal-body">
 
                                  시험지 이름 <input type="text" class="form-control createEPaper"
-                                    placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
+                                    placeholder="시험지 이름을 입력하세요." id="exam_name" value="${exam_paper_name}-(수정)"><br> 시험지
                                  설명
                                  <textarea type="textarea" class="form-control createEPDesc"
-                                    placeholder="시험지 설명을 입력하세요." name=""></textarea>
+                                    placeholder="시험지 설명을 입력하세요." id="exam_desc">${exam_paper_desc }</textarea>
                               </div>
                               <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                           <input type="button" class="btn btn-theme" value="시험지 수정"
-                                          id="makeExamSubmitBtn1" onclick="makeExamSubmitBtn(1)">
+                                          onclick="updateExamBtn(${param.exam_paper_num })">
                                           <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
                                     </div>
@@ -323,5 +324,8 @@ $(document).ready(function(){
    type="text/javascript"></script>
 <script
    src="${pageContext.request.contextPath}/lib/onet-js/examPaperMake.js"
+   type="text/javascript"></script>
+   <script
+   src="${pageContext.request.contextPath}/lib/onet-js/examPaperUpdate.js"
    type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script> <!-- layout.jsp 에서 cdn으로 걸은 jquery-3.3.1가 안 먹혀서 다시 걸음 -->

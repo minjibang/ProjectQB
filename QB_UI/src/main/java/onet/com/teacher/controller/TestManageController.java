@@ -100,7 +100,7 @@ public class TestManageController {
 		
 		return result;
 	}
-	
+	//임시저장 시험지 삭제
 	@RequestMapping("deleteTempExam.do")
 	public @ResponseBody int deleteTempExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
@@ -109,6 +109,7 @@ public class TestManageController {
 		return result;
 	}
 	
+	//시험지 수정페이지 데이터 뿌려주기
 	@RequestMapping("updateExamView.do")
 	public String updateExamView(Model model, int exam_paper_num) {
 		
@@ -133,8 +134,38 @@ public class TestManageController {
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
 		model.addAttribute("examquestion_choice", question_choice);
 		
+		ExamPaperDto namedesc = teacherService.examNameDesc(exam_paper_num);
+		
+		String exam_paper_name = namedesc.getExam_paper_name();
+		String exam_paper_desc = namedesc.getExam_paper_desc();
+		
+		model.addAttribute("exam_paper_name", exam_paper_name);
+		model.addAttribute("exam_paper_desc", exam_paper_desc);
+		
 		return "common.teacher.exampaper.examPaperUpdate";
 	}
+	
+	//시험지 문제 삭제
+	@RequestMapping("examquestionsdelete.do")
+	public @ResponseBody int examquestionsdelete(@RequestParam("exam_paper_num") int exam_paper_num,
+			@RequestParam("exam_name") String exam_name,@RequestParam("exam_desc") String exam_desc) {
+		
+		int result = teacherService.examquestionsdelete(exam_paper_num, exam_name, exam_desc);
+		
+		return result;
+	}
+	//삭제된 시험지에 문제 넣기
+	@RequestMapping("examquestionsinsert.do")
+	public @ResponseBody int examquestionsinsert(@RequestParam("exam_paper_num") int exam_paper_num,
+			@RequestParam("question_num") int question_num,@RequestParam("exam_question_seq") int exam_question_seq,
+			@RequestParam("exam_question_score") int exam_question_score) {
+		
+		int result = teacherService.examquestionsinsert(exam_paper_num,question_num,exam_question_seq,exam_question_score);
+		
+		return result;
+	}
+	
+	
 	/*성태용 끝*/
 	
 	/*민지 시작*/
