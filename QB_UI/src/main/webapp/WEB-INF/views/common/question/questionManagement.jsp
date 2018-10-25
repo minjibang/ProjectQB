@@ -326,11 +326,11 @@
 
 													</h4>
 													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
-													
-														<option value="2">보기 개수: 2개</option>
-														<option value="3">보기 개수: 3개</option>
-														<option value="4">보기 개수: 4개</option>
-														<option value="5" selected>보기 개수: 5개</option>
+														<option id="howManyChoices1" value="1">보기개수 선택</option>
+														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
+														<option id="howManyChoices3" value="3">보기 개수: 3개</option>
+														<option id="howManyChoices4" value="4">보기 개수: 4개</option>
+														<option id="howManyChoices5" value="5" selected>보기 개수: 5개</option>
 														
 													</select> <br> <br>
 													
