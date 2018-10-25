@@ -102,6 +102,9 @@ public class AdminService {
 					fs.write(multifile.getBytes());
 					fs.close();
 				}
+				if(filename.equals("")) {
+					filename = null;
+				}
 				filenames.add(filename); //DB insert 파일명	
 		   }
 	   }
@@ -136,11 +139,15 @@ public class AdminService {
 						fs.write(multifile.getBytes());
 						fs.close();
 					}
+					if(filename.equals("")) {
+						filename = null;
+					}
 					qcFilenames.add(filename); //DB insert 파일명	
+					
 			   }
 		   }
 		
-		int question_num=qDto.getQuestion_num();		
+		int question_num=qDto.getQuestion_num();
 		question_choice_num=qcDto.getQuestion_choice_num().split(",");
 		question_choice_content=qcDto.getQuestion_choice_content().split(",");
 		

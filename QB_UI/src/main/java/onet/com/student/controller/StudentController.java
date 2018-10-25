@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
@@ -26,6 +25,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
+import onet.com.vo.Student_answerQuesDto;
 
 @Controller
 @RequestMapping("/student/")
@@ -139,11 +139,11 @@ public class StudentController {
 	
 	// 10.24 ajax 학생 답안지 리스트 가져오기 
 	@RequestMapping("searchStudentAnswer.do")
-	public @ResponseBody List<Student_answerDto> selectStudentAnswer(
+	public @ResponseBody List<Student_answerQuesDto> selectStudentAnswer(
 			@RequestParam("exam_info_num") int exam_info_num, Principal principal){
 		
 		String member_id = principal.getName();
-		List<Student_answerDto> studentAnswerList = studentService.selectStudentAnswer(member_id, exam_info_num);
+		List<Student_answerQuesDto> studentAnswerList = studentService.selectStudentAnswer(member_id, exam_info_num);
 		
 		return studentAnswerList;
 		

@@ -47,15 +47,18 @@
 					$('#' + img_id).css("display", "block");
 					$('#' + ans_id).css("display", "block");
 					
-					// 학생이 선택한 답의 보기 체크 - 주관식
-					// 해야한다아아아아아ㅏ
-					
 					if(data[index].student_answer_status == 1){  // 학생이 푼 문제가 정답인 경우 
 						
 						// 문제번호에 o 
 						var ques_id = "o_img_ques_" + data[index].exam_question_seq;
-						console.log(ques_id);
 						$('#' + ques_id).css("display", "block");
+						
+						// 답안지 문제번호에 o 
+						$('#ans_o_img_ques_' + data[index].exam_question_seq).css("display", "block");
+						
+						// 주관식란에 학생이 작성한 답 
+						$('#ques_' + data[index].exam_question_seq).val(data[index].student_answer_choice);
+						$('#ques_' + data[index].exam_question_seq + "_answer").val(data[index].student_answer_choice);	
 						
 					} else if (data[index].student_answer_status == 0) { // 학생이 푼 문제가 오답인 경우 
 						
@@ -63,17 +66,24 @@
 						var ques_id = "s_img_ques_" + data[index].exam_question_seq;
 						$('#' + ques_id).css("display", "block");
 						
-						// 정답 보기 체크 
+						// 답안지 문제번호에 x
+						$('#ans_s_img_ques_' + data[index].exam_question_seq).css("display", "block");
 						
+						// 문제에 정답 보기 체크 
+						var ques_ans_id = "so_img_ques_" + data[index].exam_question_seq + "_" + data[index].question_answer;
+						$('#' + ques_ans_id).css("display", "block");
 						
+						//답안지 정답 보기 체크 
+						$('#o_ans_img_ques_' + data[index].exam_question_seq + '_' + data[index].question_answer).css("display", "block");
+						
+						// 주관식란에 학생이 작성한 답 + 정답
+						var short_answer = data[index].student_answer_choice + "  (정답 : " + data[index].question_answer + ")";
+						$('#ques_' + data[index].exam_question_seq).val(short_answer);
+						$('#ques_' + data[index].exam_question_seq + "_answer").val(short_answer);	
 					}
-					
 				});
-				
 			}
 		});
-		
-		
 	});  // document.ready 종료 
 </script>
 </head>
@@ -97,7 +107,6 @@
 		secondRow = Integer.parseInt(firstRow2);
 	}
 %>	
-<%-- <c:set var="studentAnswerList" value="${studentAnswerList}"/> --%>
 	<div class="col-lg-12 mt">
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">
@@ -106,7 +115,7 @@
 		</div>
 		<div id="progressbar1"></div>
 		<hr>
-		<div class="panel-body">
+		<div class="panel-body" id="pastExamPaperPanel">
 			<div class="row content-panel exampaneldetail">
 				<c:set var="firstRow" value="<%=firstRow%>"/>
 				<c:set var="secondRow" value="<%=secondRow%>"/>
@@ -150,6 +159,8 @@
 													<div class="wrap">
 														<img class="oximg_v oximg_v_ques_${question.exam_question_seq}" id="img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
 														src="${pageContext.request.contextPath}/img/oximg_v.png">
+														<img class="soximg_o" id="so_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+															src="${pageContext.request.contextPath}/img/oximg_o.png">
 													</div>
 													${questionChoice.question_choice_num})
 												</td>  	
@@ -170,7 +181,7 @@
 									<c:when test="${question.question_type eq '단답형'}">
 										<tr class="ques_choice">
 											<td class="questionTd"></td>  
-											<td><input type="text" id="ques_${question.exam_question_seq}" name="student_answer[${status.index}].student_answer_choice"></td>
+											<td><input type="text" id="ques_${question.exam_question_seq}" name="student_answer[${status.index}].student_answer_choice" readonly></td>
 										</tr>
 									</c:when>
 								</c:choose>
@@ -192,16 +203,29 @@
                   </tr>
                   <c:forEach var="question" items="${questionList}">
                      <tr>
-                        <td class="tg-baqh qnumber">${question.exam_question_seq}</td>
+                        <td class="tg-baqh qnumber">
+                        	<div class="wrap">
+                        		<img class="oximg_s_answer" id="ans_s_img_ques_${question.exam_question_seq}"     
+												src="${pageContext.request.contextPath}/img/oximg_s.png">
+								<img class="oximg_o_answer" id="ans_o_img_ques_${question.exam_question_seq}" 
+												src="${pageContext.request.contextPath}/img/oximg_o.png">
+							</div>
+                        	${question.exam_question_seq}
+                        </td>
                         <c:choose>
                            <c:when test="${question.question_type eq '객관식'}">
                            <c:set var="count" value="0" />
                               <c:forEach var="questionChoice" items="${questionChoiceList}" varStatus="status">
                                  <c:if test="${questionChoice.question_num eq question.question_num}">                                 
                                      <td class="tg-baqh answer_choice">
-                                             <div class="wrap"><img class="answer_oximg_v oximg_v_ques_${question.exam_question_seq}" 
-                                             id="ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
-                                             src="${pageContext.request.contextPath}/img/oximg_v.png"></div>
+                                             <div class="wrap">
+                                             	<img class="answer_oximg_v oximg_v_ques_${question.exam_question_seq}" 
+	                                             id="ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+	                                             src="${pageContext.request.contextPath}/img/oximg_v.png">
+                                             	<img class="answer_oximg_o" 
+	                                             id="o_ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}" 
+	                                             src="${pageContext.request.contextPath}/img/oximg_o.png">
+                                             </div>
                                              ${questionChoice.question_choice_num}
                                              <c:set var="count" value="${count+1 }"/>
                                      </td>                                                                                          
@@ -212,7 +236,7 @@
                               </c:forEach>
                            </c:when>
                            <c:when test="${question.question_type eq '단답형'}">
-                              <td class="tg-baqh answer_choice" colspan="5"><input type="text" class="" name="" id="ques_${question.exam_question_seq}_answer" ></td>
+                              <td class="tg-baqh answer_choice" colspan="5"><input type="text" id="ques_${question.exam_question_seq}_answer" readonly></td>
                            </c:when>
                         </c:choose>
                      </tr>
