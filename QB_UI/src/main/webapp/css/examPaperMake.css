@@ -32,7 +32,10 @@
 }
 
 .questionImg {
-	width: 50%;
+	width: 80%;
+}
+.questionChoiceImg {
+	width: 90%;
 }
 
 #leftMakeExamDiv, #rightMakeExamDiv {
