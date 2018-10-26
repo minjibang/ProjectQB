@@ -183,12 +183,10 @@ $(function() {
 	        $("#questionAnswerRadio4").attr("disabled", false);
 	        $("#questionAnswerRadio5").attr("disabled", false);
 	        $("#howManyChoices").prop("disabled", false);
-	 
 	        $("#questionType2Answer").attr("disabled", true);
-	   
 	        $("#choiceInput").attr("disabled", false);
 	        var QCF = document.getElementsByName("question_choice_files");
-	   		/*QCF.prop("disabled",false);*/
+	   		
 	   
 	   });
        $("#question_type_2").click(function(){
@@ -205,8 +203,7 @@ $(function() {
 	
 			$("#choiceInput").attr("disabled", true);
 			 var QCF = document.getElementsByName("question_choice_files");
-		   	alert("QCF: " + QCF);
-			 /*QCF.prop("disabled",true);*/
+			
 	   });
 });
 		
@@ -274,7 +271,6 @@ $(function() {
 
 /* 문제 등록 버튼 - 유효성 검사 */
 function check(){
-	console.log("check함수 진입");
 	var _smCategory = $("#question_sm_category2 option:selected").val();
 	var _questionLevel = $("#level_type2 option:selected").val();
 	var _questionName = $("input[type=text][name=question_name]").val();
@@ -285,12 +281,9 @@ function check(){
 	var _questionChoiceContent4 = $("input[type=text][id=question_choice_content4]").val();
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
-	/*var _choiceQuantity = document.getElementById("howManyChoices").value;*/
-	var _choiceQuantity = $("#howManyChoices option:selected").val()
-	/*_questionName= _questionName.replace("\r\n|\r|\n","<br>");*/
+	var _choiceQuantity = $("#howManyChoices option:selected").val();
+	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
-		alert("객관식 문제 유효성 검사 진입 ");
-		
 		/*객관식 문제 생성 유효성검사*/
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
@@ -413,19 +406,7 @@ function check(){
 		}
 	/*주관식 문제 생성 유효성검사*/
 	}else{
-		alert("단답형 유효성검사 진입");
-		alert("1:" + _smCategory  +"\n"+
-				"2:" + _questionLevel  +"\n"+
-				"3:" +   _questionName +"\n"+
-				"4:" + _questionChoiceAnswer  +"\n"+
-				"5:" + _questionChoiceContent1  +"\n"+
-				"6:" + _questionChoiceContent2  +"\n"+
-				"7:" + _questionChoiceContent3  +"\n"+
-				"8:" + _questionChoiceContent4  +"\n"+
-				"9:" +  _questionChoiceContent5 +"\n"+
-				"10:" + _shortAnswerQuestion  +"\n"+
-				"11:" + _choiceQuantity  +"\n");
-				
+		
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
 			document.getElementById("question_sm_category2").focus();
