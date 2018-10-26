@@ -6,6 +6,8 @@ import java.util.List;
 
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -157,5 +159,9 @@ public interface AdminDao {
 	public List<CategoryDto> selectSmRealList2(CategoryDto dto);
 	// 정원 문제분류관리 끝  //
 
+	//양회준-10.26-추가
+	public List<ExamPaperDto> myExamPaperList(String member_id);
+	public List<ExamPaperDto> myTempExamList(String member_id);
+	public List<ExamInfoDto> examScheduleList(String member_id);
 }
 

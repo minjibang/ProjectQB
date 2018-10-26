@@ -230,14 +230,6 @@ $(function(){
 		});
 	});
 
-	function oneCheckbox(a){
-	    var obj = document.getElementsByName("agree");
-	    for(var i=0; i<obj.length; i++){
-	        if(obj[i] != a){
-	            obj[i].checked = false;
-	        }
-	    }
-	}
 		
 	/* 검색 버튼 구현 */
 	$("#memberSearchBtn").click(function(){
