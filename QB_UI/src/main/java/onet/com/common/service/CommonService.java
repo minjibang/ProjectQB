@@ -294,7 +294,12 @@ public class CommonService {
 		return classRank;
 	}
 
-	
+	// 영준 10.26 관리자, 강사 - 학생&성적관리 페이지 - 표준편차
+	public List<Score_chartDto> studentStdChart(String exam_info_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> studentStdChart = dao.studentStdChart(exam_info_name);
+		return studentStdChart;
+	}
 
 
 }

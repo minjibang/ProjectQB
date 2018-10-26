@@ -404,12 +404,22 @@ public class TeacherController {
 		}
 		return chart;
 	}
-
+	
+	/* 영준 10.25 반 등수 시작 */
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
 		System.out.println("과연 반 등수는? : " + classRank);
 		return classRank;
+	}
+	/* 영준 10.26 반 등수 끝 */
+	
+	/* 영준 10.26 표준편차 시작 */
+	@RequestMapping(value="", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> studentStdChart(@RequestParam("exam_info_name") String exam_info_name) {
+		List<Score_chartDto> studentStdChart = commonService.studentStdChart(exam_info_name);
+		System.out.println("과연 표준편차는? : " + studentStdChart);
+		return studentStdChart;
 	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */

@@ -91,5 +91,6 @@ public interface CommonDao {
 	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
 	public List<Score_chartDto> classRank(String exam_info_name);
 	
-
+	// 영준 - 10.26 관리자, 강사 - 학생&성적 관리페이지 - 표준편차
+	public List<Score_chartDto> studentStdChart(String exam_info_name);
 }
