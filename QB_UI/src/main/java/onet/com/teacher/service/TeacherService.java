@@ -158,10 +158,7 @@ public class TeacherService {
 		int result = 0;
 		int checkdate = dao.checkDate(exam_paper_num); //0이 아닐경우 현재 날짜보다 높다
 		int checkinfo = dao.checkExamInfo(exam_paper_num); // 0이면 등록된 일정이 없다
-		
-		System.out.println("============="+checkdate);
-		System.out.println("++++++++++++++"+checkinfo);
-		
+
 		if(checkinfo == 0 && checkdate == 0) {
 			dao.deleteExam(exam_paper_num);
 			result = 1; //delete
@@ -182,6 +179,25 @@ public class TeacherService {
 	public List<QuestionDto> updateExamView(int exam_paper_num){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<QuestionDto> result = dao.updateExamView(exam_paper_num);
+		return result;
+	}
+	
+	public int examquestionsdelete(int exam_paper_num, String exam_name, String exam_desc) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examquestionsdelete(exam_paper_num);
+		int result2 = dao.examNameUpdate(exam_paper_num, exam_name, exam_desc);
+		
+		return result;
+	}
+	
+	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examquestionsinsert(exam_paper_num,question_num,exam_question_seq,exam_question_score);
+		return result;
+	}
+	public ExamPaperDto examNameDesc(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		ExamPaperDto result = dao.examNameDesc(exam_paper_num);
 		return result;
 	}
 	

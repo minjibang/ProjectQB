@@ -28,17 +28,21 @@
 					<div class="questionImgDiv">
 						<c:if test="${question.question_img  ne null }">
 							<img
-								src="${pageContext.request.contextPath}/img/${question.question_img }"
-								alt="questionImg" class="questionImg" />
+								src="${pageContext.request.contextPath}/upload/question/${question.question_img }"
+								alt="NoImg" class="questionImg" />
 							<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 						</c:if>
 					</div>
 					<br>
 					<div>
 						<c:forEach items="${question_choice}" var="question_choice">
-							<c:if
-								test="${question_choice.question_num eq question.question_num}">
-								<p>${question_choice.question_choice_num}.${question_choice.question_choice_content}</p>
+							<c:if test="${question_choice.question_num eq question.question_num}">
+								<c:if test="${question_choice.question_choice_image ne null }">
+									<p>${question_choice.question_choice_num}. ${question_choice.question_choice_content} <br><img src="${pageContext.request.contextPath}/upload/question/${question_choice.question_choice_image}" alt="NoImg" class="questionChoiceImg" /></p>
+								</c:if>
+								<c:if test="${question_choice.question_choice_image eq null }">
+									<p>${question_choice.question_choice_num}. ${question_choice.question_choice_content}</p>
+								</c:if>
 							</c:if>
 						</c:forEach>
 					</div>
