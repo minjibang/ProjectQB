@@ -120,7 +120,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 
 <!-- 재훈 - 문제관리 관련 10.21 끝 -->
 <insert id="insertBoardList" parameterType="onet.com.vo.NoticeDto">
-	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_file3},#{notice_date})
+	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_date})
 </insert>
 
 <select id="noticeDetail" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
@@ -152,6 +152,29 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	insert into comment(class_name,notice_num,member_id,comment_content) values(#{class_name},#{notice_num},#{member_id},#{comment_content})
 </insert>
 
+<update id="commentUpdate" parameterType="onet.com.vo.CommentDto">
+	update comment set comment_content = #{comment_content} where comment_num=#{comment_num}
+</update>
+
+<delete id="commentReplyDelete" parameterType="onet.com.vo.CommentDto">
+	delete from comment where comment_num=#{comment_num}
+</delete>
+
+<select id="noticeUpdateList" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice where notice_num=#{notice_num} and class_name=#{class_name}
+</select>
+
+<update id="updateBoardList" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_name = #{notice_name},notice_content=#{notice_content},notice_file1=#{notice_file1},notice_file2=#{notice_file2} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+<delete id="noticeDelete" parameterType="onet.com.vo.NoticeDto">
+	delete from notice where notice_num=#{notice_num} and class_name=#{class_name}
+</delete>
+
+<delete id="noticeFromCommentDelete" parameterType="onet.com.vo.NoticeDto">
+	delete from comment where notice_num=#{notice_num} and class_name=#{class_name}
+</delete>
 
 <!-- 양회준 10-24 관리자, 강사-학생&성적관리 페이지 -->
 <select id="adminStudentInfo" parameterType="String" resultType="onet.com.vo.MemberDto">
