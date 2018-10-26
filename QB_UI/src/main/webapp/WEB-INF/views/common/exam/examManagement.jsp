@@ -175,7 +175,7 @@
 																id="${examScheduleList.exam_info_num}"
 																name="deleteExamScheduleBtn"
 																class="btn btn-theme04 buttonGroup"
-																onclick="deleteExamInfo()">삭제</button>
+																onclick="deleteExamInfo()" value="${examScheduleList.exam_info_date}">삭제</button>
 
 															<button type="button" class="btn btn-theme buttonGroup"
 																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험

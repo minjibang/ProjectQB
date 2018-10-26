@@ -313,7 +313,7 @@
 																	</tr>
 																</thead>
 																<tbody id="classRankView">
-																	<c:forEach items="${score_chartDto}" var="classRank">
+																	<c:forEach items="${classRank}" var="classRank">
 																	
 																	<tr>
 																		<td id="member_name" class="member_name">${classRank.member_name}</td>																		
@@ -636,48 +636,36 @@ $(document).ready(function(){
 		});
 	} //클래스 통계화면 첫 차트 끝
 	
+	
 	// 반 등수 - 시험목록 선택 시 해당 시험 등수 시작 
+	// 해당 클래스 반 등수 목록 담기
+	var index;
+
+	// 시험문제 목록 선택 시작
 	$("#searchExam").change(function() {
-	var index = $("#searchExam option").index($("#searchExam option:selected"));
-	
-	console.log("선택된 시험목록: " + index);
-	
-	
-	});
-	// 테이블 값 가져오는지 테스트 중
-	$("#classRankTable").click(function(){ 
-			var str = ""
-            var tdArr = new Array();    // 배열 선언
-            
-            // 현재 클릭된 Row(<tr>)
-            var tr = $(this);
-            var td = tr.children();
-            
-            // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
-            console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-            
-            // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-            td.each(function(i){
-                tdArr.push(td.eq(i).text());
-            });
-            
-            console.log("배열에 담긴 값 : "+tdArr);
-            
-            // td.eq(index)를 통해 값을 가져올 수도 있다.
-            var scoreChartRank = td.eq(2).text();
-            var scoreChartScore = td.eq(1).text();
-            var memberName = td.eq(0).text();
-           
-            
-            str +=    " * 클릭된 Row의 td값 = No. : <font color='red'>" + memberName + "</font>" +
-                    ", 점수 : <font color='red'>" + scoreChartScore + "</font>" +
-                    ", 순위 : <font color='red'>" + scoreChartRank + "</font>";
-                    
-
-        });
-
-
+		index = $("#searchExam option").index($("#searchExam option:selected"));
+		var examInfoName=$("#searchExam option:selected").text();
 		
-	
+		console.log("선택된 시험문제 번호: " + index);
+		console.log("선택된 시험문제 : " + examInfoName);
+
+		//비동기 실행
+		$.ajax({
+			type:"post",
+			url:"classRank.do",
+			data:{"exam_info_name":examInfoName
+				  
+				},
+			datatype:"json",
+			success:function(data, status){
+				console.log("넘어온 반 등수 정보 : " +JSON.stringify(data));
+				console.log("성공");
+				
+			},
+			error:function(error, status){
+				console.log("실패:"+status);
+			}
+		});	
+	});
 })
 </script>

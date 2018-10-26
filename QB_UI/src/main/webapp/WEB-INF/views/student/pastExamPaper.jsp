@@ -36,14 +36,28 @@
 		pastExamPaperView(student_answer_status);
 
 		$('#wrongQuestionBtn').click(function() {
-			student_answer_status = "wrong";
-			pastExamPaperView(student_answer_status);
-			searchStudentAnswer(student_answer_status);
-			//student_answer_status = "all";
-		});
+			
+			if(student_answer_status == "all"){
+				
+				student_answer_status = "wrong";
+				pastExamPaperView(student_answer_status);
+				searchStudentAnswer(student_answer_status);
+				
+				$("#wrongQuestionBtn").text("전체 문제 보기");
+				
+			} else if(student_answer_status == "wrong") {
+				
+				student_answer_status = "all";
+				pastExamPaperView(student_answer_status);
+				searchStudentAnswer(student_answer_status);
+				
+				$("#wrongQuestionBtn").text("틀린 문제만 보기");
+				
+			}
+			
+		});	//	wrongbtn 이벤트 종료 
 
 	}); // document.ready 종료
-	
 	
 	
 	// 문제 가져오는 ajax
@@ -150,15 +164,12 @@
 		<div id="progressbar1"></div>
 		<hr>
 		<div class="panel-body" id="pastExamPaperPanel">
-			
-			
+		
 			<div id="pastExamQuestion"></div>
 			<!-- 문제 및 답안지 표기 -->
 			
-			
 		</div>
-		<button class="btn btn-theme03 exampaneldetailBtn" class=""
-			id="wrongQuestionBtn">틀린 문제만 보기</button>
+		<button class="btn btn-theme03 exampaneldetailBtn" id="wrongQuestionBtn">틀린 문제만 보기</button>
 	</div>
 	</div>
 </body>

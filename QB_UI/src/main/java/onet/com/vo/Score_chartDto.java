@@ -13,6 +13,7 @@ public class Score_chartDto {
 	private String exam_info_name;
 	// 영준 10.25 추가
 	private String member_name;
+
 	
 	public String getMember_name() {
 		return member_name;
@@ -22,6 +23,7 @@ public class Score_chartDto {
 		this.member_name = member_name;
 	}
 
+	
 	public String getExam_info_name() {
 		return exam_info_name;
 	}

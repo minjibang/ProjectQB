@@ -1,37 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-		String questionCount2 = request.getAttribute("questionCount").toString();
-		int questionCount = Integer.parseInt(questionCount2);
-
-		double halfCount = questionCount / 2;
-		String str = Double.toString(halfCount); //	반으로 나눈 것의 String 값
-
-		String firstRow2 = str.substring(0, str.indexOf("."));
-		int firstRow = 0;
-		int secondRow = 0;
-
-		if (questionCount % 2 == 0) { //	 짝수 
-			firstRow = Integer.parseInt(firstRow2);
-			secondRow = Integer.parseInt(firstRow2);
-		} else {
-			firstRow = Integer.parseInt(firstRow2) + 1;
-			secondRow = Integer.parseInt(firstRow2);
-		}
-%>
-	
-	<c:set var="firstRow" value="<%=firstRow%>" />
-	<c:set var="secondRow" value="<%=secondRow%>" />
-	<c:set var="questionCount" value="<%=questionCount%>" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 	<div class="row content-panel exampaneldetail">
 		<form method="post" id="answerForm" target="examScheduleDetail">
+			
+			<c:set var="halfCount" value="${fn:length(questionList)/2}"/> <!-- 문제 전체 갯수의 반값, 지금은 총 6문제 중 3문제가 반이다 -->
+			<c:set var="questionCount" value="0" />  <!-- 문제 하나가 업뎃 될 때마다 1씩 카운트 증가 -->
+			
 			<c:forEach var="question" items="${questionList}" varStatus="status">
-				<!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->
-				<c:if test="${question.exam_question_seq < 2}">
+				<c:if test="${questionCount == 0}">		
 					<div class="col-lg-5 fst_div" id="examBox">
-				</c:if>
+				</c:if> 
 				<table class="questionTable">
 					<tr class="questionTr">
 						<td class="questionTd questionSpace">
@@ -89,6 +70,8 @@
 									</c:if>
 								</c:if>
 							</c:forEach>
+							
+							<c:set var="questionCount" value="${questionCount + 1}" />
 						</c:when>
 						<c:when test="${question.question_type eq '단답형'}">
 							<tr class="ques_choice">
@@ -98,13 +81,14 @@
 									name="student_answer[${status.index}].student_answer_choice"
 									readonly></td>
 							</tr>
+							<c:set var="questionCount" value="${questionCount + 1}" /> 
 						</c:when>
 					</c:choose>
 				</table>
-				<c:if test="${question.exam_question_seq == firstRow }">
+		<c:if test="${questionCount == halfCount || questionCount == halfCount + 0.5}"> 
 	</div>
 	<div class="col-lg-5 scd-div">
-		</c:if>
+		</c:if> 
 		</c:forEach>
 	</div>
 
@@ -144,8 +128,8 @@
 											<img class="answer_oximg_o"
 												id="o_ans_img_ques_${question.exam_question_seq}_${questionChoice.question_choice_num}"
 												src="${pageContext.request.contextPath}/img/oximg_o.png">
-										</div> ${questionChoice.question_choice_num} <c:set var="count"
-											value="${count+1 }" />
+										</div> ${questionChoice.question_choice_num} 
+										<c:set var="count" value="${count+1 }" />
 									</td>
 								</c:if>
 							</c:forEach>
