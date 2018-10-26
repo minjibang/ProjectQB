@@ -228,11 +228,28 @@
 <script>
 	function updateExamCheck() {
 		var exam_paper_num = window.event.target.id;
-		var deleteconfirm = confirm("시험지 수정을 하시겠습니까?");
-		if (deleteconfirm == true) {
-			location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;
-		} else {
-		}
+
+		$.ajax({
+			url : "updateExamCheck.do",
+			type : "get",
+			dataType : "json",
+			data : {
+				'exam_paper_num' : exam_paper_num
+			},
+			success : function(data){
+				if(data == 1){
+					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;		
+				}else if(data == 2){
+					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;
+				}else{
+					swal({
+						title : "수정불가",
+						text : "등록된 시험일정이 있습니다. 시험일정을 확인하고 수정해주세요.",
+						icon : "warning",
+					});
+				}
+			}
+		});
 	}
 	function deleteExamCheck() {
 		var exam_paper_num = window.event.target.id;

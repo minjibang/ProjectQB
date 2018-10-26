@@ -102,6 +102,14 @@ public class TestManageController {
 		
 		return result;
 	}
+	//시험지 수정 유효성
+	@RequestMapping("updateExamCheck.do")
+	public @ResponseBody int updateExamCheck(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		int result = teacherService.updateExamCheck(exam_paper_num);
+		
+		return result;
+	}
 	//임시저장 시험지 삭제
 	@RequestMapping("deleteTempExam.do")
 	public @ResponseBody int deleteTempExam(@RequestParam("exam_paper_num") int exam_paper_num) {
@@ -166,7 +174,17 @@ public class TestManageController {
 		
 		return result;
 	}
-	
+	//시험지 수정(새로 시험지를 만들고 이전시험지는 enable을 0으로 하기
+	@RequestMapping("examPaperUpdateInsert.do")
+	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_num") int exam_paper_num,@RequestParam("exam_name") String exam_name,
+			@RequestParam("exam_desc") String exam_desc, Principal principal) {
+		String member_id = principal.getName();
+		int updateresult = teacherService.examEnableUpdate(exam_paper_num);
+		int exampapernum = teacherService.newExaminsert(exam_name,member_id,exam_desc);
+		
+		System.out.println("*********************"+exampapernum);
+		return exampapernum;
+	}
 	
 	/*성태용 끝*/
 	
