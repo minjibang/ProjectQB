@@ -42,7 +42,6 @@ public interface StudentDao {
 	public List<Student_answerQuesDto> selectStudentWrongAnswer(String member_id, int exam_info_num);
 	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num);
 	public List<Question_choiceDto> examPaperDoWrongQuestion_choice(int exam_info_num);
-	public int wrongQuestionCount(String member_id, int exam_info_num);
 	/*10.24 현이 학생 지난 시험지 보기 끝*/
 		
 }

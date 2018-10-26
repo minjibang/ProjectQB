@@ -291,7 +291,6 @@ public class CommonService {
 	public List<Score_chartDto> classRank(String exam_info_name){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
-		System.out.println("과연 반 등수는? : " + classRank);
 		return classRank;
 	}
 
