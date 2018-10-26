@@ -94,6 +94,6 @@ public class MainPageController {
 		model.addAttribute("myTempExamList", myTempExamList);
 		model.addAttribute("examScheduleList", examScheduleList);
 		
-		return "common.teacher.exam.examManagement";
+		return "common.admin.exam.examManagement";
 	}
 }
