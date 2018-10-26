@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import onet.com.admin.dao.AdminDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.QuestionDto;
 
 @Service
@@ -38,5 +40,25 @@ public class AdminMainPageService {
 		List<ClassDto> result = dao.classSearch(searchtype, keyword);
 		return result;
 	}
-
+	
+	//양회준 리스트 3개 추가
+	//내시험지 리스트
+	public List<ExamPaperDto> myExamPaperList(String member_id){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.myExamPaperList(member_id);
+		return result;	
+	}
+	//내임시시험지 리스트
+	public List<ExamPaperDto> myTempExamList(String member_id){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.myTempExamList(member_id);
+		return result;	
+	}
+	
+	//시험등록 일정리스트
+	public List<ExamInfoDto> examScheduleList(String member_id){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamInfoDto> result = dao.examScheduleList(member_id);
+		return result;
+	}
 }
