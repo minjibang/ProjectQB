@@ -11,6 +11,7 @@ public class ExamPaperUpdateDto {
 	private String md_category_name;
 	private String sm_category_name;
 	private String member_id;
+	
 	public int getQuestion_num() {
 		return question_num;
 	}

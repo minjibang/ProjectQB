@@ -6,6 +6,7 @@
  --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
@@ -52,7 +53,9 @@
 								</tbody>
 							</table>
 							<div>
+							<se:authorize access="hasRole('ROLE_TEACHER') OR hasRole('ROLE_ADMIN')">
 								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
+							</se:authorize>	 
 							</div>
 						</div><!-- panel-body -->
 						

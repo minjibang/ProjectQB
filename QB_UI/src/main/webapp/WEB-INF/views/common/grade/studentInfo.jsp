@@ -295,72 +295,33 @@
 													<div class="btn-group pull-right">
 														<select id="searchExam" class="form-control searchControl"
 																name="searchExam">
-															<option value="">시험 목록</option>		
+															<option value="" >시험 목록</option>		
 															<c:forEach items="${classChart}" var="classChart">
-																<option value="">${classChart.exam_info_name}</option>		
+																<option value="exam_info_name">${classChart.exam_info_name}</option>		
 															</c:forEach>
 														</select>
-														<!-- <!-- <button type="button"
-															class="btn btn-theme-right dropdown-toggle"
-															data-toggle="dropdown" id="examList">
-															시험 목록 <span class="caret"></span>
-															
-														</button>
-														<ul class="dropdown-menu" role="menu">
-															<li><a href="#">Java</a></li>
-															<li><a href="#">Oracle</a></li>
-															<li><a href="#">Web</a></li>
-															<li><a href="#">Spring</a></li> 
-														</ul> -->
 													</div>
 													<br><br>
 													<div class="panel-body text-center">
 														<div class="table-inbox-wrap">
-															<table
+															<table id="classRankTable"
 																class="table table-bordered table-striped table-condensed">
-																<tbody>
-																	<tr class="unread">
-																		<td>1등</td>
-																		<td>2등</td>
-																		<td>3등</td>
-																		<td>4등</td>
-																		<td>5등</td>
-																	</tr>
+																<thead>
 																	<tr>
-																		<td>나일등</td>
-																		<td>나이등</td>
-																		<td>나삼등</td>
-																		<td>나사등</td>
-																		<td>나오등</td>
+																		<th class="member_name">이름</th>									
+																		<th class="score_chart_rank">순위</th>
 																	</tr>
-																	<tr class="unread">
-																		<td>6등</td>
-																		<td>7등</td>
-																		<td>8등</td>
-																		<td>9등</td>
-																		<td>10등</td>
-																	</tr>
+																</thead>
+																<tbody id="classRankView">
+																	<c:forEach items="${classRank}" var="classRank">
+																	
 																	<tr>
-																		<td>나육등</td>
-																		<td>나칠등</td>
-																		<td>나팔등</td>
-																		<td>나구등</td>
-																		<td>나십등</td>
+																		<td id="member_name" class="member_name">${classRank.member_name}</td>																		
+																		<td id="score_chart_rank" class="score_chart_rank">${classRank.score_chart_rank}</td>
+																	
 																	</tr>
-																	<tr class="unread">
-																		<td>11등</td>
-																		<td>12등</td>
-																		<td>13등</td>
-																		<td>14등</td>
-																		<td>15등</td>
-																	</tr>
-																	<tr>
-																		<td>나육등</td>
-																		<td>나칠등</td>
-																		<td>나팔등</td>
-																		<td>나구등</td>
-																		<td>나십등</td>
-																	</tr>
+																	
+																	</c:forEach>
 																</tbody>
 															</table>
 														</div>
@@ -381,7 +342,7 @@
 																name="searchExam">
 															<option value="">시험 목록</option>		
 															<c:forEach items="${classChart}" var="classChart">
-																<option value="">${classChart.exam_info_name}</option>		
+																<option value="exam_info_name">${classChart.exam_info_name}</option>		
 															</c:forEach>
 														</select>
 													</div>
@@ -676,6 +637,35 @@ $(document).ready(function(){
 	} //클래스 통계화면 첫 차트 끝
 	
 	
-	
+	// 반 등수 - 시험목록 선택 시 해당 시험 등수 시작 
+	// 해당 클래스 반 등수 목록 담기
+	var index;
+
+	// 시험문제 목록 선택 시작
+	$("#searchExam").change(function() {
+		index = $("#searchExam option").index($("#searchExam option:selected"));
+		var examInfoName=$("#searchExam option:selected").text();
+		
+		console.log("선택된 시험문제 번호: " + index);
+		console.log("선택된 시험문제 : " + examInfoName);
+
+		//비동기 실행
+		$.ajax({
+			type:"post",
+			url:"classRank.do",
+			data:{"exam_info_name":examInfoName
+				  
+				},
+			datatype:"json",
+			success:function(data, status){
+				console.log("넘어온 반 등수 정보 : " +JSON.stringify(data));
+				console.log("성공");
+				
+			},
+			error:function(error, status){
+				console.log("실패:"+status);
+			}
+		});	
+	});
 })
 </script>

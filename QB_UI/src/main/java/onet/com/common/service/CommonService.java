@@ -298,6 +298,7 @@ public class CommonService {
 		return chart;
 	}
 
+
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
 		List<NoticeDto>result = commonDao.noticeUpdateList(dto);
@@ -317,6 +318,15 @@ public class CommonService {
 		return result;
 	}
 	
+
+	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수
+	public List<Score_chartDto> classRank(String exam_info_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
+		return classRank;
+	}
+
+
 	
 
 }

@@ -71,8 +71,9 @@ public class TeacherController {
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
 	public String noticeWrite(String class_name, Model model) {
-		System.out.println(class_name);
+		
 		model.addAttribute("class_name",class_name);
+		
 		return "common.teacher.notice.noticeWrite";
 	}
 	/* 한결 10월 12일 강사 글쓰기 페이지 끝 */
@@ -80,8 +81,6 @@ public class TeacherController {
 	/* 10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
-		System.out.println(class_name);
-		System.out.println(notice_num);
 		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
 		List<CommentDto> comment = commonService.comment(class_name, notice_num);
 		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
@@ -256,13 +255,12 @@ public class TeacherController {
 	
 	//강사 - 새 문제 만들기 
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
-	public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request)
+		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request)
 			throws IOException, ClassNotFoundException, SQLException{
-	
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);
-			} else {
+			} else if(dto2.getQuestion_type().equals("단답형")) {
 				adminService.insertQuestion(dto2, request);
 			}
 			return "redirect:questionManagement.do";
@@ -393,7 +391,9 @@ public class TeacherController {
 	public String studentInfo(Model model, Principal principal){
 		//양회준 10-24
 		String member_id = principal.getName();
+		
 		List<MemberDto> studentList = commonService.studentInfo(member_id);
+		
 		//첫번째 학생의 데이터로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
@@ -414,6 +414,13 @@ public class TeacherController {
 			System.out.println("과연"+data.getExam_info_name());
 		}
 		return chart;
+	}
+
+	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
+		System.out.println("과연 반 등수는? : " + classRank);
+		return classRank;
 	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */

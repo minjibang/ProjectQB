@@ -197,6 +197,17 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	on c.exam_info_num=e.exam_info_num
 	where c.class_name=#{class_name}
 </select>
-	
+
+<!-- 영준 10.25 - 반 등수 추가 시작 -->
+<select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+SELECT m.member_name, score_chart_rank
+FROM score_chart as sc, exam_info e, member m
+WHERE sc.exam_info_num=e.exam_info_num
+and m.member_id=sc.member_id
+and e.exam_info_name=#{exam_info_name}
+ORDER BY
+sc.score_chart_score DESC
+</select>
+<!-- 영준 10.25 - 반 등수 추가 끝 -->
 
 </mapper>

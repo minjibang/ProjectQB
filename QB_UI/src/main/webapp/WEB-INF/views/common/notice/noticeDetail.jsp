@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link href="${pageContext.request.contextPath}/css/noticeView.css"
 	rel="stylesheet">
 <style>
@@ -150,8 +150,10 @@
 						
 						<div class="row noticeDetailBtnDiv">
 							<a href="teacherMain.do" class="btn btn-theme">글 목록</a>
+							<se:authorize access="hasRole('ROLE_TEACHER') OR hasRole('ROLE_ADMIN')">
 							<button type="button" id="updateNotice"class="btn btn-theme">글 수정</button>
 							<button type="button" data-toggle="modal" data-target="#DeleteModal" class="btn btn-theme04">글 삭제</button>
+							</se:authorize>
 						</div>
 
 					</div>
@@ -272,12 +274,12 @@ $(document).ready(function(){
 		console.log(comment_num);
 		$.ajax({
 			 type : "post",
-			 url : "${pageContext.request.contextPath}/teacher/commentReply.do",
+			 url : "commentReply.do",
 			 data:"notice_num="+notice_num+"&class_name="+class_name+"&comment_num="+comment_num+"&replyInput="+replyInput,  
 			 success : function(data){
 			 	   	$.ajax({
 			 	   		type : "post",
-			 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+			 	   		url : "noticeDetailAjax.do",
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);
@@ -298,12 +300,12 @@ $(document).ready(function(){
 		}else{
 		$.ajax({
 			 type : "post",
-			 url : "${pageContext.request.contextPath}/teacher/commentInsert.do",
+			 url : "commentInsert.do",
 			 data:"notice_num="+notice_num+"&class_name="+class_name+"&textarea="+textarea,  
 			 success : function(data){
 			 	   	$.ajax({
 			 	   		type : "post",
-			 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+			 	   		url : "noticeDetailAjax.do",
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);
@@ -337,7 +339,7 @@ $(document).ready(function(){
 	$(document).on('click','.updateCancel',function(){
 		$.ajax({
  	   		type : "post",
- 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+ 	   		url : "noticeDetailAjax.do",
  	   		data : "class_name="+class_name+"&notice_num="+notice_num,
  	   		success: function(data){
  	   				$('#list1body').html(data);
@@ -350,12 +352,12 @@ $(document).ready(function(){
 		var comment_content = $(this).prev().val();
 		$.ajax({
  	   		type : "post",
- 	   		url : "${pageContext.request.contextPath}/teacher/noticeReplyUpdate.do",
+ 	   		url : "noticeReplyUpdate.do",
  	   		data : "comment_num="+comment_num+"&comment_content="+comment_content,
  	   		success: function(data){
 	 	   		$.ajax({
 		 	   		type : "post",
-		 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+		 	   		url : "noticeDetailAjax.do",
 		 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 		 	   		success: function(data){
 		 	   				$('#list1body').html(data);
@@ -370,12 +372,12 @@ $(document).ready(function(){
 		
 		$.ajax({
  	   		type : "post",
- 	   		url : "${pageContext.request.contextPath}/teacher/commentReplyDelete.do",
+ 	   		url : "commentReplyDelete.do",
  	   		data : "comment_num="+comment_num,
  	   		success: function(data){
 	 	   		$.ajax({
 		 	   		type : "post",
-		 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+		 	   		url : "noticeDetailAjax.do",
 		 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 		 	   		success: function(data){
 		 	   				$('#list1body').html(data);
@@ -387,11 +389,11 @@ $(document).ready(function(){
 	
 	
 	$(document).on('click','#updateNotice',function(){
-		location.href="${pageContext.request.contextPath}/teacher/noticeUpdate.do?notice_num="+notice_num+"&class_name="+class_name;
+		location.href="noticeUpdate.do?notice_num="+notice_num+"&class_name="+class_name;
 	});
 	
 	$('#deleteNotice').click(function(){
-		location.href="${pageContext.request.contextPath}/teacher/noticeDelete.do?notice_num="+notice_num+"&class_name="+class_name;
+		location.href="noticeDelete.do?notice_num="+notice_num+"&class_name="+class_name;
 		
 	});
 	
