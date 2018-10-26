@@ -172,4 +172,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by question_num, question_choice_num
 </select>
 <!-- 10.24 현이 학생 지난 시험지 보기 끝 -->
+
 </mapper>
