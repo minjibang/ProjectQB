@@ -197,7 +197,7 @@
 												<div class="row">
 													<div class="col-md-12">
 														<div class="col-md-2">
-															<section class="panel">
+															<section class="panel" style="width:150px;">
 																<div class="panel-body grey-panel">
 																	<div>
 																		<label class="btn btn-compose"> <i
@@ -210,11 +210,10 @@
 																		<li id="messageSelect"><div>
 																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
 																		  <label>
+																		  <input type="checkbox" class="checkbox form-control"id="agree" name="agree" value=""style="position:relative;"/>
 																				<img
 																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25">${classMemberList.member_name}<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" value=""/>
+																					class="img-circle" width="25">${classMemberList.member_name}
 																					</label>
 																					</div>
 																			</div></li>
