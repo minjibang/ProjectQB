@@ -411,7 +411,7 @@ public class TeacherController {
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		
+		System.out.println("과연 반 등수는? : " + classRank);
 		return classRank;
 	}
 	
