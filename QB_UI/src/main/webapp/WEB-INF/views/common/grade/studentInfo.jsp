@@ -642,51 +642,32 @@ $(document).ready(function(){
 	// 반 등수 - 시험목록 선택 시 해당 시험 등수 시작 
 	// 해당 클래스 반 등수 목록 담기
 	var index;
-	var classRankArr= new Array();
-	<c:forEach items="${classRank}" var="classRank">
-	var json=new Object();
-	json.exam_info_num="${classRank.exam_info_num}";
-	json.exam_info_name="${classRank.exam_info_name}";
-	json.member_name="${classRank.member_name}";
-	json.score_chart_score="${classRank.score_chart_score}";
-	json.score_chart_rank="${classRank.score_chart_rank}";
-	classRankArr.push(json);
-	</c:forEach>
-	
+
 	// 시험문제 목록 선택 시작
 	$("#searchExam").change(function() {
 		index = $("#searchExam option").index($("#searchExam option:selected"));
-	
 		var examInfoName=$("#searchExam option:selected").text();
 		
 		console.log("선택된 시험문제 번호: " + index);
 		console.log("선택된 시험문제 : " + examInfoName);
-		
+
 		//비동기 실행
 		$.ajax({
 			type:"post",
 			url:"classRank.do",
 			data:{"exam_info_name":examInfoName
+				  
 				},
 			datatype:"json",
 			success:function(data, status){
-				console.log("넘어온 반 등수 정보 : " + data);
-				//넘어온 객체의 반 등수정보
-				$(data.examInfoName).each(function(index, element){					
-					data.push(element.member_id);
-					data.push(element.score_chart_rank);
-				});
-
+				console.log("넘어온 반 등수 정보 : " +JSON.stringify(data));
+				console.log("성공");
+				
 			},
 			error:function(error, status){
 				console.log("실패:"+status);
 			}
-		});		
+		});	
 	});
-	
-
-
-		
-	
 })
 </script>

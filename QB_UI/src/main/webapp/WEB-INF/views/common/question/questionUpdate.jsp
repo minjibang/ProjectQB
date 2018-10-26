@@ -70,13 +70,20 @@
 							<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
 							 <c:forEach items="${qdto}" var="qdto"> 
 							 <c:forEach items="${qcat}" var="qcat">
-		
 							 <input type="text" id="qdto_question_num" name="qdto_question_num" style="display: none" value="${qdto.question_num}">
 							 <input type="text" name="qdto_question_answer" style="display: none" value="${qdto.question_answer}">
 							 <c:forEach items="${cdto}" var="cdto">
 							 <input type="text" name="cdto_question_num" style="display: none" value="${cdto.question_num}">  
 							 <input type="text" name="cdto_question_choice_num" style="display: none" value="${cdto.question_choice_num}">  
-							 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}"> 
+							 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}">
+							 
+							 <c:if test="${cdto.question_choice_image ne null }">
+										<img
+										src="${pageContext.request.contextPath}/upload/${cdto.question_choice_image}"
+										alt="choiceImg" class="choiceImg" />
+										<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+							</c:if>
+							 
 							 </c:forEach>
 							 <input type="text" name="qcat_smCatCode" style="display: none" value="${qcat.sm_category_code}">  
 							 <input type="text" name="qcat_mdCatCode" style="display: none" value="${qcat.md_category_code}">  
@@ -175,19 +182,39 @@
 											placeholder="문제 내용을 입력해주세요." rows="3" required> ${qdto.question_name} </textarea>
 										<div class="fileupload fileupload-new"
 											data-provides="fileupload">
+											<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+											
+											<c:if test="${qdto.question_img ne null }">
+											<span>
+											<img
+											src="${pageContext.request.contextPath}/upload/${qdto.question_img}"
+											alt="questionImg" class="questionImg" id="questionImg" style="max-height:250px;">
+											</span>
+											</c:if> 
 											<div class="fileupload-preview fileupload-exists thumbnail"
 												style="max-width: 400px; max-height: 250px; line-height: 20px;">
+											
 											</div>
-											<span> <span class="btn btn-theme02 btn-file">
+											<span> 
+											
+											<span class="btn btn-theme02 btn-file">
 													<span class="fileupload-new"> <i
 														class="fa fa-paperclip"></i>image
-												</span> <span class="fileupload-exists"> <i
-														class="fa fa-undo"></i>Change
-												</span> <input type="file" name="question_img" class="default" />
+												</span> 
+												 
+												<span class="fileupload-exists">
+												
+												 <i class="fa fa-undo">
+	
+														</i>Change
+												</span>
+												
+												<input type="file" name="question_img" class="default" />
 											</span> <a href="" class="btn btn-theme04 fileupload-exists"
 												data-dismiss="fileupload"> <i class="fa fa-trash-o"></i>Remove
 											</a>
 											</span>
+											
 										</div>
 									</div>
 									<!--문제 종료-->

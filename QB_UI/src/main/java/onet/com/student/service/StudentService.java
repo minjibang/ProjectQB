@@ -136,14 +136,6 @@ public class StudentService {
 		List<Question_choiceDto> questionChoiceList = dao.examPaperDoWrongQuestion_choice(exam_info_num);
 		return questionChoiceList;
 	}
-	
-	public int wrongQuestionCount(String member_id, int exam_info_num) {
-		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		int questionCount = dao.wrongQuestionCount(member_id, exam_info_num);
-		
-		return questionCount;
-	}
-	
 	/*10.24 현이 지난 시험지 보기 끝*/
 	
 	
