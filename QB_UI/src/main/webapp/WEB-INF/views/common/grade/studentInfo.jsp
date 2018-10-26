@@ -672,9 +672,6 @@ $(document).ready(function(){
 						html +=	"<td id='score_chart_rank' class='score_chart_rank'>" + element.score_chart_rank+"</td></tr>";
 					
 						$("#classRankView").empty().append(html);
-					
-
-					
 					});
 				} else{
 					swal("Error!", "응시한 학생이 없습니다.", "error");
