@@ -2,6 +2,7 @@ package onet.com.common.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 
 @Service
 public class CommonService {
@@ -282,9 +284,15 @@ public class CommonService {
 	}
 
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
-	public List<MemberDto> studentInfo(String member_id){
+	public List<MemberDto> studentInfo(String member_id, String class_num){
+		List<MemberDto> studentList = null;
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<MemberDto> studentList = dao.studentInfo(member_id);
+		System.out.println("아이디:"+member_id);
+		if(member_id.equals("admin")) {
+			studentList = dao.adminStudentInfo(class_num);
+		}else {			
+			studentList = dao.studentInfo(member_id);
+		}		
 		return studentList;
 	}
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
@@ -296,6 +304,24 @@ public class CommonService {
 		chart.put("studentName", studentChart);
 		chart.put("className", classChart);
 		return chart;
+	}
+	//양회준 10-25 학생&성적관리 학생개인 성적확인
+	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		ArrayList<String> ctgr = new ArrayList<String>();
+		List<StudentExamScoreInfo> list = dao.studentExamScoreInfo(member_id, class_name);//시험 정보
+		List<StudentExamScoreInfo> ctgrlist = dao.studentExamScoreInfoCtgr(member_id, class_name);//시험 당 소분류
+		
+		for(StudentExamScoreInfo data : list) {
+			ctgr.clear();//arraylist 초기화
+			for(StudentExamScoreInfo data2 : ctgrlist) {
+				if(data.getExam_info_num()==data2.getExam_info_num()) {
+					ctgr.add(data2.getSm_category_name());//시험당 관련 소분류명을 Arraylist에 담음					
+				}
+			}
+			data.setSmCtgrName(ctgr);//소분류 ArrayList를 DTO에 담음
+		}		
+		return list;
 	}
 
 
@@ -326,8 +352,6 @@ public class CommonService {
 		return classRank;
 	}
 
-
-	
 
 }
 
