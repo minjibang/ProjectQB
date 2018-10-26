@@ -32,7 +32,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/examManagement.do?class_num=${param.class_num}&class_name=${param.class_name}">
+            <a href="${pageContext.request.contextPath}/admin/examManagement.do">
               <i class="fa fa-file-text-o"></i>
               <span>시험 관리</span>
               </a>

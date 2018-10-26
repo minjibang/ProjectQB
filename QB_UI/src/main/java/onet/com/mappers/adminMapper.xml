@@ -408,5 +408,18 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <select id="selectSmRealList2" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
 	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code}
 </select>
-
+<!-- 양회준-10.26-추가수정 시작  -->
+<!-- 내시험지 리스트 뿌려주기 -->
+<select id="myExamPaperList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where exam_paper_status = true and exam_paper_enable = true order by exam_paper_num desc
+</select>
+<!-- 내 임시시헙지 리스트 뿌려주기 -->
+<select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where exam_paper_status = false order by exam_paper_num desc
+</select>
+<!-- 시험 일정 리스트 뿌려주기 -->
+<select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where class_name in (select class_name from member) order by exam_info_date desc
+</select>
+<!-- 양회준-10.26-추가수정 끝 -->
 </mapper>

@@ -137,12 +137,12 @@
 								<div class="col-lg-10 unread">
 									<section class="panel">
 										<header class="panel-heading wht-bg">
-											<h4 id="tab2_studentName" class="gen-case">
-												${studentList[0].member_name}
+											<h4 class="gen-case">
+												<span id="tab2_studentName">${studentList[0].member_name}</span>
 												<form action="#" class="pull-right mail-src-position">
 													<div class="input-append">
-														<input type="text" class="form-control "
-															placeholder="Search Test">
+														<input type="text" id="searchExamValue"class="form-control "
+															placeholder="Search Test" onkeydown="searchStudentExamList()">
 													</div>
 												</form>
 											</h4>
@@ -150,7 +150,7 @@
 										<div class="panel-body minimal">
 											<div class="table-inbox-wrap">
 												<table class="table table-inbox table-hover">
-													<tbody id="studentExamScoreInfo">
+													<tbody id="studentExamTable">
 														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
 														<tr class="unread">															
 															<td class="view-message  dont-show"><img
@@ -452,7 +452,8 @@ $(document).ready(function(){
 	//학생목록 이벤트 종료
 	
 	//학생 목록 선택 이벤트-tab2
-	$(".tab2studentListMembers").click(function(){	
+	$(".tab2studentListMembers").click(function(){
+		$("#searchExamValue").val("");
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
 		var className=$("#tab2_className").text().trim();
@@ -476,13 +477,12 @@ $(document).ready(function(){
 				console.log("성공");
 				console.log(data);
 				var studentExamScoreSrc = "";				
-				$("#studentExamScoreInfo").empty();
+				$("#studentExamTable").empty();
 				$(data).each(function(index, element){
 					var smCtgr="";
 					$(element.smCtgrName).each(function(index, name){ //소분류 추출
 						smCtgr += name+'&nbsp;&nbsp;';
 					});
-					smCtgr.substr(0, smCtgr.length-2); //마지막 쉼표 제거
 					console.log("소분류:"+smCtgr);
 					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
 					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
@@ -494,7 +494,7 @@ $(document).ready(function(){
 					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-info">성적확인</button>';
 					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-danger">삭제</button></td></tr>';					
 				});
-				$("#studentExamScoreInfo").append(studentExamScoreSrc);			
+				$("#studentExamTable").append(studentExamScoreSrc);			
 			},
 			error:function(error, status){
 				console.log("실패:"+status);
@@ -502,6 +502,10 @@ $(document).ready(function(){
 		});		
 	});
 	//학생목록 이벤트 종료
+	function searchStudentExamList();
+	function searchStudentExamList(){
+		
+	}
 	
 	//첫화면 차트
 	function functionChart(){

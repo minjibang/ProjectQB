@@ -37,6 +37,7 @@ import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.RoleDto;
 import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -321,18 +322,24 @@ public class AdminController {
 	@RequestMapping("studentInfo.do")
 	public String studentInfo(Model model, Principal principal, HttpServletRequest request){
 		String member_id = principal.getName();
-		String class_num=request.getParameter("class_num");
-		
-		System.out.println("반번호:"+class_num);
+		String class_num=request.getParameter("class_num");	
 		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
+		String student_id = studentList.get(0).getMember_id();
+		String class_name = studentList.get(0).getClass_name();
+		System.out.println("admin:"+student_id);
+		System.out.println("admin:"+class_name);
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
+		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
+		
+		//학생 개인 성적확인
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
+		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		
 		return "common.adminClass.admin.grade.studentInfo";
 	}
@@ -347,6 +354,14 @@ public class AdminController {
 			System.out.println("과연"+data.getExam_info_name());
 		}
 		return chart;
+	}
+	//양회준 10-26 학생&성적관리 학생개인 성적확인
+	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+			@RequestParam("class_name") String class_name){
+		//양회준 10-24
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		return result;
 	}
 	
 
