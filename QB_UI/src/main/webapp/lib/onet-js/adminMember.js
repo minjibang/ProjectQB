@@ -140,7 +140,19 @@ $(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
-   				  location.href="adminMember.do";
+     				if($('#cemail').val()==""||$('#curl').val()==""){
+       					swal("입력칸을 채워주세요.", "", "error");
+       				}else{
+       					swal({
+       	                   title: "수정 되었습니다",
+       	                  text: "",
+       	                  icon:"success"
+       	               }).then(function() {
+       	                   window.location = "adminMember.do";
+       	               });
+
+       				  
+       				}
    			  },
    			  error: function(request, status, error){
    				  
