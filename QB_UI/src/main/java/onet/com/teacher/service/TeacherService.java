@@ -158,10 +158,7 @@ public class TeacherService {
 		int result = 0;
 		int checkdate = dao.checkDate(exam_paper_num); //0이 아닐경우 현재 날짜보다 높다
 		int checkinfo = dao.checkExamInfo(exam_paper_num); // 0이면 등록된 일정이 없다
-		
-		System.out.println("============="+checkdate);
-		System.out.println("++++++++++++++"+checkinfo);
-		
+
 		if(checkinfo == 0 && checkdate == 0) {
 			dao.deleteExam(exam_paper_num);
 			result = 1; //delete
@@ -185,6 +182,25 @@ public class TeacherService {
 		return result;
 	}
 	
+	public int examquestionsdelete(int exam_paper_num, String exam_name, String exam_desc) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examquestionsdelete(exam_paper_num);
+		int result2 = dao.examNameUpdate(exam_paper_num, exam_name, exam_desc);
+		
+		return result;
+	}
+	
+	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.examquestionsinsert(exam_paper_num,question_num,exam_question_seq,exam_question_score);
+		return result;
+	}
+	public ExamPaperDto examNameDesc(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		ExamPaperDto result = dao.examNameDesc(exam_paper_num);
+		return result;
+	}
+	
 	
 	/*--성태용 끝--*/
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
@@ -198,6 +214,8 @@ public class TeacherService {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		
 		List<MemberDto> result = dao.classMemberListUpdate(exam_info_num);
+		
+		
 		return result;
 	}
 	
@@ -246,7 +264,21 @@ public class TeacherService {
 		System.out.println("exam_info_num >>> " +exam_info_num +"  <<");
 		dto.setExam_info_num(exam_info_num);
 		List<ExamMemberDto> result = dao.classExamMemberList(dto);
-		System.out.println("result " + result);
+		return result;
+	}
+	
+	public int teacherExamMemberDelete(int exam_info_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.teacherExamMemberDelete(exam_info_num);
+		
+		return result;
+	}
+	
+
+	public List<MemberDto> examNotcheckMemberList(int exam_info_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+
+		List<MemberDto> result = dao.examNotcheckMemberList(exam_info_num);
 		return result;
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/

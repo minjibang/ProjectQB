@@ -94,7 +94,7 @@ public class AdminService {
 		   for(CommonsMultipartFile multifile : files) {
 			    
 			    String filename = multifile.getOriginalFilename();
-			    String path = request.getServletContext().getRealPath("/upload");
+			    String path = request.getServletContext().getRealPath("/upload/question/");
 				String fpath = path + "\\" + filename;
 		
 				if(!filename.equals("")) { //파일 쓰기
@@ -122,8 +122,6 @@ public class AdminService {
 		String[] question_choice_content;
 		
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		
-
 		//보기 이미지 파일 입력
 		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
 		List<String> qcFilenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
@@ -132,8 +130,7 @@ public class AdminService {
 			   for(CommonsMultipartFile multifile : qcFiles) {
 				    
 				    String filename = multifile.getOriginalFilename();
-				    String path = request.getServletContext().getRealPath("/upload");
-				    System.out.println("진짜경로:"+path);
+				    String path = request.getServletContext().getRealPath("/upload/question/");
 					String fpath = path + "\\" + filename;
 			
 					if(!filename.equals("")) { //파일 쓰기
@@ -155,29 +152,11 @@ public class AdminService {
 		
 		int imgCount = qcFilenames.size();
 			for(int i=0; i<qcFilenames.size(); i++) {
-				
-				System.out.println(i+"i번 : "+question_num);
-				System.out.println(i+"i번 : "+question_choice_num[i]);
-				System.out.println(i+"i번 : "+question_choice_content[i]);
-				System.out.println(i+"i번 : "+qcFilenames.get(i));
 				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], qcFilenames.get(i));
-
 				}
 			for(int f = imgCount; f<question_choice_num.length; f++) {
-				
-				System.out.println(f+"f번 : "+question_num);
-				System.out.println(f+"f번 : "+question_choice_num[f]);
-				System.out.println(f+"f번 : "+question_choice_content[f]);
 				result=dao.insertQuestionChoiceNoImg(question_num, question_choice_num[f], question_choice_content[f]);
 			}
-
-					
-		/* 재훈쓰 원본
-		 * for(int i=0;i<question_choice_num.length;i++) {
-			result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i]);
-		}*/
-
-		
 		return result;
 	}
 	

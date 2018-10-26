@@ -287,6 +287,14 @@ public class CommonService {
 		return chart;
 	}
 
+	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수
+	public List<Score_chartDto> classRank(String exam_info_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
+		System.out.println("과연 반 등수는? : " + classRank);
+		return classRank;
+	}
+
 	
 
 

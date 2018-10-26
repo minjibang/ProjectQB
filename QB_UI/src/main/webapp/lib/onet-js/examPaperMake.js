@@ -132,7 +132,6 @@ jQuery(document).ready(function() {
 });
 
 function makeExamSubmitBtn(num){
-	console.log(num);
 	var examName = "";
 	var memId = $('.dpn1').val();
 	var examDesc = "";
@@ -157,10 +156,6 @@ function makeExamSubmitBtn(num){
 		examDesc=$('.createEPDesc').val().trim();
 
 	}
-	console.log("================="+examDesc);
-
-	console.log(examName);
-	console.log(examDesc);
 
 	$.ajax({
         url:"checkExam_paper.do",

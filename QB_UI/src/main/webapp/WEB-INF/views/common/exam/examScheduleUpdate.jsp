@@ -33,34 +33,28 @@
 	                      <label>
 	                        <input type="checkbox"  id="checkall">전체선택
 	                      </label>
-	                      	<c:forEach items="${classMemberListUpdate}" var="classMemberListUpdate">
-	                        <ul class="chat-available-user" id ="checkboxNameUl">                      
+	                        <ul class="chat-available-user" id ="checkboxNameUl">       
+	                        	<c:forEach items="${classMemberListUpdate}" var="classMemberListUpdate" varStatus='status'>
+	                        <c:forEach items="${classExamMemberList}" var="classExamMemberList">
+	                        <c:choose>
+	                        <c:when test="${classMemberListUpdate.member_id eq classExamMemberList}">               
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                             <c:forEach items="${classExamMemberList}" var="classExamMemberList">
-	                            	<c:choose>
-	                            <c:when test="${classMemberListUpdate.member_id eq classExamMemberList}">
-	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" checked >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}                    
-	                            </c:when>
-	                            </c:choose>
-	                            </c:forEach>
-	                            <c:choose>
-	                             <c:when test="${classMemberListUpdate.member_id eq classExamMemberList}">
-	                            	<input style="display:none;" type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}    	                      	                
-	                           </c:when >
-	                           <c:otherwise>
-	                           <input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}" >(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}
-	                           </c:otherwise>
-	                           </c:choose>
+	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberListUpdate.member_id}" checked>(${classMemberListUpdate.member_id })${classMemberListUpdate.member_name}                           
 	                            </label>
-	                            
 	                          </div>
-	                        </ul>
+	                        </c:when>
+	                         </c:choose>
 	                        </c:forEach>
-	                        
-	                         <c:forEach items="${classExamMemberList}" var="classExamMemberList">
-	                             <input type="text" id="hcheck" value="${classExamMemberList}">
-	                             </c:forEach>
+	                        </c:forEach>
+	                          <c:forEach items="${examNotcheckMemberList}" var="examNotcheckMemberList">
+	                           <div class="checkbox" id="checkboxName">
+	                            <label>
+	                          <input type="checkbox"  name="chk" id="chk" value="${examNotcheckMemberList.member_id}">(${examNotcheckMemberList.member_id })${examNotcheckMemberList.member_name}        
+	                        </label>
+	                        </div>
+	                        </c:forEach>
+	                        </ul>
 	                      </div>
                      </div>
                   </div>
