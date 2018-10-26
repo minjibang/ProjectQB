@@ -65,9 +65,9 @@ public class TeacherService {
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
 	
 	/*한결 - 10.17 시험지 체크 및 insert 시작*/
-	public String examPaperCheck(String exam_paper_name) {
+	public String examPaperCheck(String exam_paper_name,String member_id) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		String result = dao.examPaperCheck(exam_paper_name);
+		String result = dao.examPaperCheck(exam_paper_name, member_id);
 		return result;
 	}
 	

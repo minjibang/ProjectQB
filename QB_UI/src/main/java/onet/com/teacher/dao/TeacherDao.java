@@ -19,7 +19,7 @@ public interface TeacherDao {
 	public List<Question_levelDto> question_level();
 	
 	/*10.17 시험지체크 시작*/
-	public String examPaperCheck(String exam_paper_name);
+	public String examPaperCheck(String exam_paper_name,String member_id);
 
 	/*10.18 시험지 테이블*/
 	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status);

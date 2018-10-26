@@ -177,24 +177,33 @@
                               <h4 class="modal-title" id="myModalLabel">시험지 임시저장</h4>
                               <input type="hidden" id="saveEP" value="0"/>
                            </div>
-                           <form action="" method="post">
+                           <form action="examPaperInsert.do" method="post">
                               <div class="modal-body">
 
                                  시험지 이름 <input type="text" class="form-control exam-paper-name"
-                                    placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
+                                    placeholder="시험지 이름을 입력하세요." name="exam_paper_name"><br> 시험지
                                  설명
                                  <textarea type="textarea" class="form-control exam-paper-desc"
-                                    placeholder="시험지 설명을 입력하세요." name=""></textarea>
+                                    placeholder="시험지 설명을 입력하세요." name="exam_paper_desc"></textarea>
+                                    <input type="hidden" id="saveEPStatus" name="exam_paper_status" value="0" />
+                                    <input type="hidden" id="saveMemId" name="member_id" value=""/>
+                                    <input type="hidden" id="saveQNum" name="question_num" value="" />
+                                    <input type="hidden" id="saveEQSeq" name="exam_question_seq" value="" />
+                                    <input type="hidden" id="saveEQScore" name="exam_question_score" value="" />
                               </div>
-                              <div class="modal-footer">
+                              <div class="modal-footer col-log-10">
+                              <input type="submit" class="btn btn-theme" value="보내버리자">
+                              </div>
+                              <!-- <div class="modal-footer">
                                  <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                        <input type="button" class="btn btn-theme" value="임시저장"
                                           id="pickQuestionTempSaveBtn" onclick="makeExamSubmitBtn(0)"> <input type="button"
                                           class="btn btn-theme04" data-dismiss="modal" value="취소">
+                                          
                                     </div>
                                  </div>
-                              </div>
+                              </div> -->
                            </form>
                         </div>
                      </div>
@@ -210,14 +219,19 @@
                               <h4 class="modal-title" id="myModalLabel">시험지 생성</h4>
                               <input type="hidden" id="createEP" value="1"/>
                            </div>
-                           <form action="" method="post">
+                           <form action="examPaperInsert.do" method="post">
                               <div class="modal-body">
 
                                  시험지 이름 <input type="text" class="form-control createEPaper"
-                                    placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
+                                    placeholder="시험지 이름을 입력하세요." name="exam_paper_nmae"><br> 시험지
                                  설명
                                  <textarea type="textarea" class="form-control createEPDesc"
-                                    placeholder="시험지 설명을 입력하세요." name=""></textarea>
+                                    placeholder="시험지 설명을 입력하세요." name="exam_paper_desc"></textarea>
+                                    <input type="hidden" id="insertEPStatus" name="exam_paper_status" value="1" />
+                                    <input type="hidden" id="insertMemId" name="member_id" value=""/>
+                                    <input type="hidden" id="insertQNum" name="question_num" value="" />
+                                    <input type="hidden" id="insertEQSeq" name="exam_question_seq" value="" />
+                                    <input type="hidden" id="insertEQScore" name="exam_question_score" value="" />
                               </div>
                               <div class="modal-footer">
                                  <div class="form-group">
