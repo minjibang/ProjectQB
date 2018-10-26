@@ -157,6 +157,8 @@ function makeExamSubmitBtn(num){
 
 	}
 
+}
+function insertEP(){
 	$.ajax({
         url:"checkExam_paper.do",
         type:"get",
@@ -300,8 +302,6 @@ function makeExamSubmitBtn(num){
            swal("문제가 생겨부럿네");
         }
      });
-	
-	
 }
 
 function plusqcore(){
