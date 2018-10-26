@@ -391,13 +391,21 @@ public class TestManageController {
 	
 	/* 민지 - 18.10.23 시험 일정 삭제 시작 */
 	@RequestMapping(value = "teacherExamSchedultDelete.do", method = RequestMethod.POST)
-	public @ResponseBody String teacherExamSchedultDelete(@RequestParam("exam_info_num") int exam_info_num) //@RequestBody (비동기: 객체 형태로 받아요) 
+	public @ResponseBody String teacherExamSchedultDelete(@RequestParam("exam_info_num") int exam_info_num, @RequestParam("currentDate") int currentDate, @RequestParam("removeData") int removeData) //@RequestBody (비동기: 객체 형태로 받아요) 
 	{	
 		
 		/*deptService.insertDept(dto);
 		return dto.toString();*/
-		int result = teacherService.teacherExamSchedultDelete(exam_info_num);
-		String result2 = String.valueOf(result);
+		String result2="";
+		if(currentDate>removeData) {
+			System.out.println("지난시험지울거다");
+			result2="n";
+		}else {
+			int result = teacherService.teacherExamSchedultDelete(exam_info_num);
+			result2 = String.valueOf(result);
+			
+		}
+		System.out.println(">>>>>>"+result2);
 		return result2;
 		
 	}
