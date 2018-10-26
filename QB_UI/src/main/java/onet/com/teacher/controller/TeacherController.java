@@ -74,6 +74,17 @@ public class TeacherController {
 	      return "common.teacher.notice.notice";
 	   }
 
+		/*민지 18.10.10 메시지 페이지 시작*/
+		@RequestMapping("myMessage.do")
+		public String myMessage(Model model, Principal principal) {
+			String member_id = principal.getName();
+			System.out.println("아이디:"+member_id);
+			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+			   System.out.println("classMemberList >>   " + classMemberList + "   <<<");
+			   model.addAttribute("classMemberList", classMemberList);
+			return "common.teacher.common.myMessage";
+		}
+		/*민지 18.10.10 메시지 페이지 끝*/
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
 	public String noticeWrite(String class_name, Model model) {
@@ -370,13 +381,7 @@ public class TeacherController {
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
 	
 	
-	/*민지 18.10.10 메시지 페이지 시작*/
-	@RequestMapping("myMessage.do")
-	public String myMessage() {
-		
-		return "common.teacher.common.myMessage";
-	}
-	/*민지 18.10.10 메시지 페이지 끝*/
+
 	
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
