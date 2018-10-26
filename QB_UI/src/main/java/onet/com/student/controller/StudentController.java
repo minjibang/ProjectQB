@@ -1,11 +1,14 @@
 package onet.com.student.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
+import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
@@ -63,11 +69,15 @@ public class StudentController {
 	   /*한결 10월 12일 학생메인페이지 시작*/
 	   @RequestMapping("studentMain.do")
 	   public String studentMain(Model model, Principal principal) {
-	      String member_id = principal.getName();
-	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
-	      model.addAttribute("notice", notice);
-	      List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
-	      model.addAttribute("exam_info", exam_info);
+		   String member_id = principal.getName();
+		      System.out.println(member_id);
+		      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+		      List<MemberDto> boardNull = commonService.boardNull(member_id);
+		      System.out.println(boardNull);
+		    	model.addAttribute("boardNull", boardNull);
+		        model.addAttribute("notice", notice);
+			  List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
+			  	model.addAttribute("exam_info", exam_info);
 	      
 	      return "common.student.notice.notice";
 	   }
@@ -75,8 +85,35 @@ public class StudentController {
 
 	/* 재훈:10.08 게시판 글 상세보기 페이지 시작 */
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail() {
-
+	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		List<CommentDto> comment = commonService.comment(class_name, notice_num);
+		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
+		if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() != null) {
+			String file1 = result.get(0).getNotice_file1();
+			int index1 = file1.indexOf("_");
+			String originFileName1 = file1.substring(index1+1);
+			String file2 = result.get(0).getNotice_file2();
+			int index2 = file2.indexOf("_");
+			String originFileName2 = file2.substring(index2+1);
+			model.addAttribute("originFileName1",originFileName1);
+			model.addAttribute("originFileName2",originFileName2);
+		}else if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() == null) {
+			String file1 = result.get(0).getNotice_file1();
+			int index1 = file1.indexOf("_");
+			String originFileName1 = file1.substring(index1+1);
+			model.addAttribute("originFileName1",originFileName1);
+		}else if(result.get(0).getNotice_file1() == null && result.get(0).getNotice_file2() != null) {
+			String file2 = result.get(0).getNotice_file2();
+			int index2 = file2.indexOf("_");
+			String originFileName2 = file2.substring(index2+1);
+			model.addAttribute("originFileName2",originFileName2);
+		}
+		String name = principal.getName();
+		model.addAttribute("result", result);
+		model.addAttribute("comment", comment);
+		model.addAttribute("commentGroup", commentGroup);
+		model.addAttribute("name", name);
 		return "common.student.notice.noticeDetail";
 	}
 	/* 재훈:10.08 게시판 글 상세보기 페이지 끝 */
@@ -313,4 +350,104 @@ public class StudentController {
 	}
 	/* 현이 18.10.19 학생 답안지 insert 끝 */
 
+	@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
+	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String str = dayTime.format(new Date(time));
+		dto.setNotice_date(str);
+		
+		MultipartFile file1 = request.getFile("files1");
+		MultipartFile file2 = request.getFile("files2");
+		System.out.println("file1 : "+ file1);
+		String originFileName1 = file1.getOriginalFilename();
+		String originFileName2 = file2.getOriginalFilename();
+		long fileSize1 = file1.getSize();
+		long fileSize2 = file2.getSize();
+		String path =  request.getServletContext().getRealPath("/upload/notice/");
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		System.out.println("safeFile : " + safeFile1);
+		if(fileSize1 > 0 && fileSize2 > 0) {
+			file1.transferTo(new File(safeFile1));
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file1(savaFile1);
+			dto.setNotice_file2(saveFile2);
+		}else if(fileSize1 > 0 && fileSize2 == 0){
+			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
+		}else if(fileSize2 > 0 && fileSize1 == 0) {
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file2(saveFile2);
+		}
+		int result = commonService.insertBoardList(dto);
+		return "redirect:studentMain.do";
+	}
+	
+	
+	@RequestMapping("commentReply.do")
+	public @ResponseBody int commentReply(int notice_num, String class_name, int comment_num, String replyInput, Principal principal){
+		String member_id = principal.getName();
+		CommentDto dto = new CommentDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		dto.setComment_num(comment_num);
+		dto.setMember_id(member_id);
+		dto.setComment_content(replyInput);
+		int result = commonService.commentReply(dto);
+		return result;
+		
+	}
+	
+	@RequestMapping("noticeDetailAjax.do")
+	public ModelAndView noticeDetailAjax(Model model, String class_name, int notice_num, Principal principal) {
+		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		List<CommentDto> comment = commonService.comment(class_name, notice_num);
+		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
+		String name = principal.getName();
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.teacher.noticeDetail_ajax1");
+		mv.addObject("result", result);
+		mv.addObject("comment", comment);
+		mv.addObject("commentGroup", commentGroup);
+		mv.addObject("name", name);
+		return mv;
+	}
+	
+	@RequestMapping("commentInsert.do")
+	public @ResponseBody int commentInsert(Model model, String class_name, int notice_num, String textarea, Principal principal) {
+		String name = principal.getName();
+		CommentDto dto = new CommentDto();
+		dto.setMember_id(name);
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		dto.setComment_content(textarea);
+		int result = commonService.commentInsert(dto);
+		return 0;
+	}
+	
+	
+	@RequestMapping("noticeReplyUpdate.do")
+	public @ResponseBody int noticeReplyUpdate(Model model, int comment_num, String comment_content) {
+		CommentDto dto = new CommentDto();
+		dto.setComment_num(comment_num);
+		dto.setComment_content(comment_content);
+		int result = commonService.commentUpdate(dto);
+		return 0;
+	}
+	
+	@RequestMapping("commentReplyDelete.do")
+	public @ResponseBody int commentReplyDelete(Model model,int comment_num) {
+		CommentDto dto = new CommentDto();
+		dto.setComment_num(comment_num);
+		int result = commonService.commentReplyDelete(dto);
+		return 0;
+	}
 }

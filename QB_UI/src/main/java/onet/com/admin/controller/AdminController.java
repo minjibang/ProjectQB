@@ -1,13 +1,17 @@
 ﻿package onet.com.admin.controller;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,7 +33,11 @@ import onet.com.common.service.CommonService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+
+import onet.com.vo.CommentDto;
+
 import onet.com.vo.Class_chartDto;
+
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
@@ -238,7 +247,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name) { 
+	public String adminClassMain(Model model, String class_name, Principal principal) { 
 
 		List<NoticeDto> notice;
 		notice=commonService.admin_Main(class_name);
@@ -262,18 +271,46 @@ public class AdminController {
 		}
 	
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail(Model model, String class_name, int notice_num) {
+	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
 		
 		// 10.23 현이 추가 (TeacherController에서 가져옴) 
 		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
-		model.addAttribute("result", result);		
+		List<CommentDto> comment = commonService.comment(class_name, notice_num);
+		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
+		if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() != null) {
+			String file1 = result.get(0).getNotice_file1();
+			int index1 = file1.indexOf("_");
+			String originFileName1 = file1.substring(index1+1);
+			String file2 = result.get(0).getNotice_file2();
+			int index2 = file2.indexOf("_");
+			String originFileName2 = file2.substring(index2+1);
+			model.addAttribute("originFileName1",originFileName1);
+			model.addAttribute("originFileName2",originFileName2);
+		}else if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() == null) {
+			String file1 = result.get(0).getNotice_file1();
+			int index1 = file1.indexOf("_");
+			String originFileName1 = file1.substring(index1+1);
+			model.addAttribute("originFileName1",originFileName1);
+		}else if(result.get(0).getNotice_file1() == null && result.get(0).getNotice_file2() != null) {
+			String file2 = result.get(0).getNotice_file2();
+			int index2 = file2.indexOf("_");
+			String originFileName2 = file2.substring(index2+1);
+			model.addAttribute("originFileName2",originFileName2);
+		}
+		String name = principal.getName();
+		model.addAttribute("result", result);
+		model.addAttribute("comment", comment);
+		model.addAttribute("commentGroup", commentGroup);
+		model.addAttribute("name", name);		
 		
 		return "common.adminClass.admin.notice.noticeDetail";
 	}
 	
 	@RequestMapping("noticeWrite.do")
-	public String noticeWrite() {
+	public String noticeWrite(String class_name, Model model) {
 
+		model.addAttribute("class_name",class_name);
+		
 		return "common.adminClass.admin.notice.noticeWrite";
 	}
 
@@ -766,7 +803,48 @@ public class AdminController {
 	}
 
 	/*민지:10.18 시험등록  끝*/
-
+	
+	@RequestMapping(value="noticeView.do", method=RequestMethod.POST)
+	public String noticeWrite(NoticeDto dto, Principal principal,MultipartHttpServletRequest request) throws Exception {
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String str = dayTime.format(new Date(time));
+		dto.setNotice_date(str);
+		
+		MultipartFile file1 = request.getFile("files1");
+		MultipartFile file2 = request.getFile("files2");
+		System.out.println("file1 : "+ file1);
+		String originFileName1 = file1.getOriginalFilename();
+		String originFileName2 = file2.getOriginalFilename();
+		long fileSize1 = file1.getSize();
+		long fileSize2 = file2.getSize();
+		String path =  request.getServletContext().getRealPath("/upload/notice/");
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		System.out.println("safeFile : " + safeFile1);
+		if(fileSize1 > 0 && fileSize2 > 0) {
+			file1.transferTo(new File(safeFile1));
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file1(savaFile1);
+			dto.setNotice_file2(saveFile2);
+		}else if(fileSize1 > 0 && fileSize2 == 0){
+			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
+		}else if(fileSize2 > 0 && fileSize1 == 0) {
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file2(saveFile2);
+		}
+		int result = commonService.insertBoardList(dto);
+		
+		return "redirect:adminClassInfo.do";
+	}
 	
 		
 	
