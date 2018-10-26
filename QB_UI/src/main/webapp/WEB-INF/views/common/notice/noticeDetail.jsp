@@ -149,7 +149,12 @@
 
 						
 						<div class="row noticeDetailBtnDiv">
+							<se:authorize access="hasRole('ROLE_TEACHER')">
 							<a href="teacherMain.do" class="btn btn-theme">글 목록</a>
+							</se:authorize>
+							<se:authorize access="hasRole('ROLE_ADMIN')">
+							<a href="adminClassMain.do?class_name=${result[0].class_name}" class="btn btn-theme">글 목록</a>
+							</se:authorize>
 							<se:authorize access="hasRole('ROLE_TEACHER') OR hasRole('ROLE_ADMIN')">
 							<button type="button" id="updateNotice"class="btn btn-theme">글 수정</button>
 							<button type="button" data-toggle="modal" data-target="#DeleteModal" class="btn btn-theme04">글 삭제</button>
