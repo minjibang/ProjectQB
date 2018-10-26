@@ -26,8 +26,6 @@
 					
 						<div class="panel-body">
 					
-						
-						
 							<table class="table table-inbox-notice table-hover" id="noticetable">
 								<thead>
 									<tr>

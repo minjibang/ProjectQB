@@ -269,6 +269,17 @@ public class CommonService {
 		return result;
 	}
 	
+	public int commentUpdate(CommentDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentUpdate(dto);
+		return result;
+	}
+	
+	public int commentReplyDelete(CommentDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentReplyDelete(dto);
+		return result;
+	}
 
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id){
@@ -287,8 +298,26 @@ public class CommonService {
 		return chart;
 	}
 
+	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<NoticeDto>result = commonDao.noticeUpdateList(dto);
+		return result;
+	}
 	
-
+	public int updateBoardList(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.updateBoardList(dto);
+		return result;
+	}
+	
+	public int noticeDelete(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int cDelete = dao.noticeFromCommentDelete(dto);
+		int result = dao.noticeDelete(dto);
+		return result;
+	}
+	
+	
 
 }
 

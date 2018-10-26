@@ -80,7 +80,16 @@ public interface CommonDao {
 	
 	public int commentInsert(CommentDto dto);
 		
+	public int commentUpdate(CommentDto dto);
 	
+	public int commentReplyDelete(CommentDto dto);
+	
+	public int updateBoardList(NoticeDto dto);
+	
+	public int noticeDelete(NoticeDto dto);
+	
+	public int noticeFromCommentDelete(NoticeDto dto);
+	public List<NoticeDto> noticeUpdateList(NoticeDto dto);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
