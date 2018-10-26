@@ -192,6 +192,16 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
 </select>
 
+<select id="studentExamScoreInfoCtgr" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
+	SELECT DISTINCT sa.exam_info_num, q.sm_category_code, qsc.sm_category_name
+	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN exam_question eq JOIN question q JOIN question_sm_category qsc
+	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num = eq.exam_paper_num 
+	and eq.question_num = q.question_num and q.sm_category_code = qsc.sm_category_code
+	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num,qsc.sm_category_code asc
+
+
+</select>
+
 <!-- 영준 10.25 - 반 등수 추가 시작 -->
 <select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 select sc.exam_info_num,e.exam_info_name,m.member_name, sc.score_chart_score, score_chart_rank

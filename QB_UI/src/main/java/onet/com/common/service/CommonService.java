@@ -2,6 +2,7 @@ package onet.com.common.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -295,13 +296,21 @@ public class CommonService {
 	}
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
 	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name){
-		System.out.println("service 확인");
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<StudentExamScoreInfo> result = dao.studentExamScoreInfo(member_id, class_name);
-		for(StudentExamScoreInfo data : result) {
-			System.out.println(data.getSm_category_name());
-		}
-		return result;
+		ArrayList<String> ctgr = new ArrayList<String>();
+		List<StudentExamScoreInfo> list = dao.studentExamScoreInfo(member_id, class_name);//시험 정보
+		List<StudentExamScoreInfo> ctgrlist = dao.studentExamScoreInfoCtgr(member_id, class_name);//시험 당 소분류
+		
+		for(StudentExamScoreInfo data : list) {
+			ctgr.clear();//arraylist 초기화
+			for(StudentExamScoreInfo data2 : ctgrlist) {
+				if(data.getExam_info_num()==data2.getExam_info_num()) {
+					ctgr.add(data2.getSm_category_name());//시험당 관련 소분류명을 Arraylist에 담음					
+				}
+			}
+			data.setSmCtgrName(ctgr);//소분류 ArrayList를 DTO에 담음
+		}		
+		return list;
 	}
 
 	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수

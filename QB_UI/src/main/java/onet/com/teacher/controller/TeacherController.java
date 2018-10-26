@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -386,13 +387,18 @@ public class TeacherController {
 		String member_id = principal.getName();
 		String class_num = null;
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
+		String student_id = studentList.get(0).getMember_id();
+		String class_name = studentList.get(0).getClass_name();
 		//첫번째 학생의 데이터로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), studentList.get(0).getClass_name());
+		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
+		//학생 개인 성적확인
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_id(), class_name);
+		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		
 		return "common.teacher.grade.studentInfo";
 	}
@@ -522,7 +528,6 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
-		System.out.println("controller 복귀");
 		return result;
 	}
 	

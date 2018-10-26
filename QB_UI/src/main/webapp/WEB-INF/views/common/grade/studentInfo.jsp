@@ -151,24 +151,24 @@
 											<div class="table-inbox-wrap">
 												<table class="table table-inbox table-hover">
 													<tbody id="studentExamScoreInfo">
-														<tr class="unread">
-															<td class="view-message  dont-show"><a
-																href="mail_view.html"><img
+														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
+														<tr class="unread">															
+															<td class="view-message  dont-show"><img
 																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																	class="img-thumbnail" width="150"></a></td>
-
-															<td class="view-message "><a href="mail_view.html"><h3 class="tab2_examPaper">JAVA
-																		기본</h3>
-																	<p>변수 | 배열 | for문 | if문</p></a></td>
+																	class="img-thumbnail" width="150"></td>
+															<td class="view-message "><h3 class="tab2_examPaper">${studentExamScoreInfo.exam_info_name}</h3>
+																	<p><c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach></p></td>
 															<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 :
-																	2018.08.15</p>
-																<p class="tab2_examTime">시험 시간 : 14:00~15:00[60분]</p></td>
+																	${studentExamScoreInfo.exam_info_date }</p>
+																<p class="tab2_examTime">
+																시험 시간 : ${studentExamScoreInfo.exam_info_start}~${studentExamScoreInfo.exam_info_end }</p>
+																<p>(${studentExamScoreInfo.exam_info_time })</p></td>
 															<td class="view-message  inbox-small-cells">
 																<button type="button" class="btn btn-round btn-info">성적확인</button>
 																<button type="button" class="btn btn-round btn-danger">삭제</button>
 															</td>
 														</tr>
-														
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -462,6 +462,8 @@ $(document).ready(function(){
 		//ajax 시험 정보 요청할 parameter
 		var memberId=studentArr[memberIndex].member_id;
 		var className=studentArr[memberIndex].class_name;
+		console.log(memberId);
+		console.log(className);
 		//비동기 실행
 		$.ajax({
 			type:"post",
@@ -472,17 +474,25 @@ $(document).ready(function(){
 			datatype:"json",
 			success:function(data, status){
 				console.log("성공");
-				var studentExamScoreSrc = "";
+				console.log(data);
+				var studentExamScoreSrc = "";				
 				$("#studentExamScoreInfo").empty();
 				$(data).each(function(index, element){
+					var smCtgr="";
+					$(element.smCtgrName).each(function(index, name){ //소분류 추출
+						smCtgr += name+'&nbsp;&nbsp;';
+					});
+					smCtgr.substr(0, smCtgr.length-2); //마지막 쉼표 제거
+					console.log("소분류:"+smCtgr);
 					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
 					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
-					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3><p>변수 | 배열 | for문 | if문</p></td>';
+					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
+					studentExamScoreSrc += '<p>'+smCtgr+'</p></td>';
 					studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
 					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-info">성적확인</button>';
-					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-danger">삭제</button></td></tr>';
+					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-danger">삭제</button></td></tr>';					
 				});
 				$("#studentExamScoreInfo").append(studentExamScoreSrc);			
 			},

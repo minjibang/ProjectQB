@@ -1,5 +1,7 @@
 package onet.com.vo;
 
+import java.util.ArrayList;
+
 public class StudentExamScoreInfo {
 	int exam_info_num;
 	String exam_info_name;
@@ -13,7 +15,15 @@ public class StudentExamScoreInfo {
 	int question_num;
 	String sm_category_code;
 	String sm_category_name;
+	ArrayList<String> smCtgrName;
 	
+	
+	public ArrayList<String> getSmCtgrName() {
+		return smCtgrName;
+	}
+	public void setSmCtgrName(ArrayList<String> smCtgrName) {
+		this.smCtgrName = smCtgrName;
+	}
 	
 	public int getExam_info_num() {
 		return exam_info_num;
