@@ -236,5 +236,9 @@ ORDER BY
 sc.score_chart_score DESC
 </select>
 <!-- 영준 10.25 - 반 등수 추가 끝 -->
+<!-- 민지 10.26 쪽지페이지 -학생 리스트 -->
+<select id="classMemeberList" parameterType="String" resultType="onet.com.vo.MemberDto">
+select * from member where class_name=(select class_name from member where member_id = #{member_id})
+</select>
 
 </mapper>
