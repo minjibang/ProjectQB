@@ -153,6 +153,7 @@ public class AdminService {
 		int imgCount = qcFilenames.size();
 			for(int i=0; i<qcFilenames.size(); i++) {
 				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], qcFilenames.get(i));
+
 				}
 			for(int f = imgCount; f<question_choice_num.length; f++) {
 				result=dao.insertQuestionChoiceNoImg(question_num, question_choice_num[f], question_choice_content[f]);

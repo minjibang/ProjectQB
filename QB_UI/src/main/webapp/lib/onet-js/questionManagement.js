@@ -451,6 +451,12 @@ function check(){
 	}
 }
 
-
+function removeImg(number){
+	console.log($(this).text());
+	alert(number);
+	$(this).parent().siblings(".fileupload-preview").find("img").remove();
+	alert($(this).parent().siblings(".fileupload-preview").find("img").html());
+	return false
+}
 
 
