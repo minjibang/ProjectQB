@@ -399,6 +399,9 @@ public class AdminController {
 			
 			return "redirect:questionManagement.do";
 		}
+		
+		
+		
 	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단
 	@RequestMapping("singleQuestionDelete.do")
 	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
