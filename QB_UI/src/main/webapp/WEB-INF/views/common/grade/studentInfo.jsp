@@ -338,8 +338,8 @@
 														<i class="fa fa-angle-right"></i> 점수별 학생 분포
 													</h4>
 													<div class="btn-group pull-right">
-														<select id="searchExam" class="form-control searchControl"
-																name="searchExam">
+														<select id="searchExam2" class="form-control searchControl"
+																name="searchExam2">
 															<option value="">시험 목록</option>		
 															<c:forEach items="${classChart}" var="classChart">
 																<option value="exam_info_name">${classChart.exam_info_name}</option>		
