@@ -644,17 +644,18 @@ $(document).ready(function(){
 	
 	
 	// 반 등수 - 시험목록 선택 시 해당 시험 등수 시작 
-	// 해당 클래스 반 등수 목록 담기
 	var index;
 
 	// 시험문제 목록 선택 시작
 	$("#searchExam").change(function() {
-		index = $("#searchExam option").index($("#searchExam option:selected"));
-		var examInfoName=$("#searchExam option:selected").text();
-		
-		console.log("선택된 시험문제 번호: " + index);
-		console.log("선택된 시험문제 : " + examInfoName);
-
+		var html = "";
+		$("#searchExam option:selected").each(function () {
+			index = $("#searchExam option").index($("#searchExam option:selected"));
+			var examInfoName=$("#searchExam option:selected").text();
+			
+			console.log("선택된 시험문제 번호: " + index);
+			console.log("선택된 시험문제 : " + examInfoName);
+			
 		//비동기 실행
 		$.ajax({
 			type:"post",
@@ -663,15 +664,27 @@ $(document).ready(function(){
 				  
 				},
 			datatype:"json",
-			success:function(data, status){
-				console.log("넘어온 반 등수 정보 : " +JSON.stringify(data));
-				console.log("성공");
-				
+			success:function(data){
+				if(data.length!=0){
+					$(data).each(function(index, element){
+						console.log(index + " : " + element.exam_info_name);
+						html += "<tr><td id='member_name' class='member_name'>" + element.member_name+"</td>";																		
+						html +=	"<td id='score_chart_rank' class='score_chart_rank'>" + element.score_chart_rank+"</td></tr>";
+					
+						$("#classRankView").empty().append(html);
+					
+
+					
+					});
+				} else{
+					swal("Error!", "응시한 학생이 없습니다.", "error");
+				}							
 			},
-			error:function(error, status){
+			error:function(error){
 				console.log("실패:"+status);
 			}
 		});	
+		});
 	});
 })
 </script>
