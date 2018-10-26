@@ -342,7 +342,6 @@ public class TestManageController {
 						System.out.println("수정할때 체크리스트 insert 성공");
 					}else {
 						System.out.println("체크리스트 insert 실패");
-					
 				}
 				}
 				
@@ -363,6 +362,7 @@ public class TestManageController {
 	@RequestMapping(value = "teacherExamSchedultDelete.do", method = RequestMethod.POST)
 	public @ResponseBody String teacherExamSchedultDelete(@RequestParam("exam_info_num") int exam_info_num) //@RequestBody (비동기: 객체 형태로 받아요) 
 	{	
+		
 		/*deptService.insertDept(dto);
 		return dto.toString();*/
 		int result = teacherService.teacherExamSchedultDelete(exam_info_num);
