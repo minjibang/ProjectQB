@@ -60,9 +60,12 @@
 								</tbody>
 							</table>
 							<div>
-							<se:authorize access="hasRole('ROLE_TEACHER') OR hasRole('ROLE_ADMIN')">
+							<se:authorize access="hasRole('ROLE_TEACHER')">
 								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
-							</se:authorize>	 
+							</se:authorize>	
+							<se:authorize access="hasRole('ROLE_ADMIN')">
+								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="">글쓰기</button>
+							</se:authorize>	
 							</div>
 						</div><!-- panel-body -->
 						
@@ -119,8 +122,14 @@ $(document).ready(function(){
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
-		 
 	});
+	
+	$('#noticeWrite_btnAdmin').click(function(){
+		alert("22");
+		var adminClass_name2 = $('#noticeWrite_btnAdmin').val();
+		location.href="noticeWrite.do?class_name=" + adminClass_name1;
+	});
+	
 	
 });
 

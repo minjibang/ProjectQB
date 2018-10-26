@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>	
 <style>
 #txtFile1{
 	display:inline;
@@ -42,14 +43,19 @@
 										<td>
 											<input type="file" id="txtFile1" name="files1" /><br><br>
 											<input type="file" id="txtFile2" name="files2" />
-											<input type="hidden" id="class_name" name="class_name" value="${class_name}"> 
+											<input type="hidden" id="class_name" name="class_name" value="${class_name}">
 										</td>
 									</tr>
 									<tr>
 										<td colspan="2">
+											
 											<button type="submit" id="notice_submit" class="btn btn-info">글 등록</button>
-											<a href="teacherMain.do"><input type="button" class="btn btn-info" value="취소" /></a>
-											<!-- <button class="btn btn-info">취소</button> -->
+											<se:authorize access="hasRole('ROLE_TEACHER')">
+												<a href="teacherMain.do" class="btn btn-info">취소</a>
+											</se:authorize>
+											<se:authorize access="hasRole('ROLE_ADMIN')">
+												<a href="teacherMain.do?class_num=" class="btn btn-info">취소</a>
+											</se:authorize>
 										</td>
 									</tr>
 								</table>

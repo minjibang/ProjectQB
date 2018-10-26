@@ -252,7 +252,6 @@ public class AdminController {
 		List<NoticeDto> notice;
 		notice=commonService.admin_Main(class_name);
 		model.addAttribute("notice", notice);
-		
 		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		
 		model.addAttribute("exam_info", exam_info);
@@ -308,7 +307,7 @@ public class AdminController {
 	
 	@RequestMapping("noticeWrite.do")
 	public String noticeWrite(String class_name, Model model) {
-
+		System.out.println(class_name);
 		model.addAttribute("class_name",class_name);
 		
 		return "common.adminClass.admin.notice.noticeWrite";
