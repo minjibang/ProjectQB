@@ -271,6 +271,17 @@ public class CommonService {
 		return result;
 	}
 	
+	public int commentUpdate(CommentDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentUpdate(dto);
+		return result;
+	}
+	
+	public int commentReplyDelete(CommentDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentReplyDelete(dto);
+		return result;
+	}
 
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id, String class_num){
@@ -313,12 +324,55 @@ public class CommonService {
 		return list;
 	}
 
+
+	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<NoticeDto>result = commonDao.noticeUpdateList(dto);
+		return result;
+	}
+	
+	public int updateBoardList(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.updateBoardList(dto);
+		return result;
+	}
+	
+	public int noticeDelete(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int cDelete = dao.noticeFromCommentDelete(dto);
+		int result = dao.noticeDelete(dto);
+		return result;
+	}
+	
+
 	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수
 	public List<Score_chartDto> classRank(String exam_info_name){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
 		return classRank;
 	}
+
+	// 영준 10.26 관리자, 강사 - 학생&성적관리 페이지 - 표준편차
+		public List<Score_chartDto> studentStdChart(String exam_info_name){
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			List<Score_chartDto> studentStdChart = dao.studentStdChart(exam_info_name);
+			return studentStdChart;
+		}
+
+
+	
+	//민지 10.26 강사-쪽지 페이지 해당클래스학생 리스트 
+	   public List<MemberDto> classMemeberList(String member_id) {
+	      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+	      
+	      List<MemberDto> result = dao.classMemeberList(member_id);
+	      
+	      return result;
+	   }
+
+
+
+
 
 }
 

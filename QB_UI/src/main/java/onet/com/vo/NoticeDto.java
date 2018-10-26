@@ -14,7 +14,6 @@ public class NoticeDto {
 	private String notice_content;
 	private String notice_file1;
 	private String notice_file2;
-	private String notice_file3;
 	private String notice_date;
 	
 	public int getClass_num() {
@@ -64,12 +63,6 @@ public class NoticeDto {
 	}
 	public void setNotice_file2(String notice_file2) {
 		this.notice_file2 = notice_file2;
-	}
-	public String getNotice_file3() {
-		return notice_file3;
-	}
-	public void setNotice_file3(String notice_file3) {
-		this.notice_file3 = notice_file3;
 	}
 	public String getNotice_date() {
 		return notice_date;

@@ -81,7 +81,16 @@ public interface CommonDao {
 	
 	public int commentInsert(CommentDto dto);
 		
+	public int commentUpdate(CommentDto dto);
 	
+	public int commentReplyDelete(CommentDto dto);
+	
+	public int updateBoardList(NoticeDto dto);
+	
+	public int noticeDelete(NoticeDto dto);
+	
+	public int noticeFromCommentDelete(NoticeDto dto);
+	public List<NoticeDto> noticeUpdateList(NoticeDto dto);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id);
 	public List<MemberDto> adminStudentInfo(String class_num);
@@ -95,6 +104,14 @@ public interface CommonDao {
 	
 	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
 	public List<Score_chartDto> classRank(String exam_info_name);
+
+	// 영준 - 10.26 관리자, 강사 - 학생&성적 관리페이지 - 표준편차
+	public List<Score_chartDto> studentStdChart(String exam_info_name);
+
+	//민지 10.26 강사 - 쪽지 리스트 
+	public List<MemberDto> classMemeberList(String member_id);
+
 	
+
 
 }
