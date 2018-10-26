@@ -296,7 +296,14 @@ public class CommonService {
 	}
 
 	
-
+	//민지 10.26 강사-쪽지 페이지 해당클래스학생 리스트 
+	   public List<MemberDto> classMemeberList(String member_id) {
+	      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+	      
+	      List<MemberDto> result = dao.classMemeberList(member_id);
+	      
+	      return result;
+	   }
 
 }
 

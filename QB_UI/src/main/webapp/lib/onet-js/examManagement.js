@@ -25,16 +25,6 @@ function deleteExamInfo(){
 	
 	var currentDate= year + "" + month + "" + day;
 
-	  
-    if(currentDate > removeData) {
-        alert("지우면안된다");
-    }else{
-    	alert("지워도된다.")
-    }
-
-
-
-	
 	var exam_info_num = window.event.target.id;
 	
 	var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
