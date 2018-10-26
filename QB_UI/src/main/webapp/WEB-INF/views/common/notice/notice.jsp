@@ -42,7 +42,14 @@
 										<tr class="notice_tr" onClick="location.href='noticeDetail.do?class_name=${notice.class_name}&notice_num=${notice.notice_num}'">
 											<td class="notice_num">${notice.notice_num}</td>
 											<td class="notice_name">${notice.notice_name}</td>
+											<c:choose>
+											<c:when test="${empty notice.notice_file1 && empty result[0].notice_file2}">
+											<td class="notice_file"></td>
+											</c:when>
+											<c:otherwise>
 											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
+											</c:otherwise>
+											</c:choose>
 											<td class="notice_member_id">${notice.member_id}</td>
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
