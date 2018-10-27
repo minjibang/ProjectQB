@@ -249,18 +249,19 @@ public class TestManageController {
 	/* 10.17 시험지 테이블 insert and update*/
 
 	@RequestMapping("examPaperInsert.do")
-	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc,
-			@RequestParam("exam_paper_status") String exam_paper_status) {
-		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
+	public @ResponseBody int examPaperInsert(ExamPaperDto dto) {
+		teacherService.examPaperInsert(dto);
+		int result = dto.getExam_paper_num();
 		return result;
 	}
 	
 	@RequestMapping("examPaperUpdate.do")
-	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc,
-			@RequestParam("exam_paper_num") String exam_paper_num, @RequestParam("exam_paper_status") String exam_paper_status) {
-		int result = teacherService.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num, exam_paper_status);
+	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_num") int exam_paper_num, 
+			@RequestParam("exam_paper_name") String exam_paper_name,
+			@RequestParam("member_id") String member_id,
+			@RequestParam("exam_paper_desc") String exam_paper_desc, 
+			@RequestParam("exam_paper_status") String exam_paper_status) {
+		int result = teacherService.examPaperUpdate(exam_paper_num, exam_paper_name,member_id,exam_paper_desc, exam_paper_status);
 		return result;
 	}
 	
@@ -272,7 +273,7 @@ public class TestManageController {
 		return result;
 	}
 	@RequestMapping("examQuestionInsert.do")
-	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") String exam_paper_num, 
+	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") int exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
 			@RequestParam("exam_question_score") String exam_question_score) {
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);

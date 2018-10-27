@@ -389,14 +389,12 @@ public class AdminController {
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request) 
 				throws IOException, ClassNotFoundException, SQLException {
-		
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);
 			} else {
 				adminService.insertQuestion(dto2, request);
 			}
-			
 			return "redirect:questionManagement.do";
 		}
 	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단

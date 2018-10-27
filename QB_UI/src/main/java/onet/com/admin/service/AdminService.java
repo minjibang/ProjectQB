@@ -109,14 +109,12 @@ public class AdminService {
 		   }
 	   }
 		dto.setQuestion_img(filenames.get(0));
-		System.out.println("일단 문제이름:"+dto.getQuestion_num());
 		int result = dao.insertQuestion(dto);
 		return result;
 	}
 	@Transactional
 	public int insertQuestionChoice(QuestionDto qDto, Question_choiceDto qcDto, HttpServletRequest request) 
 			throws IOException, ClassNotFoundException, SQLException{
-
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
