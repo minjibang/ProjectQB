@@ -505,12 +505,9 @@
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
 	$(document).ready(function() {
-		$('#test').click(function(){
-			var testArr = new Array();
-			var testVar = $('input [type=hidden]');
-			
-			console.log(testVar);
-			
+		$('#btnSubmit').click(function(){
+			var filechk=$("input[type=file]").val();
+			console.log(filechk);			
 		});
 		
 		$('#question_lg_category')

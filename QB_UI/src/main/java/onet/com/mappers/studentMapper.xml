@@ -171,13 +171,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	)
 	order by question_num, question_choice_num
 </select>
-
-<select id="wrongQuestionCount" resultType="int"><!-- 한 시험지에 담긴 문제의 개수 -->
-	select count(*) as questionCount
-	from student_answer
-	where member_id = #{param1}
-	and student_answer_status = 0
-	and exam_info_num = #{param2}
-</select>
 <!-- 10.24 현이 학생 지난 시험지 보기 끝 -->
+
 </mapper>
