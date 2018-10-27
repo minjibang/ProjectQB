@@ -112,7 +112,6 @@ public class AdminService {
 		   }
 	   }
 		dto.setQuestion_img(filenames.get(0));
-		System.out.println("일단 문제이름:"+dto.getQuestion_num());
 		int result = dao.insertQuestion(dto);
 		return result;
 	}
@@ -124,7 +123,6 @@ public class AdminService {
 		String[] question_choice_content;
 		
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		
 		//보기 이미지 파일 입력
 		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
 		List<String> qcFilenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
@@ -156,7 +154,6 @@ public class AdminService {
 		int imgCount = qcFilenames.size();
 			for(int i=0; i<qcFilenames.size(); i++) {
 				result=dao.insertQuestionChoice(question_num, question_choice_num[i], question_choice_content[i], qcFilenames.get(i));
-
 				}
 			for(int f = imgCount; f<question_choice_num.length; f++) {
 				result=dao.insertQuestionChoiceNoImg(question_num, question_choice_num[f], question_choice_content[f]);
