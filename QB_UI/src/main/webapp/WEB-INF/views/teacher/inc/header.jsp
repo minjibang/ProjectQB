@@ -32,7 +32,7 @@
 <se:authorize access="isAuthenticated()">
 <se:authentication property="principal.username" var="username"/>
 <script>
-var wsUri = "ws://localhost:8090/qb/echo.do";
+var wsUri = "ws://localhost:8090/qb/count.do";
 
 
 function send_message() {

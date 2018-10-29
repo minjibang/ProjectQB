@@ -41,7 +41,7 @@
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>   
 	
 	<websocket:handlers>
-        <websocket:mapping path="/echo.do" handler="myHandler"/>
+        <websocket:mapping path="/count.do" handler="myHandler"/>
     </websocket:handlers>
 	<beans:bean id="myHandler" class="onet.com.index.handler.WebSocketHandler"/>
 
