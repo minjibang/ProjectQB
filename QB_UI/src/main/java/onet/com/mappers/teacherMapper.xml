@@ -217,14 +217,19 @@ INSERT INTO exam_member values(#{exam_info_num},#{member_id})
 <!-- 한결 10.17 
 시험지 생성 및 임시저장 확인용 시작-->
 <select id="examPaperCheck" parameterType="String" resultType="String">
-	select exam_paper_num from exam_paper where exam_paper_name = #{exam_paper_name}
+	select exam_paper_num from exam_paper where exam_paper_name = #{param1} and member_id = #{param2}
 </select>
 <!-- 시험지 테이블에 insert and update -->
-<insert id="examPaperInsert">
-	insert into exam_paper(exam_paper_name, member_id, exam_paper_desc, exam_paper_status) values(#{param1}, #{param2}, #{param3}, #{param4} )
-</insert>
+<insert id="examPaperInsert" parameterType="onet.com.vo.ExamPaperDto">
+	insert into exam_paper(exam_paper_name, member_id, exam_paper_desc, exam_paper_status) 
+	values(#{exam_paper_name}, #{member_id}, #{exam_paper_desc}, #{exam_paper_status})
+	
+	<selectKey keyProperty="exam_paper_num" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey> 
+</insert> 
 <update id="examPaperUpdate">
-	update  exam_paper set exam_paper_name=#{param1},member_id=#{param2},exam_paper_desc=#{param3},exam_paper_status=#{param5} where exam_paper_num = #{param4}
+	update  exam_paper set exam_paper_name=#{param2},member_id=#{param3},exam_paper_desc=#{param4},exam_paper_status=#{param5} where exam_paper_num = #{param1}
 </update>
 <!-- 시험지 문제 테이블에 select insert update delete -->
 <select id="examQuestionSelect" parameterType="String" resultType="Integer">

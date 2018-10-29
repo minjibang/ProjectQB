@@ -104,15 +104,13 @@ public class AdminService {
 					FileOutputStream fs = new FileOutputStream(fpath);
 					fs.write(multifile.getBytes());
 					fs.close();
-				}
-				if(filename.equals("")) {
+				}else if(filename.equals("")) {
 					filename = null;
 				}
 				filenames.add(filename); //DB insert 파일명	
 		   }
 	   }
 		dto.setQuestion_img(filenames.get(0));
-		System.out.println("일단 문제이름:"+dto.getQuestion_num());
 		int result = dao.insertQuestion(dto);
 		return result;
 	}
@@ -122,9 +120,8 @@ public class AdminService {
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
-		
+		System.out.println("무엇이 널인가");
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		
 		//보기 이미지 파일 입력
 		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
 		List<String> qcFilenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
@@ -140,8 +137,7 @@ public class AdminService {
 						FileOutputStream fs = new FileOutputStream(fpath);
 						fs.write(multifile.getBytes());
 						fs.close();
-					}
-					if(filename.equals("")) {
+					} else if(filename.equals("")) {
 						filename = null;
 					}
 					qcFilenames.add(filename); //DB insert 파일명	

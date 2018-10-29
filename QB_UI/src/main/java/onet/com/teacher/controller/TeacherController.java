@@ -278,7 +278,7 @@ public class TeacherController {
 				adminService.insertQuestion(dto2, request);
 			}
 			System.out.println("오는가?2");
-			adminService.insertQuestion(dto2, request);
+//			adminService.insertQuestion(dto2, request);
 			return "redirect:questionManagement.do";
 	}
 		
