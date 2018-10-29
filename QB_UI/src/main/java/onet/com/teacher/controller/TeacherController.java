@@ -426,9 +426,6 @@ public class TeacherController {
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
-		for(Class_chartDto data : studentChart) {
-			System.out.println("과연 : "+data.getExam_info_name());
-		}
 		return chart;
 	}
 	

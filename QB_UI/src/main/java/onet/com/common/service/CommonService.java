@@ -323,6 +323,7 @@ public class CommonService {
 		}		
 		return list;
 	}
+	
 
 
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
