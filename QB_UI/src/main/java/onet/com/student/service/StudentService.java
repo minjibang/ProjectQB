@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import onet.com.student.dao.StudentDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
@@ -138,7 +139,20 @@ public class StudentService {
 	/*10.24 현이 지난 시험지 보기 끝*/
 	
 	
+	/*10.29민지 학생이 쪽지보내기*/
 	
+	public int sendTeacherMessage(String teacher_id,String message_content,String send_member_id) {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		MessageDto dto = new MessageDto();
+		dto.setReceive_member_id(teacher_id);
+		dto.setMessage_content(message_content);
+		dto.setSend_member_id(send_member_id);
+		int result = dao.sendTeacherMessage(dto);
+		
+		return result;
+		
+		
+	}
 	
 	
 }

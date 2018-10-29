@@ -10,6 +10,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 
 <section id="main-content">
@@ -104,7 +106,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
-						
+						<div id="count">dddddddddddddddddddddddd</div>
 						</div>
 					</div>
 				</div>
@@ -116,6 +118,8 @@
 
 <script>
 $(document).ready(function(){
+	
+	send_message();
 	
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
@@ -132,6 +136,10 @@ $(document).ready(function(){
 
 
 </script>
+
+
+
+
 
 <!-- /MAIN CONTENT -->
 <!--main content end-->

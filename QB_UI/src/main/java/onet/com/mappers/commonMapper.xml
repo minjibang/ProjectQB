@@ -252,4 +252,11 @@ and m.member_id=sc.member_id
 and e.exam_info_name=#{exam_info_name}
 
 </select>
+
+<select id="classTeacherList" parameterType="String" resultType="onet.com.vo.MemberDto">
+ select member_id, member_name from member where member_id=(
+ select member_id from member_role where member_id in(
+ select member_id from member where class_name in (select class_name from member where member_id=#{member_id}) and role_code="role_teacher"))
+</select>
+
 </mapper>
