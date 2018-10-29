@@ -193,6 +193,30 @@ public class StudentController {
 		return mav;
 	}
 	
+	@RequestMapping("pastExamPaperAnswerView.do")
+	public @ResponseBody ModelAndView pastExamPaperAnswerView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("ajax.student.pastExamPaperAnswer_ajax");
+		
+		List<ExamPaperDoQuestionDto> questionList = null;
+		List<Question_choiceDto> questionChoiceList = null;
+		
+		if(student_answer_status.equals("all")) {
+			questionList = studentService.examPaperDoQuestion(exam_info_num, 0, 0);	//	begin, end 추가했음
+			questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+		} else if (student_answer_status.equals("wrong")){
+			questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, 0, 0);
+			questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+		}
+				
+		mav.addObject("questionList", questionList);
+		mav.addObject("questionChoiceList", questionChoiceList);
+		
+		return mav;
+	}
+	
+	
 	
 	// 10.24 현이 ajax로 학생 답안지 리스트 가져오기 
 	@RequestMapping("searchStudentAnswer.do")
@@ -201,9 +225,7 @@ public class StudentController {
 		
 		List<Student_answerQuesDto> studentAnswerList = studentService.selectStudentAnswer(principal.getName(), exam_info_num, student_answer_status);
 		return studentAnswerList;
-
 	}
-	
 	
 	/*시험일정 > 시험응시 활성화*/
 	@RequestMapping("examPaperDo.do")

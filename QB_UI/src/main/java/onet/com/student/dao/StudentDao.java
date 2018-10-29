@@ -3,6 +3,8 @@ package onet.com.student.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -39,12 +41,12 @@ public interface StudentDao {
 	/* 10.23 현이 학생 지난 시험보기 끝 */
 	
 	/*10.24 현이 학생 지난 시험지 보기 시작*/
-	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num, int begin, int rowPerPage) throws ClassNotFoundException, SQLException;
+	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(@Param("exam_info_num") int exam_info_num, @Param("begin") int begin, @Param("rowPerPage") int rowPerPage) throws ClassNotFoundException, SQLException;
 	public List<Question_choiceDto> examPaperDoQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException;
 	
 	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num);
 	public List<Student_answerQuesDto> selectStudentWrongAnswer(String member_id, int exam_info_num);
-	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num, int begin, int rowPerPage);
+	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(@Param("member_id") String member_id, @Param("exam_info_num") int exam_info_num, @Param("begin") int begin, @Param("rowPerPage") int rowPerPage);
 	public List<Question_choiceDto> examPaperDoWrongQuestion_choice(int exam_info_num);
 	
 	public int wrongQuestionCount(String member_id, int exam_info_num);
