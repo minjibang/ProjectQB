@@ -278,7 +278,7 @@ public class TeacherController {
 				adminService.insertQuestion(dto2, request);
 			}
 			System.out.println("오는가?2");
-			adminService.insertQuestion(dto2, request);
+//			adminService.insertQuestion(dto2, request);
 			return "redirect:questionManagement.do";
 	}
 		
@@ -441,7 +441,7 @@ public class TeacherController {
 	/* 영준 10.26 반 등수 끝 */
 	
 	/* 영준 10.26 표준편차 시작 */
-	@RequestMapping(value="", method=RequestMethod.POST)
+	@RequestMapping(value="studentStdChart.do", method=RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> studentStdChart(@RequestParam("exam_info_name") String exam_info_name) {
 		List<Score_chartDto> studentStdChart = commonService.studentStdChart(exam_info_name);
 		System.out.println("과연 표준편차는? : " + studentStdChart);
