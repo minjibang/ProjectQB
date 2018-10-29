@@ -106,6 +106,29 @@ public class StudentService {
 	/*10.23 현이 지난 시험 보기 끝 */
 	
 	/*10.24 현이 지난 시험지 보기 시작*/
+	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num, int begin, int rowPerPage) throws ClassNotFoundException, SQLException, IOException {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<ExamPaperDoQuestionDto> questionList = dao.examPaperDoQuestion(exam_info_num, begin, rowPerPage);
+		
+		/*for(ExamPaperDoQuestionDto dto : questionList) {	
+			System.out.println("문제번호 : " + dto.getQuestion_num() + ", 문제배치번호 : " + dto.getExam_question_seq());
+		}*/
+		
+		return questionList;
+	}
+	
+	public List<Question_choiceDto> examPaperDoQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<Question_choiceDto> questionChoiceList = dao.examPaperDoQuestion_choice(exam_info_num);
+		return questionChoiceList;
+	}
+	
+	public int wrongQuestionCount(String member_id, int exam_info_num) {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		int wrongQuestionCount = dao.wrongQuestionCount(member_id, exam_info_num);
+		return wrongQuestionCount;
+	}
+	
 	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num, String student_answer_status){
 		
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
@@ -124,9 +147,14 @@ public class StudentService {
 		return studentAnswerList;
 	}
 	
-	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num, int begin, int rowPerPage) throws ClassNotFoundException, SQLException, IOException {
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		List<ExamPaperDoQuestionDto> questionList = dao.examPaperDoWrongQuestion(member_id, exam_info_num);
+		List<ExamPaperDoQuestionDto> questionList = dao.examPaperDoWrongQuestion(member_id, exam_info_num, begin, rowPerPage);
+		
+		for(ExamPaperDoQuestionDto dto : questionList) {
+			System.out.println("문제 : " + dto.getExam_question_seq());
+		}
+		
 		return questionList;
 	}
 	

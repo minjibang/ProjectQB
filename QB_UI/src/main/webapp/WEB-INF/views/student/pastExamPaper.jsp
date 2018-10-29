@@ -29,32 +29,89 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
+
+ 	var pageNo = 1;
+	var rowPerPage = 4;
+	var begin = (pageNo - 1) * rowPerPage + 1;	// 문제의 시작 rownum, 1부터 시작한다 
+	//var end = pageNo * rowPerPage;  			// end 가 필요한지 모르겠음
+	var totalRows = ${questionCount};	//	한 시험지의 전체 문제 개수 
+	var totalPages = Math.ceil(totalRows / rowPerPage);
+	
 	// document.ready 시작 
 	$(function() {
 		
-		var student_answer_status = "all";
+		if(totalRows > 4) {
+			$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+		}
+		
+		student_answer_status = "all";
 		pastExamPaperView(student_answer_status);
+		
+		$(document).on('click', '#nextPageBtn', function(){
+			if(pageNo < totalPages){
+				if($('#prevPageBtn').length == 0){
+					$('#prevPageSpan').append('<button class="btn btn-theme03" id="prevPageBtn">이전 페이지</button>');	
+				} 
+				pageNo += 1;			
+				begin = (pageNo - 1) * rowPerPage + 1;	 
+				pastExamPaperView(student_answer_status);
+				
+				if(pageNo == totalPages){
+					$('#nextPageSpan').empty();
+				} 
+			} 
+		});  // nextPageBtn 이벤트 종료 
+		
 
+		$(document).on('click', '#prevPageBtn', function(){
+			if(pageNo < totalPages || pageNo == totalPages){
+				if($('#nextPageBtn').length == 0){
+					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				}
+				pageNo -= 1;
+				begin = (pageNo - 1) * rowPerPage + 1;	 
+				pastExamPaperView(student_answer_status);
+				if(pageNo == 1){
+					$('#prevPageSpan').empty();
+				}
+			} 
+		});
+
+		
 		$('#wrongQuestionBtn').click(function() {
 			
 			if(student_answer_status == "all"){
 				
 				student_answer_status = "wrong";
+				pageNo = 1;
+				$('#prevPageSpan').empty();
+				$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				
+				begin = (pageNo - 1) * rowPerPage + 1;
+				totalRows = ${wrongQuestionCount};
+				totalPages = Math.ceil(totalRows / rowPerPage);
+				
 				pastExamPaperView(student_answer_status);
 				searchStudentAnswer(student_answer_status);
 				
 				$("#wrongQuestionBtn").text("전체 문제 보기");
 				
-			} else if(student_answer_status == "wrong") {
+			} else if (student_answer_status == "wrong") {
 				
 				student_answer_status = "all";
+				pageNo = 1;
+				$('#prevPageSpan').empty();
+				$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				
+				begin = (pageNo - 1) * rowPerPage + 1;
+				totalRows = ${questionCount}; 
+				totalPages = Math.ceil(totalRows / rowPerPage);
+				
 				pastExamPaperView(student_answer_status);
 				searchStudentAnswer(student_answer_status);
 				
 				$("#wrongQuestionBtn").text("틀린 문제만 보기");
-				
 			}
-			
 		});	//	wrongbtn 이벤트 종료 
 
 	}); // document.ready 종료
@@ -67,7 +124,9 @@
 			type : 'post',
 			data : {
 					'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
-					'student_answer_status' : student_answer_status
+					'student_answer_status' : student_answer_status,
+					'begin' : begin,
+					'rowPerPage' : rowPerPage 				// 여기에서 페이징 관련 정보를 보내줌
 			},
 			dataType : "html",
 			success : function(data) {
@@ -169,7 +228,15 @@
 			<!-- 문제 및 답안지 표기 -->
 			
 		</div>
-		<button class="btn btn-theme03 exampaneldetailBtn" id="wrongQuestionBtn">틀린 문제만 보기</button>
+		<div>
+			<div class="col-lg-10 pastExamBtnDiv">
+				<span id="prevPageSpan"></span>
+				<span id="nextPageSpan"></span>
+			</div>
+			<div class="col-lg-2 pastExamBtnDiv2">
+				<button class="btn btn-theme03" id="wrongQuestionBtn">틀린 문제만 보기</button>
+			</div>
+		</div>
 	</div>
 	</div>
 </body>

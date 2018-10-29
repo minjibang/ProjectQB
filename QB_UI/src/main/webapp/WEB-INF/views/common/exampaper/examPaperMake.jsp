@@ -7,6 +7,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -19,7 +20,6 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
-                        <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
                         <input type="hidden" class="dpn_EPN" value="${pageContext.request.contextPath}" />
                         <div class="makeExamFirstRow">
                            <hr>
@@ -54,12 +54,13 @@
                      </div>
                      <div class="col-lg-6">
                         <h3>시험 출제 문항</h3>
-                        <div class="makeExamFirstRow">
-                           <hr>
-                           <div id="makeExamFirstRowText">
-                              <div> 출제된 문항 수 : <span id="qnum">0</span></div><br><div> 현재 총 배점 : <span id="qcore">0</span> / 100 </div>
+                        <div id="makeExamFirstRowText">
+                           <c:set var="sum" value="0"/>
+                           <c:forEach items="${examquestion}" var="examquestion">
+                           	<c:set var="sum" value="${sum + examquestion.exam_question_score }"/>
+                           </c:forEach>
+                              <div> 출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span></div><br><div> 현재 총 배점 : <span id="qcore"><c:out value="${sum }"/></span> / 100 </div>
                            </div>
-                        </div>
                         <hr>
                      </div>
 
@@ -87,7 +88,51 @@
                         <form aciton="" method="post" id="makeExamForm">
                            <div class="task-content">
                               <ul id="sortable" class="task-list selectedBox">
-                              
+                              <c:forEach items="${examquestion}" var="examquestion">
+								<li>
+								<div class='row'>
+								
+									<div class="col-lg-1 qnumdiv">
+										 <input type="checkbox" value="${examquestion.question_num }"
+											name="checkbox[]" id="question_num"/>
+										<!-- value에 문제고유번호 들어간다 -->
+									</div>
+									<div class="col-lg-3">
+										${examquestion.md_category_name}<br> ${examquestion.sm_category_name }<br>
+										난이도: ${examquestion.level_name}<br> 정답:
+										${examquestion.question_answer }<br>
+										정답률:${examquestion.question_correct_ratio}%<br> 출제자:
+										${examquestion.member_id }<br>
+									</div>
+									<div class="col-lg-8" id="questiontitle">
+										<b>${examquestion.question_name }</b><br> <br>
+										<div class="questionImgDiv">
+											<c:if test="${examquestion.question_img  ne null }">
+												<img
+													src="${pageContext.request.contextPath}/img/${examquestion.question_img }"
+													alt="questionImg" class="questionImg" />
+												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+											</c:if>
+										</div>
+										<br>
+										<div>
+											<c:forEach items="${examquestion_choice}" var="examquestion_choice">
+												<c:if
+													test="${examquestion_choice.question_num eq examquestion.question_num}">
+													<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
+												</c:if>
+											</c:forEach>
+										</div>
+									</div>
+									<hr>
+									<div class="col-lg-12 qscore">배점:&nbsp; 
+										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" value="${examquestion.exam_question_score }" min="1" max="20" onchange="plusqcore()"/>
+										<hr>
+									</div>
+								</div>
+								
+								</li>	
+							  </c:forEach>
                               </ul>
                            </div>
                         </form>
@@ -181,10 +226,9 @@
                               <div class="modal-body">
 
                                  시험지 이름 <input type="text" class="form-control exam-paper-name"
-                                    placeholder="시험지 이름을 입력하세요." name="exam_paper_name"><br> 시험지
-                                 설명
-                                 <textarea type="textarea" class="form-control exam-paper-desc"
-                                    placeholder="시험지 설명을 입력하세요." name="exam_question_desc"></textarea>
+                                    placeholder="시험지 이름을 입력하세요." name="exam_paper_name" value="${exam_paper_name}">
+                          <br> 시험지 설명 <textarea type="textarea" class="form-control exam-paper-desc"
+                                    placeholder="시험지 설명을 입력하세요." name="exam_question_desc">${exam_paper_desc }</textarea>
                                     <input type="hidden" id="saveEPStatus" name="exam_paper_status" value="0" >
                                     <input type="hidden" id="saveMemId" name="member_id" value="">
                               </div>
@@ -220,7 +264,7 @@
                                  설명
                                  <textarea type="textarea" class="form-control createEPDesc"
                                     placeholder="시험지 설명을 입력하세요." name="exam_paper_desc"></textarea>
-                                    <input type="hidden" id="insertEPNum" name="exam_paper_num" value="" />
+                                    <input type="hidden" id="insertEPNum" name="exam_paper_num" value="${param.exam_paper_num }" />
                                     <input type="hidden" id="insertEPStatus" name="exam_paper_status" value="1" />
                                     <input type="hidden" id="insertMemId" name="member_id" value="" />
                               </div>

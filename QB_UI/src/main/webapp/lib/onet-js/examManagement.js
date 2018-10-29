@@ -22,43 +22,48 @@ function deleteExamInfo(){
 	if(day.length == 1){ 
 	  day = "0" + day; 
 	} 
-	
 	var currentDate= year + "" + month + "" + day;
-
 	var exam_info_num = window.event.target.id;
 	
-	var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
-	if(deleteconfirm == true){
-		$.ajax({
-			  type : "post",
-   			  url : "teacherExamSchedultDelete.do",
-   			  dataType : "text",
-   			  data:{'exam_info_num':exam_info_num,'currentDate':currentDate,'removeData':removeData},
-   			  success : function(data){
-   				  if(data=="n"){
-     					swal({
-     						title : "삭제 실패",
-     						text:'지난 시험일정은 삭제할 수 없습니다.',
-     						icon : "warning",
-     					});
-     					}
-   				  else{
-				  swal({
-						title : "삭제완료",
-						icon : "success",
-					});
-					$('#' + exam_info_num).parent().parent(".exam_info_name")
-							.remove();
-				
-     					}
-   			  
-   			  },
-				error: function(request, status, error){
-				alert("request:"+request+"status"+status+"error"+error);
-			}
+	swal({
+		  title: "정말로 삭제하시겠습니까?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		}).then((willDelete) => {
+		  if (willDelete) {
+			  $.ajax({
+				  type : "post",
+	   			  url : "teacherExamSchedultDelete.do",
+	   			  dataType : "text",
+	   			  data:{'exam_info_num':exam_info_num,'currentDate':currentDate,'removeData':removeData},
+	   			  success : function(data){
+	   				  if(data=="n"){
+	     					swal({
+	     						title : "삭제 실패",
+	     						text:'지난 시험일정은 삭제할 수 없습니다.',
+	     						icon : "warning",
+	     						dangerMode: true
+	     					});
+	     					}
+	   				  else{
+					  swal({
+							title : "삭제완료",
+							icon : "success",
+						});
+						$('#' + exam_info_num).parent().parent(".exam_info_name")
+								.remove();
+	     				}
+	   			  },
+					error: function(request, status, error){
+					alert("request:"+request+"status"+status+"error"+error);
+				}
+			});
+			  
+			  
+		  } else {
+		    
+		  }
 		});
-	}else{
-		
-	}
 
 };
