@@ -54,7 +54,6 @@ public class TestManageController {
 		mv.setViewName("ajax.common.examPaperMake_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
-		
 		return mv;
 	}
 	/*문제 검색*/

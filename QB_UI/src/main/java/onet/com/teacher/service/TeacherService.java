@@ -65,13 +65,6 @@ public class TeacherService {
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
 	
 	/*한결 - 10.17 시험지 체크 및 insert 시작*/
-	public String examPaperCheck(String exam_paper_name,String member_id) {
-		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		String result = dao.examPaperCheck(exam_paper_name, member_id);
-		return result;
-	}
-	
-
 	public int examPaperInsert(ExamPaperDto dto) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperInsert(dto);
@@ -80,11 +73,6 @@ public class TeacherService {
 	public int examPaperUpdate(int exam_paper_num,String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examPaperUpdate(exam_paper_num,exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
-		return result;
-	}
-	public int examQuestionSelect(String exam_paper_num, String question_num) {
-		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examQuestionSelect(exam_paper_num, question_num);
 		return result;
 	}
 	public int examQuestionInsert(int exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
