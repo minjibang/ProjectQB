@@ -241,22 +241,9 @@ public class TestManageController {
 	/*민지 끝*/
 	
 	/*한결 시작*/
-	@RequestMapping("checkExam_paper.do")
-	public @ResponseBody String examPaperCheck(@RequestParam("exam_paper_name") String exam_paper_name, 
-			@RequestParam("member_id") String member_id) {	
-		String result = teacherService.examPaperCheck(exam_paper_name,member_id);
-		return result;
-	}	
-	
 	/* 10.17 시험지 테이블 insert and update*/
 
 	@RequestMapping("examPaperInsert.do")
-
-	/*public String examPaperInsert(ExamPaperDto eDto, ExamQuestionDto eqDto) {
-		System.out.println("시험지 정보 >> "+eDto.getClass_name() +" || "+ eDto.getExam_paper_desc() +" || "+ eDto.getExam_paper_status());
-//		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
-		return null;*/
-
 	public @ResponseBody int examPaperInsert(ExamPaperDto dto) {
 		teacherService.examPaperInsert(dto);
 		int result = dto.getExam_paper_num();
@@ -275,12 +262,6 @@ public class TestManageController {
 	}
 	
 	/*10.18 시험지 문제 테이블 select insert update delete*/
-	@RequestMapping("examQuestionSelect.do")
-	public @ResponseBody int examQuestionSelect(@RequestParam("exam_paper_num") String exam_paper_num,
-			@RequestParam("question_num") String question_num) {
-		int result = teacherService.examQuestionSelect(exam_paper_num, question_num);
-		return result;
-	}
 	@RequestMapping("examQuestionInsert.do")
 	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") int exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 

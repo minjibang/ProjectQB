@@ -277,8 +277,6 @@ public class TeacherController {
 			} else if(dto2.getQuestion_type().equals("단답형")) {
 				adminService.insertQuestion(dto2, request);
 			}
-			System.out.println("오는가?2");
-//			adminService.insertQuestion(dto2, request);
 			return "redirect:questionManagement.do";
 	}
 		

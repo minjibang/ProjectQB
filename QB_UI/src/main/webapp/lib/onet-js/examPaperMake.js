@@ -101,24 +101,24 @@ jQuery(document).ready(function() {
    /*임시저장 버튼 눌렀을 떄*/
    $('#pickQuestionTempSaveModalBtn').click(function(){
 	   var memId = $('.dpn1').val();
-	   var questionNum = "";
+	   /*var questionNum = "";
 	   var questionScore = "";
-	   var questionIndex = "";
+	   var questionIndex = "";*/
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 		   if($(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()==""){
 			   $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val("0");
 		   }
-		   questionNum += $(this).val() + ", ";
+		   /*questionNum += $(this).val() + ", ";
 		   questionScore += $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() + ", ";
-		   questionIndex += (index+1) + ", ";
+		   questionIndex += (index+1) + ", ";*/
 	   });
-	   console.log("문제 번호 : "+questionNum);
+	   /*console.log("문제 번호 : "+questionNum);
 	   console.log("배점 : " +questionScore);
-	   console.log("문제 순서 : " + questionIndex);
+	   console.log("문제 순서 : " + questionIndex);*/
 	   $('#saveMemId').val(memId);
-	   $('#saveQNum').val(questionNum);
+	   /*$('#saveQNum').val(questionNum);
 	   $('#saveEQSeq').val(questionIndex);
-	   $('#saveEQScore').val(questionScore);
+	   $('#saveEQScore').val(questionScore);*/
 
 	   $('#pickQuestionTempSaveModal').modal(); 
    });
@@ -239,6 +239,7 @@ function insertEP(examName, memId, examDesc, examPStatus){
 	      });         
 	         /*내 시험지로 이동*/
 	         if(examPStatus==1){
+	        	swal("시험지가 저장되었습니다.");
 	         location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
 	         }else{
 	        	 $('#insertEPNum').val(epnum);
@@ -249,7 +250,6 @@ function insertEP(examName, memId, examDesc, examPStatus){
 });
 }
 function updateEP(examPNum, examName, memId, examDesc, examPStatus){
-	alert("업데이트로 진입한다");
 	 $.ajax({
        url:"examPaperUpdate.do",
        type:"get",
