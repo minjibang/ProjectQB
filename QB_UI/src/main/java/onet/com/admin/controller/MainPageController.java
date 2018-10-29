@@ -234,4 +234,12 @@ public class MainPageController {
 		
 		return mv;
 	}
+	//양회준 10.29시험지 수정 유효성 추가수정
+	@RequestMapping("updateExamCheck.do")
+	public @ResponseBody int updateExamCheck(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		int result = teacherService.updateExamCheck(exam_paper_num);
+		
+		return result;
+	}
 }

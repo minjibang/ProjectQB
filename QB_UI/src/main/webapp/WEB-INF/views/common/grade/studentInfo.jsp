@@ -319,9 +319,9 @@
 															<thead>
 																<tr>
 																	<td>학생 이름</td>
-																	<td>Java</td>
-																	<td>Oracle</td>
-																	<td>Python</td>
+																	<c:forEach items="${classChart}" var="subject">
+																	<td>${subject.exam_info_name}</td>
+																	</c:forEach>
 																	<td>평균</td>
 																</tr>
 															</thead>
@@ -329,22 +329,25 @@
 																<tr>
 																	<td>김하나</td>
 																	<td>56</td>
-																	<td>76</td>
+																	<td>56</td>
+																	<td>56</td>
 																	<td>56</td>
 																	<td>89</td>
 																</tr>
 																<tr>
 																	<td>방민지</td>
 																	<td>89</td>
-																	<td>76</td>
-																	<td>89</td>
+																	<td>56</td>
+																	<td>56</td>
+																	<td>56</td>
 																	<td>89</td>
 																</tr>
 																<tr>
 																	<td>서정원</td>
 																	<td>89</td>
-																	<td>78</td>
-																	<td>78</td>
+																	<td>56</td>
+																	<td>56</td>
+																	<td>56</td>
 																	<td>89</td>
 																</tr>
 															</tbody>
@@ -504,6 +507,7 @@ $(document).ready(function(){
 	//학생 목록 선택 이벤트-tab2
 	
 	$(".tab2studentListMembers").click(function(){
+		
 		$("#searchExamValue").val("");
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
@@ -513,7 +517,9 @@ $(document).ready(function(){
 		var memberIndex=$(".tab2studentListMembers").index(this);
 		//ajax 시험 정보 요청할 parameter
 		memberId=studentArr[memberIndex].member_id;
+		console.log("선택"+memberId);
 		className=studentArr[memberIndex].class_name;
+		
 		tab2Ajax();
 	});
 	
