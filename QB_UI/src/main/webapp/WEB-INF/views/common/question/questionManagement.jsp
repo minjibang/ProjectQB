@@ -255,13 +255,13 @@
 										<hr>
 										<div class="form-group" id="questionMoonje">
 											<div class="row">
-												<div class="col-lg-6 ">
+												<div class="col-lg-6 outQImg">
 													<h4>
 														<i class="fa fa-angle-right"></i> 문제 내용 입력
 													</h4>
 													<textarea name="question_name" class="form-control"
 														placeholder="문제 내용을 입력해주세요." rows="3" required></textarea>
-													<div class="fileupload fileupload-new" data-provides="fileupload">
+													<div id="QImg" class="fileupload fileupload-new" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 400px; max-height: 250px; line-height: 20px;">
 														</div>
@@ -275,8 +275,8 @@
 																</span> 
 																<input type="file" name="question_file" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(0)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
 													</div>
 												</div>
@@ -337,12 +337,13 @@
 													
 													<!-- 1번 보기 -->
 													<div id="choiceInput">
+													<div id="QCNPlus_1">
 													<b><input type="text" name="question_choice_num"
 														value="1" style="display: none">1.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content1"
 														class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요.">
 														
-													  <span class="fileupload fileupload-new" data-provides="fileupload">
+													  <span class="fileupload fileupload-new QCN_1" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;">
 															
@@ -357,16 +358,20 @@
 																</span> 
 																<input type="file" name="question_choice_files[0]" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(1)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
+															<!-- <a href="#" class="btn btn-theme04 fileupload-exists"  data-dismiss="fileupload">
+															<i class="fa fa-trash-o" onclick="deleteImg(1)">Remove</i></a> -->
 														</span>
-													</span><br>
+													</span>
+													</div>
 													<!-- 2번 보기 -->
+													<div id="QCNPlus_2">
 													<b><input type="text" name="question_choice_num"
 														value="2" style="display: none">2.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content2"
 														class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new" data-provides="fileupload">
+													   <span class="fileupload fileupload-new QCN_2" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;">
 														</div>
@@ -380,16 +385,17 @@
 																</span> 
 																<input type="file" name="question_choice_files[1]" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(2)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
-													</span><br>
+													</span></div>
 													<!-- 3번 보기 -->
+													<div id="QCNPlus_3">
 													<b><input type="text" name="question_choice_num"
 														value="3" style="display: none">3.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content3"
 														class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new" data-provides="fileupload">
+													   <span class="fileupload fileupload-new QCN_3" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;">
 														</div>
@@ -403,16 +409,17 @@
 																</span> 
 																<input type="file" name="question_choice_files[2]" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(3)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
-													</span><br>
+													</span></div>
 													<!-- 4번 보기 -->
+													<div id="QCNPlus_4">
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
-													   <input type="text" name="question_choice_content" id="question_choice_content4"
+													   <input type="text" name="question_choice_content QCN_4" id="question_choice_content4"
 														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new" data-provides="fileupload">
+													   <span class="fileupload fileupload-new QCN_4" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 300px; max-height: 180px; line-height: 20px;">
 														</div>
@@ -426,17 +433,18 @@
 																</span> 
 																<input type="file" name="question_choice_files[3]" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(4)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
-													</span><br>
+													</span></div>
 													<!-- 5번 보기 -->
+													<div id="QCNPlus_5">
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content" id="question_choice_content5"
+													   <input type="text" name="question_choice_content QCN_5" id="question_choice_content5"
 														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new" data-provides="fileupload">
-															<div class="fileupload-preview fileupload-exists thumbnail"
+													   <span class="fileupload fileupload-new QCN_5" data-provides="fileupload">
+															<div class="fileupload-preview fileupload-exists thumbnail" name="thisNameFind"
 																style="max-width: 300px; max-height: 180px; line-height: 20px;">
 															</div>
 														<span>
@@ -449,10 +457,10 @@
 																</span> 
 																<input type="file" name="question_choice_files[4]" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
-													</span><br>
+													</span></div>
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
 

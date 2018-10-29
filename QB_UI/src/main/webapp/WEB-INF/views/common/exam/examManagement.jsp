@@ -42,7 +42,7 @@
 							<div class="row">
 								<div id="div_myExam" class="col-md-12">
 									<a
-										href="${pageContext.request.contextPath}/teacher/examPaperMake.do"
+										href="examPaperMake.do"
 										class="examPaper-insert"> <img
 										src="../img/material-icon.png"> <strong>새 시험지
 											만들기</strong></a>
@@ -72,7 +72,7 @@
 																class="btn btn-theme buttonGroup"
 																onclick="updateExamCheck()">시험지수정</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
+																onclick="location.href='examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
 														</div>
@@ -94,7 +94,7 @@
 							<div class="row">
 								<div id="div_tempExam" class="col-md-12">
 									<a
-										href="${pageContext.request.contextPath}/teacher/examPaperMake.do"
+										href="examPaperMake.do"
 										class="examPaper-insert"> <img
 										src="../img/material-icon.png"> <strong>새 시험지
 											만들기</strong></a>
@@ -122,7 +122,7 @@
 																class="btn btn-theme04 buttonGroup"
 																onclick="deleteTempExamCheck()">삭제</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지
+																onclick="location.href='examPaperModify.do?class_num=${param.class_num}'">시험지
 																수정</button>
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
@@ -178,7 +178,7 @@
 																onclick="deleteExamInfo()" value="${examScheduleList.exam_info_date}">삭제</button>
 
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
+																onclick="location.href='examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
 																일정 수정</button>
 
 															<input type="hidden" id="hidden_class_num"
@@ -228,11 +228,28 @@
 <script>
 	function updateExamCheck() {
 		var exam_paper_num = window.event.target.id;
-		var deleteconfirm = confirm("시험지 수정을 하시겠습니까?");
-		if (deleteconfirm == true) {
-			location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;
-		} else {
-		}
+
+		$.ajax({
+			url : "updateExamCheck.do",
+			type : "get",
+			dataType : "json",
+			data : {
+				'exam_paper_num' : exam_paper_num
+			},
+			success : function(data){
+				if(data == 1){
+					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;		
+				}else if(data == 2){
+					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;
+				}else{
+					swal({
+						title : "수정불가",
+						text : "등록된 시험일정이 있습니다. 시험일정을 확인하고 수정해주세요.",
+						icon : "warning",
+					});
+				}
+			}
+		});
 	}
 	function deleteExamCheck() {
 		var exam_paper_num = window.event.target.id;
