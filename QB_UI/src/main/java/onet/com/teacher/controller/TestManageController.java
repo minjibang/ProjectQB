@@ -45,15 +45,18 @@ public class TestManageController {
 	/*문제리스트 뿌려주기*/
 	@RequestMapping(value="questionListView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
+		
 		List<QuestionDto> question = teacherService.question();
-		model.addAttribute("question", question);
+		
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		model.addAttribute("question_choice", question_choice);
+		
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.common.examPaperMake_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
+		
+		System.out.println(mv);
 		
 		return mv;
 	}
@@ -99,6 +102,14 @@ public class TestManageController {
 	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
 		int result = teacherService.deleteExam(exam_paper_num);
+		
+		return result;
+	}
+	//시험지 수정 유효성
+	@RequestMapping("updateExamCheck.do")
+	public @ResponseBody int updateExamCheck(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		int result = teacherService.updateExamCheck(exam_paper_num);
 		
 		return result;
 	}
@@ -166,7 +177,17 @@ public class TestManageController {
 		
 		return result;
 	}
-	
+	//시험지 수정(새로 시험지를 만들고 이전시험지는 enable을 0으로 하기
+	@RequestMapping("examPaperUpdateInsert.do")
+	public @ResponseBody int examPaperInsert(ExamPaperDto dto , Principal principal) {
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
+		int updateresult = teacherService.examEnableUpdate(dto.getExam_paper_num());
+		int exampapernum = teacherService.newExaminsert(dto);
+		
+		
+		return exampapernum;
+	}
 	
 	/*성태용 끝*/
 	
@@ -251,12 +272,6 @@ public class TestManageController {
 	/* 10.17 시험지 테이블 insert and update*/
 
 	@RequestMapping("examPaperInsert.do")
-
-	/*public String examPaperInsert(ExamPaperDto eDto, ExamQuestionDto eqDto) {
-		System.out.println("시험지 정보 >> "+eDto.getClass_name() +" || "+ eDto.getExam_paper_desc() +" || "+ eDto.getExam_paper_status());
-//		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
-		return null;*/
-
 	public @ResponseBody int examPaperInsert(ExamPaperDto dto) {
 		teacherService.examPaperInsert(dto);
 		int result = dto.getExam_paper_num();

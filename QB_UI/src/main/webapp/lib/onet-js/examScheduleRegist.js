@@ -8,6 +8,8 @@ $(document).ready(function(){
 	/*datepicker*/
 	 $( "#exam_info_date" ).datepicker({ minDate: 0, maxDate: "+1M +10D",dateFormat: 'yy-mm-dd' });
 	
+	 
+	 
 	 function allCheckFunc( obj ) {
 			$("[name=chk]").prop("checked", $(obj).prop("checked") );
 	}
@@ -41,6 +43,7 @@ $(document).ready(function(){
 		$("#checkall").click(function(){
 			allCheckFunc( this );
 		});
+		
 		$("[name=chk]").each(function(){
 			$(this).click(function(){
 				oneCheckFunc( $(this) );
