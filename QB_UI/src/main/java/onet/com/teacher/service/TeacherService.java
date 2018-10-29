@@ -65,21 +65,21 @@ public class TeacherService {
 	/* 영준 - 10.16 강사 시험관리 페이지 끝 */
 	
 	/*한결 - 10.17 시험지 체크 및 insert 시작*/
-	public String examPaperCheck(String exam_paper_name) {
+	public String examPaperCheck(String exam_paper_name,String member_id) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		String result = dao.examPaperCheck(exam_paper_name);
+		String result = dao.examPaperCheck(exam_paper_name, member_id);
 		return result;
 	}
 	
 
-	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status) {
+	public int examPaperInsert(ExamPaperDto dto) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
+		int result = dao.examPaperInsert(dto);
 		return result;
 	}
-	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num,String exam_paper_status) {
+	public int examPaperUpdate(int exam_paper_num,String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num,exam_paper_status);
+		int result = dao.examPaperUpdate(exam_paper_num,exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
 		return result;
 	}
 	public int examQuestionSelect(String exam_paper_num, String question_num) {
@@ -87,7 +87,7 @@ public class TeacherService {
 		int result = dao.examQuestionSelect(exam_paper_num, question_num);
 		return result;
 	}
-	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
+	public int examQuestionInsert(int exam_paper_num, String question_num, String exam_question_seq, String exam_question_score) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);
 		return result;
@@ -170,6 +170,23 @@ public class TeacherService {
 		}
 		return result;
 	}
+	public int updateExamCheck(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		int result = 0;
+		int checkdate = dao.checkDate(exam_paper_num); //0이 아닐경우 현재 날짜보다 높다
+		int checkinfo = dao.checkExamInfo(exam_paper_num); // 0이면 등록된 일정이 없다
+
+		if(checkinfo == 0 && checkdate == 0) {
+			result = 1;
+		}else if(checkinfo != 0 && checkdate == 0) {
+			result = 2; 
+		}else if(checkinfo != 0 && checkdate != 0){
+			result = 3; //수정불가
+		}
+		return result;
+	}
+	
 	public int deleteTempExam(int exam_paper_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.deleteExam(exam_paper_num);
@@ -199,6 +216,19 @@ public class TeacherService {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		ExamPaperDto result = dao.examNameDesc(exam_paper_num);
 		return result;
+	}
+	public int examEnableUpdate(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.updateExam(exam_paper_num);
+		return result;
+	}
+	public int newExaminsert(ExamPaperDto dto){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.newExaminsert(dto);
+		
+		int exampapernum = dto.getExam_paper_num();
+		
+		return exampapernum;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package onet.com.vo;
 
+import java.util.List;
+
 public class Score_chartDto {
 
 	// 18.10.22 현이 score_chartDto 만듦
@@ -11,6 +13,9 @@ public class Score_chartDto {
 	private String class_name;
 	// 양회준10.24추가 
 	private String exam_info_name;
+	private List<Integer> score_list;
+	
+
 	// 영준 10.25 추가
 	private String member_name;
 
@@ -31,6 +36,13 @@ public class Score_chartDto {
 	public void setExam_info_name(String exam_info_name) {
 		this.exam_info_name = exam_info_name;
 	}
+	public List<Integer> getScore_list() {
+		return score_list;
+	}
+	public void setScore_list(List<Integer> score_list) {
+		this.score_list = score_list;
+	}
+	
 	// 추가
 	public String getMember_id() {
 		return member_id;

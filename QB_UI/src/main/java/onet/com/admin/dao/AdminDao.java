@@ -163,5 +163,7 @@ public interface AdminDao {
 	public List<ExamPaperDto> myExamPaperList(String member_id);
 	public List<ExamPaperDto> myTempExamList(String member_id);
 	public List<ExamInfoDto> examScheduleList(String member_id);
+	
+	public int checkClassNum(String class_name);
 }
 

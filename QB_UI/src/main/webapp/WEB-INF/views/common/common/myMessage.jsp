@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/adminMessage.css"
 	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script> 
 <!-- 쪽지보기 모달창 -->
 <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -202,7 +203,7 @@
 																	<div>
 																		<label class="btn btn-compose"> <i
 																			class="fa fa-pencil"></i>전체선택 <input type="checkbox"
-																			class="checkbox form-control" id="agree" name="agree" />
+																			class="checkbox form-control" id="agreeAll" />
 																		</label>
 																	</div>
 																	<ul class="nav nav-pills nav-stacked mail-nav">
@@ -210,7 +211,7 @@
 																		<li id="messageSelect"><div>
 																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
 																		  <label>
-																		  <input type="checkbox" class="checkbox form-control"id="agree" name="agree" value=""style="position:relative;"/>
+																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value=""style="position:relative;"/>
 																				<img
 																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
 																					class="img-circle" width="25">${classMemberList.member_name}

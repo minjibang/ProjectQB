@@ -19,15 +19,15 @@ public interface TeacherDao {
 	public List<Question_levelDto> question_level();
 	
 	/*10.17 시험지체크 시작*/
-	public String examPaperCheck(String exam_paper_name);
+	public String examPaperCheck(String exam_paper_name,String member_id);
 
 	/*10.18 시험지 테이블*/
-	public int examPaperInsert(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status);
-	public int examPaperUpdate(String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_num,String exam_paper_status); 
+	public int examPaperInsert(ExamPaperDto dto);
+	public int examPaperUpdate(int exam_paper_num,String exam_paper_name,String member_id,String exam_paper_desc,String exam_paper_status); 
 	
 	/*10.18 시험지 문제 테이블*/
 	public int examQuestionSelect(String exam_paper_num, String question_num);
-	public int examQuestionInsert(String exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
+	public int examQuestionInsert(int exam_paper_num, String question_num, String exam_question_seq, String exam_question_score);
 	public int examQuestionDelete(String exam_paper_num);
 
 	/*한결 끝*/
@@ -61,6 +61,7 @@ public interface TeacherDao {
 	public List<ExamInfoDto> examScheduleList2(int exam_paper_num);
 	public int deleteExam(int exam_paper_num);
 	public int updateExam(int exam_paper_num);
+	public int newExaminsert(ExamPaperDto dto);
 	public int checkDate(int exam_paper_num);
 	public int checkExamInfo(int exam_paper_num);
 	public List<QuestionDto> updateExamView(int exam_paper_num);

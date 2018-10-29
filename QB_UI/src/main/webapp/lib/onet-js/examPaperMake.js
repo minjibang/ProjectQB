@@ -100,12 +100,26 @@ jQuery(document).ready(function() {
 
    /*임시저장 버튼 눌렀을 떄*/
    $('#pickQuestionTempSaveModalBtn').click(function(){
+	   
+	   var questionNum = "";
+	   var questionScore = "";
+	   var questionIndex = "";
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 		   if($(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()==""){
 			   $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val("0");
-			   
 		   }
+		   questionNum += $(this).val() + ", ";
+		   questionScore += $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() + ", ";
+		   questionIndex += (index+1) + ", ";
 	   });
+	   console.log("문제 번호 : "+questionNum);
+	   console.log("배점 : " +questionScore);
+	   console.log("문제 순서 : " + questionIndex);
+	   
+	   $('#saveQNum').val(questionNum);
+	   $('#saveEQSeq').val(questionIndex);
+	   $('#saveEQScore').val(questionScore);
+
 	   $('#pickQuestionTempSaveModal').modal(); 
    });
    
@@ -132,11 +146,35 @@ jQuery(document).ready(function() {
 });
 
 function makeExamSubmitBtn(num){
+	var examPNum = $('#insertEPNum').val();
 	var examName = "";
-	var memId = $('.dpn1').val();
+	
 	var examDesc = "";
 	var examPStatus = num;
-	if(num==0){
+	/*유효성검사*/
+	if(num==0 && examPNum == ""){
+		if($('.exam-paper-name').val()==""){
+			swal("시험지 이름을 작성해주세요"); return false;
+		}else if($('.exam-paper-desc').val()==""){
+			swal("시험지 설명을 작성해주세요\n(ex.총 10문제)"); return false;
+		}
+		examName=$('.exam-paper-name').val().trim();
+		examDesc=$('.exam-paper-desc').val().trim();
+		$('.createEPaper').val(examName);
+		$('.createEPDesc').val(examDesc);
+		
+		insertEP(examName, examDesc, examPStatus);
+	}else if(num==1 && examPNum == ""){
+		if($('.createEPaper').val()==""){
+			swal("시험지 이름을 작성해주세요"); return false;
+		}else if($('.createEPDesc').val()==""){
+			swal("시험지 설명을 작성해주세요\n(ex.총 10문제)"); return false;
+		}
+		examName=$('.createEPaper').val().trim();
+		examDesc=$('.createEPDesc').val().trim();
+		
+		insertEP(examName, examDesc, examPStatus);
+	}else if(num==0 && examPNum != ""){
 		if($('.exam-paper-name').val()==""){
 			swal("시험지 이름을 작성해주세요");
 		}else if($('.exam-paper-desc').val()==""){
@@ -146,7 +184,9 @@ function makeExamSubmitBtn(num){
 		examDesc=$('.exam-paper-desc').val().trim();
 		$('.createEPaper').val(examName);
 		$('.createEPDesc').val(examDesc);
-	}else{
+		
+		updateEP(examPNum, examName, examDesc, examPStatus);
+	}else if(num==1 && examPNum != ""){
 		if($('.createEPaper').val()==""){
 			swal("시험지 이름을 작성해주세요");
 		}else if($('.createEPDesc').val()==""){
@@ -154,154 +194,127 @@ function makeExamSubmitBtn(num){
 		}
 		examName=$('.createEPaper').val().trim();
 		examDesc=$('.createEPDesc').val().trim();
-
+		
+		updateEP(examPNum, examName, examDesc, examPStatus);
 	}
 
-	$.ajax({
-        url:"checkExam_paper.do",
-        type:"get",
-        data:{"exam_paper_name":examName},
-        success:function(data){
-           console.log("1. 같은 값이 있는지 체크한다. 결과값은 >> " + data + " || 첫번째 checkExam_paper.do");
-           if(data == ""){
-              /*공백 >> 데이터 없음(null) >> 시험지를 만든다.*/
-              console.log("2-1. data 값이 null 값이다. >> 새로운 시험지를 insert한다.")
-              var promise = $.ajax({
-                 url:"examPaperInsert.do",
-                 type:"get",
-                 dataType:"json",
-                 data:{
-                    "exam_paper_name":examName, 
-                    "member_id":memId,
-                    "exam_paper_desc":examDesc,
-                    "exam_paper_status":examPStatus
-                    },
-                  success:function(data){
-                	  $.ajax({
-                	      url:"checkExam_paper.do",
-                	      type:"get",
-                	      data:{"exam_paper_name":examName},
-                	      success:function(epnum){
-                	         
-                	         /*시험지 번호를 저장시킨다.*/
-                	         
-                	         $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-                	         console.log("   시험지 번호 = " + epnum);
-                	         console.log("   문제번호 = "+$(this).val());
-                	         var questionNum = $(this).val();
-                	         console.log("   문제 배치번호 = " + (Number(index) + 1));
-                	         var EQSeq=(Number(index) + 1);
-                	         console.log("   점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-                	         $.ajax({
-                	            url:"examQuestionInsert.do",
-                	            type:"get",
-                	            dataType:"json",
-                	            data:{
-                	               "exam_paper_num":epnum,
-                	               "question_num":$(this).val(),
-                	               "exam_question_seq":EQSeq,
-                	               "exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
-                	            },
-                	            success:function(data){
-                	               console.log(data);
-                	               
-                	            }
-                	         });
-                	         console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
-                	      });         
-                	         /*내 시험지로 이동*/
-                	         if(num==1){
-                	         location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
-                	         }else{
-                	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
-	 							 swal("임시 저장되었습니다.");
-                	         }
-                	      },
-                	      error:function(xml){
-                	         console.log("에러가 나부렀네 ㅠㅠ 왜일까용? 뭘까용?");
-                	      }
-                	   });
-                  }
-              });
-           
-           } else{
-              console.log("2-1. data값이 있다. data 값은 [" + data + "] 이다.")
-              /*그 외... 데이터 있음 >> update*/
-              $.ajax({
-                 url:"examPaperUpdate.do",
-                 type:"get",
-                 dataType:"json",
-                 data:{
-                    "exam_paper_name":examName, 
-                    "member_id":memId,
-                    "exam_paper_desc":examDesc,
-                    "exam_paper_num":data,
-                    "exam_paper_status":examPStatus
-                 },
-                 success:function(data){
-                    console.log("업데이트 성공 >> " + data);
-                    if(data == "0"){
-                       console.log("0이면 실패인가?");
-                    }else if(data == "1"){
-                       console.log("1이면 성공이고?")
-                    }
-                 },
-                 error:function(xml){
-                    swal("업데이트 에러입니다.");
-                 }
-              });
-              $.ajax({
-                       url:"examQuestionDelete.do",
-                       type:"get",
-                       dataType:"json",
-                       data:{
-                          "exam_paper_num":data
-                          },
-                       success:function(Qnum){
-                          console.log("시험지 번호 ["+data+"] 값 애들 다 지움 >> "+Qnum);
-                       }
-                    });
-              $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-                 console.log("시험지 번호 = " + data);
-                 console.log("문제번호 = "+$(this).val());
-                 var questionNum = $(this).val();
-                 console.log("문제 배치번호 = " + index + 1);
-                 var EQSeq=(Number(index) + 1);
-                 console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
-                 var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
-                    /*insert자리*/
-                    $.ajax({
-                       url:"examQuestionInsert.do",
-                       type:"get",
-                       dataType:"json",
-                       data:{
-                          "exam_paper_num":data,
-                          "question_num":$(this).val(),
-                          "exam_question_seq":EQSeq,
-                          "exam_question_score":Score
-                       },
-                       success:function(data){
-                          console.log(data);
-                          
-                          
-                       }
-                    });
-                 });
-              /*내 시험지로 이동*/
-              if(num==1){
-              location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
-              }else{
-            	  $('#pickQuestionTempSaveModal').modal('hide'); 
-	 			  swal("임시 저장되었습니다.");
-              }
-           }
-        },
-        error:function(xml){
-           swal("문제가 생겨부럿네");
-        }
-     });
-	
-	
+}
+
+function insertEP(examName, examDesc, examPStatus){
+  var promise = $.ajax({
+  url:"examPaperInsert.do",
+  type:"get",
+  dataType:"json",
+  data:{
+     "exam_paper_name":examName, 
+     
+     "exam_paper_desc":examDesc,
+     "exam_paper_status":examPStatus
+     },
+   success:function(epnum){
+	   console.log(epnum);
+	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+	         console.log("   시험지 번호 = " + epnum);
+	         console.log("   문제번호 = "+$(this).val());
+	         var questionNum = $(this).val();
+	         console.log("   문제 배치번호 = " + (Number(index) + 1));
+	         var EQSeq=(Number(index) + 1);
+	         console.log("   점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+	         $.ajax({
+	            url:"examQuestionInsert.do",
+	            type:"get",
+	            dataType:"json",
+	            data:{
+	               "exam_paper_num":epnum,
+	               "question_num":$(this).val(),
+	               "exam_question_seq":EQSeq,
+	               "exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
+	            },
+	            success:function(data){
+	               console.log(data);
+	               
+	            }
+	         });
+	         console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
+	      });         
+	         /*내 시험지로 이동*/
+	         if(examPStatus==1){
+	        	 swal({
+				       title: "시험지가 생성되었습니다.",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = $('.dpn_EPN').val()+"/teacher/examManagement.do";
+					});
+	         }else{
+	        	 $('#insertEPNum').val(epnum);
+	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
+				 swal("임시 저장되었습니다.");
+	         }
+   }
+});
+}
+function updateEP(examPNum, examName, examDesc, examPStatus){
+	alert("업데이트로 진입한다");
+	 $.ajax({
+       url:"examPaperUpdate.do",
+       type:"get",
+       dataType:"json",
+       data:{
+    	  "exam_paper_num":examPNum,
+          "exam_paper_name":examName, 
+          
+          "exam_paper_desc":examDesc,
+          "exam_paper_status":examPStatus
+       },
+       success:function(data){
+    	   $.ajax({
+             url:"examQuestionDelete.do",
+             type:"get",
+             dataType:"json",
+             data:{
+                "exam_paper_num":examPNum
+                },
+             success:function(Qnum){
+            	 $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
+                   console.log("시험지 번호 = " + data);
+                   console.log("문제번호 = "+$(this).val());
+                   var questionNum = $(this).val();
+                   console.log("문제 배치번호 = " + index + 1);
+                   var EQSeq=(Number(index) + 1);
+                   console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
+                   var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
+                      /*insert자리*/
+                      $.ajax({
+                         url:"examQuestionInsert.do",
+                         type:"get",
+                         dataType:"json",
+                         data:{
+                            "exam_paper_num":examPNum,
+                            "question_num":$(this).val(),
+                            "exam_question_seq":EQSeq,
+                            "exam_question_score":Score
+                         },
+                         success:function(data){
+                            console.log(data);
+                            
+                            
+                         }
+                      });
+                   });
+             }
+          });
+    	   if(examPStatus==1){
+  	         location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
+  	         }else{
+  	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
+  				 swal("임시 저장되었습니다.");
+  	         }
+       },
+       error:function(xml){
+          swal("업데이트 에러입니다.");
+       }
+    });
 }
 
 function plusqcore(){

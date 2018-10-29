@@ -63,9 +63,9 @@ public class TeacherController {
 	      System.out.println(member_id);
 	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
 	      List<MemberDto> boardNull = commonService.boardNull(member_id);
-	      System.out.println(boardNull);
-	    	model.addAttribute("boardNull", boardNull);
-	        model.addAttribute("notice", notice);
+	      String noticeCheck = boardNull.get(0).getClass_name();
+	      model.addAttribute("noticeCheck", noticeCheck);
+	      model.addAttribute("notice", notice);
 		  List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		  	model.addAttribute("exam_info", exam_info);
 	      return "common.teacher.notice.notice";
@@ -176,7 +176,6 @@ public class TeacherController {
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 
-
 		return "common.teacher.exampaper.examPaperMake";
 	}
 	
@@ -278,7 +277,7 @@ public class TeacherController {
 				adminService.insertQuestion(dto2, request);
 			}
 			System.out.println("오는가?2");
-			adminService.insertQuestion(dto2, request);
+//			adminService.insertQuestion(dto2, request);
 			return "redirect:questionManagement.do";
 	}
 		
@@ -415,6 +414,7 @@ public class TeacherController {
 		//학생 개인 성적확인
 		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_id(), class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
+		//학생 전체 성적확인
 		
 		return "common.teacher.grade.studentInfo";
 	}
@@ -425,9 +425,6 @@ public class TeacherController {
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
-		for(Class_chartDto data : studentChart) {
-			System.out.println("과연"+data.getExam_info_name());
-		}
 		return chart;
 	}
 	
@@ -678,7 +675,6 @@ public class TeacherController {
 		//양회준 10-24
 		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
 		return result;
-
 	}
 	
 }
