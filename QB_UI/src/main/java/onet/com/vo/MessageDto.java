@@ -1,6 +1,7 @@
 package onet.com.vo;
 
 public class MessageDto {
+
 	
 	private int message_num;
 	private String send_member_id;

@@ -35,6 +35,13 @@
 	<context:component-scan base-package="onet.com.student.service"/>
 	<context:component-scan base-package="onet.com.admin.service"/>
 	<context:component-scan base-package="onet.com.common.service"/>
+
+
+	<!-- <websocket:handlers>
+		<websocket:mapping path="/count.do" handler="loginHandler"/>
+	</websocket:handlers>
+	
+	<beans:bean id="loginHandler" class="socket.LoginSocketHandler"/> -->
 	
 	<beans:bean class="onet.com.file.downloadController.DownloadController"/>
 	<beans:bean id="download" class="onet.com.file.downloadController.DownloadView"/>

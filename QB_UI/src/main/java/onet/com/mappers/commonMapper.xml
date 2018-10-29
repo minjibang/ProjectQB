@@ -253,6 +253,7 @@ and e.exam_info_name=#{exam_info_name}
 
 </select>
 
+
 <select id="count_receive_note" parameterType="String" resultType="String">
 	select count(*) from message where receive_member_id=#{member_id}
 </select>
@@ -264,4 +265,12 @@ and e.exam_info_name=#{exam_info_name}
 <select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
 	select * from message where send_member_id=#{member_id}
 </select>
+
+<select id="classTeacherList" parameterType="String" resultType="onet.com.vo.MemberDto">
+ select member_id, member_name from member where member_id=(
+ select member_id from member_role where member_id in(
+ select member_id from member where class_name in (select class_name from member where member_id=#{member_id}) and role_code="role_teacher"))
+</select>
+
+
 </mapper>

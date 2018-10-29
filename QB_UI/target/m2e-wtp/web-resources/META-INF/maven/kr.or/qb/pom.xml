@@ -247,7 +247,6 @@
 				<artifactId>spring-websocket</artifactId>
 				<version>${org.springframework-version}</version>
 			</dependency>
-		
 		<!-- 채팅끝 -->
 		
 		

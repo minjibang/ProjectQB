@@ -84,6 +84,7 @@ public class TeacherController {
 			   model.addAttribute("classMemberList", classMemberList);
 			   model.addAttribute("receiveMessage", receiveMessage);
 			   model.addAttribute("sendMessage", sendMessage);
+			   model.addAttribute("member_id", member_id);
 			return "common.teacher.common.myMessage";
 		}
 		/*민지 18.10.10 메시지 페이지 끝*/

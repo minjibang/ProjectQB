@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>	
+
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+
 <!--header start-->
 <header class="header black-bg">
 	
@@ -29,10 +31,11 @@
 	</div>
 </header>
 
+
 <se:authorize access="isAuthenticated()">
 <se:authentication property="principal.username" var="username"/>
 <script>
-var wsUri = "ws://localhost:8090/qb/count.do";
+var wsUri = "ws://192.168.0.18:8090/qb/count.do";
 
 
 function send_message() {
@@ -41,6 +44,7 @@ function send_message() {
         onOpen(evt);
     };
     websocket.onmessage = function(evt) {
+    	console.log("send_message 에서  onmessage함수");
         onMessage(evt);
     };
     websocket.onerror = function(evt) {
@@ -57,6 +61,7 @@ function onOpen(evt)
 }
 
 function onMessage(evt) {
+	console.log("onMessage 함수 실행")
 		$('#message').append(evt.data);
 }
 
@@ -85,3 +90,6 @@ $(document).ready(function(){
 </se:authorize>
 
 <!--header end-->
+
+<!--header end-->
+

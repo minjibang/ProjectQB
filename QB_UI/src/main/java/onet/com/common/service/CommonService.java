@@ -373,6 +373,7 @@ public class CommonService {
 	      return result;
 	   }
 
+
 	   public List<MessageDto> receiveMessage(String member_id){
 		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		   List<MessageDto> result = dao.receiveMessage(member_id);
@@ -384,6 +385,19 @@ public class CommonService {
 		   List<MessageDto> result = dao.sendMessage(member_id);
 		   return result;
 	   }
+
+	   
+	   //민지 쪽지 1029
+	   public List<MemberDto> classTeacherList(String member_id) {
+		   System.out.println("강사강사강사강사서비스");
+		      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		      
+		      List<MemberDto> result = dao.classTeacherList(member_id);
+		      
+		      return result;
+		   }
+
+
 
 }
 

@@ -202,6 +202,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 <!-- 10.24 현이 학생 지난 시험지 보기 끝 -->
 
+
+<!-- 10.29민지 학생이쪽지보내기 -->
+<insert id="sendTeacherMessage" parameterType="onet.com.vo.MessageDto" >
+insert into message (send_member_id,receive_member_id,message_content)
+	values(#{send_member_id}, #{receive_member_id}, #{message_content})
+</insert>
+
 <select id="wrongQuestionCount" resultType="int"><!-- 한 시험지에 담긴 문제의 개수 -->
 	select count(question_num)
 	from student_answer

@@ -1,5 +1,7 @@
 package onet.com.index.handler;
 
+import java.security.Principal;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +11,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import onet.com.common.dao.CommonDao;
+import onet.com.student.dao.StudentDao;
+import onet.com.vo.MessageDto;
 
 @Repository
 public class WebSocketHandler extends TextWebSocketHandler {
@@ -28,12 +32,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
   	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-  		System.out.println(session.getId());
-	 	CommonDao dao = sqlsession.getMapper(CommonDao.class);
+  		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+  		StudentDao dao2 = sqlsession.getMapper(StudentDao.class);
 	 	System.out.println("textMessage");
+	 	
 		System.out.println(dao.count_receive_note(message.getPayload()));
 		session.sendMessage(new TextMessage(dao.count_receive_note(message.getPayload())));
-
+		
 //현재 수신자에게 몇개의 메세지가 와있는지 디비에서 검색함.
 
 		

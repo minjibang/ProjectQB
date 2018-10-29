@@ -10,6 +10,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 
 <section id="main-content">
@@ -104,7 +106,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
-						
+						<div id="count">dddddddddddddddddddddddd</div>
 						</div>
 					</div>
 				</div>
@@ -113,44 +115,8 @@
 	</section><!-- /wrapper -->
 </section> <!-- /main-content -->
 
-<se:authorize access="isAuthenticated()">
-<se:authentication property="principal.username" var="username"/>
 <script>
-var wsUri = "ws://localhost:8090/qb/echo.do";
 
-
-function send_message() {
-	websocket = new WebSocket(wsUri);
-	websocket.onopen = function(evt) {
-        onOpen(evt);
-    };
-    websocket.onmessage = function(evt) {
-        onMessage(evt);
-    };
-    websocket.onerror = function(evt) {
-        onError(evt);
-    };
-
-}
-
-
-
-function onOpen(evt) 
-{
-   websocket.send("${username}");
-}
-
-function onMessage(evt) {
-		$('#message').append(evt.data);
-}
-
-function onError(evt) {
-
-}
-
-
-$(document).ready(function(){
-	send_message();
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
@@ -166,6 +132,11 @@ $(document).ready(function(){
 
 
 </script>
-</se:authorize>
+
+
+
+
+
+
 <!-- /MAIN CONTENT -->
 <!--main content end-->

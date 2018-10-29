@@ -248,9 +248,16 @@ public class StudentController {
 	
 	
 	@RequestMapping("myMessage.do")
-	public String myMessage() {
-
-		return "common.admin.common.myPage";
+	public String myMessage(Model model, Principal principal) {
+		
+		String member_id = principal.getName();
+		System.out.println("아이디:"+member_id);
+		   List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
+		   System.out.println("classTeacherList >>   " + classTeacherList + "   <<<");
+		   model.addAttribute("classTeacherList", classTeacherList);
+		
+		
+		return "common.student.common.myMessage";
 	}
 	
 	
@@ -451,4 +458,22 @@ public class StudentController {
 		int result = commonService.commentReplyDelete(dto);
 		return 0;
 	}
+	
+/*10.29 학생이 쪽지 보내기 */
+		@RequestMapping(value="sendTeacherMessage.do", method=RequestMethod.POST)
+		public String sendTeacherMessage(Principal principal,String teacher_id,String message_content)  {
+			
+			  String send_member_id = principal.getName();	
+			  System.out.println("send_member_id:"+send_member_id+"teacher_id:"+teacher_id+"message_content:"+message_content);
+			int result = studentService.sendTeacherMessage(teacher_id,message_content,send_member_id);
+			if(result > 0) {
+				System.out.println("쪽지 보내기 성공!");
+			}
+			else {
+				System.out.println("쪽지 보내기 실패~!");
+			}
+			
+			return "redirect:myMessage.do";
+			
+		}
 }
