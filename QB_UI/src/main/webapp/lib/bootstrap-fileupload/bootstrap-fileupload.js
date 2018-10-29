@@ -25,43 +25,43 @@
   * ================================= */
 
   var Fileupload = function (element, options) {
-    this.$element = $(element)
-    this.type = this.$element.data('uploadtype') || (this.$element.find('.thumbnail').length > 0 ? "image" : "file")
+    this.$element = $(element) //버튼 자체
+    this.type = this.$element.data('uploadtype') || (this.$element.find('.thumbnail').length > 0 ? "image" : "file") //사진보여주기쪽 관련
       
-    this.$input = this.$element.find(':file')
-    if (this.$input.length === 0) return
+    this.$input = this.$element.find(':file')//파일찾는부분? >> 버튼은 눌리나 파일찾기가 안됨.
+    if (this.$input.length === 0) return//알수없음.
 
     this.name = this.$input.attr('name') || options.name
 
-    this.$hidden = this.$element.find('input[type=hidden][name="'+this.name+'"]')
+    this.$hidden = this.$element.find('input[type=hidden][name="'+this.name+'"]')//파일선택창은 뜨는데 삽입이 안됨. 이름값이 없어서 그런가봄.
     if (this.$hidden.length === 0) {
       this.$hidden = $('<input type="hidden" />')
       this.$element.prepend(this.$hidden)
-    }
+    }//알수없음.
 
-    this.$preview = this.$element.find('.fileupload-preview')
-    var height = this.$preview.css('height')
-    if (this.$preview.css('display') != 'inline' && height != '0px' && height != 'none') this.$preview.css('line-height', height)
+    this.$preview = this.$element.find('.fileupload-preview')//미리보기 관련인가봄. 사진이 안들어옴
+    var height = this.$preview.css('height')//사진이 안불러짐 >> 근데 사이즈 조절 관련인듯.
+    if (this.$preview.css('display') != 'inline' && height != '0px' && height != 'none') this.$preview.css('line-height', height)//알수없음.css라서 영향을 안미치나?
 
     this.original = {
       'exists': this.$element.hasClass('fileupload-exists'),
       'preview': this.$preview.html(),
       'hiddenVal': this.$hidden.val()
-    }
+    }//알수없음.
     
-    this.$remove = this.$element.find('[data-dismiss="fileupload"]')
+    this.$remove = this.$element.find('[data-dismiss="fileupload"]')//알수없음
 
-    this.$element.find('[data-trigger="fileupload"]').on('click.fileupload', $.proxy(this.trigger, this))
+    this.$element.find('[data-trigger="fileupload"]').on('click.fileupload', $.proxy(this.trigger, this))//알수없음
 
-    this.listen()
+    this.listen()//파일찾기는 되는데 미리보기가 안보임
   }
   
   Fileupload.prototype = {
     
     listen: function() {
-      this.$input.on('change.fileupload', $.proxy(this.change, this))
-      $(this.$input[0].form).on('reset.fileupload', $.proxy(this.reset, this))
-      if (this.$remove) this.$remove.on('click.fileupload', $.proxy(this.clear, this))
+      this.$input.on('change.fileupload', $.proxy(this.change, this))//변화를 감지?
+      $(this.$input[0].form).on('reset.fileupload', $.proxy(this.reset, this))//알수없음
+      if (this.$remove) this.$remove.on('click.fileupload', $.proxy(this.clear, this))//알수없음
     },
     
     change: function(e, invoked) {
