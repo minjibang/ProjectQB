@@ -416,7 +416,8 @@ public class TeacherController {
 		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_id(), class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		//학생 전체 성적확인
-		
+		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
+		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		return "common.teacher.grade.studentInfo";
 	}
 	
@@ -444,6 +445,14 @@ public class TeacherController {
 		List<Score_chartDto> studentStdChart = commonService.studentStdChart(exam_info_name);
 		System.out.println("과연 표준편차는? : " + studentStdChart);
 		return studentStdChart;
+	}
+	
+	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
+	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
+	public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
+			@RequestParam("class_name") String class_name) {
+		int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
+		return spreadList;
 	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */

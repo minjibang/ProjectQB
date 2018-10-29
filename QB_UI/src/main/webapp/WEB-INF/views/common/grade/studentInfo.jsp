@@ -291,11 +291,11 @@
 														<i class="fa fa-angle-right"></i> 점수별 학생 분포
 													</h4>
 													<div class="btn-group pull-right">
-														<select id="searchExam2" class="form-control searchControl"
-																name="searchExam2">
+														<select id="searchSpread" class="form-control searchControl"
+																name="searchSpread">
 															<option value="">시험 목록</option>		
 															<c:forEach items="${classChart}" var="classChart">
-																<option value="exam_info_name">${classChart.exam_info_name}</option>		
+																<option value="${classChart.exam_info_num }">${classChart.exam_info_name}</option>		
 															</c:forEach>
 														</select>
 													</div>
@@ -319,37 +319,22 @@
 															<thead>
 																<tr>
 																	<td>학생 이름</td>
-																	<c:forEach items="${classChart}" var="subject">
-																	<td>${subject.exam_info_name}</td>
-																	</c:forEach>
+																		<c:forEach items="${classChart}" var="subject">
+																		<td>${subject.exam_info_name}</td>
+																		</c:forEach>
 																	<td>평균</td>
 																</tr>
 															</thead>
 															<tbody>
+																<c:forEach items="${studentExamScoreList}" var="tablelist">
 																<tr>
-																	<td>김하나</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>89</td>
+																	<td>${tablelist.member_name}</td>
+																	<c:forEach items="${tablelist.score_list}" var="subjectScore">
+																		<td>${subjectScore}</td>
+																	</c:forEach>
+																	<td>${tablelist.avg_score}</td>
 																</tr>
-																<tr>
-																	<td>방민지</td>
-																	<td>89</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>89</td>
-																</tr>
-																<tr>
-																	<td>서정원</td>
-																	<td>89</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>56</td>
-																	<td>89</td>
-																</tr>
+																</c:forEach>
 															</tbody>
 														</table>
 
@@ -386,6 +371,7 @@ $(document).ready(function(){
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
 	var chartLabels = new Array();	
+	var spreadScore
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
@@ -734,6 +720,63 @@ $(document).ready(function(){
 				} else{
 					swal("Error!", "응시한 학생이 없습니다.", "error");
 				}							
+			},
+			error:function(error){
+				console.log("실패:"+status);
+			}
+		});	
+		});
+	});
+	
+	//양회준 10.29 점수별 학생분포
+	$("#searchSpread").change(function() {
+		var html = "";
+		$("#searchSpread option:selected").each(function () {
+			index = $("#searchSpread option").index($("#searchSpread option:selected"));
+			var examInfoNum=$("#searchSpread option:selected").val();
+			
+			console.log("선택된 시험문제 번호: " + index);
+			console.log("선택된 시험번호 : " + examInfoNum);
+			
+		//점수별 학생분포
+		$.ajax({
+			type:"post",
+			url:"studentScoreSpread.do",
+			data:{"exam_info_num":examInfoNum,
+				"class_name":className				  
+				},
+			datatype:"json",
+			success:function(data){
+				$(data).each(function(index, element){
+					console.log(data);
+				});
+				var ctx = document.getElementById('line2').getContext('2d');
+				var myBarChart = new Chart(ctx, {
+				    type: 'line',
+				    data: {
+				      labels: ["0~10", "11~20", "21~30", "31~40", "41~50", "51~60", 
+				    	  "61~70", "71~80", "81~90", "91~100"],
+				      datasets: [
+				        {
+				          label: className,
+				          backgroundColor: 'rgb(196, 128, 96)',
+				          borderColor: 'rgb(255, 99, 132)',
+				          fill : false,
+				          data: data,
+				        }
+				      ]
+				    },
+				    options:{
+				      layout: {
+				          padding: {
+				              left: 10,
+				              right: 10,
+				              top: 10,
+				              bottom: 10
+				          }
+				      }
+				    }
+				});					
 			},
 			error:function(error){
 				console.log("실패:"+status);
