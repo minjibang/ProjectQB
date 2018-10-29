@@ -343,7 +343,7 @@ public class AdminController {
 	@RequestMapping("examPaperMake.do")
 	public String examPaperMake(){
 		
-		return "common.adminClass.admin.examPaperMake";
+		return "common.admin.exampaper.examPaperMake";
 	}
 	
 	@RequestMapping("examPaperModify.do")

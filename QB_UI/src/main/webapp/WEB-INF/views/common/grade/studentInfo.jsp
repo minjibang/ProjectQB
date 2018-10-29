@@ -6,6 +6,7 @@
  --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/studentInfo.css" rel="stylesheet">
@@ -110,6 +111,7 @@
 							<%-- 학생 개인 성적확인 탭 시작 --%>
 						<div id="studentChart" class="tab-pane">
 							<div class="row">
+								<!-- 학생목록 시작-->
 								<div class="col-lg-2">
 									<section class="panel">
 										<div class="panel-body">
@@ -134,6 +136,8 @@
 										</div>
 									</section>
 								</div>
+								<!-- 학생목록 끝-->
+								<!-- 학생 개인성적 리스트 시작-->
 								<div class="col-lg-10 unread">
 									<section class="panel">
 										<header class="panel-heading wht-bg">
@@ -142,14 +146,14 @@
 												<form action="#" class="pull-right mail-src-position">
 													<div class="input-append">
 														<input type="text" id="searchExamValue"class="form-control "
-															placeholder="Search Test" onkeydown="searchStudentExamList()">
+															placeholder="Search Test">
 													</div>
 												</form>
 											</h4>
 										</header>
 										<div class="panel-body minimal">
 											<div class="table-inbox-wrap">
-												<table class="table table-inbox table-hover">
+												<table class="table table-hover">
 													<tbody id="studentExamTable">
 														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
 														<tr class="unread">															
@@ -163,9 +167,8 @@
 																<p class="tab2_examTime">
 																시험 시간 : ${studentExamScoreInfo.exam_info_start}~${studentExamScoreInfo.exam_info_end }</p>
 																<p>(${studentExamScoreInfo.exam_info_time })</p></td>
-															<td class="view-message  inbox-small-cells">
-																<button type="button" class="btn btn-round btn-info">성적확인</button>
-																<button type="button" class="btn btn-round btn-danger">삭제</button>
+															<td class="view-message inbox-small-cells">
+																<button type="button" id="pastExamBtn"class="btn btn-round btn-info pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
 															</td>
 														</tr>
 														</c:forEach>
@@ -184,6 +187,7 @@
 										</div>
 									</section>
 								</div>
+								<!-- 학생 개인성적 리스트 끝 -->
 							</div>
 							<!-- /row -->
 						</div>
@@ -388,10 +392,7 @@ $(document).ready(function(){
 		chartLabels.push("${classChart.exam_info_name}");
 	</c:forEach>
 	
-	//첫 화면 차트	
-	functionChart();
-	//두번째 화면 차트
-	functionChart2();
+	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
 	//학생목록 배열에 jstl값 담기		
@@ -404,6 +405,55 @@ $(document).ready(function(){
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
+	var memberId=studentArr[0].member_id;
+	var className=studentArr[0].class_name;
+	//tab2AjaxData
+	var tab2AjaxData="";
+	//tab2AjaxData 가져오기 함수
+	function tab2Ajax(){
+		$.ajax({
+			type:"post",
+			url:"studentExamScoreInfo.do",
+			data:{"member_id":memberId,
+				"class_name":className
+				},
+			datatype:"json",
+			success:function(data, status){
+				tab2AjaxData=data;
+				console.log(tab2AjaxData);
+				console.log("성공");
+				var studentExamScoreSrc = "";				
+				$("#studentExamTable").empty();
+				$(data).each(function(index, element){
+					var smCtgr="";
+					$(element.smCtgrName).each(function(index, name){ //소분류 추출
+						smCtgr += name+'&nbsp;&nbsp;';
+					});
+					console.log("소분류:"+smCtgr);
+					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
+					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
+					studentExamScoreSrc += '<p>'+smCtgr+'</p></td>';
+					studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
+					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
+					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
+					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-round btn-info pastExamBtn" value="'+element.exam_info_num+'">성적확인</button></td></tr>';		
+				});
+				$("#studentExamTable").append(studentExamScoreSrc);			
+			},
+			error:function(error, status){
+				console.log("실패:"+status);
+			}
+		});
+	}
+	
+	//tab2AjaxData 가져오기 실행
+	tab2Ajax();	
+	//첫 화면 차트	
+	functionChart();
+	//두번째 화면 차트
+	functionChart2();
+	
 	
 	//학생 목록 선택 이벤트-tab1
 	$(".studentListMembers").click(function(){		
@@ -421,8 +471,8 @@ $(document).ready(function(){
 		$("#studentListEmail").text("이메일 : "+studentArr[memberIndex].member_email);
 		$("#studentListPhone").text("핸드폰 : "+studentArr[memberIndex].member_phone);
 		//ajax 차트 요청할 parameter
-		var memberId=studentArr[memberIndex].member_id;
-		var className=studentArr[memberIndex].class_name;
+		memberId=studentArr[memberIndex].member_id;
+		className=studentArr[memberIndex].class_name;
 		//비동기 실행
 		$.ajax({
 			type:"post",
@@ -452,6 +502,7 @@ $(document).ready(function(){
 	//학생목록 이벤트 종료
 	
 	//학생 목록 선택 이벤트-tab2
+	
 	$(".tab2studentListMembers").click(function(){
 		$("#searchExamValue").val("");
 		//클릭한 목록의 학생이름 가져오기 & 출력
@@ -461,51 +512,52 @@ $(document).ready(function(){
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".tab2studentListMembers").index(this);
 		//ajax 시험 정보 요청할 parameter
-		var memberId=studentArr[memberIndex].member_id;
-		var className=studentArr[memberIndex].class_name;
-		console.log(memberId);
-		console.log(className);
-		//비동기 실행
-		$.ajax({
-			type:"post",
-			url:"studentExamScoreInfo.do",
-			data:{"member_id":memberId,
-				"class_name":className
-				},
-			datatype:"json",
-			success:function(data, status){
-				console.log("성공");
-				console.log(data);
-				var studentExamScoreSrc = "";				
-				$("#studentExamTable").empty();
-				$(data).each(function(index, element){
-					var smCtgr="";
-					$(element.smCtgrName).each(function(index, name){ //소분류 추출
-						smCtgr += name+'&nbsp;&nbsp;';
-					});
-					console.log("소분류:"+smCtgr);
-					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
-					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
-					studentExamScoreSrc += '<p>'+smCtgr+'</p></td>';
-					studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
-					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
-					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-info">성적확인</button>';
-					studentExamScoreSrc += '<button type="button" class="btn btn-round btn-danger">삭제</button></td></tr>';					
-				});
-				$("#studentExamTable").append(studentExamScoreSrc);			
-			},
-			error:function(error, status){
-				console.log("실패:"+status);
-			}
-		});		
+		memberId=studentArr[memberIndex].member_id;
+		className=studentArr[memberIndex].class_name;
+		tab2Ajax();
 	});
+	
 	//학생목록 이벤트 종료
-	function searchStudentExamList();
-	function searchStudentExamList(){
+	$("#searchExamValue").keyup(function(){	
+		$("#studentExamTable").empty();
+		var inputKey=$("#searchExamValue").val();
+		console.log(inputKey);
+		var studentExamScoreSrc="";
+		$(tab2AjaxData).each(function(index, element){
+			var smCtgr="";
+			if(element.exam_info_name.match(inputKey)){
+				$(element.smCtgrName).each(function(index, name){ //소분류 추출
+					smCtgr += name+'&nbsp;&nbsp;';
+				});
+				console.log("소분류:"+smCtgr);
+				studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
+				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+				studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
+				studentExamScoreSrc += '<p>'+smCtgr+'</p></td>';
+				studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
+				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
+				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
+				studentExamScoreSrc += '<button type="button" class="btn btn-round btn-info">성적확인</button></td></tr>';
+			}							
+		});
+		$("#studentExamTable").append(studentExamScoreSrc);
+	})
 		
-	}
+	/*지난 시험지 보기*/
+	/* $('.pastExamBtn').click(function() {		
+		console.log("접속?");
+		console.log($('.pastExamBtn').val());
+		var popUrl = "${pageContext.request.contextPath}/student/pastExamPaper.do?exam_info_num=" + $(this).val();
+		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
+		window.open(popUrl, "지난 시험보기",popOption);
+	}); */
+	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트
+		
+		var popUrl = "${pageContext.request.contextPath}/student/pastExamPaper.do?exam_info_num=" + $(this).val();
+		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
+
+		window.open(popUrl, "지난 시험보기",popOption);		
+	});
 	
 	//첫화면 차트
 	function functionChart(){

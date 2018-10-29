@@ -65,7 +65,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12 ">
-							<form class="formNewQuestion" action="insertQuestion.do"
+							<form class="formNewQuestion" action="insertQuestion.do" enctype="multipart/form-data"
 								method="post" onsubmit="return check()">
 							<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
 							 <c:forEach items="${qdto}" var="qdto"> 
@@ -77,13 +77,14 @@
 							 <input type="text" name="cdto_question_choice_num" style="display: none" value="${cdto.question_choice_num}">  
 							 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}">
 							 
+							<%--  
 							 <c:if test="${cdto.question_choice_image ne null }">
 										<img
 										src="${pageContext.request.contextPath}/upload/${cdto.question_choice_image}"
 										alt="choiceImg" class="choiceImg" />
 										<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 							</c:if>
-							 
+							  --%>
 							 </c:forEach>
 							 <input type="text" name="qcat_smCatCode" style="display: none" value="${qcat.sm_category_code}">  
 							 <input type="text" name="qcat_mdCatCode" style="display: none" value="${qcat.md_category_code}">  
