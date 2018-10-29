@@ -466,6 +466,7 @@ public class AdminController {
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request) 
 				throws IOException, ClassNotFoundException, SQLException {
+			System.out.println("어드민컨트롤러진입>> QuestionDto: " + dto2 + "\n Question_ChoiceDto" + dto);
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);

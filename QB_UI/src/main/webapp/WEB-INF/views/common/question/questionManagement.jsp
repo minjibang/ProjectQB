@@ -417,7 +417,7 @@
 													<div id="QCNPlus_4">
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
-													   <input type="text" name="question_choice_content QCN_4" id="question_choice_content4"
+													   <input type="text" name="question_choice_content" id="question_choice_content4"
 														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new QCN_4" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
@@ -441,12 +441,12 @@
 													<div id="QCNPlus_5">
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content QCN_5" id="question_choice_content5"
+													   <input type="text" name="question_choice_content" id="question_choice_content5"
 														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new QCN_5" data-provides="fileupload">
-															<div class="fileupload-preview fileupload-exists thumbnail" name="thisNameFind"
-																style="max-width: 300px; max-height: 180px; line-height: 20px;">
-															</div>
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 300px; max-height: 180px; line-height: 20px;">
+														</div>
 														<span>
 															<span class="btn btn-theme02 btn-file">
 																<span class="fileupload-new">
