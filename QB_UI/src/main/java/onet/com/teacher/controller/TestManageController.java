@@ -158,6 +158,42 @@ public class TestManageController {
 		return "common.teacher.exampaper.examPaperUpdate";
 	}
 	
+	//임시시험지 수정페이지 데이터 뿌려주기
+		@RequestMapping("tempUpdateExamView.do")
+		public String tempUpdateExamView(Model model, int exam_paper_num) {
+			
+			List<CategoryDto> list1;
+			list1 = adminService.lgCategoryList();
+			model.addAttribute("list1", list1);
+
+			List<CategoryDto> list2;
+			list2 = adminService.mdCategoryList();
+			model.addAttribute("list2", list2);
+
+			List<CategoryDto> list3;
+			list3=adminService.smCategoryList();
+			model.addAttribute("list3",list3);
+			
+			List<CategoryDto> levellist;
+			levellist = adminService.questionLevelList();
+			model.addAttribute("levellist",levellist);
+			
+			List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
+			model.addAttribute("examquestion", question);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			model.addAttribute("examquestion_choice", question_choice);
+			
+			ExamPaperDto namedesc = teacherService.examNameDesc(exam_paper_num);
+			
+			String exam_paper_name = namedesc.getExam_paper_name();
+			String exam_paper_desc = namedesc.getExam_paper_desc();
+			
+			model.addAttribute("exam_paper_name", exam_paper_name);
+			model.addAttribute("exam_paper_desc", exam_paper_desc);
+			
+			return "common.teacher.exampaper.examPaperMake";
+		}
+	
 	//시험지 문제 삭제
 	@RequestMapping("examquestionsdelete.do")
 	public @ResponseBody int examquestionsdelete(@RequestParam("exam_paper_num") int exam_paper_num,
@@ -179,7 +215,7 @@ public class TestManageController {
 	}
 	//시험지 수정(새로 시험지를 만들고 이전시험지는 enable을 0으로 하기
 	@RequestMapping("examPaperUpdateInsert.do")
-	public @ResponseBody int examPaperInsert(ExamPaperDto dto , Principal principal) {
+	public @ResponseBody int newExamPaperInsert(ExamPaperDto dto , Principal principal) {
 		String member_id = principal.getName();
 		dto.setMember_id(member_id);
 		int updateresult = teacherService.examEnableUpdate(dto.getExam_paper_num());
@@ -272,7 +308,10 @@ public class TestManageController {
 	/* 10.17 시험지 테이블 insert and update*/
 
 	@RequestMapping("examPaperInsert.do")
-	public @ResponseBody int examPaperInsert(ExamPaperDto dto) {
+	public @ResponseBody int examPaperInsert(ExamPaperDto dto, Principal principal) {
+		
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
 		teacherService.examPaperInsert(dto);
 		int result = dto.getExam_paper_num();
 		return result;
@@ -282,9 +321,10 @@ public class TestManageController {
 	@RequestMapping("examPaperUpdate.do")
 	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_num") int exam_paper_num, 
 			@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,
 			@RequestParam("exam_paper_desc") String exam_paper_desc, 
-			@RequestParam("exam_paper_status") String exam_paper_status) {
+			@RequestParam("exam_paper_status") String exam_paper_status,
+			Principal principal) {
+		String member_id = principal.getName();
 		int result = teacherService.examPaperUpdate(exam_paper_num, exam_paper_name,member_id,exam_paper_desc, exam_paper_status);
 		return result;
 	}

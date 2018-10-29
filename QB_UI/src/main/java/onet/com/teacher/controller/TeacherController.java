@@ -181,7 +181,6 @@ public class TeacherController {
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 
-
 		return "common.teacher.exampaper.examPaperMake";
 	}
 	

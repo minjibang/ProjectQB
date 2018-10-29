@@ -66,7 +66,7 @@
 															<button type="button"
 																id="${myexamPaperList.exam_paper_num}"
 																class="btn btn-theme04 buttonGroup"
-																onclick="deleteExamCheck()">삭제</button>
+																onclick="deleteExamCheck()" value="${myexamPaperList.exam_paper_name }">삭제</button>
 															<button type="button"
 																id="${myexamPaperList.exam_paper_num}"
 																class="btn btn-theme buttonGroup"
@@ -122,7 +122,7 @@
 																class="btn btn-theme04 buttonGroup"
 																onclick="deleteTempExamCheck()">삭제</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='examPaperModify.do?class_num=${param.class_num}'">시험지
+																onclick="location.href='tempUpdateExamView.do?exam_paper_num=${myTempExamList.exam_paper_num}&exam_paper_name=${myTempExamList.exam_paper_name}'">시험지
 																수정</button>
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
@@ -253,70 +253,91 @@
 	}
 	function deleteExamCheck() {
 		var exam_paper_num = window.event.target.id;
-		var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
-		if (deleteconfirm == true) {
-			$.ajax({
-				url : "deleteExam.do",
-				type : 'GET',
-				dataType : "json",
-				data : {
-					'exam_paper_num' : exam_paper_num
-				},
-				success : function(data) {
-					if (data == 1) {
-						swal({
-							title : "삭제완료",
-							icon : "success",
-						});
-						$('#' + exam_paper_num).parent().parent(
-								".exam-paper-name").remove();
-					} else if (data == 2) {
-						swal({
-							title : "삭제완료",
-							text : "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
-							icon : "success",
-						});
-						$('#' + exam_paper_num).parent().parent(
-								".exam-paper-name").remove();
-					} else {
-						swal({
-							title : "삭제불가",
-							text : "등록된 시험일정이 있습니다.",
-							icon : "warning",
-						});
-					}
-				},
-				error : function(error) {
-					console.log("===========실패");
-				}
+		swal({
+			  title: "시험지를 삭제 하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			}).then((willDelete) => {
+			  if (willDelete) {
+				  $.ajax({
+						url : "deleteExam.do",
+						type : 'GET',
+						dataType : "json",
+						data : {
+							'exam_paper_num' : exam_paper_num
+						},
+						success : function(data) {
+							if (data == 1) {
+								swal({
+									title : "삭제완료",
+									icon : "success",
+								});
+								$('#' + exam_paper_num).parent().parent(
+										".exam-paper-name").remove();
+							} else if (data == 2) {
+								swal({
+									title : "삭제완료",
+									text : "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
+									icon : "success",
+								});
+								$('#' + exam_paper_num).parent().parent(
+										".exam-paper-name").remove();
+							} else {
+								swal({
+									title : "삭제불가",
+									text : "등록된 시험일정이 있습니다.",
+									icon : "warning",
+									dangerMode: true
+								});
+							}
+						},
+						error : function(error) {
+							console.log("===========실패");
+						}
+					});
+			    swal("Poof! Your imaginary file has been deleted!", {
+			      icon: "success",
+			    });
+			  } else {}
 			});
-		} else {
-		}
 	}
 	function deleteTempExamCheck() {
 		var exam_paper_num = window.event.target.id;
-		var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
-		if (deleteconfirm == true) {
-			$.ajax({
-				url : "deleteTempExam.do",
-				type : 'GET',
-				dataType : "json",
-				data : {
-					'exam_paper_num' : exam_paper_num
-				},
-				success : function(data) {
-					swal({
-						title : "삭제완료",
-						icon : "success",
+		
+		
+		swal({
+			  title: "시험지를 삭제 하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			}).then((willDelete) => {
+			  if (willDelete) {
+				  $.ajax({
+						url : "deleteTempExam.do",
+						type : 'GET',
+						dataType : "json",
+						data : {
+							'exam_paper_num' : exam_paper_num
+						},
+						success : function(data) {
+							swal({
+								title : "삭제완료",
+								icon : "success",
+							});
+							$('#' + exam_paper_num).parent().parent(".exam-paper-name")
+									.remove();
+						},
+						error : function(error) {
+							console.log("===========실패");
+						}
 					});
-					$('#' + exam_paper_num).parent().parent(".exam-paper-name")
-							.remove();
-				},
-				error : function(error) {
-					console.log("===========실패");
-				}
-			});
-		} else {
-		}
+				  
+			    swal("Poof! Your imaginary file has been deleted!", {
+			      icon: "success",
+			    });
+			  } else {
+			  }
+		});
 	}
 </script>
