@@ -286,7 +286,7 @@ public class AdminService {
 		String result = dao.lgCatAddIdCheck(lgCatAdd);
 		if(result == null) {
 		int finalRow = dao.lgCatAddCheak();
-		String codeH = "H";
+		String codeH = "L";
 		int finalRowCodeAdd = finalRow + 1;
 		String codeNum = String.valueOf(finalRowCodeAdd);
 		String code = codeH + codeNum;
