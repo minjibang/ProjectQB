@@ -255,13 +255,13 @@
 										<hr>
 										<div class="form-group" id="questionMoonje">
 											<div class="row">
-												<div class="col-lg-6 ">
+												<div class="col-lg-6 outQImg">
 													<h4>
 														<i class="fa fa-angle-right"></i> 문제 내용 입력
 													</h4>
 													<textarea name="question_name" class="form-control"
 														placeholder="문제 내용을 입력해주세요." rows="3" required></textarea>
-													<div class="fileupload fileupload-new" data-provides="fileupload">
+													<div id="QImg" class="fileupload fileupload-new" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
 															style="max-width: 400px; max-height: 250px; line-height: 20px;">
 														</div>
@@ -275,8 +275,8 @@
 																</span> 
 																<input type="file" name="question_file" class="default"/>
 															</span>
-															<a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</a>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(0)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
 													</div>
 												</div>

@@ -476,5 +476,8 @@ function deleteImg(number){
 	}else if(number == 5){
 		$('#choiceInput').find('.QCN_5').remove();
 		$('#QCNPlus_5').append('<span class="fileupload fileupload-new QCN_5" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[0]" class="default"/></span><span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</span></span></span>');
+	}else if(number == 0){
+		$('#QImg').remove();
+		$('.outQImg').append('<div id="QImg" class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 250px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_file" class="default"/></span><span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(0)" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</span></span></div>');
 	}
 }
