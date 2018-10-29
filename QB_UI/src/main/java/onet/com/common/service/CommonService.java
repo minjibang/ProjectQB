@@ -372,8 +372,16 @@ public class CommonService {
 	      return result;
 	   }
 
-
-
+	   
+	   //민지 쪽지 1029
+	   public List<MemberDto> classTeacherList(String member_id) {
+		   System.out.println("강사강사강사강사서비스");
+		      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		      
+		      List<MemberDto> result = dao.classTeacherList(member_id);
+		      
+		      return result;
+		   }
 
 
 }

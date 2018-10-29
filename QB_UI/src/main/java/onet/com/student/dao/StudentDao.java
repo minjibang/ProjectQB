@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
@@ -51,6 +52,10 @@ public interface StudentDao {
 	
 	public int wrongQuestionCount(String member_id, int exam_info_num);
 	/*10.24 현이 학생 지난 시험지 보기 끝*/
-		
+	
+	/*10.29 민지 학생이 쪽지보내기*/
+	public int sendTeacherMessage(MessageDto dto);
+	
+	
 }
 
