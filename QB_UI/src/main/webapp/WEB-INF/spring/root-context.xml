@@ -34,7 +34,7 @@
 		<property name="password" value="1004"></property>
 	</bean> 
 	
-<!-- 	<bean id="driverManagerDataSource"
+	<!-- <bean id="driverManagerDataSource"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mariadb://127.0.0.1:3306/onetuser?allowMultiQueries=true"></property>

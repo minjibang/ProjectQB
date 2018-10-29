@@ -409,7 +409,7 @@ public class CommonService {
 			spreadList[i]=spreadCount;
 			System.out.println("범위"+i+" : "+spreadList[i]);
 		}
-		System.out.println("out");
+		System.out.println("out"+spreadList.toString());
 		return spreadList;
 	}
 
