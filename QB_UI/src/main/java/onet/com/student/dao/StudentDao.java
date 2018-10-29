@@ -1,5 +1,6 @@
 package onet.com.student.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import onet.com.vo.ExamInfoDto;
@@ -39,10 +40,15 @@ public interface StudentDao {
 	/* 10.23 현이 학생 지난 시험보기 끝 */
 	
 	/*10.24 현이 학생 지난 시험지 보기 시작*/
+	public List<ExamPaperDoQuestionDto> examPaperDoQuestion(int exam_info_num, int begin, int rowPerPage) throws ClassNotFoundException, SQLException;
+	public List<Question_choiceDto> examPaperDoQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException;
+	
 	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num);
 	public List<Student_answerQuesDto> selectStudentWrongAnswer(String member_id, int exam_info_num);
-	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num);
+	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num, int begin, int rowPerPage);
 	public List<Question_choiceDto> examPaperDoWrongQuestion_choice(int exam_info_num);
+	
+	public int wrongQuestionCount(String member_id, int exam_info_num);
 	/*10.24 현이 학생 지난 시험지 보기 끝*/
 	
 	/*10.29 민지 학생이 쪽지보내기*/

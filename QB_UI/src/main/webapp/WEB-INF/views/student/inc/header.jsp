@@ -64,7 +64,9 @@
     	
     }
     
-
+    $(document).ready(function(){
+    	   send_message();
+    });
     
         </script>
 

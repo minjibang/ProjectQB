@@ -119,7 +119,7 @@
 <script>
 $(document).ready(function(){
 	
-	send_message();
+
 	
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
