@@ -415,6 +415,7 @@ public class TeacherController {
 		//학생 개인 성적확인
 		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_id(), class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
+		//학생 전체 성적확인
 		
 		return "common.teacher.grade.studentInfo";
 	}
@@ -426,7 +427,7 @@ public class TeacherController {
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		for(Class_chartDto data : studentChart) {
-			System.out.println("과연"+data.getExam_info_name());
+			System.out.println("과연 : "+data.getExam_info_name());
 		}
 		return chart;
 	}
@@ -678,7 +679,6 @@ public class TeacherController {
 		//양회준 10-24
 		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
 		return result;
-
 	}
 	
 }

@@ -42,7 +42,7 @@
 							<div class="row">
 								<div id="div_myExam" class="col-md-12">
 									<a
-										href="${pageContext.request.contextPath}/admin/examPaperMake.do"
+										href="examPaperMake.do"
 										class="examPaper-insert"> <img
 										src="../img/material-icon.png"> <strong>새 시험지
 											만들기</strong></a>
@@ -94,7 +94,7 @@
 							<div class="row">
 								<div id="div_tempExam" class="col-md-12">
 									<a
-										href="${pageContext.request.contextPath}/admin/examPaperMake.do"
+										href="examPaperMake.do"
 										class="examPaper-insert"> <img
 										src="../img/material-icon.png"> <strong>새 시험지
 											만들기</strong></a>
@@ -122,7 +122,7 @@
 																class="btn btn-theme04 buttonGroup"
 																onclick="deleteTempExamCheck()">삭제</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/admin/examPaperModify.do?class_num=${param.class_num}'">시험지
+																onclick="location.href='examPaperModify.do?class_num=${param.class_num}'">시험지
 																수정</button>
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
@@ -178,7 +178,7 @@
 																onclick="deleteExamInfo()" value="${examScheduleList.exam_info_date}">삭제</button>
 
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/admin/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
+																onclick="location.href='examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
 																일정 수정</button>
 
 															<input type="hidden" id="hidden_class_num"
