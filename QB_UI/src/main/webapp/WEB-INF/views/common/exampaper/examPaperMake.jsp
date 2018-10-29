@@ -7,6 +7,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link href="${pageContext.request.contextPath}/css/examPaperMake.css"
    rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -19,7 +20,6 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <h3>문항 검색</h3>
-                        <input type="hidden" class="dpn1" value="${memberDto.member_id}" />
                         <input type="hidden" class="dpn_EPN" value="${pageContext.request.contextPath}" />
                         <div class="makeExamFirstRow">
                            <hr>
@@ -54,12 +54,13 @@
                      </div>
                      <div class="col-lg-6">
                         <h3>시험 출제 문항</h3>
-                        <div class="makeExamFirstRow">
-                           <hr>
-                           <div id="makeExamFirstRowText">
-                              <div> 출제된 문항 수 : <span id="qnum">0</span></div><br><div> 현재 총 배점 : <span id="qcore">0</span> / 100 </div>
+                        <div id="makeExamFirstRowText">
+                           <c:set var="sum" value="0"/>
+                           <c:forEach items="${examquestion}" var="examquestion">
+                           	<c:set var="sum" value="${sum + examquestion.exam_question_score }"/>
+                           </c:forEach>
+                              <div> 출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span></div><br><div> 현재 총 배점 : <span id="qcore"><c:out value="${sum }"/></span> / 100 </div>
                            </div>
-                        </div>
                         <hr>
                      </div>
 
@@ -90,9 +91,10 @@
                               <c:forEach items="${examquestion}" var="examquestion">
 								<li>
 								<div class='row'>
+								
 									<div class="col-lg-1 qnumdiv">
 										 <input type="checkbox" value="${examquestion.question_num }"
-											name="checkbox[]" /> 
+											name="checkbox[]" id="question_num"/>
 										<!-- value에 문제고유번호 들어간다 -->
 									</div>
 									<div class="col-lg-3">
@@ -123,11 +125,12 @@
 										</div>
 									</div>
 									<hr>
-									<div class="col-lg-123 qscore">배점:&nbsp; 
-										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" val="1" min="1" max="20" onchange="plusqcore()"/>
+									<div class="col-lg-12 qscore">배점:&nbsp; 
+										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" value="${examquestion.exam_question_score }" min="1" max="20" onchange="plusqcore()"/>
 										<hr>
 									</div>
 								</div>
+								
 								</li>	
 							  </c:forEach>
                               </ul>
@@ -223,10 +226,11 @@
                               <div class="modal-body">
 
                                  시험지 이름 <input type="text" class="form-control exam-paper-name"
-                                    placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
-                                 설명
-                                 <textarea type="textarea" class="form-control exam-paper-desc"
-                                    placeholder="시험지 설명을 입력하세요." name=""></textarea>
+                                    placeholder="시험지 이름을 입력하세요." name="exam_paper_name" value="${exam_paper_name}">
+                          <br> 시험지 설명 <textarea type="textarea" class="form-control exam-paper-desc"
+                                    placeholder="시험지 설명을 입력하세요." name="exam_question_desc">${exam_paper_desc }</textarea>
+                                    <input type="hidden" id="saveEPStatus" name="exam_paper_status" value="0" >
+                                    <input type="hidden" id="saveMemId" name="member_id" value="">
                               </div>
                               <div class="modal-footer">
                                  <div class="form-group">
@@ -256,10 +260,13 @@
                               <div class="modal-body">
 
                                  시험지 이름 <input type="text" class="form-control createEPaper"
-                                    placeholder="시험지 이름을 입력하세요." name=""><br> 시험지
+                                    placeholder="시험지 이름을 입력하세요." name="exam_paper_name"><br> 시험지
                                  설명
                                  <textarea type="textarea" class="form-control createEPDesc"
-                                    placeholder="시험지 설명을 입력하세요." name=""></textarea>
+                                    placeholder="시험지 설명을 입력하세요." name="exam_paper_desc"></textarea>
+                                    <input type="hidden" id="insertEPNum" name="exam_paper_num" value="${param.exam_paper_num }" />
+                                    <input type="hidden" id="insertEPStatus" name="exam_paper_status" value="1" />
+                                    <input type="hidden" id="insertMemId" name="member_id" value="" />
                               </div>
                               <div class="modal-footer">
                                  <div class="form-group">
@@ -298,7 +305,7 @@ $(document).ready(function(){
 			console.log("===========실패");
 		}
 	});
-   $('#question_lg_category').change(function(){
+    $('#question_lg_category').change(function(){
       $('#question_md_category').children('option:not(:first)').remove();
       $('#question_sm_category').children('option:not(:first)').remove();
       <c:forEach items="${list2}" var="mdlist">
@@ -306,11 +313,6 @@ $(document).ready(function(){
          $('#question_md_category').append("<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
       }
       </c:forEach>
-      /* console.log("this  // " + $(this).val());
-      console.log("Q // "+$('.lg-dpn').val());
-      if($(this).val()== $('.lg-dpn').val()){
-    	  $('.lg-dpn').parents('.questionDiv').addClass("ppp");
-      }  */
    });
    
    $('#question_md_category').change(function(){
@@ -347,7 +349,7 @@ $(document).ready(function(){
 				  $('#questions').html(data);
 			  }
 		   });
-   });
+   }); 
 })
 
 </script>

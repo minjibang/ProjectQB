@@ -12,29 +12,43 @@
 			<div
 				class="questionDiv col-lg-12 questionDiv_${question.question_num }">
 				
-				<div class="col-lg-3">
+				<div class="col-lg-2">
 					${question.md_category_name}<br> ${question.sm_category_name }<br>
-					난이도: ${question.level_name}<br> 정답:
-					${question.question_answer }<br>
+					난이도: ${question.level_name}<br> 
+					<c:if test="${question.question_type eq '객관식'}">
+					정답:${question.question_answer }<br>
+					</c:if>
 					정답률:${question.question_correct_ratio}%<br> 출제자:
 					${question.member_id }<br>
 				</div>
-				<div class="col-lg-8">
+				<div class="col-lg-9">
 					<b>${question.question_name }</b><br> <br>
 					<div class="questionImgDiv">
-						<c:if test="${question.question_img  ne null }">
+					<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+						<c:if test="${question.question_img ne null }">
 							<img
-								src="${pageContext.request.contextPath}/img/${question.question_img }"
+								src="${pageContext.request.contextPath}/upload/${question.question_img}"
 								alt="questionImg" class="questionImg" />
-							<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 						</c:if>
 					</div>
 					<br>
 					<div>
+						<c:if test="${question.question_type eq '단답형'}">
+							<p>정답:  ${question.question_answer } </p>
+						</c:if>
+					
 						<c:forEach items="${question_choice}" var="question_choice">
 							<c:if
 								test="${question_choice.question_num eq question.question_num}">
-								<p>${question_choice.question_choice_num}.${question_choice.question_choice_content}</p>
+								<div class="col-lg-6 QCdiv">
+								<p>${question_choice.question_choice_num}. &nbsp;&nbsp; ${question_choice.question_choice_content}</p>
+									<c:if test="${question_choice.question_choice_image ne null }">
+										<img
+										src="${pageContext.request.contextPath}/upload/${question_choice.question_choice_image}"
+										alt="choiceImg" class="choiceImg" />
+										<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
+									</c:if>
+								</div>
 							</c:if>
 						</c:forEach>
 					</div>

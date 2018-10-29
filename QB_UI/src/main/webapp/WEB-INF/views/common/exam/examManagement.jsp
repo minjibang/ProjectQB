@@ -17,6 +17,7 @@
 <link
 	href="${pageContext.request.contextPath}/css/teacherExamManagement.css"
 	rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--main content start-->
 
 <section id="main-content">
@@ -41,7 +42,7 @@
 							<div class="row">
 								<div id="div_myExam" class="col-md-12">
 									<a
-										href="${pageContext.request.contextPath}/teacher/examPaperMake.do"
+										href="examPaperMake.do"
 										class="examPaper-insert"> <img
 										src="../img/material-icon.png"> <strong>새 시험지
 											만들기</strong></a>
@@ -54,12 +55,10 @@
 												<c:forEach items="${myexamPaperList}" var="myexamPaperList">
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
-														<h4 id="exam_paper_name" >
+														<h4 id="exam_paper_name">
 															<strong>${myexamPaperList.exam_paper_name}</strong>
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
-
-
 														
 														<div class="pdf_download text-right">
 															<a href="#">PDF 다운로드 <img
@@ -67,13 +66,13 @@
 															<button type="button"
 																id="${myexamPaperList.exam_paper_num}"
 																class="btn btn-theme04 buttonGroup"
-																onclick="deleteExamCheck()">삭제</button>
+																onclick="deleteExamCheck()" value="${myexamPaperList.exam_paper_name }">삭제</button>
 															<button type="button"
 																id="${myexamPaperList.exam_paper_num}"
 																class="btn btn-theme buttonGroup"
 																onclick="updateExamCheck()">시험지수정</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
+																onclick="location.href='examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
 														</div>
@@ -95,7 +94,7 @@
 							<div class="row">
 								<div id="div_tempExam" class="col-md-12">
 									<a
-										href="${pageContext.request.contextPath}/teacher/examPaperMake.do"
+										href="examPaperMake.do"
 										class="examPaper-insert"> <img
 										src="../img/material-icon.png"> <strong>새 시험지
 											만들기</strong></a>
@@ -106,8 +105,6 @@
 											<!-- 시험지 하나의 div 시작 -->
 											<div id="examTempPaperDiv">
 												<c:forEach items="${myTempExamList}" var="myTempExamList">
-													<input type="hidden" id="exam_paper_num"
-														value='${myTempExamList.exam_paper_num}' />
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
 														<h4 id="exam_paper_name">
@@ -115,16 +112,17 @@
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myTempExamList.exam_paper_desc}
 
+
 														
 														<div class="pdf_download text-right">
 															<a href="#">PDF 다운로드 <img
 																src="../img/file-download.png"></a>
-															<button type="button" id="deleteExamPaperBtn"
-																name="deleteExamPaperBtn"
-																class="btn btn-theme04 buttonGroup" data-toggle="modal"
-																data-target="#DeleteModal" value="${exam_paper_name}">삭제</button>
+															<button type="button"
+																id="${myTempExamList.exam_paper_num}"
+																class="btn btn-theme04 buttonGroup"
+																onclick="deleteTempExamCheck()">삭제</button>
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examPaperModify.do?class_num=${param.class_num}'">시험지
+																onclick="location.href='tempUpdateExamView.do?exam_paper_num=${myTempExamList.exam_paper_num}&exam_paper_name=${myTempExamList.exam_paper_name}'">시험지
 																수정</button>
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
@@ -173,17 +171,21 @@
 															<p>[${examScheduleList.exam_info_time}]</p>
 															<p>응시 대상 : ${examScheduleList.exam_info_member}</p>
 
-															<button type="button" id="${examScheduleList.exam_info_num}"
+															<button type="button"
+																id="${examScheduleList.exam_info_num}"
 																name="deleteExamScheduleBtn"
-																class="btn btn-theme04 buttonGroup" onclick="deleteExamInfo()">삭제</button>
-																
+																class="btn btn-theme04 buttonGroup"
+																onclick="deleteExamInfo()" value="${examScheduleList.exam_info_date}">삭제</button>
+
 															<button type="button" class="btn btn-theme buttonGroup"
-																onclick="location.href='${pageContext.request.contextPath}/teacher/examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
+																onclick="location.href='examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
 																일정 수정</button>
 
 															<input type="hidden" id="hidden_class_num"
 																value='${param.class_num}'>
-														</div><br><br>
+														</div>
+														<br>
+														<br>
 														<hr>
 													</div>
 												</c:forEach>
@@ -224,33 +226,118 @@
 	type="text/javascript"></script>
 
 <script>
-function updateExamCheck() {
-		var button_id = window.event.target.id;
-		var deleteconfirm = confirm("시험지 수정을 하시겠습니까?");
-		if (deleteconfirm == true) {
-			location.href = "updateExamView.do?exam_paper_num=" + button_id;
-		} else {
-		}
-	}
-function deleteExamCheck() {
+	function updateExamCheck() {
 		var exam_paper_num = window.event.target.id;
-		var deleteconfirm = confirm("정말로 삭제하시겠습니까?");
-		if (deleteconfirm == true) {
-			$.ajax({
-				url : "deleteExam.do",
-				type:'GET',
-				dataType:"json",
-				data:{
-					'exam_paper_num':exam_paper_num
-				},
-				success:function(data){
-					$('#'+exam_paper_num).parent().parent(".exam-paper-name").remove();
-				},
-				error : function(error) {
-					console.log("===========실패");
+
+		$.ajax({
+			url : "updateExamCheck.do",
+			type : "get",
+			dataType : "json",
+			data : {
+				'exam_paper_num' : exam_paper_num
+			},
+			success : function(data){
+				if(data == 1){
+					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;		
+				}else if(data == 2){
+					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;
+				}else{
+					swal({
+						title : "수정불가",
+						text : "등록된 시험일정이 있습니다. 시험일정을 확인하고 수정해주세요.",
+						icon : "warning",
+					});
 				}
+			}
+		});
+	}
+	function deleteExamCheck() {
+		var exam_paper_num = window.event.target.id;
+		swal({
+			  title: "시험지를 삭제 하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			}).then((willDelete) => {
+			  if (willDelete) {
+				  $.ajax({
+						url : "deleteExam.do",
+						type : 'GET',
+						dataType : "json",
+						data : {
+							'exam_paper_num' : exam_paper_num
+						},
+						success : function(data) {
+							if (data == 1) {
+								swal({
+									title : "삭제완료",
+									icon : "success",
+								});
+								$('#' + exam_paper_num).parent().parent(
+										".exam-paper-name").remove();
+							} else if (data == 2) {
+								swal({
+									title : "삭제완료",
+									text : "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
+									icon : "success",
+								});
+								$('#' + exam_paper_num).parent().parent(
+										".exam-paper-name").remove();
+							} else {
+								swal({
+									title : "삭제불가",
+									text : "등록된 시험일정이 있습니다.",
+									icon : "warning",
+									dangerMode: true
+								});
+							}
+						},
+						error : function(error) {
+							console.log("===========실패");
+						}
+					});
+			    swal("Poof! Your imaginary file has been deleted!", {
+			      icon: "success",
+			    });
+			  } else {}
 			});
-		} else {
-		}
+	}
+	function deleteTempExamCheck() {
+		var exam_paper_num = window.event.target.id;
+		
+		
+		swal({
+			  title: "시험지를 삭제 하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			}).then((willDelete) => {
+			  if (willDelete) {
+				  $.ajax({
+						url : "deleteTempExam.do",
+						type : 'GET',
+						dataType : "json",
+						data : {
+							'exam_paper_num' : exam_paper_num
+						},
+						success : function(data) {
+							swal({
+								title : "삭제완료",
+								icon : "success",
+							});
+							$('#' + exam_paper_num).parent().parent(".exam-paper-name")
+									.remove();
+						},
+						error : function(error) {
+							console.log("===========실패");
+						}
+					});
+				  
+			    swal("Poof! Your imaginary file has been deleted!", {
+			      icon: "success",
+			    });
+			  } else {
+			  }
+		});
 	}
 </script>

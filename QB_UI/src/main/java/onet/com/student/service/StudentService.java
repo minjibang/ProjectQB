@@ -1,5 +1,7 @@
 package onet.com.student.service;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.student.dao.StudentDao;
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
+import onet.com.vo.Student_answerQuesDto;
 
 @Service
 public class StudentService {
@@ -71,6 +77,65 @@ public class StudentService {
 		return result;
 	}
 	/* 10.19 현이 학생 답안지 제출 끝 */ 
+	
+	/*10.23 현이 지난 시험 보기 시작 */
+	public List<ExamInfoDto> searchPastExam(String member_id){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<ExamInfoDto> examInfoList = dao.searchPastExam(member_id);
+		
+		return examInfoList;
+	}
+	
+	public String searchStudentName(String member_id) {
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		String member_name = dao.searchStudentName(member_id);
+		
+		return member_name;
+	}
+	
+	public List<ExamInfoDto> searchPastExamKeyword(String member_id, String keyword){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<ExamInfoDto> examInfoList = dao.searchPastExamKeyword(member_id, keyword);
+		
+		return examInfoList;
+	}
+	
+	/*10.23 현이 지난 시험 보기 끝 */
+	
+	/*10.24 현이 지난 시험지 보기 시작*/
+	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num, String student_answer_status){
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<Student_answerQuesDto> studentAnswerList = null;
+		
+		if(student_answer_status.equals("all")) {
+			studentAnswerList = dao.selectStudentAnswer(member_id, exam_info_num);
+		} else if (student_answer_status.equals("wrong")) {
+			studentAnswerList = dao.selectStudentWrongAnswer(member_id, exam_info_num);
+			/*for(Student_answerQuesDto dto :studentAnswerList) {
+				System.out.println("문제 배치 번호 : " + dto.getExam_question_seq());
+				System.out.println("answer status : " + dto.getStudent_answer_status());
+			}*/
+		}
+		
+		return studentAnswerList;
+	}
+	
+	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<ExamPaperDoQuestionDto> questionList = dao.examPaperDoWrongQuestion(member_id, exam_info_num);
+		return questionList;
+	}
+	
+	public List<Question_choiceDto> examPaperDoWrongQuestion_choice(int exam_info_num) throws ClassNotFoundException, SQLException, IOException {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		List<Question_choiceDto> questionChoiceList = dao.examPaperDoWrongQuestion_choice(exam_info_num);
+		return questionChoiceList;
+	}
+	/*10.24 현이 지난 시험지 보기 끝*/
 	
 	
 	

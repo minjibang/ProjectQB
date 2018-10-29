@@ -19,12 +19,12 @@
           
           <!-- 강사  -->
           <li class="sub-menu">
-            <a href="#">
+            <a href="">
               <span>관리자 클래스상세보기 </span>
              </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/adminClassMain.do?class_num=${param.class_num}">
+            <a href="${pageContext.request.contextPath}/admin/adminClassMain.do?class_num=${param.class_num}&class_name=${param.class_name}">
               <i class="fa fa-desktop"></i>
               <span>공지사항 & 시험일정</span>
               </a>
@@ -35,32 +35,17 @@
               <span>학생 & 성적관리</span>
               </a>
           </li>
-          <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/questionManagement.do?class_num=${param.class_num}">
-              <i class="fa fa-desktop"></i>
-              <span>문제 관리</span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/examManagement.do?class_num=${param.class_num}&class_name=${param.class_name}">
-              <i class="fa fa-desktop"></i>
-              <span>시험 관리</span>
-              </a>
-          </li>
           	
 	          <li class="sub-menu">
-	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do?class_num=${param.class_num}">
+	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do?class_num=${param.class_num}&class_name=${param.class_name}">
 	              <i class="fa fa-desktop"></i>
 	              <span>클래스 전체 관리</span>
-	             
 	             </a>
-	             
 	          </li> 
 	          
           <!-- 강사 end -->
          </ul>
         <!-- sidebar menu end-->
       </div>
- 
     </aside>
 <!--sidebar end-->

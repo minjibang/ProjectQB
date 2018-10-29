@@ -66,7 +66,6 @@ $(function(){
 	});
 
 
-$(function(){
 	/*수정버튼 눌렀을때 부모창 값을 모달창에 가져오기*/
 	$("button[name='updatebtn']").click(function(){
 		action='modify';
@@ -141,7 +140,19 @@ $(function(){
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
    			  success : function(data, status){
-   				  location.href="adminMember.do";
+     				if($('#cemail').val()==""||$('#curl').val()==""){
+       					swal("입력칸을 채워주세요.", "", "error");
+       				}else{
+       					swal({
+       	                   title: "수정 되었습니다",
+       	                  text: "",
+       	                  icon:"success"
+       	               }).then(function() {
+       	                   window.location = "adminMember.do";
+       	               });
+
+       				  
+       				}
    			  },
    			  error: function(request, status, error){
    				  
@@ -153,7 +164,7 @@ $(function(){
    		});
 		
 	});	
-});
+
 
 	/* 멤버 삭제(실제 삭제X) */
 	var role_code_table;
@@ -231,14 +242,6 @@ $(function(){
 		});
 	});
 
-	function oneCheckbox(a){
-	    var obj = document.getElementsByName("agree");
-	    for(var i=0; i<obj.length; i++){
-	        if(obj[i] != a){
-	            obj[i].checked = false;
-	        }
-	    }
-	}
 		
 	/* 검색 버튼 구현 */
 	$("#memberSearchBtn").click(function(){
@@ -247,6 +250,14 @@ $(function(){
 		var searchClassName = $("#searchClassName").val();
 		var searchMemberInfo = $("#searchMemberInfo").val();
 		var searchBox = $("#searchBox").val();
+		//검색조건 유효성
+		if(searchRole==""&&searchClassName==""&&searchBox==""){
+			swal("Error!", "검색값을 입력해주십시오.", "error");
+			return false;
+		}else if(searchRole==""&&searchClassName==""&&searchMemberInfo==""){
+			swal("Error!", "검색할 조건을 입력해주십시오.", "error");
+			return false;
+		}
 		
 		$.ajax({
 			url : "memberSearchAjax.do",
@@ -259,24 +270,29 @@ $(function(){
 			},
 			dataType : "json",
 			success:function(data){
-				$(data).each(function(index, element){
-					console.log(index+" : "+element.member_id);
-					
-					html += "<tr><td><input type='checkbox' id='chk' name='chk' value='chk'></td>";
-					html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
-					html += "<td id='member_id' class='member_id' name='member_id'>"+element.member_id+"</td>";
-					html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
-					html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
-					html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
-					html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
-					html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
-					html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
-					html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
-					html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
-					html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
-					
-					$("#memberListView").empty().append(html);
-				});
+				console.log(data.length);
+				if(data.length!=0){
+					$(data).each(function(index, element){
+						console.log(index+" : "+element.member_id);
+						
+						html += "<tr><td><input type='checkbox' id='chk' name='chk' value='chk'></td>";
+						html += "<td id='class_name' class='class_name'>"+element.class_name+"</td>";
+						html += "<td id='member_id' class='member_id' name='member_id'>"+element.member_id+"</td>";
+						html += "<td id='member_name' class='member_name'>"+element.member_name+"</td>";
+						html += "<td id='member_email' class='member_email'>"+element.member_email+"</td>";
+						html += "<td id='member_phone' class='member_phone'>"+element.member_phone+"</td>";
+						html += "<td id='role_code' class='role_code'>"+element.role_desc+"</td>";
+						html += "<td id='member_enable' class='member_enable'>"+element.member_enable+"</td>";
+						html += "<td><button type='button' class='btn btn-info' id='updatebtn' name='updatebtn' data-toggle='modal'";
+						html += "data-target='#UpdateModal' value='"+element.member_id+"'><i class='fa fa-pencil'> </i></button>'";
+						html += "<button type='button' class='btn btn-danger' id='deletebtn' name='deletebtn' data-toggle='modal'";
+						html += "data-target='#DeleteModal' value='"+element.member_id+"'><i class='fa fa-trash-o'></i></button></td></tr>'";
+						
+						$("#memberListView").empty().append(html);
+					});
+				}else{
+					swal("Error!", "검색된 데이터가 없습니다.", "error");
+				}
 			},
 			error : function(error){
 				console.log("실패....");
@@ -301,22 +317,16 @@ $(function(){
 		var updateStudentArr = new Array();
 		$("input[name=chk]:checked").each(function(i){
 			var rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
-			var roleCode = $(this).parent().parent().children(".role_code").text().trim();
+			rowMemberAuth = $(this).parent().parent().children(".role_code").text().trim();
 			updateStudentArr.push(rowMemberId);	
 			
-			console.log("회원 권한값 :" + roleCode);
+			console.log("가져오는 회원값 : " + rowMemberId);
+			console.log("회원 권한값 :" + rowMemberAuth);
 			
-			if(roleCode == "학생"){
+			if(rowMemberAuth == "학생"){
 				swal("이미 등록된 회원입니다");
 				return false;
-			} else if(roleCode == "관리자"){
-				swal("등록할 수 없는 회원입니다.");
-				return false;
-			} else{
-				return true;
-			}
-			
-			
+			} 
 		});
 		
 		console.log(updateStudentArr);
@@ -336,6 +346,7 @@ $(function(){
 				$("input[name=chk]:checked").each(function(i){
 					rowMemberAuth = $(this).parent().parent().children(".role_code").text("학생");
 				});
+				console.log("성공한 값 : " + data);
 			},
 			error : function(error){
 				swal("에러가 발생했습니다.");

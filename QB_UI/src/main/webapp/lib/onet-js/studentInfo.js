@@ -6,137 +6,40 @@
 */
 
 //ChartJS
-//각 시험 성적 바 차트 시작
-var ctx = document.getElementById('bar1').getContext('2d');
-var myBarChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ["Java", "Oracle", "MySQL", "Web기초", "Jqery&Ajax", "Spring", "MyBatis"],
-      datasets: [
-        {
-          label: "반 평균",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [40, 30, 85, 72, 10, 30, 45],
-        }
-      ]
-    },
-    options:{
-      layout: {
-          padding: {
-              left: 10,
-              right: 10,
-              top: 10,
-              bottom: 10
-          }
-      },
-      scales: {
-        yAxes: [{
-         ticks: {
-             max: 100,
-             min: 0,
-             stepSize: 10
-         }
-     }]
-       }
-    }
-});
-//각 시험 성적 바 차트 끝
 
-//반/학생 평균 선 차트 시작
-var ctx = document.getElementById('line1').getContext('2d');
-var chart = new Chart(ctx, {
-  // The type of chart we want to create
-  type: 'line',
-  // The data for our dataset
-  data: {
-      labels: ["Java", "Oracle", "MySQL", "Web기초", "Jqery&Ajax", "Spring", "MyBatis"],
-      datasets: [
-        {
-          label: "반 평균 성적",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          fill : false,
-          lineTension : 0,
-          data: [30, 10, 5, 2, 20, 30, 45],
-      },
-      {
-          label: "학생 성적",
-          backgroundColor: 'rgb(122, 99, 132)',
-          borderColor: 'rgb(122, 99, 132)',
-          fill : false,
-          lineTension : 0,
-          data: [20, 10, 25, 32, 44, 12, 77],
-        }
-      ]
-    },
-    options: {
-        scale: {
-            ticks: {
-              beginAtZero:true,
-                min:0,
-                max:100
-            }
-        },
-        layout: {
-            padding: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10
-            }
-        },
-        scales: {
-          yAxes: [{
-           ticks: {
-               max: 100,
-               min: 0,
-               stepSize: 10
-           }
-       }]
-         }
-    }
-});
-//반/학생 평균 선 차트 끝
+// 각 시험평균 막대 차트 시작
+$(document).ready(function(){
 
-//반평균 막대 차트 시작
-var ctx = document.getElementById('bar2').getContext('2d');
-var myBarChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ["Java", "Oracle", "MySQL", "Web기초", "Jqery&Ajax", "Spring", "MyBatis"],
-      datasets: [
-        {
-          label: "각 시험 평균",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [40, 30, 85, 72, 10, 30, 45],
-        }
-      ]
-    },
-    options:{
-      layout: {
-          padding: {
-              left: 10,
-              right: 10,
-              top: 10,
-              bottom: 10
-          }
-      },
-      scales: {
-        yAxes: [{
-         ticks: {
-             max: 100,
-             min: 0,
-             stepSize: 10
-         }
-     }]
-       }
-    }
-});
-//반 평균 막대 차트 끝
 
-//점수별 학생 분포 차트
+//점수별 학생 분포 차트 시작(표준편차)
+var index;
+
+// 시험문제 목록 선택 시작
+$("#searchExam2").change(function(){
+	$("#searchExam2 option:selected").each(function(){
+		index = $("#searchExam2 option").index($("#searchExam2 option:selected"));
+		var examInfoName=$("#searchExam2 option:selected").text();
+		
+		console.log("선택된 시험문제 번호: " + index);
+		console.log("선택된 시험문제 : " + examInfoName);
+		
+		// 비동기 실행
+		$.ajax({
+			type:"post",
+			url:"studentStdChart.do",
+			data:{"exam_info_name":examInfoName},
+			dataType:"json",
+			success:function(data){
+				console.log("성공" + data);
+				console.log(JSON.stringify(data));
+			},
+			error:function(error){
+				console.log("실패..." +status);
+			}
+			
+		});
+	});
+});
 var ctx = document.getElementById('line2').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'line',
@@ -163,6 +66,10 @@ var myBarChart = new Chart(ctx, {
       }
     }
 });
+
+	})
+
+
 //점수별 학생 분포 차트 끝
 
 //DataTable - 있으면 alert 출력 이유를 모르겠다

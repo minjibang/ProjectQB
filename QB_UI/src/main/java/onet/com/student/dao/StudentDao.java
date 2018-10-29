@@ -2,13 +2,16 @@ package onet.com.student.dao;
 
 import java.util.List;
 
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
 import onet.com.vo.Student_answerDto;
+import onet.com.vo.Student_answerQuesDto;
 
 public interface StudentDao {
 	
 	/* 10.19 현이 학생 답안지 제출 시작 */ 
-	
 	// 학생 답안지 insert 
 	public int examAnswerInsert(Student_answerDto answerDto);
 	public String searchAnswer(int question_num);
@@ -26,8 +29,20 @@ public interface StudentDao {
 	public int countClassChart(int exam_info_num);
 	public int class_chartInsert(String member_id, int exam_info_num);
 	public int class_chartUpdate(String member_id, int exam_info_num);
-	
 	/* 10.19 현이 학생 답안지 제출 끝 */
 	
+	/* 10.23 현이 학생 지난 시험보기 시작 */
+	public List<ExamInfoDto> searchPastExam(String member_id);
+	public String searchStudentName(String member_id);
+	public List<ExamInfoDto> searchPastExamKeyword(String member_id, String keyword);
+	/* 10.23 현이 학생 지난 시험보기 끝 */
+	
+	/*10.24 현이 학생 지난 시험지 보기 시작*/
+	public List<Student_answerQuesDto> selectStudentAnswer(String member_id, int exam_info_num);
+	public List<Student_answerQuesDto> selectStudentWrongAnswer(String member_id, int exam_info_num);
+	public List<ExamPaperDoQuestionDto> examPaperDoWrongQuestion(String member_id, int exam_info_num);
+	public List<Question_choiceDto> examPaperDoWrongQuestion_choice(int exam_info_num);
+	/*10.24 현이 학생 지난 시험지 보기 끝*/
+		
 }
 

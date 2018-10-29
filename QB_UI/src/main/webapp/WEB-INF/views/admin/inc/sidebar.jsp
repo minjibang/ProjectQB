@@ -25,6 +25,19 @@
               <span>문제분류 관리</span>
               </a>
           </li>
+          <li class="sub-menu">
+            <a href="${pageContext.request.contextPath}/admin/questionManagement.do">
+              <i class="fa fa-puzzle-piece"></i>
+              <span>문제 관리</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="${pageContext.request.contextPath}/admin/examManagement.do">
+              <i class="fa fa-file-text-o"></i>
+              <span>시험 관리</span>
+              </a>
+          </li>
+          
           <!-- 관리자 end -->
          </ul>
         <!-- sidebar menu end-->

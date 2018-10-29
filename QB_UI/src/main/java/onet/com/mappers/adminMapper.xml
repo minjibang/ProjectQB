@@ -33,8 +33,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 태용 끝 -->
 
-<!-- 재훈 - 10.08 문제분류관련 (문제관리페이지 시작 -->
+<!-- #####################    재훈 시작       ####################### -->
+<!-- 관리자 - 문제관리 페이지 문제 검색 기능 -->
+<sql id="adminQuestionSearch">
+<where>
+   <if test="param1 !=''">
+      lg.lg_category_code = #{param1}
+      <if test="param2 != ''">
+         and md.md_category_code = #{param2}
+         <if test="param3 != ''">
+            and sm.sm_category_code = #{param3}
+            <if test = "param6 != ''">
+               and (qs.question_type like concat('%',#{param6},'%') 
+               or qs.question_name like concat('%',#{param6},'%') 
+               or qs.member_id like concat('%',#{param6},'%') 
+               or lv.level_name like concat('%',#{param6},'%'))
+            </if>
+         </if>
+         <if test="param3 =='' and param6 !=''">
+            and (qs.question_type like concat('%',#{param6},'%') 
+               or qs.question_name like concat('%',#{param6},'%') 
+               or qs.member_id like concat('%',#{param6},'%') 
+               or lv.level_name like concat('%',#{param6},'%')
+               or sm.sm_category_code = #{param3})
+         </if>
+      </if>
+      <if test="param2 =='' and param6 !=''">
+         and (qs.question_type like concat('%',#{param6},'%') 
+               or qs.question_name like concat('%',#{param6},'%') 
+               or qs.member_id like concat('%',#{param6},'%') 
+               or lv.level_name like concat('%',#{param6},'%')
+               or sm.sm_category_code = #{param3}
+               or md.md_category_code = #{param2})
+      </if>
+   </if>
+   <if test="param4 !=''">
+      and lv.level_code=#{param4}
+   </if>
+   <if test="param5 !=''">
+      and qs.question_type=#{param5}
+   </if>
+    <if test="param1 == '' and param6 != ''">
+      and qs.question_type like concat('%',#{param6},'%') 
+            or qs.question_name like concat('%',#{param6},'%') 
+            or qs.member_id like concat('%',#{param6},'%') 
+            or lv.level_name like concat('%',#{param6},'%') 
+            or sm.sm_category_name like concat('%',#{param6},'%') 
+            or md.md_category_name like concat('%',#{param6},'%') 
+            or lg.lg_category_name like concat('%',#{param6},'%')
+   </if>
+</where>
+</sql>
 
+<!-- 문제관리 문제 검색 -->
+<select id="questionSearch" resultType="onet.com.vo.QuestionDto">
+	select * from question qs join question_sm_category sm on (qs.sm_category_code = sm.sm_category_code) 
+	join question_md_category md on (sm.md_category_code = md.md_category_code) 
+	join question_lg_category lg on (lg.lg_category_code = md.lg_category_code)
+	join question_level lv on (qs.level_code = lv.level_code)
+	<include refid="adminQuestionSearch"></include>
+	order by question_num desc;
+</select>
+
+<!-- 문제분류 리스트 -->
 <select id="lgCategoryList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
 	select * from question_lg_category
 </select>
@@ -45,18 +106,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from question_sm_category
 </select>
 
-<!-- 재훈 - 10.08 문제분류관련 끝 -->
-
-<!-- 재훈 - 10.15 문제난이도 관련 시작 -->
+<!-- 문제난이도 리스트 -->
 <select id="questionLevelList" parameterType="hashmap" resultType="onet.com.vo.CategoryDto">
 	select * from question_level
 </select>
-<!-- 재훈 - 10.15 문제난이도 관련 끝 -->
 
-<!-- 재훈 - 10.15 새 문제 만들기 관련 시작-->
+<!-- 전체 문제 리스트   -->
+<select id="question" parameterType="hashmap" resultType="onet.com.vo.QuestionDto">
+	select question_num, question_type,question_name, question_img,question_answer,question_correct_ratio,question_select_count, sm_category_code,
+	(select md_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_code',
+	(select lg_category_code from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_code',
+   (select sm_category_name from question_sm_category where sm_category_code = question.sm_category_code) as 'sm_category_name',
+   (select md_category_name from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code)) as 'md_category_name',
+   (select lg_category_name from question_lg_category where lg_category_code = (select lg_category_code from question_md_category where md_category_code = (select md_category_code from question_sm_category where sm_category_code = question.sm_category_code))) as 'lg_category_name',
+   (select level_name from question_level where level_code = question.level_code) as 'level_name',
+   member_id
+   from question order by question_num desc;
+</select>
+<select id="question_choice" parameterType="hashmap" resultType="onet.com.vo.Question_choiceDto">
+	select * from question_choice
+</select>
+
+<!-- 새 문제 만들기 -->
 <insert id="insertQuestion" parameterType="onet.com.vo.QuestionDto"
 useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
-
 	insert into question(question_type,question_name,question_img,
 	question_answer,sm_category_code,level_code,member_id) 
 	values(#{question_type},#{question_name},#{question_img},#{question_answer},#{sm_category_code},#{level_code},#{member_id});
@@ -64,15 +137,17 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	<selectKey keyProperty="question_num" resultType="int" order="AFTER">
         SELECT LAST_INSERT_ID();
     </selectKey> 
-    
 </insert>
-
 <insert id="insertQuestionChoice">
+	insert into question_choice(question_num, question_choice_num, question_choice_content, question_choice_image) 
+	values(#{param1},#{param2},#{param3}, #{param4});
+</insert>
+<insert id="insertQuestionChoiceNoImg">
 	insert into question_choice(question_num, question_choice_num, question_choice_content) 
 	values(#{param1},#{param2},#{param3});
 </insert>
 
-<!-- 재훈 - 10.15 새 문제 만들기 관련 끝 -->
+<!-- #####################        재훈 끝                #####################-->
 
 <!-- 영준 - 10.10 회원관리 관련 시작 -->
 <select id="memberList" resultType="onet.com.vo.MemberDto">
@@ -158,8 +233,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 
 <!-- 양회준 10-23 admin 회원관리 끝 -->
-
-
 
 
 <!-- 민지 10.12 클래스멤버리스트 ,클래스 리스트 관련  -->
@@ -334,6 +407,23 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <select id="selectSmRealList2" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
 	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code}
+</select>
+<!-- 양회준-10.26-추가수정 시작  -->
+<!-- 내시험지 리스트 뿌려주기 -->
+<select id="myExamPaperList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where exam_paper_status = true and exam_paper_enable = true order by exam_paper_num desc
+</select>
+<!-- 내 임시시헙지 리스트 뿌려주기 -->
+<select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where exam_paper_status = false order by exam_paper_num desc
+</select>
+<!-- 시험 일정 리스트 뿌려주기 -->
+<select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where class_name in (select class_name from member) order by exam_info_date desc
+</select>
+<!-- 양회준-10.26-추가수정 끝 -->
+<select id="checkClassNum" parameterType="String" resultType="int">
+	select class_num from class where class_name=#{class_name}
 </select>
 
 </mapper>

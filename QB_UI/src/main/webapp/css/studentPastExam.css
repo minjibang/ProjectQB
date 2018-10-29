@@ -9,9 +9,10 @@
 	width: 70%;
 }
 #student_name {
-	margin-left: 250px;
+	text-align: center;
 	font-size:60px;
 	font-weight:bold;
+	margin-top: 25px;
 }
 .title_table_scd_td {
 	width: 30%;
@@ -27,10 +28,11 @@
 /* 하단 지난시험보기 테이블 */
 .last_exam_div {
 	overflow: auto;
-	height: 700px;
+	padding-bottom: 60px;
+	padding-top: 30px;
 }
 
-.last_exam_table {
+#last_exam_table {
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
@@ -38,7 +40,7 @@
 
 .exam_line {
 	border-top: 1px solid black;
-	
+	border-bottom: 1px solid black;
 }
 
 .examtitle_td {
@@ -61,6 +63,25 @@
 }
 
 /* 현이 */
-#pastExamSearchBtn {
+#search_btn {
 	margin-bottom: 5px;
+}
+
+.pastExamTd {
+	text-align: center;
+	padding-top: 25px;
+    padding-bottom: 30px;
+}
+
+.search_box {
+	text-align: right;
+	margin-right: 20px;
+}
+
+.pastExamTd h3 {
+	margin-top: 10px;
+}  
+
+#last_exam_table h3 {
+	text-align: center;
 }

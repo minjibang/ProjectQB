@@ -1,8 +1,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/adminMessage.css"
 	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script> 
 <!-- 쪽지보기 모달창 -->
 <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -196,72 +198,29 @@
 												<div class="row">
 													<div class="col-md-12">
 														<div class="col-md-2">
-															<section class="panel">
+															<section class="panel" style="width:150px;">
 																<div class="panel-body grey-panel">
 																	<div>
 																		<label class="btn btn-compose"> <i
 																			class="fa fa-pencil"></i>전체선택 <input type="checkbox"
-																			class="checkbox form-control" id="agree" name="agree" />
+																			class="checkbox form-control" id="agreeAll" />
 																		</label>
 																	</div>
 																	<ul class="nav nav-pills nav-stacked mail-nav">
+																		<c:forEach items="${classMemberList}" var="classMemberList">
 																		<li id="messageSelect"><div>
+																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
+																		  <label>
+																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value=""style="position:relative;"/>
 																				<img
 																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 김현이<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
+																					class="img-circle" width="25">${classMemberList.member_name}
+																					</label>
+																					</div>
 																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 서정원<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 유영준<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 방민지<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 성태용<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 조재훈<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 양회준<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
-																		<li id="messageSelect"><div>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25"> 우한결<input
-																					type="checkbox" class="checkbox form-control"
-																					id="agree" name="agree" />
-																			</div></li>
+																	</c:forEach>
 																	</ul>
+																	
 																</div>
 															</section>
 

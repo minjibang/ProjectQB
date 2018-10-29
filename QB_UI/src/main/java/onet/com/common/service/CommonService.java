@@ -2,14 +2,23 @@ package onet.com.common.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
+
+import onet.com.vo.CommentDto;
+
 import onet.com.vo.CategoryDto;
+
+import onet.com.vo.Class_chartDto;
+
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
@@ -18,6 +27,8 @@ import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 
 @Service
 public class CommonService {
@@ -149,7 +160,41 @@ public class CommonService {
 			return result;
 		}
 	}
+
+	
+
+	
+
+	public int insertBoardList(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String notice_num = dao.noticeNumFind(dto);
+		System.out.println(notice_num);
+		if(notice_num != null) {
+			int notice_number = Integer.parseInt(notice_num);
+			dto.setNotice_num(notice_number+1);
+			int result = dao.insertBoardList(dto);
+			return result;
+		}else {
+			dto.setNotice_num(1);
+			int result = dao.insertBoardList(dto);
+			return result;
+		}
+			
+		
+	}
+	
+	public List<NoticeDto> noticeDetail(String class_name, int notice_num){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		NoticeDto dto = new NoticeDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<NoticeDto> result = dao.noticeDetail(dto);
+		return result;
+	}
+
+
 //문제관리 - 문제 수정 전 수정가능여부 판단
+	/*######################      재훈 끝             ######################*/
 	public int singleUpdateCheck(int question_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = 0;
@@ -188,29 +233,155 @@ public class CommonService {
 		return result;
 	}
 	
-/*######################      재훈 끝             ######################*/
-	
 
-	public int insertBoardList(NoticeDto dto) {
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int notice_num = dao.noticeNumFind(dto);
-		System.out.println(notice_num);
-		dto.setNotice_num(notice_num+1);
-		int result = dao.insertBoardList(dto);
-		return result;
+	public List<MemberDto> boardNull(String member_id){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> boardNull = commonDao.noticeNullCheck(member_id);
+		return boardNull;
 	}
 	
-	public List<NoticeDto> noticeDetail(String class_name, int notice_num){
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		NoticeDto dto = new NoticeDto();
+	public List<CommentDto> comment(String class_name, int notice_num){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		CommentDto dto = new CommentDto();
 		dto.setClass_name(class_name);
 		dto.setNotice_num(notice_num);
-		List<NoticeDto> result = dao.noticeDetail(dto);
+		List<CommentDto> comment = commonDao.comment(dto);
+		return comment;
+	}
+	
+	public List<CommentDto> commentGroup(String class_name, int notice_num){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		CommentDto dto = new CommentDto();
+		dto.setClass_name(class_name);
+		dto.setNotice_num(notice_num);
+		List<CommentDto> commentGroup = commonDao.commentGroup(dto);
+		return commentGroup;
+	}
+		
+	public int commentReply(CommentDto dto){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentReply(dto);
 		return result;
 	}
 
+
+	public int commentInsert(CommentDto dto){
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentInsert(dto);
+		return result;
+	}
 	
+	public int commentUpdate(CommentDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentUpdate(dto);
+		return result;
+	}
+	
+	public int commentReplyDelete(CommentDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		int result = commonDao.commentReplyDelete(dto);
+		return result;
+	}
+
+	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
+	public List<MemberDto> studentInfo(String member_id, String class_num){
+		List<MemberDto> studentList = null;
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		System.out.println("아이디:"+member_id);
+		if(member_id.equals("admin")) {
+			studentList = dao.adminStudentInfo(class_num);
+		}else {			
+			studentList = dao.studentInfo(member_id);
+		}		
+		return studentList;
+	}
+	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
+	public Map<String, Object> studentChartInfo(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> studentChart = dao.studentChartInfo(member_id);
+		List<Class_chartDto> classChart = dao.classChartInfo(class_name);
+		Map<String, Object> chart = new HashMap<String, Object>();
+		chart.put("studentName", studentChart);
+		chart.put("className", classChart);
+		return chart;
+	}
+	//양회준 10-25 학생&성적관리 학생개인 성적확인
+	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		ArrayList<String> ctgr = new ArrayList<String>();
+		List<StudentExamScoreInfo> list = dao.studentExamScoreInfo(member_id, class_name);//시험 정보
+		List<StudentExamScoreInfo> ctgrlist = dao.studentExamScoreInfoCtgr(member_id, class_name);//시험 당 소분류
+		
+		for(StudentExamScoreInfo data : list) {
+			ctgr.clear();//arraylist 초기화
+			for(StudentExamScoreInfo data2 : ctgrlist) {
+				if(data.getExam_info_num()==data2.getExam_info_num()) {
+					ctgr.add(data2.getSm_category_name());//시험당 관련 소분류명을 Arraylist에 담음					
+				}
+			}
+			data.setSmCtgrName(ctgr);//소분류 ArrayList를 DTO에 담음
+		}		
+		return list;
+	}
+	
+
+
+	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
+		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+		List<NoticeDto>result = commonDao.noticeUpdateList(dto);
+		return result;
+	}
+	
+	public int updateBoardList(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.updateBoardList(dto);
+		return result;
+	}
+	
+	public int noticeDelete(NoticeDto dto) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int cDelete = dao.noticeFromCommentDelete(dto);
+		int result = dao.noticeDelete(dto);
+		System.out.println("2" + result);
+		return result;
+	}
+	
+
+	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수
+	public List<Score_chartDto> classRank(String exam_info_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
+		return classRank;
+	}
+
+	// 영준 10.26 관리자, 강사 - 학생&성적관리 페이지 - 표준편차
+		public List<Score_chartDto> studentStdChart(String exam_info_name){
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			List<Score_chartDto> studentStdChart = dao.studentStdChart(exam_info_name);
+			return studentStdChart;
+		}
+
+
+	
+	//민지 10.26 강사-쪽지 페이지 해당클래스학생 리스트 
+	   public List<MemberDto> classMemeberList(String member_id) {
+	      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+	      
+	      List<MemberDto> result = dao.classMemeberList(member_id);
+	      
+	      return result;
+	   }
+
+
+
+
+
 }
+
+	
+	
+	
+
 
 
 
