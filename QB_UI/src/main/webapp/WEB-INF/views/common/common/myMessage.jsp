@@ -308,7 +308,7 @@ $(document).ready(function(){
 	
 	$('#messageSubmit').click(function(){
 		var messageValue = $('#message_content').val();
-		websocket.send(messageValue);	
+		websocket.send(messageValue);		
 	});
 	
 	 
