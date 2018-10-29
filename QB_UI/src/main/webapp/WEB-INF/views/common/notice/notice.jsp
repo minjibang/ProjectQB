@@ -113,10 +113,44 @@
 	</section><!-- /wrapper -->
 </section> <!-- /main-content -->
 
-
+<se:authorize access="isAuthenticated()">
+<se:authentication property="principal.username" var="username"/>
 <script>
+var wsUri = "ws://localhost:8090/qb/echo.do";
+
+
+function send_message() {
+	websocket = new WebSocket(wsUri);
+	websocket.onopen = function(evt) {
+        onOpen(evt);
+    };
+    websocket.onmessage = function(evt) {
+        onMessage(evt);
+    };
+    websocket.onerror = function(evt) {
+        onError(evt);
+    };
+
+}
+
+
+
+function onOpen(evt) 
+{
+   websocket.send("${username}");
+}
+
+function onMessage(evt) {
+		$('#message').append(evt.data);
+}
+
+function onError(evt) {
+
+}
+
+
 $(document).ready(function(){
-	
+	send_message();
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
@@ -132,6 +166,6 @@ $(document).ready(function(){
 
 
 </script>
-
+</se:authorize>
 <!-- /MAIN CONTENT -->
 <!--main content end-->

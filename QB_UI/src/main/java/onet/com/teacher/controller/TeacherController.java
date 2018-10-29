@@ -38,6 +38,7 @@ import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -66,6 +67,7 @@ public class TeacherController {
 	      String noticeCheck = boardNull.get(0).getClass_name();
 	      model.addAttribute("noticeCheck", noticeCheck);
 	      model.addAttribute("notice", notice);
+	      model.addAttribute("member_id", member_id);
 		  List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		  	model.addAttribute("exam_info", exam_info);
 	      return "common.teacher.notice.notice";
@@ -77,8 +79,11 @@ public class TeacherController {
 			String member_id = principal.getName();
 			System.out.println("아이디:"+member_id);
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
-			   System.out.println("classMemberList >>   " + classMemberList + "   <<<");
+			   List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
 			   model.addAttribute("classMemberList", classMemberList);
+			   model.addAttribute("receiveMessage", receiveMessage);
+			   model.addAttribute("sendMessage", sendMessage);
 			return "common.teacher.common.myMessage";
 		}
 		/*민지 18.10.10 메시지 페이지 끝*/

@@ -24,6 +24,7 @@ import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -372,9 +373,17 @@ public class CommonService {
 	      return result;
 	   }
 
+	   public List<MessageDto> receiveMessage(String member_id){
+		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		   List<MessageDto> result = dao.receiveMessage(member_id);
+		   return result;
+	   }
 
-
-
+	   public List<MessageDto> sendMessage(String member_id){
+		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		   List<MessageDto> result = dao.sendMessage(member_id);
+		   return result;
+	   }
 
 }
 

@@ -4,6 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${pageContext.request.contextPath}/css/adminMessage.css"
 	rel="stylesheet">
+<style>
+.receiveBtn{
+	color: blue; 
+}
+</style>	
 <script src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script> 
 <!-- 쪽지보기 모달창 -->
 <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
@@ -21,35 +26,17 @@
 					<div class="mail-sender">
 						<div class="row">
 							<div class="col-md-8">
-								<img src="img/ui-zac.jpg" alt=""> <strong>Zac Doe</strong>
-								<span>[zac@youremail.com]</span> to <strong>me</strong>
+								<img src="img/ui-zac.jpg" alt=""> <strong class="messageSender"></strong>
+								to <strong>Me</strong>
 							</div>
 
 							<div class="col-md-4">
-								<p class="date">10:15AM 02 FEB 2014</p>
+								<p class="date"></p>
 							</div>
 						</div>
 					</div>
 					<div class="view-mail">
-						<p>As he bent his head in his most courtly manner, there was a
-							secrecy in his smiling face, and he conveyed an air of mystery to
-							those words, which struck the eyes and ears of his nephew
-							forcibly. At the same time, the thin straight lines of the
-							setting of the eyes, and the thin straight lips, and the markings
-							in the nose, curved with a sarcasm that looked handsomely
-							diabolic.</p>
-						<p>"Yes," repeated the Marquis. "A Doctor with a daughter.
-							Yes. So commences the new philosophy! You are fatigued. Good
-							night!"</p>
-						<p>It would have been of as much avail to interrogate any
-							stone face outside the chateau as to interrogate that face of
-							his. The nephew looked at him, in vain, in passing on to the
-							door.</p>
-						<p>"Good night!" said the uncle. "I look to the pleasure of
-							seeing you again in the morning. Good repose! Light Monsieur my
-							nephew to his chamber there!--And burn Monsieur my nephew in his
-							bed, if you will," he added to himself, before he rang his little
-							bell again, and summoned his valet to his own bedroom.</p>
+						<p class="messageText"></p>
 					</div>
 				</div>
 			</div>
@@ -102,18 +89,19 @@
 																	</tr>
 																</thead>
 																<tbody>
+																<c:forEach items="${receiveMessage}" var="receiveMessage">
 																	<tr class="unread">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
-																		<td class="view-message "><a
-																			href="mail_view.html">학생</a></td>
-																		<td class="view-message "><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Your
-																				new account is ready.</a></td>
+																		<td class="view-message ">${receiveMessage.send_member_id}</td>
+																		<td class="view-message receiveBtn" data-toggle="modal" data-target="#MessageModal">
+																		
+																				${receiveMessage.message_content}</td>
 																		<td class="view-message  inbox-small-cells">나</td>
-																		<td class="view-message  text-right">08:10 AM</td>
+																		<td class="view-message  text-right">${receiveMessage.message_date}</td>
 																	</tr>
-																	<tr class="read">
+																</c:forEach>
+																	<!-- <tr class="read">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
 																		<td class="view-message "><a
@@ -123,7 +111,7 @@
 																				안녕하세요</a></td>
 																		<td class="view-message  inbox-small-cells">나</td>
 																		<td class="view-message  text-right">08:10 AM</td>
-																	</tr>
+																	</tr> -->
 																
 																</tbody>
 															</table>
@@ -158,18 +146,20 @@
 																	</tr>
 																</thead>
 																<tbody>
+																<c:forEach items="${sendMessage}" var="sendMessage">
 																	<tr class="unread">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
 																		<td class="view-message "><a
 																			href="mail_view.html">나</a></td>
-																		<td class="view-message "><a id="updatebtn"
-																			data-toggle="modal" data-target="#MessageModal">Your
-																				new account is ready.</a></td>
-																		<td class="view-message  inbox-small-cells">학생</td>
-																		<td class="view-message  text-right">08:10 AM</td>
+																		<td class="view-message sendBtn"
+																			data-toggle="modal" data-target="#MessageModal">
+																				${sendMessage.message_content}</td>
+																		<td class="view-message  inbox-small-cells">${sendMessage.receive_member_id}</td>
+																		<td class="view-message  text-right">${sendMessage.message_date}</td>
 																	</tr>
-																	<tr class="read">
+																</c:forEach>	
+																	<!-- <tr class="read">
 																		<td class="inbox-small-cells"><input
 																			type="checkbox" class="mail-checkbox"></td>
 																		<td class="view-message "><a
@@ -179,7 +169,7 @@
 																				안녕하세요</a></td>
 																		<td class="view-message  inbox-small-cells">학생2</td>
 																		<td class="view-message  text-right">08:10 AM</td>
-																	</tr>
+																	</tr> -->
 																
 																</tbody>
 															</table>
@@ -274,3 +264,30 @@
 		</div><!-- col-lg-12 mt -->
 	</section><!-- wrapper site-min-height -->
 </section><!-- main-content -->
+<script>
+$(document).ready(function(){
+	$('.receiveBtn').click(function(){
+		var tr = $(this).parent();
+		var td = tr.children();
+		var sendMan = td.eq(1).text();
+		var text = td.eq(2).text();
+		var date = td.eq(4).text();
+		$('.messageSender').html(""+sendMan+"");
+		$('.date').html(""+date+"");
+		$('.messageText').html(""+text+"")
+	});
+	
+	$('.sendBtn').click(function(){
+		var tr = $(this).parent();
+		var td = tr.children();
+		var receiveMan = td.eq(3).text();
+		var text = td.eq(2).text();
+		var date = td.eq(4).text();
+		
+	});
+	
+	
+});
+
+
+</script>

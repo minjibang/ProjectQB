@@ -15,6 +15,7 @@ import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -111,7 +112,9 @@ public interface CommonDao {
 	//민지 10.26 강사 - 쪽지 리스트 
 	public List<MemberDto> classMemeberList(String member_id);
 
+	public CharSequence count_receive_note(String member_id);
 	
-
-
+	public List<MessageDto> receiveMessage(String member_id);
+	
+	public List<MessageDto> sendMessage(String member_id);
 }
