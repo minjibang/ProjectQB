@@ -93,9 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 <!-- 내시험지 삭제 -->
 
-<update id="updateExam">
-
-	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
+<!-- 시험지 enable false값으로 update -->
+<update id="updateExam" parameterType="onet.com.vo.ExamPaperDto">
+	update exam_paper set exam_paper_enable=false where exam_paper_num = #{exam_paper_num}
 </update>
 
 <select id="updateExamView" resultType="onet.com.vo.ExamPaperUpdateDto">
@@ -131,6 +131,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="examNameDesc" resultType="onet.com.vo.ExamPaperDto">
 	select exam_paper_name, exam_paper_desc from exam_paper where exam_paper_num = #{param1}
 </select>
+
+<insert id="newExaminsert" parameterType="onet.com.vo.ExamPaperDto" useGeneratedKeys="true" keyProperty="exam_paper_num" keyColumn="exam_paper_num">
+	insert into exam_paper (exam_paper_name, member_id, exam_paper_desc, exam_paper_status, exam_paper_enable) values(#{exam_paper_name}, #{member_id}, #{exam_paper_desc}, 1, 1);
+	
+	<selectKey keyProperty="exam_paper_num" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID();
+    </selectKey>
+</insert>
 
 <!-- 태용 끝 -->
 

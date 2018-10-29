@@ -61,6 +61,7 @@ public interface TeacherDao {
 	public List<ExamInfoDto> examScheduleList2(int exam_paper_num);
 	public int deleteExam(int exam_paper_num);
 	public int updateExam(int exam_paper_num);
+	public int newExaminsert(ExamPaperDto dto);
 	public int checkDate(int exam_paper_num);
 	public int checkExamInfo(int exam_paper_num);
 	public List<QuestionDto> updateExamView(int exam_paper_num);
