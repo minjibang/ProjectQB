@@ -33,7 +33,7 @@ public class DownloadController implements ApplicationContextAware {
 	}
 
 	private File getFile(String fileId) {
-		String baseDir = context.getServletContext().getRealPath("/resources/upload/board");
+		String baseDir = context.getServletContext().getRealPath("/upload/notice/");
 			return new File(baseDir, fileId);
 	}
 

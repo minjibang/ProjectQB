@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import onet.com.common.dao.CommonDao;
 import onet.com.student.dao.StudentDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
@@ -136,14 +135,6 @@ public class StudentService {
 		List<Question_choiceDto> questionChoiceList = dao.examPaperDoWrongQuestion_choice(exam_info_num);
 		return questionChoiceList;
 	}
-	
-	public int wrongQuestionCount(String member_id, int exam_info_num) {
-		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		int questionCount = dao.wrongQuestionCount(member_id, exam_info_num);
-		
-		return questionCount;
-	}
-	
 	/*10.24 현이 지난 시험지 보기 끝*/
 	
 	

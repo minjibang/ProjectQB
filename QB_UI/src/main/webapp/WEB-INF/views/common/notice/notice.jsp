@@ -6,6 +6,7 @@
  --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
@@ -26,8 +27,6 @@
 					
 						<div class="panel-body">
 					
-						
-						
 							<table class="table table-inbox-notice table-hover" id="noticetable">
 								<thead>
 									<tr>
@@ -43,7 +42,14 @@
 										<tr class="notice_tr" onClick="location.href='noticeDetail.do?class_name=${notice.class_name}&notice_num=${notice.notice_num}'">
 											<td class="notice_num">${notice.notice_num}</td>
 											<td class="notice_name">${notice.notice_name}</td>
+											<c:choose>
+											<c:when test="${empty notice.notice_file1 && empty result[0].notice_file2}">
+											<td class="notice_file"></td>
+											</c:when>
+											<c:otherwise>
 											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
+											</c:otherwise>
+											</c:choose>
 											<td class="notice_member_id">${notice.member_id}</td>
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
@@ -54,7 +60,12 @@
 								</tbody>
 							</table>
 							<div>
+							<se:authorize access="hasRole('ROLE_TEACHER')">
 								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
+							</se:authorize>	
+							<se:authorize access="hasRole('ROLE_ADMIN')">
+								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="">글쓰기</button>
+							</se:authorize>	
 							</div>
 						</div><!-- panel-body -->
 						
@@ -111,8 +122,14 @@ $(document).ready(function(){
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
-		 
 	});
+	
+	$('#noticeWrite_btnAdmin').click(function(){
+		alert("22");
+		var adminClass_name2 = $('#noticeWrite_btnAdmin').val();
+		location.href="noticeWrite.do?class_name=" + adminClass_name1;
+	});
+	
 	
 });
 
