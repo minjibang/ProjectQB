@@ -193,6 +193,30 @@ public class StudentController {
 		return mav;
 	}
 	
+	@RequestMapping("pastExamPaperAnswerView.do")
+	public @ResponseBody ModelAndView pastExamPaperAnswerView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("ajax.student.pastExamPaperAnswer_ajax");
+		
+		List<ExamPaperDoQuestionDto> questionList = null;
+		List<Question_choiceDto> questionChoiceList = null;
+		
+		if(student_answer_status.equals("all")) {
+			questionList = studentService.examPaperDoQuestion(exam_info_num, 0, 0);	//	begin, end 추가했음
+			questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+		} else if (student_answer_status.equals("wrong")){
+			questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, 0, 0);
+			questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+		}
+				
+		mav.addObject("questionList", questionList);
+		mav.addObject("questionChoiceList", questionChoiceList);
+		
+		return mav;
+	}
+	
+	
 	
 	// 10.24 현이 ajax로 학생 답안지 리스트 가져오기 
 	@RequestMapping("searchStudentAnswer.do")
@@ -201,9 +225,7 @@ public class StudentController {
 		
 		List<Student_answerQuesDto> studentAnswerList = studentService.selectStudentAnswer(principal.getName(), exam_info_num, student_answer_status);
 		return studentAnswerList;
-
 	}
-	
 	
 	/*시험일정 > 시험응시 활성화*/
 	@RequestMapping("examPaperDo.do")
@@ -248,9 +270,16 @@ public class StudentController {
 	
 	
 	@RequestMapping("myMessage.do")
-	public String myMessage() {
-
-		return "common.admin.common.myPage";
+	public String myMessage(Model model, Principal principal) {
+		
+		String member_id = principal.getName();
+		System.out.println("아이디:"+member_id);
+		   List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
+		   System.out.println("classTeacherList >>   " + classTeacherList + "   <<<");
+		   model.addAttribute("classTeacherList", classTeacherList);
+		
+		
+		return "common.student.common.myMessage";
 	}
 	
 	
@@ -451,4 +480,22 @@ public class StudentController {
 		int result = commonService.commentReplyDelete(dto);
 		return 0;
 	}
+	
+/*10.29 학생이 쪽지 보내기 */
+		@RequestMapping(value="sendTeacherMessage.do", method=RequestMethod.POST)
+		public String sendTeacherMessage(Principal principal,String teacher_id,String message_content)  {
+			
+			  String send_member_id = principal.getName();	
+			  System.out.println("send_member_id:"+send_member_id+"teacher_id:"+teacher_id+"message_content:"+message_content);
+			int result = studentService.sendTeacherMessage(teacher_id,message_content,send_member_id);
+			if(result > 0) {
+				System.out.println("쪽지 보내기 성공!");
+			}
+			else {
+				System.out.println("쪽지 보내기 실패~!");
+			}
+			
+			return "redirect:myMessage.do";
+			
+		}
 }

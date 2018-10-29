@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+
 <link href="${pageContext.request.contextPath}/css/adminMessage.css"
 	rel="stylesheet">
 <script src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script> 
@@ -195,6 +197,8 @@
 									<div class="row">
 										<div class="row mt">
 											<div id="updateExam" class="tab-pane">
+											<form class="contact-form php-mail-form" role="form"
+																action="sendTeacherMessage.do" method="POST">
 												<div class="row">
 													<div class="col-md-12">
 														<div class="col-md-2">
@@ -207,6 +211,7 @@
 																		</label>
 																	</div>
 																	<ul class="nav nav-pills nav-stacked mail-nav">
+																	<se:authorize access="hasRole('ROLE_TEACHER')">
 																		<c:forEach items="${classMemberList}" var="classMemberList">
 																		<li id="messageSelect"><div>
 																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
@@ -219,6 +224,23 @@
 																					</div>
 																			</div></li>
 																	</c:forEach>
+																	</se:authorize>
+																	<se:authorize access="hasRole('ROLE_STUDENT')">
+																		<c:forEach items="${classTeacherList}" var="classTeacherList">
+																		<li id="messageSelect"><div>
+																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
+																		  <label>
+																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;"/>
+																				<img
+																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+																					class="img-circle" width="25">${classTeacherList.member_name}
+																					</label>
+																					</div>
+																			</div></li>
+																			<input type="hidden" id="teacher_id" name="teacher_id" value="${classTeacherList.member_id}"/>
+																			
+																	</c:forEach>
+																	</se:authorize>
 																	</ul>
 																	
 																</div>
@@ -226,15 +248,9 @@
 
 														</div>
 														<div class="col-md-8">
-
-															<form class="contact-form php-mail-form" role="form"
-																action="contactform/contactform.php" method="POST">
-
-
-
 																<div class="form-group">
-																	<textarea class="form-control" name="message"
-																		id="contact-message" placeholder="Your Message"
+																	<textarea class="form-control" name=message_content
+																		id="message_content" placeholder="Your Message"
 																		rows="5" data-rule="required"
 																		data-msg="Please write something for us"></textarea>
 																	
@@ -250,14 +266,16 @@
 																<button class="btn btn-theme04" type="button">취소</button>
 
 
-															</form>
+															
 														</div>
 
 
 													</div>
 												</div>
+												</form>
 											</div>
 											<!-- /row -->
+											
 										</div>
 
 										<!-- /tab-content -->
@@ -274,3 +292,4 @@
 		</div><!-- col-lg-12 mt -->
 	</section><!-- wrapper site-min-height -->
 </section><!-- main-content -->
+

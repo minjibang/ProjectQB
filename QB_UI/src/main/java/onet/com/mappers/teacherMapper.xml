@@ -285,6 +285,12 @@ select member_id, member_name from member where class_name=(select class_name fr
 
 <!-- 민지 10.22 시험일정 수정 끝 -->
 
+<select id="count_receive_note" parameterType="String" resultType="String">
+
+select count(*) from message where receive_member_id=#{user_name}
+
+</select>
+
 </mapper>
 
 

@@ -113,7 +113,8 @@ public interface CommonDao {
 	//민지 10.26 강사 - 쪽지 리스트 
 	public List<MemberDto> classMemeberList(String member_id);
 
-	
+	//민지 1029 쪽지
+	public List<MemberDto> classTeacherList(String member_id);
 
 
 }

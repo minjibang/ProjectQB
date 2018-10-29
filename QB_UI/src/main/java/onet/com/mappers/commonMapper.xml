@@ -270,4 +270,11 @@ and e.exam_info_name=#{exam_info_name}
 	on sc.exam_info_num=ei.exam_info_num
 	where (sc.score_chart_score between ${param3} and ${param4}) and sc.class_name=#{param2} and ei.exam_info_num=#{param1}
 </select>
+
+<select id="classTeacherList" parameterType="String" resultType="onet.com.vo.MemberDto">
+ select member_id, member_name from member where member_id=(
+ select member_id from member_role where member_id in(
+ select member_id from member where class_name in (select class_name from member where member_id=#{member_id}) and role_code="role_teacher"))
+</select>
+
 </mapper>
