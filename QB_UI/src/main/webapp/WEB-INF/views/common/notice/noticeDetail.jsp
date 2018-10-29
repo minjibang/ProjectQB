@@ -233,12 +233,12 @@ $(document).ready(function(){
 		var comment_num = $(this).parent().parent().prev().attr('id');
 		$.ajax({
 			 type : "post",
-			 url : "${pageContext.request.contextPath}/teacher/commentReply.do",
+			 url : "commentReply.do",
 			 data:"notice_num="+notice_num+"&class_name="+class_name+"&comment_num="+comment_num+"&replyInput="+replyInput,  
 			 success : function(data){
 			 	   	$.ajax({
 			 	   		type : "post",
-			 	   		url : "${pageContext.request.contextPath}/teacher/noticeDetailAjax.do",
+			 	   		url : "noticeDetailAjax.do",
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);

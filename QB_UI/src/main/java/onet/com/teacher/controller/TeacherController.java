@@ -63,9 +63,9 @@ public class TeacherController {
 	      System.out.println(member_id);
 	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
 	      List<MemberDto> boardNull = commonService.boardNull(member_id);
-	      System.out.println(boardNull);
-	    	model.addAttribute("boardNull", boardNull);
-	        model.addAttribute("notice", notice);
+	      String noticeCheck = boardNull.get(0).getClass_name();
+	      model.addAttribute("noticeCheck", noticeCheck);
+	      model.addAttribute("notice", notice);
 		  List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		  	model.addAttribute("exam_info", exam_info);
 	      return "common.teacher.notice.notice";
