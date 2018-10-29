@@ -82,11 +82,10 @@
 											<label for="curl" class="control-label col-lg-2">권한
 												설정</label>
 											<div class="col-lg-10">
-												<input type="checkbox" id="agree_s" name="agree" 
-													onclick="oneCheckbox(this)" value="ROLE_STUDENT"/>학생
+												<input type="radio" id="agree_s" name="agree" 
+													value="ROLE_STUDENT"/>학생
 												&nbsp;&nbsp; 
-												<input type="checkbox" id="agree_t"
-													name="agree" onclick="oneCheckbox(this)" 
+												<input type="radio" id="agree_t" name="agree"
 													value="ROLE_TEACHER"/>강사
 											</div>
 										</div>

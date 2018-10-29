@@ -19,6 +19,7 @@ import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 
 public interface CommonDao {
 	   /*한결 - 메인페이지 데이터 뿌리기 10.10*/
@@ -80,16 +81,37 @@ public interface CommonDao {
 	
 	public int commentInsert(CommentDto dto);
 		
+	public int commentUpdate(CommentDto dto);
 	
+	public int commentReplyDelete(CommentDto dto);
+	
+	public int updateBoardList(NoticeDto dto);
+	
+	public int noticeDelete(NoticeDto dto);
+	
+	public int noticeFromCommentDelete(NoticeDto dto);
+	public List<NoticeDto> noticeUpdateList(NoticeDto dto);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지
 	public List<MemberDto> studentInfo(String member_id);
+	public List<MemberDto> adminStudentInfo(String class_num);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
 	public List<Score_chartDto> studentChartInfo(String member_id);
 	public List<Class_chartDto> classChartInfo(String class_name);
+	//양회준 10-25 학생&성적관리 학생개인 성적확인
+	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name);//시험리스트
+	public List<StudentExamScoreInfo> studentExamScoreInfoCtgr(String member_id, String class_name);//시험리스트-소분류
 
 	
 	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
 	public List<Score_chartDto> classRank(String exam_info_name);
+
+	// 영준 - 10.26 관리자, 강사 - 학생&성적 관리페이지 - 표준편차
+	public List<Score_chartDto> studentStdChart(String exam_info_name);
+
+	//민지 10.26 강사 - 쪽지 리스트 
+	public List<MemberDto> classMemeberList(String member_id);
+
 	
+
 
 }

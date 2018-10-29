@@ -6,7 +6,6 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -260,26 +260,35 @@ public class TestManageController {
 	
 	/*한결 시작*/
 	@RequestMapping("checkExam_paper.do")
-	public @ResponseBody String checkExam_paper(@RequestParam("exam_paper_name") String exam_paper_name) {	
-		String result = teacherService.examPaperCheck(exam_paper_name);
+	public @ResponseBody String examPaperCheck(@RequestParam("exam_paper_name") String exam_paper_name, 
+			@RequestParam("member_id") String member_id) {	
+		String result = teacherService.examPaperCheck(exam_paper_name,member_id);
 		return result;
 	}	
 	
 	/* 10.17 시험지 테이블 insert and update*/
 
 	@RequestMapping("examPaperInsert.do")
-	public @ResponseBody int examPaperInsert(@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc,
-			@RequestParam("exam_paper_status") String exam_paper_status) {
-		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
+
+	/*public String examPaperInsert(ExamPaperDto eDto, ExamQuestionDto eqDto) {
+		System.out.println("시험지 정보 >> "+eDto.getClass_name() +" || "+ eDto.getExam_paper_desc() +" || "+ eDto.getExam_paper_status());
+//		int result = teacherService.examPaperInsert(exam_paper_name,member_id,exam_paper_desc,exam_paper_status);
+		return null;*/
+
+	public @ResponseBody int examPaperInsert(ExamPaperDto dto) {
+		teacherService.examPaperInsert(dto);
+		int result = dto.getExam_paper_num();
 		return result;
+
 	}
 	
 	@RequestMapping("examPaperUpdate.do")
-	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,@RequestParam("exam_paper_desc") String exam_paper_desc,
-			@RequestParam("exam_paper_num") String exam_paper_num, @RequestParam("exam_paper_status") String exam_paper_status) {
-		int result = teacherService.examPaperUpdate(exam_paper_name,member_id,exam_paper_desc,exam_paper_num, exam_paper_status);
+	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_num") int exam_paper_num, 
+			@RequestParam("exam_paper_name") String exam_paper_name,
+			@RequestParam("member_id") String member_id,
+			@RequestParam("exam_paper_desc") String exam_paper_desc, 
+			@RequestParam("exam_paper_status") String exam_paper_status) {
+		int result = teacherService.examPaperUpdate(exam_paper_num, exam_paper_name,member_id,exam_paper_desc, exam_paper_status);
 		return result;
 	}
 	
@@ -291,7 +300,7 @@ public class TestManageController {
 		return result;
 	}
 	@RequestMapping("examQuestionInsert.do")
-	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") String exam_paper_num, 
+	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") int exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 
 			@RequestParam("exam_question_score") String exam_question_score) {
 		int result = teacherService.examQuestionInsert(exam_paper_num,question_num, exam_question_seq, exam_question_score);

@@ -120,7 +120,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 
 <!-- 재훈 - 문제관리 관련 10.21 끝 -->
 <insert id="insertBoardList" parameterType="onet.com.vo.NoticeDto">
-	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_file3},#{notice_date})
+	insert into notice values (#{notice_num},#{class_name},#{notice_name},#{member_id},#{notice_content},#{notice_file1},#{notice_file2},#{notice_date})
 </insert>
 
 <select id="noticeDetail" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
@@ -152,8 +152,38 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	insert into comment(class_name,notice_num,member_id,comment_content) values(#{class_name},#{notice_num},#{member_id},#{comment_content})
 </insert>
 
+<update id="commentUpdate" parameterType="onet.com.vo.CommentDto">
+	update comment set comment_content = #{comment_content} where comment_num=#{comment_num}
+</update>
+
+<delete id="commentReplyDelete" parameterType="onet.com.vo.CommentDto">
+	delete from comment where comment_num=#{comment_num}
+</delete>
+
+<select id="noticeUpdateList" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
+	select * from notice where notice_num=#{notice_num} and class_name=#{class_name}
+</select>
+
+<update id="updateBoardList" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_name = #{notice_name},notice_content=#{notice_content},notice_file1=#{notice_file1},notice_file2=#{notice_file2} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+<delete id="noticeDelete" parameterType="onet.com.vo.NoticeDto">
+	delete from notice where notice_num=#{notice_num} and class_name=#{class_name}
+</delete>
+
+<delete id="noticeFromCommentDelete" parameterType="onet.com.vo.NoticeDto">
+	delete from comment where notice_num=#{notice_num} and class_name=#{class_name}
+</delete>
 
 <!-- 양회준 10-24 관리자, 강사-학생&성적관리 페이지 -->
+<select id="adminStudentInfo" parameterType="String" resultType="onet.com.vo.MemberDto">
+	select m.member_id, m.member_email, m.member_name, m.member_phone, m.class_name, mr.role_code
+	from member m join member_role mr join class c
+	on m.member_id=mr.member_id and m.class_name=c.class_name
+	where not m.member_enable=0 
+	and mr.role_code='ROLE_STUDENT' and c.class_num = #{class_num}
+</select>
 <select id="studentInfo" parameterType="String" resultType="onet.com.vo.MemberDto">
 	select m.member_id, m.member_email, m.member_name, m.member_phone, m.class_name, mr.role_code
 	from member m join member_role mr on m.member_id=mr.member_id
@@ -161,6 +191,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	and mr.role_code='ROLE_STUDENT' and m.class_name = 
 	(select class_name from member where member_id=#{member_id})
 </select>
+
 <!-- 학생 차트 정보 -->
 <select id="studentChartInfo" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 	select * from score_chart 
@@ -175,6 +206,25 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	where c.class_name=#{class_name}
 </select>
 
+<!-- 양회준 10-25 학생&성적관리 학생개인 성적확인 -->
+<select id="studentExamScoreInfo" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
+	SELECT DISTINCT sa.exam_info_num, ei.exam_info_name, ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, 
+	ep.exam_paper_desc
+	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep
+	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num
+	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
+</select>
+
+<select id="studentExamScoreInfoCtgr" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
+	SELECT DISTINCT sa.exam_info_num, q.sm_category_code, qsc.sm_category_name
+	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN exam_question eq JOIN question q JOIN question_sm_category qsc
+	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num = eq.exam_paper_num 
+	and eq.question_num = q.question_num and q.sm_category_code = qsc.sm_category_code
+	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num,qsc.sm_category_code asc
+
+
+</select>
+
 <!-- 영준 10.25 - 반 등수 추가 시작 -->
 <select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 SELECT m.member_name, score_chart_rank
@@ -186,5 +236,18 @@ ORDER BY
 sc.score_chart_score DESC
 </select>
 <!-- 영준 10.25 - 반 등수 추가 끝 -->
+<!-- 민지 10.26 쪽지페이지 -학생 리스트 -->
+<select id="classMemeberList" parameterType="String" resultType="onet.com.vo.MemberDto">
+select * from member where class_name=(select class_name from member where member_id = #{member_id})
+</select>
 
+<!-- 영준 10.26 표준편차 시작 -->
+<select id="studentStdChart" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+select e.exam_info_name,sum(score_chart_score),avg(score_chart_score), std(score_chart_score)
+from score_chart as sc, exam_info e, member m
+where sc.exam_info_num=e.exam_info_num
+and m.member_id=sc.member_id
+and e.exam_info_name=#{exam_info_name}
+
+</select>
 </mapper>
