@@ -222,14 +222,13 @@ public class TeacherService {
 		int result = dao.updateExam(exam_paper_num);
 		return result;
 	}
-	public int newExaminsert(String exam_name, String member_id, String exam_desc){
+	public int newExaminsert(ExamPaperDto dto){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.newExaminsert(exam_name,member_id,exam_desc);
+		int result = dao.newExaminsert(dto);
 		
-		/*int exampapernum = dto.getExam_paper_num();*/
+		int exampapernum = dto.getExam_paper_num();
 		
-		/*System.out.println("+++++++++++++++"+exampapernum);*/
-		return 1;
+		return exampapernum;
 	}
 	
 	

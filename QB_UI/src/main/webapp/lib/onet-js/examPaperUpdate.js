@@ -59,8 +59,8 @@ function updateExamBtn(num){
 						type : "get",
 						data : {
 							"exam_paper_num" : exam_paper_num,
-							"exam_name" : exam_name,
-							"exam_desc" : exam_desc
+							"exam_paper_name" : exam_name,
+							"exam_paper_desc" : exam_desc
 						},
 						success : function(exampapernum){
 								alert("여기까지 넘어왔는데========"+exampapernum)
@@ -69,7 +69,7 @@ function updateExamBtn(num){
 								var exam_question_seq = Number(index+1) //문제 배치 번호
 								var exam_question_score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() //문제 배점
 							
-								/*$.ajax({
+							$.ajax({
 									url : "examquestionsinsert.do",
 									type : "get",
 									dataType : "json",
@@ -82,7 +82,7 @@ function updateExamBtn(num){
 									success:function(data){
 										location.href="examManagement.do";
 									}
-								});*/
+								});
 							});
 							
 						}
