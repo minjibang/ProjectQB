@@ -54,17 +54,17 @@
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
 									</c:forEach>	
-										<c:forEach items="${boardNull}" var="boardNull">
+										<%-- <c:forEach items="${boardNull}" var="boardNull">
 											<input type="hidden" class="notice_classname" value="${boardNull.class_name}">
-										</c:forEach>
+										</c:forEach> --%>
 								</tbody>
 							</table>
 							<div>
 							<se:authorize access="hasRole('ROLE_TEACHER')">
-								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
+								<button id="noticeWrite_btn" class="btn btn-theme" value="${noticeCheck}">글쓰기</button>
 							</se:authorize>	
 							<se:authorize access="hasRole('ROLE_ADMIN')">
-								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="">글쓰기</button>
+								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="${adminNoticeCheck}">글쓰기</button>
 							</se:authorize>	
 							</div>
 						</div><!-- panel-body -->
@@ -116,8 +116,6 @@
 
 <script>
 $(document).ready(function(){
-	var class_name1 = $('.notice_classname').val();
-	document.getElementById('noticeWrite_btn').setAttribute('value', class_name1);
 	
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
@@ -125,9 +123,8 @@ $(document).ready(function(){
 	});
 	
 	$('#noticeWrite_btnAdmin').click(function(){
-		alert("22");
-		var adminClass_name2 = $('#noticeWrite_btnAdmin').val();
-		location.href="noticeWrite.do?class_name=" + adminClass_name1;
+		var adminClass_name = $('#noticeWrite_btnAdmin').val();
+		location.href="noticeWrite.do?class_name=" + adminClass_name;
 	});
 	
 	
