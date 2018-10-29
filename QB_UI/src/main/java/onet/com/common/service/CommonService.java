@@ -341,6 +341,7 @@ public class CommonService {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int cDelete = dao.noticeFromCommentDelete(dto);
 		int result = dao.noticeDelete(dto);
+		System.out.println("2" + result);
 		return result;
 	}
 	

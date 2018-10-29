@@ -499,4 +499,11 @@ public class AdminService {
 	}
 	/*정원 문제분류 끝*/
 	
+	public int checkClassNum(String class_name) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.checkClassNum(class_name);
+		return result;
+	}
+	
+	
 }
