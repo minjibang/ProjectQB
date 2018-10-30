@@ -358,8 +358,6 @@
 		</div><!-- /row mt -->
 	</section><!-- /wrapper -->
 </section><!-- /MAIN CONTENT -->
-
-
 <%--ChartJS--%>
 <%--ChartJS CDN--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -397,6 +395,7 @@ $(document).ready(function(){
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
+	
 	var memberId=studentArr[0].member_id;
 	var className=studentArr[0].class_name;
 	//tab2AjaxData
@@ -536,11 +535,9 @@ $(document).ready(function(){
 		
 	/*지난 시험지 보기*/
 
-	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트
-		
+	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트		
 		var popUrl = "${pageContext.request.contextPath}/student/pastExamPaper.do?exam_info_num=" + $(this).val();
 		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
-
 		window.open(popUrl, "지난 시험보기",popOption);		
 	});
 	

@@ -390,7 +390,6 @@ public class CommonService {
 
 	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
 	public int[] studentScoreSpread(int exam_info_num, String class_name){
-		System.out.println("in");
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int spreadCount = 0;
 		int[] spreadList = new int[10];
@@ -399,17 +398,13 @@ public class CommonService {
 		for(int i=0;i<10;i++) {
 			if(i==0) {
 				spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
-				System.out.println("spreadCount1:"+spreadCount);
 			}else {
 				start = (i*10)+1;
 				end = (i*10)+10;
 				spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
-				System.out.println("spreadCount2:"+spreadCount);
 			}
 			spreadList[i]=spreadCount;
-			System.out.println("범위"+i+" : "+spreadList[i]);
 		}
-		System.out.println("out"+spreadList.toString());
 		return spreadList;
 	}
 
@@ -422,12 +417,3 @@ public class CommonService {
 		return result;
 	}
 }
-
-	
-	
-	
-
-
-
-
-
