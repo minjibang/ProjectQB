@@ -198,7 +198,7 @@
 										<div class="row mt">
 											<div id="updateExam" class="tab-pane">
 											<form class="contact-form php-mail-form" role="form"
-																action="sendTeacherMessage.do" method="POST">
+																action="sendTeacherMessage.do" method="POST" >
 												<div class="row">
 													<div class="col-md-12">
 														<div class="col-md-2">
@@ -262,7 +262,7 @@
 
 
 
-																<button type="submit" class="btn btn-large btn-primary">전송</button>
+																<button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
 																<button class="btn btn-theme04" type="button">취소</button>
 
 
@@ -293,3 +293,25 @@
 	</section><!-- wrapper site-min-height -->
 </section><!-- main-content -->
 
+<script>
+function check(){
+	
+	var username='${member_id}';
+	var message_content=$('#message_content').val();
+	var receive_member_id=$('#teacher_id').val();
+	
+	
+	var data=new Array();
+	data[0]=username;
+	data[1]=message_content;
+	data[2]=receive_member_id;
+	
+	  websocket.send(data); 
+	  
+	  
+      };
+
+
+	
+
+</script>
