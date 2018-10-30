@@ -252,7 +252,7 @@
 
 
 
-																<button type="submit" id="messageSubmit" class="btn btn-large btn-primary">전송</button>
+																<button type="button" id="messageSubmit" onclick="check()" class="btn btn-large btn-primary">전송</button>
 																<button class="btn btn-theme04" type="button">취소</button>
 
 
@@ -306,12 +306,25 @@ $(document).ready(function(){
 	});
 	
 	
-	$('#messageSubmit').click(function(){
-		var messageValue = $('#message_content').val();
-		websocket.send(messageValue);		
+
 	});
 	
-	 
+function check(){
+	   
+	   var username='${member_id}';
+	   var receive_member_id = $('#teacher_id').val();
+	   var message_content = $('#message_content').val();
+	   
+	   
+	   var data=new Array();
+	   data[0]=username;
+	   data[1]=message_content;
+	   data[2]=receive_member_id;
+	   
+	    websocket.send(data); 
+	     
+	     
+	      };	 
 	
 
 
@@ -319,8 +332,6 @@ $(document).ready(function(){
   
 	
 
-
-});
 
 </script>
 
