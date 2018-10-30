@@ -85,7 +85,9 @@
 				student_answer_status = "wrong";
 				pageNo = 1;
 				$('#prevPageSpan').empty();
-				$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				if($('#nextPageBtn').length == 0){
+					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				}
 				
 				begin = (pageNo - 1) * rowPerPage + 1;
 				totalRows = ${wrongQuestionCount};
@@ -101,7 +103,9 @@
 				student_answer_status = "all";
 				pageNo = 1;
 				$('#prevPageSpan').empty();
-				$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				if($('#nextPageBtn').length == 0){
+					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+				}
 				
 				begin = (pageNo - 1) * rowPerPage + 1;
 				totalRows = ${questionCount}; 
@@ -130,8 +134,29 @@
 			},
 			dataType : "html",
 			success : function(data) {
-				$('#pastExamQuestion').html(data);
+				$('#examSpan').html(data);
+				searchAnswer(student_answer_status);
 				searchStudentAnswer(student_answer_status); 	// 학생 답안지 가져오는 ajax 
+			}
+		});
+	}
+	
+	// 답안지 가져오는 ajax
+	function searchAnswer(student_answer_status){
+		$.ajax({
+			url : "pastExamPaperAnswerView.do",
+			type: "get",
+			data : {
+				'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
+				'student_answer_status' : student_answer_status,
+				'begin' : begin,
+				'rowPerPage' : rowPerPage
+			}, 
+			dataType : "html",
+			success : function(data){
+				console.log(data);
+				$('#answerSpan').html(data);
+				searchStudentAnswer(student_answer_status);
 			}
 		});
 	}
@@ -224,8 +249,12 @@
 		<hr>
 		<div class="panel-body" id="pastExamPaperPanel">
 		
-			<div id="pastExamQuestion"></div>
-			<!-- 문제 및 답안지 표기 -->
+			<div id="pastExamQuestion">
+				<div class="row content-panel exampaneldetail">
+					<span id="examSpan"></span><!-- 문제 표기 -->
+					<span id="answerSpan"></span><!-- 답안지 표기 -->
+				</div>
+			</div>
 			
 		</div>
 		<div>
