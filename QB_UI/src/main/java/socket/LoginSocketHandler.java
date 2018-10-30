@@ -59,7 +59,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 			System.out.println("data2[0]>>>>"+ data2[0]);
 			System.out.println("data2[1]>>>>"+ data2[1]);
 			System.out.println("data2[2]>>>>"+ data2[2]);
-			if(!data2[3].isEmpty()) {
+			if(data2.length>3) {
 				for(int i =2; i <= data2.length-1; i++) {
 					dto.setSend_member_id(data2[0]);
 					dto.setMessage_content(data2[1]);
