@@ -1,6 +1,7 @@
 package onet.com.student.service;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -137,8 +138,15 @@ public class StudentService {
 	}
 	/*10.24 현이 지난 시험지 보기 끝*/
 	
+	/*%%%%%%%%%%%%%%%%%%%%%%%%%%%    재훈 시작        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
+	public List<Score_chartDto> myRank(String member_id, String exam_info_num){
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		
+		System.out.println("학생컨트롤러 진입 >> member_id: "+member_id);
+		List<Score_chartDto> myRank = dao.myRank(member_id, exam_info_num);
+		return myRank;
+	}
 	
-	
-	
-	
+	/*%%%%%%%%%%%%%%%%%%%%%%%%%%%    재훈 시작        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 }

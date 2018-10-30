@@ -8,7 +8,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
+import onet.com.vo.Class_chartDto;
 import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
@@ -30,6 +34,8 @@ import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
+import onet.com.vo.Score_chartDto;
+import onet.com.vo.StudentExamScoreInfo;
 import onet.com.vo.Student_answerDto;
 import onet.com.vo.Student_answerDtoList;
 import onet.com.vo.Student_answerQuesDto;
@@ -205,14 +211,69 @@ public class StudentController {
 	}
 	/* 한결 10.12 지난 시험보기 및 시험응시 페이지 로드 끝 */
 
+
+	/*%%%%%%%%%%%%%%%%%%%%%     재훈 학생 성적관리 backend 시작             %%%%%%%%%%%%%%%%%%%%%%*/
 	/* 양회준 18.10.11 학생 성적관리 시작 */
 	@RequestMapping("gradeManage.do")
-	public String gradeManage() {
-
+	public String gradeManage(Model model, Principal principal, HttpServletRequest request) {
+		String member_id = principal.getName();
+		String class_num=null;
+		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
+		String student_id = principal.getName();
+		String class_name = studentList.get(0).getClass_name();
+		System.out.println("student 컨트롤러 진입: "+student_id);
+		System.out.println("student 컨트롤러 진입: "+class_name);
+		//클래스 번호로 차트 가져오기
+		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
+		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
+		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
+		model.addAttribute("studentList",studentList);
+		model.addAttribute("classChart",classChart);
+		model.addAttribute("studentChart",studentChart);
+		model.addAttribute("studentId", student_id);
+		
+		//학생 개인 성적확인
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
+		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
+		
 		return "student.gradeManage";
 	}
-	/* 양회준 18.10.11 학생 성적관리 끝 */
 	
+		// 학생 & 성적관리 - 개별차트부르기
+		@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
+		public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+			@RequestParam("class_name") String class_name){
+		//양회준 10-24
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		for(Class_chartDto data : studentChart) {
+			System.out.println("과연"+data.getExam_info_name());
+		}
+		return chart;
+		}
+	
+	/* 영준 10.25 반 등수 시작 */
+	@RequestMapping(value="myRank.do", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> myRank(@RequestParam("member_id") String member_id, 
+			@RequestParam("exam_info_num") String exam_info_num) {
+		System.out.println("학생컨트롤러 진입 : " + member_id + exam_info_num);		
+		List<Score_chartDto> myRank = studentService.myRank(member_id, exam_info_num);
+		System.out.println("과연 반 등수는? : " + myRank);
+		return myRank;
+	}
+	/* 영준 10.26 반 등수 끝 */
+	
+		//학생 성적관리 학생개인 성적확인
+		@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
+		public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+				@RequestParam("class_name") String class_name){
+			//양회준 10-24
+			List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+			return result;
+		}
+	
+	/* 양회준 18.10.11 학생 성적관리 끝 */
+	/*%%%%%%%%%%%%%%%%%%%%%     재훈 학생 성적관리 backend 끝             %%%%%%%%%%%%%%%%%%%%%%*/
 	
 	
 
