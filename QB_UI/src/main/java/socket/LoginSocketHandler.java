@@ -10,7 +10,9 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import onet.com.student.dao.StudentDao;
 import onet.com.teacher.dao.TeacherDao;
+import onet.com.vo.MessageDto;
 
 public class LoginSocketHandler extends TextWebSocketHandler {
 
@@ -23,6 +25,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 	SessionMaps.getAlarmusers().put(session.getId(), session); // SessionMaps.getALarmusrs() => alarmusers를  return ( HashMap )
 	System.out.println("연결됐다");
 		//super.afterConnectionEstablished(session);
+	System.out.println("연결된 사용자 id>>"+session.getPrincipal().getName());
 	}
 
 	@Override
@@ -30,10 +33,43 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 		System.out.println("메시지 보냈다.");
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		/*this.logger.info(message.getPayload());*/
-		System.out.println("아이디값>>"+message.getPayload());
-		System.out.println(dao.count_receive_note(message.getPayload()));
+
+		System.out.println("핸들러로 넘어간값>>"+message.getPayload());
 		
-		session.sendMessage(new TextMessage(dao.count_receive_note(message.getPayload()))); 
+		String data=message.getPayload();
+		
+		if(data.contains(",")) {
+			
+			String[] data2 = data.split(",");
+			MessageDto dto = new MessageDto();
+			System.out.println("data2[0]>>>>"+ data2[0]);
+			System.out.println("data2[1]>>>>"+ data2[1]);
+			System.out.println("data2[2]>>>>"+ data2[2]);
+			dto.setSend_member_id(data2[0]);
+			dto.setMessage_content(data2[1]);
+			dto.setReceive_member_id(data2[2]);
+			StudentDao sdao = sqlsession.getMapper(StudentDao.class);
+			int result = sdao.sendTeacherMessage(dto);
+			
+			if(result>0) {
+			System.out.println("핸들러에서 쪽지보냈따");
+			session.sendMessage(new TextMessage(dao.count_receive_note(data2[2]))); 
+			
+			}
+			
+		}
+		else {
+			System.out.println("처음에 불러왔따");
+			
+		}
+		
+		
+		/*
+	
+		
+		System.out.println(dao.count_receive_note(message.getPayload()));
+		*/
+		
 		
 
 	}

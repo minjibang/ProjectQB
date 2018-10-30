@@ -16,7 +16,7 @@
 					<li id="header_inbox_bar">
 					<a href="${pageContext.request.contextPath}/teacher/myMessage.do"> 
 					<i class="fa fa-envelope-o"></i>
-					<span class="badge bg-theme">5</span>
+					<span class="badge bg-theme" id="message"></span>
 					</a></li>
 					<li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/teacher/myPage.do"> <i
 							class="fa fa-user"></i>
@@ -35,7 +35,7 @@
 	
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
     <script type="text/javascript">
-    var wsUri ="ws://localhost:8090/qb/count.do"
+    var wsUri ="ws://192.168.0.103:8090/qb/count.do"
     
     function send_message() {
         websocket = new WebSocket(wsUri);
@@ -57,7 +57,9 @@
     }
     
     function onMessage(evt) {
-    		$('#count').append(evt.data);
+
+    	$('#message').html(evt.data);
+    		
     }
     function onError(evt) {
     	

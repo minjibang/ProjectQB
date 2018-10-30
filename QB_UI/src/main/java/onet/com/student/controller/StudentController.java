@@ -255,7 +255,7 @@ public class StudentController {
 		   List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
 		   System.out.println("classTeacherList >>   " + classTeacherList + "   <<<");
 		   model.addAttribute("classTeacherList", classTeacherList);
-		
+		   model.addAttribute("member_id", member_id);
 		
 		return "common.student.common.myMessage";
 	}
