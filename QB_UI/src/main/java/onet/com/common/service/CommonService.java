@@ -287,7 +287,7 @@ public class CommonService {
 	public List<MemberDto> studentInfo(String member_id, String class_num){
 		List<MemberDto> studentList = null;
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		System.out.println("아이디:"+member_id);
+		System.out.println("11아이디:"+member_id);
 		if(member_id.equals("admin")) {
 			studentList = dao.adminStudentInfo(class_num);
 		}else {			
