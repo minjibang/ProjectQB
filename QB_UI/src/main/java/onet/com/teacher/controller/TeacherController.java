@@ -79,6 +79,7 @@ public class TeacherController {
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 			   System.out.println("classMemberList >>   " + classMemberList + "   <<<");
 			   model.addAttribute("classMemberList", classMemberList);
+			   model.addAttribute("member_id", member_id);
 			return "common.teacher.common.myMessage";
 		}
 		/*민지 18.10.10 메시지 페이지 끝*/
