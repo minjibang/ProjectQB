@@ -1,4 +1,4 @@
-var ctx = document.getElementById('studentBar').getContext('2d');
+/*var ctx = document.getElementById('studentBar').getContext('2d');
 var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -85,4 +85,4 @@ var chart = new Chart(ctx, {
        }]
          }
     }
-});
+});*/
