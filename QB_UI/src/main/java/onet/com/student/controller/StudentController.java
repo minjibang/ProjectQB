@@ -240,11 +240,14 @@ public class StudentController {
 	public String gradeManage(Model model, Principal principal, HttpServletRequest request) {
 		String member_id = principal.getName();
 		String class_num=null;
+		String class_name;
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
 		String student_id = principal.getName();
-		String class_name = studentList.get(0).getClass_name();
-		System.out.println("student 컨트롤러 진입: "+student_id);
-		System.out.println("student 컨트롤러 진입: "+class_name);
+		try {
+			class_name = studentList.get(0).getClass_name();
+		}catch(Exception e) {
+			class_name="임시";
+		}
 		//클래스 번호로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
