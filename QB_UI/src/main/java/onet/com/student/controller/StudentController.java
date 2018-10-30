@@ -167,24 +167,41 @@ public class StudentController {
 	
 	// 10.24 현이 ajax로 시험지의 문제들 불러오기 
 	@RequestMapping("pastExamPaperView.do")
-	public @ResponseBody ModelAndView pastExamPaperView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+	public @ResponseBody ModelAndView pastExamPaperView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, @RequestParam("question_answerSheet") String question_answerSheet, 
+			int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
 		
-		System.out.println("student_answer_status : " + student_answer_status);
+		//System.out.println("student_answer_status : " + student_answer_status);
+		//System.out.println("question_answerSheet : " + question_answerSheet);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("ajax.student.pastExamPaper_ajax");
 		
 		List<ExamPaperDoQuestionDto> questionList = null;
 		List<Question_choiceDto> questionChoiceList = null;
+		
 		int begin2 = begin - 1;
 		
-		// 문제, 문제보기 리스트 뽑아옴
-		if(student_answer_status.equals("all")) {
-			questionList = studentService.examPaperDoQuestion(exam_info_num, begin2, rowPerPage);	//	begin, end 추가했음
-			questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
-		} else if (student_answer_status.equals("wrong")){
-			questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, begin2, rowPerPage);
-			questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+		if(question_answerSheet.equals("question")) {		//	문제 리턴(페이징 처리 필요) 
+			
+			mav.setViewName("ajax.student.pastExamPaper_ajax");
+			if(student_answer_status.equals("all")) {
+				questionList = studentService.examPaperDoQuestion(exam_info_num, begin2, rowPerPage);	
+				questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+			} else if (student_answer_status.equals("wrong")){
+				questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, begin2, rowPerPage);
+				questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+			}
+			
+		} else if (question_answerSheet.equals("answerSheet")) {	//	답안지 리턴(페이징 필요 없음, 전체 보여주기) 
+			
+			mav.setViewName("ajax.student.pastExamPaperAnswer_ajax");
+			if(student_answer_status.equals("all")) {
+				questionList = studentService.examPaperDoQuestion(exam_info_num, 0, 0);	//	begin, rowPerPage0 추가했음
+				questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+			} else if (student_answer_status.equals("wrong")){
+				questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, 0, 0);
+				questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+			}
+			
 		}
 				
 		mav.addObject("questionList", questionList);
@@ -192,31 +209,6 @@ public class StudentController {
 				
 		return mav;
 	}
-	
-	@RequestMapping("pastExamPaperAnswerView.do")
-	public @ResponseBody ModelAndView pastExamPaperAnswerView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("ajax.student.pastExamPaperAnswer_ajax");
-		
-		List<ExamPaperDoQuestionDto> questionList = null;
-		List<Question_choiceDto> questionChoiceList = null;
-		
-		if(student_answer_status.equals("all")) {
-			questionList = studentService.examPaperDoQuestion(exam_info_num, 0, 0);	//	begin, end 추가했음
-			questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
-		} else if (student_answer_status.equals("wrong")){
-			questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, 0, 0);
-			questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
-		}
-				
-		mav.addObject("questionList", questionList);
-		mav.addObject("questionChoiceList", questionChoiceList);
-		
-		return mav;
-	}
-	
-	
 	
 	// 10.24 현이 ajax로 학생 답안지 리스트 가져오기 
 	@RequestMapping("searchStudentAnswer.do")

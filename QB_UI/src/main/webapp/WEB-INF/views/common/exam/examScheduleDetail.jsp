@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link
 	href="${pageContext.request.contextPath}/css/examScheduleDetail.css"
 	rel="stylesheet">
@@ -81,7 +82,13 @@
 						</div>
 						<!-- 강사일 경우 버튼이 "시험 시작" / 학생일 경우 버튼이 "시험 응시"-->
 						<div class="col-lg-7">
+						<se:authorize access="hasRole('ROLE_TEACHER')">
+							<button class="btn btn-theme03" id="examBtn">시험감독</button>
+						</se:authorize>
+						<se:authorize access="hasRole('ROLE_STUDENT')">
 							<button class="btn btn-theme03" id="examBtn">시험시작</button>
+						</se:authorize>
+							
 						</div>
 					</div>
 				</div>
@@ -98,33 +105,38 @@
 		
 		$('#examBtn').click(function() {
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
+				
+				/* if(권한이 학생이라면){ */
+					$.ajax({
+						url : "searchStudentAnswer.do",
+						type : 'get',
+						data : {
+							'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
+							'student_answer_status' : "all"
+						},
+						success : function(data) {
+							if(data.length > 0 ){
+									swal("\n이미 시험에 응시하셨습니다."); 
+							} else if (data.length == 0){
+								
+								alert("시험 응시 버튼을 눌렀다.");
 
-				$.ajax({
-					url : "searchStudentAnswer.do",
-					type : 'get',
-					data : {
-						'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
-						'student_answer_status' : "all"
-					},
-					success : function(data) {
-						if(data.length > 0 ){
-								swal("\n이미 시험에 응시하셨습니다."); 
-						} else if (data.length == 0){
-
-							//var popupX = (window.screen.width / 2) - (200 / 2);
-							// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-							//var popupY= (window.screen.height /2) - (300 / 2);
-							// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-							//window.open('', '', 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-							
-							var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-							var popOption = "width='1920px', height=1080px'";
-							
-							window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
-							window.open(popUrl, "지난 시험보기", popOption);
+								//var popupX = (window.screen.width / 2) - (200 / 2);
+								// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+								//var popupY= (window.screen.height /2) - (300 / 2);
+								// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+								//window.open('', '', 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+								
+								var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
+								var popOption = "width='1920px', height=1080px'";
+								
+								window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
+								window.open(popUrl, "지난 시험보기", popOption);
+							}
 						}
-					}
-				});
+					});
+				/* }  */ // 권한이 학생이라면 if문 종료 괄호
+				
 			} else {
 				alert("시험이 종료되었습니다.")
 			}

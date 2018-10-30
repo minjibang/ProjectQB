@@ -9,6 +9,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -313,7 +314,12 @@
 					<br>
 				</div>
 			</div>
-			<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperSubmit">제출하기</button>
+			<se:authorize access="hasRole('ROLE_TEACHER')">
+				<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperExit">창 닫기</button>
+			</se:authorize>
+			<se:authorize access="hasRole('ROLE_STUDENT')">
+				<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperSubmit">제출하기</button>
+			</se:authorize>
 		</div>
 	</div>
 	

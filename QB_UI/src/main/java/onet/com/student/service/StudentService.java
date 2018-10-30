@@ -153,7 +153,7 @@ public class StudentService {
 		List<ExamPaperDoQuestionDto> questionList = dao.examPaperDoWrongQuestion(member_id, exam_info_num, begin, rowPerPage);
 		
 		for(ExamPaperDoQuestionDto dto : questionList) {
-			System.out.println("문제 : " + dto.getExam_question_seq());
+			//System.out.println("문제 : " + dto.getExam_question_seq());
 		}
 		
 		return questionList;
