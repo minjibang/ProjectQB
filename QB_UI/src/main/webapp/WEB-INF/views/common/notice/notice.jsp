@@ -1,4 +1,4 @@
-<%-- 
+﻿<%-- 
 	@JSP:notice.jsp
 	@DATE:2018-10-06
 	@Author:우한결
@@ -106,7 +106,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
-						<div id="count">dddddddddddddddddddddddd</div>
+
 						</div>
 					</div>
 				</div>
@@ -118,9 +118,7 @@
 
 <script>
 $(document).ready(function(){
-	
 
-	
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
@@ -136,7 +134,6 @@ $(document).ready(function(){
 
 
 </script>
-
 
 
 

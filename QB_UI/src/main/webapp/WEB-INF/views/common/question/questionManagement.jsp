@@ -308,11 +308,7 @@
 															<input type="radio" name="question_answer" value="4" id="questionAnswerRadio4">
 															4번
 														</label>&nbsp;&nbsp; 
-														
-														<label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer" value="5" id="questionAnswerRadio5">
-															5번
-														</label>&nbsp;&nbsp;
+												
 														
 													</div>
 													<br>
@@ -329,8 +325,8 @@
 														<option id="howManyChoices1" value="1">보기개수 선택</option>
 														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
 														<option id="howManyChoices3" value="3">보기 개수: 3개</option>
-														<option id="howManyChoices4" value="4">보기 개수: 4개</option>
-														<option id="howManyChoices5" value="5" selected>보기 개수: 5개</option>
+														<option id="howManyChoices4" value="4" selected>보기 개수: 4개</option>
+														<option id="howManyChoices5" value="5">보기 개수: 5개</option>
 														
 													</select> <br> <br>
 													
@@ -417,7 +413,7 @@
 													<div id="QCNPlus_4">
 													<b><input type="text" name="question_choice_num"
 														value="4" style="display: none">4.</b>
-													   <input type="text" name="question_choice_content QCN_4" id="question_choice_content4"
+													   <input type="text" name="question_choice_content" id="question_choice_content4"
 														class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new QCN_4" data-provides="fileupload">
 														<div class="fileupload-preview fileupload-exists thumbnail"
@@ -437,16 +433,18 @@
 															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
 													</span></div>
+													
+													
 													<!-- 5번 보기 -->
-													<div id="QCNPlus_5">
+													<!-- <div id="QCNPlus_5">
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content QCN_5" id="question_choice_content5"
+													   <input type="text" name="question_choice_content" id="question_choice_content5"
 														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
 													   <span class="fileupload fileupload-new QCN_5" data-provides="fileupload">
-															<div class="fileupload-preview fileupload-exists thumbnail" name="thisNameFind"
-																style="max-width: 300px; max-height: 180px; line-height: 20px;">
-															</div>
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 300px; max-height: 180px; line-height: 20px;">
+														</div>
 														<span>
 															<span class="btn btn-theme02 btn-file">
 																<span class="fileupload-new">
@@ -460,7 +458,9 @@
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
-													</span></div>
+													</span></div> -->
+													
+													
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
 

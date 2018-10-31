@@ -97,9 +97,9 @@ public class AdminController {
 		classList=adminService.classList();
 		model.addAttribute("classList", classList);
 		
-		List<MemberDto> memberList;
+		/*List<MemberDto> memberList;
 		memberList=adminService.memberList();
-		model.addAttribute("memberDto", memberList);
+		model.addAttribute("memberDto", memberList);*/
 
 		List<RoleDto> roleList;
 		roleList = adminService.roleList();
@@ -108,6 +108,16 @@ public class AdminController {
 		return "admin.adminMember";
 		
 	}
+	//양회준 10.30 데이터테이블Ajax
+	@RequestMapping("adminMemberAjax.do")
+	public @ResponseBody List<MemberDto> adminMember() throws Exception {
+		
+		List<MemberDto> list=adminService.memberList();
+				
+		return list;
+		
+	}
+	
 	@RequestMapping(value="adminMemberView.do")
 	public @ResponseBody ModelAndView adminMemberView() {
 		List<MemberDto> memberList = adminService.adminMemberView();
@@ -251,9 +261,14 @@ public class AdminController {
 	public String adminClassMain(Model model, String class_name, Principal principal) { 
 
 		List<NoticeDto> notice;
+		String adminNoticeCheck;
 		notice=commonService.admin_Main(class_name);
 		model.addAttribute("notice", notice);
-		String adminNoticeCheck = notice.get(0).getClass_name();
+		try {
+			adminNoticeCheck = notice.get(0).getClass_name();
+		}catch(Exception e) {
+			adminNoticeCheck = "test";
+		}
 		model.addAttribute("adminNoticeCheck", adminNoticeCheck);
 		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
@@ -385,12 +400,16 @@ public class AdminController {
 	public String studentInfo(Model model, Principal principal, HttpServletRequest request){
 		String member_id = principal.getName();
 		String class_num=request.getParameter("class_num");	
-		
+		String student_id;
+		String class_name;
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
-		String student_id = studentList.get(0).getMember_id();
-		String class_name = studentList.get(0).getClass_name();
-		System.out.println("admin:"+student_id);
-		System.out.println("admin:"+class_name);
+		try {
+			student_id = studentList.get(0).getMember_id();
+			class_name = studentList.get(0).getClass_name();
+		}catch(Exception e) {
+			student_id="데이터가 없습니다.";
+			class_name="데이터가 없습니다.";
+		}
 		//클래스 번호로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
@@ -492,6 +511,7 @@ public class AdminController {
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request) 
 				throws IOException, ClassNotFoundException, SQLException {
+			System.out.println("어드민컨트롤러진입>> QuestionDto: " + dto2 + "\n Question_ChoiceDto" + dto);
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);
@@ -500,6 +520,9 @@ public class AdminController {
 			}
 			return "redirect:questionManagement.do";
 		}
+		
+		
+		
 	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단
 	@RequestMapping("singleQuestionDelete.do")
 	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
