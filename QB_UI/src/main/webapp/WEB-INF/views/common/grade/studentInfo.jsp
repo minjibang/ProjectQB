@@ -195,39 +195,13 @@
 						
 						<%-- 클래스 통계 탭 시작 --%>
 						<div id="classChart" class="tab-pane">
+							<h3><i class="fa fa-angle-right"></i> ${studentList[0].class_name}</h3>
 							<div class="row">
-								<%-- 클래스 학생 목록 시작--%>
-								<div class="col-lg-2">
-									<section class="panel">
-										<div class="panel-body">
-											<table id="studentList" class="table table-hover">
-									                <thead>
-									                  <tr>
-									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
-									                  </tr>
-									                </thead>
-									                <tbody>									                
-												<c:forEach items="${studentList}" var="studentList">												
-								                  <tr>
-								                    <td id="${studentList.member_id}" class="studentListMembers">
-								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-															class="img-circle" width="25"> ${studentList.member_name}
-								                    </td>
-								                   </tr>												
-												</c:forEach>
-											</tbody>
-											</table>
-										</div>
-									</section>
-								</div>
-								<%-- 클래스 학생 목록 끝 --%>
-								
 								<%-- 클래스 학생 표/차트 시작 --%>
-								<div class="col-lg-10">
-									<h3>${studentList[0].class_name}</h3>
-									<!-- page start-->
-									<div class="tab-pane" id="chartjs">
-										<div class="row mt">
+								<div class="col-lg-12">
+																		
+										<div class="row">
+										
 											<%-- 반평균 막대 차트 --%>
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
@@ -343,7 +317,6 @@
 											</div>
 											<%-- 학생별 성적표 끝--%>
 										</div>
-									</div>
 								</div>
 								<%-- 클래스 학생 표/차트 끝 --%>
 							</div>
@@ -410,6 +383,7 @@ $(document).ready(function(){
 				},
 			datatype:"json",
 			success:function(data, status){
+				console.log(data);
 				tab2AjaxData=data;
 				var studentExamScoreSrc = "";				
 				$("#studentExamTable").empty();
@@ -516,7 +490,8 @@ $(document).ready(function(){
 		var studentExamScoreSrc="";
 		$(tab2AjaxData).each(function(index, element){
 			var smCtgr="";
-			if(element.exam_info_name.match(inputKey)){
+			if(element.exam_info_name.match(inputKey) || element.smCtgrName.toString().match(inputKey) ||
+					element.exam_info_date.match(inputKey)){//시험명, 소분류, 날짜 검색
 				$(element.smCtgrName).each(function(index, name){ //소분류 추출
 					smCtgr += name+'&nbsp;&nbsp;';
 				});
@@ -528,7 +503,7 @@ $(document).ready(function(){
 				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
 				studentExamScoreSrc += '<button type="button" class="btn btn-round btn-info">성적확인</button></td></tr>';
-			}							
+			}
 		});
 		$("#studentExamTable").append(studentExamScoreSrc);
 	})
