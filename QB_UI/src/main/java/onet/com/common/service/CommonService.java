@@ -397,8 +397,39 @@ public class CommonService {
 		      return result;
 		   }
 
+	   
+	   public int updateBoardListFile1(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateBoardListFile1(dto);
+			return result;
+		}
+	   
+	   public int updateBoardListFile2(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateBoardListFile2(dto);
+			return result;
+		}
 
-
+	   public int updateNoBoardList(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateNoBoardList(dto);
+			return result;
+		}
+	   
+	   public int fileDeletebtn1(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.fileDeletebtn1(dto);
+			return result;
+		}
+	   
+	   public int fileDeletebtn2(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.fileDeletebtn2(dto);
+			return result;
+		}
+	   
+	  
+	   
 }
 
 	

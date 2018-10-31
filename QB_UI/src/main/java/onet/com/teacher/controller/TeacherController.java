@@ -60,9 +60,13 @@ public class TeacherController {
 	/* 민지:10.08 강사 메인추가 */
 	   @RequestMapping("teacherMain.do")
 	   public String teacherMain(Model model, Principal principal) {
-	      String member_id = principal.getName();
-	      System.out.println(member_id);
+		  String member_id = principal.getName();
+		  String date="";
 	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+	      for(int i=0; i<notice.size(); i++) {
+	    	  date = notice.get(i).getNotice_date().substring(0, notice.get(i).getNotice_date().length()-5);
+	    	 notice.get(i).setNotice_date(date);
+	      }
 	      List<MemberDto> boardNull = commonService.boardNull(member_id);
 	      String noticeCheck = boardNull.get(0).getClass_name();
 	      model.addAttribute("noticeCheck", noticeCheck);
@@ -607,58 +611,45 @@ public class TeacherController {
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
 		dto.setNotice_date(str);
-		
 		int notice_num = dto.getNotice_num();
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		if(file1 != null && file2 != null) {
-			String originFileName1 = file1.getOriginalFilename();
-			String originFileName2 = file2.getOriginalFilename();
-			long fileSize1 = file1.getSize();
-			long fileSize2 = file2.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			System.out.println("1" + originFileName1);
-			System.out.println("2" + originFileName2);
-			UUID uuid = UUID.randomUUID();
-			String saveFile1 = uuid.toString()+"_" + originFileName1;
-			String saveFile2 = uuid.toString()+"_" + originFileName2;
-			
-			String safeFile1 = path + saveFile1;
-			String safeFile2 = path + saveFile2;
-			System.out.println("safeFile : " + safeFile1);
-			if(fileSize1 > 0 && fileSize2 > 0) {
-				file1.transferTo(new File(safeFile1));
-				file2.transferTo(new File(safeFile2));
-				dto.setNotice_file1(saveFile1);
-				dto.setNotice_file2(saveFile2);
-			}else if(fileSize1 > 0 && fileSize2 == 0){
-				file1.transferTo(new File(safeFile1));
-				dto.setNotice_file1(saveFile1);
-			}else if(fileSize2 > 0 && fileSize1 == 0) {
-				file2.transferTo(new File(safeFile2));
-				dto.setNotice_file2(saveFile2);
-			}
-		}else if(file1 != null && file2 == null) {
-			String originFileName1 = file1.getOriginalFilename();
-			long fileSize1 = file1.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			UUID uuid = UUID.randomUUID();
-			String saveFile1 = uuid.toString()+"_" + originFileName1;
-			String safeFile1 = path + saveFile1;
+		System.out.println("file1 : " + file1);
+		System.out.println("file2 : " + file2);
+		String originFileName1 = file1.getOriginalFilename();
+		String originFileName2 = file2.getOriginalFilename();
+		long fileSize1 = file1.getSize();
+		long fileSize2 = file2.getSize();
+		String path =  request.getServletContext().getRealPath("/upload/notice/");
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		
+		
+		
+		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
-			dto.setNotice_file1(saveFile1);
-		}else if(file1 == null && file2 != null) {
-			String originFileName2 = file2.getOriginalFilename();
-			long fileSize2 = file2.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			UUID uuid = UUID.randomUUID();
-			String saveFile2 = uuid.toString()+"_" + originFileName2;
-			String safeFile2 = path + saveFile2;
-			file1.transferTo(new File(safeFile2));
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file1(savaFile1);
 			dto.setNotice_file2(saveFile2);
+			commonService.updateBoardList(dto);
+		}else if(fileSize1 > 0 && fileSize2 == 0){
+			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
+			commonService.updateBoardListFile1(dto);
+		}else if(fileSize2 > 0 && fileSize1 == 0) {
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file2(saveFile2);
+			commonService.updateBoardListFile2(dto);
+		}else {
+			commonService.updateNoBoardList(dto);
 		}
-		int result = commonService.updateBoardList(dto);
+		
 		System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
@@ -680,6 +671,24 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		return result;
+	}
+	
+	@RequestMapping("fileDeletebtn1.do")
+	public @ResponseBody int fileDeletebtn1(Model model,int notice_num, String class_name) {
+		NoticeDto dto = new NoticeDto();
+		dto.setNotice_num(notice_num);
+		dto.setClass_name(class_name);
+		int result = commonService.fileDeletebtn1(dto);
+		return result;
+	}
+	
+	@RequestMapping("fileDeletebtn2.do")
+	public @ResponseBody int fileDeletebtn2(Model model,int notice_num, String class_name) {
+		NoticeDto dto = new NoticeDto();
+		dto.setNotice_num(notice_num);
+		dto.setClass_name(class_name);
+		int result = commonService.fileDeletebtn2(dto);
 		return result;
 	}
 	

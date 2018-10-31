@@ -127,15 +127,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 10.24 현이 학생 지난 시험지 보기 시작 -->
 
-<select id="examPaperDoQuestion" parameterType="hashmap" resultType="onet.com.vo.ExamPaperDoQuestionDto"><!-- 문제 정보 가져오기 -->
+<select id="examPaperDoQuestion" resultType="onet.com.vo.ExamPaperDoQuestionDto"><!-- 문제 정보 가져오기 -->
 	select q.question_num, q.question_type, q.question_name, q.question_img, q.question_answer, 
 	eq.exam_question_seq, eq.exam_question_score 
 	from question q join exam_question eq
 	on (q.question_num = eq.question_num)
 	where eq.exam_paper_num = 
-	(select exam_paper_num from exam_info where exam_info_num = #{param1})
+	(select exam_paper_num from exam_info where exam_info_num = #{exam_info_num})
 	order by eq.exam_question_seq
-	limit #{param2}, #{param3}
+	<if test="begin != 0 or rowPerPage != 0">
+		limit #{begin}, #{rowPerPage}
+	</if>
 </select>	
 
 <select id="examPaperDoQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->
@@ -180,11 +182,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	join student_answer a
 	on (q.question_num = a.question_num)
 	where eq.exam_paper_num = 
-	(select exam_paper_num from exam_info where exam_info_num = #{param2})
+	(select exam_paper_num from exam_info where exam_info_num = #{exam_info_num})
 	and a.student_answer_status = 0
-	and a.member_id = #{param1}
+	and a.member_id = #{member_id}
 	order by eq.exam_question_seq
-	limit #{param3}, #{param4};
+	<if test="begin != 0 or rowPerPage != 0">
+		limit #{begin}, #{rowPerPage}
+	</if>
 </select>
 
 <select id="examPaperDoWrongQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->

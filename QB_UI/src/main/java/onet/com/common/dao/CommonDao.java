@@ -122,5 +122,16 @@ public interface CommonDao {
 	//민지 1029 쪽지
 	public List<MemberDto> classTeacherList(String member_id);
 
-
+	public int updateBoardListFile1(NoticeDto dto);
+	
+	public int updateBoardListFile2(NoticeDto dto);
+	
+	public int updateNoBoardList(NoticeDto dto);
+	
+	public int fileDeletebtn1(NoticeDto dto);
+	
+	public int fileDeletebtn2(NoticeDto dto);
+	
+	
 }
+

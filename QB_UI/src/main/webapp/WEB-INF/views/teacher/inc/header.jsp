@@ -30,53 +30,15 @@
 		</ul>
 	</div>
 </header>
-
-
-<se:authorize access="isAuthenticated()">
-<se:authentication property="principal.username" var="username"/>
 <script>
-var wsUri = "ws://localhost:8090/qb/count.do";
-
-
-function send_message() {
-	websocket = new WebSocket(wsUri);
-	websocket.onopen = function(evt) {
-        onOpen(evt);
-    };
-    websocket.onmessage = function(evt) {
-    	console.log("send_message 에서  onmessage함수");
-        onMessage(evt);
-    };
-    websocket.onerror = function(evt) {
-        onError(evt);
-    };
-
-}
-
-
-
-function onOpen(evt) 
-{
-   websocket.send("${username}");
-}
-
-function onMessage(evt) {
-	console.log("onMessage 함수 실행")
-		$('#message').append(evt.data);
-}
-
-function onError(evt) {
-
-}
-
-
 $(document).ready(function(){
-	send_message();
+	
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
 	});
 	
+
 	$('#noticeWrite_btnAdmin').click(function(){
 		var adminClass_name = $('#noticeWrite_btnAdmin').val();
 		location.href="noticeWrite.do?class_name=" + adminClass_name;
@@ -84,12 +46,50 @@ $(document).ready(function(){
 	
 	
 });
-
-
 </script>
-</se:authorize>
 
-<!--header end-->
+<se:authorize access="isAuthenticated()">
+<se:authentication property="principal.username" var="username"/>
 
-<!--header end-->
+	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
+  <script type="text/javascript">
+    var wsUri ="ws://192.168.0.18:8090/qb/count.do";
+    
+    function send_message() {
+        websocket = new WebSocket(wsUri);
+        
+        websocket.onopen = function(evt) {
+           onOpen(evt);
+          /*  setTimeout(function(){
+        	  send_message(); 
+           },5000); */
+        };
+        websocket.onmessage = function(evt) {
+            onMessage(evt);
+        };
+        websocket.onerror = function(evt) {
+            onError(evt);
+        };
+    }
+   
+    function onOpen(evt) 
+    {
+       websocket.send("${username}");
+    }
+    
+    function onMessage(evt) {
+
+    	$('#message').html(evt.data);
+    		
+    }
+    function onError(evt) {
+    	
+    }
+	$(document).ready(function(){
+		send_message();
+	});
+
+	</script>
+</se:authorize>  
+
 
