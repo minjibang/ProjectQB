@@ -573,7 +573,7 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
-		return "common.adminClass.admin.question.questionUpdate";
+		return "common.admin.question.questionUpdate";
 	}	
 	
 	/*###################     재훈 끝         ####################*/
