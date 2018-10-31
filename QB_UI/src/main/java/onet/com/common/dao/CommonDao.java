@@ -15,6 +15,7 @@ import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -100,21 +101,37 @@ public interface CommonDao {
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
 	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name);//시험리스트
 	public List<StudentExamScoreInfo> studentExamScoreInfoCtgr(String member_id, String class_name);//시험리스트-소분류
-	public List<Score_chartDto> studentExamScoreList(String class_name);
-	public List<Score_chartDto> studentExamScoreAvg(String class_name);
+
 	
 	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
 	public List<Score_chartDto> classRank(String exam_info_name);
 
 	// 영준 - 10.26 관리자, 강사 - 학생&성적 관리페이지 - 표준편차
 	public List<Score_chartDto> studentStdChart(String exam_info_name);
-	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
-	public int studentScoreSpread(int exam_info_num, String class_name, int start, int end);
+
 	//민지 10.26 강사 - 쪽지 리스트 
 	public List<MemberDto> classMemeberList(String member_id);
+
+
+	public CharSequence count_receive_note(String member_id);
+	
+	public List<MessageDto> receiveMessage(String member_id);
+	
+	public List<MessageDto> sendMessage(String member_id);
 
 	//민지 1029 쪽지
 	public List<MemberDto> classTeacherList(String member_id);
 
-
+	public int updateBoardListFile1(NoticeDto dto);
+	
+	public int updateBoardListFile2(NoticeDto dto);
+	
+	public int updateNoBoardList(NoticeDto dto);
+	
+	public int fileDeletebtn1(NoticeDto dto);
+	
+	public int fileDeletebtn2(NoticeDto dto);
+	
+	
 }
+

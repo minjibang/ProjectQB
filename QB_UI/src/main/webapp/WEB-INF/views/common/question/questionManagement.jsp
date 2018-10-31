@@ -7,6 +7,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
@@ -106,7 +108,15 @@
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active">
-								<a data-toggle="tab" href="#overview">내 문제함</a>
+							
+							<!-- 관리자일 경우  "문제 관리" / 강사일 경우 버튼이 "내 문제함"-->
+							<se:authorize access="hasRole('ROLE_ADMIN')">
+							<a data-toggle="tab" href="#overview"> 문제 관리 </a>
+							</se:authorize>
+							<se:authorize access="hasRole('ROLE_TEACHER')">
+							<a data-toggle="tab" href="#overview"> 내 문제함 </a>
+							</se:authorize>
+							
 							</li>
 							<li>
 								<a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a>
@@ -121,7 +131,15 @@
 							<div class="row">
 								<div class="col-lg-12">
 
-									<h3 id="h3id">내가 만든 문제
+									<h3 id="h3id">
+									
+									<!--  관리자일 경우 "문제 관리"/ 강사일 경우 "내 문제함" -->
+									<se:authorize access="hasRole('ROLE_ADMIN')">
+									 문제 관리
+									</se:authorize>
+									<se:authorize access="hasRole('ROLE_TEACHER')">
+									내 문제함
+									</se:authorize>
 										<input type="text" name="member_id" id="member_id"
 										value="${memberDto.member_id}" style="display: none">
 										<input type="text" name="question_num" id="question_num"
@@ -209,7 +227,7 @@
 										<input type="text" name="member_id"
 										value="${memberDto.member_id}" style="display: none">
 										
-										<h3 id="h3id">새로운 문제 만들기</h3>
+										<h3 id="h3id">새 문제 만들기</h3>
 										<hr>
 										<h4>
 											<i class="fa fa-angle-right"></i> 출제자: ${memberDto.member_name} ( ${memberDto.member_id} )
@@ -483,8 +501,7 @@
 										입력 취소</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
-										<button type="button" class="btn btn-theme quesCategory pull-right" id="test">
-										테스트</button>
+										
 									</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->

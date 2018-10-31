@@ -83,12 +83,17 @@
 			
 			if(student_answer_status == "all"){
 				
+				if(${wrongQuestionCount} < 4 || ${wrongQuestionCount} == 4) {
+					$('#nextPageSpan').empty();	
+				} else { 
+					if($('#nextPageBtn').length == 0){
+						$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+					}
+				}
+				
 				student_answer_status = "wrong";
 				pageNo = 1;
 				$('#prevPageSpan').empty();
-				if($('#nextPageBtn').length == 0){
-					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
-				}
 				
 				begin = (pageNo - 1) * rowPerPage + 1;
 				totalRows = ${wrongQuestionCount};
@@ -102,12 +107,17 @@
 				
 			} else if (student_answer_status == "wrong") {
 				
+				if(${questionCount} < 4 || ${questionCount} == 4) {
+					$('#nextPageSpan').empty();	
+				} else { 
+					if($('#nextPageBtn').length == 0){
+						$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+					}
+				}
+				
 				student_answer_status = "all";
 				pageNo = 1;
 				$('#prevPageSpan').empty();
-				if($('#nextPageBtn').length == 0){
-					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
-				}
 				
 				begin = (pageNo - 1) * rowPerPage + 1;
 				totalRows = ${questionCount}; 

@@ -15,7 +15,14 @@ public class NoticeDto {
 	private String notice_file1;
 	private String notice_file2;
 	private String notice_date;
+	private String member_name;
 	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public int getClass_num() {
 		return class_num;
 	}

@@ -32,6 +32,7 @@ import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
@@ -324,19 +325,20 @@ public class StudentController {
 		return "common.student.common.myPage";
 	}
 	
-	
 	@RequestMapping("myMessage.do")
-	public String myMessage(Model model, Principal principal) {
-		
-		String member_id = principal.getName();
-		System.out.println("아이디:"+member_id);
-		   List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
-		   System.out.println("classTeacherList >>   " + classTeacherList + "   <<<");
-		   model.addAttribute("classTeacherList", classTeacherList);
-		   model.addAttribute("member_id", member_id);
-		
-		return "common.student.common.myMessage";
-	}
+    public String myMessage(Model model, Principal principal) {
+       String member_id = principal.getName();
+       System.out.println("아이디:"+member_id);
+          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+          model.addAttribute("classMemberList", classMemberList);
+          model.addAttribute("receiveMessage", receiveMessage);
+          model.addAttribute("sendMessage", sendMessage);
+          model.addAttribute("member_id", member_id);
+       return "common.teacher.common.myMessage";
+    }
+	
 	
 	
 	/* 양회준 10.15 내정보 탈퇴 시작*/
@@ -420,6 +422,24 @@ public class StudentController {
 		
 		return url;
 	}
+	
+	// examPaperDo 페이지, 문제 ajax로 페이징 처리
+	@RequestMapping("examPaperDoQuestion.do")
+	public ModelAndView examPaperDoQuestion(Model model, int exam_info_num, int begin, int rowPerPage) throws ClassNotFoundException, SQLException, IOException, ParseException {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("ajax.student.examPaperDo_ajax");
+		
+		int begin2 = begin - 1;
+		
+		List<ExamPaperDoQuestionDto> questionList = studentService.examPaperDoQuestion(exam_info_num, begin2, rowPerPage);	
+		List<Question_choiceDto> questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+		
+		mav.addObject("questionList", questionList);
+		mav.addObject("questionChoiceList", questionChoiceList);
+		
+		return mav;
+	}
 	/* 현이 18.10.15 학생 시험응시 페이지 끝 */
 	/* 양회준 18.10.19 학생 시험응시 페이지 테스트 시간제한 끝 */
 	
@@ -428,7 +448,7 @@ public class StudentController {
 	@RequestMapping(value="examPaperDo2.do", method=RequestMethod.POST)
 	public String examAnswerInsert(Student_answerDtoList answerList) throws ClassNotFoundException, SQLException, IOException {
 		
-		List<Student_answerDto> items = answerList.getStudent_answer();		
+		//List<Student_answerDto> items = answerList.getStudent_answer();		
 		int result = studentService.examAnswerInsert(answerList);
 		
 		return "redirect:pastExam.do";
@@ -539,7 +559,7 @@ public class StudentController {
 	
 /*10.29 학생이 쪽지 보내기 */
 		@RequestMapping(value="sendTeacherMessage.do", method=RequestMethod.POST)
-		public String sendTeacherMessage(Principal principal,String teacher_id,String message_content)  {
+		public @ResponseBody int sendTeacherMessage(Principal principal,String teacher_id,String message_content)  {
 			
 			  String send_member_id = principal.getName();	
 			  System.out.println("send_member_id:"+send_member_id+"teacher_id:"+teacher_id+"message_content:"+message_content);
@@ -551,7 +571,7 @@ public class StudentController {
 				System.out.println("쪽지 보내기 실패~!");
 			}
 			
-			return "redirect:myMessage.do";
+			return result;
 			
 		}
 }

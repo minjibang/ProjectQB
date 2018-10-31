@@ -24,6 +24,7 @@ import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -287,7 +288,7 @@ public class CommonService {
 	public List<MemberDto> studentInfo(String member_id, String class_num){
 		List<MemberDto> studentList = null;
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		System.out.println("11아이디:"+member_id);
+		System.out.println("아이디:"+member_id);
 		if(member_id.equals("admin")) {
 			studentList = dao.adminStudentInfo(class_num);
 		}else {			
@@ -323,23 +324,7 @@ public class CommonService {
 		}		
 		return list;
 	}
-	//양회준 10-29 학생&성적관리 클래스 통계 표
-	public List<Score_chartDto> studentExamScoreList(String class_name){
-		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);	
-		ArrayList<Integer> score = new ArrayList<Integer>();
-		List<Score_chartDto> scorelist= commonDao.studentExamScoreList(class_name);//과목별 점수
-		List<Score_chartDto> avglist= commonDao.studentExamScoreAvg(class_name);//평균점수
-		for(Score_chartDto data : avglist) {
-			score.clear();
-			for(Score_chartDto data2 : scorelist) {				
-				if(data.getMember_id().equals(data2.getMember_id())) {//아이디가 같을 경우 점수를 리스트 대입
-					score.add(data2.getScore_chart_score());
-				}
-			}
-			data.setScore_list(score);//점수리스트를 평균리스트에 대입
-		}
-		return avglist;
-	}
+	
 
 
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
@@ -388,32 +373,70 @@ public class CommonService {
 	      return result;
 	   }
 
-	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
-	public int[] studentScoreSpread(int exam_info_num, String class_name){
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int spreadCount = 0;
-		int[] spreadList = new int[10];
-		int start = 0;
-		int end = 10;
-		for(int i=0;i<10;i++) {
-			if(i==0) {
-				spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
-			}else {
-				start = (i*10)+1;
-				end = (i*10)+10;
-				spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
-			}
-			spreadList[i]=spreadCount;
-		}
-		return spreadList;
-	}
+
+	   public List<MessageDto> receiveMessage(String member_id){
+		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		   List<MessageDto> result = dao.receiveMessage(member_id);
+		   return result;
+	   }
+
+	   public List<MessageDto> sendMessage(String member_id){
+		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		   List<MessageDto> result = dao.sendMessage(member_id);
+		   return result;
+	   }
 
 	   
-	//민지 쪽지 1029
-	public List<MemberDto> classTeacherList(String member_id) {
-		System.out.println("강사강사강사강사서비스");
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);	      
-		List<MemberDto> result = dao.classTeacherList(member_id);	      
-		return result;
-	}
+	   //민지 쪽지 1029
+	   public List<MemberDto> classTeacherList(String member_id) {
+		   System.out.println("강사강사강사강사서비스");
+		      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		      
+		      List<MemberDto> result = dao.classTeacherList(member_id);
+		      
+		      return result;
+		   }
+
+	   
+	   public int updateBoardListFile1(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateBoardListFile1(dto);
+			return result;
+		}
+	   
+	   public int updateBoardListFile2(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateBoardListFile2(dto);
+			return result;
+		}
+
+	   public int updateNoBoardList(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateNoBoardList(dto);
+			return result;
+		}
+	   
+	   public int fileDeletebtn1(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.fileDeletebtn1(dto);
+			return result;
+		}
+	   
+	   public int fileDeletebtn2(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.fileDeletebtn2(dto);
+			return result;
+		}
+	   
+	  
+	   
 }
+
+	
+	
+	
+
+
+
+
+
