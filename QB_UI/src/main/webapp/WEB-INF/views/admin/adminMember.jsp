@@ -107,7 +107,7 @@
 				</div>
 			</div>
 				<!-- DeleteModal -->
-				<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				<!-- <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -115,7 +115,7 @@
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel">삭제 확인</h4>
-								<!-- modal-header 끝 -->
+								modal-header 끝
 							</div>
 							<div class="modal-body">정말 삭제하시겠습니까?</div>
 							<div class="modal-footer">
@@ -135,15 +135,15 @@
 									</div>
 								</div>
 							</div>
-							<!-- modal-content 끝 -->
+							modal-content 끝
 						</div>
-						<!-- modal-dialog 끝 -->
+						modal-dialog 끝
 					</div>
-					<!-- DeleteModal 끝 -->
-				</div>
+					DeleteModal 끝
+				</div> -->
 				
 				<!-- 선택 회원 일괄 학생등록 Modal 시작 -->
-				<div class="modal fade" id="InsertMemberModal" tabindex="-1" role="dialog"
+				<!-- <div class="modal fade" id="InsertMemberModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -151,7 +151,7 @@
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel">등록 확인</h4>
-								<!-- modal-header 끝 -->
+								modal-header 끝
 							</div>
 							<div class="modal-body">정말 등록하시겠습니까?</div>
 							<div class="modal-footer">
@@ -164,15 +164,15 @@
 									</div>
 								</div>
 							</div>
-							<!-- modal-content 끝 -->
+							modal-content 끝
 						</div>
-						<!-- modal-dialog 끝 -->
+						modal-dialog 끝
 					</div>
-					<!-- 선택 회원 일괄 학생등록 Modal 끝 -->
-				</div>
+					선택 회원 일괄 학생등록 Modal 끝
+				</div> -->
 				
 				<!-- 선택 회원 일괄 삭제 Modal 시작 -->
-				<div class="modal fade" id="DeleteMemberModal" tabindex="-1" role="dialog"
+				<!-- <div class="modal fade" id="DeleteMemberModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -180,7 +180,7 @@
 								<button type="button" class="close" data-dismiss="modal"
 									aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel">삭제 확인</h4>
-								<!-- modal-header 끝 -->
+								modal-header 끝
 							</div>
 							<div class="modal-body">정말 삭제하시겠습니까?</div>
 							<div class="modal-footer">
@@ -193,12 +193,12 @@
 									</div>
 								</div>
 							</div>
-							<!-- modal-content 끝 -->
+							modal-content 끝
 						</div>
-						<!-- modal-dialog 끝 -->
+						modal-dialog 끝
 					</div>
-					<!-- 선택 회원 일괄 삭제 Modal 끝 -->
-				</div>
+					선택 회원 일괄 삭제 Modal 끝
+				</div> -->
 				
 				<!-- <div class="showback"> -->
 				<div class="row content-panel">
@@ -237,8 +237,8 @@
 								<option value="email">이메일</option>
 							</select>
 							<input type="text" class="form-control searchControl" 
-								   id="searchBox" name="searchBox" placeholder="검색어를 입력">
-							<button type="button" class="btn btn-info btn-theme" id="memberSearchBtn">검색</button>
+								   id="searchBox" name="searchBox" placeholder="검색어를 입력하세요">
+							<button type="button" class="btn btn-info btn-theme" id="memberSearchBtn">새로고침</button>
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
@@ -256,41 +256,15 @@
 													<th class="member_enable">수정&삭제</th>
 												</tr>
 											</thead>
-											<%-- <tbody id="memberListView">
-												<c:forEach items="${memberDto}" var="memberList">
-													<tr>
-														<td><input type="checkbox" id="chk" name="chk" value="chk"></td>
-														<td id="class_name" class="class_name">${memberList.class_name}</td>
-														<td id="member_id" class="member_id">${memberList.member_id}</td>
-														<td id="member_name" class="member_name"name='member_id'>${memberList.member_name}</td>
-														<td id="member_email" class="member_email">${memberList.member_email}</td>
-														<td id="member_phone" class="member_phone">${memberList.member_phone}</td>
-														<td id="role_code" class="role_code">${memberList.role_desc}</td>
-														<td id="member_enable" class="member_enable">${memberList.member_enable}</td>
-														<td><button type="button" class="btn btn-info"
-																id="updatebtn" name="updatebtn" data-toggle="modal"
-																data-target="#UpdateModal" value="${memberList.member_id}">
-																<i class="fa fa-pencil"> </i>
-															</button>
-															<button type="button" class="btn btn-danger deletebtn"
-																id="deletebtn" name="deletebtn" data-toggle="modal"
-																data-target="#DeleteModal" value="${memberList.member_id}">															
-																<i class="fa fa-trash-o"></i>															
-															</button>													
-														</td>
-													</tr>
-												</c:forEach>
-											</tbody> --%>
 										</table>
 										<div id="adminMemberBtnDiv">
 											
 											<button type="button" class="insert-member btn btn-theme"
-													id="selectInsertbtn" name="selectInsertbtn" data-toggle="modal"
-													data-target="#InsertMemberModal">선택 회원 일괄
-											학생 등록</button>
+													id="selectInsertbtn" name="selectInsertbtn">선택 회원 일괄 학생 등록</button>
+													 <!-- data-toggle="modal" data-target="#InsertMemberModal" -->
 											<button type="button" class="delete-member btn btn-theme04"
-													id="selectDeletebtn" name="selectDeletebtn" data-toggle="modal" 
-													data-target="#DeleteMemberModal">선택 회원 일괄 삭제</button>
+													id="selectDeletebtn" name="selectDeletebtn">선택 회원 일괄 삭제</button>
+													 <!-- data-toggle="modal" data-target="#DeleteMemberModal" -->
 										</div>
 									</div>
 									<!-- /col-md-6 -->
