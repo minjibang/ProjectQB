@@ -53,9 +53,14 @@ public interface StudentDao {
 	public int wrongQuestionCount(String member_id, int exam_info_num);
 	/*10.24 현이 학생 지난 시험지 보기 끝*/
 	
+
 	/*10.29 민지 학생이 쪽지보내기*/
 	public int sendTeacherMessage(MessageDto dto);
 	
-	
+
+	/*10.29 재훈 학생 자기 등수 확인 시작*/
+	public List<Score_chartDto> myRank(String member_id, String exam_info_num);
+	/*10.29 재훈 학생 자기 등수 확인 시작*/
+
 }
 

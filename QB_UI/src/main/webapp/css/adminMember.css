@@ -1,4 +1,7 @@
-
+/* 양회준 */
+.dataTables_filter{
+	display:none;
+}
 /****민지****/
 .adminMemberSelect{
 	display:inline-block;

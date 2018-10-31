@@ -5,8 +5,74 @@
  	@Desc:회원관리 js(스토리보드 10 of 41)
  */
 
-
 $(document).ready(function(){
+	//영준 - 관리자 회원관리 DataTable
+	//양회준 10.31-관리자 회원관리 DataTable 수정
+	var dateTable=$('#adminMemberTable').DataTable( {
+		"ordering":true,
+		"paging": true,
+		"ordering":false,
+		"searching": true,
+		"bLengthChange" : false,
+		 "language": {
+             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+         },
+         "processing":true,
+		"ajax": {
+            url: 'adminMemberAjax.do',
+            method: "post",
+            dataSrc:"",
+            xhrFields: {
+                withCredentials: true
+            }
+        },
+        "columns":
+        [
+        	{defaultContent:"<input type='checkbox' id='chk' name='chk' value='chk'>"},
+            {data: "class_name" },
+            {data: "member_id" },
+            {data: "member_name" },
+            {data: "member_email" },
+            {data: "member_phone" },
+            {data: "role_code" },
+            {data: "member_enable" },
+            {defaultContent:"<button type='button' class='btn btn-info'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i><button type='button' class='btn btn-danger deletebtn'id='deletebtn' name='deletebtn' data-toggle='modal'data-target='#DeleteModal'><i class='fa fa-trash-o'></i></button>"}
+        ]
+    } );
+	//양회준 10.31 DataTable 검색 구현
+	$("#searchRole").on("change", function(){
+		dateTable.column(6).search(this.value).draw();
+		console.log(this.value);
+	});
+	$("#searchClassName").on("change", function(){
+		dateTable.column(1).search(this.value).draw();
+		console.log(this.value);
+	});
+	$("#searchMemberInfo").on("change", function(){
+		if(this.value=="name"){
+			dateTable.columns(3).search($("#searchBox").val()).draw();
+			console.log(this.value);
+		}else if(this.value=="id"){
+			dateTable.columns(2).search($("#searchBox").val()).draw();
+			console.log(this.value);
+		}else if(this.value=="email"){
+			dateTable.columns(4).search($("#searchBox").val()).draw();
+			console.log(this.value);
+		}else{}
+	});
+	$("#searchBox").on("keyup", function(){
+		dateTable.search($("#searchBox").val()).draw();
+		console.log("선택?"+this.value);
+	});
+	//양회준 10.31 검색 초기화
+	$("#memberSearchBtn").click(function(){
+		$("#searchRole option").prop("selected", false);
+		$("#searchClassName option").prop("selected", false);
+		$("#searchMemberInfo option").prop("selected", false);
+		dateTable.search("").columns().search("").draw();
+		console.log($("#searchRole").val());
+	});
+	
 	function allCheckFunc( obj ) {
 		$("[name=chk]").prop("checked", $(obj).prop("checked") );
 	}
@@ -244,7 +310,8 @@ $(function(){
 
 		
 	/* 검색 버튼 구현 */
-	$("#memberSearchBtn").click(function(){
+	/*$("#memberSearchBtn").click(function(){
+		dateTable.ajax.reload();
 		var html = "";
 		var searchRole = $("#searchRole").val();			
 		var searchClassName = $("#searchClassName").val();
@@ -298,8 +365,9 @@ $(function(){
 				console.log("실패....");
 			}
 		});		
-	});
+	});*/
 	var rowMemberAuth;
+	var rowMemberId;
 	//체크박스값 가져와 일괄학생등록
 	$("#selectInsertbtn").click(function(){
 		var checkbox = $("input[name=chk]:checked").length;
@@ -312,54 +380,50 @@ $(function(){
 			return true;
 		}
 	});
-	$("#insertMembersPermit").click(function(){
-		
+	
+	$("#insertMembersPermit").click(function(){	
 		var updateStudentArr = new Array();
+		var rowMemberAuthArr = new Array();
 		$("input[name=chk]:checked").each(function(i){
-			var rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
+			rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
 			rowMemberAuth = $(this).parent().parent().children(".role_code").text().trim();
 			updateStudentArr.push(rowMemberId);	
-			
-			console.log("가져오는 회원값 : " + rowMemberId);
-			console.log("회원 권한값 :" + rowMemberAuth);
-			
-			if(rowMemberAuth == "학생"){
-				swal("이미 등록된 회원입니다");
-				return false;
-			} 
+			rowMemberAuthArr.push(rowMemberAuth);
 		});
 		
+		if(rowMemberAuthArr.toString().match("학생")){
+			swal("이미 학생으로 등록된 회원이 있습니다");
+		}else{
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url : "updateStudentsAjax.do",
+				type : "post",
+				data : {
+					"updateStudentArr" : updateStudentArr
+				},
+				dataType : "text",
+				success:function(data){
+					$("input[name=chk]:checked").each(function(i){
+						rowMemberAuth = $(this).parent().parent().children(".role_code").text("학생");
+					});
+					swal("학생으로 등록 되었습니다");
+					console.log("성공한 값 : " + data);
+				},
+				error : function(error){
+					swal("에러가 발생했습니다.");
+				}
+			});
+		}
 		console.log(updateStudentArr);
 		console.log(JSON.stringify(updateStudentArr));
-		jQuery.ajaxSettings.traditional = true;
 		
-
-
-		$.ajax({
-			url : "updateStudentsAjax.do",
-			type : "post",
-			data : {
-				"updateStudentArr" : updateStudentArr
-			},
-			dataType : "text",
-			success:function(data){
-				$("input[name=chk]:checked").each(function(i){
-					rowMemberAuth = $(this).parent().parent().children(".role_code").text("학생");
-				});
-				console.log("성공한 값 : " + data);
-			},
-			error : function(error){
-				swal("에러가 발생했습니다.");
-			}
-		});
 	});
 	//체크박스 값 일괄 삭제
 	var checkbox;
 	$("#selectDeletebtn").click(function(){
 		
 		checkbox = $("input[name=chk]:checked").length;
-		console.log("과연 check는 :" + checkbox);
-		
+		console.log("과연 check는 :" + checkbox);		
 		
 		if(checkbox == 0){
 			swal("삭제할 회원을 선택해주세요");
@@ -371,40 +435,37 @@ $(function(){
 	
 	$("#deleteMembersPermit").click(function(){
 		var deleteStudentArr = new Array();
-		
+		var memberEnableArr = new Array();
+		var rowMemberId="";
+		var memberEnable="";
 		$("input[name=chk]:checked").each(function(i){
-			var rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
-			var memberEnable = $(this).parent().parent().children(".member_enable").text().trim();
+			rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
+			memberEnable = $(this).parent().parent().children(".member_enable").text().trim();
 			deleteStudentArr.push(rowMemberId);		
-			
-			
-			console.log("회원 활성값 :" + memberEnable);
-			
-			if(memberEnable == 0){
-				swal("이미 삭제된 회원입니다");
-				return false;
-			}
+			memberEnableArr.push(memberEnable);			
 		});
-		console.log(deleteStudentArr);
-		console.log(JSON.stringify(deleteStudentArr));
-		jQuery.ajaxSettings.traditional = true;
-
 		
-		$.ajax({
-			url : "deleteStudentsAjax.do",
-			type : "post",
-			data : {
-				"deleteStudentArr" : deleteStudentArr
-			},
-			dataType : "text",
-			success:function(data){
-				$("input[name=chk]:checked").each(function(i){
-					var rowMemberEnabled = $(this).parent().parent().children(".member_enable").text("0");
-				});
-			},
-			error : function(error){
-				console.log("헷갈림 실패....");
-			}
-		});
+		if(memberEnableArr.toString().match("0")){
+			swal("이미 삭제된 회원이 포함되어 있습니다.");
+		}else{
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({
+				url : "deleteStudentsAjax.do",
+				type : "post",
+				data : {
+					"deleteStudentArr" : deleteStudentArr
+				},
+				dataType : "text",
+				success:function(data){
+					swal("선택한 회원들이 삭제되었습니다.");
+					$("input[name=chk]:checked").each(function(i){
+						var rowMemberEnabled = $(this).parent().parent().children(".member_enable").text("0");
+					});
+				},
+				error : function(error){
+					swal("에러가 발생했습니다.");
+				}
+			});
+		}		
 	});
-});	
+})

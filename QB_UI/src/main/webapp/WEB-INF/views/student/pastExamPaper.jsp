@@ -44,8 +44,9 @@
 			$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
 		}
 		
-		student_answer_status = "all";
-		pastExamPaperView(student_answer_status);
+		student_answer_status = "all";		//	전체 문제 보기, 틀린 문제만 보기 
+		pastExamPaperView(student_answer_status, "question");
+		pastExamPaperView(student_answer_status, "answerSheet");
 		
 		$(document).on('click', '#nextPageBtn', function(){
 			if(pageNo < totalPages){
@@ -54,7 +55,7 @@
 				} 
 				pageNo += 1;			
 				begin = (pageNo - 1) * rowPerPage + 1;	 
-				pastExamPaperView(student_answer_status);
+				pastExamPaperView(student_answer_status, "question");
 				
 				if(pageNo == totalPages){
 					$('#nextPageSpan').empty();
@@ -70,7 +71,7 @@
 				}
 				pageNo -= 1;
 				begin = (pageNo - 1) * rowPerPage + 1;	 
-				pastExamPaperView(student_answer_status);
+				pastExamPaperView(student_answer_status, "question");
 				if(pageNo == 1){
 					$('#prevPageSpan').empty();
 				}
@@ -82,36 +83,48 @@
 			
 			if(student_answer_status == "all"){
 				
+				if(${wrongQuestionCount} < 4 || ${wrongQuestionCount} == 4) {
+					$('#nextPageSpan').empty();	
+				} else { 
+					if($('#nextPageBtn').length == 0){
+						$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+					}
+				}
+				
 				student_answer_status = "wrong";
 				pageNo = 1;
 				$('#prevPageSpan').empty();
-				if($('#nextPageBtn').length == 0){
-					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
-				}
 				
 				begin = (pageNo - 1) * rowPerPage + 1;
 				totalRows = ${wrongQuestionCount};
 				totalPages = Math.ceil(totalRows / rowPerPage);
 				
-				pastExamPaperView(student_answer_status);
+				pastExamPaperView(student_answer_status, "question");
+				pastExamPaperView(student_answer_status, "answerSheet");
 				searchStudentAnswer(student_answer_status);
 				
 				$("#wrongQuestionBtn").text("전체 문제 보기");
 				
 			} else if (student_answer_status == "wrong") {
 				
+				if(${questionCount} < 4 || ${questionCount} == 4) {
+					$('#nextPageSpan').empty();	
+				} else { 
+					if($('#nextPageBtn').length == 0){
+						$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+					}
+				}
+				
 				student_answer_status = "all";
 				pageNo = 1;
 				$('#prevPageSpan').empty();
-				if($('#nextPageBtn').length == 0){
-					$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
-				}
 				
 				begin = (pageNo - 1) * rowPerPage + 1;
 				totalRows = ${questionCount}; 
 				totalPages = Math.ceil(totalRows / rowPerPage);
 				
-				pastExamPaperView(student_answer_status);
+				pastExamPaperView(student_answer_status, "question");
+				pastExamPaperView(student_answer_status, "answerSheet");
 				searchStudentAnswer(student_answer_status);
 				
 				$("#wrongQuestionBtn").text("틀린 문제만 보기");
@@ -121,46 +134,31 @@
 	}); // document.ready 종료
 	
 	
-	// 문제 가져오는 ajax
-	function pastExamPaperView(student_answer_status){
+	
+	// 문제 가져오는 ajax + 답안지 가져오는 ajax 
+	function pastExamPaperView(student_answer_status, question_answerSheet){
 		$.ajax({
 			url : "pastExamPaperView.do",
 			type : 'post',
 			data : {
 					'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
 					'student_answer_status' : student_answer_status,
+					'question_answerSheet' : question_answerSheet,
 					'begin' : begin,
 					'rowPerPage' : rowPerPage 				// 여기에서 페이징 관련 정보를 보내줌
 			},
 			dataType : "html",
 			success : function(data) {
-				$('#examSpan').html(data);
-				searchAnswer(student_answer_status);
+				
+				if(question_answerSheet == "question"){
+					$('#examSpan').html(data);	
+				} else if (question_answerSheet == "answerSheet"){
+					$('#answerSpan').html(data);
+				}
 				searchStudentAnswer(student_answer_status); 	// 학생 답안지 가져오는 ajax 
 			}
 		});
 	}
-	
-	// 답안지 가져오는 ajax
-	function searchAnswer(student_answer_status){
-		$.ajax({
-			url : "pastExamPaperAnswerView.do",
-			type: "get",
-			data : {
-				'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
-				'student_answer_status' : student_answer_status,
-				'begin' : begin,
-				'rowPerPage' : rowPerPage
-			}, 
-			dataType : "html",
-			success : function(data){
-				console.log(data);
-				$('#answerSpan').html(data);
-				searchStudentAnswer(student_answer_status);
-			}
-		});
-	}
-
 
 	// 학생 답안지 가져오는 ajax 
 	function searchStudentAnswer(student_answer_status) {
