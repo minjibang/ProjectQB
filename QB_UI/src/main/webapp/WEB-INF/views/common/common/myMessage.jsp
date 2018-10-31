@@ -130,6 +130,8 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
+                                      <button type="button" class="btn btn-danger sendMessageDelete" >삭제</button>
+                                      <input type="hidden" id="sendDeleteHidden" name="sendDeleteHidden" />
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
@@ -144,7 +146,7 @@
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
                                                 <tr class="${receiveMessage.message_num}">
                                                    <td class="inbox-small-cells"><input name="chk2"
-                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;"></td>
+                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
                                                    <td class="view-message ">${receiveMessage.send_member_id}</td>
                                                    <td class="view-message receiveBtn" data-toggle="modal"
                                                       data-target="#MessageModal" id="${receiveMessage.message_num}" onclick=" message_content_row()">
@@ -187,6 +189,8 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
+                                      <button type="button" class="btn btn-danger receiveMessageDelete" >삭제</button>
+                                      <input type="hidden" id="receiveDeleteHidden" name="receiveDeleteHidden" />	
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
@@ -201,7 +205,7 @@
                                              <c:forEach items="${sendMessage}" var="sendMessage">
                                                 <tr class="unread">
                                                    <td class="inbox-small-cells"><input name="chk3"
-                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;"></td>
+                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${sendMessage.message_num}"></td>
                                                    <td class="view-message "><a href="mail_view.html">나</a></td>
                                                    <td class="view-message sendBtn" data-toggle="modal"
                                                       data-target="#MessageModal">
@@ -395,7 +399,7 @@ function check_t(){
          dangerMode: true
       });
    document.getElementById("message_content").value='';
-   websocket.send(data); 
+   websocket.send(data);
      
    }
       };
@@ -461,4 +465,62 @@ function check_t(){
       });
       
       }
+   
+   $('.sendMessageDelete').click(function(){
+	   var sendMessageDeleterarray = new Array();
+	      $("input:checkbox[name=chk2]:checked").each(function(){
+	     	  sendMessageDeleterarray.push($(this).val());
+	      });
+	       console.log("sendMessageDeleterarray>>"+sendMessageDeleterarray+"<<");
+	       document.getElementById("sendDeleteHidden").setAttribute('value',sendMessageDeleterarray);
+	   	   var data ={ 'sendDeleteHidden':$('#sendDeleteHidden').val()};
+	   
+	   	   $.ajax({
+	           url : "sendMessageDelete.do",
+	           type : "post",
+	           dataType : "html",
+	           data : data,
+	           success : function(data){
+	        	  if(data>0){
+	            	  swal({
+					       title: "삭제성공",
+						   text: "선택된 받은쪽지가 삭제되었다",
+						   icon:"info"
+						}).then(function() {
+						    window.location = "myMessage.do";
+						});
+	              }
+	           }
+	        });
+	   
+   });
+   
+   $('.receiveMessageDelete').click(function(){
+	   var receiveMessageDeleterarray = new Array();
+	      $("input:checkbox[name=chk3]:checked").each(function(){
+	     	  receiveMessageDeleterarray.push($(this).val());
+	      });
+	       document.getElementById("receiveDeleteHidden").setAttribute('value',receiveMessageDeleterarray);
+	   	   var data ={ 'receiveDeleteHidden':$('#receiveDeleteHidden').val()};
+	   	   $.ajax({
+	           url : "receiveMessageDelete.do",
+	           type : "post",
+	           dataType : "html",
+	           data : data,
+	           success : function(data){
+	        	  if(data>0){
+	            	  swal({
+					       title: "삭제성공",
+						   text: "선택된 받은쪽지가 삭제되었다",
+						   icon:"info"
+						}).then(function() {
+						    window.location = "myMessage.do";
+						});
+	              }
+	           }
+	        });
+	   
+   });
+   
+   
 </script>

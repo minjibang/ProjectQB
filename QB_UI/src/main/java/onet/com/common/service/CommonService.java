@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
-
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CommentDto;
 
 import onet.com.vo.CategoryDto;
@@ -428,7 +428,23 @@ public class CommonService {
 			return result;
 		}
 	   
-	  
+	   public int sendMessageDelete(String sendDeleteHiddenArray) {
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			int sendDeleteHiddenArrayInt = Integer.parseInt(sendDeleteHiddenArray);
+			int result = dao.sendMessageDelete(sendDeleteHiddenArrayInt);
+			
+			return result;
+		}
+	   
+	   public int receiveMessageDelete(String receiveDeleteHiddenArray) {
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			int receiveDeleteHiddenArrayInt = Integer.parseInt(receiveDeleteHiddenArray);
+			int result = dao.receiveMessageDelete(receiveDeleteHiddenArrayInt);
+			
+			return result;
+		}
+	   
+	   
 	   
 }
 

@@ -291,6 +291,8 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 
 </select>
 
+
+
 </mapper>
 
 

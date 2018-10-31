@@ -692,4 +692,27 @@ public class TeacherController {
 		return result;
 	}
 	
+	@RequestMapping("sendMessageDelete.do")
+	public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
+		int result = 0;
+		String[] sendDeleteHiddenArray=sendDeleteHidden.split(",");
+		for(int i = 0; i < sendDeleteHiddenArray.length;i++) {
+			result = commonService.sendMessageDelete(sendDeleteHiddenArray[i]);
+		}
+		return result;
+	}
+	
+	@RequestMapping("receiveMessageDelete.do")
+	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
+		int result = 0;
+		System.out.println(receiveDeleteHidden);
+		String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
+		for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
+			
+			result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
+			System.out.println(result);
+		}
+		return result;
+	}
+	
 }

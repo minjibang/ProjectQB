@@ -132,6 +132,8 @@ public interface CommonDao {
 	
 	public int fileDeletebtn2(NoticeDto dto);
 	
+	public int sendMessageDelete(int message_num);
 	
+	public int receiveMessageDelete(int message_num);
 }
 
