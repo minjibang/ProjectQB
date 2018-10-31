@@ -108,6 +108,13 @@ public class AdminController {
 		return "admin.adminMember";
 		
 	}
+	//양회준 10.30 데이터테이블Ajax
+	@RequestMapping("adminMemberAjax.do")
+	public @ResponseBody List<MemberDto> adminMemberAjax() throws Exception {		
+		List<MemberDto> list=adminService.memberList();				
+		return list;		
+	}
+	
 	@RequestMapping(value="adminMemberView.do")
 	public @ResponseBody ModelAndView adminMemberView() {
 		List<MemberDto> memberList = adminService.adminMemberView();
