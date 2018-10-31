@@ -27,7 +27,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-	SessionMaps.getAlarmusers().put(session.getId(), session); // SessionMaps.getALarmusrs() => alarmusers를  return ( HashMap )
+	 // SessionMaps.getALarmusrs() => alarmusers를  return ( HashMap )
 	System.out.println("연결됐다");
 		//super.afterConnectionEstablished(session);
 	System.out.println("연결된 사용자 id>>"+session.getPrincipal().getName());
