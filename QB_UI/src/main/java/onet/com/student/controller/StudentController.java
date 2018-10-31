@@ -559,7 +559,7 @@ public class StudentController {
 	
 /*10.29 학생이 쪽지 보내기 */
 		@RequestMapping(value="sendTeacherMessage.do", method=RequestMethod.POST)
-		public String sendTeacherMessage(Principal principal,String teacher_id,String message_content)  {
+		public @ResponseBody int sendTeacherMessage(Principal principal,String teacher_id,String message_content)  {
 			
 			  String send_member_id = principal.getName();	
 			  System.out.println("send_member_id:"+send_member_id+"teacher_id:"+teacher_id+"message_content:"+message_content);
@@ -571,7 +571,7 @@ public class StudentController {
 				System.out.println("쪽지 보내기 실패~!");
 			}
 			
-			return "redirect:myMessage.do";
+			return result;
 			
 		}
 }

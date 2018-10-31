@@ -231,234 +231,234 @@
                         </div>
                      </section>
                   </div>
-								<!-- /tab-pane -->
-								<div id="contact" class="tab-pane examstudent">
-									<div class="row">
-										<div class="row mt">
-											<div id="updateExam" class="tab-pane">
-											<form class="contact-form php-mail-form" role="form"
-																action="sendTeacherMessage.do" method="POST" >
-												<input type="hidden" id="messagemember" name="messagemember" />
-												<div class="row">
-													<div class="col-md-12">
-														<div class="col-md-2">
-															<section class="panel" style="width:150px;">
-																<div class="panel-body grey-panel">
-																	<div>
-																		<label class="btn btn-compose"> <i
-																			class="fa fa-pencil"></i>전체선택 <input type="checkbox"
-																			class="checkbox form-control" id="agreeAll" />
-																		</label>
-																	</div>
-																	<ul class="nav nav-pills nav-stacked mail-nav">
-																	<se:authorize access="hasRole('ROLE_TEACHER')">
-																		<c:forEach items="${classMemberList}" var="classMemberList">
-																		<li id="messageSelect"><div>
-																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
-																		  <label>
-																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25">${classMemberList.member_name}
-																					</label>
-																					</div>
-																			</div></li>
-																	</c:forEach>
-																	</se:authorize>
-																	<se:authorize access="hasRole('ROLE_STUDENT')">
-																		<c:forEach items="${classTeacherList}" var="classTeacherList">
-																		<li id="messageSelect"><div>
-																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
-																		  <label>
-																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;" checked/>
-																				<img
-																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																					class="img-circle" width="25">${classTeacherList.member_name}
-																					</label>
-																					</div>
-																			</div></li>
-																			<input type="hidden" id="teacher_id" name="teacher_id" value="${classTeacherList.member_id}"/>
-																	</c:forEach>
-																	</se:authorize>
-																	</ul>
-																</div>
-															</section>
-														</div>
-														<div class="col-md-8">
-																<div class="form-group">
-																	<textarea class="form-control" name=message_content
-																		id="message_content" placeholder="Your Message"
-																		rows="5" data-rule="required"
-																		data-msg="Please write something for us"></textarea>
-																</div>
-																<div class="sent-message">Your message has been
-																	sent. Thank you!</div>
-																	<se:authorize access="hasRole('ROLE_STUDENT')">
-																<button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
-																</se:authorize>
-																<se:authorize access="hasRole('ROLE_TEACHER')">
-																<button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
-																</se:authorize>
-																<button class="btn btn-theme04" type="button">취소</button>
-														</div>
-													</div>
-												</div>
-												</form>
-											</div>
-											<!-- /row -->
-										</div>
-										<!-- /tab-content -->
-									</div>
-									<!-- /panel-body -->
-								</div>
-							</div>
-							<!-- /tab-content -->
-						</div>
-						<!-- /panel-body -->
-			</div><!-- row content-panel -->
-		</div><!-- col-lg-12 mt -->
-	</section><!-- wrapper site-min-height -->
+                        <!-- /tab-pane -->
+                        <div id="contact" class="tab-pane examstudent">
+                           <div class="row">
+                              <div class="row mt">
+                                 <div id="updateExam" class="tab-pane">
+                                 <form class="contact-form php-mail-form" role="form"
+                                                action="sendTeacherMessage.do" method="POST" >
+                                    <input type="hidden" id="messagemember" name="messagemember" />
+                                    <div class="row">
+                                       <div class="col-md-12">
+                                          <div class="col-md-2">
+                                             <section class="panel" style="width:150px;">
+                                                <div class="panel-body grey-panel">
+                                                   <div>
+                                                      <label class="btn btn-compose"> <i
+                                                         class="fa fa-pencil"></i>전체선택 <input type="checkbox"
+                                                         class="checkbox form-control" id="agreeAll" />
+                                                      </label>
+                                                   </div>
+                                                   <ul class="nav nav-pills nav-stacked mail-nav">
+                                                   <se:authorize access="hasRole('ROLE_TEACHER')">
+                                                      <c:forEach items="${classMemberList}" var="classMemberList">
+                                                      <li id="messageSelect"><div>
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left;">
+                                                        <label>
+                                                        <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
+                                                            <img
+                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+                                                               class="img-circle" width="25">${classMemberList.member_name}
+                                                               </label>
+                                                               </div>
+                                                         </div></li>
+                                                   </c:forEach>
+                                                   </se:authorize>
+                                                   <se:authorize access="hasRole('ROLE_STUDENT')">
+                                                      <c:forEach items="${classTeacherList}" var="classTeacherList">
+                                                      <li id="messageSelect"><div>
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left;">
+                                                        <label>
+                                                        <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;" checked/>
+                                                            <img
+                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+                                                               class="img-circle" width="25">${classTeacherList.member_name}
+                                                               </label>
+                                                               </div>
+                                                         </div></li>
+                                                         <input type="hidden" id="teacher_id" name="teacher_id" value="${classTeacherList.member_id}"/>
+                                                   </c:forEach>
+                                                   </se:authorize>
+                                                   </ul>
+                                                </div>
+                                             </section>
+                                          </div>
+                                          <div class="col-md-8">
+                                                <div class="form-group">
+                                                   <textarea class="form-control" name=message_content
+                                                      id="message_content" placeholder="Your Message"
+                                                      rows="5" data-rule="required"
+                                                      data-msg="Please write something for us"></textarea>
+                                                </div>
+                                                <div class="sent-message">Your message has been
+                                                   sent. Thank you!</div>
+                                                   <se:authorize access="hasRole('ROLE_STUDENT')">
+                                                <button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
+                                                </se:authorize>
+                                                <se:authorize access="hasRole('ROLE_TEACHER')">
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
+                                                </se:authorize>
+                                                <button class="btn btn-theme04" type="button">취소</button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    </form>
+                                 </div>
+                                 <!-- /row -->
+                              </div>
+                              <!-- /tab-content -->
+                           </div>
+                           <!-- /panel-body -->
+                        </div>
+                     </div>
+                     <!-- /tab-content -->
+                  </div>
+                  <!-- /panel-body -->
+         </div><!-- row content-panel -->
+      </div><!-- col-lg-12 mt -->
+   </section><!-- wrapper site-min-height -->
 </section><!-- main-content -->
 
 <script>
 
 $(document).ready(function(){
 
-	   $('.receiveBtn').click(function(){
-	      var tr = $(this).parent();
-	      var td = tr.children();
-	      var sendMan = td.eq(1).text();
-	      var text = td.eq(2).text();
-	      var date = td.eq(4).text();
-	      $('.messageSender').html(""+sendMan+"");
-	      $('.date').html(""+date+"");
-	      $('.messageText').html(""+text+"")
-	   });
-	   
-	   $('.sendBtn').click(function(){
-	      var tr = $(this).parent();
-	      var td = tr.children();
-	      var receiveMan = td.eq(3).text();
-	      var text = td.eq(2).text();
-	      var date = td.eq(4).text();
-	      $('.messageSender').html(""+receiveMan+"");
-	      $('.date').html(""+date+"");
-	      $('.messageText').html(""+text+"")
-	   });
-	   
-	   
+      $('.receiveBtn').click(function(){
+         var tr = $(this).parent();
+         var td = tr.children();
+         var sendMan = td.eq(1).text();
+         var text = td.eq(2).text();
+         var date = td.eq(4).text();
+         $('.messageSender').html(""+sendMan+"");
+         $('.date').html(""+date+"");
+         $('.messageText').html(""+text+"")
+      });
+      
+      $('.sendBtn').click(function(){
+         var tr = $(this).parent();
+         var td = tr.children();
+         var receiveMan = td.eq(3).text();
+         var text = td.eq(2).text();
+         var date = td.eq(4).text();
+         $('.messageSender').html(""+receiveMan+"");
+         $('.date').html(""+date+"");
+         $('.messageText').html(""+text+"")
+      });
+      
+      
 
-	   });
+      });
 function check_t(){
-	
-	
-	 var messagememberarray = new Array();
-	   $("input:checkbox[name=chk]:checked").each(function(){
-		   
-		   messagememberarray.push($(this).val());
-	   });
-	    console.log("messagememberarray>>"+messagememberarray+"<<");
-	    
-	    document.getElementById("messagemember").setAttribute('value',messagememberarray);
-	    console.log("messagemember>>"+$('#messagemember').val()+"<<");
-	
-	
-	if($('#message_content').val()==""){
-		  swal({
-				title : "전송실패",
-				text:"내용을 입력하세요.",
-				icon : "warning",
-				dangerMode: true
-			});
-	}else if(messagememberarray==""){
-		  swal({
-				title : "전송실패",
-				text:"받는사람을 확인하세요.",
-				icon : "warning",
-				dangerMode: true
-			});
-	}
-	else{
+   
+   
+    var messagememberarray = new Array();
+      $("input:checkbox[name=chk]:checked").each(function(){
+         
+         messagememberarray.push($(this).val());
+      });
+       console.log("messagememberarray>>"+messagememberarray+"<<");
+       
+       document.getElementById("messagemember").setAttribute('value',messagememberarray);
+       console.log("messagemember>>"+$('#messagemember').val()+"<<");
+   
+   
+   if($('#message_content').val()==""){
+        swal({
+            title : "전송실패",
+            text:"내용을 입력하세요.",
+            icon : "warning",
+            dangerMode: true
+         });
+   }else if(messagememberarray==""){
+        swal({
+            title : "전송실패",
+            text:"받는사람을 확인하세요.",
+            icon : "warning",
+            dangerMode: true
+         });
+   }
+   else{
     
-	var username='${member_id}';
-	var message_content=$('#message_content').val();
-	var receive_member_id=$('#messagemember').val();
-	
-	
-	var data=new Array();
-	data[0]=username;
-	data[1]=message_content;
-	data[2]=receive_member_id;
-	 swal({
-			title : "전송성공",
-			icon : "success",
-			dangerMode: true
-		});
-	document.getElementById("message_content").value='';
-	websocket.send(data); 
-	  
-	}
+   var username='${member_id}';
+   var message_content=$('#message_content').val();
+   var receive_member_id=$('#messagemember').val();
+   
+   
+   var data=new Array();
+   data[0]=username;
+   data[1]=message_content;
+   data[2]=receive_member_id;
+    swal({
+         title : "전송성공",
+         icon : "success",
+         dangerMode: true
+      });
+   document.getElementById("message_content").value='';
+   websocket.send(data); 
+     
+   }
       };
 
       function check(){
-    		
-    		if($('#agree').is(":checked")==false){
-    			  swal({
-    					title : "전송실패",
-    					text:"받는사람을 확인하세요.",
-    					icon : "warning",
-    					dangerMode: true
-    				});
-    		}else if($('#message_content').val()==""){
-    			  swal({
-    					title : "전송실패",
-    					text:"내용을 입력하세요.",
-    					icon : "warning",
-    					dangerMode: true
-    				});
-    		}
-    		
-    		else{
-    	    
-    		var username='${member_id}';
-    		var message_content=$('#message_content').val();
-    		var receive_member_id=$('#teacher_id').val();
-    		
-    		
-    		var data=new Array();
-    		data[0]=username;
-    		data[1]=message_content;
-    		data[2]=receive_member_id;
-    		 swal({
-    				title : "전송성공",
-    				icon : "success",
-    				dangerMode: true
-    			});
-    		document.getElementById("message_content").value='';
-    		websocket.send(data); 
-    		  
-    		}
-    	      };
-    	      
-    	      
-	function message_content_row(){
-		
+          
+          if($('#agree').is(":checked")==false){
+               swal({
+                   title : "전송실패",
+                   text:"받는사람을 확인하세요.",
+                   icon : "warning",
+                   dangerMode: true
+                });
+          }else if($('#message_content').val()==""){
+               swal({
+                   title : "전송실패",
+                   text:"내용을 입력하세요.",
+                   icon : "warning",
+                   dangerMode: true
+                });
+          }
+          
+          else{
+           
+          var username='${member_id}';
+          var message_content=$('#message_content').val();
+          var receive_member_id=$('#teacher_id').val();
+          
+          
+          var data=new Array();
+          data[0]=username;
+          data[1]=message_content;
+          data[2]=receive_member_id;
+           swal({
+                title : "전송성공",
+                icon : "success",
+                dangerMode: true
+             });
+          document.getElementById("message_content").value='';
+          websocket.send(data); 
+            
+          }
+             };
+             
+             
+   function message_content_row(){
+      
 
-		var message_num=window.event.target.id;
-		var message_check={'message_check':1,
-							'message_num':message_num};
-	
-			$.ajax({
-			url : "message_check.do",
-			type : "get",
-			dataType : "json",
-			data : message_check,
-			success : function(data){
-				alert('message_check 성공');
-				
-				
-			}
-		});
-		
-		}
+      var message_num=window.event.target.id;
+      var message_check={'message_check':1,
+                     'message_num':message_num};
+   
+         $.ajax({
+         url : "message_check.do",
+         type : "get",
+         dataType : "json",
+         data : message_check,
+         success : function(data){
+            alert('message_check 성공');
+            
+            
+         }
+      });
+      
+      }
 </script>

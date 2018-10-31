@@ -2,6 +2,7 @@ package onet.com.vo;
 
 public class MessageDto {
 
+
 	private int message_num;
 	private String send_member_id;
 	private String receive_member_id;
@@ -78,3 +79,4 @@ public class MessageDto {
 	}
 
 }
+

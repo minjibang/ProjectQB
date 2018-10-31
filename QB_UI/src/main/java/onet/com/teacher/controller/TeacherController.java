@@ -60,32 +60,37 @@ public class TeacherController {
 	/* 민지:10.08 강사 메인추가 */
 	   @RequestMapping("teacherMain.do")
 	   public String teacherMain(Model model, Principal principal) {
-	      String member_id = principal.getName();
-	      System.out.println(member_id);
+		  String member_id = principal.getName();
+		  String date="";
 	      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+	      for(int i=0; i<notice.size(); i++) {
+	    	  date = notice.get(i).getNotice_date().substring(0, notice.get(i).getNotice_date().length()-5);
+	    	 notice.get(i).setNotice_date(date);
+	      }
 	      List<MemberDto> boardNull = commonService.boardNull(member_id);
 	      String noticeCheck = boardNull.get(0).getClass_name();
 	      model.addAttribute("noticeCheck", noticeCheck);
 	      model.addAttribute("notice", notice);
+	      model.addAttribute("member_id", member_id);
 		  List<Exam_infoDto> exam_info = commonService.exam_info(member_id);
 		  	model.addAttribute("exam_info", exam_info);
 	      return "common.teacher.notice.notice";
 	   }
 
 		/*민지 18.10.10 메시지 페이지 시작*/
-	   @RequestMapping("myMessage.do")
-	      public String myMessage(Model model, Principal principal) {
-	         String member_id = principal.getName();
-	         System.out.println("아이디:"+member_id);
-	            List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
-	            List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-	            List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-	            model.addAttribute("classMemberList", classMemberList);
-	            model.addAttribute("receiveMessage", receiveMessage);
-	            model.addAttribute("sendMessage", sendMessage);
-	            model.addAttribute("member_id", member_id);
-	         return "common.teacher.common.myMessage";
-	      }
+		@RequestMapping("myMessage.do")
+		public String myMessage(Model model, Principal principal) {
+			String member_id = principal.getName();
+			System.out.println("아이디:"+member_id);
+			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+			   List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+			   model.addAttribute("classMemberList", classMemberList);
+			   model.addAttribute("receiveMessage", receiveMessage);
+			   model.addAttribute("sendMessage", sendMessage);
+			   model.addAttribute("member_id", member_id);
+			return "common.teacher.common.myMessage";
+		}
 		/*민지 18.10.10 메시지 페이지 끝*/
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
@@ -420,8 +425,7 @@ public class TeacherController {
 		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_id(), class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		//학생 전체 성적확인
-		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
-		model.addAttribute("studentExamScoreList",studentExamScoreList);
+		
 		return "common.teacher.grade.studentInfo";
 	}
 	
@@ -449,14 +453,6 @@ public class TeacherController {
 		List<Score_chartDto> studentStdChart = commonService.studentStdChart(exam_info_name);
 		System.out.println("과연 표준편차는? : " + studentStdChart);
 		return studentStdChart;
-	}
-	
-	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
-	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
-	public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
-			@RequestParam("class_name") String class_name) {
-		int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
-		return spreadList;
 	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */
@@ -615,58 +611,45 @@ public class TeacherController {
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
 		dto.setNotice_date(str);
-		
 		int notice_num = dto.getNotice_num();
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		if(file1 != null && file2 != null) {
-			String originFileName1 = file1.getOriginalFilename();
-			String originFileName2 = file2.getOriginalFilename();
-			long fileSize1 = file1.getSize();
-			long fileSize2 = file2.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			System.out.println("1" + originFileName1);
-			System.out.println("2" + originFileName2);
-			UUID uuid = UUID.randomUUID();
-			String saveFile1 = uuid.toString()+"_" + originFileName1;
-			String saveFile2 = uuid.toString()+"_" + originFileName2;
-			
-			String safeFile1 = path + saveFile1;
-			String safeFile2 = path + saveFile2;
-			System.out.println("safeFile : " + safeFile1);
-			if(fileSize1 > 0 && fileSize2 > 0) {
-				file1.transferTo(new File(safeFile1));
-				file2.transferTo(new File(safeFile2));
-				dto.setNotice_file1(saveFile1);
-				dto.setNotice_file2(saveFile2);
-			}else if(fileSize1 > 0 && fileSize2 == 0){
-				file1.transferTo(new File(safeFile1));
-				dto.setNotice_file1(saveFile1);
-			}else if(fileSize2 > 0 && fileSize1 == 0) {
-				file2.transferTo(new File(safeFile2));
-				dto.setNotice_file2(saveFile2);
-			}
-		}else if(file1 != null && file2 == null) {
-			String originFileName1 = file1.getOriginalFilename();
-			long fileSize1 = file1.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			UUID uuid = UUID.randomUUID();
-			String saveFile1 = uuid.toString()+"_" + originFileName1;
-			String safeFile1 = path + saveFile1;
+		System.out.println("file1 : " + file1);
+		System.out.println("file2 : " + file2);
+		String originFileName1 = file1.getOriginalFilename();
+		String originFileName2 = file2.getOriginalFilename();
+		long fileSize1 = file1.getSize();
+		long fileSize2 = file2.getSize();
+		String path =  request.getServletContext().getRealPath("/upload/notice/");
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		
+		
+		
+		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
-			dto.setNotice_file1(saveFile1);
-		}else if(file1 == null && file2 != null) {
-			String originFileName2 = file2.getOriginalFilename();
-			long fileSize2 = file2.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			UUID uuid = UUID.randomUUID();
-			String saveFile2 = uuid.toString()+"_" + originFileName2;
-			String safeFile2 = path + saveFile2;
-			file1.transferTo(new File(safeFile2));
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file1(savaFile1);
 			dto.setNotice_file2(saveFile2);
+			commonService.updateBoardList(dto);
+		}else if(fileSize1 > 0 && fileSize2 == 0){
+			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
+			commonService.updateBoardListFile1(dto);
+		}else if(fileSize2 > 0 && fileSize1 == 0) {
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file2(saveFile2);
+			commonService.updateBoardListFile2(dto);
+		}else {
+			commonService.updateNoBoardList(dto);
 		}
-		int result = commonService.updateBoardList(dto);
+		
 		System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
@@ -691,19 +674,22 @@ public class TeacherController {
 		return result;
 	}
 	
-	//민지 10.31 메시지 체크
+	@RequestMapping("fileDeletebtn1.do")
+	public @ResponseBody int fileDeletebtn1(Model model,int notice_num, String class_name) {
+		NoticeDto dto = new NoticeDto();
+		dto.setNotice_num(notice_num);
+		dto.setClass_name(class_name);
+		int result = commonService.fileDeletebtn1(dto);
+		return result;
+	}
 	
-	@RequestMapping("message_check.do")
-	public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
-	
-		MessageDto dto = new MessageDto();
-		int result = commonService.message_check(message_check, message_num);
-		if(result > 0) {
-			System.out.println("메시지 체크 성공");
-		}else {
-			System.out.println("메시지 체크 실패");
-		}
-		return 0;
+	@RequestMapping("fileDeletebtn2.do")
+	public @ResponseBody int fileDeletebtn2(Model model,int notice_num, String class_name) {
+		NoticeDto dto = new NoticeDto();
+		dto.setNotice_num(notice_num);
+		dto.setClass_name(class_name);
+		int result = commonService.fileDeletebtn2(dto);
+		return result;
 	}
 	
 }

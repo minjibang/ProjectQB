@@ -15,6 +15,13 @@
 #txtFile2{
 	display:inline;
 }
+.filename{
+	display:inline-block;
+	width:300px;
+}
+.fileDeletebtn{
+	height:32px;
+}
 </style>
 <!-- 강사 공지사항 글쓰기 -->
 <section id="main-content">
@@ -51,37 +58,54 @@
 													<span><i class="fa fa-paperclip"></i> 기존 첨부파일</span><br>
 												</c:when>
 											</c:choose>
-											<div class="col-sm-4">
+											
 											<c:choose>
-												<c:when test="${not empty result[0].notice_file1}">
-													<img src="${pageContext.request.contextPath}/upload/notice/${result[0].notice_file1}" class="img" onerror="this.src='${pageContext.request.contextPath}/upload/notice/error.jpg'">
+												<c:when test="${not empty result[0].notice_file1 && empty result[0].notice_file2}">
 													<br>
-													<span class="span">${originFileName1}</span>
+													<span class="span">${originFileName1}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn1">삭제</button></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<span class="span">첨부된 파일이 없습니다</span>
 													<br>
-													<input type="file" id="txtFile1" class="file" name="files1" />
-												</c:when>
-											</c:choose>
-											</div>
-											<div class="col-sm-4">
-											<c:choose>
-												<c:when test="${not empty result[0].notice_file2}">
-													<img src="${pageContext.request.contextPath}/upload/notice/${result[0].notice_file2}" class="img" onerror="this.src='${pageContext.request.contextPath}/upload/notice/error.jpg'">
-													<br>
-													<span class="span">${originFileName2}</span>
-													<br>
+													<input type="file" id="txtFile1" class="file" name="files1" value="result[0].notice_file1"/>
 													<input type="file" id="txtFile2" class="file" name="files2" />
 												</c:when>
 											</c:choose>
-											</div>
-											<br>
+											
+											
+											<c:choose>
+												<c:when test="${not empty result[0].notice_file2 && empty result[0].notice_file1}">
+													<br>
+													<span class="span">첨부된 파일이 없습니다</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<span class="span">${originFileName2}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn2">삭제</button></span>
+													<br>
+													<input type="file" id="txtFile1" class="file" name="files1"/>
+													<input type="file" id="txtFile1" class="file" name="files2" value="result[0].notice_file2"/>
+												</c:when>
+											</c:choose>
+											
+											
 											<input type="hidden" id="class_name" name="class_name" value="${result[0].class_name}">
 											<input type="hidden" id="notice_num" name="notice_num" value="${result[0].notice_num}">
+											
 											<c:choose>
 												<c:when test="${empty result[0].notice_file1 && empty result[0].notice_file2}">
 												<input type="file" id="txtFile1" class="file" name="files1" />
 												<input type="file" id="txtFile2" class="file" name="files2" />
 												</c:when>
-											</c:choose>	
+											</c:choose>
+											
+											
+											<c:choose>
+												<c:when test="${not empty result[0].notice_file1 && not empty result[0].notice_file2}">
+												<br>
+													<span class="span filename">${originFileName1}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn1">삭제</button></span><input type="file" id="txtFile1" class="file" name="files1"/>
+												<br><br>	
+													<span class="span filename">${originFileName2}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn2">삭제</button></span><input type="file" id="txtFile2" class="file" name="files2"/>
+												<br>
+											
+												
+												</c:when>
+											</c:choose>
+											
 										</td>
 									</tr>
 									<tr>
@@ -112,11 +136,7 @@
 
 	function check(){
 		var a = $('#notice_content').val();
-		var b = a.replace("<p>","");
-		var c = b.replace("<br>","");
-		var d = c.replace("</p>","");
-
-		if(d == "" || d == null){
+				if(a == "" || a == null){
 			swal("글 내용을 반드시 입력해주세요", "글내용을 입력하지 않으면 등록할 수 없습니다", "error");
 		return false;
 		}else{
@@ -124,5 +144,55 @@
 	}
 	}
 
+	
+		
+	$(document).ready(function(){
+		var class_name = $('#class_name').val();
+		var notice_num = $('#notice_num').val();
+			
+	$('.fileDeletebtn1').click(function(){
+		$.ajax({
+			  type : "post",
+			  url : "fileDeletebtn1.do",
+			  data:{class_name:$('#class_name').val(), notice_num:$('#notice_num').val()},
+			  success : function(data){
+				  swal({
+				       title: "파일이 삭제되었습니다",
+					   text: "파일을 다시 추가하려면 파일을 업로드해주세요",
+					   icon:"info"
+					}).then(function() {
+					    window.location = "noticeUpdate.do?notice_num="+notice_num+"&class_name="+class_name;
+					});
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+	});
+	
+	$('.fileDeletebtn2').click(function(){
+		$.ajax({
+			  type : "post",
+			  url : "fileDeletebtn2.do",
+			  data:{class_name:$('#class_name').val(), notice_num:$('#notice_num').val()},
+			  success : function(data){
+				  swal({
+				       title: "파일이 삭제되었습니다",
+					   text: "파일을 다시 추가하려면 파일을 업로드해주세요",
+					   icon:"info"
+					}).then(function() {
+					    window.location = "noticeUpdate.do?notice_num="+notice_num+"&class_name="+class_name;
+					});
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+	});
+	
+	});
+	
+	
+	
 
 </script>
