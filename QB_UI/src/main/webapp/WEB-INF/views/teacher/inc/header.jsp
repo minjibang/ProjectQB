@@ -30,12 +30,12 @@
 </header>
 <!--header end-->
 
-<se:authorize access="isAuthenticated()">
+  <se:authorize access="isAuthenticated()">
 		<se:authentication property="principal.username" var="username"/>
 	
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
     <script type="text/javascript">
-    var wsUri ="ws://192.168.0.103:8090/qb/count.do"
+    var wsUri ="ws://localhost:8090/qb/count.do"
     
     function send_message() {
         websocket = new WebSocket(wsUri);
@@ -50,26 +50,25 @@
             onError(evt);
         };
     }
-   
+
     function onOpen(evt) 
     {
        websocket.send("${username}");
     }
     
     function onMessage(evt) {
-
+    	console.log("onMessage 함!");
     	$('#message').html(evt.data);
-    		
     }
     function onError(evt) {
     	
     }
     
     $(document).ready(function(){
- 	   send_message();
- });
+    	   send_message();
+    });
     
         </script>
 
-  </se:authorize>
+  </se:authorize>  
   

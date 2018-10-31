@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="${pageContext.request.contextPath}/css/adminMessage.css"
 	rel="stylesheet">
 <script src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script> 
@@ -63,11 +63,9 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div><!-- 쪽지보기 모달창 끝 -->
-
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="col-lg-12 mt">
@@ -79,10 +77,8 @@
 							<li><a data-toggle="tab" href="#sendMessagetab"
 								class="contact-map">보낸 쪽지</a></li>
 							<li><a data-toggle="tab" href="#contact">새 쪽지</a></li>
-
 						</ul>
 					</div><!-- /panel-heading -->
-					
 					<div class="panel-body">
 							<div class="tab-content">
 							<!-- 받은 쪽지함 -->
@@ -126,21 +122,15 @@
 																		<td class="view-message  inbox-small-cells">나</td>
 																		<td class="view-message  text-right">08:10 AM</td>
 																	</tr>
-																
 																</tbody>
 															</table>
 														</div>
 													</div>
 												</div>
-
-
 											</div>
 										</div>
-
 									</section>
-
 								</div>
-								
 								<!-- 보낸 쪽지 탭- -->
 								<div id="sendMessagetab" class="tab-pane">
 									<section>
@@ -182,7 +172,6 @@
 																		<td class="view-message  inbox-small-cells">학생2</td>
 																		<td class="view-message  text-right">08:10 AM</td>
 																	</tr>
-																
 																</tbody>
 															</table>
 														</div>
@@ -199,6 +188,7 @@
 											<div id="updateExam" class="tab-pane">
 											<form class="contact-form php-mail-form" role="form"
 																action="sendTeacherMessage.do" method="POST" >
+												<input type="hidden" id="messagemember" name="messagemember" />
 												<div class="row">
 													<div class="col-md-12">
 														<div class="col-md-2">
@@ -216,7 +206,7 @@
 																		<li id="messageSelect"><div>
 																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
 																		  <label>
-																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value=""style="position:relative;"/>
+																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
 																				<img
 																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
 																					class="img-circle" width="25">${classMemberList.member_name}
@@ -230,7 +220,7 @@
 																		<li id="messageSelect"><div>
 																		 <div class="checkbox" id="checkboxName" style="text-align: left;">
 																		  <label>
-																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;"/>
+																		  <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;" checked/>
 																				<img
 																					src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
 																					class="img-circle" width="25">${classTeacherList.member_name}
@@ -238,14 +228,11 @@
 																					</div>
 																			</div></li>
 																			<input type="hidden" id="teacher_id" name="teacher_id" value="${classTeacherList.member_id}"/>
-																			
 																	</c:forEach>
 																	</se:authorize>
 																	</ul>
-																	
 																</div>
 															</section>
-
 														</div>
 														<div class="col-md-8">
 																<div class="form-group">
@@ -253,65 +240,129 @@
 																		id="message_content" placeholder="Your Message"
 																		rows="5" data-rule="required"
 																		data-msg="Please write something for us"></textarea>
-																	
 																</div>
-
-
 																<div class="sent-message">Your message has been
 																	sent. Thank you!</div>
-
-
-
+																	<se:authorize access="hasRole('ROLE_STUDENT')">
 																<button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
+																</se:authorize>
+																<se:authorize access="hasRole('ROLE_TEACHER')">
+																<button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
+																</se:authorize>
 																<button class="btn btn-theme04" type="button">취소</button>
-
-
-															
 														</div>
-
-
 													</div>
 												</div>
 												</form>
 											</div>
 											<!-- /row -->
-											
 										</div>
-
 										<!-- /tab-content -->
 									</div>
 									<!-- /panel-body -->
 								</div>
-
 							</div>
 							<!-- /tab-content -->
 						</div>
 						<!-- /panel-body -->
-					
 			</div><!-- row content-panel -->
 		</div><!-- col-lg-12 mt -->
 	</section><!-- wrapper site-min-height -->
 </section><!-- main-content -->
 
 <script>
-function check(){
+
+
+function check_t(){
 	
+	
+	 var messagememberarray = new Array();
+	   $("input:checkbox[name=chk]:checked").each(function(){
+		   
+		   messagememberarray.push($(this).val());
+	   });
+	    console.log("messagememberarray>>"+messagememberarray+"<<");
+	    
+	    document.getElementById("messagemember").setAttribute('value',messagememberarray);
+	    console.log("messagemember>>"+$('#messagemember').val()+"<<");
+	
+	
+	if($('#message_content').val()==""){
+		  swal({
+				title : "전송실패",
+				text:"내용을 입력하세요.",
+				icon : "warning",
+				dangerMode: true
+			});
+	}else if(messagememberarray==""){
+		  swal({
+				title : "전송실패",
+				text:"받는사람을 확인하세요.",
+				icon : "warning",
+				dangerMode: true
+			});
+	}
+	else{
+    
 	var username='${member_id}';
 	var message_content=$('#message_content').val();
-	var receive_member_id=$('#teacher_id').val();
+	var receive_member_id=$('#messagemember').val();
 	
 	
 	var data=new Array();
 	data[0]=username;
 	data[1]=message_content;
 	data[2]=receive_member_id;
-	
-	  websocket.send(data); 
+	 swal({
+			title : "전송성공",
+			icon : "success",
+			dangerMode: true
+		});
+	document.getElementById("message_content").value='';
+	websocket.send(data); 
 	  
-	  
+	}
       };
 
-
+      function check(){
+    		
+    		if($('#agree').is(":checked")==false){
+    			  swal({
+    					title : "전송실패",
+    					text:"받는사람을 확인하세요.",
+    					icon : "warning",
+    					dangerMode: true
+    				});
+    		}else if($('#message_content').val()==""){
+    			  swal({
+    					title : "전송실패",
+    					text:"내용을 입력하세요.",
+    					icon : "warning",
+    					dangerMode: true
+    				});
+    		}
+    		
+    		else{
+    	    
+    		var username='${member_id}';
+    		var message_content=$('#message_content').val();
+    		var receive_member_id=$('#teacher_id').val();
+    		
+    		
+    		var data=new Array();
+    		data[0]=username;
+    		data[1]=message_content;
+    		data[2]=receive_member_id;
+    		 swal({
+    				title : "전송성공",
+    				icon : "success",
+    				dangerMode: true
+    			});
+    		document.getElementById("message_content").value='';
+    		websocket.send(data); 
+    		  
+    		}
+    	      };
 	
 
 </script>
