@@ -59,13 +59,13 @@
 			
 			var examEndTimeTs = new Date(year, month-1, day, hour, minute).getTime();
 			
-			 if( examEndTimeTs < now ){  // 지난 시험 열람 가능
+			 /* if( examEndTimeTs < now ){ */  // 지난 시험 열람 가능
 				var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val();
 				var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
 				window.open(popUrl, "지난 시험보기",popOption); 
-			 } else if ( examEndTimeTs > now ){	//	시험 응시 시간이 지나지 않았다면 응시 불가능
+			 /* } else if ( examEndTimeTs > now ){	//	시험 응시 시간이 지나지 않았다면 응시 불가능
 				swal("\n시험 시간이 종료되고 열람이 가능합니다.");
-			 } 
+			 }  */
 		});
 		
 	});	//	document.ready 끝 

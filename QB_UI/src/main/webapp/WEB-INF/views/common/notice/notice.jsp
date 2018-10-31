@@ -1,4 +1,4 @@
-<%-- 
+﻿<%-- 
 	@JSP:notice.jsp
 	@DATE:2018-10-06
 	@Author:우한결
@@ -106,6 +106,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
+
 						</div>
 					</div>
 				</div>

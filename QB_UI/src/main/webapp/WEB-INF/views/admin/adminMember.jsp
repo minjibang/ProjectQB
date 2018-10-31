@@ -242,7 +242,7 @@
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
-										<table id="adminMemberTable">
+										<table id="adminMemberTable" class="display">
 											<thead>
 												<tr>
 													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
@@ -256,7 +256,7 @@
 													<th class="member_enable">수정&삭제</th>
 												</tr>
 											</thead>
-											<tbody id="memberListView">
+											<%-- <tbody id="memberListView">
 												<c:forEach items="${memberDto}" var="memberList">
 													<tr>
 														<td><input type="checkbox" id="chk" name="chk" value="chk"></td>
@@ -280,7 +280,7 @@
 														</td>
 													</tr>
 												</c:forEach>
-											</tbody>
+											</tbody> --%>
 										</table>
 										<div id="adminMemberBtnDiv">
 											

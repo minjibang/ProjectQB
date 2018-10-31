@@ -150,6 +150,7 @@
 			}]
 		}) */;
 	<!-- 재훈 - 관리자 문제분류관리 페이지 데이터테이블 시작-->
+	
 	/* $('table.display').DataTable({
 		"language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
@@ -211,18 +212,7 @@
            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
        }
 	 });
-	
-	//영준 - 관리자 회원관리 DataTable
-	$('#adminMemberTable').DataTable({
-		"ordering":true,
-		"paging": true,
-		"ordering":false,
-		"searching": false,
-		"bLengthChange" : false,
-		 "language": {
-             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
-         }
-    });      
+	  
 });
 
     function myNavFunction(id) {

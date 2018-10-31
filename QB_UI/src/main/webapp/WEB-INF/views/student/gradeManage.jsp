@@ -39,7 +39,7 @@
 									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
-												<i class="fa fa-angle-right"></i> 각 시험 성적
+												<i class="fa fa-angle-right"></i> 각 시험별 내 성적
 											</h4>
 											<div class="panel-body text-center">
 												<canvas id="bar1" height="300" width="400"></canvas>
@@ -51,7 +51,7 @@
 									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
-												<i class="fa fa-angle-right"></i> 반/학생 평균 비교
+												<i class="fa fa-angle-right"></i> 내 성적 / 반 평균 비교
 											</h4>
 											<div class="panel-body text-center">
 												<canvas id="line1" height="300" width="400"></canvas>
@@ -289,11 +289,16 @@ $(document).ready(function(){
 						html += element.score_chart_rank +"&nbsp; 등 입니다.";
 					
 						$("#myRank").empty().append(html);
+						console.log(data);
 					});
-				} else{
-					swal("Error!", "응시한 학생이 없습니다.", "error");
-				}							
-			},
+				} else {
+					console.log(data);
+					html += "해당 시험에 응시하지 않았습니다."
+					
+					$("#myRank").empty().append(html);
+					
+					}
+				},	
 			error:function(error){
 				console.log("실패:"+status);
 			}

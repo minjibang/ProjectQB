@@ -97,9 +97,9 @@ public class AdminController {
 		classList=adminService.classList();
 		model.addAttribute("classList", classList);
 		
-		List<MemberDto> memberList;
+		/*List<MemberDto> memberList;
 		memberList=adminService.memberList();
-		model.addAttribute("memberDto", memberList);
+		model.addAttribute("memberDto", memberList);*/
 
 		List<RoleDto> roleList;
 		roleList = adminService.roleList();
@@ -108,6 +108,16 @@ public class AdminController {
 		return "admin.adminMember";
 		
 	}
+	//양회준 10.30 데이터테이블Ajax
+	@RequestMapping("adminMemberAjax.do")
+	public @ResponseBody List<MemberDto> adminMember() throws Exception {
+		
+		List<MemberDto> list=adminService.memberList();
+				
+		return list;
+		
+	}
+	
 	@RequestMapping(value="adminMemberView.do")
 	public @ResponseBody ModelAndView adminMemberView() {
 		List<MemberDto> memberList = adminService.adminMemberView();
@@ -573,7 +583,7 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
-		return "common.adminClass.admin.question.questionUpdate";
+		return "common.admin.question.questionUpdate";
 	}	
 	
 	/*###################     재훈 끝         ####################*/
