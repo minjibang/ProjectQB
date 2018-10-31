@@ -17,17 +17,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <insert id="score_chartInsert">
 	insert into score_chart (member_id, exam_info_num, score_chart_score, score_chart_rank, class_name)
 	values (#{param1}, #{param2}, 
-	(select 
-	IFNULL(sum(exam_question_score), 0)
-	from exam_question 
-	where question_num in 
-	(select question_num 
-	from student_answer
-	where (student_answer_status = #{param2})
-	and (exam_paper_num = 
-	(select exam_paper_num from exam_info 
-	where exam_info_num = #{param2}))
-	and (member_id = #{param1}))),
+	(
+		select 
+		IFNULL(sum(exam_question_score), 0)
+		from exam_question
+		where 
+		question_num in 
+		(select question_num from student_answer 
+			where student_answer_status = 1 
+			and member_id = #{param1}
+			and exam_info_num = #{param2}
+		)
+		and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2})
+	),
 	0, 
 	(select class_name from member where member_id = #{param1})); 
 </insert>

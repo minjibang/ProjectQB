@@ -356,6 +356,24 @@ public class StudentController {
 		
 		return url;
 	}
+	
+	// examPaperDo 페이지, 문제 ajax로 페이징 처리
+	@RequestMapping("examPaperDoQuestion.do")
+	public ModelAndView examPaperDoQuestion(Model model, int exam_info_num, int begin, int rowPerPage) throws ClassNotFoundException, SQLException, IOException, ParseException {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("ajax.student.examPaperDo_ajax");
+		
+		int begin2 = begin - 1;
+		
+		List<ExamPaperDoQuestionDto> questionList = studentService.examPaperDoQuestion(exam_info_num, begin2, rowPerPage);	
+		List<Question_choiceDto> questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+		
+		mav.addObject("questionList", questionList);
+		mav.addObject("questionChoiceList", questionChoiceList);
+		
+		return mav;
+	}
 	/* 현이 18.10.15 학생 시험응시 페이지 끝 */
 	/* 양회준 18.10.19 학생 시험응시 페이지 테스트 시간제한 끝 */
 	
@@ -364,7 +382,7 @@ public class StudentController {
 	@RequestMapping(value="examPaperDo2.do", method=RequestMethod.POST)
 	public String examAnswerInsert(Student_answerDtoList answerList) throws ClassNotFoundException, SQLException, IOException {
 		
-		List<Student_answerDto> items = answerList.getStudent_answer();		
+		//List<Student_answerDto> items = answerList.getStudent_answer();		
 		int result = studentService.examAnswerInsert(answerList);
 		
 		return "redirect:pastExam.do";
