@@ -38,6 +38,7 @@ import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -72,16 +73,19 @@ public class TeacherController {
 	   }
 
 		/*민지 18.10.10 메시지 페이지 시작*/
-		@RequestMapping("myMessage.do")
-		public String myMessage(Model model, Principal principal) {
-			String member_id = principal.getName();
-			System.out.println("아이디:"+member_id);
-			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
-			   System.out.println("classMemberList >>   " + classMemberList + "   <<<");
-			   model.addAttribute("classMemberList", classMemberList);
-			   model.addAttribute("member_id", member_id);
-			return "common.teacher.common.myMessage";
-		}
+	   @RequestMapping("myMessage.do")
+	      public String myMessage(Model model, Principal principal) {
+	         String member_id = principal.getName();
+	         System.out.println("아이디:"+member_id);
+	            List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+	            List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+	            List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	            model.addAttribute("classMemberList", classMemberList);
+	            model.addAttribute("receiveMessage", receiveMessage);
+	            model.addAttribute("sendMessage", sendMessage);
+	            model.addAttribute("member_id", member_id);
+	         return "common.teacher.common.myMessage";
+	      }
 		/*민지 18.10.10 메시지 페이지 끝*/
 	/* 한결 10월 12일 강사 글쓰기 페이지 시작 */
 	@RequestMapping("noticeWrite.do")
@@ -685,6 +689,21 @@ public class TeacherController {
 		//양회준 10-24
 		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
 		return result;
+	}
+	
+	//민지 10.31 메시지 체크
+	
+	@RequestMapping("message_check.do")
+	public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+	
+		MessageDto dto = new MessageDto();
+		int result = commonService.message_check(message_check, message_num);
+		if(result > 0) {
+			System.out.println("메시지 체크 성공");
+		}else {
+			System.out.println("메시지 체크 실패");
+		}
+		return 0;
 	}
 	
 }

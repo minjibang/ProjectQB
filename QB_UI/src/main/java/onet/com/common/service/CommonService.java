@@ -24,6 +24,7 @@ import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -416,4 +417,30 @@ public class CommonService {
 		List<MemberDto> result = dao.classTeacherList(member_id);	      
 		return result;
 	}
+	
+	//쪽지리스트
+      public List<MessageDto> receiveMessage(String member_id){
+         CommonDao dao = sqlsession.getMapper(CommonDao.class);
+         List<MessageDto> result = dao.receiveMessage(member_id);
+         return result;
+      }
+
+      public List<MessageDto> sendMessage(String member_id){
+         CommonDao dao = sqlsession.getMapper(CommonDao.class);
+         List<MessageDto> result = dao.sendMessage(member_id);
+         return result;
+      }
+	//민지10.31메시지 체크
+  	public int message_check(int message_check, int message_num) {
+  		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+  		MessageDto dto = new MessageDto();
+  		dto.setMessage_check(message_check);
+  		dto.setMessage_num(message_num);
+  		int result = dao.message_check(dto);
+  		
+  		return result;
+  	}
+  	
+	
+	
 }

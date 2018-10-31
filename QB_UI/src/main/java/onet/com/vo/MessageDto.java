@@ -7,7 +7,17 @@ public class MessageDto {
    private String receive_member_id;
    private String message_content;
    private String message_date;
-   public int getMessage_num() {
+   private int message_check;
+   
+   
+   
+   public int getMessage_check() {
+	return message_check;
+}
+public void setMessage_check(int message_check) {
+	this.message_check = message_check;
+}
+public int getMessage_num() {
       return message_num;
    }
    public void setMessage_num(int message_num) {

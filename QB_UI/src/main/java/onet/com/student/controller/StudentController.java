@@ -32,6 +32,7 @@ import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
@@ -324,19 +325,20 @@ public class StudentController {
 		return "common.student.common.myPage";
 	}
 	
-	
 	@RequestMapping("myMessage.do")
-	public String myMessage(Model model, Principal principal) {
-		
-		String member_id = principal.getName();
-		System.out.println("아이디:"+member_id);
-		   List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
-		   System.out.println("classTeacherList >>   " + classTeacherList + "   <<<");
-		   model.addAttribute("classTeacherList", classTeacherList);
-		   model.addAttribute("member_id", member_id);
-		
-		return "common.student.common.myMessage";
-	}
+    public String myMessage(Model model, Principal principal) {
+       String member_id = principal.getName();
+       System.out.println("아이디:"+member_id);
+          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+          model.addAttribute("classMemberList", classMemberList);
+          model.addAttribute("receiveMessage", receiveMessage);
+          model.addAttribute("sendMessage", sendMessage);
+          model.addAttribute("member_id", member_id);
+       return "common.teacher.common.myMessage";
+    }
+	
 	
 	
 	/* 양회준 10.15 내정보 탈퇴 시작*/
