@@ -103,7 +103,6 @@ public interface CommonDao {
 	public List<StudentExamScoreInfo> studentExamScoreInfoCtgr(String member_name, String class_name);//시험리스트-소분류
 	public List<Score_chartDto> studentExamScoreList(String class_name);
 	public List<Score_chartDto> studentExamScoreAvg(String class_name);
-
 	
 	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
 	public List<Score_chartDto> classRank(String exam_info_name);
@@ -136,6 +135,13 @@ public interface CommonDao {
 	
 	public int fileDeletebtn2(NoticeDto dto);
 	
+	public int sendMessageDelete(int message_num);
 	
+	public int receiveMessageDelete(int message_num);
+	
+	public int replyMessage(MessageDto dto);
+	
+    //메시지 체크
+    public int message_check(MessageDto dto);
 }
 

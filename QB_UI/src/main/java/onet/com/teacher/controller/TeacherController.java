@@ -81,10 +81,19 @@ public class TeacherController {
 		@RequestMapping("myMessage.do")
 		public String myMessage(Model model, Principal principal) {
 			String member_id = principal.getName();
-			System.out.println("아이디:"+member_id);
+			String date = "";
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 			   List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			   for(int i=0; i<receiveMessage.size(); i++) {
+			    	  date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+			    	 receiveMessage.get(i).setMessage_date(date);
+			   }
 			   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+			   for(int i=0; i<sendMessage.size(); i++) {
+			    	  date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+			    	  sendMessage.get(i).setMessage_date(date);
+			   }
+			   
 			   model.addAttribute("classMemberList", classMemberList);
 			   model.addAttribute("receiveMessage", receiveMessage);
 			   model.addAttribute("sendMessage", sendMessage);
@@ -703,4 +712,49 @@ public class TeacherController {
 		return result;
 	}
 	
+	@RequestMapping("sendMessageDelete.do")
+	public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
+		int result = 0;
+		String[] sendDeleteHiddenArray=sendDeleteHidden.split(",");
+		for(int i = 0; i < sendDeleteHiddenArray.length;i++) {
+			result = commonService.sendMessageDelete(sendDeleteHiddenArray[i]);
+		}
+		return result;
+	}
+	
+	@RequestMapping("receiveMessageDelete.do")
+	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
+		int result = 0;
+		System.out.println(receiveDeleteHidden);
+		String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
+		for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
+			
+			result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
+			System.out.println(result);
+		}
+		return result;
+	}
+	
+	@RequestMapping("replyMessage.do")
+	public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
+		MessageDto dto = new MessageDto();
+		dto.setMessage_content(text);
+		dto.setReceive_member_id(sender);
+		dto.setSend_member_id(principal.getName());
+		int result = commonService.replyMessage(dto);
+		return result;
+	}
+	    
+    @RequestMapping("message_check.do")
+    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+        MessageDto dto = new MessageDto();
+        int result = commonService.message_check(message_check, message_num);
+        if(result > 0) {
+            System.out.println("메시지 체크 성공");
+        }else {
+            System.out.println("메시지 체크 실패");
+        }
+        return result;
+
+    }	
 }

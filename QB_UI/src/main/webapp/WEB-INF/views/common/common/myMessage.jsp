@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -14,11 +13,24 @@
 .sendBtn{
    color:red;
 }
+.textarea{
+	resize: none;
+}
+.th{
+	text-align: center;
+}
+.to{
+	color:orange;
+}
+.sendMessageDelete{
+	font-size: 13px;
+	
+}
 </style>
 <script
    src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script>
 <!-- 쪽지보기 모달창 -->
-<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="MessageModal1" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -34,7 +46,7 @@
                   <div class="row">
                      <div class="col-md-8">
                         <img src="img/ui-zac.jpg" alt=""> <strong
-                           class="messageSender"></strong> to <strong>Me</strong>
+                           class="messageReceive"></strong><span class="to"> To </span> <strong>Me</strong>
                      </div>
 
                      <div class="col-md-4">
@@ -50,7 +62,7 @@
          <div class="modal-footer">
             <div class="form-group">
                <div class="col-lg-offset-2 col-lg-10">
-                  <button class="btn btn-large btn-primary" id="messageBtn">답장하기</button>
+                  <button class="btn btn-large btn-primary messageBtn" type="button" id="">답장하기</button>
                   <button class="btn btn-theme04" type="button" data-dismiss="modal">취소</button>
                </div>
             </div>
@@ -60,8 +72,8 @@
 </div>
 <!-- 쪽지보기 모달창 끝 -->
 <!-- 쪽지보기 모달창 2 시작 -->
-   <!-- 쪽지보기 모달창 -->
-<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
+<!-- 쪽지보기 모달창 -->
+<div class="modal fade" id="MessageModal2" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -77,7 +89,7 @@
                   <div class="row">
                      <div class="col-md-8">
                         <img src="img/ui-zac.jpg" alt="">
-                        <strong>Me</strong><strong>to</strong>
+                        <span class="to">To</span>
                          <strong class="messageSender"></strong>
                      </div>
 
@@ -94,8 +106,7 @@
          <div class="modal-footer">
             <div class="form-group">
                <div class="col-lg-offset-2 col-lg-10">
-                  <button class="btn btn-large btn-primary" id="messageBtn">답장하기</button>
-                  <button class="btn btn-theme04" type="button" data-dismiss="modal">취소</button>
+                  <button class="btn btn-theme04" type="button" data-dismiss="modal">확인</button>
                </div>
             </div>
          </div>
@@ -104,6 +115,47 @@
    </div>
 </div>
 <!-- 쪽지보기 모달창2 끝 -->
+<!-- 답장 모달창 시작 -->
+<!-- 쪽지보기 모달창 -->
+<div class="modal fade" id="MessageReplyModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">답장</h4>
+         </div>
+         <div class="modal-body">
+            <!-- /col-lg-12 -->
+            <div id="messageform">
+               <div class="mail-sender">
+                  <div class="row">
+                     <div class="col-md-8">
+                        <img src="img/ui-zac.jpg" alt="">
+                        <span class="to">To&nbsp;&nbsp;</span><strong class="receiver"></strong>
+                     </div>
+	
+                  </div>
+               </div>
+               <div class="view-mail">
+                  <textarea rows="10" cols="75" class="textarea"></textarea>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <div class="form-group">
+               <div class="col-lg-offset-2 col-lg-10">
+                  <button class="btn btn-theme04 send" type="button" >전송</button>
+                  <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
+<!-- 답장 모달창 끝 -->
 <section id="main-content">
    <section class="wrapper site-min-height">
       <div class="col-lg-12 mt">
@@ -130,29 +182,40 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
+                                      <a class="sendMessageDelete">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash-o"></i>&nbsp;삭제</a>
+                                      <input type="hidden" id="sendDeleteHidden" name="sendDeleteHidden" />
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
-                                                <th><input type="checkbox" class="mail-checkbox" id="agreeAll2">전체선택</th>
-                                                <th>보낸사람</th>
-                                                <th>제목</th>
-                                                <th>받는사람</th>
-                                                <th>받은날짜</th>
+                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll2">전체선택</th>
+                                                <th class="th">보낸사람</th>
+                                                <th class="th">제목</th>
+                                                <th class="th">받는사람</th>
+                                                <th class="th">받은날짜</th>
                                              </tr>
                                           </thead>
                                           <tbody>
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
-                                                <tr class="${receiveMessage.message_num}">
+                                             	<tr class="${receiveMessage.message_num}" >
                                                    <td class="inbox-small-cells"><input name="chk2"
-                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;"></td>
+                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
                                                    <td class="view-message ">${receiveMessage.send_member_id}</td>
-                                                   <td class="view-message receiveBtn" data-toggle="modal"
-                                                      data-target="#MessageModal" id="${receiveMessage.message_num}" onclick=" message_content_row()">
-                                                      ${receiveMessage.message_content}</td>
+                                                   <td class="view-message receiveBtn message_content_row " data-toggle="modal" 
+                                                      data-target="#MessageModal1" id="${receiveMessage.message_content}" >${receiveMessage.message_content}
+                                                   </td>
+                                                   <c:choose>
+                                                   <c:when test="${receiveMessage.message_check == 0}">
                                                    <td class="view-message  inbox-small-cells">나</td>
+                                                   </c:when>
+                                                   <c:otherwise>
+                                                   <td class="view-message  inbox-small-cells">나&nbsp;&nbsp;<i class="fa fa-check-square"></i></td>
+                                                   </c:otherwise>
+                                                   </c:choose>
+                                                   
                                                    <td class="view-message  text-right">${receiveMessage.message_date}</td>
                                                 </tr>
                                              </c:forEach>
+                                                   
                                              <!-- <tr class="read">
                                                       <td class="inbox-small-cells"><input
                                                          type="checkbox" class="mail-checkbox"></td>
@@ -187,24 +250,26 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
+                                    <a class="receiveMessageDelete">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash-o"></i>&nbsp;삭제</a>
+                                      <input type="hidden" id="receiveDeleteHidden" name="receiveDeleteHidden" />	
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
-                                                <th><input type="checkbox" class="mail-checkbox" id="agreeAll3">전체선택</th>
-                                                <th>보낸사람</th>
-                                                <th>제목</th>
-                                                <th>받는사람</th>
-                                                <th>보낸날짜</th>
+                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll3">전체선택</th>
+                                                <th class="th">보낸사람</th>
+                                                <th class="th">제목</th>
+                                                <th class="th">받는사람</th>
+                                                <th class="th">보낸날짜</th>
                                              </tr>
                                           </thead>
                                           <tbody>
                                              <c:forEach items="${sendMessage}" var="sendMessage">
-                                                <tr class="unread">
+                                                <tr>
                                                    <td class="inbox-small-cells"><input name="chk3"
-                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;"></td>
+                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${sendMessage.message_num}"></td>
                                                    <td class="view-message "><a href="mail_view.html">나</a></td>
-                                                   <td class="view-message sendBtn" data-toggle="modal"
-                                                      data-target="#MessageModal">
+                                                   <td class="view-message sendBtn subject" data-toggle="modal"
+                                                      data-target="#MessageModal2" id="${sendMessage.message_content}">
                                                       ${sendMessage.message_content}</td>
                                                    <td class="view-message  inbox-small-cells">${sendMessage.receive_member_id}</td>
                                                    <td class="view-message  text-right">${sendMessage.message_date}</td>
@@ -242,7 +307,7 @@
                                     <div class="row">
                                        <div class="col-md-12">
                                           <div class="col-md-2">
-                                             <section class="panel" style="width:150px;">
+                                             <section class="panel" style="width:150px; height:500px; overflow-y:scroll;">
                                                 <div class="panel-body grey-panel">
                                                    <div>
                                                       <label class="btn btn-compose"> <i
@@ -254,8 +319,8 @@
                                                    <se:authorize access="hasRole('ROLE_TEACHER')">
                                                       <c:forEach items="${classMemberList}" var="classMemberList">
                                                       <li id="messageSelect"><div>
-                                                       <div class="checkbox" id="checkboxName" style="text-align: left;">
-                                                        <label>
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px;" >
+                                                        <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
                                                             <img
                                                                src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
@@ -324,28 +389,26 @@
 
 $(document).ready(function(){
 
-      $('.receiveBtn').click(function(){
-         var tr = $(this).parent();
-         var td = tr.children();
-         var sendMan = td.eq(1).text();
-         var text = td.eq(2).text();
-         var date = td.eq(4).text();
-         $('.messageSender').html(""+sendMan+"");
+	$(document).on('click','.receiveBtn',function(){
+		 var text = $(this).attr('id');	
+		 var sendMan = $(this).prev().text();
+		 var date = $(this).parent().children().eq(4).text();
+		 
+         $('.messageReceive').html(""+sendMan+"");
          $('.date').html(""+date+"");
          $('.messageText').html(""+text+"")
-      });
+	});
+	
       
-      $('.sendBtn').click(function(){
-         var tr = $(this).parent();
-         var td = tr.children();
-         var receiveMan = td.eq(3).text();
-         var text = td.eq(2).text();
-         var date = td.eq(4).text();
-         $('.messageSender').html(""+receiveMan+"");
-         $('.date').html(""+date+"");
-         $('.messageText').html(""+text+"")
+      $(document).on('click','.sendBtn',function(){
+    	 var text = $(this).attr('id');	
+ 		 var receiveMan = $(this).next().text();
+ 		 var date = $(this).parent().children().eq(4).text();
+          $('.messageSender').html(""+receiveMan+"");
+          $('.date').html(""+date+"");
+          $('.messageText').html(""+text+"")
       });
-      
+     
       
 
       });
@@ -357,11 +420,9 @@ function check_t(){
          
          messagememberarray.push($(this).val());
       });
-       console.log("messagememberarray>>"+messagememberarray+"<<");
        
        document.getElementById("messagemember").setAttribute('value',messagememberarray);
-       console.log("messagemember>>"+$('#messagemember').val()+"<<");
-   
+       
    
    if($('#message_content').val()==""){
         swal({
@@ -395,7 +456,7 @@ function check_t(){
          dangerMode: true
       });
    document.getElementById("message_content").value='';
-   websocket.send(data); 
+   websocket.send(data);
      
    }
       };
@@ -440,25 +501,140 @@ function check_t(){
           }
              };
              
-             
-   function message_content_row(){
-      
-
-      var message_num=window.event.target.id;
+   
+    
+	$('.message_content_row').click(function(){
+	  
+	  $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>")
+	  var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
-   
+	  	   
          $.ajax({
          url : "message_check.do",
          type : "get",
          dataType : "json",
          data : message_check,
          success : function(data){
-            alert('message_check 성공');
-            
+             if(data>0){
+               alert('message_check 성공');
+             }else{
+            	 
+             }
+        	 
             
          }
       });
       
-      }
+	});
+   
+   
+   
+   
+   
+   
+   $('.sendMessageDelete').click(function(){
+	   var sendMessageDeleterarray = new Array();
+	      $("input:checkbox[name=chk2]:checked").each(function(){
+	     	  sendMessageDeleterarray.push($(this).val());
+	      });
+			if(sendMessageDeleterarray == ""){
+				swal({
+		            title : "삭제 실패",
+		            text:"삭제할 쪽지를 선택하세요",
+		            icon : "warning",
+		         });
+			}else{
+		  
+	       document.getElementById("sendDeleteHidden").setAttribute('value',sendMessageDeleterarray);
+	   	   var data ={ 'sendDeleteHidden':$('#sendDeleteHidden').val()};
+	   
+	   	   $.ajax({
+	           url : "sendMessageDelete.do",
+	           type : "post",
+	           dataType : "html",
+	           data : data,
+	           success : function(data){
+	        	  if(data>0){
+	            	  swal({
+					       title: "삭제성공",
+						   text: "선택된 받은쪽지가 삭제되었다",
+						   icon:"info"
+						}).then(function() {
+						    window.location = "myMessage.do";
+						});
+	              }
+	           }
+	        });
+			}	   
+   });
+   
+   $('.receiveMessageDelete').click(function(){
+	   
+	   var receiveMessageDeleterarray = new Array();
+	      $("input:checkbox[name=chk3]:checked").each(function(){
+	     	  receiveMessageDeleterarray.push($(this).val());
+	      });
+	      if(receiveMessageDeleterarray == ""){
+	    	  swal({
+		            title : "삭제 실패",
+		            text:"삭제할 쪽지를 선택하세요",
+		            icon : "warning",
+		         });
+	      }else{
+	    	  
+	       document.getElementById("receiveDeleteHidden").setAttribute('value',receiveMessageDeleterarray);
+	   	   var data ={ 'receiveDeleteHidden':$('#receiveDeleteHidden').val()};
+	   	   $.ajax({
+	           url : "receiveMessageDelete.do",
+	           type : "post",
+	           dataType : "html",
+	           data : data,
+	           success : function(data){
+	        	  if(data>0){
+	            	  swal({
+					       title: "삭제성공",
+						   text: "선택된 받은쪽지가 삭제되었다",
+						   icon:"info"
+						}).then(function() {
+						    window.location = "myMessage.do";
+						});
+	              }
+	           }
+	        });
+	      }
+   });
+   
+   $('.messageBtn').click(function(){
+	  var text = $('.messageReceive').text();
+	  $('#MessageModal').modal('hide');
+	  $('.MessageReplyModal').val(text);
+	  $('#MessageReplyModal').modal();
+	  $('.receiver').html(text);
+   });
+   
+   $('.send').click(function(){
+	  var text = $('.textarea').val();
+	  var sender = $('.receiver').text();
+	  $.ajax({
+          url : "replyMessage.do",
+          type : "post",
+          dataType : "html",
+          data : {text:text, sender:sender},
+          success : function(data){
+       	  if(data>0){
+           	  swal({
+				       title: "답장성공",
+					   text: "",
+					   icon:"info"
+					}).then(function() {
+					    window.location = "myMessage.do";
+					});
+             }
+          }
+       });
+	  
+   });
+  
+   
 </script>

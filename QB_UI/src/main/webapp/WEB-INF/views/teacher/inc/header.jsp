@@ -53,8 +53,9 @@ $(document).ready(function(){
 
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
 
-    <script type="text/javascript">
-    var wsUri ="ws://192.168.0.103:8090/qb/count.do"
+  <script type="text/javascript">
+    var wsUri ="ws://localhost:8090/qb/count.do";
+    
 
     function send_message() {
         websocket = new WebSocket(wsUri);

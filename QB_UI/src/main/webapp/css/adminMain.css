@@ -17,30 +17,33 @@
 }
 
 .weather-4 {
-	background: #3cb371;
+	background: #4ECDC4;
 }
 
 .weather-4 i {
 	color: white;
-	margin-top: 30px;
+	margin-top: 40px;
+	margin-bottom: 15px;
 	font-size: 70px;
-}
-
-.weather-4 h1 {
-	margin-top: 10px;
-	color: white;
-	font-weight: 900;
 }
 
 .weather-4 .info {
 	background: #f2f2f2;
+	position: absolute;
+    width: 230px;
+    bottom: 20px;
+    margin-top: 10px;
+    color: #797979;
+    font-size: 14px;
+    padding-top: 5px;
+    font-weight: 600;
 }
 
 .weather-4 .info i {
 	font-size: 15px;
 	color: #c2c2c2;
-	margin-bottom: 0px;
-	margin-top: 10px;
+	margin-bottom: 3px;
+	margin-top: 5px;
 }
 
 .weather-4 .info h3 {
@@ -51,8 +54,8 @@
 .weather-4 .info p {
 	margin-left: 10px;
 	margin-right: 10px;
-	margin-bottom: 16px;
-	color: #c2c2c2;
+	/* margin-bottom: 16px; */
+	color: #a2a2a2;
 	font-size: 15px;
 	font-weight: 700;
 }
@@ -84,4 +87,57 @@
 	margin-bottom: 5px;
 }
 
+/* 현이 css 추가 */
+.classDiv {
+	padding-bottom: 30px;
+}
 
+.classDivOverFlow {
+	/* width: 230px; */
+	overflow:hidden;
+	/* word-wrap:break-word; */
+	word-break: keep-all; 
+	padding-right: 20px;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: white;
+	font-weight: 900;
+	font-size: 24px;
+	padding-right: 20px;
+    padding-left: 20px;
+}
+
+.centered {
+	font-weight: 700;
+	color: #a2a2a2;
+}
+
+.classBtnDiv {
+	width: 230px;
+}
+
+.goright button i {
+	color: white;
+}
+
+.classUsersIcon {
+	margin-left: 105px;
+}
+
+.btnIcon {
+	color: white;
+}
+
+.classDivSize {
+	width: 230px;
+	height: 330px;
+	margin-top: 15px;
+}
+
+#searchBtn {
+	width: 14%;
+}
+
+#pastClassBtn {
+	width: 20%;
+}
