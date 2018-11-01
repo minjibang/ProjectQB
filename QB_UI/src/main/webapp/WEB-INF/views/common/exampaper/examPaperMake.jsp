@@ -154,6 +154,7 @@
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
                            data-toggle="modal" id="miriBtn">시험지 미리보기</button>
+                           
                         <div id="exam_preview" class="modal fade modal_preview">
                            <div class="modal-dialog" style="width: 70%;">
                               <!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
