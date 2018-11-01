@@ -444,8 +444,65 @@ public class CommonService {
 			return result;
 		}
 	   
+	   public int replyMessage(MessageDto dto) {
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			int result = dao.replyMessage(dto);
+			return result;
+		}
 	   
-	   
+	    //양회준 10-29 학생&성적관리 클래스 통계 표
+	    public List<Score_chartDto> studentExamScoreList(String class_name){
+	        CommonDao commonDao = sqlsession.getMapper(CommonDao.class);    
+	        ArrayList<Integer> score = new ArrayList<Integer>();
+	        List<Score_chartDto> scorelist= commonDao.studentExamScoreList(class_name);//과목별 점수
+	        List<Score_chartDto> avglist= commonDao.studentExamScoreAvg(class_name);//평균점수
+	        for(Score_chartDto data : avglist) {
+	            score.clear();
+	            for(Score_chartDto data2 : scorelist) {                
+	                if(data.getMember_id().equals(data2.getMember_id())) {//아이디가 같을 경우 점수를 리스트 대입
+	                    score.add(data2.getScore_chart_score());
+	                }
+	            }
+	            data.setScore_list(score);//점수리스트를 평균리스트에 대입
+	        }
+	        return avglist;
+	    }
+
+	    public int[] studentScoreSpread(int exam_info_num, String class_name){
+	        CommonDao dao = sqlsession.getMapper(CommonDao.class);
+	        int spreadCount = 0;
+	        int[] spreadList = new int[10];
+	        int start = 0;
+	        int end = 10;
+	        for(int i=0;i<10;i++) {
+	            if(i==0) {
+	                spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
+	            }else {
+	                start = (i*10)+1;
+	                end = (i*10)+10;
+	                spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
+	            }
+	            spreadList[i]=spreadCount;
+	        }
+	        return spreadList;
+	    }
+
+	    //민지10.31메시지 체크
+	      public int message_check(int message_check, int message_num) {
+	          CommonDao dao = sqlsession.getMapper(CommonDao.class);
+	          MessageDto dto = new MessageDto();
+	          dto.setMessage_check(message_check);
+	          dto.setMessage_num(message_num);
+	          int result = dao.message_check(dto);
+	          
+	          return result;
+	      }
+
+	      //민지 10.31 메시지 체크
+	      
+	      
+
+	    
 }
 
 	
