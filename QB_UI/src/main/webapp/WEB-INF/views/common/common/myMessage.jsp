@@ -17,6 +17,9 @@
 .textarea{
 	resize: none;
 }
+.subject{
+	text-overflow: ellipsis;
+}
 </style>
 <script
    src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script>
@@ -191,7 +194,7 @@
                                                    <td class="inbox-small-cells"><input name="chk2"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
                                                    <td class="view-message ">${receiveMessage.send_member_id}</td>
-                                                   <td class="view-message receiveBtn" data-toggle="modal"
+                                                   <td class="view-message receiveBtn subject" data-toggle="modal"
                                                       data-target="#MessageModal" id="${receiveMessage.message_num}" onclick=" message_content_row()">
                                                       ${receiveMessage.message_content}</td>
                                                    <td class="view-message  inbox-small-cells">나</td>
