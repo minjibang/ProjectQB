@@ -24,7 +24,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
-import onet.com.vo.ExamQuestionDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -223,6 +223,21 @@ public class TestManageController {
 		
 		
 		return exampapernum;
+	}
+	
+	//내시험지 리스트 미리보기	
+	@RequestMapping("examMiri.do")
+	public @ResponseBody ModelAndView examMiri(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		List<ExamQuestionListDto> examquestion = teacherService.examQuestionList(exam_paper_num);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.teacher.examMiriList_ajax");
+		mv.addObject("examquestion", examquestion);
+		mv.addObject("question_choice", question_choice);
+		
+		return mv;
 	}
 	
 	/*성태용 끝*/

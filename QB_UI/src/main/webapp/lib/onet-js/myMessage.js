@@ -5,13 +5,15 @@ $(document).ready(function(){
 		"columnDefs": [
 		    { "orderable": false, "targets": 0 }
 		    
-		  ]
+		  ],
+		  "lengthChange": false
 	});
 	$('#receiveMessageTable').DataTable({
 		"columnDefs": [
 		    { "orderable": false, "targets": 0 }
 		    
-		  ]
+		  ],
+		  "lengthChange": false
 	});
 	
 	/*체크박스*/

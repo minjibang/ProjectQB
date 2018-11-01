@@ -272,11 +272,11 @@ and e.exam_info_name=#{exam_info_name}
 
 <!-- 쪽지 리스트 -->
 <select id="receiveMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
-   select * from message where receive_member_id=#{member_id} 
+   select * from message where receive_member_id=#{member_id} and receive_check=0
 </select>
 
 <select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
-   select * from message where send_member_id=#{member_id} 
+   select * from message where send_member_id=#{member_id} and send_check=0
 </select>
 
 <update id="updateBoardListFile2" parameterType="onet.com.vo.NoticeDto">
@@ -296,6 +296,43 @@ and e.exam_info_name=#{exam_info_name}
 	update notice set notice_file2=#{notice_file2} where notice_num=#{notice_num} and class_name=#{class_name}
 </update>
 
+<update id="sendMessageDelete" parameterType="int">
+	update message set receive_check=1 where message_num=#{message_num} 
+</update>
+
+<update id="receiveMessageDelete" parameterType="int">
+	update message set send_check=1 where message_num=#{message_num}
+</update>
+
+<insert id="replyMessage" parameterType="onet.com.vo.MessageDto">
+	insert into message(send_member_id, receive_member_id, message_content) values(#{send_member_id}, #{receive_member_id}, #{message_content})
+</insert>
+
+<update id="message_check" parameterType="int">
+	 update message set message_check=#{message_check} where message_num=#{message_num}
+</update>
+
+<!-- 양회준 10-29 학생&성적관리 클래스통계 학생별 성적표 -->
+<select id="studentExamScoreList" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+    select * from score_chart where class_name = #{class_name}
+    order by member_id, exam_info_num asc
+</select>
+
+<select id="studentExamScoreAvg" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+    select sc.member_id, m.member_name, avg(sc.score_chart_score) 
+    from score_chart sc join member m
+    on sc.member_id = m.member_id
+    where  sc.class_name = #{class_name}
+    group by sc.member_id
+    order by sc.member_id, sc.exam_info_num asc
+</select>
+
+<select id="studentScoreSpread" resultType="int">
+    select count(*)
+    from score_chart sc join exam_info ei
+    on sc.exam_info_num=ei.exam_info_num
+    where (sc.score_chart_score between ${param3} and ${param4}) and sc.class_name=#{param2} and ei.exam_info_num=#{param1}
+</select>
 
 
 </mapper>

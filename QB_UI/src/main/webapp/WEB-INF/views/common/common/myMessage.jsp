@@ -14,6 +14,9 @@
 .sendBtn{
    color:red;
 }
+.textarea{
+	resize: none;
+}
 </style>
 <script
    src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script>
@@ -34,7 +37,7 @@
                   <div class="row">
                      <div class="col-md-8">
                         <img src="img/ui-zac.jpg" alt=""> <strong
-                           class="messageSender"></strong> to <strong>Me</strong>
+                           class="messageReceive"></strong> to <strong>Me</strong>
                      </div>
 
                      <div class="col-md-4">
@@ -50,7 +53,7 @@
          <div class="modal-footer">
             <div class="form-group">
                <div class="col-lg-offset-2 col-lg-10">
-                  <button class="btn btn-large btn-primary" id="messageBtn">답장하기</button>
+                  <button class="btn btn-large btn-primary messageBtn" type="button" id="">답장하기</button>
                   <button class="btn btn-theme04" type="button" data-dismiss="modal">취소</button>
                </div>
             </div>
@@ -60,7 +63,7 @@
 </div>
 <!-- 쪽지보기 모달창 끝 -->
 <!-- 쪽지보기 모달창 2 시작 -->
-   <!-- 쪽지보기 모달창 -->
+<!-- 쪽지보기 모달창 -->
 <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -94,8 +97,7 @@
          <div class="modal-footer">
             <div class="form-group">
                <div class="col-lg-offset-2 col-lg-10">
-                  <button class="btn btn-large btn-primary" id="messageBtn">답장하기</button>
-                  <button class="btn btn-theme04" type="button" data-dismiss="modal">취소</button>
+                  <button class="btn btn-theme04" type="button" data-dismiss="modal">확인</button>
                </div>
             </div>
          </div>
@@ -104,6 +106,47 @@
    </div>
 </div>
 <!-- 쪽지보기 모달창2 끝 -->
+<!-- 답장 모달창 시작 -->
+<!-- 쪽지보기 모달창 -->
+<div class="modal fade" id="MessageReplyModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">답장</h4>
+         </div>
+         <div class="modal-body">
+            <!-- /col-lg-12 -->
+            <div id="messageform">
+               <div class="mail-sender">
+                  <div class="row">
+                     <div class="col-md-8">
+                        <img src="img/ui-zac.jpg" alt="">
+                        <strong>to&nbsp;&nbsp;</strong><strong class="receiver"></strong>
+                     </div>
+	
+                  </div>
+               </div>
+               <div class="view-mail">
+                  <textarea rows="10" cols="75" class="textarea"></textarea>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <div class="form-group">
+               <div class="col-lg-offset-2 col-lg-10">
+                  <button class="btn btn-theme04 send" type="button" >전송</button>
+                  <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
+<!-- 답장 모달창 끝 -->
 <section id="main-content">
    <section class="wrapper site-min-height">
       <div class="col-lg-12 mt">
@@ -130,6 +173,8 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
+                                      <button type="button" class="btn btn-danger sendMessageDelete" >삭제</button>
+                                      <input type="hidden" id="sendDeleteHidden" name="sendDeleteHidden" />
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
@@ -144,7 +189,7 @@
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
                                                 <tr class="${receiveMessage.message_num}">
                                                    <td class="inbox-small-cells"><input name="chk2"
-                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;"></td>
+                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
                                                    <td class="view-message ">${receiveMessage.send_member_id}</td>
                                                    <td class="view-message receiveBtn" data-toggle="modal"
                                                       data-target="#MessageModal" id="${receiveMessage.message_num}" onclick=" message_content_row()">
@@ -187,6 +232,8 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
+                                      <button type="button" class="btn btn-danger receiveMessageDelete" >삭제</button>
+                                      <input type="hidden" id="receiveDeleteHidden" name="receiveDeleteHidden" />	
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
@@ -201,7 +248,7 @@
                                              <c:forEach items="${sendMessage}" var="sendMessage">
                                                 <tr class="unread">
                                                    <td class="inbox-small-cells"><input name="chk3"
-                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;"></td>
+                                                      type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${sendMessage.message_num}"></td>
                                                    <td class="view-message "><a href="mail_view.html">나</a></td>
                                                    <td class="view-message sendBtn" data-toggle="modal"
                                                       data-target="#MessageModal">
@@ -330,7 +377,7 @@ $(document).ready(function(){
          var sendMan = td.eq(1).text();
          var text = td.eq(2).text();
          var date = td.eq(4).text();
-         $('.messageSender').html(""+sendMan+"");
+         $('.messageReceive').html(""+sendMan+"");
          $('.date').html(""+date+"");
          $('.messageText').html(""+text+"")
       });
@@ -357,11 +404,9 @@ function check_t(){
          
          messagememberarray.push($(this).val());
       });
-       console.log("messagememberarray>>"+messagememberarray+"<<");
        
        document.getElementById("messagemember").setAttribute('value',messagememberarray);
-       console.log("messagemember>>"+$('#messagemember').val()+"<<");
-   
+       
    
    if($('#message_content').val()==""){
         swal({
@@ -395,7 +440,7 @@ function check_t(){
          dangerMode: true
       });
    document.getElementById("message_content").value='';
-   websocket.send(data); 
+   websocket.send(data);
      
    }
       };
@@ -461,4 +506,91 @@ function check_t(){
       });
       
       }
+   
+   $('.sendMessageDelete').click(function(){
+	   var sendMessageDeleterarray = new Array();
+	      $("input:checkbox[name=chk2]:checked").each(function(){
+	     	  sendMessageDeleterarray.push($(this).val());
+	      });
+	       document.getElementById("sendDeleteHidden").setAttribute('value',sendMessageDeleterarray);
+	   	   var data ={ 'sendDeleteHidden':$('#sendDeleteHidden').val()};
+	   
+	   	   $.ajax({
+	           url : "sendMessageDelete.do",
+	           type : "post",
+	           dataType : "html",
+	           data : data,
+	           success : function(data){
+	        	  if(data>0){
+	            	  swal({
+					       title: "삭제성공",
+						   text: "선택된 받은쪽지가 삭제되었다",
+						   icon:"info"
+						}).then(function() {
+						    window.location = "myMessage.do";
+						});
+	              }
+	           }
+	        });
+	   
+   });
+   
+   $('.receiveMessageDelete').click(function(){
+	   var receiveMessageDeleterarray = new Array();
+	      $("input:checkbox[name=chk3]:checked").each(function(){
+	     	  receiveMessageDeleterarray.push($(this).val());
+	      });
+	       document.getElementById("receiveDeleteHidden").setAttribute('value',receiveMessageDeleterarray);
+	   	   var data ={ 'receiveDeleteHidden':$('#receiveDeleteHidden').val()};
+	   	   $.ajax({
+	           url : "receiveMessageDelete.do",
+	           type : "post",
+	           dataType : "html",
+	           data : data,
+	           success : function(data){
+	        	  if(data>0){
+	            	  swal({
+					       title: "삭제성공",
+						   text: "선택된 받은쪽지가 삭제되었다",
+						   icon:"info"
+						}).then(function() {
+						    window.location = "myMessage.do";
+						});
+	              }
+	           }
+	        });
+	   
+   });
+   
+   $('.messageBtn').click(function(){
+	  var text = $('.messageReceive').text();
+	  $('#MessageModal').modal('hide');
+	  $('.MessageReplyModal').val(text);
+	  $('#MessageReplyModal').modal();
+	  $('.receiver').html(text);
+   });
+   
+   $('.send').click(function(){
+	  var text = $('.textarea').val();
+	  var sender = $('.receiver').text();
+	  $.ajax({
+          url : "replyMessage.do",
+          type : "post",
+          dataType : "html",
+          data : {text:text, sender:sender},
+          success : function(data){
+       	  if(data>0){
+           	  swal({
+				       title: "답장성공",
+					   text: "",
+					   icon:"info"
+					}).then(function() {
+					    window.location = "myMessage.do";
+					});
+             }
+          }
+       });
+	  
+   });
+   
 </script>

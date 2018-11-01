@@ -11,6 +11,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -231,6 +232,13 @@ public class TeacherService {
 		return exampapernum;
 	}
 	
+	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamQuestionListDto> result = dao.examQuestionList(exam_paper_num);
+		
+		return result;
+	}
+	
 	
 	/*--성태용 끝--*/
 	/*민지 10.12 클래스멤버 리스트, 클래스 리스트  관리*/
@@ -312,6 +320,8 @@ public class TeacherService {
 		return result;
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
+	
+	
 	
 	
 }

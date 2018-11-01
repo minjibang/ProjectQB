@@ -20,6 +20,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--main content start-->
 
+
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="col-lg-12 mt">
@@ -34,6 +35,23 @@
 							class="contact-map">시험 일정 </a></li>
 					</ul>
 				</div>
+				
+				
+				<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+				
+				<div id="exam_preview" class="modal fade modal_preview">
+                           <div class="modal-dialog">
+                           <div id="print-modal">
+							<a href="#" class="print" onclick="printpage()"title="Print page">Print page</a>
+							<a href="#" class="close" title="Close print preview">Close</a>
+							</div>
+                              <!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
+                                 <div class="book">
+
+								</div>
+                           </div>
+                        </div>	
+				<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
 
 				<div class="panel-body">
 					<div class="tab-content">
@@ -55,7 +73,7 @@
 												<c:forEach items="${myexamPaperList}" var="myexamPaperList">
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
-														<h4 id="exam_paper_name">
+														<h4 class="miri" id="${myexamPaperList.exam_paper_num}" data-target="#exam_preview" data-toggle="modal">
 															<strong>${myexamPaperList.exam_paper_name}</strong>
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
@@ -226,6 +244,40 @@
 	type="text/javascript"></script>
 
 <script>
+
+$(document).ready(function(){
+	
+	$('.miri').click(function(){
+		var exam_paper_num = $(this).attr('id');
+		
+			 $.ajax({
+				  url : "examMiri.do",
+				  type:'GET',
+				  data : {
+					  'exam_paper_num' : exam_paper_num
+				  },
+				  dataType:"html",
+				  success:function(data){
+					  $('.book').html(data);
+				  }
+			   });
+	   }); 
+});
+
+	function printpage(){
+		
+		var divContents = $('.book').html();
+		var printWindow = window.open('','','height=400, width=800');
+		
+		printWindow.document.write('<html>');
+		printWindow.document.write('<head>')
+		printWindow.document.write('<style>#page table {width : 45%;height : 260 px;margin-bottom : 50px;margin-right : 20px;} td {vertical-align : top; padding : 2px;} th {vertical-align : top;padding-bottom : 15px;}#page {width: 793px; height: 1122px; flex-flow:column wrap;text-overflow:clip;}</style>');
+		printWindow.document.write('</head>')
+        printWindow.document.write('<body >');
+        printWindow.document.write(divContents);
+        printWindow.document.write('</body></html>');
+        printWindow.print();
+	}
 	function updateExamCheck() {
 		var exam_paper_num = window.event.target.id;
 
@@ -257,7 +309,7 @@
 			  title: "시험지를 삭제 하시겠습니까?",
 			  icon: "warning",
 			  buttons: true,
-			  dangerMode: true,
+			  dangerMode: true
 			}).then((willDelete) => {
 			  if (willDelete) {
 				  $.ajax({
@@ -310,7 +362,7 @@
 			  title: "시험지를 삭제 하시겠습니까?",
 			  icon: "warning",
 			  buttons: true,
-			  dangerMode: true,
+			  dangerMode: true
 			}).then((willDelete) => {
 			  if (willDelete) {
 				  $.ajax({
