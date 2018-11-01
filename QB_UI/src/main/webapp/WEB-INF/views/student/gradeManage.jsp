@@ -30,7 +30,7 @@
 								<c:forEach items="${studentId}" var="studentId">
 									<input type="hidden" name="member_id" id="studentId" value="${studentId}" >
 								</c:forEach>
-			
+
 							</header>
 							<!-- page start-->
 							<div id="chartjs">
@@ -61,11 +61,15 @@
 									<%-- 반/학생 평균 비교 선 차트 끝--%>
 									<%-- 내 등수 보기 패널 시작 --%>
 									<div class="col-lg-12">
-										<div class="content-panel-lightgray">
-											<h4>
-												<i class="fa fa-angle-right"></i> 나의 등수 보기
+										<div class="col-lg-12 content-panel-lightgray">
+										
+										<div class="col-lg-6">
+											<h4 id="myRankText">
+												<i class="fa fa-angle-right"></i> 시험별 등수 확인
 											</h4>
-											<div class="btn-group pull-right">
+										</div>
+										<div class="col-lg-6">
+											<div class="btn-group pull-right" id="searchExamSelect">
 												<select id="searchExam" class="form-control searchControl"
 													name="searchExam">
 												<option value="" >시험 목록</option>		
@@ -74,23 +78,16 @@
 												</c:forEach>
 												</select>
 											</div>
-											
-											<div class="panel-body text-center">
-														<div class="table-inbox-wrap">
-															
-														</div>
-													</div>
-											
-											<div class="panel-body">
-												<h3>
-											
-													<b id="myRank">등수 확인을 원하는 시험을 선택해주세요.</b>
-												
-												</h3>
-											
-											</div>
+										</div>
+										<div class="col-lg-12">
+										<h3 id="myRankBox">
+											<b id="myRank">등수 확인을 원하는 시험을 선택해주세요.</b>
+										</h3>
+										</div>
+										
 										</div>
 									</div>
+										
 									<%-- 내 등수 보기 패널 끝 --%>									
 								</div>
 							</div>
@@ -120,7 +117,7 @@ $(document).ready(function(){
 	var chartClassDatas = new Array();
 	var chartLabels = new Array();
 	var chartMyRank = new Array();
-
+	
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
@@ -136,10 +133,10 @@ $(document).ready(function(){
 	chartMyRank.push("${studentChart.score_chart_rank}");
 	</c:forEach>
 	
-	console.log("1:" + chartStudentDatas);
-	console.log("2:" + chartClassDatas);
-	console.log("3:" + chartLabels);
-	console.log("4:" + chartMyRank);
+	console.log("chartStudentDatas:" + chartStudentDatas);
+	console.log("chartClassDatas:" + chartClassDatas);
+	console.log("chartLabels:" + chartLabels);
+	console.log("chartMyRank:" + chartMyRank);
 	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
@@ -186,14 +183,36 @@ $(document).ready(function(){
 		          }
 		      },
 		      scales: {
-		        yAxes: [{
-		         ticks: {
-		             max: 100,
-		             min: 0,
-		             stepSize: 10
-		         }
-		     }]
-		       }
+		    	 xAxes: [{
+		    	     ticks: {
+		    	       callback: function(value) {
+		    	         if (value.length > 4) {
+		    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+		    	        	} else {
+		    	           	return value
+		    	        	}
+		    	        },
+		    	      }
+		    	    }],
+		         yAxes: [{
+		         	ticks: {
+		             	max: 100,
+		             	min: 0,
+		             	stepSize: 10
+		         		}
+		     		}]
+		       },
+		       
+		       tooltips: {
+		    	    enabled: true,
+		    	    mode: 'label',
+		    	    callbacks: {
+		    	      title: function(tooltipItems, data) {
+		    	        var idx = tooltipItems[0].index;
+		    	        return data.labels[idx];
+		    	      }
+		    	    }
+		    	  },
 		    }
 		});
 		//각 시험 성적 바 차트 끝
@@ -227,6 +246,7 @@ $(document).ready(function(){
 		    },
 		    options: {
 		        scale: {
+		        	
 		            ticks: {
 		              beginAtZero:true,
 		                min:0,
@@ -242,14 +262,37 @@ $(document).ready(function(){
 		            }
 		        },
 		        scales: {
+		        	xAxes: [{
+			    	     ticks: {
+			    	       callback: function(value) {
+			    	         if (value.length > 4) {
+			    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+			    	        	} else {
+			    	           	return value
+			    	        	}
+			    	        },
+			    	      }
+			    	    }],
+			    	    
 		          yAxes: [{
-		           ticks: {
-		               max: 100,
-		               min: 0,
-		               stepSize: 10
-		           }
-		       }]
-		         }
+		           		ticks: {
+		               		max: 100,
+		               		min: 0,
+		               		stepSize: 10
+		          			}
+		      			}]
+		         },
+		        
+		      	  tooltips: {
+		 		    	enabled: true,
+		 		        mode: 'label',
+		 		    	callbacks: {
+		 		    	      title: function(tooltipItems, data) {
+		 		    	      var idx = tooltipItems[0].index;
+		 		    	      return data.labels[idx]; 
+		 		    	      }
+		 		    	   }
+		 		    	}
 		    }
 		});
 		//반/학생 평균 선 차트 끝
@@ -305,5 +348,7 @@ $(document).ready(function(){
 		});	
 		});
 	});
+	
+	
 })
 </script>
