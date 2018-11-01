@@ -426,4 +426,5 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select class_num from class where class_name=#{class_name}
 </select>
 
+
 </mapper>
