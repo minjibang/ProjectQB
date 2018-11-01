@@ -11,6 +11,14 @@ public class CommentDto {
 	private String member_id;
 	private String comment_content;
 	private String comment_date;
+	private String member_name;
+	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public int getComment_num() {
 		return comment_num;
 	}

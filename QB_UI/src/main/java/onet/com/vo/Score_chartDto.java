@@ -1,16 +1,41 @@
 package onet.com.vo;
 
+import java.util.ArrayList;
+
 public class Score_chartDto {
 
 	// 18.10.22 현이 score_chartDto 만듦
 
 	private String member_id;
+	
 	private int exam_info_num;
 	private int score_chart_score;
 	private int score_chart_rank;
 	private String class_name;
 	// 양회준10.24추가 
 	private String exam_info_name;
+	private ArrayList<Integer> score_list;
+	private float avg_score;
+	private int start;
+	private int end;
+
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
 	// 영준 10.25 추가
 	private String member_name;
 
@@ -30,6 +55,19 @@ public class Score_chartDto {
 
 	public void setExam_info_name(String exam_info_name) {
 		this.exam_info_name = exam_info_name;
+	}
+	public ArrayList<Integer> getScore_list() {
+		return score_list;
+	}
+
+	public void setScore_list(ArrayList<Integer> score_list) {
+		this.score_list = score_list;
+	}
+	public float getAvg_score() {
+		return avg_score;
+	}
+	public void setAvg_score(float avg_score) {
+		this.avg_score = avg_score;
 	}
 	// 추가
 	public String getMember_id() {

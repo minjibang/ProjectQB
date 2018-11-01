@@ -9,6 +9,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,8 +57,8 @@
 	var remain_time = dayEnd-now;
 	var lose_time = now-dayStart;
 	var total_time = dayEnd-dayStart;
-	console.log("잃은 시간:"+lose_time);
-	console.log("토탈 타임: " + remain_time+lose_time);
+	//console.log("잃은 시간:"+lose_time);
+	//console.log("토탈 타임: " + remain_time+lose_time);
 	var refresh_interval = 1000;
 	var timer;
 
@@ -64,13 +67,63 @@
 			value : lose_time
 		});
 		lose_time += refresh_interval;
-		console.log("잃은 시간:"+lose_time);
+		//console.log("잃은 시간:"+lose_time);
 		if (total_time < lose_time)
 			clearInterval(timer);
 	}
 
+	
+	
+	
+	// 페이징 처리 위한 변수
+ 	var pageNo = 1;
+	var rowPerPage = 4; 
+	var totalRows = ${questionCount};	//	한 시험지의 전체 문제 개수 
+	var totalPages = Math.ceil(totalRows / rowPerPage);
+	
+	
 	// document.ready 시작 
 	$(function() {
+		
+		// 페이징 처리 관련 script 
+		if(totalRows > 4) {
+			$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+		} 
+		
+		$(document).on('click', '#nextPageBtn', function(){
+			
+			if($('#prevPageBtn').length == 0){
+				$('#prevPageSpan').append('<button class="btn btn-theme03" id="prevPageBtn">이전 페이지</button>');	
+			}
+			
+			if(pageNo != totalPages){
+				$('#page'+pageNo).css("display", "none");
+				pageNo += 1;
+				$('#page'+pageNo).css("display", "block");
+				
+				if(pageNo == totalPages){
+					$('#nextPageSpan').empty();
+				}
+			} 
+		}); 
+		
+		 $(document).on('click', '#prevPageBtn', function(){
+			
+			if($('#nextPageBtn').length == 0){
+				$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
+			}
+			
+			if(pageNo != 1){
+				$('#page'+pageNo).css("display", "none");
+				pageNo -= 1;
+				$('#page'+pageNo).css("display", "block");
+				
+				if(pageNo == 1){
+					$('#prevPageSpan').empty();
+				}
+			} 
+		}); 
+		
 		
 		// 프로그레스바 script
 		$("#progressbar1").progressbar({
@@ -78,11 +131,15 @@
 			value : lose_time
 		});
 		timer = setInterval(refresh_bar, refresh_interval);
+		
 				
 		// 문제 및 답지 체크 script 시작 
 		// 문제 보기를 클릭했을 때 답안지에도 표시 
-		$('input[type="radio"]').click(function() {
-			var oximg_v_class = "oximg_v_" + $(this).attr("id").substr(0, 6);
+		$(document).on('click', 'input[type="radio"]', function(){
+			//var oximg_v_class = "oximg_v_" + $(this).attr("id").substr(0, 6);
+			
+			var strArray = $(this).attr("id").split('_');
+			var oximg_v_class = "oximg_v_" + strArray[0] + "_" + strArray[1];
 			$("." + oximg_v_class).css("display", "none");
 
 			var img_id = "img_" + $(this).attr("id");
@@ -92,7 +149,7 @@
 		});
 
 		// 답안지를 클릭했을 때 문제 보기에도 표시 
-		$('.answer_choice').click(function() {
+		$(document).on('click', '.answer_choice', function(){
 			var ques_num = $(this).find('img').attr('class').substr(15);
 			$("." + ques_num).css("display", "none"); // 이걸로 한 문제의 체크 이미지 전체를 지운다. 
 
@@ -107,14 +164,14 @@
 		});
 
 		// 단답형 답 문제지와 답지 동시에 입력하기 
-		$('.trd_div input[type="text"]').change(function(){
+		$(document).on('click', '.trd_div input[type="text"]', function(){
 			var ques_num2 = $(this).attr('id')
 			var _index = ques_num2.lastIndexOf("_");
 			var ques_num = ques_num2.substr(0, _index);
 			$("#" + ques_num).val($(this).val());
 		});
 		
-		$('.fst_div input[type="text"], .scd-div input[type="text"]').change(function(){
+		$(document).on('change', '.fst_div input[type="text"], .scd-div input[type="text"]', function(){
 			var ques_num2 = $(this).attr('id').substr(0, 6);
 			var ques_num = ques_num2 + "_answer";
 			$("#" + ques_num).val($(this).val());
@@ -174,29 +231,12 @@
 		}, remain_time); 
 		
 		
+		
+		
 	});  // document.ready 종료 
 </script>
 </head>
 <body>
-<%
-	String questionCount2 = request.getAttribute("questionCount").toString();
-	int questionCount = Integer.parseInt(questionCount2);
-	
-	double halfCount = questionCount / 2;
-	String str = Double.toString(halfCount);			//	반으로 나눈 것의 String 값
-	
-	String firstRow2 = str.substring(0, str.indexOf(".")); 
-	int firstRow = 0;
-	int secondRow = 0;
-	
-	if (questionCount % 2 == 0) {	//	 짝수 
-		firstRow = Integer.parseInt(firstRow2);
-		secondRow = Integer.parseInt(firstRow2);
-	} else {
-		firstRow = Integer.parseInt(firstRow2) + 1;
-		secondRow = Integer.parseInt(firstRow2);
-	}
-%>	
 	<div class="col-lg-12 mt">
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">
@@ -208,16 +248,28 @@
 		<hr>
 		<div class="panel-body">
 			<div class="row content-panel exampaneldetail">
-				<c:set var="firstRow" value="<%=firstRow%>"/>
-				<c:set var="secondRow" value="<%=secondRow%>"/>
-				<c:set var="questionCount" value="<%=questionCount%>"/>
 			
-			<form method="post" id="answerForm" target="examScheduleDetail">
-			
-				<c:forEach var="question" items="${questionList}" varStatus="status"> <!--  문제 하나의 테이블, id값에는 문제고유번호가 들어간다 -->		
-					<c:if test="${question.exam_question_seq < 2}">
-						<div class="col-lg-5 fst_div" id="examBox">	
-					</c:if>
+				<!-- 페이징 처리 변수 설정 -->
+				<c:set var="totalRows" value="${questionCount}"/>
+				<fmt:parseNumber var="totalPages" value="${(questionCount / 4)+(1-((questionCount / 4)%1))%1}" integerOnly="true"/>
+				<c:set var="lastPageQuestion" value="${totalRows % 4}"/>
+				<c:if test="${lastPageQuestion == 0}">
+					<c:set var="lastPageQuestion" value="4"/>
+				</c:if>
+				
+				
+				<c:set var="pageCount" value="1"/>		<!-- 문제 하나가 한 페이지에 set 될 때마다 1씩 카운트 증가 -->
+				<c:set var="pageNum" value="1"/>		<!-- 하나의 페이지 표시 -->
+				
+				<form method="post" id="answerForm" target="examScheduleDetail">
+					<c:forEach var="question" items="${questionList}" varStatus="status">
+					
+						<c:if test="${pageCount == 1}">
+							<div id="page${pageNum}" class="pageDiv">
+							<div class="col-lg-5 fst_div" id="examBox">	
+						</c:if>
+						
+							<!-- 문제 하나 -->
 							<table class="questionTable">
  								<input type="hidden" name="student_answer[${status.index}].member_id" value="${pageContext.request.userPrincipal.name}"> 
 								<input type="hidden" name="student_answer[${status.index}].exam_info_num" value="${exam_info.exam_info_num}">
@@ -258,22 +310,65 @@
 												</c:if>
 											</c:if>
 										</c:forEach>
+										<%-- <c:set var="questionCount" value="${questionCount + 1}" /> --%>
 									</c:when>
 									<c:when test="${question.question_type eq '단답형'}">
 										<tr class="ques_choice">
 											<td class="questionTd"></td>  
 											<td><input type="text" id="ques_${question.exam_question_seq}" name="student_answer[${status.index}].student_answer_choice"></td>
 										</tr>
+										<%-- <c:set var="questionCount" value="${questionCount + 1}" /> --%>
 									</c:when>
 								</c:choose>
-							</table>	
-							<c:if test="${question.exam_question_seq == firstRow }">
-								</div>
-								<div class="col-lg-5 scd-div">
-							</c:if>
-                </c:forEach>
-                </div>
-                
+							</table>
+						<!-- 문제 하나 끝 -->
+						
+						<c:choose>
+							<c:when test="${pageNum ne totalPages}">  
+								<c:if test="${pageCount == 2}">
+									</div>
+									<div class="col-lg-5 scd-div">
+								</c:if>
+								<c:choose>
+									<c:when test="${pageCount ne 4 }">
+										<c:set var="pageCount" value="${pageCount + 1}"/><!-- 한 페이지 당 문제 갯수 카운트 하나 업, 여기서 업뎃됐다 -->
+									</c:when>
+									<c:when test="${pageCount == 4}">
+											</div> <!-- scd-div 닫는 div -->
+										</div> <!-- page 닫는 div  -->
+										<c:set var="pageCount" value="1"/>
+										<c:set var="pageNum" value="${pageNum +1}"/>
+									</c:when>
+								</c:choose>
+							</c:when>	
+								
+							<c:when test="${pageNum eq totalPages}"> <!-- 마지막 페이지일때 -->
+								<c:choose>
+									<c:when test="${pageCount ne lastPageQuestion}">
+										<c:if test="${pageCount == 2}">
+											</div>
+											<div class="col-lg-5 scd-div">
+										</c:if>
+										<c:set var="pageCount" value="${pageCount + 1}"/><!-- 한 페이지 당 문제 갯수 카운트 하나 업, 여기서 업뎃됐다 -->
+									</c:when>
+									<c:when test="${pageCount eq lastPageQuestion}">
+										<c:choose>
+											<c:when test="${pageCount == 1 || pageCount == 2}">
+															</div> <!-- fst-div 닫는 div -->
+														<div class="col-lg-5 scd-div">
+													</div>
+												</div> <!-- page 닫는 div  -->
+											</c:when>
+											<c:when test="${pageCount == 3 || pageCount == 4}">
+													</div> <!-- scd-div 닫는 div -->
+												</div> <!-- page 닫는 div  -->
+											</c:when>
+										</c:choose>
+									</c:when>
+								</c:choose>
+							</c:when>	
+						</c:choose>
+					</c:forEach>
                 </form>
                 
 				<div class="col-lg-2 trd_div">
@@ -313,7 +408,23 @@
 					<br>
 				</div>
 			</div>
-			<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperSubmit">제출하기</button>
+			
+			<div>
+				<div class="col-lg-10 pastExamBtnDiv">
+					<span id="prevPageSpan"></span>
+					<span id="nextPageSpan"></span>
+				</div>
+				<div class="col-lg-2 pastExamBtnDiv2">
+					<se:authorize access="hasRole('ROLE_TEACHER')">
+						<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperExit">창 닫기</button>
+					</se:authorize>
+					<se:authorize access="hasRole('ROLE_STUDENT')">
+						<button class="btn btn-theme03 exampaneldetailBtn" id="examPaperSubmit">제출하기</button>
+					</se:authorize>
+				</div>
+			</div>
+			
+			
 		</div>
 	</div>
 	
@@ -336,9 +447,9 @@
 	  seconds = (seconds < 10) ? "0" + seconds : seconds;
 	
 	  remainPrint= hours + ":" + minutes + ":" + seconds;
-	  console.log(remainPrint);
+	  //console.log(remainPrint);
 	  $("#remainTime").html(remainPrint);
-	  console.log("remain_time : "+remainTime);
+	  //console.log("remain_time : "+remainTime);
 	  
 	  //남은 제한시간 0보다 작을 경우 종료
 	  if(remainTime<0){

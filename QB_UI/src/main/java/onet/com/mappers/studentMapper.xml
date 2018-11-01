@@ -17,17 +17,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <insert id="score_chartInsert">
 	insert into score_chart (member_id, exam_info_num, score_chart_score, score_chart_rank, class_name)
 	values (#{param1}, #{param2}, 
-	(select 
-	IFNULL(sum(exam_question_score), 0)
-	from exam_question 
-	where question_num in 
-	(select question_num 
-	from student_answer
-	where (student_answer_status = #{param2})
-	and (exam_paper_num = 
-	(select exam_paper_num from exam_info 
-	where exam_info_num = #{param2}))
-	and (member_id = #{param1}))),
+	(
+		select 
+		IFNULL(sum(exam_question_score), 0)
+		from exam_question
+		where 
+		question_num in 
+		(select question_num from student_answer 
+			where student_answer_status = 1 
+			and member_id = #{param1}
+			and exam_info_num = #{param2}
+		)
+		and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2})
+	),
 	0, 
 	(select class_name from member where member_id = #{param1})); 
 </insert>
@@ -127,6 +129,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 10.24 현이 학생 지난 시험지 보기 시작 -->
 
+<select id="examPaperDoQuestion" resultType="onet.com.vo.ExamPaperDoQuestionDto"><!-- 문제 정보 가져오기 -->
+	select q.question_num, q.question_type, q.question_name, q.question_img, q.question_answer, 
+	eq.exam_question_seq, eq.exam_question_score 
+	from question q join exam_question eq
+	on (q.question_num = eq.question_num)
+	where eq.exam_paper_num = 
+	(select exam_paper_num from exam_info where exam_info_num = #{exam_info_num})
+	order by eq.exam_question_seq
+	<if test="begin != 0 or rowPerPage != 0">
+		limit #{begin}, #{rowPerPage}
+	</if>
+</select>	
+
+<select id="examPaperDoQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->
+	select question_num, question_choice_num, question_choice_content, question_choice_image 
+	from question_choice
+	where question_num in 	
+	(select q.question_num
+	from question q join exam_question eq
+	on (q.question_num = eq.question_num)
+	where eq.exam_paper_num = 
+	(select exam_paper_num from exam_info 
+	where exam_info_num = #{exam_info_num})
+	)
+	order by question_num, question_choice_num
+</select>
+
+
+
+
 <select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerQuesDto">
 	select * 
 	from student_answer a join question q
@@ -146,16 +178,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="examPaperDoWrongQuestion" resultType="onet.com.vo.ExamPaperDoQuestionDto">
 	select q.question_num, q.question_type, q.question_name, q.question_img, q.question_answer, 
-	eq.exam_question_seq, eq.exam_question_score 
+	eq.exam_question_seq, eq.exam_question_score
 	from question q join exam_question eq
 	on (q.question_num = eq.question_num)
-	join student_answer a
-	on (q.question_num = a.question_num)
-	where eq.exam_paper_num = 
-	(select exam_paper_num from exam_info where exam_info_num = #{param2})
-	and a.student_answer_status = 0
-	and a.member_id = #{param1}
-	order by eq.exam_question_seq;
+	where 
+	eq.exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{exam_info_num}) 
+	and q.question_num in (select question_num from student_answer where exam_info_num = #{exam_info_num} and member_id = #{member_id} and student_answer_status = 0)
+	order by eq.exam_question_seq
+	<if test="begin != 0 or rowPerPage != 0">
+		limit #{begin}, #{rowPerPage}
+	</if>
 </select>
 
 <select id="examPaperDoWrongQuestion_choice" parameterType="int" resultType="onet.com.vo.Question_choiceDto"><!-- 문제 보기 가져오기 -->
@@ -172,5 +204,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by question_num, question_choice_num
 </select>
 <!-- 10.24 현이 학생 지난 시험지 보기 끝 -->
+
+<!-- 10.29민지 학생이쪽지보내기 -->
+<insert id="sendTeacherMessage" parameterType="onet.com.vo.MessageDto" >
+insert into message (send_member_id,receive_member_id,message_content)
+	values(#{send_member_id}, #{receive_member_id}, #{message_content})
+</insert>
+
+<select id="wrongQuestionCount" resultType="int"><!-- 한 시험지에 담긴 문제의 개수 -->
+	select count(question_num)
+	from student_answer
+	where exam_info_num = #{param2}
+	and member_id = #{param1}
+	and student_answer_status = 0
+</select>
+
+
+<!-- 10.29 재훈 학생 자기 등수 확인 시작 -->
+<select id="myRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+
+select * from score_chart s join member m on (s.member_id = m.member_id) where s.member_id = #{param1} and exam_info_num = #{param2}
+
+</select>
+
+<!-- 10.29 재훈 학생 자기 등수 확인 시작 -->
+
+
 
 </mapper>

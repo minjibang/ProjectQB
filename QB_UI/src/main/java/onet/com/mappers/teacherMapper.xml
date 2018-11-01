@@ -93,9 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 <!-- 내시험지 삭제 -->
 
-<update id="updateExam">
-
-	update exam_paper set exam_paper_enable=false where exam_paper_num = #{param1}
+<!-- 시험지 enable false값으로 update -->
+<update id="updateExam" parameterType="onet.com.vo.ExamPaperDto">
+	update exam_paper set exam_paper_enable=false where exam_paper_num = #{exam_paper_num}
 </update>
 
 <select id="updateExamView" resultType="onet.com.vo.ExamPaperUpdateDto">
@@ -130,6 +130,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="examNameDesc" resultType="onet.com.vo.ExamPaperDto">
 	select exam_paper_name, exam_paper_desc from exam_paper where exam_paper_num = #{param1}
+</select>
+
+<insert id="newExaminsert" parameterType="onet.com.vo.ExamPaperDto" useGeneratedKeys="true" keyProperty="exam_paper_num" keyColumn="exam_paper_num">
+	insert into exam_paper (exam_paper_name, member_id, exam_paper_desc, exam_paper_status, exam_paper_enable) values(#{exam_paper_name}, #{member_id}, #{exam_paper_desc}, 1, 1);
+	
+	<selectKey keyProperty="exam_paper_num" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID();
+    </selectKey>
+</insert>
+
+<select id="examQuestionList" resultType="onet.com.vo.ExamQuestionListDto">
+	select e.exam_paper_num, q.question_num, e.exam_question_seq, e.exam_question_score, q.question_type, q.question_name, q.question_img from exam_question e join question q on (e.question_num = q.question_num) where e.exam_paper_num = #{param1} order by exam_question_seq asc
 </select>
 
 <!-- 태용 끝 -->
@@ -273,6 +285,14 @@ select member_id, member_name from member where class_name=(select class_name fr
 
 
 <!-- 민지 10.22 시험일정 수정 끝 -->
+
+<select id="count_receive_note" parameterType="String" resultType="String">
+
+select count(*) from message where receive_member_id=#{user_name} and message_check=0
+
+</select>
+
+
 
 </mapper>
 

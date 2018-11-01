@@ -238,7 +238,18 @@
 			<artifactId>spring-core</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		        
+
+		<!-- 채팅 -->
+		<!-- WebSocket -->
+  
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-websocket</artifactId>
+				<version>${org.springframework-version}</version>
+			</dependency>
+		<!-- 채팅끝 -->
+		
+		
 	</dependencies>
     <build>
         <plugins>

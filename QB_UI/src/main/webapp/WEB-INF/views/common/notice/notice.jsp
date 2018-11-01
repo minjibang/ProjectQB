@@ -10,6 +10,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<style>
+.th{
+	text-align: center;
+	font-size: 14px;
+}
+</style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 
 <section id="main-content">
@@ -30,11 +37,11 @@
 							<table class="table table-inbox-notice table-hover" id="noticetable">
 								<thead>
 									<tr>
-										<th>글번호</th>
-										<th>제목</th>
-										<th>첨부파일</th>
-										<th>작성자</th>
-										<th>작성일</th>
+										<th class="th">글번호</th>
+										<th class="th">제목</th>
+										<th class="th">첨부파일</th>
+										<th class="th">작성자</th>
+										<th class="th">작성일</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -43,28 +50,25 @@
 											<td class="notice_num">${notice.notice_num}</td>
 											<td class="notice_name">${notice.notice_name}</td>
 											<c:choose>
-											<c:when test="${empty notice.notice_file1 && empty result[0].notice_file2}">
+											<c:when test="${empty notice.notice_file1 && empty notice.notice_file2}">
 											<td class="notice_file"></td>
 											</c:when>
-											<c:otherwise>
+											<c:when test="${not empty notice.notice_file1 || not empty notice.notice_file2}">
 											<td class="notice_file"><i class="fa fa-paperclip"></i></td>
-											</c:otherwise>
+											</c:when>
 											</c:choose>
-											<td class="notice_member_id">${notice.member_id}</td>
+											<td class="notice_member_id">${notice.member_name} [${notice.member_id}]</td>
 											<td class="notice_date">${notice.notice_date}</td>
 										</tr>
-									</c:forEach>	
-										<c:forEach items="${boardNull}" var="boardNull">
-											<input type="hidden" class="notice_classname" value="${boardNull.class_name}">
-										</c:forEach>
+									</c:forEach>
 								</tbody>
 							</table>
 							<div>
 							<se:authorize access="hasRole('ROLE_TEACHER')">
-								<button id="noticeWrite_btn" class="btn btn-theme" value="">글쓰기</button>
+								<button id="noticeWrite_btn" class="btn btn-theme" value="${noticeCheck}">글쓰기</button>
 							</se:authorize>	
 							<se:authorize access="hasRole('ROLE_ADMIN')">
-								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="">글쓰기</button>
+								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="${class_name}">글쓰기</button>
 							</se:authorize>	
 							</div>
 						</div><!-- panel-body -->
@@ -85,10 +89,10 @@
 							<table class="table table-inbox-exam table-hover" id="noticetable2">
 								<thead>
 									<tr>
-										<th>시험번호</th>
-										<th>시험 이름</th>
-										<th>시험 시간</th>
-										<th>응시 대상</th>
+										<th class="th">시험번호</th>
+										<th class="th">시험 이름</th>
+										<th class="th">시험 시간</th>
+										<th class="th">응시 대상</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -104,7 +108,6 @@
 									</c:forEach>
 								</tbody>
 							</table>
-						
 						</div>
 					</div>
 				</div>
@@ -113,28 +116,27 @@
 	</section><!-- /wrapper -->
 </section> <!-- /main-content -->
 
-
 <script>
-$(document).ready(function(){
-	var class_name1 = $('.notice_classname').val();
-	document.getElementById('noticeWrite_btn').setAttribute('value', class_name1);
-	
+
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
 	});
 	
 	$('#noticeWrite_btnAdmin').click(function(){
-		alert("22");
-		var adminClass_name2 = $('#noticeWrite_btnAdmin').val();
-		location.href="noticeWrite.do?class_name=" + adminClass_name1;
+		var adminClass_name = $('#noticeWrite_btnAdmin').val();
+		location.href="noticeWrite.do?class_name=" + adminClass_name;
 	});
 	
 	
-});
 
 
 </script>
+
+ 
+
+
+
 
 <!-- /MAIN CONTENT -->
 <!--main content end-->

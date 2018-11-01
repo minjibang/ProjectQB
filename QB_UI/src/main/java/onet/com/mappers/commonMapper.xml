@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.common.dao.CommonDao">
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 시작 -->
 <select id="notice" parameterType="String" resultType="onet.com.vo.NoticeDto">
-   select * from notice where class_name = (select class_name from member where member_id = #{member_id});
+    select notice.notice_num, notice.class_name, notice.member_id, member.member_name, notice.notice_name, notice.notice_content, notice.notice_file1, notice.notice_file2, notice.notice_date from notice inner join member on notice.member_id=member.member_id where notice.class_name = (select class_name from member where member_id = #{member_id});
 </select>
 <select id="exam_info" parameterType="String" resultType="onet.com.vo.Exam_infoDto">
    select * from exam_info where class_name = (select class_name from member where member_id = #{member_id});
@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 민지 10.19 관리자 공지사하 및 시험일정시작 -->
 <select id="adminnotice" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
-	select * from notice where class_name = #{class_name}
+	select notice.notice_num, notice.class_name, notice.member_id, member.member_name, notice.notice_name, notice.notice_content, notice.notice_file1, notice.notice_file2, notice.notice_date from notice inner join member on notice.member_id=member.member_id where notice.class_name  = #{class_name}
 </select>
 <select id="adminexam_info" parameterType="onet.com.vo.ExamInfoDto" resultType="onet.com.vo.ExamInfoDto">
 	select * from exam_info where class_name = #{class_name}
@@ -124,7 +124,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 </insert>
 
 <select id="noticeDetail" parameterType="onet.com.vo.NoticeDto" resultType="onet.com.vo.NoticeDto">
-	select * from notice where class_name = #{class_name} and notice_num=#{notice_num}
+	select notice.notice_num, notice.class_name, notice.member_id, member.member_name, notice.notice_name, notice.notice_content, notice.notice_file1, notice.notice_file2, notice.notice_date from notice inner join member on notice.member_id=member.member_id where notice.class_name = #{class_name} and notice.notice_num=#{notice_num}
 </select>
 
 <select id="noticeNumFind" parameterType="onet.com.vo.NoticeDto" resultType="String">
@@ -137,11 +137,11 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 </select>
 
 <select id="comment" parameterType="onet.com.vo.CommentDto" resultType="onet.com.vo.CommentDto">
-	select * from comment where class_name=#{class_name} and notice_num=#{notice_num}
+	select comment.comment_num, comment.comment_group, comment.class_name, member.member_name, comment.notice_num, comment.member_id, comment.comment_content, comment.comment_date from comment inner join member on comment.member_id=member.member_id where comment.class_name=#{class_name} and notice_num=#{notice_num}
 </select>
 
 <select id="commentGroup" parameterType="onet.com.vo.CommentDto" resultType="onet.com.vo.CommentDto">
-	select * from comment where class_name=#{class_name} and notice_num=#{notice_num} and comment_group != 0
+	select comment.comment_num, comment.comment_group, comment.class_name, member.member_name, comment.notice_num, comment.member_id, comment.comment_content, comment.comment_date from comment inner join member on comment.member_id=member.member_id where comment.class_name=#{class_name} and comment.notice_num=#{notice_num} and comment.comment_group != 0
 </select>
 
 <insert id="commentReply" parameterType="onet.com.vo.CommentDto">
@@ -197,6 +197,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	select * from score_chart 
 	where member_id=#{member_id} and class_name = 
 	(select class_name from member where member_id=#{member_id})
+	order by member_id, exam_info_num asc
 </select>
 <!-- 클래스 차트 정보 -->
 <select id="classChartInfo" parameterType="String" resultType="onet.com.vo.Class_chartDto">
@@ -204,6 +205,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	from class_chart c join exam_info e
 	on c.exam_info_num=e.exam_info_num
 	where c.class_name=#{class_name}
+	order by exam_info_num asc
 </select>
 
 <!-- 양회준 10-25 학생&성적관리 학생개인 성적확인 -->
@@ -250,4 +252,56 @@ and m.member_id=sc.member_id
 and e.exam_info_name=#{exam_info_name}
 
 </select>
+
+
+<select id="count_receive_note" parameterType="String" resultType="String">
+	select count(*) from message where receive_member_id=#{member_id}
+</select>
+
+
+<select id="classTeacherList" parameterType="String" resultType="onet.com.vo.MemberDto">
+ select member_id, member_name from member where member_id=(
+ select member_id from member_role where member_id in(
+ select member_id from member where class_name in (select class_name from member where member_id=#{member_id}) and role_code="role_teacher"))
+</select>
+
+<update id="updateBoardListFile1" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_name = #{notice_name},notice_content=#{notice_content},notice_file1=#{notice_file1} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+
+<!-- 쪽지 리스트 -->
+<select id="receiveMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
+   select * from message where receive_member_id=#{member_id} and receive_check=0
+</select>
+
+<select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
+   select * from message where send_member_id=#{member_id} and send_check=0
+</select>
+
+<update id="updateBoardListFile2" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_name = #{notice_name},notice_content=#{notice_content},notice_file2=#{notice_file2} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+<update id="updateNoBoardList" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_name = #{notice_name},notice_content=#{notice_content} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+
+<update id="fileDeletebtn1" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_file1=#{notice_file1} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+<update id="fileDeletebtn2" parameterType="onet.com.vo.NoticeDto">
+	update notice set notice_file2=#{notice_file2} where notice_num=#{notice_num} and class_name=#{class_name}
+</update>
+
+<update id="sendMessageDelete" parameterType="int">
+	update message set receive_check=1 where message_num=#{message_num} 
+</update>
+
+<update id="receiveMessageDelete" parameterType="int">
+	update message set send_check=1 where message_num=#{message_num}
+</update>
+
 </mapper>

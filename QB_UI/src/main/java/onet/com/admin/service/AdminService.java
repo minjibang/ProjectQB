@@ -125,7 +125,8 @@ public class AdminService {
 		//보기 이미지 파일 입력
 		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
 		List<String> qcFilenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
-		   
+		System.out.println("qcFiles: " + qcFiles);
+		System.out.println("qcFilenames: " + qcFilenames);
 		   if(qcFiles != null && qcFiles.size() > 0) {
 			   for(CommonsMultipartFile multifile : qcFiles) {
 				    
@@ -498,5 +499,12 @@ public class AdminService {
 		return list;
 	}
 	/*정원 문제분류 끝*/
+	
+	public int checkClassNum(String class_name) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.checkClassNum(class_name);
+		return result;
+	}
+	
 	
 }

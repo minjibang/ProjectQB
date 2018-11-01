@@ -24,7 +24,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
-import onet.com.vo.ExamQuestionDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -45,15 +45,19 @@ public class TestManageController {
 	/*문제리스트 뿌려주기*/
 	@RequestMapping(value="questionListView.do")
 	public @ResponseBody ModelAndView classListView(Model model) {
+		
 		List<QuestionDto> question = teacherService.question();
-		model.addAttribute("question", question);
+		
 		List<Question_choiceDto> question_choice = teacherService.question_choice();
-		model.addAttribute("question_choice", question_choice);
+		
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.common.examPaperMake_ajax");
 		mv.addObject("question", question);
 		mv.addObject("question_choice",question_choice);
+		
+		System.out.println(mv);
+		
 		return mv;
 	}
 	/*문제 검색*/
@@ -98,6 +102,14 @@ public class TestManageController {
 	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
 		
 		int result = teacherService.deleteExam(exam_paper_num);
+		
+		return result;
+	}
+	//시험지 수정 유효성
+	@RequestMapping("updateExamCheck.do")
+	public @ResponseBody int updateExamCheck(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		int result = teacherService.updateExamCheck(exam_paper_num);
 		
 		return result;
 	}
@@ -146,6 +158,42 @@ public class TestManageController {
 		return "common.teacher.exampaper.examPaperUpdate";
 	}
 	
+	//임시시험지 수정페이지 데이터 뿌려주기
+		@RequestMapping("tempUpdateExamView.do")
+		public String tempUpdateExamView(Model model, int exam_paper_num) {
+			
+			List<CategoryDto> list1;
+			list1 = adminService.lgCategoryList();
+			model.addAttribute("list1", list1);
+
+			List<CategoryDto> list2;
+			list2 = adminService.mdCategoryList();
+			model.addAttribute("list2", list2);
+
+			List<CategoryDto> list3;
+			list3=adminService.smCategoryList();
+			model.addAttribute("list3",list3);
+			
+			List<CategoryDto> levellist;
+			levellist = adminService.questionLevelList();
+			model.addAttribute("levellist",levellist);
+			
+			List<QuestionDto> question = teacherService.updateExamView(exam_paper_num);
+			model.addAttribute("examquestion", question);
+			List<Question_choiceDto> question_choice = teacherService.question_choice();
+			model.addAttribute("examquestion_choice", question_choice);
+			
+			ExamPaperDto namedesc = teacherService.examNameDesc(exam_paper_num);
+			
+			String exam_paper_name = namedesc.getExam_paper_name();
+			String exam_paper_desc = namedesc.getExam_paper_desc();
+			
+			model.addAttribute("exam_paper_name", exam_paper_name);
+			model.addAttribute("exam_paper_desc", exam_paper_desc);
+			
+			return "common.teacher.exampaper.examPaperMake";
+		}
+	
 	//시험지 문제 삭제
 	@RequestMapping("examquestionsdelete.do")
 	public @ResponseBody int examquestionsdelete(@RequestParam("exam_paper_num") int exam_paper_num,
@@ -165,7 +213,32 @@ public class TestManageController {
 		
 		return result;
 	}
+	//시험지 수정(새로 시험지를 만들고 이전시험지는 enable을 0으로 하기
+	@RequestMapping("examPaperUpdateInsert.do")
+	public @ResponseBody int newExamPaperInsert(ExamPaperDto dto , Principal principal) {
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
+		int updateresult = teacherService.examEnableUpdate(dto.getExam_paper_num());
+		int exampapernum = teacherService.newExaminsert(dto);
+		
+		
+		return exampapernum;
+	}
 	
+	//내시험지 리스트 미리보기	
+	@RequestMapping("examMiri.do")
+	public @ResponseBody ModelAndView examMiri(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		List<ExamQuestionListDto> examquestion = teacherService.examQuestionList(exam_paper_num);
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.teacher.examMiriList_ajax");
+		mv.addObject("examquestion", examquestion);
+		mv.addObject("question_choice", question_choice);
+		
+		return mv;
+	}
 	
 	/*성태용 끝*/
 	
@@ -240,10 +313,20 @@ public class TestManageController {
 	/*민지 끝*/
 	
 	/*한결 시작*/
+	@RequestMapping("checkExam_paper.do")
+	public @ResponseBody String examPaperCheck(@RequestParam("exam_paper_name") String exam_paper_name, 
+			@RequestParam("member_id") String member_id) {	
+		String result = teacherService.examPaperCheck(exam_paper_name,member_id);
+		return result;
+	}	
+	
 	/* 10.17 시험지 테이블 insert and update*/
 
 	@RequestMapping("examPaperInsert.do")
-	public @ResponseBody int examPaperInsert(ExamPaperDto dto) {
+	public @ResponseBody int examPaperInsert(ExamPaperDto dto, Principal principal) {
+		
+		String member_id = principal.getName();
+		dto.setMember_id(member_id);
 		teacherService.examPaperInsert(dto);
 		int result = dto.getExam_paper_num();
 		return result;
@@ -253,14 +336,21 @@ public class TestManageController {
 	@RequestMapping("examPaperUpdate.do")
 	public @ResponseBody int examPaperUpdate(@RequestParam("exam_paper_num") int exam_paper_num, 
 			@RequestParam("exam_paper_name") String exam_paper_name,
-			@RequestParam("member_id") String member_id,
 			@RequestParam("exam_paper_desc") String exam_paper_desc, 
-			@RequestParam("exam_paper_status") String exam_paper_status) {
+			@RequestParam("exam_paper_status") String exam_paper_status,
+			Principal principal) {
+		String member_id = principal.getName();
 		int result = teacherService.examPaperUpdate(exam_paper_num, exam_paper_name,member_id,exam_paper_desc, exam_paper_status);
 		return result;
 	}
 	
 	/*10.18 시험지 문제 테이블 select insert update delete*/
+	@RequestMapping("examQuestionSelect.do")
+	public @ResponseBody int examQuestionSelect(@RequestParam("exam_paper_num") String exam_paper_num,
+			@RequestParam("question_num") String question_num) {
+		int result = teacherService.examQuestionSelect(exam_paper_num, question_num);
+		return result;
+	}
 	@RequestMapping("examQuestionInsert.do")
 	public @ResponseBody int examQuestionInsert(@RequestParam("exam_paper_num") int exam_paper_num, 
 			@RequestParam("question_num") String question_num, @RequestParam("exam_question_seq")String exam_question_seq, 

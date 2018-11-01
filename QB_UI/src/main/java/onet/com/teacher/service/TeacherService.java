@@ -11,6 +11,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -158,6 +159,23 @@ public class TeacherService {
 		}
 		return result;
 	}
+	public int updateExamCheck(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		int result = 0;
+		int checkdate = dao.checkDate(exam_paper_num); //0이 아닐경우 현재 날짜보다 높다
+		int checkinfo = dao.checkExamInfo(exam_paper_num); // 0이면 등록된 일정이 없다
+
+		if(checkinfo == 0 && checkdate == 0) {
+			result = 1;
+		}else if(checkinfo != 0 && checkdate == 0) {
+			result = 2; 
+		}else if(checkinfo != 0 && checkdate != 0){
+			result = 3; //수정불가
+		}
+		return result;
+	}
+	
 	public int deleteTempExam(int exam_paper_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.deleteExam(exam_paper_num);
@@ -186,6 +204,26 @@ public class TeacherService {
 	public ExamPaperDto examNameDesc(int exam_paper_num){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		ExamPaperDto result = dao.examNameDesc(exam_paper_num);
+		return result;
+	}
+	public int examEnableUpdate(int exam_paper_num){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.updateExam(exam_paper_num);
+		return result;
+	}
+	public int newExaminsert(ExamPaperDto dto){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.newExaminsert(dto);
+		
+		int exampapernum = dto.getExam_paper_num();
+		
+		return exampapernum;
+	}
+	
+	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamQuestionListDto> result = dao.examQuestionList(exam_paper_num);
+		
 		return result;
 	}
 	
@@ -270,6 +308,8 @@ public class TeacherService {
 		return result;
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
+	
+	
 	
 	
 }

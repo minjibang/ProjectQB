@@ -6,6 +6,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -55,6 +56,7 @@ public interface TeacherDao {
 	public List<ExamInfoDto> examScheduleList2(int exam_paper_num);
 	public int deleteExam(int exam_paper_num);
 	public int updateExam(int exam_paper_num);
+	public int newExaminsert(ExamPaperDto dto);
 	public int checkDate(int exam_paper_num);
 	public int checkExamInfo(int exam_paper_num);
 	public List<QuestionDto> updateExamView(int exam_paper_num);
@@ -62,6 +64,7 @@ public interface TeacherDao {
 	public int examNameUpdate(int exam_paper_num, String exam_name, String exam_desc);
 	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score);
 	public ExamPaperDto examNameDesc(int exam_paper_num);
+	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num);
 	
 	/*--성태용 끝--*/
 	
@@ -81,4 +84,15 @@ public interface TeacherDao {
 	public List<MemberDto> examNotcheckMemberList(int exam_info_num);
 	
 	/*민지 - 10.22 시험일정 수정 끝*/
+	
+	/*민지 - 10.29 받은쪽지 */
+	public CharSequence count_receive_note(String user_name);
+	/*쪽지 보내기*/
+	public String sendMessage(String user_name);
+	
+	/*민지 - 10.29 받은쪽지  끝*/
+	
+	
+	
+	
 }

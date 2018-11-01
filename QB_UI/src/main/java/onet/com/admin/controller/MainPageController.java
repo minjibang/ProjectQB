@@ -216,4 +216,30 @@ public class MainPageController {
 		
 		return "common.admin.exam.examScheduleUpdate";
 	}
+	// 양회준 
+	@RequestMapping(value="questionListView.do")
+	public @ResponseBody ModelAndView classListView(Model model) {
+		
+		List<QuestionDto> question = teacherService.question();
+		
+		List<Question_choiceDto> question_choice = teacherService.question_choice();
+		
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.common.examPaperMake_ajax");
+		mv.addObject("question", question);
+		mv.addObject("question_choice",question_choice);
+		
+		System.out.println(mv);
+		
+		return mv;
+	}
+	//양회준 10.29시험지 수정 유효성 추가수정
+	@RequestMapping("updateExamCheck.do")
+	public @ResponseBody int updateExamCheck(@RequestParam("exam_paper_num") int exam_paper_num) {
+		
+		int result = teacherService.updateExamCheck(exam_paper_num);
+		
+		return result;
+	}
 }

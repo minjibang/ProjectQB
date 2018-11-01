@@ -100,25 +100,25 @@ jQuery(document).ready(function() {
 
    /*임시저장 버튼 눌렀을 떄*/
    $('#pickQuestionTempSaveModalBtn').click(function(){
-	   var memId = $('.dpn1').val();
-	   /*var questionNum = "";
+	   
+	   var questionNum = "";
 	   var questionScore = "";
-	   var questionIndex = "";*/
+	   var questionIndex = "";
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 		   if($(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()==""){
 			   $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val("0");
 		   }
-		   /*questionNum += $(this).val() + ", ";
+		   questionNum += $(this).val() + ", ";
 		   questionScore += $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() + ", ";
-		   questionIndex += (index+1) + ", ";*/
+		   questionIndex += (index+1) + ", ";
 	   });
-	   /*console.log("문제 번호 : "+questionNum);
+	   console.log("문제 번호 : "+questionNum);
 	   console.log("배점 : " +questionScore);
-	   console.log("문제 순서 : " + questionIndex);*/
-	   $('#saveMemId').val(memId);
-	   /*$('#saveQNum').val(questionNum);
+	   console.log("문제 순서 : " + questionIndex);
+	   
+	   $('#saveQNum').val(questionNum);
 	   $('#saveEQSeq').val(questionIndex);
-	   $('#saveEQScore').val(questionScore);*/
+	   $('#saveEQScore').val(questionScore);
 
 	   $('#pickQuestionTempSaveModal').modal(); 
    });
@@ -148,7 +148,7 @@ jQuery(document).ready(function() {
 function makeExamSubmitBtn(num){
 	var examPNum = $('#insertEPNum').val();
 	var examName = "";
-	var memId = $('.dpn1').val();
+	
 	var examDesc = "";
 	var examPStatus = num;
 	/*유효성검사*/
@@ -162,8 +162,8 @@ function makeExamSubmitBtn(num){
 		examDesc=$('.exam-paper-desc').val().trim();
 		$('.createEPaper').val(examName);
 		$('.createEPDesc').val(examDesc);
-		$('#saveMemId').val(memId);
-		insertEP(examName, memId, examDesc, examPStatus);
+		
+		insertEP(examName, examDesc, examPStatus);
 	}else if(num==1 && examPNum == ""){
 		if($('.createEPaper').val()==""){
 			swal("시험지 이름을 작성해주세요"); return false;
@@ -172,8 +172,8 @@ function makeExamSubmitBtn(num){
 		}
 		examName=$('.createEPaper').val().trim();
 		examDesc=$('.createEPDesc').val().trim();
-		$('#insertMemId').val(memId);
-		insertEP(examName, memId, examDesc, examPStatus);
+		
+		insertEP(examName, examDesc, examPStatus);
 	}else if(num==0 && examPNum != ""){
 		if($('.exam-paper-name').val()==""){
 			swal("시험지 이름을 작성해주세요");
@@ -184,8 +184,8 @@ function makeExamSubmitBtn(num){
 		examDesc=$('.exam-paper-desc').val().trim();
 		$('.createEPaper').val(examName);
 		$('.createEPDesc').val(examDesc);
-		$('#saveMemId').val(memId);
-		updateEP(examPNum, examName, memId, examDesc, examPStatus);
+		
+		updateEP(examPNum, examName, examDesc, examPStatus);
 	}else if(num==1 && examPNum != ""){
 		if($('.createEPaper').val()==""){
 			swal("시험지 이름을 작성해주세요");
@@ -194,20 +194,20 @@ function makeExamSubmitBtn(num){
 		}
 		examName=$('.createEPaper').val().trim();
 		examDesc=$('.createEPDesc').val().trim();
-		$('#insertMemId').val(memId);
-		updateEP(examPNum, examName, memId, examDesc, examPStatus);
+		
+		updateEP(examPNum, examName, examDesc, examPStatus);
 	}
 
 }
 
-function insertEP(examName, memId, examDesc, examPStatus){
+function insertEP(examName, examDesc, examPStatus){
   var promise = $.ajax({
   url:"examPaperInsert.do",
   type:"get",
   dataType:"json",
   data:{
      "exam_paper_name":examName, 
-     "member_id":memId,
+     
      "exam_paper_desc":examDesc,
      "exam_paper_status":examPStatus
      },
@@ -239,8 +239,13 @@ function insertEP(examName, memId, examDesc, examPStatus){
 	      });         
 	         /*내 시험지로 이동*/
 	         if(examPStatus==1){
-	        	swal("시험지가 저장되었습니다.");
-	         location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
+	        	 swal({
+				       title: "시험지가 생성되었습니다.",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+					    window.location = $('.dpn_EPN').val()+"/teacher/examManagement.do";
+					});
 	         }else{
 	        	 $('#insertEPNum').val(epnum);
 	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
@@ -249,7 +254,8 @@ function insertEP(examName, memId, examDesc, examPStatus){
    }
 });
 }
-function updateEP(examPNum, examName, memId, examDesc, examPStatus){
+function updateEP(examPNum, examName, examDesc, examPStatus){
+	alert("업데이트로 진입한다");
 	 $.ajax({
        url:"examPaperUpdate.do",
        type:"get",
@@ -257,7 +263,7 @@ function updateEP(examPNum, examName, memId, examDesc, examPStatus){
        data:{
     	  "exam_paper_num":examPNum,
           "exam_paper_name":examName, 
-          "member_id":memId,
+          
           "exam_paper_desc":examDesc,
           "exam_paper_status":examPStatus
        },

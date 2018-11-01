@@ -7,6 +7,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
@@ -106,7 +108,15 @@
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active">
-								<a data-toggle="tab" href="#overview">내 문제함</a>
+							
+							<!-- 관리자일 경우  "문제 관리" / 강사일 경우 버튼이 "내 문제함"-->
+							<se:authorize access="hasRole('ROLE_ADMIN')">
+							<a data-toggle="tab" href="#overview"> 문제 관리 </a>
+							</se:authorize>
+							<se:authorize access="hasRole('ROLE_TEACHER')">
+							<a data-toggle="tab" href="#overview"> 내 문제함 </a>
+							</se:authorize>
+							
 							</li>
 							<li>
 								<a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a>
@@ -121,7 +131,15 @@
 							<div class="row">
 								<div class="col-lg-12">
 
-									<h3 id="h3id">내가 만든 문제
+									<h3 id="h3id">
+									
+									<!--  관리자일 경우 "문제 관리"/ 강사일 경우 "내 문제함" -->
+									<se:authorize access="hasRole('ROLE_ADMIN')">
+									 문제 관리
+									</se:authorize>
+									<se:authorize access="hasRole('ROLE_TEACHER')">
+									내 문제함
+									</se:authorize>
 										<input type="text" name="member_id" id="member_id"
 										value="${memberDto.member_id}" style="display: none">
 										<input type="text" name="question_num" id="question_num"
@@ -209,7 +227,7 @@
 										<input type="text" name="member_id"
 										value="${memberDto.member_id}" style="display: none">
 										
-										<h3 id="h3id">새로운 문제 만들기</h3>
+										<h3 id="h3id">새 문제 만들기</h3>
 										<hr>
 										<h4>
 											<i class="fa fa-angle-right"></i> 출제자: ${memberDto.member_name} ( ${memberDto.member_id} )
@@ -308,11 +326,7 @@
 															<input type="radio" name="question_answer" value="4" id="questionAnswerRadio4">
 															4번
 														</label>&nbsp;&nbsp; 
-														
-														<label class="questionChoiceRadioButton">
-															<input type="radio" name="question_answer" value="5" id="questionAnswerRadio5">
-															5번
-														</label>&nbsp;&nbsp;
+												
 														
 													</div>
 													<br>
@@ -329,8 +343,8 @@
 														<option id="howManyChoices1" value="1">보기개수 선택</option>
 														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
 														<option id="howManyChoices3" value="3">보기 개수: 3개</option>
-														<option id="howManyChoices4" value="4">보기 개수: 4개</option>
-														<option id="howManyChoices5" value="5" selected>보기 개수: 5개</option>
+														<option id="howManyChoices4" value="4" selected>보기 개수: 4개</option>
+														<option id="howManyChoices5" value="5">보기 개수: 5개</option>
 														
 													</select> <br> <br>
 													
@@ -437,8 +451,10 @@
 															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
 													</span></div>
+													
+													
 													<!-- 5번 보기 -->
-													<div id="QCNPlus_5">
+													<!-- <div id="QCNPlus_5">
 													<b><input type="text" name="question_choice_num"
 														value="5" style="display: none">5.</b>
 													   <input type="text" name="question_choice_content" id="question_choice_content5"
@@ -460,7 +476,9 @@
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
-													</span></div>
+													</span></div> -->
+													
+													
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
 
@@ -483,8 +501,7 @@
 										입력 취소</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
-										<button type="button" class="btn btn-theme quesCategory pull-right" id="test">
-										테스트</button>
+										
 									</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->

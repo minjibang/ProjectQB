@@ -77,11 +77,11 @@
 	padding-top: 20px;
 }
 
-.exampaneldetailBtn {
+/* .exampaneldetailBtn {
 	margin-top: 10px;
 	margin-left: 90%;
 	width: 150px;
-}
+} */
 
 .exampaneldetailsubject {
 	padding-left: 10px;
@@ -250,6 +250,16 @@
 	    left: 8px;
     	display: none;
     }
+    
+    #prevPageSpan, #nextPageSpan {
+    	display: inline-block;
+    	width: 100px;
+    }
+    
+    .pastExamBtnDiv, .pastExamBtnDiv2 {
+    	text-align: center;
+    }
+    
     
     
     
