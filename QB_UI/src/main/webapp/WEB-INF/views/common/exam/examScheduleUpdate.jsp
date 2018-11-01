@@ -13,7 +13,7 @@
  <script
    src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
 <section id="main-content">
-  <section class="wrapper-low">
+  <section class="wrapper-low site-min-height">
   
     <div class="row mt">
       <div class="col-lg-12 mt">
@@ -152,13 +152,6 @@
                 </div>
               </div>
               <!-- /tab-pane -->
-              <div id="ExamSchedule" class="tab-pane">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div id="map"></div>
-                    <h4>Location</h4>
-                  </div>
-                </div>
                 <!-- /row -->
               </div>
               <!-- /tab-pane -->

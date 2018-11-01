@@ -54,7 +54,7 @@ th{
 </style>
 
 <section id="main-content">
-	<section class="wrapper">
+	<section class="wrapper site-min-height">
 		<!-- 모달창 시작 -->
 			<!-- 대분류 추가 모달창 시작-->
 			<div class="modal fade" id="lgCatModal" role="dialog">
