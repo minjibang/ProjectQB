@@ -319,7 +319,7 @@ ul.top-menu>li>.logout {
 /*sidebar navigation*/
 /* 210px -> 160px로 변경(test) */
 #sidebar {
-	width: 210px; 
+	width: 200px; 
 	height: 100%;
 	position: fixed;
 	background:#F0F0F0;
@@ -373,7 +373,7 @@ ul.sidebar-menu, ul.sidebar-menu li ul.sub {
 }
 
 ul.sidebar-menu {
-	margin-top: 75px;
+	margin-top: 65px;
 }
 
 #sidebar>ul>li>ul.sub {
@@ -486,7 +486,7 @@ ul.sidebar-menu li a.active i {
 /* MAIN CONTENT CONFIGURATION */
 /* 210px -> 160px로 변경(test) */
 #main-content {
-	margin-left: 210px;
+	margin-left: 200px;
 	background: #F0F0F0;
 }
 
@@ -518,7 +518,7 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
 	display: inline-block;
-	margin-top: 35px;
+	margin-top: 25px;
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;
