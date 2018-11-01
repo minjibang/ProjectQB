@@ -455,6 +455,14 @@ public class TeacherController {
 		return studentStdChart;
 	}
 	
+	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
+	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
+	public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
+			@RequestParam("class_name") String class_name) {
+		int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
+		return spreadList;
+	}
+	
 	/*양회준 18.10.11 학생&성적관리 끝 */
 	
 	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
