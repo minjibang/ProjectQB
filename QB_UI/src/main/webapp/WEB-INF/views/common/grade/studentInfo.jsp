@@ -175,15 +175,6 @@
 													</tbody>
 												</table>
 											</div>
-											<div class="mail-option">
-												<ul class="unstyled inbox-pagination">
-													<li><span>1-50 of 99</span></li>
-													<li><a class="np-btn" href="#"><i
-															class="fa fa-angle-left  pagination-left"></i></a></li>
-													<li><a class="np-btn" href="#"><i
-															class="fa fa-angle-right pagination-right"></i></a></li>
-												</ul>
-											</div>
 										</div>
 									</section>
 								</div>
@@ -375,17 +366,20 @@ $(document).ready(function(){
 	var tab2AjaxData="";
 	//tab2AjaxData 가져오기 함수
 	function tab2Ajax(){
+		console.log("?:"+memberName);
+		console.log("?:"+className);
 		$.ajax({
 			type:"post",
 			url:"studentExamScoreInfo.do",
-			data:{"member_name":memberName,
+			data:{
+				"member_name":memberName,
 				"class_name":className
 				},
 			datatype:"json",
 			success:function(data, status){
 				console.log(data);
 				tab2AjaxData=data;
-				var studentExamScoreSrc = "";				
+				var studentExamScoreSrc = "";
 				$("#studentExamTable").empty();
 				$(data).each(function(index, element){
 					var smCtgr="";
@@ -508,9 +502,8 @@ $(document).ready(function(){
 	
 	//학생 목록 선택 이벤트-tab2
 	
-	$(".tab2studentListMembers").click(function(){
-		
-		$("#searchExamValue").val("");
+	$(".tab2studentListMembers").click(function(){		
+		//$("#tab2studentListMembers").val("");
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
 		var className=$("#tab2_className").text().trim();
@@ -721,7 +714,7 @@ $(document).ready(function(){
 						left: 10,
 						right: 10,
 						top: 10,
-						bottom: 10
+						bottom: 30
 					}
 				},
 				scales: {

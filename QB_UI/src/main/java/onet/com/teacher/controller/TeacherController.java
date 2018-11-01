@@ -687,10 +687,10 @@ public class TeacherController {
 	}
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
 	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
-	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_name, class_name);
 		return result;
 	}
 	

@@ -110,7 +110,7 @@ public class AdminController {
 	}
 	//양회준 10.30 데이터테이블Ajax
 	@RequestMapping("adminMemberAjax.do")
-	public @ResponseBody List<MemberDto> adminMemberAjax() throws Exception {		
+	public @ResponseBody List<MemberDto> adminMemberAjax(String exam_info_name) throws Exception {		
 		List<MemberDto> list=adminService.memberList();				
 		return list;		
 	}
@@ -398,22 +398,22 @@ public class AdminController {
 	public String studentInfo(Model model, Principal principal, HttpServletRequest request){
 		String member_id = principal.getName();
 		String class_num=request.getParameter("class_num");	
-		String student_id;
+		String student_name;
 		String class_name;
 		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
         try {
-            student_id = studentList.get(0).getMember_id();
+            student_name = studentList.get(0).getMember_name();
             class_name = studentList.get(0).getClass_name();
         }catch(Exception e) {
-            student_id="데이터가 없습니다.";
+        	student_name="데이터가 없습니다.";
             class_name="데이터가 없습니다.";
         }
         
-		System.out.println("admin:"+student_id);
+		System.out.println("admin:"+student_name);
 		System.out.println("admin:"+class_name);
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(student_name, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
@@ -421,17 +421,20 @@ public class AdminController {
 		model.addAttribute("studentChart",studentChart);
 		
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_name, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
+		//학생 전체 성적확인
+		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
+		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		
 		return "common.adminClass.admin.grade.studentInfo";
 	}
 	// 관리자 클래스 상세보기 - 학생 & 성적관리 - 개별차트부르기
 	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_name, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		for(Class_chartDto data : studentChart) {
 			System.out.println("과연"+data.getExam_info_name());
@@ -440,10 +443,10 @@ public class AdminController {
 	}
 	//양회준 10-26 학생&성적관리 학생개인 성적확인
 	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
-	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_name, class_name);
 		return result;
 	}
 	
@@ -1032,8 +1035,20 @@ public class AdminController {
 		return result;
 	}
 	
-    
-    
+	/* 영준 10.25 반 등수 시작 */
+	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
+		System.out.println("과연 반 등수는? : " + classRank);
+		return classRank;
+	}
+	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
+	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
+	public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
+			@RequestParam("class_name") String class_name) {
+		int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
+		return spreadList;
+	}
 
 	
 }
