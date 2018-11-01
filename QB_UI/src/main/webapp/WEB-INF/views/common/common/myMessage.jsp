@@ -199,9 +199,9 @@
                                              	<tr class="${receiveMessage.message_num}" >
                                                    <td class="inbox-small-cells"><input name="chk2"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
-                                                   <td class="view-message ">${receiveMessage.send_member_id}</td>
+                                                   <td class="view-message " id="${receiveMessage.message_content}">${receiveMessage.send_member_id}</td>
                                                    <td class="view-message receiveBtn message_content_row " data-toggle="modal" 
-                                                      data-target="#MessageModal1" id="${receiveMessage.message_content}" >${receiveMessage.message_content}
+                                                      data-target="#MessageModal1" id="${receiveMessage.message_num}" >${receiveMessage.message_content}
                                                    </td>
                                                    <c:choose>
                                                    <c:when test="${receiveMessage.message_check == 0}">
@@ -267,9 +267,9 @@
                                                 <tr>
                                                    <td class="inbox-small-cells"><input name="chk3"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${sendMessage.message_num}"></td>
-                                                   <td class="view-message "><a href="mail_view.html">나</a></td>
+                                                   <td class="view-message" id="${sendMessage.message_content}"><a href="mail_view.html">나</a></td>
                                                    <td class="view-message sendBtn subject" data-toggle="modal"
-                                                      data-target="#MessageModal2" id="${sendMessage.message_content}">
+                                                      data-target="#MessageModal2" id="${sendMessage.message_num}">
                                                       ${sendMessage.message_content}</td>
                                                    <td class="view-message  inbox-small-cells">${sendMessage.receive_member_id}</td>
                                                    <td class="view-message  text-right">${sendMessage.message_date}</td>
@@ -502,11 +502,10 @@ function check_t(){
              };
              
    
-    
+           
 	$('.message_content_row').click(function(){
-	  
-	  $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>")
-	  var message_num=window.event.target.id;
+		 $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>");
+		var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
 	  	   
@@ -519,7 +518,7 @@ function check_t(){
              if(data>0){
                alert('message_check 성공');
              }else{
-            	 
+            	 alert('2');
              }
         	 
             
