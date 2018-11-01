@@ -39,7 +39,7 @@
 									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
-												<i class="fa fa-angle-right"></i> 각 시험별 내 성적
+												<i class="fa fa-angle-right"></i> 시험별 내 성적
 											</h4>
 											<div class="panel-body text-center">
 												<canvas id="bar1" height="300" width="400"></canvas>
