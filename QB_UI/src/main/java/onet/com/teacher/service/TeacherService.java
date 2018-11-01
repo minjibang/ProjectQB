@@ -11,6 +11,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -229,6 +230,13 @@ public class TeacherService {
 		int exampapernum = dto.getExam_paper_num();
 		
 		return exampapernum;
+	}
+	
+	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamQuestionListDto> result = dao.examQuestionList(exam_paper_num);
+		
+		return result;
 	}
 	
 	
