@@ -20,40 +20,40 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--main content start-->
 
-
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="col-lg-12 mt">
-			<div class="row content-panel div_table">
-				<div class="panel-heading">
-					<ul class="nav nav-tabs nav-justified">
-						<li class="active"><a data-toggle="tab" href="#overview">내
-								시험지 </a></li>
-						<li><a data-toggle="tab" href="#tempExamPaper"
-							class="contact-map">임시 저장된 시험지 </a></li>
-						<li><a data-toggle="tab" href="#examSchedule"
-							class="contact-map">시험 일정 </a></li>
-					</ul>
-				</div>
-				
-				
-				<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
-				
-				<div id="exam_preview" class="modal fade modal_preview">
-                           <div class="modal-dialog">
-                           <div id="print-modal">
-							<a href="#" class="print" onclick="printpage()"title="Print page">Print page</a>
-							<a href="#" class="close" title="Close print preview">Close</a>
+		<div class="row mt">
+			<div class="col-lg-12">
+				<div class="row content-panel div_table">
+					<div class="panel-heading">
+					
+						<ul class="nav nav-tabs nav-justified">
+							<li class="active"><a data-toggle="tab" href="#overview">내
+									시험지 </a></li>
+							<li><a data-toggle="tab" href="#tempExamPaper"
+								class="contact-map">임시 저장된 시험지 </a></li>
+							<li><a data-toggle="tab" href="#examSchedule"
+								class="contact-map">시험 일정 </a></li>
+						</ul>
+						
+					</div><!-- panel-heading -->
+					
+						<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+
+					<div id="exam_preview" class="modal fade modal_preview">
+						<div class="modal-dialog">
+							<div id="print-modal">
+								<a href="#" class="print" onclick="printpage()"
+									title="Print page">Print page</a> <a href="#" class="close"
+									title="Close print preview">Close</a>
 							</div>
-                              <!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
-                                 <div class="book">
-
-								</div>
-                           </div>
-                        </div>	
-				<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
-
-				<div class="panel-body">
+							<!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
+							<div class="book"></div>
+						</div>
+					</div>
+					<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+					
+					<div class="panel-body">
 					<div class="tab-content">
 						<!-- 내 시험지 탭 시작 -->
 						<div id="overview" class="tab-pane active">
@@ -226,13 +226,13 @@
 					</div>
 					<!-- /row content-panel div_table -->
 				</div>
-			</div>
-		</div>
-		<!-- row content-panel div_table -->
-	</section>
-	<!-- wrapper site-min-height -->
-</section>
-<!-- main-content -->
+					
+				</div><!-- row content-panel div_table-->
+			</div><!-- col-lg-12 -->
+		</div> <!-- row mt -->
+	</section><!-- wrapper site-min-height -->
+</section> <!-- main-content -->
+					
 
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script>

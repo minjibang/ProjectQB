@@ -35,25 +35,25 @@
 		<div class="container">
 		<c:url value="/login" var="loginurl"></c:url>
 			<form class="form-login" action="${loginurl}" method="post">
-				<h2 class="form-login-heading">login now</h2>
+				<h2 class="form-login-heading">LOGIN</h2>
 				<div class="login-wrap">
 					<label>ID</label> <input type="text" class="form-control"
-						name="member_id" placeholder="User ID" autofocus required>
+						name="member_id" placeholder="아이디를 입력하세요" autofocus required>
 					<br> <label>PASSWORD</label> <input type="password"
-						class="form-control" name="member_pwd" placeholder="Password"
+						class="form-control" name="member_pwd" placeholder="비밀번호를 입력하세요"
 						required> <br>
-					<label class="pull-right"><span>&nbsp&nbsp || &nbsp&nbsp</span> <a href="index/pwdSearch.do">
-							Forgot Password?</a>
+					<label class="pull-right"><span>&nbsp; &nbsp; || &nbsp; &nbsp;</span> <a href="index/pwdSearch.do">
+							비밀번호 찾기</a>
 					</label> <label class="pull-right"> <a href="index/idSearch.do">
-							Forgot id?</a>
+							아이디 찾기</a>
 					</label>
 
-					<button class="btn btn-theme02 btn-block" type="submit">
-						<i class="fa fa-lock"></i>LOGIN
+					<button class="btn btn-theme btn-block" type="submit">
+						<i class="fa fa-unlock-alt"></i>&nbsp; 로그인
 					</button>
 					<br> <a href="index/memberjoin.do"><button type="button"
-							class="btn btn-theme btn-block">
-							<i class="fa fa-lock"></i> SIGN UP
+							class="btn btn-default btn-block">
+							<i class="fa fa-sign-in"></i>&nbsp; 회원가입
 						</button></a>
 				</div>
 			</form>

@@ -19,7 +19,7 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/jquery-ui.js"></script>
 
 <section id="main-content">
-	<section class="wrapper">
+	<section class="wrapper site-min-height">
 		<div class="row mt">
 
 			<!--  DATE PICKERS -->

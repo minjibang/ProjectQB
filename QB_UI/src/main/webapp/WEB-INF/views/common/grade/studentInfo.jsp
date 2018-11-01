@@ -543,6 +543,18 @@ $(document).ready(function(){
 		          }
 		      },
 		      scales: {
+			    	 xAxes: [{
+			    	     ticks: {
+			    	       callback: function(value) {
+			    	         if (value.length > 4) {
+			    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+			    	        	} else {
+			    	           	return value
+			    	        	}
+			    	        },
+			    	      }
+			    	    }],
+		    	
 		        yAxes: [{
 		         ticks: {
 		             max: 100,
@@ -550,7 +562,18 @@ $(document).ready(function(){
 		             stepSize: 10
 		         }
 		     }]
-		       }
+		       },
+		       tooltips: {
+		    	    enabled: true,
+		    	    mode: 'label',
+		    	    callbacks: {
+		    	      title: function(tooltipItems, data) {
+		    	        var idx = tooltipItems[0].index;
+		    	        return data.labels[idx];
+		    	      }
+		    	    }
+		    	  },		       
+		       
 		    }
 		});
 		//각 시험 성적 바 차트 끝
@@ -599,6 +622,17 @@ $(document).ready(function(){
 		            }
 		        },
 		        scales: {
+			    	 xAxes: [{
+			    	     ticks: {
+			    	       callback: function(value) {
+			    	         if (value.length > 4) {
+			    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+			    	        	} else {
+			    	           	return value
+			    	        	}
+			    	        },
+			    	      }
+			    	    }],
 		          yAxes: [{
 		           ticks: {
 		               max: 100,
@@ -606,7 +640,18 @@ $(document).ready(function(){
 		               stepSize: 10
 		           }
 		       }]
-		         }
+		         },
+			       tooltips: {
+			    	    enabled: true,
+			    	    mode: 'label',
+			    	    callbacks: {
+			    	      title: function(tooltipItems, data) {
+			    	        var idx = tooltipItems[0].index;
+			    	        return data.labels[idx];
+			    	      }
+			    	    }
+			    	  },		         
+		        
 		    }
 		});
 		//반/학생 평균 선 차트 끝
@@ -639,6 +684,17 @@ $(document).ready(function(){
 					}
 				},
 				scales: {
+			    	 xAxes: [{
+			    	     ticks: {
+			    	       callback: function(value) {
+			    	         if (value.length > 4) {
+			    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+			    	        	} else {
+			    	           	return value
+			    	        	}
+			    	        },
+			    	      }
+			    	    }],
 					yAxes: [{
 						ticks: {
 							max: 100,
@@ -646,7 +702,17 @@ $(document).ready(function(){
 							stepSize: 10
 						}
 					}]
-				}
+				},
+			       tooltips: {
+			    	    enabled: true,
+			    	    mode: 'label',
+			    	    callbacks: {
+			    	      title: function(tooltipItems, data) {
+			    	        var idx = tooltipItems[0].index;
+			    	        return data.labels[idx];
+			    	      }
+			    	    }
+			    	  },				
 			}
 		});
 	} //클래스 통계화면 첫 차트 끝

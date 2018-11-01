@@ -9,44 +9,43 @@
 	<div class="container">
 		<form class="form-signup" action="insertmember.do" method="post"
 			onsubmit="return check()">
-			<h2 class="form-login-heading">SIGN UP</h2>
+			<h2 class="form-login-heading">회원 가입</h2>
 			<div class="login-wrap">
 				<label>ID</label> <input type="text" class="form-control"
-					placeholder="User ID" autofocus name="member_id" id="member_id"
+					placeholder="아이디를 입력해주세요" autofocus name="member_id" id="member_id"
 					onblur="confirmId()">
 				<div id="iddiv"></div>
 				<label>PASSWORD</label> <input type="password" class="form-control"
-					placeholder="Password" name="member_pwd" id="member_pwd"
+					placeholder="비밀번호를 입력해주세요" name="member_pwd" id="member_pwd"
 					onblur="confirmPwd()">
 				<div id="pwddiv"></div>
 				<label>CHECK PASSWORD</label> <input type="password"
-					class="form-control" placeholder="Password" autofocus
+					class="form-control" placeholder="비밀번호를 한번 더 입력해주세요" autofocus
 					id="member_pwd_check" onblur="confirmPwd2()">
 				<div id="pwdcheckdiv"></div>
-				<label>CLASS</label> <select class="form-control" name="class_name" id="class_name">
+				<label>클래스 선택</label> <select class="form-control" name="class_name" id="class_name">
 					<c:forEach items="${classList}" var="classList">
                          <option value="${classList.class_name}">${classList.class_name}</option>
                     </c:forEach>
-				</select> <br> <label>NAME</label> <input type="text"
-					class="form-control" placeholder="Name"
+				</select> <br> <label>이름</label> <input type="text"
+					class="form-control" placeholder="이름을 입력해주세요"
 					pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name"
 					required>
-				<div>(닉네임은 문자 2자 이상입니다.)</div>
 				<label>E-mail</label><br> <input type="text"
-					class="form-control authText" placeholder="E-mail"
+					class="form-control authText" placeholder="이메일을 입력해주세요"
 					name="member_email" id="mailto">
 				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn">
-					<i class="fa fa-envelope"></i> Send Mail
+					<i class="fa fa-envelope"></i> 인증번호 전송
 				</button>
-				<br> <br> <label>Certification Number</label> 
-				<input type="text" class="form-control" placeholder="Authentication-Code" id="textmail" autofocus>
-				<br> <label>PHONE</label> <input type="text" class="form-control" placeholder="Phone-Number" pattern="(010)-\d{3,4}-\d{4}" autofocus name="member_phone" required>
-				<div>(숫자, - 를 포함한 숫자만 입력하세요.)</div>
+				<br> <br> <label>인증번호 입력</label> 
+				<input type="text" class="form-control" placeholder="인증번호를 입력해주세요" id="textmail" autofocus>
+				<br> <label>휴대전화</label> <input type="text" class="form-control" placeholder="휴대폰 번호를 입력해주세요" pattern="(010)-\d{3,4}-\d{4}" autofocus name="member_phone" required>
+				<div>( - 를 포함한 010-0000-0000 의 형식으로 입력해주세요)</div>
 
 
 
 				<button class="btn btn-theme btn-block" type="submit">
-					<i class="fa fa-lock"></i> SIGN IN
+					<i class="fa fa-sign-in"></i> 회원 가입
 				</button>
 				<a class="pull-right"
 					href="${pageContext.request.contextPath}/login.jsp">로그인 페이지</a>
