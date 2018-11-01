@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import onet.com.common.dao.CommonDao;
-
+import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CommentDto;
 
 import onet.com.vo.CategoryDto;
@@ -24,6 +24,7 @@ import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -373,9 +374,78 @@ public class CommonService {
 	   }
 
 
+	   public List<MessageDto> receiveMessage(String member_id){
+		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		   List<MessageDto> result = dao.receiveMessage(member_id);
+		   return result;
+	   }
 
+	   public List<MessageDto> sendMessage(String member_id){
+		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		   List<MessageDto> result = dao.sendMessage(member_id);
+		   return result;
+	   }
 
+	   
+	   //민지 쪽지 1029
+	   public List<MemberDto> classTeacherList(String member_id) {
+		   System.out.println("강사강사강사강사서비스");
+		      CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		      
+		      List<MemberDto> result = dao.classTeacherList(member_id);
+		      
+		      return result;
+		   }
 
+	   
+	   public int updateBoardListFile1(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateBoardListFile1(dto);
+			return result;
+		}
+	   
+	   public int updateBoardListFile2(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateBoardListFile2(dto);
+			return result;
+		}
+
+	   public int updateNoBoardList(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.updateNoBoardList(dto);
+			return result;
+		}
+	   
+	   public int fileDeletebtn1(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.fileDeletebtn1(dto);
+			return result;
+		}
+	   
+	   public int fileDeletebtn2(NoticeDto dto) {
+			CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
+			int result = commonDao.fileDeletebtn2(dto);
+			return result;
+		}
+	   
+	   public int sendMessageDelete(String sendDeleteHiddenArray) {
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			int sendDeleteHiddenArrayInt = Integer.parseInt(sendDeleteHiddenArray);
+			int result = dao.sendMessageDelete(sendDeleteHiddenArrayInt);
+			
+			return result;
+		}
+	   
+	   public int receiveMessageDelete(String receiveDeleteHiddenArray) {
+			CommonDao dao = sqlsession.getMapper(CommonDao.class);
+			int receiveDeleteHiddenArrayInt = Integer.parseInt(receiveDeleteHiddenArray);
+			int result = dao.receiveMessageDelete(receiveDeleteHiddenArrayInt);
+			
+			return result;
+		}
+	   
+	   
+	   
 }
 
 	

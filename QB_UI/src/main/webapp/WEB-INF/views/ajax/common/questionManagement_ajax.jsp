@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<% pageContext.setAttribute("newLineChar", "\n"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +26,12 @@
 					${question.member_id }<br>
 				</div>
 				<div class="col-lg-9">
-					<b>${question.question_name }</b><br> <br>
+					<b>${fn:replace(question.question_name, newLineChar, "<br/>")}</b><br> <br>
 					<div class="questionImgDiv">
 					<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 						<c:if test="${question.question_img ne null }">
 							<img
-								src="${pageContext.request.contextPath}/upload/${question.question_img}"
+								src="${pageContext.request.contextPath}/img/${question.question_img}"
 								alt="questionImg" class="questionImg" />
 						</c:if>
 					</div>

@@ -104,7 +104,7 @@ $('#memberDropBtn').click(function() {
 		success : function(data) {
 			if (data == 0){
 				swal("Error!", "비밀번호가 입력되지 않았거나 일치하지 않습니다!", "error");
-			} else {
+			}else {
 				swal({
 					  title:"탈퇴 확인",
 					  text: "정말 탈퇴 하시겠습니까?",

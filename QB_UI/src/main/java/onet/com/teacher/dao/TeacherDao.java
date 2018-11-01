@@ -88,4 +88,15 @@ public interface TeacherDao {
 	public List<MemberDto> examNotcheckMemberList(int exam_info_num);
 	
 	/*민지 - 10.22 시험일정 수정 끝*/
+	
+	/*민지 - 10.29 받은쪽지 */
+	public CharSequence count_receive_note(String user_name);
+	/*쪽지 보내기*/
+	public String sendMessage(String user_name);
+	
+	/*민지 - 10.29 받은쪽지  끝*/
+	
+	
+	
+	
 }
