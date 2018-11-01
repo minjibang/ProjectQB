@@ -715,4 +715,35 @@ public class TeacherController {
 		return result;
 	}
 	
+	@RequestMapping("replyMessage.do")
+	public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
+		MessageDto dto = new MessageDto();
+		dto.setMessage_content(text);
+		dto.setReceive_member_id(sender);
+		dto.setSend_member_id(principal.getName());
+		int result = commonService.replyMessage(dto);
+		return result;
+	}
+	
+    //양회준 10.29 학생&성적관리.클래스통계.점수별분포
+    @RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
+    public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
+            @RequestParam("class_name") String class_name) {
+        int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
+        return spreadList;
+    }
+    
+    @RequestMapping("message_check.do")
+    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+        MessageDto dto = new MessageDto();
+        int result = commonService.message_check(message_check, message_num);
+        if(result > 0) {
+            System.out.println("메시지 체크 성공");
+        }else {
+            System.out.println("메시지 체크 실패");
+        }
+        return 0;
+
+    }
+	
 }

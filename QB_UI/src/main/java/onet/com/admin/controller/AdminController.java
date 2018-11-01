@@ -398,10 +398,18 @@ public class AdminController {
 	public String studentInfo(Model model, Principal principal, HttpServletRequest request){
 		String member_id = principal.getName();
 		String class_num=request.getParameter("class_num");	
+		String student_id;
+		String class_name;
 		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
-		String student_id = studentList.get(0).getMember_id();
-		String class_name = studentList.get(0).getClass_name();
+        try {
+            student_id = studentList.get(0).getMember_id();
+            class_name = studentList.get(0).getClass_name();
+        }catch(Exception e) {
+            student_id="데이터가 없습니다.";
+            class_name="데이터가 없습니다.";
+        }
+        
 		System.out.println("admin:"+student_id);
 		System.out.println("admin:"+class_name);
 		//클래스 번호로 차트 가져오기
@@ -1023,5 +1031,17 @@ public class AdminController {
 		int result = commonService.fileDeletebtn2(dto);
 		return result;
 	}
+	
+    //양회준 10.30 데이터테이블Ajax
+    @RequestMapping("adminMemberAjax.do")
+    public @ResponseBody List<MemberDto> adminMember() throws Exception {
+        
+        List<MemberDto> list=adminService.memberList();
+                
+        return list;
+        
+    }
+    
+
 	
 }
