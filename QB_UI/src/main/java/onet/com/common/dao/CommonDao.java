@@ -96,11 +96,11 @@ public interface CommonDao {
 	public List<MemberDto> studentInfo(String member_id);
 	public List<MemberDto> adminStudentInfo(String class_num);
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
-	public List<Score_chartDto> studentChartInfo(String member_id);
+	public List<Score_chartDto> studentChartInfo(String member_name);
 	public List<Class_chartDto> classChartInfo(String class_name);
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
-	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name);//시험리스트
-	public List<StudentExamScoreInfo> studentExamScoreInfoCtgr(String member_id, String class_name);//시험리스트-소분류
+	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_name, String class_name);//시험리스트
+	public List<StudentExamScoreInfo> studentExamScoreInfoCtgr(String member_name, String class_name);//시험리스트-소분류
 	public List<Score_chartDto> studentExamScoreList(String class_name);
 	public List<Score_chartDto> studentExamScoreAvg(String class_name);
 

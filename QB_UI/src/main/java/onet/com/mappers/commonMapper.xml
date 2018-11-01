@@ -194,10 +194,12 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 
 <!-- 학생 차트 정보 -->
 <select id="studentChartInfo" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-	select * from score_chart 
-	where member_id=#{member_id} and class_name = 
-	(select class_name from member where member_id=#{member_id})
-	order by member_id, exam_info_num asc
+	select * 
+	from score_chart sc JOIN member m
+	ON sc.member_id = m.member_id
+	where m.member_name=#{member_name} and sc.class_name = 
+	(select class_name from member where member_name=#{member_name})
+	order by m.member_name, sc.exam_info_num asc
 </select>
 <!-- 클래스 차트 정보 -->
 <select id="classChartInfo" parameterType="String" resultType="onet.com.vo.Class_chartDto">
@@ -211,32 +213,35 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 양회준 10-25 학생&성적관리 학생개인 성적확인 -->
 <select id="studentExamScoreInfo" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
 	SELECT DISTINCT sa.exam_info_num, ei.exam_info_name, ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, 
-	ep.exam_paper_desc
-	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep
-	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num
-	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
+	ep.exam_paper_desc, m.member_name
+	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN member m
+	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num and sa.member_id=m.member_id
+	WHERE m.member_name = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
 </select>
 
 <select id="studentExamScoreInfoCtgr" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
 	SELECT DISTINCT sa.exam_info_num, q.sm_category_code, qsc.sm_category_name
-	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN exam_question eq JOIN question q JOIN question_sm_category qsc
-	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num = eq.exam_paper_num 
+	FROM member m JOIN student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN exam_question eq JOIN question q JOIN question_sm_category qsc
+	ON m.member_id=sa.member_id and sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num= eq.exam_paper_num 
 	and eq.question_num = q.question_num and q.sm_category_code = qsc.sm_category_code
-	WHERE sa.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num,qsc.sm_category_code asc
+	WHERE m.member_name = #{param1} and ei.class_name = #{param2} order by sa.exam_info_num, qsc.sm_category_code asc
 </select>
 <!-- 양회준 10-29 학생&성적관리 클래스통계 학생별 성적표 -->
 <select id="studentExamScoreList" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-	select * from score_chart where class_name = #{class_name}
-	order by member_id, exam_info_num asc
+	select * 
+	from score_chart sc join member m
+	on sc.member_id=m.member_id
+	where sc.class_name = #{class_name}
+	order by m.member_name, sc.exam_info_num asc
 </select>
 
 <select id="studentExamScoreAvg" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-	select sc.member_id, m.member_name, avg(sc.score_chart_score) 
+	select sc.member_id, m.member_name, round(avg(sc.score_chart_score), 1) as "avg_score"
 	from score_chart sc join member m
 	on sc.member_id = m.member_id
 	where  sc.class_name = #{class_name}
 	group by sc.member_id
-	order by sc.member_id, sc.exam_info_num asc
+	order by m.member_name, sc.exam_info_num asc
 
 </select>
 
@@ -271,7 +276,7 @@ and e.exam_info_name=#{exam_info_name}
 	from score_chart sc join exam_info ei
 	on sc.exam_info_num=ei.exam_info_num
 	where (sc.score_chart_score between ${param3} and ${param4}) and sc.class_name=#{param2} and ei.exam_info_num=#{param1}
-
+</select>
 <select id="count_receive_note" parameterType="String" resultType="String">
 	select count(*) from message where receive_member_id=#{member_id}
 </select>

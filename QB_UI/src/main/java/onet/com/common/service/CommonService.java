@@ -297,9 +297,9 @@ public class CommonService {
 		return studentList;
 	}
 	//양회준 10-24 관리자, 강사-학생&성적관리 페이지-학생정보 chart
-	public Map<String, Object> studentChartInfo(String member_id, String class_name){
+	public Map<String, Object> studentChartInfo(String member_name, String class_name){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<Score_chartDto> studentChart = dao.studentChartInfo(member_id);
+		List<Score_chartDto> studentChart = dao.studentChartInfo(member_name);
 		List<Class_chartDto> classChart = dao.classChartInfo(class_name);
 		Map<String, Object> chart = new HashMap<String, Object>();
 		chart.put("studentName", studentChart);
@@ -307,14 +307,13 @@ public class CommonService {
 		return chart;
 	}
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
-	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_id, String class_name){
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		ArrayList<String> ctgr = new ArrayList<String>();
-		List<StudentExamScoreInfo> list = dao.studentExamScoreInfo(member_id, class_name);//시험 정보
-		List<StudentExamScoreInfo> ctgrlist = dao.studentExamScoreInfoCtgr(member_id, class_name);//시험 당 소분류
+	public List<StudentExamScoreInfo> studentExamScoreInfo(String member_name, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);		
+		List<StudentExamScoreInfo> list = dao.studentExamScoreInfo(member_name, class_name);//시험 정보
+		List<StudentExamScoreInfo> ctgrlist = dao.studentExamScoreInfoCtgr(member_name, class_name);//시험 당 소분류
 		
 		for(StudentExamScoreInfo data : list) {
-			ctgr.clear();//arraylist 초기화
+			ArrayList<String> ctgr = new ArrayList<String>();
 			for(StudentExamScoreInfo data2 : ctgrlist) {
 				if(data.getExam_info_num()==data2.getExam_info_num()) {
 					ctgr.add(data2.getSm_category_name());//시험당 관련 소분류명을 Arraylist에 담음					
@@ -327,17 +326,18 @@ public class CommonService {
 	//양회준 10-29 학생&성적관리 클래스 통계 표
 	public List<Score_chartDto> studentExamScoreList(String class_name){
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);	
-		ArrayList<Integer> score = new ArrayList<Integer>();
+		
 		List<Score_chartDto> scorelist= commonDao.studentExamScoreList(class_name);//과목별 점수
 		List<Score_chartDto> avglist= commonDao.studentExamScoreAvg(class_name);//평균점수
 		for(Score_chartDto data : avglist) {
-			score.clear();
+			ArrayList<Integer> score = new ArrayList<Integer>();
+			//score.clear();
 			for(Score_chartDto data2 : scorelist) {				
 				if(data.getMember_id().equals(data2.getMember_id())) {//아이디가 같을 경우 점수를 리스트 대입
 					score.add(data2.getScore_chart_score());
 				}
 			}
-			data.setScore_list(score);//점수리스트를 평균리스트에 대입
+			data.setScore_list(score);//점수리스트를 평균리스트에 대입			
 		}
 		return avglist;
 	}
@@ -406,6 +406,10 @@ public class CommonService {
 				spreadCount = dao.studentScoreSpread(exam_info_num, class_name, start, end);
 			}
 			spreadList[i]=spreadCount;
+		}
+		return spreadList;
+	}
+			
 
 	   public List<MessageDto> receiveMessage(String member_id){
 		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
@@ -464,12 +468,3 @@ public class CommonService {
 	  
 	   
 }
-
-	
-	
-	
-
-
-
-
-
