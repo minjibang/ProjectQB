@@ -12,7 +12,7 @@
 
 <!--메인 컨텐츠 시작-->
 <section id="main-content">
-	<section class="wrapper">
+	<section class="wrapper site-min-height">
 	
 		<div class="row mt">
 			<!-- tab test -->

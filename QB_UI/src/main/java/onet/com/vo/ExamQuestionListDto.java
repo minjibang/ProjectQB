@@ -8,6 +8,7 @@ public class ExamQuestionListDto {
 	private String question_type;
 	private String question_name;
 	private String question_img;
+	private String exam_paper_name;
 	
 	
 	public int getExam_paper_num() {
@@ -52,7 +53,14 @@ public class ExamQuestionListDto {
 	public void setQuestion_img(String question_img) {
 		this.question_img = question_img;
 	}
+	public String getExam_paper_name() {
+		return exam_paper_name;
+	}
+	public void setExam_paper_name(String exam_paper_name) {
+		this.exam_paper_name = exam_paper_name;
+	}
 	
-
+	
+	
 }
 
