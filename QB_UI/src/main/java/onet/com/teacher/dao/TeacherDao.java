@@ -6,6 +6,7 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -69,6 +70,7 @@ public interface TeacherDao {
 	public int examNameUpdate(int exam_paper_num, String exam_name, String exam_desc);
 	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score);
 	public ExamPaperDto examNameDesc(int exam_paper_num);
+	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num);
 	
 	/*--성태용 끝--*/
 	
