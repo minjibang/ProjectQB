@@ -8,21 +8,21 @@
 <div id="login-page">
 	<div class="container">
 		<form class="form-login2" action="${pageContext.request.contextPath}/index/idSearch.do" method="post" onsubmit="return authNumberCheck()">
-			<h2 class="form-login-heading">ID Search</h2>
+			<h2 class="form-login-heading">아이디 찾기</h2>
 			<div class="login-wrap">
-				<input type="text" id="member_name" name="member_name" class="form-control" placeholder="User Name"	autofocus required><br> 
-				<input type="text" id="member_email" name="member_email" class="form-control authText" placeholder="Email" required>
-				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn"><i class="fa fa-envelope"></i> Send&nbsp;Mail</button><br><br>
-				<input type="text" id="ok" class="form-control" placeholder="Authorization Code" ><br> 
+				<input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름을 입력해주세요"	autofocus required><br> 
+				<input type="text" id="member_email" name="member_email" class="form-control authText" placeholder="이메일을 입력해주세요" required>
+				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn"><i class="fa fa-envelope"></i> 인증번호&nbsp;전송</button><br><br>
+				<input type="text" id="ok" class="form-control" placeholder="인증번호를 입력해주세요" ><br> 
 				<div id="okdiv"></div>
-				<button type="submit" class="btn btn-theme confirm"><i class="fa fa-unlock"></i>Confirm</button>
+				<button type="submit" class="btn btn-theme confirm"><i class="fa fa-unlock"></i>확인</button>
 				<hr>
 				
 				
 				<div id="remember">
 				<a class="" href="${pageContext.request.contextPath}/login.jsp"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> Login</a> / 
-				<a class="" href="${pageContext.request.contextPath}/index/pwdSearch.do"><i class="fa fa-key"></i> Forgot Password ?</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> 로그인 페이지</a> / 
+				<a class="" href="${pageContext.request.contextPath}/index/pwdSearch.do"><i class="fa fa-key"></i> 비밀번호 찾기</a>
 			</div>
 			</div>
 			<br>

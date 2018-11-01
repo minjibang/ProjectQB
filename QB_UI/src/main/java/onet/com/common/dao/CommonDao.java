@@ -135,5 +135,19 @@ public interface CommonDao {
 	public int sendMessageDelete(int message_num);
 	
 	public int receiveMessageDelete(int message_num);
+	
+	public int replyMessage(MessageDto dto);
+	
+    //메시지 체크
+    public int message_check(MessageDto dto);
+    
+    //양회준 10.29 학생&성적관리.클래스통계.점수별분포
+    public int studentScoreSpread(int exam_info_num, String class_name, int start, int end);
+
+    public List<Score_chartDto> studentExamScoreList(String class_name);
+    public List<Score_chartDto> studentExamScoreAvg(String class_name);
+
+	
+	
 }
 
