@@ -12,7 +12,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <section id="main-content">
-   <section class="wrapper">
+   <section class="wrapper site-min-height">
       <div class="row mt">
          <div class="col-lg-12">
             <div class="row content-panel">

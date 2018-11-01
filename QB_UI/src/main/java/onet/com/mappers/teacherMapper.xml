@@ -140,6 +140,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </selectKey>
 </insert>
 
+<select id="examQuestionList" resultType="onet.com.vo.ExamQuestionListDto">
+	select e.exam_paper_num, q.question_num, e.exam_question_seq, e.exam_question_score, q.question_type, q.question_name, q.question_img, ep.exam_paper_name from exam_question e join question q on (e.question_num = q.question_num) join exam_paper ep on (e.exam_paper_num = ep.exam_paper_num) where e.exam_paper_num = #{param1} order by exam_question_seq asc
+</select>
+
 <!-- 태용 끝 -->
 
 <!-- 민지 시작 -->
@@ -287,9 +291,11 @@ select member_id, member_name from member where class_name=(select class_name fr
 
 <select id="count_receive_note" parameterType="String" resultType="String">
 
-select count(*) from message where receive_member_id=#{user_name}
+select count(*) from message where receive_member_id=#{user_name} and message_check=0
 
 </select>
+
+
 
 </mapper>
 

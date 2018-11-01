@@ -31,12 +31,14 @@
 	</div>
 </header>
 <!--header end-->
-  <se:authorize access="isAuthenticated()">
+<se:authorize access="isAuthenticated()">
 		<se:authentication property="principal.username" var="username"/>
 	
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
     <script type="text/javascript">
+
     var wsUri ="ws://localhost:8090/qb/count.do"
+
     
     function send_message() {
         websocket = new WebSocket(wsUri);
@@ -58,7 +60,6 @@
     }
     
     function onMessage(evt) {
-    	console.log("onMessage 함!");
     	$('#message').html(evt.data);
     }
     function onError(evt) {
@@ -71,4 +72,4 @@
     
         </script>
 
-  </se:authorize>  
+  </se:authorize> 

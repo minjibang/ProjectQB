@@ -4,7 +4,7 @@
     <footer class="site-footer">
       <div class="text-center">
         <p>
-          &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+          &copy; Copyrights <strong>Team OneT</strong>. All Rights Reserved
         </p>
         <div class="credits">
           <!--
@@ -21,3 +21,4 @@
       </div>
     </footer>
     <!--footer end-->
+    

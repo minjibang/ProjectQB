@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+
 <!--header start-->
 <header class="header black-bg">
 	
@@ -28,20 +30,41 @@
 		</ul>
 	</div>
 </header>
-<!--header end-->
-
-  <se:authorize access="isAuthenticated()">
-		<se:authentication property="principal.username" var="username"/>
+<script>
+$(document).ready(function(){
 	
+	$('#noticeWrite_btn').click(function(){
+		var class_name2 = $('#noticeWrite_btn').val();
+		location.href="noticeWrite.do?class_name=" + class_name2;
+	});
+	
+
+	$('#noticeWrite_btnAdmin').click(function(){
+		var adminClass_name = $('#noticeWrite_btnAdmin').val();
+		location.href="noticeWrite.do?class_name=" + adminClass_name;
+	});
+	
+	
+});
+</script>
+
+<se:authorize access="isAuthenticated()">
+<se:authentication property="principal.username" var="username"/>
+
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
-    <script type="text/javascript">
-    var wsUri ="ws://localhost:8090/qb/count.do"
+
+  <script type="text/javascript">
+    var wsUri ="ws://localhost:8090/qb/count.do";
     
+
     function send_message() {
         websocket = new WebSocket(wsUri);
         
         websocket.onopen = function(evt) {
-            onOpen(evt);
+           onOpen(evt);
+          /*  setTimeout(function(){
+        	  send_message(); 
+           },5000); */
         };
         websocket.onmessage = function(evt) {
             onMessage(evt);
@@ -50,25 +73,25 @@
             onError(evt);
         };
     }
-
+   
     function onOpen(evt) 
     {
        websocket.send("${username}");
     }
     
     function onMessage(evt) {
-    	console.log("onMessage 함!");
+
     	$('#message').html(evt.data);
+    		
     }
     function onError(evt) {
     	
     }
-    
-    $(document).ready(function(){
-    	   send_message();
-    });
-    
-        </script>
+	$(document).ready(function(){
+		send_message();
+	});
 
-  </se:authorize>  
-  
+	</script>
+</se:authorize>  
+
+

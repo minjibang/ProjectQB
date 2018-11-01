@@ -97,9 +97,9 @@ public class AdminController {
 		classList=adminService.classList();
 		model.addAttribute("classList", classList);
 		
-		/*List<MemberDto> memberList;
+		List<MemberDto> memberList;
 		memberList=adminService.memberList();
-		model.addAttribute("memberDto", memberList);*/
+		model.addAttribute("memberDto", memberList);
 
 		List<RoleDto> roleList;
 		roleList = adminService.roleList();
@@ -110,12 +110,9 @@ public class AdminController {
 	}
 	//양회준 10.30 데이터테이블Ajax
 	@RequestMapping("adminMemberAjax.do")
-	public @ResponseBody List<MemberDto> adminMember() throws Exception {
-		
-		List<MemberDto> list=adminService.memberList();
-				
-		return list;
-		
+	public @ResponseBody List<MemberDto> adminMemberAjax() throws Exception {		
+		List<MemberDto> list=adminService.memberList();				
+		return list;		
 	}
 	
 	@RequestMapping(value="adminMemberView.do")
@@ -259,17 +256,18 @@ public class AdminController {
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
 	public String adminClassMain(Model model, String class_name, Principal principal) { 
-
 		List<NoticeDto> notice;
-		String adminNoticeCheck;
+		String date="";
 		notice=commonService.admin_Main(class_name);
-		model.addAttribute("notice", notice);
-		try {
-			adminNoticeCheck = notice.get(0).getClass_name();
-		}catch(Exception e) {
-			adminNoticeCheck = "test";
+		for(int i=0; i<notice.size(); i++) {
+	    	  date = notice.get(i).getNotice_date().substring(0, notice.get(i).getNotice_date().length()-5);
+	    	 notice.get(i).setNotice_date(date);
+	      }
+		if(notice.isEmpty()) {
+		}else {
+			model.addAttribute("notice", notice);
 		}
-		model.addAttribute("adminNoticeCheck", adminNoticeCheck);
+		model.addAttribute("class_name", class_name);
 		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -402,14 +400,18 @@ public class AdminController {
 		String class_num=request.getParameter("class_num");	
 		String student_id;
 		String class_name;
+		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
-		try {
-			student_id = studentList.get(0).getMember_id();
-			class_name = studentList.get(0).getClass_name();
-		}catch(Exception e) {
-			student_id="데이터가 없습니다.";
-			class_name="데이터가 없습니다.";
-		}
+        try {
+            student_id = studentList.get(0).getMember_id();
+            class_name = studentList.get(0).getClass_name();
+        }catch(Exception e) {
+            student_id="데이터가 없습니다.";
+            class_name="데이터가 없습니다.";
+        }
+        
+		System.out.println("admin:"+student_id);
+		System.out.println("admin:"+class_name);
 		//클래스 번호로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
@@ -511,7 +513,6 @@ public class AdminController {
 		@RequestMapping(value="insertQuestion.do", method=RequestMethod.POST)
 		public String insertQuestion(QuestionDto dto2, Question_choiceDto dto, HttpServletRequest request) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("어드민컨트롤러진입>> QuestionDto: " + dto2 + "\n Question_ChoiceDto" + dto);
 			if (dto2.getQuestion_type().equals("객관식")) {
 				adminService.insertQuestion(dto2, request);
 				adminService.insertQuestionChoice(dto2, dto, request);
@@ -520,9 +521,6 @@ public class AdminController {
 			}
 			return "redirect:questionManagement.do";
 		}
-		
-		
-		
 	//관리자 - 문제관리 페이지 문제삭제 전 삭제가능여부 판단
 	@RequestMapping("singleQuestionDelete.do")
 	public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
@@ -583,7 +581,7 @@ public class AdminController {
 		quesLevelList=adminService.questionLevelList();
 		model.addAttribute("quesLevelList",quesLevelList);
 		
-		return "common.admin.question.questionUpdate";
+		return "common.adminClass.admin.question.questionUpdate";
 	}	
 	
 	/*###################     재훈 끝         ####################*/
@@ -903,63 +901,50 @@ public class AdminController {
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
 		dto.setNotice_date(str);
-		
 		int notice_num = dto.getNotice_num();
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		if(file1 != null && file2 != null) {
-			String originFileName1 = file1.getOriginalFilename();
-			String originFileName2 = file2.getOriginalFilename();
-			long fileSize1 = file1.getSize();
-			long fileSize2 = file2.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			System.out.println("1" + originFileName1);
-			System.out.println("2" + originFileName2);
-			UUID uuid = UUID.randomUUID();
-			String saveFile1 = uuid.toString()+"_" + originFileName1;
-			String saveFile2 = uuid.toString()+"_" + originFileName2;
-			
-			String safeFile1 = path + saveFile1;
-			String safeFile2 = path + saveFile2;
-			System.out.println("safeFile : " + safeFile1);
-			if(fileSize1 > 0 && fileSize2 > 0) {
-				file1.transferTo(new File(safeFile1));
-				file2.transferTo(new File(safeFile2));
-				dto.setNotice_file1(saveFile1);
-				dto.setNotice_file2(saveFile2);
-			}else if(fileSize1 > 0 && fileSize2 == 0){
-				file1.transferTo(new File(safeFile1));
-				dto.setNotice_file1(saveFile1);
-			}else if(fileSize2 > 0 && fileSize1 == 0) {
-				file2.transferTo(new File(safeFile2));
-				dto.setNotice_file2(saveFile2);
-			}
-		}else if(file1 != null && file2 == null) {
-			String originFileName1 = file1.getOriginalFilename();
-			long fileSize1 = file1.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			UUID uuid = UUID.randomUUID();
-			String saveFile1 = uuid.toString()+"_" + originFileName1;
-			String safeFile1 = path + saveFile1;
+		System.out.println("file1 : " + file1);
+		System.out.println("file2 : " + file2);
+		String originFileName1 = file1.getOriginalFilename();
+		String originFileName2 = file2.getOriginalFilename();
+		long fileSize1 = file1.getSize();
+		long fileSize2 = file2.getSize();
+		String path =  request.getServletContext().getRealPath("/upload/notice/");
+		
+		UUID uuid = UUID.randomUUID();
+		String savaFile1 = uuid.toString()+"_" + originFileName1;
+		String saveFile2 = uuid.toString()+"_" + originFileName2;
+		
+		String safeFile1 = path + savaFile1;
+		String safeFile2 = path + saveFile2;
+		
+		
+		
+		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
-			dto.setNotice_file1(saveFile1);
-		}else if(file1 == null && file2 != null) {
-			String originFileName2 = file2.getOriginalFilename();
-			long fileSize2 = file2.getSize();
-			String path =  request.getServletContext().getRealPath("/upload/notice/");
-			UUID uuid = UUID.randomUUID();
-			String saveFile2 = uuid.toString()+"_" + originFileName2;
-			String safeFile2 = path + saveFile2;
-			file1.transferTo(new File(safeFile2));
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file1(savaFile1);
 			dto.setNotice_file2(saveFile2);
+			commonService.updateBoardList(dto);
+		}else if(fileSize1 > 0 && fileSize2 == 0){
+			file1.transferTo(new File(safeFile1));
+			dto.setNotice_file1(savaFile1);
+			commonService.updateBoardListFile1(dto);
+		}else if(fileSize2 > 0 && fileSize1 == 0) {
+			file2.transferTo(new File(safeFile2));
+			dto.setNotice_file2(saveFile2);
+			commonService.updateBoardListFile2(dto);
+		}else {
+			commonService.updateNoBoardList(dto);
 		}
-		int result = commonService.updateBoardList(dto);
+		
 		System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
-	}	
+	}
 	
 	@RequestMapping("noticeDelete.do")
 	public String noticeDelete(Model model,int notice_num, String class_name, RedirectAttributes red) {
@@ -1028,5 +1013,27 @@ public class AdminController {
 		int result = commonService.commentReplyDelete(dto);
 		return 0;
 	}
+	
+	@RequestMapping("fileDeletebtn1.do")
+	public @ResponseBody int fileDeletebtn1(Model model,int notice_num, String class_name) {
+		NoticeDto dto = new NoticeDto();
+		dto.setNotice_num(notice_num);
+		dto.setClass_name(class_name);
+		int result = commonService.fileDeletebtn1(dto);
+		return result;
+	}
+	
+	@RequestMapping("fileDeletebtn2.do")
+	public @ResponseBody int fileDeletebtn2(Model model,int notice_num, String class_name) {
+		NoticeDto dto = new NoticeDto();
+		dto.setNotice_num(notice_num);
+		dto.setClass_name(class_name);
+		int result = commonService.fileDeletebtn2(dto);
+		return result;
+	}
+	
+    
+    
+
 	
 }

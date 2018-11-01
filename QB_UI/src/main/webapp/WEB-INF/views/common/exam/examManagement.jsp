@@ -22,20 +22,38 @@
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<div class="col-lg-12 mt">
-			<div class="row content-panel div_table">
-				<div class="panel-heading">
-					<ul class="nav nav-tabs nav-justified">
-						<li class="active"><a data-toggle="tab" href="#overview">내
-								시험지 </a></li>
-						<li><a data-toggle="tab" href="#tempExamPaper"
-							class="contact-map">임시 저장된 시험지 </a></li>
-						<li><a data-toggle="tab" href="#examSchedule"
-							class="contact-map">시험 일정 </a></li>
-					</ul>
-				</div>
+		<div class="row mt">
+			<div class="col-lg-12">
+				<div class="row content-panel div_table">
+					<div class="panel-heading">
+					
+						<ul class="nav nav-tabs nav-justified">
+							<li class="active"><a data-toggle="tab" href="#overview">내
+									시험지 </a></li>
+							<li><a data-toggle="tab" href="#tempExamPaper"
+								class="contact-map">임시 저장된 시험지 </a></li>
+							<li><a data-toggle="tab" href="#examSchedule"
+								class="contact-map">시험 일정 </a></li>
+						</ul>
+						
+					</div><!-- panel-heading -->
+					
+						<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
 
-				<div class="panel-body">
+					<div id="exam_preview" class="modal fade modal_preview">
+						<div class="modal-dialog">
+							<div id="print-modal">
+								<a href="#" class="print" onclick="printpage()"
+									title="Print page">Print page</a> <a href="#" class="close"
+									title="Close print preview">Close</a>
+							</div>
+							<!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
+							<div class="book"></div>
+						</div>
+					</div>
+					<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
+					
+					<div class="panel-body">
 					<div class="tab-content">
 						<!-- 내 시험지 탭 시작 -->
 						<div id="overview" class="tab-pane active">
@@ -55,7 +73,7 @@
 												<c:forEach items="${myexamPaperList}" var="myexamPaperList">
 													<!-- 시험지 한 개 시작 -->
 													<div class="exam-paper-name">
-														<h4 id="exam_paper_name">
+														<h4 class="miri" id="${myexamPaperList.exam_paper_num}" data-target="#exam_preview" data-toggle="modal">
 															<strong>${myexamPaperList.exam_paper_name}</strong>
 														</h4>
 														<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
@@ -208,13 +226,13 @@
 					</div>
 					<!-- /row content-panel div_table -->
 				</div>
-			</div>
-		</div>
-		<!-- row content-panel div_table -->
-	</section>
-	<!-- wrapper site-min-height -->
-</section>
-<!-- main-content -->
+					
+				</div><!-- row content-panel div_table-->
+			</div><!-- col-lg-12 -->
+		</div> <!-- row mt -->
+	</section><!-- wrapper site-min-height -->
+</section> <!-- main-content -->
+					
 
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script>
@@ -226,6 +244,40 @@
 	type="text/javascript"></script>
 
 <script>
+
+$(document).ready(function(){
+	
+	$('.miri').click(function(){
+		var exam_paper_num = $(this).attr('id');
+		
+			 $.ajax({
+				  url : "examMiri.do",
+				  type:'GET',
+				  data : {
+					  'exam_paper_num' : exam_paper_num
+				  },
+				  dataType:"html",
+				  success:function(data){
+					  $('.book').html(data);
+				  }
+			   });
+	   }); 
+});
+
+	function printpage(){
+		
+		var divContents = $('.book').html();
+		var printWindow = window.open('','','height=400, width=800');
+		
+		printWindow.document.write('<html>');
+		printWindow.document.write('<head>')
+		printWindow.document.write('</head>')
+        printWindow.document.write('<body >');
+        printWindow.document.write(divContents);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+	}
 	function updateExamCheck() {
 		var exam_paper_num = window.event.target.id;
 
@@ -257,7 +309,7 @@
 			  title: "시험지를 삭제 하시겠습니까?",
 			  icon: "warning",
 			  buttons: true,
-			  dangerMode: true,
+			  dangerMode: true
 			}).then((willDelete) => {
 			  if (willDelete) {
 				  $.ajax({
@@ -310,7 +362,7 @@
 			  title: "시험지를 삭제 하시겠습니까?",
 			  icon: "warning",
 			  buttons: true,
-			  dangerMode: true,
+			  dangerMode: true
 			}).then((willDelete) => {
 			  if (willDelete) {
 				  $.ajax({
