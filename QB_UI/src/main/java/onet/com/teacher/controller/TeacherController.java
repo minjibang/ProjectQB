@@ -81,10 +81,19 @@ public class TeacherController {
 		@RequestMapping("myMessage.do")
 		public String myMessage(Model model, Principal principal) {
 			String member_id = principal.getName();
-			System.out.println("아이디:"+member_id);
+			String date = "";
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 			   List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			   for(int i=0; i<receiveMessage.size(); i++) {
+			    	  date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+			    	 receiveMessage.get(i).setMessage_date(date);
+			   }
 			   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+			   for(int i=0; i<sendMessage.size(); i++) {
+			    	  date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+			    	  sendMessage.get(i).setMessage_date(date);
+			   }
+			   
 			   model.addAttribute("classMemberList", classMemberList);
 			   model.addAttribute("receiveMessage", receiveMessage);
 			   model.addAttribute("sendMessage", sendMessage);
@@ -742,7 +751,7 @@ public class TeacherController {
         }else {
             System.out.println("메시지 체크 실패");
         }
-        return 0;
+        return result;
 
     }
 	
