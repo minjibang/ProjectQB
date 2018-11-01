@@ -242,7 +242,7 @@
                                     <div class="row">
                                        <div class="col-md-12">
                                           <div class="col-md-2">
-                                             <section class="panel" style="width:150px;">
+                                             <section class="panel" style="width:150px; height:500px; overflow-y:scroll;">
                                                 <div class="panel-body grey-panel">
                                                    <div>
                                                       <label class="btn btn-compose"> <i
@@ -254,8 +254,8 @@
                                                    <se:authorize access="hasRole('ROLE_TEACHER')">
                                                       <c:forEach items="${classMemberList}" var="classMemberList">
                                                       <li id="messageSelect"><div>
-                                                       <div class="checkbox" id="checkboxName" style="text-align: left;">
-                                                        <label>
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px;" >
+                                                        <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
                                                             <img
                                                                src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
