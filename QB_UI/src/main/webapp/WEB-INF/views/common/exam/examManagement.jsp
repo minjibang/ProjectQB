@@ -271,11 +271,11 @@ $(document).ready(function(){
 		
 		printWindow.document.write('<html>');
 		printWindow.document.write('<head>')
-		printWindow.document.write('<style>#page table {width : 45%;height : 260 px;margin-bottom : 50px;margin-right : 20px;} td {vertical-align : top; padding : 2px;} th {vertical-align : top;padding-bottom : 15px;}#page {width: 793px; height: 1122px; flex-flow:column wrap;text-overflow:clip;}</style>');
 		printWindow.document.write('</head>')
         printWindow.document.write('<body >');
         printWindow.document.write(divContents);
         printWindow.document.write('</body></html>');
+        printWindow.document.close();
         printWindow.print();
 	}
 	function updateExamCheck() {
