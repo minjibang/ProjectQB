@@ -475,8 +475,8 @@ public class AdminController {
 	//관리자 - 문제관리 페이지 문제분류 셀렉트박스 데이터값 출력
 	@RequestMapping("questionManagement.do")
 	public String questionManagement(Model model, Principal principal) throws Exception {
-		List<CategoryDto> lgCatList;
 		
+		List<CategoryDto> lgCatList;
 		lgCatList=adminService.lgCategoryList();
 		model.addAttribute("lgCatList",lgCatList);
 		
