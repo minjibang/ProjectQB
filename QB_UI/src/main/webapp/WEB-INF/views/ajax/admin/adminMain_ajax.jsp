@@ -8,9 +8,9 @@
 				<div class="project">
 					<!-- <div class="photo-wrapper"> -->
 						<!-- <div class="photo"> -->
+							<!-- <form id="classForm"> -->
 								<div class="weather-4 pn-big centered classDivSize">
 									<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}&class_name=${classlist.class_name}">
-										<input type="hidden" id="class_name" name="class_name" value="${classlist.class_name}"/>
 										<!-- <h1>JAVA</h1> -->
 										<div class="row classDiv">
 											<i class="fa fa-desktop"></i>
@@ -26,15 +26,16 @@
 											<h5 class="centered">강사 : ${classlist.teacher_name}</h5>
 											<div class="classBtnDiv">
 												<p class="goright">
-													<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#classModify" id="modifyClass"><i class="fa fa-pencil btnIcon"></i></button>
-													<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o btnIcon"></i></button>
+													<input type="hidden" name="class_name" value="${classlist.class_name}"/>
+													<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#classModify" class="modifyClass"><i class="fa fa-pencil btnIcon"></i></button>
+													<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#classDelete" class="deleteClass"><i class="fa fa-trash-o btnIcon"></i></button>
 													<i class="fa fa-users classUsersIcon"></i> ${classlist.class_student_count}명
 												</p>
 											</div>
 										<!-- </div> -->
 									</div>
 								</div>
-							
+							<!-- </form> -->
 						<!-- </div> -->
 						<!-- <div class="overlay"></div> -->
 					<!-- </div> -->

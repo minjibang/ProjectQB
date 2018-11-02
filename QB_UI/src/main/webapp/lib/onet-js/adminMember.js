@@ -279,7 +279,7 @@ $(function(){
 					swal("성공!","학생으로 등록 되었습니다","success");
 				},
 				error : function(error){
-					swal("에러가 발생했습니다.");
+					swal("실패!","등록할 회원을 선택해주세요","error");
 				}
 			});
 		}
@@ -358,7 +358,7 @@ $(function(){
 					});
 				},
 				error : function(error){
-					swal("에러가 발생했습니다.");
+					swal("실패!","삭제할 회원을 선택해주세요","error");
 				}
 			});
 		}
