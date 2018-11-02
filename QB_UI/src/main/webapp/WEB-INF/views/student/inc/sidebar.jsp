@@ -6,11 +6,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <!-- 학생 -->
-          <li class="sub-menu">
-            <a href="#">
-              <span>학생</span>
-             </a>
-          </li>
+
           <li class="sub-menu">
             <a href="${pageContext.request.contextPath}/student/studentMain.do">
               <i class="fa fa-calendar"></i>

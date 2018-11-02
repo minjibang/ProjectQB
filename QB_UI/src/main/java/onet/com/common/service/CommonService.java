@@ -184,7 +184,6 @@ public class CommonService {
 
 
 //문제관리 - 문제 수정 전 수정가능여부 판단
-	/*######################      재훈 끝             ######################*/
 	public int singleUpdateCheck(int question_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = 0;
@@ -222,8 +221,9 @@ public class CommonService {
 			
 		return result;
 	}
-	
 
+	/*######################      재훈 끝             ######################*/
+	
 	public List<MemberDto> boardNull(String member_id){
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
 		List<MemberDto> boardNull = commonDao.noticeNullCheck(member_id);
@@ -278,9 +278,10 @@ public class CommonService {
 		List<MemberDto> studentList = null;
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		System.out.println("아이디:"+member_id);
+		System.out.println("classnum:" + class_num);
 		if(member_id.equals("admin")) {
 			studentList = dao.adminStudentInfo(class_num);
-		}else {			
+		}else {	
 			studentList = dao.studentInfo(member_id);
 		}		
 		return studentList;

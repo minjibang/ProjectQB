@@ -24,7 +24,9 @@
 }
 .sendMessageDelete{
 	font-size: 13px;
-	
+}
+#message_content{
+	resize:none;
 }
 </style>
 <script
@@ -187,7 +189,7 @@
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll2">전체선택</th>
+                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll2">&nbsp;전체선택</th>
                                                 <th class="th">보낸사람</th>
                                                 <th class="th">제목</th>
                                                 <th class="th">받는사람</th>
@@ -196,6 +198,7 @@
                                           </thead>
                                           <tbody>
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
+
                                              	<tr class="${receiveMessage.message_num}" >
                                                    <td class="inbox-small-cells"><input name="chk2"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
@@ -205,6 +208,7 @@
                                                    </td>
                                                    <c:choose>
                                                    <c:when test="${receiveMessage.message_check == 0}">
+
                                                    <td class="view-message  inbox-small-cells">나</td>
                                                    </c:when>
                                                    <c:otherwise>
@@ -214,6 +218,7 @@
                                                    
                                                    <td class="view-message  text-right">${receiveMessage.message_date}</td>
                                                 </tr>
+                                                <input type="hidden" id="${receiveMessage.message_num}" value="${receiveMessage.message_content}"/>
                                              </c:forEach>
                                                    
                                              <!-- <tr class="read">
@@ -255,7 +260,7 @@
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll3">전체선택</th>
+                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll3">&nbsp;전체선택</th>
                                                 <th class="th">보낸사람</th>
                                                 <th class="th">제목</th>
                                                 <th class="th">받는사람</th>
@@ -307,7 +312,7 @@
                                     <div class="row">
                                        <div class="col-md-12">
                                           <div class="col-md-2">
-                                             <section class="panel" style="width:150px; height:500px; overflow-y:scroll;">
+                                             <section class="panel" style="width:150px; height:500px; overflow-y:auto;">
                                                 <div class="panel-body grey-panel">
                                                    <div>
                                                       <label class="btn btn-compose"> <i
@@ -345,6 +350,20 @@
                                                          <input type="hidden" id="teacher_id" name="teacher_id" value="${classTeacherList.member_id}"/>
                                                    </c:forEach>
                                                    </se:authorize>
+                                                    <se:authorize access="hasRole('ROLE_ADMIN')">
+                                                      <c:forEach items="${teacherList}" var="teacherList">
+                                                      <li id="messageSelect"><div>
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px;" >
+                                                        <label style="padding-left:0px;">
+                                                        <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${teacherList.member_id}"style="position:relative;"/>
+                                                            <img
+                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+                                                               class="img-circle" width="25">${teacherList.member_name}
+                                                               </label>
+                                                               </div>
+                                                         </div></li>
+                                                   </c:forEach>
+                                                   </se:authorize>
                                                    </ul>
                                                 </div>
                                              </section>
@@ -353,7 +372,7 @@
                                                 <div class="form-group">
                                                    <textarea class="form-control" name=message_content
                                                       id="message_content" placeholder="Your Message"
-                                                      rows="5" data-rule="required"
+                                                      rows="21" cols="15" data-rule="required"
                                                       data-msg="Please write something for us"></textarea>
                                                 </div>
                                                 <div class="sent-message">Your message has been
@@ -362,6 +381,9 @@
                                                 <button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_TEACHER')">
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
+                                                </se:authorize>
+                                                <se:authorize access="hasRole('ROLE_ADMIN')">
                                                 <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
                                                 </se:authorize>
                                                 <button class="btn btn-theme04" type="button">취소</button>
@@ -389,8 +411,9 @@
 
 $(document).ready(function(){
 
+
 	$(document).on('click','.receiveBtn',function(){
-		 var text = $(this).attr('id');	
+		 var text = $(this).prev().attr('id');	
 		 var sendMan = $(this).prev().text();
 		 var date = $(this).parent().children().eq(4).text();
 		 
@@ -401,7 +424,7 @@ $(document).ready(function(){
 	
       
       $(document).on('click','.sendBtn',function(){
-    	 var text = $(this).attr('id');	
+    	 var text = $(this).prev().attr('id');	
  		 var receiveMan = $(this).next().text();
  		 var date = $(this).parent().children().eq(4).text();
           $('.messageSender').html(""+receiveMan+"");
@@ -501,6 +524,7 @@ function check_t(){
           }
              };
              
+
    
            
 	$('.message_content_row').click(function(){
@@ -508,7 +532,7 @@ function check_t(){
 		var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
-	  	   
+
          $.ajax({
          url : "message_check.do",
          type : "get",
@@ -533,6 +557,7 @@ function check_t(){
    
    
    $('.sendMessageDelete').click(function(){
+	   
 	   var sendMessageDeleterarray = new Array();
 	      $("input:checkbox[name=chk2]:checked").each(function(){
 	     	  sendMessageDeleterarray.push($(this).val());
