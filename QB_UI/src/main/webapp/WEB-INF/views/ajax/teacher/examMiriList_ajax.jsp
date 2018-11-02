@@ -77,7 +77,7 @@ h3.logo span {
 			</tr>
 			<c:if test="${examquestion.question_img ne null }">
 			<tr>
-				<td colspan="2"><img src="${pageContext.request.contextPath }/resources/upload/question/${examquestion.question_img}" title="questionIMG" alt="${examquestion.question_img}" class="questionImg"/></td>
+				<td colspan="2"><img src="${pageContext.request.contextPath }/upload/question/${examquestion.question_img}" title="questionIMG" alt="${examquestion.question_img}" class="questionImg"/></td>
 				
 			</tr>
 			</c:if>
@@ -86,9 +86,9 @@ h3.logo span {
 				<tr>
 					<td>${question_choice.question_choice_num})</td>
 					<td>${question_choice.question_choice_content}
-					<%-- <c:if test="${question_choice.question_choice_image ne null }">
-					<br><img src="${pageContext.request.contextPath }/resources/upload/question/${question_choice.question_choice_image}" title="questionIMG" alt="${question_choice.question_choice_image}" class="questionImg"/>
-					</c:if>  --%>
+					<c:if test="${question_choice.question_choice_image ne null }">
+					<br><img src="${pageContext.request.contextPath }/upload/question/${question_choice.question_choice_image}" title="questionIMG" alt="${question_choice.question_choice_image}" class="questionImg"/>
+					</c:if>
 					</td>
 				<tr>
 				</c:if>

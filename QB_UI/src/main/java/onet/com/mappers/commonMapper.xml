@@ -183,6 +183,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	on m.member_id=mr.member_id and m.class_name=c.class_name
 	where not m.member_enable=0 
 	and mr.role_code='ROLE_STUDENT' and c.class_num = #{class_num}
+	order by m.member_name asc
 </select>
 <select id="studentInfo" parameterType="String" resultType="onet.com.vo.MemberDto">
 	select m.member_id, m.member_email, m.member_name, m.member_phone, m.class_name, mr.role_code
@@ -190,6 +191,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	where not m.member_id=#{member_id} and not m.member_enable=0 
 	and mr.role_code='ROLE_STUDENT' and m.class_name = 
 	(select class_name from member where member_id=#{member_id})
+	order by m.member_name asc
 </select>
 
 <!-- 학생 차트 정보 -->
@@ -197,8 +199,8 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	select * 
 	from score_chart sc JOIN member m
 	ON sc.member_id = m.member_id
-	where m.member_name=#{member_name} and sc.class_name = 
-	(select class_name from member where member_name=#{member_name})
+	where m.member_id=#{member_id} and sc.class_name = 
+	(select class_name from member where member_id=#{member_id})
 	order by m.member_name, sc.exam_info_num asc
 </select>
 <!-- 클래스 차트 정보 -->
@@ -216,7 +218,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	ep.exam_paper_desc, m.member_name
 	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN member m
 	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num and sa.member_id=m.member_id
-	WHERE m.member_name = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
+	WHERE m.member_id = #{param1} and ei.class_name = #{param2} order by exam_info_num desc
 </select>
 
 <select id="studentExamScoreInfoCtgr" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
@@ -224,7 +226,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	FROM member m JOIN student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN exam_question eq JOIN question q JOIN question_sm_category qsc
 	ON m.member_id=sa.member_id and sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num= eq.exam_paper_num 
 	and eq.question_num = q.question_num and q.sm_category_code = qsc.sm_category_code
-	WHERE m.member_name = #{param1} and ei.class_name = #{param2} order by sa.exam_info_num, qsc.sm_category_code asc
+	WHERE m.member_id = #{param1} and ei.class_name = #{param2} order by sa.exam_info_num, qsc.sm_category_code asc
 </select>
 <!-- 양회준 10-29 학생&성적관리 클래스통계 학생별 성적표 -->
 <select id="studentExamScoreList" parameterType="String" resultType="onet.com.vo.Score_chartDto">
