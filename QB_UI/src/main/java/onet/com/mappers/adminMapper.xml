@@ -426,5 +426,8 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select class_num from class where class_name=#{class_name}
 </select>
 
+<select id="teacherList" resultType="onet.com.vo.MemberDto">
+	select * from member where member_id in (select member_id from member_role where role_code='ROLE_TEACHER')
+</select>
 
 </mapper>

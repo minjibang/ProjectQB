@@ -13,13 +13,14 @@
 	column-rule-style: solid;
 	column-rule-width: 1px;
 	background: white;
-	/* margin: 1cm auto; */
+	margin: 1cm auto;
 	padding: 2cm;
 	border-radius: 5px;
 }
 #page table {
 	margin-bottom : 50px;
 	margin-right : 20px;
+	margin-left : 5px;
 }
 td {
 	vertical-align : top;
@@ -35,6 +36,21 @@ th {
 .endline{
 	page-break-before:always;
 }
+h3.logo {
+	font-size: 24px;
+	color: #000000;
+	text-transform: uppercase;
+}
+
+h3.logo span {
+	color: #4ECDC4;
+}
+.left-box{
+	float : left;
+}
+.right-box{
+	float : right;
+}
 </style>
 
 </head>
@@ -44,9 +60,14 @@ th {
 		<div id="page">
 		<c:if test="${status.index eq 0 }">
 			<div id="all">
-				<h1>${examquestion.exam_paper_name }</h1>
-				<hr>
+				<div class="left-box">
+					<h3 class="logo"><b>QB</b><span>QB</span></h3>
+				</div>
+				<div class="right-box">
+					<h3>${examquestion.exam_paper_name }</h3>
+				</div>
 			</div>
+			<hr id="all">
 		</c:if>
 	</c:if>
 		<table>

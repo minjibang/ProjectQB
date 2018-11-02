@@ -595,6 +595,40 @@ public class StudentController {
 		      return mav;
 		   }
 
+		   
+		   @RequestMapping("receiveMessageDelete.do")
+			public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
+				int result = 0;
+				System.out.println(receiveDeleteHidden);
+				String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
+				for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
+					
+					result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
+					System.out.println(result);
+				}
+				return result;
+			}
+		   
+		   @RequestMapping("replyMessage.do")
+			public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
+				MessageDto dto = new MessageDto();
+				dto.setMessage_content(text);
+				dto.setReceive_member_id(sender);
+				dto.setSend_member_id(principal.getName());
+				int result = commonService.replyMessage(dto);
+				return result;
+			}
 		
+
+		   @RequestMapping("sendMessageDelete.do")
+			public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
+				int result = 0;
+				String[] sendDeleteHiddenArray=sendDeleteHidden.split(",");
+				for(int i = 0; i < sendDeleteHiddenArray.length;i++) {
+					result = commonService.sendMessageDelete(sendDeleteHiddenArray[i]);
+				}
+				return result;
+			}
+		   
 
 }

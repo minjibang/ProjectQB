@@ -24,7 +24,9 @@
 }
 .sendMessageDelete{
 	font-size: 13px;
-	
+}
+#message_content{
+	resize:none;
 }
 </style>
 <script
@@ -187,7 +189,7 @@
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll2">전체선택</th>
+                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll2">&nbsp;전체선택</th>
                                                 <th class="th">보낸사람</th>
                                                 <th class="th">제목</th>
                                                 <th class="th">받는사람</th>
@@ -258,7 +260,7 @@
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll3">전체선택</th>
+                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll3">&nbsp;전체선택</th>
                                                 <th class="th">보낸사람</th>
                                                 <th class="th">제목</th>
                                                 <th class="th">받는사람</th>
@@ -310,7 +312,7 @@
                                     <div class="row">
                                        <div class="col-md-12">
                                           <div class="col-md-2">
-                                             <section class="panel" style="width:150px; height:500px; overflow-y:scroll;">
+                                             <section class="panel" style="width:150px; height:500px; overflow-y:auto;">
                                                 <div class="panel-body grey-panel">
                                                    <div>
                                                       <label class="btn btn-compose"> <i
@@ -348,6 +350,20 @@
                                                          <input type="hidden" id="teacher_id" name="teacher_id" value="${classTeacherList.member_id}"/>
                                                    </c:forEach>
                                                    </se:authorize>
+                                                    <se:authorize access="hasRole('ROLE_ADMIN')">
+                                                      <c:forEach items="${teacherList}" var="teacherList">
+                                                      <li id="messageSelect"><div>
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px;" >
+                                                        <label style="padding-left:0px;">
+                                                        <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${teacherList.member_id}"style="position:relative;"/>
+                                                            <img
+                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+                                                               class="img-circle" width="25">${teacherList.member_name}
+                                                               </label>
+                                                               </div>
+                                                         </div></li>
+                                                   </c:forEach>
+                                                   </se:authorize>
                                                    </ul>
                                                 </div>
                                              </section>
@@ -356,7 +372,7 @@
                                                 <div class="form-group">
                                                    <textarea class="form-control" name=message_content
                                                       id="message_content" placeholder="Your Message"
-                                                      rows="5" data-rule="required"
+                                                      rows="21" cols="15" data-rule="required"
                                                       data-msg="Please write something for us"></textarea>
                                                 </div>
                                                 <div class="sent-message">Your message has been
@@ -365,6 +381,9 @@
                                                 <button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_TEACHER')">
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
+                                                </se:authorize>
+                                                <se:authorize access="hasRole('ROLE_ADMIN')">
                                                 <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
                                                 </se:authorize>
                                                 <button class="btn btn-theme04" type="button">취소</button>
@@ -394,7 +413,7 @@ $(document).ready(function(){
 
 
 	$(document).on('click','.receiveBtn',function(){
-		 var text = $(this).attr('id');	
+		 var text = $(this).prev().attr('id');	
 		 var sendMan = $(this).prev().text();
 		 var date = $(this).parent().children().eq(4).text();
 		 
@@ -405,7 +424,7 @@ $(document).ready(function(){
 	
       
       $(document).on('click','.sendBtn',function(){
-    	 var text = $(this).attr('id');	
+    	 var text = $(this).prev().attr('id');	
  		 var receiveMan = $(this).next().text();
  		 var date = $(this).parent().children().eq(4).text();
           $('.messageSender').html(""+receiveMan+"");
