@@ -2,6 +2,7 @@ package onet.com.teacher.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -79,16 +81,28 @@ public class TeacherController {
 
 		/*민지 18.10.10 메시지 페이지 시작*/
 		@RequestMapping("myMessage.do")
-		public String myMessage(Model model, Principal principal) {
+		public String myMessage(Model model, Principal principal,HttpServletRequest request
+	            , HttpServletResponse response) throws IOException {
 			String member_id = principal.getName();
-			System.out.println("아이디:"+member_id);
+			String date = "";
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 			   List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			   for(int i=0; i<receiveMessage.size(); i++) {
+			    	  date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+			    	 receiveMessage.get(i).setMessage_date(date);
+			   }
 			   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+			   for(int i=0; i<sendMessage.size(); i++) {
+			    	  date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+			    	  sendMessage.get(i).setMessage_date(date);
+			   }
+			   
 			   model.addAttribute("classMemberList", classMemberList);
 			   model.addAttribute("receiveMessage", receiveMessage);
 			   model.addAttribute("sendMessage", sendMessage);
 			   model.addAttribute("member_id", member_id);
+		
+			  
 			return "common.teacher.common.myMessage";
 		}
 		/*민지 18.10.10 메시지 페이지 끝*/
@@ -412,28 +426,31 @@ public class TeacherController {
 		String member_id = principal.getName();
 		String class_num = null;
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
-		String student_id = studentList.get(0).getMember_id();
+		String student_name = studentList.get(0).getMember_name();
 		String class_name = studentList.get(0).getClass_name();
 		//첫번째 학생의 데이터로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_id(), class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_name(), class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_id(), class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_name(), class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		//학생 전체 성적확인
+		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
+		System.out.println(studentExamScoreList.get(0).getScore_list().toString());
+		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		
 		return "common.teacher.grade.studentInfo";
 	}
 	
 	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_name, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
 	}
@@ -453,6 +470,14 @@ public class TeacherController {
 		List<Score_chartDto> studentStdChart = commonService.studentStdChart(exam_info_name);
 		System.out.println("과연 표준편차는? : " + studentStdChart);
 		return studentStdChart;
+	}
+	
+	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
+	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
+	public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
+			@RequestParam("class_name") String class_name) {
+		int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
+		return spreadList;
 	}
 	
 	/*양회준 18.10.11 학생&성적관리 끝 */
@@ -667,10 +692,10 @@ public class TeacherController {
 	}
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
 	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
-	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_name, class_name);
 		return result;
 	}
 	
@@ -724,15 +749,7 @@ public class TeacherController {
 		int result = commonService.replyMessage(dto);
 		return result;
 	}
-	
-    //양회준 10.29 학생&성적관리.클래스통계.점수별분포
-    @RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
-    public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
-            @RequestParam("class_name") String class_name) {
-        int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
-        return spreadList;
-    }
-    
+	    
     @RequestMapping("message_check.do")
     public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
         MessageDto dto = new MessageDto();
@@ -742,8 +759,7 @@ public class TeacherController {
         }else {
             System.out.println("메시지 체크 실패");
         }
-        return 0;
+        return result;
 
-    }
-	
+    }	
 }

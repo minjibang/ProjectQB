@@ -42,6 +42,7 @@ import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
+import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -110,7 +111,7 @@ public class AdminController {
 	}
 	//양회준 10.30 데이터테이블Ajax
 	@RequestMapping("adminMemberAjax.do")
-	public @ResponseBody List<MemberDto> adminMemberAjax() throws Exception {		
+	public @ResponseBody List<MemberDto> adminMemberAjax(String exam_info_name) throws Exception {		
 		List<MemberDto> list=adminService.memberList();				
 		return list;		
 	}
@@ -243,8 +244,26 @@ public class AdminController {
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
-	public String myMessage() {
-
+	public String myMessage(Model model, Principal principal) {
+		
+		 String member_id = principal.getName();
+		 String date = "";
+		 List<MemberDto> teacherList = adminService.teacherList();
+		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+		   for(int i=0; i<receiveMessage.size(); i++) {
+		    	  date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+		    	 receiveMessage.get(i).setMessage_date(date);
+		   }
+		   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+		   for(int i=0; i<sendMessage.size(); i++) {
+		    	  date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+		    	  sendMessage.get(i).setMessage_date(date);
+		   }
+		   model.addAttribute("teacherList", teacherList);
+		   model.addAttribute("receiveMessage", receiveMessage);
+		   model.addAttribute("sendMessage", sendMessage);
+		   model.addAttribute("member_id", member_id);
+		
 		return "common.admin.common.myMessage";
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
@@ -398,22 +417,22 @@ public class AdminController {
 	public String studentInfo(Model model, Principal principal, HttpServletRequest request){
 		String member_id = principal.getName();
 		String class_num=request.getParameter("class_num");	
-		String student_id;
+		String student_name;
 		String class_name;
 		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
         try {
-            student_id = studentList.get(0).getMember_id();
+            student_name = studentList.get(0).getMember_name();
             class_name = studentList.get(0).getClass_name();
         }catch(Exception e) {
-            student_id="데이터가 없습니다.";
+        	student_name="데이터가 없습니다.";
             class_name="데이터가 없습니다.";
         }
         
-		System.out.println("admin:"+student_id);
+		System.out.println("admin:"+student_name);
 		System.out.println("admin:"+class_name);
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(student_name, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
@@ -421,17 +440,20 @@ public class AdminController {
 		model.addAttribute("studentChart",studentChart);
 		
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_name, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
+		//학생 전체 성적확인
+		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
+		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		
 		return "common.adminClass.admin.grade.studentInfo";
 	}
 	// 관리자 클래스 상세보기 - 학생 & 성적관리 - 개별차트부르기
 	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_name, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		for(Class_chartDto data : studentChart) {
 			System.out.println("과연"+data.getExam_info_name());
@@ -440,10 +462,10 @@ public class AdminController {
 	}
 	//양회준 10-26 학생&성적관리 학생개인 성적확인
 	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
-	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_name") String member_name,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_name, class_name);
 		return result;
 	}
 	
@@ -1032,8 +1054,66 @@ public class AdminController {
 		return result;
 	}
 	
-    
-    
 
+	 @RequestMapping("message_check.do")
+	    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+	        MessageDto dto = new MessageDto();
+	        int result = commonService.message_check(message_check, message_num);
+	        if(result > 0) {
+	            System.out.println("메시지 체크 성공");
+	        }else {
+	            System.out.println("메시지 체크 실패");
+	        }
+	        return result;
+	 }
+	/* 영준 10.25 반 등수 시작 */
+	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
+		System.out.println("과연 반 등수는? : " + classRank);
+		return classRank;
+	}
+	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
+	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
+	public @ResponseBody int[] studentScoreSpread(@RequestParam("exam_info_num") int exam_info_num, 
+			@RequestParam("class_name") String class_name) {
+		int[] spreadList = commonService.studentScoreSpread(exam_info_num, class_name);
+		return spreadList;
+	}
+
+
+	    
+    
+	 @RequestMapping("replyMessage.do")
+		public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
+			MessageDto dto = new MessageDto();
+			dto.setMessage_content(text);
+			dto.setReceive_member_id(sender);
+			dto.setSend_member_id(principal.getName());
+			int result = commonService.replyMessage(dto);
+			return result;
+		}
 	
+	 @RequestMapping("sendMessageDelete.do")
+		public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
+			int result = 0;
+			String[] sendDeleteHiddenArray=sendDeleteHidden.split(",");
+			for(int i = 0; i < sendDeleteHiddenArray.length;i++) {
+				result = commonService.sendMessageDelete(sendDeleteHiddenArray[i]);
+			}
+			return result;
+		}
+	 
+	 @RequestMapping("receiveMessageDelete.do")
+		public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
+			int result = 0;
+			System.out.println(receiveDeleteHidden);
+			String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
+			for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
+				
+				result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
+				System.out.println(result);
+			}
+			return result;
+		}
 }

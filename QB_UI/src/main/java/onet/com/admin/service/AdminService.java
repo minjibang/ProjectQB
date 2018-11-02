@@ -505,5 +505,12 @@ public class AdminService {
 		return result;
 	}
 	
+	public List<MemberDto> teacherList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<MemberDto> teacherList = dao.teacherList();
+		
+		return teacherList;
+	}
+	
 	
 }
