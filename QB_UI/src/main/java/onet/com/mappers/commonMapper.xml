@@ -261,15 +261,6 @@ sc.score_chart_score DESC
 select * from member where class_name=(select class_name from member where member_id = #{member_id})
 </select>
 
-<!-- 영준 10.26 표준편차 시작 -->
-<select id="studentStdChart" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-select e.exam_info_name,sum(score_chart_score),avg(score_chart_score), std(score_chart_score)
-from score_chart as sc, exam_info e, member m
-where sc.exam_info_num=e.exam_info_num
-and m.member_id=sc.member_id
-and e.exam_info_name=#{exam_info_name}
-
-</select>
 
 <select id="studentScoreSpread" resultType="int">
 	select count(*)
