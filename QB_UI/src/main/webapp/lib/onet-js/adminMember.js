@@ -173,7 +173,7 @@ $(function(){
 		var tdArr=$(this).parent().parent().children();
 		rowIndex=$(this).parent().parent().index();
 		console.log("인덱스?:"+rowIndex);
-		var role_code_modal = tdArr.eq(6).text();
+		var role_desc_modal = tdArr.eq(6).text();
 		
 		$('#cid').val(tdArr.eq(2).text());
 		$('#cemail').val(tdArr.eq(4).text());
@@ -181,15 +181,15 @@ $(function(){
 		$('#cname').val(tdArr.eq(3).text());
 		$('#class_name').val(tdArr.eq(1).text());
 		
-		if(role_code_modal == "ROLE_STUDENT"){
+		if(role_desc_modal == "학생"){
 			$("#agree_s").attr("checked", true);
 			$("#agree_t").attr("checked", false);
 		}
-		else if(role_code_modal == "ROLE_TEACHER"){
+		else if(role_desc_modal == "강사"){
 			$("#agree_t").attr("checked", true);
 			$("#agree_s").attr("checked", false);
 		} 
-		else if(role_code_modal == "ROLE_MEMBER"){
+		else if(role_desc_modal == "일반회원"){
 			$("#agree_t").attr("checked", false);
 			$("#agree_s").attr("checked", false);
 		} 
