@@ -290,7 +290,10 @@ public class StudentController {
           List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
           List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
           List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
+          
           model.addAttribute("classMemberList", classMemberList);
+          model.addAttribute("classTeacherList",classTeacherList);
           model.addAttribute("receiveMessage", receiveMessage);
           model.addAttribute("sendMessage", sendMessage);
           model.addAttribute("member_id", member_id);
@@ -532,6 +535,21 @@ public class StudentController {
 			return result;
 		}
 		
+
+	/*11.01 학생읽은쪽지 확인*/
+	    @RequestMapping("message_check.do")
+	    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+	        MessageDto dto = new MessageDto();
+	        int result = commonService.message_check(message_check, message_num);
+	        if(result > 0) {
+	            System.out.println("메시지 체크 성공");
+	        }else {
+	            System.out.println("메시지 체크 실패");
+	        }
+	        return 0;
+
+	    }
+
 		// 10.24 현이 ajax로 시험지의 문제들 불러오기 
 		   @RequestMapping("pastExamPaperView.do")
 		   public @ResponseBody ModelAndView pastExamPaperView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, @RequestParam("question_answerSheet") String question_answerSheet, 
@@ -601,6 +619,7 @@ public class StudentController {
 				return result;
 			}
 		
+
 		   @RequestMapping("sendMessageDelete.do")
 			public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
 				int result = 0;
@@ -611,16 +630,5 @@ public class StudentController {
 				return result;
 			}
 		   
-		   @RequestMapping("message_check.do")
-		    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
-		        MessageDto dto = new MessageDto();
-		        int result = commonService.message_check(message_check, message_num);
-		        if(result > 0) {
-		            System.out.println("메시지 체크 성공");
-		        }else {
-		            System.out.println("메시지 체크 실패");
-		        }
-		        return result;
 
-		    }
 }
