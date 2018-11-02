@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>	
 <style>
 .sub{
 	text-align: center;
@@ -119,8 +120,6 @@
 												<div class="col-sm-5">	
 													<span class="span filename"><strong>${originFileName2}&nbsp;&nbsp;</strong><a class="fileDeletebtn2"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span><input type="file" id="txtFile2" class="file" name="files2"/>
 												</div>
-											
-												
 												</c:when>
 											</c:choose>
 											
@@ -129,7 +128,12 @@
 									<tr>
 										<td colspan="2" class="sub">
 											<button type="submit" id="btnupdate" class="btn btn-info">수정</button>&nbsp;&nbsp;
+											<se:authorize access="hasRole('ROLE_TEACHER')">
 											<a href="teacherMain.do"><input type="button" class="btn btn-info" value="취소" /></a>
+											</se:authorize>
+											<se:authorize access="hasRole('ROLE_ADMIN')">
+											<a href="adminClassMain.do?class_name=${result[0].class_name}"><input type="button" class="btn btn-info" value="취소" /></a>
+											</se:authorize>
 											<!-- <button class="btn btn-info">취소</button> -->
 										</td>
 									</tr>

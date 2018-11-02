@@ -3,55 +3,6 @@
 	pageEncoding="UTF-8"%>
 
 <link href="${pageContext.request.contextPath}/css/adminCategory.css" rel="stylesheet">
-<style>
-.selectCategory{
-	display:inline;
-	width: 70%;
-}
-.lg_category_code{
-	text-align: center;
-	background: #f1f1f1;
-	
-}
-.md_category_code{
-	text-align: center;
-	background: #f1f1f1;
-}
-.sm_category_code{
-	text-align: center;
-	background: #f1f1f1;
-}
-td{
-	border-bottom: 1px solid #DDDDDD;
-	font-size: 1em;
-}
-
-th{
-	font-weight:bold;
-	font-size: 0.9em;
-}
-.insertHeader{
-	font-size: 1.5em;
-	text-align: center;
-	color: white;
-	font-weight: bold; 
-}
-.insertsize{
-	width:98%;
-}
-.updateHeader{
-	font-size: 1.5em;
-	text-align: center;
-	font-weight: bold;
-}
-.a{
-	display:inline;
-	text-align: right;
-}
-
-
-
-</style>
 
 <section id="main-content">
 	<section class="wrapper site-min-height">

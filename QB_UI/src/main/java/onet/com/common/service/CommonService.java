@@ -474,5 +474,9 @@ public class CommonService {
 		      
 		return result;
 	}
+	
+	
+	
+	
 	//민지 10.31 메시지 체크
 }

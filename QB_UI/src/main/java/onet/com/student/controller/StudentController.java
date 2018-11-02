@@ -297,7 +297,7 @@ public class StudentController {
           model.addAttribute("receiveMessage", receiveMessage);
           model.addAttribute("sendMessage", sendMessage);
           model.addAttribute("member_id", member_id);
-       return "common.teacher.common.myMessage";
+       return "common.student.common.myMessage";
     }
 	
 	
