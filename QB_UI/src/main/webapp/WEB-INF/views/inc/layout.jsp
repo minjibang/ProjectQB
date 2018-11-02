@@ -22,7 +22,7 @@
 
 <!-- Bootstrap core CSS -->
 <link
-	href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
 <!--external css-->
 <link
