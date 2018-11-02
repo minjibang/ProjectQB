@@ -12,6 +12,7 @@
 	rel="stylesheet">
  <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleRegist.js"></script> 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <section id="main-content">
@@ -24,7 +25,7 @@
               <div id="updateExam" class="tab-pane">
                 <div class="row">
                  <div class="col-md-12">
-                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">             
+                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" >             
                   	<h2><strong>시험 일정 등록</strong></h2>
                   	
                     <div class="col-md-2" id="examScheduleUpdateMember">
@@ -130,7 +131,7 @@
                       <input type="hidden" id="memberlistbox" name="memberlistbox"/>
                       <div class="col-md-4">
 
-                        <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn">시험 일정 등록</button>
+                        <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn" type="button" onclick="check()">시험 일정 등록</button>
                       </div>
                     </div></div></div>
                         </form>
@@ -219,20 +220,33 @@ function check(){
 		return false;
 		
 	}else if($('#exam_info_date').val()==""){
-		alert("날짜를 입력하세요");
+		  swal("날짜를 입력하세요", {
+		      icon: "info"
+		    });
 		return false;
 	}else if(memberarray==""){
-		alert("학생을 선택하세요.");
+		 swal("학생을 선택하세요.", {
+		      icon: "info"
+		    });
 		return false;
 	}else {
-		var insertconfirm = confirm("시험등록 하시겠습니까?");
-		if(insertconfirm == true){
-	
-			return true;
-		}else{
-			return false;
-		}
+		swal({
+			  title: "시험 일정 등록하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true
+			}).then((willDelete) => {
+			  if (willDelete) {
+			    swal("일정이 등록 되었습니다.", {
+			      icon: "success"
+			    });
+			    document.getElementById("examScheduleRegistForm").submit();
+			  } else {
+			  }
+		});
 	}
+	
+	
 	
 
 }
