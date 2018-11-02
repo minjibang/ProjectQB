@@ -154,6 +154,34 @@
 								</div>
 							</div>
 						</div>
+						
+						<!-- Class Delete Modal  -->
+						<div class="modal fade" id="classDelete" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form class="form-horizontal style-form" method="post" id="deleteClassForm"> 
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title" id="myModalLabel">클래스 삭제</h4> 
+										</div>
+										<div class="modal-body">
+											<div class="classDeleteModelBody">
+												<input type="text" id="class_name" id="class_name_modal" name="class_name"/>
+												선택하신 클래스를 삭제하시겠습니까?
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-theme" id="deleteClassBtn">삭제</button>
+										</div>
+									</form> 
+								</div>
+							</div>
+						</div>
+						
+						
 
 						<div class="row mt">
 							<div class="col-lg-12">
