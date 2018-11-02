@@ -61,4 +61,11 @@ public class AdminMainPageService {
 		List<ExamInfoDto> result = dao.examScheduleList(member_id);
 		return result;
 	}
+	
+	// 현이 11.02 adminMain 클래스 삭제 
+	public int deleteClass(String class_name) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int result = dao.deleteClass(class_name);
+		return result;
+	}
 }

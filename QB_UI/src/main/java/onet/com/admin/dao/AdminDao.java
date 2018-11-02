@@ -165,5 +165,9 @@ public interface AdminDao {
 	public List<ExamInfoDto> examScheduleList(String member_id);
 	
 	public int checkClassNum(String class_name);
+	
+	// 현이 11.02 adminMain 클래스 삭제
+	public int deleteClass(String class_name);
+	
 }
 
