@@ -38,7 +38,7 @@ $(document).ready(function(){
             {data: "member_name" },
             {data: "member_email" },
             {data: "member_phone" },
-            {data: "role_desc" },
+            {data: "role_code" },
             {data: "member_enable" },
             {defaultContent:"<button type='button' class='btn btn-info'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
         ]
@@ -181,15 +181,15 @@ $(function(){
 		$('#cname').val(tdArr.eq(3).text());
 		$('#class_name').val(tdArr.eq(1).text());
 		
-		if(role_code_modal == "학생"){
+		if(role_code_modal == "ROLE_STUDENT"){
 			$("#agree_s").attr("checked", true);
 			$("#agree_t").attr("checked", false);
 		}
-		else if(role_code_modal == "선생님"){
+		else if(role_code_modal == "ROLE_TEACHER"){
 			$("#agree_t").attr("checked", true);
 			$("#agree_s").attr("checked", false);
 		} 
-		else if(role_code_modal == "일반회원"){
+		else if(role_code_modal == "ROLE_MEMBER"){
 			$("#agree_t").attr("checked", false);
 			$("#agree_s").attr("checked", false);
 		} 
