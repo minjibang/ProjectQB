@@ -242,13 +242,12 @@ public class StudentController {
 		String member_id = principal.getName();
 		String class_num=null;
 		String class_name;
-		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
+		
+		List<MemberDto> studentList = studentService.rankStudentInfo(member_id);
 		String student_id = principal.getName();
-		try {
-			class_name = studentList.get(0).getClass_name();
-		}catch(Exception e) {
-			class_name="임시";
-		}
+	
+		class_name = studentList.get(0).getClass_name();
+
 		//클래스 번호로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");

@@ -9,9 +9,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.common.dao.CommonDao;
 import onet.com.student.dao.StudentDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.MessageDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
@@ -161,6 +163,17 @@ public class StudentService {
 		System.out.println("학생컨트롤러 진입 >> member_id: "+member_id);
 		List<Score_chartDto> myRank = dao.myRank(member_id, exam_info_num);
 		return myRank;
+	}
+	
+	public List<MemberDto> rankStudentInfo(String member_id){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		
+		System.out.println("학생컨트롤러 rankStudentInfo진입 :" + member_id);
+		List<MemberDto> rankStudentInfo = null;
+		
+		rankStudentInfo = dao.studentInfo(member_id);
+		return rankStudentInfo;
+		
 	}
 	
 	/*%%%%%%%%%%%%%%%%%%%%%%%%%%%    재훈 끝        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
