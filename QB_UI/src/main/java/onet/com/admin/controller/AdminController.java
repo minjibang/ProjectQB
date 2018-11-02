@@ -410,8 +410,6 @@ public class AdminController {
             class_name="데이터가 없습니다.";
         }
         
-		System.out.println("admin:"+student_name);
-		System.out.println("admin:"+class_name);
 		//클래스 번호로 차트 가져오기
 		Map<String, Object> chart = commonService.studentChartInfo(student_name, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
