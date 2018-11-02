@@ -3,17 +3,39 @@ $(document).ready(function(){
 	
 	$('#sendMessageTable').DataTable({
 		"columnDefs": [
-		    { "orderable": false, "targets": 0 }
+		    { "orderable": false, 
+		      "targets": 0
+		    }
 		    
 		  ],
+		  "columnDefs": [ {
+		        targets: 2,
+		        render: function ( data, type, row ) {
+		        	 return data.length > 10 ?
+		        		        data.substr( 0, 10 ) +'…' :
+		        		        data;
+		        }
+		    } ],
 		  "lengthChange": false
 	});
+	
 	$('#receiveMessageTable').DataTable({
 		"columnDefs": [
-		    { "orderable": false, "targets": 0 }
+		    { "orderable": false, 
+		    	"targets": 0
+		    }
 		    
 		  ],
+		  "columnDefs": [ {
+		        targets: 2,
+		        render: function ( data, type, row ) {
+		        	 return data.length > 10 ?
+		        		        data.substr( 0, 10 ) +'…' :
+		        		        data;
+		        }
+		    } ],
 		  "lengthChange": false
+		 
 	});
 	
 	/*체크박스*/

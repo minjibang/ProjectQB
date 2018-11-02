@@ -187,16 +187,18 @@
                                           </thead>
                                           <tbody>
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
-                                                <tr class="${receiveMessage.message_num}">
+                                                <tr class="${receiveMessage.message_check}">
                                                    <td class="inbox-small-cells"><input name="chk2"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
                                                    <td class="view-message ">${receiveMessage.send_member_id}</td>
                                                    <td class="view-message receiveBtn" data-toggle="modal"
                                                       data-target="#MessageModal" id="${receiveMessage.message_num}" onclick=" message_content_row()">
                                                       ${receiveMessage.message_content}</td>
+                                                    
                                                    <td class="view-message  inbox-small-cells">나</td>
                                                    <td class="view-message  text-right">${receiveMessage.message_date}</td>
                                                 </tr>
+                                                <input type="hidden" id="${receiveMessage.message_num}" value="${receiveMessage.message_content}"/>
                                              </c:forEach>
                                              <!-- <tr class="read">
                                                       <td class="inbox-small-cells"><input
@@ -370,7 +372,10 @@
 <script>
 
 $(document).ready(function(){
-
+	
+	
+	
+	
       $('.receiveBtn').click(function(){
          var tr = $(this).parent();
          var td = tr.children();
@@ -487,12 +492,10 @@ function check_t(){
              
              
    function message_content_row(){
-      
-
       var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
-   
+      
          $.ajax({
          url : "message_check.do",
          type : "get",
@@ -508,6 +511,7 @@ function check_t(){
       }
    
    $('.sendMessageDelete').click(function(){
+	   
 	   var sendMessageDeleterarray = new Array();
 	      $("input:checkbox[name=chk2]:checked").each(function(){
 	     	  sendMessageDeleterarray.push($(this).val());

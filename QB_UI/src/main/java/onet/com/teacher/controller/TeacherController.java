@@ -2,6 +2,7 @@ package onet.com.teacher.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -79,7 +81,8 @@ public class TeacherController {
 
 		/*민지 18.10.10 메시지 페이지 시작*/
 		@RequestMapping("myMessage.do")
-		public String myMessage(Model model, Principal principal) {
+		public String myMessage(Model model, Principal principal,HttpServletRequest request
+	            , HttpServletResponse response) throws IOException {
 			String member_id = principal.getName();
 			System.out.println("아이디:"+member_id);
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
@@ -89,6 +92,8 @@ public class TeacherController {
 			   model.addAttribute("receiveMessage", receiveMessage);
 			   model.addAttribute("sendMessage", sendMessage);
 			   model.addAttribute("member_id", member_id);
+		
+			  
 			return "common.teacher.common.myMessage";
 		}
 		/*민지 18.10.10 메시지 페이지 끝*/
