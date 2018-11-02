@@ -242,4 +242,14 @@ public class MainPageController {
 		
 		return result;
 	}
+	
+	// 현이 11.02 adminMain 클래스 삭제 
+	@RequestMapping("deleteClass.do")
+	public String deleteClass(@RequestParam("class_name") String class_name) {
+		
+		int result = adminMainPageService.deleteClass(class_name);
+		
+		return "admin.adminMain";
+	}
+	
 }

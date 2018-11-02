@@ -2,6 +2,7 @@ package onet.com.teacher.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -84,7 +86,8 @@ public class TeacherController {
 
 		/*민지 18.10.10 메시지 페이지 시작*/
 		@RequestMapping("myMessage.do")
-		public String myMessage(Model model, Principal principal) {
+		public String myMessage(Model model, Principal principal,HttpServletRequest request
+	            , HttpServletResponse response) throws IOException {
 			String member_id = principal.getName();
 			String date = "";
 			   List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
@@ -103,6 +106,8 @@ public class TeacherController {
 			   model.addAttribute("receiveMessage", receiveMessage);
 			   model.addAttribute("sendMessage", sendMessage);
 			   model.addAttribute("member_id", member_id);
+		
+			  
 			return "common.teacher.common.myMessage";
 		}
 		/*민지 18.10.10 메시지 페이지 끝*/
@@ -464,13 +469,7 @@ public class TeacherController {
 	}
 	/* 영준 10.26 반 등수 끝 */
 	
-	/* 영준 10.26 표준편차 시작 */
-	@RequestMapping(value="studentStdChart.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> studentStdChart(@RequestParam("exam_info_name") String exam_info_name) {
-		List<Score_chartDto> studentStdChart = commonService.studentStdChart(exam_info_name);
-		System.out.println("과연 표준편차는? : " + studentStdChart);
-		return studentStdChart;
-	}
+
 	
 	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
 	@RequestMapping(value="studentScoreSpread.do", method=RequestMethod.POST)
