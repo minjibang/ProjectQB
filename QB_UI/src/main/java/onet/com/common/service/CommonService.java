@@ -184,7 +184,6 @@ public class CommonService {
 
 
 //문제관리 - 문제 수정 전 수정가능여부 판단
-	/*######################      재훈 끝             ######################*/
 	public int singleUpdateCheck(int question_num) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = 0;
@@ -222,8 +221,9 @@ public class CommonService {
 			
 		return result;
 	}
-	
 
+	/*######################      재훈 끝             ######################*/
+	
 	public List<MemberDto> boardNull(String member_id){
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
 		List<MemberDto> boardNull = commonDao.noticeNullCheck(member_id);
@@ -278,9 +278,10 @@ public class CommonService {
 		List<MemberDto> studentList = null;
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		System.out.println("아이디:"+member_id);
+		System.out.println("classnum:" + class_num);
 		if(member_id.equals("admin")) {
 			studentList = dao.adminStudentInfo(class_num);
-		}else {			
+		}else {	
 			studentList = dao.studentInfo(member_id);
 		}		
 		return studentList;
@@ -378,12 +379,7 @@ public class CommonService {
 		return classRank;
 	}
 
-	// 영준 10.26 관리자, 강사 - 학생&성적관리 페이지 - 표준편차
-		public List<Score_chartDto> studentStdChart(String exam_info_name){
-			CommonDao dao = sqlsession.getMapper(CommonDao.class);
-			List<Score_chartDto> studentStdChart = dao.studentStdChart(exam_info_name);
-			return studentStdChart;
-		}
+
 	
 	//민지 10.26 강사-쪽지 페이지 해당클래스학생 리스트 
 	   public List<MemberDto> classMemeberList(String member_id) {

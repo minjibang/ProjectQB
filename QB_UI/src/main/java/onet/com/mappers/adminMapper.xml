@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </sql>
 
 <select id="adminMainView" resultType="onet.com.vo.ClassDto">
-	select * from class
+	select * from class 
 </select>
 
 <select id="classSearch" resultType="onet.com.vo.ClassDto">
@@ -425,9 +425,15 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 <select id="checkClassNum" parameterType="String" resultType="int">
 	select class_num from class where class_name=#{class_name}
 </select>
-
 <select id="teacherList" resultType="onet.com.vo.MemberDto">
 	select * from member where member_id in (select member_id from member_role where role_code='ROLE_TEACHER')
 </select>
+<!-- 현이 11.02 adminMain 페이지 시작 -->
+<update id="deleteClass" parameterType="String">
+	update class 
+	set class_enable = 0 
+	where class_name = #{param1}
+</update>
+<!-- 현이 11.02 adminMain 페이지 끝 -->
 
 </mapper>

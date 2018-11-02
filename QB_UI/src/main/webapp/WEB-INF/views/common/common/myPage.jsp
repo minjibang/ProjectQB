@@ -53,16 +53,16 @@
                           <div class="form-group">
                             <label class="col-lg-3 control-label">기존 비밀번호</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" id="modify_member_pwd" class="form-control" name="member_pwd">
+                              <input type="password" placeholder="기존 비밀번호를 입력해주세요." id="modify_member_pwd" class="form-control" name="member_pwd">
                             </div>
                           </div>
                           <%-- 비밀번호 변경 --%>
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호 변경
-                             <input type="checkbox" class="ez-checkbox" id="passwordChangeChk" style="height: auto" >
+                             <input type="checkbox" class="ez-checkbox" id="passwordChangeChk" style="height: auto">
                             </label>                           
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" class="form-control" id="passwordChange" name="member_pwd" onblur="confirmPwd()" disabled>
+                              <input type="password" placeholder="새 비밀번호를 입력해주세요." class="form-control" id="passwordChange" name="member_pwd" onblur="confirmPwd()" disabled>
                             </div>
                             <div class="col-lg-offset-3 col-lg-8" id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
                           </div>
@@ -71,7 +71,7 @@
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호 확인</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" id="passwordChangeConfirm" class="form-control" onblur="confirmPwd2()" disabled>
+                              <input type="password" placeholder="새 비밀번호를 한번 더 입력해주세요." id="passwordChangeConfirm" class="form-control" onblur="confirmPwd2()" disabled>
                             </div>
                             <div class="col-lg-offset-3 col-lg-8" id="pwdcheckdiv"></div> <%-- 비밀번호 일치 결과 출력 --%>
                           </div>
@@ -142,7 +142,7 @@
                           <div class="form-group">
                             <label class="col-lg-3 control-label">비밀번호</label>
                             <div class="col-lg-8">
-                              <input type="password" placeholder="password" id="drop_member_pwd" class="form-control" name="member_pwd">
+                              <input type="password" placeholder="비밀번호를 입력해주세요." id="drop_member_pwd" class="form-control" name="member_pwd">
                             </div>
                           </div>
                           <%-- 회원탈퇴&취소 버튼 --%>
