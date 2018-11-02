@@ -2,11 +2,10 @@ $(document).ready(function(){
 	
 	
 	$('#sendMessageTable').DataTable({
-		"columnDefs": [
-		    { "orderable": false, "targets": 0 }
-		  ],
 		  "order":[[4,'desc']],
-		  "columnDefs": [ {
+		  "columnDefs": [ 
+			  { "orderable": false, "targets": 0 },
+			  {
               targets: 2,
               render: function ( data, type, row ) {
                   return data.length > 10 ?
@@ -18,11 +17,10 @@ $(document).ready(function(){
 		  "lengthChange": false
 	});
 	$('#receiveMessageTable').DataTable({
-		"columnDefs": [
-		    { "orderable": false, "targets": 0 }
-		  ],
 		  "order":[[4,'desc']],
-		  "columnDefs": [ {
+		  "columnDefs": [ 
+			  { "orderable": false, "targets": 0 },
+			  {
               targets: 2,
               render: function ( data, type, row ) {
                   return data.length > 10 ?

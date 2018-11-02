@@ -577,6 +577,50 @@ public class StudentController {
 		      return mav;
 		   }
 
+		   
+		   @RequestMapping("receiveMessageDelete.do")
+			public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
+				int result = 0;
+				System.out.println(receiveDeleteHidden);
+				String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
+				for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
+					
+					result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
+					System.out.println(result);
+				}
+				return result;
+			}
+		   
+		   @RequestMapping("replyMessage.do")
+			public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
+				MessageDto dto = new MessageDto();
+				dto.setMessage_content(text);
+				dto.setReceive_member_id(sender);
+				dto.setSend_member_id(principal.getName());
+				int result = commonService.replyMessage(dto);
+				return result;
+			}
 		
-		
+		   @RequestMapping("sendMessageDelete.do")
+			public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
+				int result = 0;
+				String[] sendDeleteHiddenArray=sendDeleteHidden.split(",");
+				for(int i = 0; i < sendDeleteHiddenArray.length;i++) {
+					result = commonService.sendMessageDelete(sendDeleteHiddenArray[i]);
+				}
+				return result;
+			}
+		   
+		   @RequestMapping("message_check.do")
+		    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+		        MessageDto dto = new MessageDto();
+		        int result = commonService.message_check(message_check, message_num);
+		        if(result > 0) {
+		            System.out.println("메시지 체크 성공");
+		        }else {
+		            System.out.println("메시지 체크 실패");
+		        }
+		        return result;
+
+		    }
 }

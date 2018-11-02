@@ -165,5 +165,7 @@ public interface AdminDao {
 	public List<ExamInfoDto> examScheduleList(String member_id);
 	
 	public int checkClassNum(String class_name);
+	
+	public List<MemberDto> teacherList();
 }
 
