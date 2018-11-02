@@ -38,7 +38,7 @@ $(document).ready(function(){
             {data: "member_name" },
             {data: "member_email" },
             {data: "member_phone" },
-            {data: "role_code" },
+            {data: "role_desc" },
             {data: "member_enable" },
             {defaultContent:"<button type='button' class='btn btn-info'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
         ]
@@ -173,7 +173,7 @@ $(function(){
 		var tdArr=$(this).parent().parent().children();
 		rowIndex=$(this).parent().parent().index();
 		console.log("인덱스?:"+rowIndex);
-		var role_code_modal = tdArr.eq(6).text();
+		var role_desc_modal = tdArr.eq(6).text();
 		
 		$('#cid').val(tdArr.eq(2).text());
 		$('#cemail').val(tdArr.eq(4).text());
@@ -181,15 +181,15 @@ $(function(){
 		$('#cname').val(tdArr.eq(3).text());
 		$('#class_name').val(tdArr.eq(1).text());
 		
-		if(role_code_modal == "ROLE_STUDENT"){
+		if(role_desc_modal == "학생"){
 			$("#agree_s").attr("checked", true);
 			$("#agree_t").attr("checked", false);
 		}
-		else if(role_code_modal == "ROLE_TEACHER"){
+		else if(role_desc_modal == "강사"){
 			$("#agree_t").attr("checked", true);
 			$("#agree_s").attr("checked", false);
 		} 
-		else if(role_code_modal == "ROLE_MEMBER"){
+		else if(role_desc_modal == "일반회원"){
 			$("#agree_t").attr("checked", false);
 			$("#agree_s").attr("checked", false);
 		} 
@@ -261,7 +261,7 @@ $(function(){
 			rowMemberAuthArr.push(rowMemberAuth);
 		});
 				
-		if(rowMemberAuthArr.toString().match("ROLE_STUDENT")){
+		if(rowMemberAuthArr.toString().match("학생")){
 			swal("실패!","이미 학생으로 등록된 회원이 있습니다","error");
 		}else{			
 			jQuery.ajaxSettings.traditional = true;
@@ -274,7 +274,7 @@ $(function(){
 				dataType : "text",
 				success:function(data){
 					$("input[name=chk]:checked").each(function(i){
-						rowMemberAuth = $(this).parent().parent().children().eq(6).text("ROLE_STUDENT");
+						rowMemberAuth = $(this).parent().parent().children().eq(6).text("학생");
 					});
 					swal("성공!","학생으로 등록 되었습니다","success");
 				},
