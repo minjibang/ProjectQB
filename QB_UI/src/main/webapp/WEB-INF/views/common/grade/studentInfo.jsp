@@ -200,7 +200,7 @@
 														<i class="fa fa-angle-right"></i> 각 시험 평균
 													</h4>
 													<div class="panel-body text-center">
-														<canvas id="bar2" height="240"></canvas>
+														<canvas id="bar2" height="200"></canvas>
 													</div>
 												</div>
 											</div>
@@ -332,7 +332,7 @@ $(document).ready(function(){
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
-	var chartLabels = new Array();	
+	var chartLabels = new Array();
 	var spreadScore;
 	//시험번호
 	var examInfoNum = "${classChart[0].exam_info_num}";
@@ -346,6 +346,7 @@ $(document).ready(function(){
 		chartClassDatas.push("${classChart.class_chart_avg}");
 		chartLabels.push("${classChart.exam_info_name}");
 	</c:forEach>
+	
 	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
@@ -491,7 +492,6 @@ $(document).ready(function(){
 					chartClassDatas.push(element.class_chart_avg);					
 				});
 				functionChart();
-				functionChart2();
 			},
 			error:function(error, status){
 				console.log("실패2:"+status);
