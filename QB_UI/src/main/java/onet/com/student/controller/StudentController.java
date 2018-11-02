@@ -208,16 +208,16 @@ public class StudentController {
 			class_name="임시";
 		}
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(student_name, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
-		model.addAttribute("studentId", student_name);
+		model.addAttribute("studentId", member_id);
 		
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_name, class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(member_id, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		
 		return "student.gradeManage";
