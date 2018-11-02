@@ -65,7 +65,6 @@
 							</p>
 								<c:choose>
 								<c:when test="${not empty result[0].notice_file1 && empty result[0].notice_file2}">
-								<br>
 								<span class="span">${originFileName1}</span>
 								<br>
 								<a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
@@ -256,7 +255,7 @@ $(document).ready(function(){
 		}else if($(this).text()=='댓글'&&count==1){
 			$('.commcomm').prev().children().eq(2).children().eq(0).html('<i class="fa fa-reply"></i>댓글');
 			$('.commcomm').remove();
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'>ㄴ <input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');
 			count=1;
 		}
@@ -291,7 +290,7 @@ $(document).ready(function(){
 	$(document).on('click','.replyReply',function(){
 		
 		if($(this).text()=='댓글'&&count==0){
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'>ㄴ <input type='text' class='replyInput' style=width:500px;><a class='replyReplyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' style=width:500px;><a class='replyReplyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');
 			count=1;
 		}else if($(this).text()=='취소'){
@@ -302,7 +301,7 @@ $(document).ready(function(){
 		}else if($(this).text()=='댓글'&&count==1){
 			$('.commcomm').prev().children().eq(2).children().eq(0).html('<i class="fa fa-reply"></i>댓글');
 			$('.commcomm').remove();
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'>ㄴ <input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');
 			count=1;
 		}

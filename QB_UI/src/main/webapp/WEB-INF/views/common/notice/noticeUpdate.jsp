@@ -61,24 +61,37 @@
 											
 											<c:choose>
 												<c:when test="${not empty result[0].notice_file1 && empty result[0].notice_file2}">
-													<br>
-													<span class="span">${originFileName1}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn1">삭제</button></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<div class="col-sm-6">
+													<span class="span"><strong>${originFileName1}&nbsp;&nbsp;</strong><a class="fileDeletebtn1"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span>
+													</div>
+													<div class="col-sm-6">
 													<span class="span">첨부된 파일이 없습니다</span>
+													</div>
 													<br>
+													<div class="col-sm-6">
 													<input type="file" id="txtFile1" class="file" name="files1" value="result[0].notice_file1"/>
+													</div>
+													<div class="col-sm-6">
 													<input type="file" id="txtFile2" class="file" name="files2" />
+													</div>
 												</c:when>
 											</c:choose>
 											
 											
 											<c:choose>
 												<c:when test="${not empty result[0].notice_file2 && empty result[0].notice_file1}">
-													<br>
-													<span class="span">첨부된 파일이 없습니다</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<span class="span">${originFileName2}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn2">삭제</button></span>
-													<br>
+													<div class="col-sm-6">
+													<span class="span">첨부된 파일이 없습니다</span>
+													</div>
+													<div class="col-sm-6">
+													<span class="span"><strong>${originFileName2}&nbsp;&nbsp;</strong><a class="fileDeletebtn2"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span>
+													</div>
+													<div class="col-sm-6">
 													<input type="file" id="txtFile1" class="file" name="files1"/>
+													</div>
+													<div class="col-sm-6">
 													<input type="file" id="txtFile1" class="file" name="files2" value="result[0].notice_file2"/>
+													</div>
 												</c:when>
 											</c:choose>
 											
@@ -88,19 +101,24 @@
 											
 											<c:choose>
 												<c:when test="${empty result[0].notice_file1 && empty result[0].notice_file2}">
+												<div class="col-sm-6">
 												<input type="file" id="txtFile1" class="file" name="files1" />
+												</div>
+												<div class="col-sm-6">
 												<input type="file" id="txtFile2" class="file" name="files2" />
+												</div>
 												</c:when>
 											</c:choose>
 											
 											
 											<c:choose>
 												<c:when test="${not empty result[0].notice_file1 && not empty result[0].notice_file2}">
-												<br>
-													<span class="span filename">${originFileName1}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn1">삭제</button></span><input type="file" id="txtFile1" class="file" name="files1"/>
-												<br><br>	
-													<span class="span filename">${originFileName2}&nbsp;&nbsp;<button type="button" class="btn btn-danger fileDeletebtn2">삭제</button></span><input type="file" id="txtFile2" class="file" name="files2"/>
-												<br>
+												<div class="col-sm-5">
+													<span class="span filename"><strong>${originFileName1}&nbsp;&nbsp;</strong><a class="fileDeletebtn1"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span><input type="file" id="txtFile1" class="file" name="files1"/>
+												</div>
+												<div class="col-sm-5">	
+													<span class="span filename"><strong>${originFileName2}&nbsp;&nbsp;</strong><a class="fileDeletebtn2"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span><input type="file" id="txtFile2" class="file" name="files2"/>
+												</div>
 											
 												
 												</c:when>

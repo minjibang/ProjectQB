@@ -200,23 +200,24 @@ public class StudentController {
 		String member_id = principal.getName();
 		String class_num=null;
 		String class_name;
-		
-		List<MemberDto> studentList = studentService.rankStudentInfo(member_id);
-		String student_id = principal.getName();
-	
-		class_name = studentList.get(0).getClass_name();
-
+		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
+		String student_name=studentList.get(0).getMember_name();
+		try {
+			class_name = studentList.get(0).getClass_name();
+		}catch(Exception e) {
+			class_name="임시";
+		}
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(student_name, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
-		model.addAttribute("studentId", student_id);
+		model.addAttribute("studentId", student_name);
 		
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_name, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		
 		return "student.gradeManage";
