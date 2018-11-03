@@ -452,6 +452,36 @@ $(document).ready(function(){
 			{data: "score_chart_rank" }       
 			]
 	});
+	var studentPerGrade=$('#studentPerGrade').DataTable({
+		"ordering":true,
+		"paging": true,
+		"ordering":true,
+		"searching": true,
+		"bLengthChange" : false,
+		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
+		dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+        buttons:[
+        	{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [':visible' ]
+                }
+            },
+        	{
+	            extend:'excelHtml5',
+	            exportOptions:{
+	            	columns:[':visible']
+	            	}
+            },
+        	{
+	        	extend:'pdfHtml5',
+	        	exportOptions:{
+	        		columns:[':visible']
+	        		}
+        	},
+        	'colvis'
+        ]
+	})
 	
 	//학생 목록 선택 이벤트-tab1
 	$(".studentListMembers").click(function(){		

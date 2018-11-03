@@ -19,7 +19,6 @@ public class Score_chartDto {
 	private int start;
 	private int end;
 
-
 	public int getStart() {
 		return start;
 	}

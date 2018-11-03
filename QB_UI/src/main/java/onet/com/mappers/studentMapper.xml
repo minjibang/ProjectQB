@@ -227,8 +227,10 @@ select * from score_chart s join member m on (s.member_id = m.member_id) where m
 
 </select>
 
-<!-- 10.29 재훈 학생 자기 등수 확인 시작 -->
 
-
+<!-- 양회준 11.2 시험 응시 목록 체크 -->
+<select id="checkExamMember" resultType="int">
+	select count(exam_info_num) from exam_member where member_id = #{param1} and exam_info_num = #{param2}
+</select>
 
 </mapper>
