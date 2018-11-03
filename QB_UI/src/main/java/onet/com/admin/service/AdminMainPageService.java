@@ -30,14 +30,16 @@ public class AdminMainPageService {
 		String result = dao.classCheck(class_name);
 		return result;
 	}
-	public List<ClassDto> adminMainView(){
+	public List<ClassDto> adminMainView(int begin){
+		// System.out.println("service로 들어옴 : " + begin);
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<ClassDto> result = dao.adminMainView();
+		List<ClassDto> result = dao.adminMainView(begin);
+		
 		return result;
 	}
-	public List<ClassDto> classSearch(String searchtype, String keyword){
+	public List<ClassDto> classSearch(String searchtype, String keyword, int begin){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<ClassDto> result = dao.classSearch(searchtype, keyword);
+		List<ClassDto> result = dao.classSearch(searchtype, keyword, begin);
 		return result;
 	}
 	

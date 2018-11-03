@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,10 +60,13 @@ public class MainPageController {
 		map.get("result");
 		return map;
 	}
-	@RequestMapping(value="adminMainView.do")
-	public @ResponseBody ModelAndView adminMainView() {
+	
+	// ajax로 클래스 목록 가져오기  
+	//@RequestMapping(value="adminMainView.do")
+	public @ResponseBody ModelAndView adminMainView(int begin) {
 		
-		List<ClassDto> classList = adminMainPageService.adminMainView();
+		/*System.out.println("begin : " + begin);*/
+		List<ClassDto> classList = adminMainPageService.adminMainView(begin);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.adminMain_ajax");
@@ -73,10 +75,22 @@ public class MainPageController {
 		return mv;
 	}
 	
-	@RequestMapping(value="classSearch.do")
-	public @ResponseBody ModelAndView classSearch(@RequestParam("searchtype") String searchtype, @RequestParam("keyword") String keyword){
+	// ajax로 검색한 클래스 목록 가져오기 
+	@RequestMapping(value="adminMainView.do")
+	public @ResponseBody ModelAndView classSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
+			@RequestParam("begin") int begin){
 		
-		List<ClassDto> classList = adminMainPageService.classSearch(searchtype,keyword);
+		/*System.out.println("searchType : " + searchType);  
+		System.out.println("keyword : " + keyword);
+		System.out.println("begin : " + begin);*/
+		
+		List<ClassDto> classList = null;
+		
+		if(searchType.equals("all")) {
+			classList = adminMainPageService.adminMainView(begin);
+		} else {
+			classList = adminMainPageService.classSearch(searchType, keyword, begin);
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.adminMain_ajax");

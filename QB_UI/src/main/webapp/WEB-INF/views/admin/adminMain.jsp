@@ -46,7 +46,7 @@
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
 								<select class="form-control searchRightBtnDiv" id="searchType" name="searchType">
-									<option value="">전체</option>
+									<option value="all">전체</option>
 									<option value="n">클래스명</option>
 									<option value="t">강사</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
@@ -203,116 +203,79 @@
 </section>
 
 <script>
-var classcheck = false;
+var classcheck = true;	//	왜 false?
+var classParam = {
+		"begin" : 0,
+		"searchType" : "all",
+		"keyword" : "all",
+}
+
 
 $(document).ready(function(){
 	
+	adminMainClass(classParam);
+	var lastScrollTop = 0;
 	
-	var dateFormat = "yy-mm-dd",
-	
-	// 클래스 생성 날짜 유효성 체크 
-    from = $( ".class_start_date" )
-      .datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        numberOfMonths: 3,
-        minDate:0
-      })
-      .on( "change", function() {
-        to.datepicker( "option", "minDate", getDate( this ) );
-      }),
-    to = $( ".class_end_date" ).datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 3
-    })
-    .on( "change", function() {
-      from.datepicker( "option", "maxDate", getDate( this ) );
-    });
-	
-	// 클래스 수정 날짜 유효성 체크
-/*     from = $( "#class_start_date" )
-    .datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 3,
-      minDate:0
-    })
-    .on( "change", function() {
-      to.datepicker( "option", "minDate", getDate( this ) );
-    }),
-  to = $( "#class_end_date" ).datepicker({
-    defaultDate: "+1w",
-    changeMonth: true,
-    numberOfMonths: 3
-  })
-  .on( "change", function() {
-    from.datepicker( "option", "maxDate", getDate( this ) );
-  });
- */
-  function getDate( element ) {
-    var date;
-    try {
-      date = $.datepicker.parseDate( dateFormat, element.value );
-    } catch( error ) {
-      date = null;
-    }
-
-    return date;
-  }
-	
-  	// 클래스 목록 가져오는 ajax
-	$.ajax({
-		url : "adminMainView.do",
-		type:'GET',
-		dataType:"html",
-		success:function(data){
-			$('#classlistView').html(data);
-		},
-		error : function(error) {
-			console.log("===========실패");
-		}
+	// 무한 스크롤 
+	$(window).scroll(function(){
+		var currentScrollTop = $(window).scrollTop();
+		if( currentScrollTop - lastScrollTop > 0 ){
+	            // 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
+	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+				classParam.begin += 4;
+				adminMainClass(classParam);
+				console.log("begin : " + classParam.begin +"번부터");
+			 }
+		  }
 	});
 	
-	$('#searchBtn').click(function(){
-		var searchtype = document.getElementById("searchType").value;
-		var keyword = document.getElementById("keyword").value;
+	
+	$('#searchBtn').click(function(){  // search 버튼을 눌렀을 때는 json 데이터의 내용을 변경시켜서 파라미터로 보내기 
 		
-		console.log("========"+searchtype+"==========");
+		classParam.begin = 0; 
+		classParam.searchtype = $("#searchType").val();
+		classParam.keyword = $("#keyword").val();
+		$('#classlistView').empty();
 		
+		adminMainClass(classParam);
+		
+	});
+	
+}); // document.ready 종료 
+
+
+	//클래스 목록 가져오는 ajax
+	function adminMainClass(classParam){
 		$.ajax({
-			url : "classSearch.do",
+			url : "adminMainView.do",
 			type : 'GET',
-			data : {
-				  'searchtype' : searchtype,
-				  'keyword' : keyword
-			 },
 			dataType : "html",
-			success:function(data){
-				$('#classlistView').html(data);
+			data : classParam,
+			success : function(data){	
+				$('#classlistView').before(data);
 			},
 			error : function(error) {
 				console.log("===========실패");
 			}
 		});
-	});
+	}
 
-});
-function classCheck() {
-	if(classcheck == false){
-		alert("클래스 명을 확인해주세요");
-		document.getElementById("class_name").focus();
-		return false;
-	}else{
-		var classconfirm = confirm("클래스 생성 하시겠습니까");
-		if(classconfirm == true){
-			return true;
-		}else{
+	function classCheck() {
+		if(classcheck == false){
+			alert("클래스 명을 확인해주세요");
+			document.getElementById("class_name").focus();
 			return false;
+		}else{
+			var classconfirm = confirm("클래스 생성 하시겠습니까");
+			if(classconfirm == true){
+				return true;
+			}else{
+				return false;
+			}
 		}
 	}
-}
-function confirmClass() {
+
+	function confirmClass() {
 		
 		var val = document.getElementById("class_name").value;
 		var iddiv = document.getElementById("classdiv");
@@ -342,4 +305,37 @@ function confirmClass() {
 			});
 		}
 	}
+	
+	
+	var dateFormat = "yy-mm-dd",
+    from = $( ".class_start_date" )
+      .datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,
+        minDate:0
+      })
+      .on( "change", function() {
+        to.datepicker( "option", "minDate", getDate( this ) );
+      }),
+    to = $( ".class_end_date" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3
+    })
+    .on( "change", function() {
+      from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+	
+  function getDate( element ) {
+    var date;
+    try {
+      date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+      date = null;
+    }
+
+    return date;
+  }
+  
 </script>
