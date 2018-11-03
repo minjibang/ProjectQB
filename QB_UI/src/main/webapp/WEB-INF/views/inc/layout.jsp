@@ -52,8 +52,8 @@
   <link rel="stylesheet" href="/resources/demos/style.css">	
   
   
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" />
+<%-- <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" /> --%>
 <link href="${pageContext.request.contextPath}/css/style.css"
 	type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/style-responsive.css"
@@ -95,10 +95,10 @@
 		src="${pageContext.request.contextPath}/lib/jquery.sparkline.js"></script>
 	<!--common script for all pages-->
 	<script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script>
+<%-- 	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script> --%>
+<%-- 	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script> --%>
 	<!--script for this page-->
 	<script src="${pageContext.request.contextPath}/lib/sparkline-chart.js"></script>
 	<script src="${pageContext.request.contextPath}/lib/zabuto_calendar.js"></script>

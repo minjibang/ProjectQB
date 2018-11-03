@@ -22,13 +22,12 @@
 	margin-right : 20px;
 	margin-left : 5px;
 }
+#page table tr:first-child td{
+	font-weight: bold;
+}
 td {
 	vertical-align : top;
 	padding : 2px;
-}
-th {
-	vertical-align : top;
-	padding-bottom : 15px;
 }
 #all{
 	column-span : all;
@@ -72,8 +71,8 @@ h3.logo span {
 	</c:if>
 		<table>
 			<tr>
-				<th>${examquestion.exam_question_seq}. &nbsp;&nbsp;&nbsp;</th>
-				<th>${examquestion.question_name } (${examquestion.exam_question_score }점)</th>
+				<td>${examquestion.exam_question_seq}. &nbsp;&nbsp;&nbsp;</td>
+				<td>${examquestion.question_name } (${examquestion.exam_question_score }점)</td>
 			</tr>
 			<c:if test="${examquestion.question_img ne null }">
 			<tr>

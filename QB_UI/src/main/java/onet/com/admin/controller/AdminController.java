@@ -297,17 +297,6 @@ public class AdminController {
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
-	//10.15민지 클래스 수정
-	@RequestMapping(value = "adminClassUpdate.do",  method =  RequestMethod.POST)
-		public @ResponseBody String adminClassUpdate(@RequestBody ClassDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
-		{	
-			/*deptService.insertDept(dto);
-			return dto.toString();*/
-			int result = adminService.classUpdate(dto);
-			String result2 = String.valueOf(result);
-			return result2;
-			
-		}
 	
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
