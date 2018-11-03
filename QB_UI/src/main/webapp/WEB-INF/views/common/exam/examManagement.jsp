@@ -323,16 +323,15 @@ $(document).ready(function(){
 									title : "삭제완료",
 									icon : "success",
 								});
-								$('#' + exam_paper_num).parent().parent(
-										".exam-paper-name").remove();
+								$('#' + exam_paper_num).parent().remove();
+								
 							} else if (data == 2) {
 								swal({
 									title : "삭제완료",
 									text : "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
 									icon : "success",
 								});
-								$('#' + exam_paper_num).parent().parent(
-										".exam-paper-name").remove();
+								$('#' + exam_paper_num).parent().remove();
 							} else {
 								swal({
 									title : "삭제불가",
@@ -377,6 +376,7 @@ $(document).ready(function(){
 							});
 							$('#' + exam_paper_num).parent().parent(".exam-paper-name")
 									.remove();
+							
 						},
 						error : function(error) {
 							console.log("===========실패");

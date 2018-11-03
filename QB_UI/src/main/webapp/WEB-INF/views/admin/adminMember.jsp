@@ -218,7 +218,7 @@
 									name="searchRole">
 								<option value="">회원 권한 선택</option>
 							<c:forEach items="${roleList}" var="roleList">
-								<option value="${roleList.role_code}">${roleList.role_desc}</option>
+								<option value="${roleList.role_desc}">${roleList.role_desc}</option>
 							</c:forEach>
 							</select> 
 							<select id="searchClassName" class="form-control searchControl"

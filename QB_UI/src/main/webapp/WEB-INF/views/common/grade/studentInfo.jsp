@@ -68,7 +68,7 @@
 								
 								<%-- 선택 학생 정보 영역 시작 --%>
 								<div class="col-lg-10">
-									<h3 id="studentListName">${studentList[0].member_name}</h3>
+									<h3 id="studentListName">${studentList[0].member_name}(${studentList[0].member_id})</h3>
 									<h4 id="studentListEmail">이메일 : ${studentList[0].member_email}</h4>
 									<h4 id="studentListPhone">핸드폰 : ${studentList[0].member_phone}</h4>
 
@@ -142,7 +142,7 @@
 									<section class="panel">
 										<header class="panel-heading wht-bg">
 											<h4 class="gen-case">
-												<span id="tab2_studentName">${studentList[0].member_name}</span>
+												<span id="tab2_studentName">${studentList[0].member_name}(${studentList[0].member_id})</span>
 												<form action="#" class="pull-right mail-src-position">
 													<div class="input-append">
 														<input type="text" id="searchExamValue"class="form-control "
@@ -360,20 +360,18 @@ $(document).ready(function(){
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
-	
+	var memberId=studentArr[0].member_id;
 	var memberName=studentArr[0].member_name;
 	var className=studentArr[0].class_name;
 	//tab2AjaxData
 	var tab2AjaxData="";
 	//tab2AjaxData 가져오기 함수
 	function tab2Ajax(){
-		console.log("?:"+memberName);
-		console.log("?:"+className);
 		$.ajax({
 			type:"post",
 			url:"studentExamScoreInfo.do",
 			data:{
-				"member_name":memberName,
+				"member_id":memberId,
 				"class_name":className
 				},
 			datatype:"json",
@@ -442,7 +440,6 @@ $(document).ready(function(){
 		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
         "processing":true,
 		"ajax": {
-           url: 'adminMemberAjax.do',
            method: "post",
            url:"classRank.do",
 			data:{"exam_info_name":function(){ return examInfoName}},
@@ -464,20 +461,22 @@ $(document).ready(function(){
 		chartLabels = [];		
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
-		$("#studentListName").text(memberName);
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".studentListMembers").index(this);
+		
+		$("#studentListName").text(memberName+"("+studentArr[memberIndex].member_id+")");
+				
 		//선택한 학생의 이메일과 핸드폰 값 가져와 출력하기
 		$("#studentListEmail").text("이메일 : "+studentArr[memberIndex].member_email);
 		$("#studentListPhone").text("핸드폰 : "+studentArr[memberIndex].member_phone);
 		//ajax 차트 요청할 parameter
-		memberName=studentArr[memberIndex].member_name;
+		memberId=studentArr[memberIndex].member_id;
 		className=studentArr[memberIndex].class_name;
 		//비동기 실행
 		$.ajax({
 			type:"post",
 			url:"studentChartInfo.do",
-			data:{"member_name":memberName,
+			data:{"member_id":memberId,
 				"class_name":className
 				},
 			datatype:"json",
@@ -503,15 +502,17 @@ $(document).ready(function(){
 	//학생 목록 선택 이벤트-tab2
 	
 	$(".tab2studentListMembers").click(function(){		
-		//$("#tab2studentListMembers").val("");
+		$("#tab2studentListMembers").val("");
+		//학생 목록의 인덱스 가져오기
+		var memberIndex=$(".tab2studentListMembers").index(this);
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
 		var className=$("#tab2_className").text().trim();
-		$("#tab2_studentName").text(memberName);
+		$("#tab2_studentName").text(memberName+"("+studentArr[memberIndex].member_id+")");
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".tab2studentListMembers").index(this);
 		//ajax 시험 정보 요청할 parameter
-		memberName=studentArr[memberIndex].member_name;
+		memberId=studentArr[memberIndex].member_id;
 		className=studentArr[memberIndex].class_name;
 		
 		tab2Ajax();
@@ -544,8 +545,12 @@ $(document).ready(function(){
 		
 	/*지난 시험지 보기*/
 
-	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트		
-		var popUrl = "${pageContext.request.contextPath}/student/pastExamPaper.do?exam_info_num=" + $(this).val();
+	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트
+		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
+		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
+		var getId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
+		var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val()+"&member_id="+getId;
+		console.log(popUrl);
 		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
 		window.open(popUrl, "지난 시험보기",popOption);		
 	});

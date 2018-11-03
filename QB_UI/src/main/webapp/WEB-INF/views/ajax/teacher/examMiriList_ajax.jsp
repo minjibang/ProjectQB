@@ -22,13 +22,12 @@
 	margin-right : 20px;
 	margin-left : 5px;
 }
+#page table tr:first-child td{
+	font-weight: bold;
+}
 td {
 	vertical-align : top;
 	padding : 2px;
-}
-th {
-	vertical-align : top;
-	padding-bottom : 15px;
 }
 #all{
 	column-span : all;
@@ -72,12 +71,12 @@ h3.logo span {
 	</c:if>
 		<table>
 			<tr>
-				<th>${examquestion.exam_question_seq}. &nbsp;&nbsp;&nbsp;</th>
-				<th>${examquestion.question_name } (${examquestion.exam_question_score }점)</th>
+				<td>${examquestion.exam_question_seq}. &nbsp;&nbsp;&nbsp;</td>
+				<td>${examquestion.question_name } (${examquestion.exam_question_score }점)</td>
 			</tr>
 			<c:if test="${examquestion.question_img ne null }">
 			<tr>
-				<td colspan="2"><img src="${pageContext.request.contextPath }/resources/upload/question/${examquestion.question_img}" title="questionIMG" alt="${examquestion.question_img}" class="questionImg"/></td>
+				<td colspan="2"><img src="${pageContext.request.contextPath }/upload/question/${examquestion.question_img}" title="questionIMG" alt="${examquestion.question_img}" class="questionImg"/></td>
 				
 			</tr>
 			</c:if>
@@ -86,9 +85,9 @@ h3.logo span {
 				<tr>
 					<td>${question_choice.question_choice_num})</td>
 					<td>${question_choice.question_choice_content}
-					<%-- <c:if test="${question_choice.question_choice_image ne null }">
-					<br><img src="${pageContext.request.contextPath }/resources/upload/question/${question_choice.question_choice_image}" title="questionIMG" alt="${question_choice.question_choice_image}" class="questionImg"/>
-					</c:if>  --%>
+					<c:if test="${question_choice.question_choice_image ne null }">
+					<br><img src="${pageContext.request.contextPath }/upload/question/${question_choice.question_choice_image}" title="questionIMG" alt="${question_choice.question_choice_image}" class="questionImg"/>
+					</c:if>
 					</td>
 				<tr>
 				</c:if>
