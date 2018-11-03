@@ -33,7 +33,6 @@
  	var pageNo = 1;
 	var rowPerPage = 4;
 	var begin = (pageNo - 1) * rowPerPage + 1;	// 문제의 시작 rownum, 1부터 시작한다 
-	//var end = pageNo * rowPerPage;  			// end 가 필요한지 모르겠음
 	var totalRows = ${questionCount};	//	한 시험지의 전체 문제 개수 
 	var totalPages = Math.ceil(totalRows / rowPerPage);
 	
@@ -83,7 +82,7 @@
 			
 			if(student_answer_status == "all"){
 				
-				if(${wrongQuestionCount} < 4 || ${wrongQuestionCount} == 4) {
+				if(${wrongQuestionCount} < 4 || ${wrongQuestionCount} == 4) {   
 					$('#nextPageSpan').empty();	
 				} else { 
 					if($('#nextPageBtn').length == 0){

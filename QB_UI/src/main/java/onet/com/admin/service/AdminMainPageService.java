@@ -68,4 +68,13 @@ public class AdminMainPageService {
 		int result = dao.deleteClass(class_name);
 		return result;
 	}
+	
+	// 현이 11.03 adminMain 클래스 수정 
+	public int classUpdate(ClassDto dto) {
+		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
+		int result = dao.classUpdate(dto);
+		
+		return result;
+	}
+	
 }

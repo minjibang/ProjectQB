@@ -38,6 +38,11 @@
 							<div class="col-lg-4">
 								<button class="btn btn-theme" data-toggle="modal"
 									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
+								<!-- <select class="form-control" id="searchClassTerm" name="searchClassTerm">
+									<option value="allClass">전체 클래스 보기</option>
+									<option value="nowClass">현재 수강중인 클래스 보기</option>
+									<option value="pastClass">지난 클래스 보기</option>
+								</select>	 -->
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
 								<select class="form-control searchRightBtnDiv" id="searchType" name="searchType">
@@ -47,7 +52,7 @@
 								</select> <input type="text" class="form-control searchRightBtnDiv"
 									placeholder="검색어를 입력" id="keyword" name="keyword">
 								<button type="button" class="btn btn-theme searchRightBtn" id="searchBtn">검색</button>
-								<button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button>
+								<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 							</div>
 						</div>
 
@@ -75,9 +80,9 @@
 													<label class="col-sm-2 col-sm-2 control-label">수강기간</label>
 													<div class="col-md-10">
 														<div class="input-group input-large">
-															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date" required>
+															<input type="text" class="form-control dpd1 class_start_date" name="class_start_date" id="new_class_start_date" required readonly/>
 															<span class="input-group-addon"> 에서 </span> 
-															<input type="text" class="form-control dpd2" name="class_end_date" id="class_end_date" required>
+															<input type="text" class="form-control dpd2 class_end_date" name="class_end_date" id="new_class_end_date" required readonly/>
 																
 														</div>
 														<span class="help-block">기간을 선택하세요.</span>
@@ -104,33 +109,32 @@
 						</div>
 						
 						<!-- Class Modify Modal  -->
-						<div class="modal fade" id="classModify" tabindex="-1" role="dialog"
+						<div class="modal fade" id="classupdate" tabindex="-1" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<!-- <form action="classInsert.do" class="form-horizontal style-form" method="post" onsubmit="return classCheck()"> -->
+									<form class="form-horizontal style-form" method="post" id="updateClassForm" action="updateClass.do"> 
 									<div class="modal-header">
-										<!-- <button type="button" class="close" data-dismiss="modal"
+										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
-										<h4 class="modal-title" id="myModalLabel">클래스 개설</h4> -->
+										<h4 class="modal-title" id="myModalLabel">클래스 수정</h4> 
 									</div>
 									<div class="modal-body">
-												<!-- <div class="form-group">
+												<div class="form-group">
+													<input type="hidden" id="class_num_update" name="class_num">
 													<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control"
-															placeholder="클래스 명을 입력해주세요." id="class_name" name="class_name" onblur="confirmClass()">
-															<div id="classdiv"></div>
+														<input type="text" class="form-control" id="class_name_update" name="class_name" required>
+														<div id="classdiv"></div>
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-sm-2 col-sm-2 control-label">수강기간</label>
 													<div class="col-md-10">
 														<div class="input-group input-large">
-															<input type="text" class="form-control dpd1" name="class_start_date" id="class_start_date" required>
+															<input type="text" class="form-control dpd1 class_start_date" name="class_start_date" id="" required  readonly/>
 															<span class="input-group-addon"> 에서 </span> 
-															<input type="text" class="form-control dpd2" name="class_end_date" id="class_end_date" required>
-																
+															<input type="text" class="form-control dpd2 class_end_date" name="class_end_date" id="" required readonly/>
 														</div>
 														<span class="help-block">기간을 선택하세요.</span>
 													</div>
@@ -138,19 +142,17 @@
 												<div class="form-group">
 													<label class="col-sm-2 col-sm-2 control-label">강사명</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control"
-															placeholder="강사님 이름을 입력해주세요." id="teacher_name" name="teacher_name">
+														<input type="text" class="form-control" id="teacher_name_update" name="teacher_name">
 													</div>
-												</div> -->
+												</div> 
 										
 										<!-- /col-lg-12 -->
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">취소</button>
-										<button type="submit" class="btn btn-theme">생성</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+										<button type="submit" class="btn btn-theme" id="updateClassBtn">수정</button>
 									</div>
-									<!-- </form> -->
+									</form>
 								</div>
 							</div>
 						</div>
@@ -160,14 +162,14 @@
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<form class="form-horizontal style-form" method="post" id="deleteClassForm"> 
+									<form class="form-horizontal style-form" method="post" id="deleteClassForm" action="deleteClass.do"> 
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											<h4 class="modal-title" id="myModalLabel">클래스 삭제</h4> 
 										</div>
 										<div class="modal-body">
 											<div class="classDeleteModelBody">
-												<input type="text" id="class_name" id="class_name_modal" name="class_name"/>
+												<input type="hidden" id="class_name_modal" name="class_name" value=""/>
 												선택하신 클래스를 삭제하시겠습니까?
 											</div>
 										</div>
@@ -207,7 +209,9 @@ $(document).ready(function(){
 	
 	
 	var dateFormat = "yy-mm-dd",
-    from = $( "#class_start_date" )
+	
+	// 클래스 생성 날짜 유효성 체크 
+    from = $( ".class_start_date" )
       .datepicker({
         defaultDate: "+1w",
         changeMonth: true,
@@ -217,7 +221,7 @@ $(document).ready(function(){
       .on( "change", function() {
         to.datepicker( "option", "minDate", getDate( this ) );
       }),
-    to = $( "#class_end_date" ).datepicker({
+    to = $( ".class_end_date" ).datepicker({
       defaultDate: "+1w",
       changeMonth: true,
       numberOfMonths: 3
@@ -225,7 +229,27 @@ $(document).ready(function(){
     .on( "change", function() {
       from.datepicker( "option", "maxDate", getDate( this ) );
     });
-
+	
+	// 클래스 수정 날짜 유효성 체크
+/*     from = $( "#class_start_date" )
+    .datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      minDate:0
+    })
+    .on( "change", function() {
+      to.datepicker( "option", "minDate", getDate( this ) );
+    }),
+  to = $( "#class_end_date" ).datepicker({
+    defaultDate: "+1w",
+    changeMonth: true,
+    numberOfMonths: 3
+  })
+  .on( "change", function() {
+    from.datepicker( "option", "maxDate", getDate( this ) );
+  });
+ */
   function getDate( element ) {
     var date;
     try {
@@ -237,6 +261,7 @@ $(document).ready(function(){
     return date;
   }
 	
+  	// 클래스 목록 가져오는 ajax
 	$.ajax({
 		url : "adminMainView.do",
 		type:'GET',

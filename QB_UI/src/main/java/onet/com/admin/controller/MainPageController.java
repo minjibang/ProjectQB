@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -248,8 +249,15 @@ public class MainPageController {
 	public String deleteClass(@RequestParam("class_name") String class_name) {
 		
 		int result = adminMainPageService.deleteClass(class_name);
-		
 		return "admin.adminMain";
+	}
+	
+	// 현이 11.03 adminMain 클래스 수정
+	@RequestMapping("updateClass.do")
+	public String adminClassUpdate(ClassDto dto) {	
+		
+			int result = adminMainPageService.classUpdate(dto);
+			return "admin.adminMain";
 	}
 	
 }
