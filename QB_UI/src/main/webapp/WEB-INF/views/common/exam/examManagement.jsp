@@ -109,7 +109,8 @@
 
 												<!-- 시험지 하나의 div 시작 -->
 												<div id="examTempPaperDiv">
-													<c:forEach items="${myTempExamList}" var="myTempExamList">
+												<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+													<%-- <c:forEach items="${myTempExamList}" var="myTempExamList">
 														<!-- 시험지 한 개 시작 -->
 														<div class="exam-paper-name">
 															<h4 id="exam_paper_name">
@@ -135,7 +136,7 @@
 															</div>
 															<hr>
 														</div>
-													</c:forEach>
+													</c:forEach> --%>
 												</div>
 											</div>
 										</form>
@@ -257,11 +258,18 @@ var classParam = {
 		"searchType" : "all",
 		"keyword" : "all",
 }
+var tempExam = {
+		"begin" : 0,
+		"searchType" : "all",
+		"keyword" : "all",
+}
 
 $(document).ready(function(){
 	//무한 스크롤
 	examlistClass(classParam);
+	imsiSaveExam(tempExam);
 	var lastScrollTop = 0;
+	
 	
 	$(window).scroll(function(){
 		var currentScrollTop = $(window).scrollTop();
@@ -272,7 +280,9 @@ $(document).ready(function(){
 	        	 //scrollTop + windowHeight + 30 > documentHeight
 	        	 
 				classParam.begin += 4;
+				tempExam.begin += 4;
 				examlistClass(classParam);
+				imsiSaveExam(tempExam);
 				console.log("begin : " + classParam.begin +"번부터");
 			 }
 		  }
@@ -321,7 +331,23 @@ $(document).ready(function(){
 			}
 		});
 	}
-		
+	
+	function imsiSaveExam(tempExam){
+		$.ajax({
+			url : "myTempExamList.do",
+			type : 'GET',
+			dataType : "html",
+			data : tempExam,
+			success : function(data){	
+				$('#examTempPaperDiv').append(data);
+			},
+			error : function(error) {
+				console.log("===========실패");
+			}
+		});
+	}
+	
+	
 	function printpage(){
 		
 		var divContents = $('.book').html();

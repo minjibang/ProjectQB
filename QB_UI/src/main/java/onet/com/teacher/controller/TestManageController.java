@@ -78,25 +78,7 @@ public class TestManageController {
 		return mv;
 	}
 	
-	/*시험지 리스트 뿌려주기*/
-	@RequestMapping("examManagement.do")
-	public String examManagement(Model model, Principal principal) {
-		String member_id = principal.getName();
-		
-		List<ExamPaperDto> myexamPaperList;
-		List<ExamPaperDto> myTempExamList;
-		List<ExamInfoDto> examScheduleList;
-		
-		myexamPaperList = teacherService.myExamPaperList(member_id);			
-		myTempExamList = teacherService.myTempExamList(member_id);			
-		examScheduleList = teacherService.examScheduleList(member_id);
-		
-		model.addAttribute("myexamPaperList", myexamPaperList);
-		model.addAttribute("myTempExamList", myTempExamList);
-		model.addAttribute("examScheduleList", examScheduleList);
-		
-		return "common.teacher.exam.examManagement";
-	}
+	
 	//시험지 삭제
 	@RequestMapping("deleteExam.do")
 	public @ResponseBody int deleteExam(@RequestParam("exam_paper_num") int exam_paper_num) {
@@ -488,5 +470,40 @@ public class TestManageController {
 		return result2;
 		
 	}
-	/* 민지 - 18.10.23 시험 일정 삭제 끝 */
+	
+	@RequestMapping(value="myTempExamList.do")
+	public @ResponseBody ModelAndView exampaperSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
+			@RequestParam("begin") int begin, Principal principal){
+		
+		List<ExamPaperDto> myTempExamList = null;
+		String member_id = principal.getName();
+		if(searchType.equals("all")) {
+			myTempExamList = teacherService.myTempExamList(member_id,begin);
+		
+			// null일때 처리 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		} 
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.teacher.examManagement_Imsi_teacher_ajax");
+		mv.addObject("myTempExamList", myTempExamList);
+	
+		return mv;
+	}
+	
+	   /*시험지 리스트 뿌려주기*/
+	   @RequestMapping("examManagement.do")
+	   public String examManagement(Model model, Principal principal) {
+	      String member_id = principal.getName();
+	      
+	      List<ExamPaperDto> myexamPaperList;
+	      List<ExamInfoDto> examScheduleList;
+	      
+	      myexamPaperList = teacherService.myExamPaperList(member_id);         
+	      examScheduleList = teacherService.examScheduleList(member_id);
+	      
+	      model.addAttribute("myexamPaperList", myexamPaperList);
+	      model.addAttribute("examScheduleList", examScheduleList);
+	      
+	      return "common.teacher.exam.examManagement";
+	   }
 }

@@ -477,8 +477,8 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 민지 11.05 시험지 검색 -->
 <select id="exampaperlistClass" parameterType="int" resultType="onet.com.vo.ExamPaperDto">
-	select * from exam_paper limit #{begin}, 4
-</select>	
+	select * from exam_paper where exam_paper_status=1 limit #{begin}, 4 
+</select>
 
 
  <select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">

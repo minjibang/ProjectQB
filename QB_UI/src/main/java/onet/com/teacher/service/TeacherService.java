@@ -124,10 +124,10 @@ public class TeacherService {
 		return result;	
 	}
 	//내임시시험지 리스트
-	public List<ExamPaperDto> myTempExamList(String member_id){
+	public List<ExamPaperDto> myTempExamList(String member_id, int begin){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamPaperDto> result = dao.myTempExamList(member_id);
-		return result;	
+		List<ExamPaperDto> result = dao.myTempExamList(member_id, begin);
+		return result;
 	}
 	
 	//시험등록 일정리스트
