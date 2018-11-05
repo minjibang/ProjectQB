@@ -251,9 +251,7 @@ $(document).ready(function(){
 				tempExam.begin += 4;
 				examlistClass(classParam);
 				imsiSaveExam(tempExam);
-
 			
-				examlistClass(classParam);
 				
 
 				console.log("begin : " + classParam.begin +"번부터");
@@ -351,7 +349,10 @@ $('#examinfotab').click(function(){
 			data : tempExam,
 			success : function(data){	
 				$('#examTempPaperDiv').append(data);
-
+				}
+		});
+	}
+				
 	function examinfolistClass(classParam2){
 		$.ajax({
 			url : "examinfolistClass.do",
@@ -370,9 +371,7 @@ $('#examinfotab').click(function(){
 
 	
 	
-=======
-		
->>>>>>> master
+
 	function printpage(){
 		
 		var divContents = $('.book').html();

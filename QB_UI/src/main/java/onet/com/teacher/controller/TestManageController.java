@@ -472,7 +472,7 @@ public class TestManageController {
 	}
 	
 	@RequestMapping(value="myTempExamList.do")
-	public @ResponseBody ModelAndView exampaperSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
+	public @ResponseBody ModelAndView myTempExamList(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
 			@RequestParam("begin") int begin, Principal principal){
 		
 		List<ExamPaperDto> myTempExamList = null;
@@ -486,6 +486,28 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.teacher.examManagement_Imsi_teacher_ajax");
 		mv.addObject("myTempExamList", myTempExamList);
+	
+		return mv;
+	}
+	
+	@RequestMapping(value="exampaperlistClass.do")
+	public @ResponseBody ModelAndView exampaperSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
+			@RequestParam("begin") int begin, Principal principal){
+		
+		List<ExamPaperDto> classList = null;
+		String member_id = principal.getName();
+		if(searchType.equals("all")) {
+			classList = teacherService.exampaperlistClass(member_id,begin);
+		
+			// null일때 처리 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		}else {
+			System.out.println("검색했을때 컨트롤러 타야댄다");
+			classList = teacherService.exampaperSearch(searchType, keyword, begin, member_id);
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.examManagement_admin_ajax");
+		mv.addObject("classList", classList);
 	
 		return mv;
 	}

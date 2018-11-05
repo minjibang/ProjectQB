@@ -296,6 +296,29 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} limit #{begin}, 4
 </select>
 
+<select id="exampaperlistClass" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where exam_paper_status=1 and member_id=#{member_id} limit #{begin}, 4 
+</select>
+
+<select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
+	select ep.exam_paper_num, ep.exam_paper_name, ep.member_id, ep.exam_paper_desc, ep.exam_paper_status, m.class_name 
+	from exam_paper ep left outer join member m 
+	on (ep.member_id = m.member_id)
+	<include refid="teacherExampapersearch"></include>
+	limit #{begin}, 4
+</select>
+
+<sql id="teacherExampapersearch">
+	<if test="searchType=='all'">
+		where ep.exam_paper_name like concat('%',#{keyword},'%') or m.class_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+	</if>
+	<if test='searchType =="n"'>
+		where m.class_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+	</if>
+	<if test='searchType =="p"'>
+		where ep.exam_paper_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+	</if>
+</sql>
 
 </mapper>
 

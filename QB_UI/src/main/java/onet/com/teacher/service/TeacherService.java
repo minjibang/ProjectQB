@@ -309,7 +309,17 @@ public class TeacherService {
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
+	public List<ExamPaperDto> exampaperlistClass(String member_id, int begin){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamPaperDto> result = dao.exampaperlistClass(member_id, begin);
+		return result;
+	}
 	
+	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin, String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamPaperDto> result = dao.exampaperSearch(searchType, keyword, begin, member_id);
+		return result;
+	}
 	
 	
 }

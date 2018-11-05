@@ -92,8 +92,10 @@ public interface TeacherDao {
 	/*쪽지 보내기*/
 	public String sendMessage(String user_name);
 	
+	public List<ExamPaperDto> exampaperlistClass(@Param("member_id") String member_id, @Param("begin") int begin);
 	/*민지 - 10.29 받은쪽지  끝*/
 	
+	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
 	
 	
 	
