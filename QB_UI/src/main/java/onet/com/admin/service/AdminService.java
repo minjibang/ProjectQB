@@ -503,5 +503,23 @@ public class AdminService {
 		return teacherList;
 	}
 	
+	public List<CategoryDto> selectTotalLgList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> list = dao.selectTotalLgList();
+		return list;
+	}
+	
+	public List<CategoryDto> selectTotalMdList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> list = dao.selectTotalMdList();
+		return list;
+	}
+	
+	public List<CategoryDto> selectTotalSmList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> list = dao.selectTotalSmList();
+		return list;
+	}
+	
 	
 }

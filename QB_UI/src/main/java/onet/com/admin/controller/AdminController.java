@@ -805,7 +805,12 @@ public class AdminController {
 	
 	@RequestMapping("selectLgList.do")
 	public ModelAndView selectLgList(String lgCode) {
-		List<CategoryDto> list1 = adminService.selectLgList(lgCode);
+		List<CategoryDto> list1 = null;
+		if(lgCode.trim().equals("전체조회")) {
+			list1 = adminService.selectTotalLgList();
+		}else {
+			list1 = adminService.selectLgList(lgCode);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax");
 		mv.addObject("list1", list1);
@@ -815,7 +820,12 @@ public class AdminController {
 
 	@RequestMapping("selectMdList.do")
 	public ModelAndView selectMgList(String lgCode) {
-		List<CategoryDto> list2 = adminService.selectMdList(lgCode);
+		List<CategoryDto> list2 = null;
+		if(lgCode.trim().equals("전체조회")) {
+			list2 = adminService.selectTotalMdList();	
+		}else {
+			list2 = adminService.selectMdList(lgCode);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax2");
 		mv.addObject("list2", list2);
@@ -824,7 +834,12 @@ public class AdminController {
 	
 	@RequestMapping("selectSmList.do")
 	public ModelAndView selectSmList(String lgCode) {
-		List<CategoryDto> list3 = adminService.selectSmList(lgCode);
+		List<CategoryDto> list3 = null;
+		if(lgCode.trim().equals("전체조회")) {
+			list3 = adminService.selectTotalSmList();	
+		}else {
+			list3 = adminService.selectSmList(lgCode);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax3");
 		mv.addObject("list3", list3);

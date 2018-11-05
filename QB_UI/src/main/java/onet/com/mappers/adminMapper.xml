@@ -449,5 +449,18 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	where class_name = #{param1}
 </update>
 <!-- 현이 11.02 adminMain 페이지 끝 -->
+<select id="selectTotalLgList" resultType="onet.com.vo.CategoryDto">
+	select * from question_lg_category
+</select>
+
+<select id="selectTotalMdList" resultType="onet.com.vo.CategoryDto">
+	select * from question_md_category
+</select>
+
+<select id="selectTotalSmList" resultType="onet.com.vo.CategoryDto">
+	select * from question_sm_category
+</select>
+
+
 
 </mapper>

@@ -81,11 +81,14 @@ th{
 	text-align: right;
 }
 .thwidth1{
-	width:65px;	
+	text-align:center;
+	width:60px;	
 }
 .thwidth2{
-	width:69px;	
+	text-align:center;
+	width:72px;	
 }
 .thwidth3{
-	width:67px;
+	text-align:center;
+	width:64px;
 }

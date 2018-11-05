@@ -169,5 +169,11 @@ public interface AdminDao {
 	// 현이 11.02 adminMain 클래스 삭제
 	public int deleteClass(String class_name);
 	public List<MemberDto> teacherList();
+	
+	public List<CategoryDto> selectTotalLgList();
+	
+	public List<CategoryDto> selectTotalMdList();
+	
+	public List<CategoryDto> selectTotalSmList();
 }
 

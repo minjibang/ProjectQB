@@ -371,8 +371,8 @@
 								<table id="table_lgCategory">
 									<thead>
 										<tr>
-											<th class="thwidth1">대분류코드</th>
-											<th class="thwidth2">대분류 [언어]</th>
+											<th class="thwidth1">대분류<br>코드</th>
+											<th class="thwidth2">대분류<br>[언어]</th>
 											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
@@ -407,8 +407,8 @@
 								<table id="table_mdCategory">
 									<thead>
 										<tr>
-											<th class="thwidth1">중분류코드</th>
-											<th class="thwidth2">중분류 [과목]</th>
+											<th class="thwidth1">중분류<br>코드</th>
+											<th class="thwidth2">중분류<br>[과목]</th>
 											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
@@ -444,8 +444,8 @@
 								<table id="table_smCategory">
 									<thead>
 										<tr>
-											<th class="thwidth1">소분류코드</th>
-											<th class="thwidth2">소분류 [주제]</th>
+											<th class="thwidth1">소분류<br>코드</th>
+											<th class="thwidth2">소분류<br>[주제]</th>
 											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
@@ -941,8 +941,48 @@ function selectMdCatSearch(){
 		
 	});
 	 
-	$('#resetBtn').click(function(){
-		location.href="${pageContext.request.contextPath}/admin/questionCategory.do";
+	$(document).on('click','#resetBtn',function(){
+		/* location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; */
+	    $('#selectLgCatSearch').children('option:first').prop('selected',true);
+		$('#selectMdCatSearch').children('option:not(:first)').remove();
+		$('#selectSmCatSearch').children('option:not(:first)').remove();
+			
+		$.ajax({
+			  type : "post",
+			  url : "${pageContext.request.contextPath}/admin/selectLgList.do",
+			  data:{lgCode:"전체조회"},  
+			  success : function(data){
+				  $('#list1body').html(data); 
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+		
+		$.ajax({
+			  type : "post",
+			  url : "${pageContext.request.contextPath}/admin/selectMdList.do",
+			  data:{lgCode:"전체조회"},  
+			  success : function(data){
+				  $('#list2body').html(data); 
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+		
+		$.ajax({
+			  type : "post",
+			  url : "${pageContext.request.contextPath}/admin/selectSmList.do",
+			  data:{lgCode:"전체조회"},  
+			  success : function(data){
+				  $('#list3body').html(data); 
+			  },
+			  error: function(error){
+				  alert("에러야!");
+			 }
+		});
+		
 	});
 					
 	
