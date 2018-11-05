@@ -17,7 +17,11 @@
 			<!-- 정원 -->
 			<div class="nav notify-row" id="top_menu">
 				<ul class="nav top-menu">
-
+					<li>
+					<span id="className"></span>
+					<span id="memberName"></span><span>(${pageContext.request.userPrincipal.name})</span>
+					님 환영합니다.&nbsp;&nbsp;
+					</li>
 					<li id="header_inbox_bar">
 					<a href="${pageContext.request.contextPath}/student/myMessage.do"> 
 					<i class="fa fa-envelope-o"></i>
@@ -72,6 +76,19 @@
     
     $(document).ready(function(){
     	   send_message();
+    	   
+    	   $.ajax({
+   			url:"../common/memberCheck.do",
+   			type:"get",
+   			success:function(data){
+   				console.log(data[0].member_name + "//" + data[0].class_name);
+   				$('#className').text(data[0].class_name);
+   				$('#memberName').text(data[0].member_name);
+   			},
+   			error:function(xml){
+   				
+   			}
+   		});
     });
     
         </script>

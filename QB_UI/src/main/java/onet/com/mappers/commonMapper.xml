@@ -4,6 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="onet.com.common.dao.CommonDao">
 <!-- 한결 10월 12일 공지사항 및 시험일정(강사 학생 메인페이지) 시작 -->
+<select id="member" parameterType="String" resultType="onet.com.vo.MemberDto">
+    select member_id, member_name, class_name from member where member_id = #{member_id}
+</select>
 <select id="notice" parameterType="String" resultType="onet.com.vo.NoticeDto">
     select notice.notice_num, notice.class_name, notice.member_id, member.member_name, notice.notice_name, notice.notice_content, notice.notice_file1, notice.notice_file2, notice.notice_date from notice inner join member on notice.member_id=member.member_id where notice.class_name = (select class_name from member where member_id = #{member_id});
 </select>

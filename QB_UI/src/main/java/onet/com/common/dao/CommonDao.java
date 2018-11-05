@@ -24,6 +24,7 @@ import onet.com.vo.StudentExamScoreInfo;
 
 public interface CommonDao {
 	   /*한결 - 메인페이지 데이터 뿌리기 10.10*/
+	   public List<MemberDto> member(String member_id);
 	   public List<NoticeDto> notice(String member_id);
 	   public List<Exam_infoDto> exam_info(String member_id);
 	   /* 끝 */

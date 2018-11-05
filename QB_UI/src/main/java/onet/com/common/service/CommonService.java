@@ -38,6 +38,11 @@ public class CommonService {
 	private SqlSession sqlsession;
 	
    /*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
+	public List<MemberDto> member(String member_id) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> result = dao.member(member_id);
+		return result;
+	}
 	public List<NoticeDto> teacher_student_Main(String member_id) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		NoticeDto dto = new NoticeDto();
