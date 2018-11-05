@@ -10,13 +10,13 @@
 	<c:forEach items="${question }" var="question">
 		<div class="questions">
 			<div
-				class="questionDiv col-lg-11 questionDiv_${question.question_num }">
+				class="questionDiv col-lg-12 questionDiv_${question.question_num }">
 				<div class="col-lg-1 qnumdiv">
 					<input type="checkbox" value="${question.question_num }"
 						name="checkbox[]" />
 					<!-- value에 문제고유번호 들어간다 -->
 				</div>
-				<div class="col-lg-3">
+				<div class="col-lg-3 questionInfo">
 					${question.md_category_name}<br> ${question.sm_category_name }<br>
 					난이도: ${question.level_name}<br> 정답:
 					${question.question_answer }<br>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +63,9 @@ public class TeacherController {
 	private TeacherService teacherService;
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// 강사 notice 관련
 	/* 민지:10.08 강사 메인추가 */
@@ -395,9 +399,10 @@ public class TeacherController {
 	/* 현이 18.10.09 학생 마이페이지 끝 */
 	
 	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
-	public String myPageUpdate(MemberDto memberDto)
-			throws IOException, ClassNotFoundException, SQLException {
-			commonService.myPageUpdate(memberDto);
+	public String myPageUpdate(MemberDto memberDto) throws IOException, ClassNotFoundException, SQLException {
+		
+		memberDto.setMember_pwd(this.bCryptPasswordEncoder.encode(memberDto.getMember_pwd()));
+		commonService.myPageUpdate(memberDto);
 		
 		// 예외 발생에 상관없이 목록페이지 요청 처리
 		return "common.teacher.common.myPage";
