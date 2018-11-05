@@ -39,8 +39,8 @@
 				</button>
 				<br> <br> <label>인증번호 입력</label> 
 				<input type="text" class="form-control" placeholder="인증번호를 입력해주세요" id="textmail" autofocus>
-				<br> <label>휴대전화</label> <input type="text" class="form-control" placeholder="휴대폰 번호를 입력해주세요" pattern="01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})" autofocus name="member_phone" required>
-				<div>(숫자, - 를 포함한 숫자만 입력하세요.)</div>
+				<br> <label>휴대전화</label> <input type="text" class="form-control" placeholder="휴대폰 번호를 입력해주세요" pattern="01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})" autofocus name="member_phone" required>
+				<div>('-'를 제외한 숫자만 입력하세요.)</div>
 
 
 
@@ -127,7 +127,7 @@
 
 		}else if(val.length < 5){
 			iddiv.innerHTML = "최소 5글자 이상 입력해주세요";
-			iddiv.style.color = 'green';
+			iddiv.style.color = 'red';
 			idcheck = false;
 		}else {
 			$.ajax({
@@ -198,7 +198,7 @@
 		console.log("======"+mailnumber);
 
 		if (idcheck == false) {
-			document.getElementById("iddiv").innerHTML = "아이디 중복 검사를 통과하지 못하였습니다.";
+			document.getElementById("iddiv").innerHTML = "아이디 오류(최소 5자이상/중복확인)";
 			document.getElementById("iddiv").style.color = 'red';
 			document.getElementById("member_id").focus();
 

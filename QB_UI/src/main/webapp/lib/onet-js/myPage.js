@@ -83,7 +83,7 @@ function modifySubmit(){
 				}else{
 					
 				}
-			}			
+			}		
 		},
 		error : function(error) {
 			swal("Error!", "전송 실패!", "error");

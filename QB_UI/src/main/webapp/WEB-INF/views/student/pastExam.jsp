@@ -36,7 +36,8 @@
 							html += data[index].exam_info_start +' ~ '+ data[index].exam_info_end;
 							html += '</div><div>[' + data[index].exam_info_time + ']</div></td>';
 							html += '<td class="btn_td">'; 
-							html += '<button class="btn btn-theme" id="pastExamBtn" value="'+data[index].exam_info_num+'">다시 보기</button>';
+							html += '<button class="btn btn-theme pastExamBtn" id="" value="'+data[index].exam_info_num+'">다시 보기</button>';
+							html += '<input type="hidden" value="'+data[index].exam_info_date+'_'+data[index].exam_info_end+'"/>';
 							html += '</td></tr>';
 							
 							$('#last_exam_table').append(html);
@@ -51,6 +52,9 @@
 			var now = new Date().getTime();  //  현재 시간을 timestamp으로 계산
 			
 			var examEndTime = $(this).siblings().val();		//	시험 종료 시간을 timestamp 으로 계산
+			
+			console.log("examEndTime : " + examEndTime);
+			
 			var year = examEndTime.substr(0, 4);
 			var month = examEndTime.substr(5, 2);
 			var day = examEndTime.substr(8, 2);
@@ -58,6 +62,8 @@
 			var minute = examEndTime.substr(14, 2);
 			
 			var examEndTimeTs = new Date(year, month-1, day, hour, minute).getTime();
+			
+			
 			
 			 /* if( examEndTimeTs < now ){ */  // 지난 시험 열람 가능
 				var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val();
