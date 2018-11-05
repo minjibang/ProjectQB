@@ -16,6 +16,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </sql>
 
+<sql id="adminexampapersearch">
+	<if test="param1=='all'">
+		where ep.exam_paper_name like concat('%',#{param2},'%') or m.class_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="n"'>
+		where m.class_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="p"'>
+		where ep.exam_paper_name like concat('%',#{param2},'%')
+	</if>
+</sql>
+
 <select id="adminMainView" parameterType="int" resultType="onet.com.vo.ClassDto">
 	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
 	ifnull(count(m.member_id) , 0) as class_student_count
@@ -452,18 +464,15 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 
 <!-- 민지 11.05 시험지 검색 -->
 <select id="exampaperlistClass" parameterType="int" resultType="onet.com.vo.ExamPaperDto">
-select * from exam_paper limit #{begin}, 4
+	select * from exam_paper limit #{begin}, 4
 </select>	
 
 
-<!-- <select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
-	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
-	ifnull(count(m.member_id) , 0) as class_student_count
-	from class c left outer join member m 
-	on (m.class_name = c.class_name)
-	<include refid="search"></include>
-	group by c.class_name
-	order by c.class_start_date 
-	limit #{begin}, 4
-</select> -->
+ <select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
+	select ep.exam_paper_num, ep.exam_paper_name, ep.member_id, ep.exam_paper_desc, ep.exam_paper_status, m.class_name 
+	from exam_paper ep left outer join member m 
+	on (ep.member_id = m.member_id)
+	<include refid="adminexampapersearch"></include>
+	limit #{param3}, 4
+</select> 
 </mapper>

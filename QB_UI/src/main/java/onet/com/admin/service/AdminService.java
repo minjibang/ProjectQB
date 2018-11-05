@@ -506,15 +506,15 @@ public class AdminService {
 	}
 	/*11.05 민지 시험지 검색 */
 	public List<ExamPaperDto> exampaperlistClass(int begin){
-		// System.out.println("service로 들어옴 : " + begin);
+		System.out.println("service로 들어옴 : " + begin);
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		List<ExamPaperDto> result = dao.exampaperlistClass(begin);
 		
 		return result;
 	}
-	public List<ExamPaperDto> exampaperSearch(String searchtype, String keyword, int begin){
+	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin){
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
-		List<ExamPaperDto> result = dao.exampaperSearch(searchtype, keyword, begin);
+		List<ExamPaperDto> result = dao.exampaperSearch(searchType, keyword, begin);
 		return result;
 	}
 	

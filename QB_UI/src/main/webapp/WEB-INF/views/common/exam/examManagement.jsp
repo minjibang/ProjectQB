@@ -65,7 +65,7 @@
 												id="searchType" name="searchType">
 												<option value="all">전체</option>
 												<option value="n">클래스명</option>
-												<option value="t">시험지명</option>
+												<option value="p">시험지명</option>
 											</select> <input type="text" class="form-control searchRightBtnDiv"
 												placeholder="검색어를 입력" id="keyword" name="keyword">
 											<button type="button" class="btn btn-theme searchRightBtn"
@@ -74,45 +74,13 @@
 										</div>
 
 										<hr>
-										<form action="" method="post" id="pickMyExamPaperForm">
 										
-											<div class="col-lg-12">
-
-												<!-- 시험지 하나의 div 시작 -->
-												<div id="myExamPaperDiv">
-													<c:forEach items="${myexamPaperList}" var="myexamPaperList">
-														<!-- 시험지 한 개 시작 -->
-														<div class="exam-paper-name">
-															<h4 class="miri" id="${myexamPaperList.exam_paper_num}"
-																data-target="#exam_preview" data-toggle="modal">
-																<strong>${myexamPaperList.exam_paper_name}</strong>
-															</h4>
-															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
-
-															
-															<div class="pdf_download text-right">
-																<a href="#">PDF 다운로드 <img
-																	src="../img/file-download.png"></a>
-																<button type="button"
-																	id="${myexamPaperList.exam_paper_num}"
-																	class="btn btn-theme04 buttonGroup"
-																	onclick="deleteExamCheck()"
-																	value="${myexamPaperList.exam_paper_name }">삭제</button>
-																<button type="button"
-																	id="${myexamPaperList.exam_paper_num}"
-																	class="btn btn-theme buttonGroup"
-																	onclick="updateExamCheck()">시험지수정</button>
-																<button type="button" class="btn btn-theme buttonGroup"
-																	onclick="location.href='examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
-																<input type="hidden" id="hidden_class_num"
-																	value='${param.class_num}'>
-															</div>
-															<hr>
-														</div>
-													</c:forEach>
+												<div id="examlistView2">
+												
 												</div>
-											</div>
-										</form>
+
+
+
 									</div>
 									<!-- 내 시험지 div 끝 -->
 									
@@ -244,12 +212,6 @@
 
 												</div>
 											</div>
-											<div class="row mt">
-												<div class="col-lg-12">
-													<div id="examlistView2">
-													</div>
-												</div>
-											</div>
 										</form>
 										<!-- /col-md-12 -->
 									</div>
@@ -305,7 +267,10 @@ $(document).ready(function(){
 		var currentScrollTop = $(window).scrollTop();
 		if( currentScrollTop - lastScrollTop > 0 ){
 	            // 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
-	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) -10 ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+	        	 
+	        	 //scrollTop + windowHeight + 30 > documentHeight
+	        	 
 				classParam.begin += 4;
 				examlistClass(classParam);
 				console.log("begin : " + classParam.begin +"번부터");
@@ -333,10 +298,9 @@ $(document).ready(function(){
 	$('#searchBtn').click(function(){  // search 버튼을 눌렀을 때는 json 데이터의 내용을 변경시켜서 파라미터로 보내기 
 		
 		classParam.begin = 0; 
-		classParam.searchtype = $("#searchType").val();
+		classParam.searchType = $("#searchType").val();
 		classParam.keyword = $("#keyword").val();
 		$('#examlistView').empty();
-		
 		examlistClass(classParam);
 		
 	});
