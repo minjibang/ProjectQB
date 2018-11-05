@@ -86,7 +86,12 @@
 							<button class="btn btn-theme03" id="examBtn">시험감독</button>
 						</se:authorize>
 						<se:authorize access="hasRole('ROLE_STUDENT')">
+							<c:if test="${check==1}">
 							<button class="btn btn-theme03" id="examBtn">시험시작</button>
+							</c:if>
+							<c:if test="${check==0}">
+							<p>응시 대상자가 아닙니다.</p>
+							</c:if>
 						</se:authorize>
 							
 						</div>
@@ -180,7 +185,9 @@
 		var examEndMinutesRound = Math.floor(eMinutes);
 		var eSeconds = (examEndTime-nowTime)/1000-(24*60*60*examEndDaysRound)-(60*60*examEndHoursRound)-(60*examEndMinutesRound);
 		var examEndSecondsRound = Math.round(eSeconds);
-							
+		console.log("테스트:"+examStartSecondsRound);
+		console.log("테스트:"+examEndSecondsRound);
+		console.log("테스트:"+eSeconds);
 		console.log(typeof(examEndDaysRound));
 		console.log("examEndDaysRound : "+examEndDaysRound);
 		console.log("examStartDaysRound : "+examStartDaysRound);

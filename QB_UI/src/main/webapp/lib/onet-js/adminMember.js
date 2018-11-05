@@ -41,6 +41,28 @@ $(document).ready(function(){
             {data: "role_desc" },
             {data: "member_enable" },
             {defaultContent:"<button type='button' class='btn btn-info'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
+        ],
+        dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+        buttons:[
+        	{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [':visible' ]
+                }
+            },
+        	{
+	            extend:'excelHtml5',
+	            exportOptions:{
+	            	columns:[':visible']
+	            	}
+            },
+        	{
+	        	extend:'pdfHtml5',
+	        	exportOptions:{
+	        		columns:[':visible']
+	        		}
+        	},
+        	'colvis'
         ]
     } );
 	//양회준 10.31 DataTable 검색 구현

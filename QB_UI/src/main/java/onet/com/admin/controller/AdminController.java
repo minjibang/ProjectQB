@@ -185,7 +185,7 @@ public class AdminController {
 	/* 영준 10.23 회원관리관련 끝 */
 	
 	/*민지 10.12 클래스멤버리스트 , 클래스 리스트 관련 */
-	@RequestMapping("adminClassInfo.do")
+/*	@RequestMapping("adminClassInfo.do")
 	public String adminClassInfo(Model model, int class_num) throws Exception{
 		
 		
@@ -202,7 +202,7 @@ public class AdminController {
 		classMemberList= teacherService.classMemberList(class_num);
 		model.addAttribute("classMemberList", classMemberList);
 		return "admin.adminClassInfo";
-	}
+	}*/
 
 	
 	@RequestMapping(value = "adminClassMemberUpdate.do", method = RequestMethod.POST)
@@ -294,17 +294,6 @@ public class AdminController {
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
 	}
-	//10.15민지 클래스 수정
-	@RequestMapping(value = "adminClassUpdate.do",  method =  RequestMethod.POST)
-		public @ResponseBody String adminClassUpdate(@RequestBody ClassDto dto) //@RequestBody (비동기: 객체 형태로 받아요) 
-		{	
-			/*deptService.insertDept(dto);
-			return dto.toString();*/
-			int result = adminService.classUpdate(dto);
-			String result2 = String.valueOf(result);
-			return result2;
-			
-		}
 	
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {

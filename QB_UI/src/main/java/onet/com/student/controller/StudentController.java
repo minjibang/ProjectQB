@@ -58,10 +58,12 @@ public class StudentController {
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail(Model model, int exam_info_num) {
-		
+	public String examScheduleDetail(Model model, Principal principal,int exam_info_num) {
+		String member_id=principal.getName();
 		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		int check=studentService.checkExamMember(member_id, exam_info_num);
 		model.addAttribute("dto", dto);
+		model.addAttribute("check", check);
 		
 		return "common.student.exam.examScheduleDetail";
 	}

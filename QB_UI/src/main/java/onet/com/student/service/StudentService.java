@@ -189,12 +189,16 @@ public class StudentService {
 		dto.setSend_member_id(send_member_id);
 		int result = dao.sendTeacherMessage(dto);
 		
-		return result;
-		
-		
+		return result;		
 	}
 	
-	
+	//양회준 11.2 시험 응시 목록 체크
+	public int checkExamMember(String member_id, int exam_info_num) {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		int check = dao.checkExamMember(member_id, exam_info_num);
+		
+		return check;		
+	}
 
 
 
