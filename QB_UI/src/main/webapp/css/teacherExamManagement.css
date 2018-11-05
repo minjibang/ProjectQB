@@ -32,3 +32,18 @@ a.print {
 a.close {
     background: url(../img/icon-close.png) no-repeat 50% 50%;
 }
+.searchRowRightDiv {
+	margin-left:390px;
+	text-align: right;
+	display:inline-block;
+}
+.searchRightBtnDiv {
+	display: inline-block;
+	width: 30%;
+	margin-right: 5px;
+}
+#searchBtn {
+	width: 14%;
+	margin-bottom: 5px;
+}
+

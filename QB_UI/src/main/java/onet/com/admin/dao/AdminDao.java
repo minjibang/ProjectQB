@@ -169,5 +169,9 @@ public interface AdminDao {
 	// 현이 11.02 adminMain 클래스 삭제
 	public int deleteClass(String class_name);
 	public List<MemberDto> teacherList();
+	
+	//민지 11.05 시험 검색
+	public List<ExamPaperDto> exampaperSearch(String searchtype, String keyword, int begin);
+	public List<ExamPaperDto> exampaperlistClass(int begin);
 }
 

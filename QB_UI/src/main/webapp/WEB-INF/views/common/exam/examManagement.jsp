@@ -60,8 +60,22 @@
 										<a href="examPaperMake.do" class="examPaper-insert"> <img
 											src="../img/material-icon.png"> <strong>새 시험지
 												만들기</strong></a>
+										<div class="searchRowRightDiv">
+											<select class="form-control searchRightBtnDiv"
+												id="searchType" name="searchType">
+												<option value="all">전체</option>
+												<option value="n">클래스명</option>
+												<option value="t">시험지명</option>
+											</select> <input type="text" class="form-control searchRightBtnDiv"
+												placeholder="검색어를 입력" id="keyword" name="keyword">
+											<button type="button" class="btn btn-theme searchRightBtn"
+												id="searchBtn">검색</button>
+											<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
+										</div>
+
 										<hr>
 										<form action="" method="post" id="pickMyExamPaperForm">
+										
 											<div class="col-lg-12">
 
 												<!-- 시험지 하나의 div 시작 -->
@@ -101,8 +115,16 @@
 										</form>
 									</div>
 									<!-- 내 시험지 div 끝 -->
+									
 								</div>
 								<!-- /col-md-12 -->
+								<div class="row mt">
+									<div class="col-lg-12">
+										<div id="examlistView">
+										
+										</div>
+									</div>
+								</div>
 							</div>
 							<!-- 내 시험지 탭 끝-->
 
@@ -169,7 +191,20 @@
 											<a href="" class="exam-insert"> <img
 												src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새
 													시험 일정 등록</strong></a>
+											<div class="searchRowRightDiv">
+												<select class="form-control searchRightBtnDiv"
+													id="searchType2" name="searchType2">
+													<option value="all">전체</option>
+													<option value="n">클래스명</option>
+													<option value="t">시험명</option>
+												</select> <input type="text" class="form-control searchRightBtnDiv"
+													placeholder="검색어를 입력" id="keyword" name="keyword">
+												<button type="button" class="btn btn-theme searchRightBtn"
+													id="searchBtn2">검색</button>
+												<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
+											</div>
 										</form>
+										
 										<hr>
 										<form action="" method="post" id="pickExamScheduleForm">
 											<div class="col-lg-12">
@@ -207,6 +242,12 @@
 														</div>
 													</c:forEach>
 
+												</div>
+											</div>
+											<div class="row mt">
+												<div class="col-lg-12">
+													<div id="examlistView2">
+													</div>
 												</div>
 											</div>
 										</form>
@@ -248,8 +289,30 @@
 	type="text/javascript"></script>
 
 <script>
+var classcheck = true;	//	왜 false?
+var classParam = {
+		"begin" : 0,
+		"searchType" : "all",
+		"keyword" : "all",
+}
 
 $(document).ready(function(){
+	//무한 스크롤
+	examlistClass(classParam);
+	var lastScrollTop = 0;
+	
+	$(window).scroll(function(){
+		var currentScrollTop = $(window).scrollTop();
+		if( currentScrollTop - lastScrollTop > 0 ){
+	            // 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
+	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+				classParam.begin += 4;
+				examlistClass(classParam);
+				console.log("begin : " + classParam.begin +"번부터");
+			 }
+		  }
+	});
+	
 	
 	$('.miri').click(function(){
 		var exam_paper_num = $(this).attr('id');
@@ -265,9 +328,36 @@ $(document).ready(function(){
 					  $('.book').html(data);
 				  }
 			   });
-	   }); 
+	   });
+	
+	$('#searchBtn').click(function(){  // search 버튼을 눌렀을 때는 json 데이터의 내용을 변경시켜서 파라미터로 보내기 
+		
+		classParam.begin = 0; 
+		classParam.searchtype = $("#searchType").val();
+		classParam.keyword = $("#keyword").val();
+		$('#examlistView').empty();
+		
+		examlistClass(classParam);
+		
+	});
+	
 });
-
+	//클래스 목록 가져오는 ajax
+	function examlistClass(classParam){
+		$.ajax({
+			url : "exampaperlistClass.do",
+			type : 'GET',
+			dataType : "html",
+			data : classParam,
+			success : function(data){	
+				$('#examlistView').append(data);
+			},
+			error : function(error) {
+				console.log("===========실패");
+			}
+		});
+	}
+		
 	function printpage(){
 		
 		var divContents = $('.book').html();

@@ -450,4 +450,20 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 <!-- 현이 11.02 adminMain 페이지 끝 -->
 
+<!-- 민지 11.05 시험지 검색 -->
+<select id="exampaperlistClass" parameterType="int" resultType="onet.com.vo.ExamPaperDto">
+select * from exam_paper limit #{begin}, 4
+</select>	
+
+
+<!-- <select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
+	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
+	ifnull(count(m.member_id) , 0) as class_student_count
+	from class c left outer join member m 
+	on (m.class_name = c.class_name)
+	<include refid="search"></include>
+	group by c.class_name
+	order by c.class_start_date 
+	limit #{begin}, 4
+</select> -->
 </mapper>

@@ -1255,4 +1255,46 @@ public class AdminController {
 			
 		}
 		/* 민지 - 18.10.23 시험 일정 삭제 끝 */
+		
+		/*민지 11.05 시험일정 무한스크롤*/
+		// ajax로 클래스 목록 가져오기  
+		//@RequestMapping(value="adminMainView.do")
+		public @ResponseBody ModelAndView exampaperlistClass(int begin) {
+			
+			/*System.out.println("begin : " + begin);*/
+			List<ExamPaperDto> classList = adminService.exampaperlistClass(begin);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.admin.adminMain_ajax");
+			mv.addObject("classList", classList);
+		
+			return mv;
+		}
+		
+		// ajax로 검색한 클래스 목록 가져오기 
+		@RequestMapping(value="exampaperlistClass.do")
+		public @ResponseBody ModelAndView exampaperSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
+				@RequestParam("begin") int begin){
+			
+			/*System.out.println("searchType : " + searchType);  
+			System.out.println("keyword : " + keyword);
+			System.out.println("begin : " + begin);*/
+			
+			List<ExamPaperDto> classList = null;
+			
+			if(searchType.equals("all")) {
+				System.out.println("list컨트롤러탔구연");
+				
+				classList = adminService.exampaperlistClass(begin);
+				System.out.println("classList항목 >>>>>>" + classList);
+			} else {
+				classList = adminService.exampaperSearch(searchType, keyword, begin);
+			}
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.admin.adminMain_ajax");
+			mv.addObject("classList", classList);
+		
+			return mv;
+		}
 }
