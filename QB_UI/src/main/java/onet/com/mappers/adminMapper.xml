@@ -5,14 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.admin.dao.AdminDao">
 <!-- 태용 시작 -->
 <sql id="search">
-	<if test="searchtype ==''">
-		where c.class_name like concat('%',#{keyword},'%') or c.teacher_name like concat('%',#{keyword},'%')
+	<if test="param1 =='all'">
+		where c.class_name like concat('%',#{param2},'%') or c.teacher_name like concat('%',#{param2},'%')
 	</if>
-	<if test='searchtype =="n"'>
-		where c.class_name like concat('%',#{keyword},'%')
+	<if test='param1 =="n"'>
+		where c.class_name like concat('%',#{param2},'%')
 	</if>
-	<if test='searchtype =="t"'>
-		where c.teacher_name like concat('%',#{keyword},'%')
+	<if test='param1 =="t"'>
+		where c.teacher_name like concat('%',#{param2},'%')
 	</if>
 </sql>
 
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where c.class_enable = 1
 	group by c.class_name
 	order by c.class_start_date
-	limit #{begin}, 4
+	limit #{begin}, 8
 </select>	
 
 <select id="classSearch" resultType="onet.com.vo.ClassDto">
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="search"></include>
 	group by c.class_name
 	order by c.class_start_date 
-	limit #{begin}, 4
+	limit #{param3}, 8
 </select>
 
 <insert id="classInsert" parameterType="onet.com.vo.ClassDto">

@@ -3,55 +3,6 @@
 	pageEncoding="UTF-8"%>
 
 <link href="${pageContext.request.contextPath}/css/adminCategory.css" rel="stylesheet">
-<style>
-.selectCategory{
-	display:inline;
-	width: 70%;
-}
-.lg_category_code{
-	text-align: center;
-	background: #f1f1f1;
-	
-}
-.md_category_code{
-	text-align: center;
-	background: #f1f1f1;
-}
-.sm_category_code{
-	text-align: center;
-	background: #f1f1f1;
-}
-td{
-	border-bottom: 1px solid #DDDDDD;
-	font-size: 1em;
-}
-
-th{
-	font-weight:bold;
-	font-size: 0.9em;
-}
-.insertHeader{
-	font-size: 1.5em;
-	text-align: center;
-	color: white;
-	font-weight: bold; 
-}
-.insertsize{
-	width:98%;
-}
-.updateHeader{
-	font-size: 1.5em;
-	text-align: center;
-	font-weight: bold;
-}
-.a{
-	display:inline;
-	text-align: right;
-}
-
-
-
-</style>
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -420,9 +371,9 @@ th{
 								<table id="table_lgCategory">
 									<thead>
 										<tr>
-											<th>대분류코드</th>
-											<th>대분류 [언어]</th>
-											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<th class="thwidth1">대분류코드</th>
+											<th class="thwidth2">대분류 [언어]</th>
+											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
 									<tbody id="list1body">
@@ -456,9 +407,9 @@ th{
 								<table id="table_mdCategory">
 									<thead>
 										<tr>
-											<th>중분류코드</th>
-											<th>중분류 [과목]</th>
-											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<th class="thwidth1">중분류코드</th>
+											<th class="thwidth2">중분류 [과목]</th>
+											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
 									<tbody id="list2body">
@@ -493,9 +444,9 @@ th{
 								<table id="table_smCategory">
 									<thead>
 										<tr>
-											<th class="smWidth">소분류코드</th>
-											<th>소분류 [주제]</th>
-											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<th class="thwidth1">소분류코드</th>
+											<th class="thwidth2">소분류 [주제]</th>
+											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
 									<tbody id="list3body">

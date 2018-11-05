@@ -35,3 +35,57 @@ button.modalButton {
 .form-control{
 	width:100%;
 }
+
+.selectCategory{
+	display:inline;
+	width: 70%;
+}
+.lg_category_code{
+	text-align: center;
+	background: #f1f1f1;
+	
+}
+.md_category_code{
+	text-align: center;
+	background: #f1f1f1;
+}
+.sm_category_code{
+	text-align: center;
+	background: #f1f1f1;
+}
+td{
+	border-bottom: 1px solid #DDDDDD;
+	font-size: 1em;
+}
+
+th{
+	font-weight:bold;
+	font-size: 0.9em;
+}
+.insertHeader{
+	font-size: 1.5em;
+	text-align: center;
+	color: white;
+	font-weight: bold; 
+}
+.insertsize{
+	width:98%;
+}
+.updateHeader{
+	font-size: 1.5em;
+	text-align: center;
+	font-weight: bold;
+}
+.a{
+	display:inline;
+	text-align: right;
+}
+.thwidth1{
+	width:65px;	
+}
+.thwidth2{
+	width:69px;	
+}
+.thwidth3{
+	width:67px;
+}

@@ -58,6 +58,9 @@ public class MainPageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", classname == null);
 		map.get("result");
+		
+		//System.out.println("classCheck의 result : " + classname);
+		
 		return map;
 	}
 	
@@ -80,15 +83,11 @@ public class MainPageController {
 	public @ResponseBody ModelAndView classSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
 			@RequestParam("begin") int begin){
 		
-		/*System.out.println("searchType : " + searchType);  
-		System.out.println("keyword : " + keyword);
-		System.out.println("begin : " + begin);*/
-		
 		List<ClassDto> classList = null;
 		
 		if(searchType.equals("all")) {
 			classList = adminMainPageService.adminMainView(begin);
-		} else {
+		} else if(searchType.equals("n") || searchType.equals("t")){
 			classList = adminMainPageService.classSearch(searchType, keyword, begin);
 		}
 		

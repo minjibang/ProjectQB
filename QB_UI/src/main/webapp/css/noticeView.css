@@ -60,3 +60,44 @@ textarea {
 .noticeDetailWriterDiv {
 	margin-right: 5%;
 }
+#replyAddBtn{
+	width:100%;
+	height:100px;
+}
+#replyArea{
+	width:100%;
+	height:100px;
+}
+.img{
+	width:100px;
+	height:100px;
+}
+.detach{
+	margin-left: -15px;
+}
+.replyInput{
+	width:500px;
+	height:30px;
+	display:inline-block;
+}
+.replyAdd{
+	cursor: pointer;
+}
+.replyReplyAdd{
+	cursor: pointer;
+}
+.reply{
+	cursor: pointer;
+}
+.replyReply{
+	cursor: pointer;
+}
+.update{
+	cursor: pointer;
+}
+.updateReply{
+	cursor: pointer;
+}
+.delete{
+	cursor: pointer;
+}
