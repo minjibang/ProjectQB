@@ -148,7 +148,7 @@
 									
 									<hr>
 
-									<select id="question_lg_category" class="form-control-static myQuestionSelectCategory"
+									<select id="question_lg_category" class="form-control myQuestionSelectCategory"
 										name="lg_category_name">
 										<option value="" selected disabled>대분류 선택</option>
 										<c:forEach items="${lgCatList}" var="lgCatList">
@@ -156,24 +156,24 @@
 										</c:forEach>
 									</select> 
 									
-									<select id="question_md_category" class="form-control-static myQuestionSelectCategory"
+									<select id="question_md_category" class="form-control myQuestionSelectCategory"
 										name="md_category_name">
 										<option value="">중분류 선택</option>
 									</select> 
 									
-									<select id="question_sm_category" class="form-control-static myQuestionSelectCategory"
+									<select id="question_sm_category" class="form-control myQuestionSelectCategory"
 										name="sm_category_name">
 										<option value="">소분류 선택</option>
 									</select> 
 									
-									<select class="form-control-static myQuestionSelectCategory" name="level_code" id="level_type">
+									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type">
 										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
 											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
 										</c:forEach>
 									</select> 
 									
-									<select class="form-control-static myQuestionSelectCategory" 
+									<select class="form-control myQuestionSelectCategory" 
 									id="questiontype" name="questionType">
 										<option value="">문제타입</option>
 										<option value="">전체</option>
@@ -238,18 +238,18 @@
 												<i class="fa fa-angle-right"></i> 문제 분류
 											</h4>
 											<select id="question_lg_category2"
-												class="form-control-static" name="lg_category_name">
+												class="form-control makeQuestionCate" name="lg_category_name">
 												<option value="" selected disabled>대분류 선택</option>
 												<c:forEach items="${lgCatList}" var="lgCatList">
 													<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
 												</c:forEach>
 											</select> <select id="question_md_category2"
-												class="form-control-static" name="md_category_name">
+												class="form-control makeQuestionCate" name="md_category_name">
 												<option value="">중분류 선택</option>
 											</select> <select id="question_sm_category2"
-												class="form-control-static" name="sm_category_code">
+												class="form-control makeQuestionCate" name="sm_category_code">
 												<option value="">소분류 선택</option>
-											</select> <select id="level_type2" class="form-control-static"
+											</select> <select id="level_type2" class="form-control makeQuestionCate"
 												name="level_code">
 												<option value="">난이도</option>
 												<c:forEach items="${quesLevelList}" var="quesLevelList">
@@ -339,7 +339,7 @@
 														<i class="fa fa-angle-right"></i>객관식 보기 입력
 
 													</h4>
-													<select id="howManyChoices" class="form-control-static" name="howManyChoices">
+													<select id="howManyChoices" class="form-control" name="howManyChoices">
 														<option id="howManyChoices1" value="1">보기개수 선택</option>
 														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
 														<option id="howManyChoices3" value="3">보기 개수: 3개</option>

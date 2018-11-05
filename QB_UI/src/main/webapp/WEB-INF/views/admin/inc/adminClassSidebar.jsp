@@ -35,14 +35,12 @@
               <span>학생 & 성적관리</span>
               </a>
           </li>
-          	
 	          <li class="sub-menu">
-	            <a href="${pageContext.request.contextPath}/admin/adminClassInfo.do?class_num=${param.class_num}&class_name=${param.class_name}">
+	            <a href="adminMain.do">
 	              <i class="fa fa-desktop"></i>
-	              <span>클래스 전체 관리</span>
+	              <span>클래스 전체 보기</span>
 	             </a>
-	          </li> 
-	          
+	          </li>
           <!-- 강사 end -->
          </ul>
         <!-- sidebar menu end-->
