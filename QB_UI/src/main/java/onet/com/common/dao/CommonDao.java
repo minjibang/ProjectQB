@@ -43,7 +43,7 @@ public interface CommonDao {
 	public int myPageUpdate(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
 	public int myPageDrop(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
 	
-	public int memberDrop(String member_id, String member_pwd) throws ClassNotFoundException, SQLException;
+	public String memberDrop(String member_id) throws ClassNotFoundException, SQLException;
 	
 	/*양회준 - 10.15 내 정보 수정 끝*/
 
