@@ -202,7 +202,7 @@ function makeExamSubmitBtn(num){
 
 function insertEP(examName, examDesc, examPStatus){
   var promise = $.ajax({
-  url:"examPaperInsert.do",
+  url:"../teacher/examPaperInsert.do",
   type:"get",
   dataType:"json",
   data:{
@@ -221,7 +221,7 @@ function insertEP(examName, examDesc, examPStatus){
 	         var EQSeq=(Number(index) + 1);
 	         console.log("   점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
 	         $.ajax({
-	            url:"examQuestionInsert.do",
+	            url:"../teacher/examQuestionInsert.do",
 	            type:"get",
 	            dataType:"json",
 	            data:{
@@ -244,7 +244,7 @@ function insertEP(examName, examDesc, examPStatus){
 					   text: "",
 					   icon:"success"
 					}).then(function() {
-					    window.location = $('.dpn_EPN').val()+"/teacher/examManagement.do";
+					    window.location = "examManagement.do";
 					});
 	         }else{
 	        	 $('#insertEPNum').val(epnum);
@@ -257,7 +257,7 @@ function insertEP(examName, examDesc, examPStatus){
 function updateEP(examPNum, examName, examDesc, examPStatus){
 	alert("업데이트로 진입한다");
 	 $.ajax({
-       url:"examPaperUpdate.do",
+       url:"../teacher/examPaperUpdate.do",
        type:"get",
        dataType:"json",
        data:{
@@ -269,7 +269,7 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
        },
        success:function(data){
     	   $.ajax({
-             url:"examQuestionDelete.do",
+             url:"../teacher/examQuestionDelete.do",
              type:"get",
              dataType:"json",
              data:{
@@ -286,7 +286,7 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
                    var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
                       /*insert자리*/
                       $.ajax({
-                         url:"examQuestionInsert.do",
+                         url:"../teacher/examQuestionInsert.do",
                          type:"get",
                          dataType:"json",
                          data:{
@@ -305,7 +305,11 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
              }
           });
     	   if(examPStatus==1){
-  	         location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";
+    		 /*강사라면 밑으로 가고*/
+  	         location.href="examManagement.do";
+  	         /*location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";*/
+  	         /*관리자면 어디로 가나?*/
+  	         
   	         }else{
   	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
   				 swal("임시 저장되었습니다.");
