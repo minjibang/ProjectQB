@@ -42,11 +42,11 @@
 								<div class="col-lg-2">
 									<section class="panel">
 										<div class="panel-body">																					
-											<table id="studentList" class="table table-hover">
+											<table id="studentList1" class="table table-hover">
 												<h4>${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
-									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
+									                    <th><i class="fa fa-bullhorn"></i>학생목록</th>
 									                  </tr>
 									                </thead>
 									                <tbody>									                
@@ -68,7 +68,7 @@
 								
 								<%-- 선택 학생 정보 영역 시작 --%>
 								<div class="col-lg-10">
-									<h3 id="studentListName">${studentList[0].member_name}</h3>
+									<h3 id="studentListName">${studentList[0].member_name}(${studentList[0].member_id})</h3>
 									<h4 id="studentListEmail">이메일 : ${studentList[0].member_email}</h4>
 									<h4 id="studentListPhone">핸드폰 : ${studentList[0].member_phone}</h4>
 
@@ -115,11 +115,11 @@
 								<div class="col-lg-2">
 									<section class="panel">
 										<div class="panel-body">
-											<table id="studentList" class="table table-hover">
+											<table id="studentList2" class="table table-hover">
 												<h4 id="tab2_className">${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
-									                    <th><i class="fa fa-bullhorn"></i> 학생목록</th>
+									                    <th><i class="fa fa-bullhorn"></i>학생목록</th>
 									                  </tr>
 									                </thead>
 									                <tbody>									                
@@ -129,8 +129,8 @@
 								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
 															class="img-circle" width="25"> ${studentList.member_name}
 								                    </td>
-								                   </tr>												
-												</c:forEach>
+								                   </tr>
+								                </c:forEach>
 											</tbody>
 											</table>
 										</div>
@@ -142,11 +142,11 @@
 									<section class="panel">
 										<header class="panel-heading wht-bg">
 											<h4 class="gen-case">
-												<span id="tab2_studentName">${studentList[0].member_name}</span>
+												<span id="tab2_studentName">${studentList[0].member_name}(${studentList[0].member_id})</span>
 												<form action="#" class="pull-right mail-src-position">
 													<div class="input-append">
 														<input type="text" id="searchExamValue"class="form-control "
-															placeholder="Search Test">
+															placeholder="검색어를 입력하세요">
 													</div>
 												</form>
 											</h4>
@@ -175,15 +175,6 @@
 													</tbody>
 												</table>
 											</div>
-											<div class="mail-option">
-												<ul class="unstyled inbox-pagination">
-													<li><span>1-50 of 99</span></li>
-													<li><a class="np-btn" href="#"><i
-															class="fa fa-angle-left  pagination-left"></i></a></li>
-													<li><a class="np-btn" href="#"><i
-															class="fa fa-angle-right pagination-right"></i></a></li>
-												</ul>
-											</div>
 										</div>
 									</section>
 								</div>
@@ -209,7 +200,7 @@
 														<i class="fa fa-angle-right"></i> 각 시험 평균
 													</h4>
 													<div class="panel-body text-center">
-														<canvas id="bar2" height="240"></canvas>
+														<canvas id="bar2" height="200"></canvas>
 													</div>
 												</div>
 											</div>
@@ -235,21 +226,18 @@
 																class="table table-bordered table-striped table-condensed">
 																<thead>
 																	<tr>
-																		<th class="member_name">이름</th>									
-																		<th class="score_chart_rank">순위</th>
+																		<th>이름</th>									
+																		<th>순위</th>
 																	</tr>
 																</thead>
-																<tbody id="classRankView">
-																	<c:forEach items="${classRank}" var="classRank">
-																	
+																<%-- <tbody id="classRankView">
+																	<c:forEach items="${classRank}" var="classRank">																	
 																	<tr>
 																		<td id="member_name" class="member_name">${classRank.member_name}</td>																		
-																		<td id="score_chart_rank" class="score_chart_rank">${classRank.score_chart_rank}</td>
-																	
-																	</tr>
-																	
+																		<td id="score_chart_rank" class="score_chart_rank">${classRank.score_chart_rank}</td>																	
+																	</tr>																	
 																	</c:forEach>
-																</tbody>
+																</tbody> --%>
 															</table>
 														</div>
 													</div>
@@ -292,11 +280,11 @@
 															style="width: 100%">
 															<thead>
 																<tr>
-																	<td>학생 이름</td>
+																	<th>학생 이름</th>
 																		<c:forEach items="${classChart}" var="subject">
-																		<td>${subject.exam_info_name}</td>
+																		<th>${subject.exam_info_name}</th>
 																		</c:forEach>
-																	<td>평균</td>
+																	<th>평균</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -338,10 +326,13 @@
 <script src="${pageContext.request.contextPath}/lib/onet-js/studentInfo.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
+	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+	    } );
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
-	var chartLabels = new Array();	
+	var chartLabels = new Array();
 	var spreadScore;
 	//시험번호
 	var examInfoNum = "${classChart[0].exam_info_num}";
@@ -356,6 +347,7 @@ $(document).ready(function(){
 		chartLabels.push("${classChart.exam_info_name}");
 	</c:forEach>
 	
+	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
 	//학생목록 배열에 jstl값 담기		
@@ -368,8 +360,8 @@ $(document).ready(function(){
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
-	
 	var memberId=studentArr[0].member_id;
+	var memberName=studentArr[0].member_name;
 	var className=studentArr[0].class_name;
 	//tab2AjaxData
 	var tab2AjaxData="";
@@ -378,14 +370,15 @@ $(document).ready(function(){
 		$.ajax({
 			type:"post",
 			url:"studentExamScoreInfo.do",
-			data:{"member_id":memberId,
+			data:{
+				"member_id":memberId,
 				"class_name":className
 				},
 			datatype:"json",
 			success:function(data, status){
 				console.log(data);
 				tab2AjaxData=data;
-				var studentExamScoreSrc = "";				
+				var studentExamScoreSrc = "";
 				$("#studentExamTable").empty();
 				$(data).each(function(index, element){
 					var smCtgr="";
@@ -404,7 +397,7 @@ $(document).ready(function(){
 				$("#studentExamTable").append(studentExamScoreSrc);			
 			},
 			error:function(error, status){
-				console.log("실패:"+status);
+				console.log("실패1:"+status);
 			}
 		});
 	}
@@ -414,11 +407,81 @@ $(document).ready(function(){
 	//첫 화면 차트	
 	functionChart();
 	//두번째 화면 차트
-	functionChart2();
-	//반 등수 표
-	rankTable();
+	functionChart2();	
 	//점수분포 차트
 	spreadChart();
+	
+	$('#studentList1').DataTable({
+		"ordering": false,
+		"scrollY":"390px",
+		"scrollCollapse": false,
+		"paging": false,
+		"searching": false,
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	$('#studentList2').DataTable({
+		"ordering": false,
+		"scrollY":"390px",
+		"scrollCollapse": false,
+		"paging": false,
+		"searching": false,
+		"language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
+        }
+	});
+	var rankTable=$('#classRankTable').DataTable({
+		"ordering": false,
+		"scrollY":"220px",
+		"scrollCollapse": false,
+		"paging": false,
+		"searching": false,
+		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
+        "processing":true,
+		"ajax": {
+           method: "post",
+           url:"classRank.do",
+			data:{"exam_info_name":function(){ return examInfoName}},
+           dataSrc:"",
+           xhrFields: {withCredentials: true}
+		},
+		"columns":
+			[
+			{data: "member_name" },
+			{data: "score_chart_rank" }       
+			]
+	});
+	var studentPerGrade=$('#studentPerGrade').DataTable({
+		"ordering":true,
+		"paging": true,
+		"ordering":true,
+		"searching": true,
+		"bLengthChange" : false,
+		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
+		dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+        buttons:[
+        	{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [':visible' ]
+                }
+            },
+        	{
+	            extend:'excelHtml5',
+	            exportOptions:{
+	            	columns:[':visible']
+	            	}
+            },
+        	{
+	        	extend:'pdfHtml5',
+	        	exportOptions:{
+	        		columns:[':visible']
+	        		}
+        	},
+        	'colvis'
+        ]
+	})
 	
 	//학생 목록 선택 이벤트-tab1
 	$(".studentListMembers").click(function(){		
@@ -428,9 +491,11 @@ $(document).ready(function(){
 		chartLabels = [];		
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
-		$("#studentListName").text(memberName);
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".studentListMembers").index(this);
+		
+		$("#studentListName").text(memberName+"("+studentArr[memberIndex].member_id+")");
+				
 		//선택한 학생의 이메일과 핸드폰 값 가져와 출력하기
 		$("#studentListEmail").text("이메일 : "+studentArr[memberIndex].member_email);
 		$("#studentListPhone").text("핸드폰 : "+studentArr[memberIndex].member_phone);
@@ -456,10 +521,9 @@ $(document).ready(function(){
 					chartClassDatas.push(element.class_chart_avg);					
 				});
 				functionChart();
-				functionChart2();
 			},
 			error:function(error, status){
-				console.log("실패:"+status);
+				console.log("실패2:"+status);
 			}
 		});		
 	});
@@ -467,13 +531,14 @@ $(document).ready(function(){
 	
 	//학생 목록 선택 이벤트-tab2
 	
-	$(".tab2studentListMembers").click(function(){
-		
-		$("#searchExamValue").val("");
+	$(".tab2studentListMembers").click(function(){		
+		$("#tab2studentListMembers").val("");
+		//학생 목록의 인덱스 가져오기
+		var memberIndex=$(".tab2studentListMembers").index(this);
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
 		var className=$("#tab2_className").text().trim();
-		$("#tab2_studentName").text(memberName);
+		$("#tab2_studentName").text(memberName+"("+studentArr[memberIndex].member_id+")");
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".tab2studentListMembers").index(this);
 		//ajax 시험 정보 요청할 parameter
@@ -510,8 +575,12 @@ $(document).ready(function(){
 		
 	/*지난 시험지 보기*/
 
-	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트		
-		var popUrl = "${pageContext.request.contextPath}/student/pastExamPaper.do?exam_info_num=" + $(this).val();
+	$(document).on('click', '#pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트
+		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
+		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
+		var getId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
+		var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val()+"&member_id="+getId;
+		console.log(popUrl);
 		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
 		window.open(popUrl, "지난 시험보기",popOption);		
 	});
@@ -680,7 +749,7 @@ $(document).ready(function(){
 						left: 10,
 						right: 10,
 						top: 10,
-						bottom: 10
+						bottom: 30
 					}
 				},
 				scales: {
@@ -717,45 +786,14 @@ $(document).ready(function(){
 		});
 	} //클래스 통계화면 첫 차트 끝
 	
-	
-	// 반 등수 - 시험목록 선택 시 해당 시험 등수 시작 
-	//var index;
-	var html = "";
 	// 시험문제 목록 선택 시작
 	$("#searchExam").change(function() {
-		html = "";
 		$("#searchExam option:selected").each(function () {
-			//index = $("#searchExam option").index($("#searchExam option:selected"));
 			examInfoName=$("#searchExam option:selected").text();
-			rankTable();			
+			rankTable.ajax.reload();
 		});
 	});
 	
-	//반 등수 비동기 실행
-	function rankTable(){
-		$.ajax({
-			type:"post",
-			url:"classRank.do",
-			data:{
-				"exam_info_name":examInfoName				  
-				},
-			datatype:"json",
-			success:function(data){
-				if(data.length!=0){
-					$(data).each(function(index, element){
-						html += "<tr><td id='member_name' class='member_name'>" + element.member_name+"</td>";																		
-						html +=	"<td id='score_chart_rank' class='score_chart_rank'>" + element.score_chart_rank+"</td></tr>";					
-						$("#classRankView").empty().append(html);
-					});
-				}else{
-					swal("Error!", "응시한 학생이 없습니다.", "error");
-				}							
-			},
-			error:function(error){
-				console.log("실패:"+status);
-			}
-		});
-	}	
 	
 	//양회준 10.29 점수별 학생분포
 	$("#searchSpread").change(function() {
@@ -779,6 +817,7 @@ $(document).ready(function(){
 				var ctx = document.getElementById('line2').getContext('2d');
 				var myBarChart = new Chart(ctx, {
 				    type: 'line',
+				    
 				    data: {
 				      labels: ["0~10", "11~20", "21~30", "31~40", "41~50", "51~60", 
 				    	  "61~70", "71~80", "81~90", "91~100"],
@@ -787,6 +826,7 @@ $(document).ready(function(){
 				          label: className,
 				          backgroundColor: 'rgb(196, 128, 96)',
 				          borderColor: 'rgb(255, 99, 132)',
+				          lineTension: 0 ,
 				          fill : false,
 				          data: data,
 				        }
@@ -805,7 +845,7 @@ $(document).ready(function(){
 				});					
 			},
 			error:function(error){
-				console.log("실패:"+status);
+				console.log("실패3:"+status);
 			}
 		});
 	}

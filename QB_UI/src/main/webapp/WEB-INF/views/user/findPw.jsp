@@ -38,7 +38,7 @@
 	
 	
 
-	$.backstretch("${pageContext.request.contextPath}/img/login-bg.jpg", {
+	$.backstretch("${pageContext.request.contextPath}/img/bg-test8.jpg", {
 		speed : 500
 	});
 	

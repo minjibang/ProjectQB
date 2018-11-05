@@ -13,27 +13,42 @@
 	column-rule-style: solid;
 	column-rule-width: 1px;
 	background: white;
-	/* margin: 1cm auto; */
+	margin: 1cm auto;
 	padding: 2cm;
 	border-radius: 5px;
 }
 #page table {
 	margin-bottom : 50px;
 	margin-right : 20px;
+	margin-left : 5px;
+}
+#page table tr:first-child td{
+	font-weight: bold;
 }
 td {
 	vertical-align : top;
 	padding : 2px;
-}
-th {
-	vertical-align : top;
-	padding-bottom : 15px;
 }
 #all{
 	column-span : all;
 }
 .endline{
 	page-break-before:always;
+}
+h3.logo {
+	font-size: 24px;
+	color: #000000;
+	text-transform: uppercase;
+}
+
+h3.logo span {
+	color: #4ECDC4;
+}
+.left-box{
+	float : left;
+}
+.right-box{
+	float : right;
 }
 </style>
 
@@ -44,19 +59,24 @@ th {
 		<div id="page">
 		<c:if test="${status.index eq 0 }">
 			<div id="all">
-				<h1>${examquestion.exam_paper_name }</h1>
-				<hr>
+				<div class="left-box">
+					<h3 class="logo"><b>QB</b><span>QB</span></h3>
+				</div>
+				<div class="right-box">
+					<h3>${examquestion.exam_paper_name }</h3>
+				</div>
 			</div>
+			<hr id="all">
 		</c:if>
 	</c:if>
 		<table>
 			<tr>
-				<th>${examquestion.exam_question_seq}. &nbsp;&nbsp;&nbsp;</th>
-				<th>${examquestion.question_name } (${examquestion.exam_question_score }점)</th>
+				<td>${examquestion.exam_question_seq}. &nbsp;&nbsp;&nbsp;</td>
+				<td>${examquestion.question_name } (${examquestion.exam_question_score }점)</td>
 			</tr>
 			<c:if test="${examquestion.question_img ne null }">
 			<tr>
-				<td colspan="2"><img src="${pageContext.request.contextPath }/resources/upload/question/${examquestion.question_img}" title="questionIMG" alt="${examquestion.question_img}" class="questionImg"/></td>
+				<td colspan="2"><img src="${pageContext.request.contextPath }/upload/question/${examquestion.question_img}" title="questionIMG" alt="${examquestion.question_img}" class="questionImg"/></td>
 				
 			</tr>
 			</c:if>
@@ -65,9 +85,9 @@ th {
 				<tr>
 					<td>${question_choice.question_choice_num})</td>
 					<td>${question_choice.question_choice_content}
-					<%-- <c:if test="${question_choice.question_choice_image ne null }">
-					<br><img src="${pageContext.request.contextPath }/resources/upload/question/${question_choice.question_choice_image}" title="questionIMG" alt="${question_choice.question_choice_image}" class="questionImg"/>
-					</c:if>  --%>
+					<c:if test="${question_choice.question_choice_image ne null }">
+					<br><img src="${pageContext.request.contextPath }/upload/question/${question_choice.question_choice_image}" title="questionIMG" alt="${question_choice.question_choice_image}" class="questionImg"/>
+					</c:if>
 					</td>
 				<tr>
 				</c:if>

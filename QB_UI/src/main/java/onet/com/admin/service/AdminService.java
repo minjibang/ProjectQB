@@ -87,11 +87,9 @@ public class AdminService {
 			throws IOException, ClassNotFoundException, SQLException {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		//문제 이미지 파일 입력
-		System.out.println("여기1");
 		List<CommonsMultipartFile> files = dto.getQuestion_file();
-		System.out.println("여기1");
 		List<String> filenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
-		if(files==null || files.size()==0){	   
+		if(files==null || files.size()==0){
 		
 		}else if(files != null && files.size() > 0) {
 		   for(CommonsMultipartFile multifile : files) {
@@ -99,6 +97,7 @@ public class AdminService {
 			    String filename = multifile.getOriginalFilename();
 			    String path = request.getServletContext().getRealPath("/upload/question/");
 				String fpath = path + "\\" + filename;
+				System.out.println();
 		
 				if(!filename.equals("")) { //파일 쓰기
 					FileOutputStream fs = new FileOutputStream(fpath);
@@ -265,15 +264,6 @@ public class AdminService {
 		return result;
 	}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
-	
-	/*민지 10.15 클래스 수정 관련*/
-	public int classUpdate(ClassDto dto) {
-		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
-		int result = dao.classUpdate(dto);
-		
-		return result;
-	}
-	/*민지 10.15 클래스 수정 끝*/
 
 
 	// 정원 - 10.15 문제분류 insert 
@@ -504,6 +494,13 @@ public class AdminService {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = dao.checkClassNum(class_name);
 		return result;
+	}
+	
+	public List<MemberDto> teacherList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<MemberDto> teacherList = dao.teacherList();
+		
+		return teacherList;
 	}
 	
 	

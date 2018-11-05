@@ -33,13 +33,13 @@
  	var pageNo = 1;
 	var rowPerPage = 4;
 	var begin = (pageNo - 1) * rowPerPage + 1;	// 문제의 시작 rownum, 1부터 시작한다 
-	//var end = pageNo * rowPerPage;  			// end 가 필요한지 모르겠음
 	var totalRows = ${questionCount};	//	한 시험지의 전체 문제 개수 
 	var totalPages = Math.ceil(totalRows / rowPerPage);
 	
+	var memberId;//line 34?
 	// document.ready 시작 
-	$(function() {
-		
+	$(function() {		
+		memberId=$('#member_id').val();//member_id 값 대입
 		if(totalRows > 4) {
 			$('#nextPageSpan').append('<button class="btn btn-theme03" id="nextPageBtn">다음 페이지</button>');	
 		}
@@ -77,13 +77,12 @@
 				}
 			} 
 		});
-
 		
 		$('#wrongQuestionBtn').click(function() {
 			
 			if(student_answer_status == "all"){
 				
-				if(${wrongQuestionCount} < 4 || ${wrongQuestionCount} == 4) {
+				if(${wrongQuestionCount} < 4 || ${wrongQuestionCount} == 4) {   
 					$('#nextPageSpan').empty();	
 				} else { 
 					if($('#nextPageBtn').length == 0){
@@ -142,6 +141,7 @@
 			type : 'post',
 			data : {
 					'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
+					'member_id' : memberId,
 					'student_answer_status' : student_answer_status,
 					'question_answerSheet' : question_answerSheet,
 					'begin' : begin,
@@ -167,6 +167,7 @@
 			type : 'get',
 			data : {
 				'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
+				'member_id' : memberId,
 				'student_answer_status' : student_answer_status
 			},
 			success : function(data) {
@@ -237,6 +238,7 @@
 </script>
 </head>
 <body>
+<input type="hidden" id="member_id" value='<%=request.getParameter("member_id")%>'>	
 	<div class="col-lg-12 mt">
 		<div id="timerblock">
 			<h3 class="mb exampaneldetailsubject">

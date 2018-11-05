@@ -9,9 +9,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import onet.com.common.dao.CommonDao;
 import onet.com.student.dao.StudentDao;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.MemberDto;
 import onet.com.vo.MessageDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Score_chartDto;
@@ -163,6 +165,17 @@ public class StudentService {
 		return myRank;
 	}
 	
+	public List<MemberDto> rankStudentInfo(String member_id){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		
+		System.out.println("학생컨트롤러 rankStudentInfo진입 :" + member_id);
+		List<MemberDto> rankStudentInfo = null;
+		
+		rankStudentInfo = dao.studentInfo(member_id);
+		return rankStudentInfo;
+		
+	}
+	
 	/*%%%%%%%%%%%%%%%%%%%%%%%%%%%    재훈 끝        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 	
 
@@ -176,12 +189,16 @@ public class StudentService {
 		dto.setSend_member_id(send_member_id);
 		int result = dao.sendTeacherMessage(dto);
 		
-		return result;
-		
-		
+		return result;		
 	}
 	
-	
+	//양회준 11.2 시험 응시 목록 체크
+	public int checkExamMember(String member_id, int exam_info_num) {
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		int check = dao.checkExamMember(member_id, exam_info_num);
+		
+		return check;		
+	}
 
 
 

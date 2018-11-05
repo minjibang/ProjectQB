@@ -89,8 +89,8 @@ public interface AdminDao {
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사*/
 	public int classInsert(ClassDto dto);
 	public String classCheck(String class_name);
-	public List<ClassDto> classSearch(String searchtype, String keyword);
-	public List<ClassDto> adminMainView();
+	public List<ClassDto> classSearch(String searchtype, String keyword, int begin);
+	public List<ClassDto> adminMainView(int begin);
 	/* 태용 - 10.15 클래스 생성, 클래스 유효성검사 끝*/
 
 		
@@ -165,5 +165,9 @@ public interface AdminDao {
 	public List<ExamInfoDto> examScheduleList(String member_id);
 	
 	public int checkClassNum(String class_name);
+	
+	// 현이 11.02 adminMain 클래스 삭제
+	public int deleteClass(String class_name);
+	public List<MemberDto> teacherList();
 }
 

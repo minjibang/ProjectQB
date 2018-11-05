@@ -54,10 +54,12 @@ public class StudentController {
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail(Model model, int exam_info_num) {
-		
+	public String examScheduleDetail(Model model, Principal principal,int exam_info_num) {
+		String member_id=principal.getName();
 		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		int check=studentService.checkExamMember(member_id, exam_info_num);
 		model.addAttribute("dto", dto);
+		model.addAttribute("check", check);
 		
 		return "common.student.exam.examScheduleDetail";
 	}
@@ -173,49 +175,7 @@ public class StudentController {
 	
 	
 	// 10.24 현이 ajax로 시험지의 문제들 불러오기 
-	@RequestMapping("pastExamPaperView.do")
-	public @ResponseBody ModelAndView pastExamPaperView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, @RequestParam("question_answerSheet") String question_answerSheet, 
-			int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
-		
-		//System.out.println("student_answer_status : " + student_answer_status);
-		//System.out.println("question_answerSheet : " + question_answerSheet);
-		
-		ModelAndView mav = new ModelAndView();
-		
-		List<ExamPaperDoQuestionDto> questionList = null;
-		List<Question_choiceDto> questionChoiceList = null;
-		
-		int begin2 = begin - 1;
-		
-		if(question_answerSheet.equals("question")) {		//	문제 리턴(페이징 처리 필요) 
-			
-			mav.setViewName("ajax.student.pastExamPaper_ajax");
-			if(student_answer_status.equals("all")) {
-				questionList = studentService.examPaperDoQuestion(exam_info_num, begin2, rowPerPage);	
-				questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
-			} else if (student_answer_status.equals("wrong")){
-				questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, begin2, rowPerPage);
-				questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
-			}
-			
-		} else if (question_answerSheet.equals("answerSheet")) {	//	답안지 리턴(페이징 필요 없음, 전체 보여주기) 
-			
-			mav.setViewName("ajax.student.pastExamPaperAnswer_ajax");
-			if(student_answer_status.equals("all")) {
-				questionList = studentService.examPaperDoQuestion(exam_info_num, 0, 0);	//	begin, rowPerPage0 추가했음
-				questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
-			} else if (student_answer_status.equals("wrong")){
-				questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, 0, 0);
-				questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
-			}
-			
-		}
-				
-		mav.addObject("questionList", questionList);
-		mav.addObject("questionChoiceList", questionChoiceList);
-				
-		return mav;
-	}
+	
 	
 	// 10.24 현이 ajax로 학생 답안지 리스트 가져오기 
 	@RequestMapping("searchStudentAnswer.do")
@@ -243,23 +203,23 @@ public class StudentController {
 		String class_num=null;
 		String class_name;
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
-		String student_id = principal.getName();
+		String student_name=studentList.get(0).getMember_name();
 		try {
 			class_name = studentList.get(0).getClass_name();
 		}catch(Exception e) {
 			class_name="임시";
 		}
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
-		model.addAttribute("studentId", student_id);
+		model.addAttribute("studentId", member_id);
 		
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(member_id, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		
 		return "student.gradeManage";
@@ -332,7 +292,10 @@ public class StudentController {
           List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
           List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
           List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
+          
           model.addAttribute("classMemberList", classMemberList);
+          model.addAttribute("classTeacherList",classTeacherList);
           model.addAttribute("receiveMessage", receiveMessage);
           model.addAttribute("sendMessage", sendMessage);
           model.addAttribute("member_id", member_id);
@@ -572,6 +535,102 @@ public class StudentController {
 			}
 			
 			return result;
-			
 		}
+		
+
+	/*11.01 학생읽은쪽지 확인*/
+	    @RequestMapping("message_check.do")
+	    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
+	        MessageDto dto = new MessageDto();
+	        int result = commonService.message_check(message_check, message_num);
+	        if(result > 0) {
+	            System.out.println("메시지 체크 성공");
+	        }else {
+	            System.out.println("메시지 체크 실패");
+	        }
+	        return 0;
+
+	    }
+
+		// 10.24 현이 ajax로 시험지의 문제들 불러오기 
+		   @RequestMapping("pastExamPaperView.do")
+		   public @ResponseBody ModelAndView pastExamPaperView(int exam_info_num, @RequestParam("student_answer_status") String student_answer_status, @RequestParam("question_answerSheet") String question_answerSheet, 
+		         int begin, int rowPerPage, Principal principal) throws ClassNotFoundException, SQLException, IOException {
+		      
+		      //System.out.println("student_answer_status : " + student_answer_status);
+		      //System.out.println("question_answerSheet : " + question_answerSheet);
+		      
+		      ModelAndView mav = new ModelAndView();
+		      
+		      List<ExamPaperDoQuestionDto> questionList = null;
+		      List<Question_choiceDto> questionChoiceList = null;
+		      
+		      int begin2 = begin - 1;
+		      
+		      if(question_answerSheet.equals("question")) {      //   문제 리턴(페이징 처리 필요) 
+		         
+		         mav.setViewName("ajax.student.pastExamPaper_ajax");
+		         if(student_answer_status.equals("all")) {
+		            questionList = studentService.examPaperDoQuestion(exam_info_num, begin2, rowPerPage);   
+		            questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+		         } else if (student_answer_status.equals("wrong")){
+		            questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, begin2, rowPerPage);
+		            questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+		         }
+		         
+		      } else if (question_answerSheet.equals("answerSheet")) {   //   답안지 리턴(페이징 필요 없음, 전체 보여주기) 
+		         
+		         mav.setViewName("ajax.student.pastExamPaperAnswer_ajax");
+		         if(student_answer_status.equals("all")) {
+		            questionList = studentService.examPaperDoQuestion(exam_info_num, 0, 0);   //   begin, rowPerPage0 추가했음
+		            questionChoiceList = studentService.examPaperDoQuestion_choice(exam_info_num);
+		         } else if (student_answer_status.equals("wrong")){
+		            questionList = studentService.examPaperDoWrongQuestion(principal.getName(), exam_info_num, 0, 0);
+		            questionChoiceList = studentService.examPaperDoWrongQuestion_choice(exam_info_num);
+		         }
+		         
+		      }
+		            
+		      mav.addObject("questionList", questionList);
+		      mav.addObject("questionChoiceList", questionChoiceList);
+		            
+		      return mav;
+		   }
+
+		   
+		   @RequestMapping("receiveMessageDelete.do")
+			public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
+				int result = 0;
+				System.out.println(receiveDeleteHidden);
+				String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
+				for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
+					
+					result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
+					System.out.println(result);
+				}
+				return result;
+			}
+		   
+		   @RequestMapping("replyMessage.do")
+			public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
+				MessageDto dto = new MessageDto();
+				dto.setMessage_content(text);
+				dto.setReceive_member_id(sender);
+				dto.setSend_member_id(principal.getName());
+				int result = commonService.replyMessage(dto);
+				return result;
+			}
+		
+
+		   @RequestMapping("sendMessageDelete.do")
+			public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
+				int result = 0;
+				String[] sendDeleteHiddenArray=sendDeleteHidden.split(",");
+				for(int i = 0; i < sendDeleteHiddenArray.length;i++) {
+					result = commonService.sendMessageDelete(sendDeleteHiddenArray[i]);
+				}
+				return result;
+			}
+		   
+
 }
