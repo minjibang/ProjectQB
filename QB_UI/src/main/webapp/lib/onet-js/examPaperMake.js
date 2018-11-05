@@ -255,7 +255,6 @@ function insertEP(examName, examDesc, examPStatus){
 });
 }
 function updateEP(examPNum, examName, examDesc, examPStatus){
-	alert("업데이트로 진입한다");
 	 $.ajax({
        url:"../teacher/examPaperUpdate.do",
        type:"get",
@@ -324,7 +323,7 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
 function plusqcore(){
 	var qc = Number($('#qcore').val());
 	$('.questionScoreInputTag').each(function(){
-		if($(this).val()>100){
+		if($(this).val()>20){
 			swal("한 문제당 최대 배점은 20점까지 인정됩니다.");
 			$(this).val(20);
 			qc += Number(20);
