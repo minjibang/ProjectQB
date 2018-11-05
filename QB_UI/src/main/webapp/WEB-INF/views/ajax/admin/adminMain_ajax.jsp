@@ -27,8 +27,12 @@
 											<div class="classBtnDiv">
 												<p class="goright">
 													<input type="hidden" name="class_name" value="${classlist.class_name}"/>
-													<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#classModify" class="modifyClass"><i class="fa fa-pencil btnIcon"></i></button>
-													<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#classDelete" class="deleteClass"><i class="fa fa-trash-o btnIcon"></i></button>
+													<input type="hidden" name="class_num" value="${classlist.class_num}"/>
+													<input type="hidden" name="teacher_name" value="${classlist.teacher_name}"/>
+													<input type="hidden" name="class_start_date" value="${classlist.class_start_date}"/>
+													<input type="hidden" name="class_end_date" value="${classlist.class_end_date}"/>
+													<button type="button" class="btn btn-primary btn-xs updateClass" data-toggle="modal" data-target="#classupdate"><i class="fa fa-pencil btnIcon"></i></button>
+													<button type="button" class="btn btn-danger btn-xs deleteClass" data-toggle="modal" data-target="#classDelete"><i class="fa fa-trash-o btnIcon"></i></button>
 													<i class="fa fa-users classUsersIcon"></i> ${classlist.class_student_count}명
 												</p>
 											</div>

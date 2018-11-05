@@ -5,23 +5,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.admin.dao.AdminDao">
 <!-- 태용 시작 -->
 <sql id="search">
-	<if test="param1 ==''">
-		where class_name like concat('%',#{param2},'%') or teacher_name like concat('%',#{param2},'%')
+	<if test="searchtype ==''">
+		where c.class_name like concat('%',#{keyword},'%') or c.teacher_name like concat('%',#{keyword},'%')
 	</if>
-	<if test='param1 =="n"'>
-		where class_name like concat('%',#{param2},'%')
+	<if test='searchtype =="n"'>
+		where c.class_name like concat('%',#{keyword},'%')
 	</if>
-	<if test='param1 =="t"'>
-		where teacher_name like concat('%',#{param2},'%')
+	<if test='searchtype =="t"'>
+		where c.teacher_name like concat('%',#{keyword},'%')
 	</if>
 </sql>
 
-<select id="adminMainView" resultType="onet.com.vo.ClassDto">
-	select * from class 
-</select>
+<select id="adminMainView" parameterType="int" resultType="onet.com.vo.ClassDto">
+	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
+	ifnull(count(m.member_id) , 0) as class_student_count
+	from class c left outer join member m 
+	on (m.class_name = c.class_name)
+	where c.class_enable = 1
+	group by c.class_name
+	order by c.class_start_date
+	limit #{begin}, 4
+</select>	
 
 <select id="classSearch" resultType="onet.com.vo.ClassDto">
-	select * from class <include refid="search"></include>
+	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
+	ifnull(count(m.member_id) , 0) as class_student_count
+	from class c left outer join member m 
+	on (m.class_name = c.class_name)
+	<include refid="search"></include>
+	group by c.class_name
+	order by c.class_start_date 
+	limit #{begin}, 4
 </select>
 
 <insert id="classInsert" parameterType="onet.com.vo.ClassDto">

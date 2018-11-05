@@ -61,6 +61,9 @@ public interface StudentDao {
 	/*10.29 재훈 학생 자기 등수 확인 시작*/
 	public List<Score_chartDto> myRank(String member_id, String exam_info_num);
 	/*10.29 재훈 학생 자기 등수 확인 시작*/
+	
+	//양회준 11.2 시험 응시 목록 체크
+	public int checkExamMember(String member_id, int exam_info_num);
 
 }
 

@@ -264,15 +264,6 @@ public class AdminService {
 		return result;
 	}
 	/*민지 10.13 클래스 멤버 삭제 관련 끝*/
-	
-	/*민지 10.15 클래스 수정 관련*/
-	public int classUpdate(ClassDto dto) {
-		AdminDao dao=  sqlsession.getMapper(AdminDao.class);
-		int result = dao.classUpdate(dto);
-		
-		return result;
-	}
-	/*민지 10.15 클래스 수정 끝*/
 
 
 	// 정원 - 10.15 문제분류 insert 
