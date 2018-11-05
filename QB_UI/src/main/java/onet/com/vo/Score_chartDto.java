@@ -19,6 +19,9 @@ public class Score_chartDto {
 	private int start;
 	private int end;
 	
+	// 영준 10.25 추가
+	private String member_name;
+	
 	//양회준11.5추가
 	private String comment;
 	
@@ -47,8 +50,7 @@ public class Score_chartDto {
 		this.end = end;
 	}
 
-	// 영준 10.25 추가
-	private String member_name;
+	
 
 	
 	public String getMember_name() {

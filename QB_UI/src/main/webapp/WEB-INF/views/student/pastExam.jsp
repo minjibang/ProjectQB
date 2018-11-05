@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+	.examComment{
+		display: none;
+	}
+
+</style>
 <link
 	href="${pageContext.request.contextPath}/css/studentPastExam.css"
 	rel="stylesheet">
@@ -30,13 +37,15 @@
 							var html = "";
 							html += '<tr class="exam_line"><td class="pastExamTd">';
 							html += '<h3>' + data[index].exam_info_name + '</h3>';
-							html += '<span>'+ data[index].exam_info_desc +'</span></td><td class="pastExamTd"><div>시험 날짜 : ';
+							html += '<span>'+ data[index].exam_info_desc +'</span><div class="examComment"><strong>강사님 : '+data[index].comment+'</strong></div>';
+							html += '</td><td class="pastExamTd"><div>시험 날짜 : ';
 							html += data[index].exam_info_date;
 							html += '</div><div>시험 시간 : ';
 							html += data[index].exam_info_start +' ~ '+ data[index].exam_info_end;
 							html += '</div><div>[' + data[index].exam_info_time + ']</div></td>';
-							html += '<td class="btn_td">'; 
-							html += '<button class="btn btn-theme pastExamBtn" id="" value="'+data[index].exam_info_num+'">다시 보기</button>';
+							html += '<td class="btn_td">';
+							html += '<button class="btn btn-theme pastExamBtn" id="" value="'+data[index].exam_info_num+'">다시 보기</button> ';
+							html += '<button class="btn btn-theme ExamCommentBtn" id="" value="'+data[index].comment+'">평가 보기</button>';
 							html += '<input type="hidden" value="'+data[index].exam_info_date+'_'+data[index].exam_info_end+'"/>';
 							html += '</td></tr>';
 							
@@ -73,6 +82,10 @@
 				swal("\n시험 시간이 종료되고 열람이 가능합니다.");
 			 }  */
 		});
+
+		$(document).on('click','.ExamCommentBtn',function(){
+			$(this).parent().prev().prev().children().eq(2).toggle();
+		});
 		
 	});	//	document.ready 끝 
 </script> 
@@ -89,7 +102,7 @@
 						<table class="title_table">
 							<tr>
 								<td class="title_table_fst_td">
-									<p id="student_name">${member_name}</p>  
+									<p id="student_name">${member_comment[0].member_name}</p>  
 								</td>
 							</tr>
 							<tr>
@@ -105,11 +118,12 @@
 						<div class="last_exam_div">
 							<table id="last_exam_table">
 								<!-- 하나의 시험정보 시작 -->
-								<c:forEach var="examInfo" items="${examInfoList}">
+								<c:forEach var="examInfo" items="${examInfoList}" varStatus="status">
 									<tr class="exam_line">
 										<td class="pastExamTd">
 											<h3>${examInfo.exam_info_name}</h3> 
-											<span>${examInfo.exam_info_desc}</span>
+											<div>${examInfo.exam_info_desc}</div>
+											<div class="examComment"><strong>강사님 : ${member_comment[status.index].comment}</strong></div>
 										</td>
 										<td class="pastExamTd">
 											<div>시험 날짜 : ${examInfo.exam_info_date}</div>
@@ -118,6 +132,7 @@
 										</td>
 										<td class="btn_td">
 											<button class="btn btn-theme pastExamBtn" id="" value="${examInfo.exam_info_num}">다시 보기</button>
+											<button class="btn btn-theme ExamCommentBtn" id="" value="${member_comment[status.index].comment}">평가 보기</button>
 											<input type="hidden" value="${examInfo.exam_info_date}_${examInfo.exam_info_end}"/>
 										</td>
 									</tr>

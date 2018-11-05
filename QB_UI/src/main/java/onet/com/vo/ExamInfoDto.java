@@ -14,7 +14,16 @@ public class ExamInfoDto {
 	private String exam_info_time;
 	private int class_num;
 	
+	//양회준 11.5
+	private String comment;
 	
+	
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public int getExam_info_num() {
 		return exam_info_num;
 	}
