@@ -249,6 +249,9 @@ $(document).ready(function(){
 	$(document).on('click','.replyAdd',function(){
 		var replyInput = $(this).siblings('.replyInput').eq(0).val();
 		var comment_num = $(this).parent().parent().prev().attr('id');
+		if(replyInput == null || replyInput == ""){
+			swal("댓글을 입력하지 않았습니다", "글을 입력 후 다시 등록버튼을 누르세요", "error");
+		}else{
 		$.ajax({
 			 type : "post",
 			 url : "commentReply.do",
@@ -267,7 +270,7 @@ $(document).ready(function(){
 			 alert("에러야!");
 			 }
 			 }); 
-		
+		}
 	});
 	
 	$(document).on('click','.replyReply',function(){
@@ -293,8 +296,9 @@ $(document).ready(function(){
 	$(document).on('click','.replyReplyAdd',function(){
 		var replyInput = $(this).siblings('.replyInput').eq(0).val();
 		var comment_num = $(this).parent().parent().prev().attr('id');
-		console.log(replyInput);
-		console.log(comment_num);
+		if(replyInput == null || replyInput == ""){
+			swal("댓글을 입력하지 않았습니다", "글을 입력 후 다시 등록버튼을 누르세요", "error");
+		}else{
 		$.ajax({
 			 type : "post",
 			 url : "commentReply.do",
@@ -313,6 +317,7 @@ $(document).ready(function(){
 			  alert("에러야!"); 
 			 }
 			 });
+		}
 					});
 
 	

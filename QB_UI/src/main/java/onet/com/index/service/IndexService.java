@@ -70,7 +70,7 @@ public class IndexService {
 			mail.setMailFrom("bitcamp109");// 송신메일
 			mail.setMailTo(mailto);// 수신메일
 			String randomNum = this.randomNum();
-			String randomPwd = this.randomPwd(); 
+			String randomPwd = this.randomPwd();
 			if (command == "join") {
 				mail.setMailSubject("[QB]이메일 인증 안내 메일입니다.");// 메일제목
 				mail.setTemplateName("jointemplate.vm");// 메일내용
@@ -94,23 +94,15 @@ public class IndexService {
 
 				
 				VelocityContext velocityContext = new VelocityContext();
-				
-					
 				velocityContext.put("firstName", member_id);
-				
-
-				
 				velocityContext.put("company", mail.getCompany());
 				velocityContext.put("mailFrom", mail.getMailFrom());
 				velocityContext.put("randomNum", randomNum);
 				velocityContext.put("randomPwd", randomPwd);
-				System.out.println("2");
 				
 			
 			//"./src/main/resources/templates/"
-				System.out.println(mail.getTemplateName());
 				Template template = velocityEngine.getTemplate(mail.getTemplateName());
-				System.out.println("3");
 				StringWriter stringWriter = new StringWriter();
 				template.merge(velocityContext, stringWriter);
 				

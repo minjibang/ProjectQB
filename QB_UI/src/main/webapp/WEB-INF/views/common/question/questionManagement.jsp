@@ -11,6 +11,8 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!-- accept="image/jpg, image/jpeg, image/png, image/gif" -->
+
 <!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
@@ -149,7 +151,8 @@
 									<hr>
 
 									<select id="question_lg_category" class="form-control myQuestionSelectCategory"
-										name="lg_category_name">
+										name="lg_category_name" data-toggle="tooltip" data-placement="top" 
+										title="대분류 선택 시 해당 대분류에 속하는 중분류를 선택할 수 있습니다.">
 										<option value="" selected disabled>대분류 선택</option>
 										<c:forEach items="${lgCatList}" var="lgCatList">
 											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
@@ -157,16 +160,19 @@
 									</select> 
 									
 									<select id="question_md_category" class="form-control myQuestionSelectCategory"
-										name="md_category_name">
+										name="md_category_name"data-toggle="tooltip" data-placement="top" 
+										title="대분류 선택 시 해당 대분류에 속하는 중분류를 선택할 수 있습니다.">
 										<option value="">중분류 선택</option>
 									</select> 
 									
 									<select id="question_sm_category" class="form-control myQuestionSelectCategory"
-										name="sm_category_name">
+										name="sm_category_name"data-toggle="tooltip" data-placement="top" 
+										title="중분류 선택 시 해당 중분류에 속하는 소분류를 선택할 수 있습니다. ">
 										<option value="">소분류 선택</option>
 									</select> 
 									
-									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type">
+									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type"data-toggle="tooltip" data-placement="top" 
+										title="난이도별 검색을 원하시면 선택해주세요. 선택하지 않을 시에는 전체 난이도에서 검색됩니다.">
 										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
 											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
@@ -174,7 +180,8 @@
 									</select> 
 									
 									<select class="form-control myQuestionSelectCategory" 
-									id="questiontype" name="questionType">
+									id="questiontype" name="questionType"data-toggle="tooltip" data-placement="top" 
+										title="문제타입별 검색을 원하시면 선택해주세요. 선택하지 않을 시에는 전체 문제타입에서 검색됩니다.">
 										<option value="">문제타입</option>
 										<option value="">전체</option>
 										<option value="객관식">객관식</option>
@@ -284,14 +291,14 @@
 															style="max-width: 400px; max-height: 250px; line-height: 20px;">
 														</div>
 														<span>
-															<span class="btn btn-theme02 btn-file">
+															<span class="btn btn-theme02 btn-file btn_question_image">
 																<span class="fileupload-new">
 																	<i class="fa fa-paperclip"></i>image
 																</span> 
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_file" class="default"/>
+																<input type="file" name="question_file" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(0)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -340,13 +347,14 @@
 
 													</h4>
 													<select id="howManyChoices" class="form-control" name="howManyChoices">
-														<option id="howManyChoices1" value="1">보기개수 선택</option>
+														<option id="howManyChoices1" value="1" disabled>보기 개수 선택</option>
 														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
 														<option id="howManyChoices3" value="3">보기 개수: 3개</option>
 														<option id="howManyChoices4" value="4" selected>보기 개수: 4개</option>
 														<option id="howManyChoices5" value="5">보기 개수: 5개</option>
 														
-													</select> <br> <br>
+													</select> 
+													<p class="warning_text">주의 - 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
 													
 													
 													<!-- 1번 보기 -->
@@ -370,7 +378,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[0]" class="default"/>
+																<input type="file" name="question_choice_files[0]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(1)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -397,7 +405,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[1]" class="default"/>
+																<input type="file" name="question_choice_files[1]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(2)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -421,7 +429,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[2]" class="default"/>
+																<input type="file" name="question_choice_files[2]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(3)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -445,39 +453,12 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[3]" class="default"/>
+																<input type="file" name="question_choice_files[3]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(4)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
 													</span></div>
-													
-													
-													<!-- 5번 보기 -->
-													<!-- <div id="QCNPlus_5">
-													<b><input type="text" name="question_choice_num"
-														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content" id="question_choice_content5"
-														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new QCN_5" data-provides="fileupload">
-														<div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;">
-														</div>
-														<span>
-															<span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new">
-																	<i class="fa fa-paperclip"></i>image
-																</span> 
-																<span class="fileupload-exists">
-																	<i class="fa fa-undo"></i>Change
-																</span> 
-																<input type="file" name="question_choice_files[4]" class="default"/>
-															</span>
-															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</span>
-														</span>
-													</span></div> -->
-													
 													
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
@@ -497,7 +478,7 @@
 										</div>
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
-										<button type="reset" class="btn btn-secondary quesCategory">
+										<button type="reset" id="btn_Reset" class="btn btn-secondary quesCategory">
 										입력 취소</button>
 										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
@@ -532,8 +513,10 @@
 	$(document).ready(function() {
 		$('#btnSubmit').click(function(){
 			var filechk=$("input[type=file]").val();
-			console.log(filechk);			
+			console.log(filechk);
 		});
+		
+		
 		
 		$('#question_lg_category')
 				.change(

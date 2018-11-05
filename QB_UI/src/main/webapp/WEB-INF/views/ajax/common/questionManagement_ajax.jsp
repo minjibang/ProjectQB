@@ -19,9 +19,6 @@
 				<div class="col-lg-2">
 					${question.md_category_name}<br> ${question.sm_category_name }<br>
 					난이도: ${question.level_name}<br> 
-					<c:if test="${question.question_type eq '객관식'}">
-					정답:${question.question_answer }<br>
-					</c:if>
 					정답률:${question.question_correct_ratio}%<br> 출제자:
 					${question.member_id }<br>
 				</div>
@@ -35,11 +32,10 @@
 								alt="questionImg" class="questionImg" />
 						</c:if>
 					</div>
-					<br>
 					<div>
-						<c:if test="${question.question_type eq '단답형'}">
+						
 							<p>정답:  ${question.question_answer } </p>
-						</c:if>
+						<br>
 					
 						<c:forEach items="${question_choice}" var="question_choice">
 							<c:if

@@ -71,8 +71,8 @@ public class IndexController {
 	public String pwdSearch(MemberDto dto, Model model) {
 		String mailto = dto.getMember_email();
 		String member_id = dto.getMember_id();
-		String pwd = indexService.sendMail(mailto,"loginfail", member_id);
-		dto.setMember_pwd(pwd);
+		String pwd = indexService.sendMail(mailto,"loginfail", null);
+		dto.setMember_pwd(this.bCryptPasswordEncoder.encode(pwd));
 		dto.setMember_id(member_id);
 		int re = indexService.pwdSearch(dto);
 		String result = "";
@@ -126,7 +126,6 @@ public class IndexController {
 	
 	@RequestMapping(value = "mail.do",  method = RequestMethod.POST)
 	public @ResponseBody String mail(String mailto, String member_id) {
-		
 		String randomNum = indexService.sendMail(mailto, "join", member_id);// 회원가입 메일발송
 		System.out.println("randomNum>>"+randomNum);
 		return randomNum;
