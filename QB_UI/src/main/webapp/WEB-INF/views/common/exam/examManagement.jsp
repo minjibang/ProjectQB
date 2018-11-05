@@ -187,7 +187,7 @@
 																	${examScheduleList.exam_info_end}</p>
 																<p>[${examScheduleList.exam_info_time}]</p>
 																<p>응시 대상 : ${examScheduleList.exam_info_member}</p>
-
+																<p>클래스명 : ${examScheduleList.class_name}</p>
 																<button type="button"
 																	id="${examScheduleList.exam_info_num}"
 																	name="deleteExamScheduleBtn"

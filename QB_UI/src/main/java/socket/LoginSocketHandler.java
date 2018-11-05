@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -21,31 +23,35 @@ import onet.com.vo.MessageDto;
 
 public class LoginSocketHandler extends TextWebSocketHandler {
 
+	 private Logger logger = LoggerFactory.getLogger(LoginSocketHandler.class);
+
+	
    @Autowired
    SqlSession sqlsession;
 
    
    @Override
    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    // SessionMaps.getALarmusrs() => alarmusers를  return ( HashMap )
+    SessionMaps.getAlarmusers();
    System.out.println("연결됐다");
-      //super.afterConnectionEstablished(session);
+    super.afterConnectionEstablished(session);
    System.out.println("연결된 사용자 id>>"+session.getPrincipal().getName());
    System.out.println("연결된 사용자의 세션값 >> " + session.getId());
 
-   
-   
+
    }
 
 
-   
+
+
+	
 
    @Override
    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
       
       System.out.println("메시지 보냈다.");
       TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-      /*this.logger.info(message.getPayload());*/
+      this.logger.info(message.getPayload());
 
       System.out.println("핸들러로 넘어간값>>"+message.getPayload());
       
@@ -110,10 +116,10 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 
    @Override
    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-      /*
-      SessionMaps.getAlarmusers().remove(session.getId());*/
+      
+      SessionMaps.getAlarmusers().remove(session.getId());
       System.out.println("연결끊었다.");
-      //super.afterConnectionClosed(session, status);
+      super.afterConnectionClosed(session, status);
    }
 
 }

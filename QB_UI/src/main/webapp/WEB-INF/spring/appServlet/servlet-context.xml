@@ -46,10 +46,12 @@
 	<beans:bean class="onet.com.file.downloadController.DownloadController"/>
 	<beans:bean id="download" class="onet.com.file.downloadController.DownloadView"/>
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>   
+
 	
-	<websocket:handlers>
+	<websocket:handlers allowed-origins="*">
         <websocket:mapping path="/count.do" handler="myHandler"/>
     </websocket:handlers>
+    
 	<beans:bean id="myHandler" class="socket.LoginSocketHandler"/>
 
 

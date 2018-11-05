@@ -41,6 +41,7 @@ import onet.com.vo.CommentDto;
 import onet.com.vo.Class_chartDto;
 
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
 import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
@@ -1189,4 +1190,80 @@ public class AdminController {
 					
 			return "exam.student.pastExamPaper";
 		}
+		
+		//11.05민지 시험일정 수정
+		@RequestMapping("examInfoIUpdate.do")
+		public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
+			
+			System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
+			System.out.println("memberarray2값>>"+memberarray2+"<<");
+			
+			String [] memberchecklist= memberarray2.split(",");
+			
+			int result = teacherService.examInfoIUpdate(dto);
+			
+			if(result > 0) {
+				System.out.println("exam_info_num>>" + exam_info_num + "   <<");
+				int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
+				if(result2>0) {
+					System.out.println("수정할때 학생 리스트 삭제 성공");
+					String memberid="";
+					int result3;
+					for(int i = 0; i<=memberchecklist.length-1;i++) {
+						
+						 memberid = memberchecklist[i];
+						ExamMemberDto exammemberdto = new ExamMemberDto();
+						System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+						List<ExamInfoDto> list= teacherService.classExamList(exam_info_num);
+						int papernum= list.get(0).getExam_paper_num();
+						System.out.println("papernum  >>  "+ papernum + " <<");
+						List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
+						int infonum = examinfolist.size()-1;
+						System.out.println(examinfolist.toString());
+						int infonum2 = examinfolist.get(infonum).getExam_info_num();
+			
+						System.out.println("examinfolist>>>" + infonum2+ "    <<");
+						exammemberdto.setExam_info_num(infonum2);
+						exammemberdto.setMember_id(memberid);
+						result3=teacherService.examMemberInsert(exammemberdto);
+						
+						if(result3>0) {
+							System.out.println("수정할때 체크리스트 insert 성공");
+						}else {
+							System.out.println("체크리스트 insert 실패");
+					}
+					}
+					
+				}else {
+					System.out.println("수정할때 학생 리스트 삭제 실패");
+				}
+				
+			}else {
+				System.out.println("수정실패");
+			}
+			
+			return "redirect:examManagement.do";
+		}
+		/*11.05 민지 시험일정 삭제 관리자에서*/
+		/* 민지 - 18.10.23 시험 일정 삭제 시작 */
+		@RequestMapping(value = "teacherExamSchedultDelete.do", method = RequestMethod.POST)
+		public @ResponseBody String teacherExamSchedultDelete(@RequestParam("exam_info_num") int exam_info_num, @RequestParam("currentDate") int currentDate, @RequestParam("removeData") int removeData) //@RequestBody (비동기: 객체 형태로 받아요) 
+		{	
+			
+			/*deptService.insertDept(dto);
+			return dto.toString();*/
+			String result2="";
+			if(currentDate>removeData) {
+				System.out.println("지난시험지울거다");
+				result2="n";
+			}else {
+				int result = teacherService.teacherExamSchedultDelete(exam_info_num);
+				result2 = String.valueOf(result);
+				
+			}
+			System.out.println(">>>>>>"+result2);
+			return result2;
+			
+		}
+		/* 민지 - 18.10.23 시험 일정 삭제 끝 */
 }
