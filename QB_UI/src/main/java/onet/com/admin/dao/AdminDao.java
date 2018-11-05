@@ -170,10 +170,19 @@ public interface AdminDao {
 	public int deleteClass(String class_name);
 	public List<MemberDto> teacherList();
 	
+
+	//민지 11.05 시험 검색
+	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin);
+	public List<ExamPaperDto> exampaperlistClass(int begin);
+
 	public List<CategoryDto> selectTotalLgList();
 	
 	public List<CategoryDto> selectTotalMdList();
 	
 	public List<CategoryDto> selectTotalSmList();
+	
+	//민지11.05 시험일정검색
+	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin);
+	public List<ExamInfoDto> examinfolistClass(int begin);
 }
 

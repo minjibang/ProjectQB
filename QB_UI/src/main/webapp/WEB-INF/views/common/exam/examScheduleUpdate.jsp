@@ -7,23 +7,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <link
    href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
    rel="stylesheet">
  <script
    src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <section id="main-content">
   <section class="wrapper-low site-min-height">
   
     <div class="row mt">
       <div class="col-lg-12 mt">
         <div class="row content-panel">
+        	 <div class="panel-heading">
+						<header class="panel-heading wht-bg">
+							<h4 class="gen-case">
+								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;시험 일정 수정
+							</h4>
+						</header>
+				</div>
+        
           <div class="panel-body">
               <div id="updateExam" class="tab-pane">
                 <div class="row">
                   <div class="col-md-12">
-                   <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">         
-                     <h2><strong>시험 일정 수정</strong></h2>
+                   <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post">         
                     <div class="col-md-2" id="examScheduleUpdateMember">
                        <div class="invite-row">
                          <h4 class="pull-left">응시대상자</h4>
@@ -58,21 +67,19 @@
                          </div>
                      </div>
                   </div>
-                  <div class="col-md-10">
-                     <div class="col-md-4 detailed">
-                        <div>
-                          <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
-                        </div>
-                        <h3>시험명 : ${param.exam_info_name}</h3>
-                     
+                     <div class="col-md-1">
                      </div>
-                    <div class="col-md-8 detailed">
+                    <div class="col-md-9">
                     <%-- 폼 양식 시작 --%>        
                    
                            <input type="hidden" value="${param.exam_info_name}" id="exam_info_name" name="exam_info_name"/>
                          <input type="hidden" id="exam_info_num" name="exam_info_num" value="${param.exam_info_num}"/>  
                           <input type="hidden" id="memberarray2" name="memberarray2" />
                        <c:forEach items="${classExamList}" var="classExamList">
+                       	<div class="form-group">
+                          <label class="control-label col-md-2">시험명</label>
+                            <div class="col-md-5 col-xs-11"><p>${param.exam_info_name}</p></div>
+                        </div>
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
@@ -127,24 +134,19 @@
                           <br>
                           <br>
                           <br>
-                                              <div class="col-md-12">
-                      <div class="col-md-2">
-                      </div>
-                      <div class="col-md-3">
-                        <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
-                      </div>
-                      <div class="col-md-2">
-                      </div>
-                      <div class="col-md-4">
-
-                        <button class="btn btn-primary btn-lg btn-block" id="examUpdateBtn">시험 일정 수정</button>
-                      </div>
-                   </div>
                     </c:forEach>
-                     </div></div>
+                     </div>
                         </form>
                         <%-- 폼 양식 끝 --%>
-
+						<div class="col-md-12 examScheduleBtnDiv">
+                      <se:authorize access="hasRole('ROLE_TEACHER')">
+                        <button type="button" class="btn btn-second" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
+                        </se:authorize>
+                          <se:authorize access="hasRole('ROLE_ADMIN')">
+                        <button type="button" class="btn btn-second" onclick="location.href='${pageContext.request.contextPath}/admin/examManagement.do'">취소</button>
+                        </se:authorize>
+                        <button class="btn btn-theme" id="examUpdateBtn" type="button" onclick="check()">시험 일정 수정</button>
+                   </div>
                       </div>
                     </div>
 
@@ -234,12 +236,25 @@ function check(){
       alert("학생을 선택하세요.");
       return false;
    }else {
-      var insertconfirm = confirm("시험일정을 수정하시겠습니까?");
-      if(insertconfirm == true){
-         return true;
-      }else{
-         return false;
-      }
+      	swal({
+      		 title: "시험 일정을 수정하시겠습니까?",
+			  icon: "info",
+			  buttons: true,
+			  dangerMode: true
+		}).then((willDelete) => {
+		  if (willDelete) {
+			  
+				swal({
+				       title: "수정이 완료되었습니다.",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+						document.getElementById("examScheduleRegistForm").submit();
+				});
+		    
+		  } else {
+		  }
+	});
    }
    
 

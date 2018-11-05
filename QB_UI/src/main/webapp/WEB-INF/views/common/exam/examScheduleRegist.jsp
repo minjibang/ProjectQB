@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <link
 	href="${pageContext.request.contextPath}/css/examScheduleRegist.css"
 	rel="stylesheet">
@@ -21,13 +22,19 @@
     <div class="row mt">
       <div class="col-lg-12 mt">
         <div class="row content-panel">
+       			 <div class="panel-heading">
+						<header class="panel-heading wht-bg">
+							<h4 class="gen-case">
+								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;시험 일정 등록
+							</h4>
+						</header>
+				</div>
+        
           <div class="panel-body">
               <div id="updateExam" class="tab-pane">
                 <div class="row">
                  <div class="col-md-12">
-                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" >             
-                  	<h2><strong>시험 일정 등록</strong></h2>
-                  	
+                 <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" >   
                     <div class="col-md-2" id="examScheduleUpdateMember">
 	                    <div class="invite-row">
 	                      <h4 class="pull-left">응시대상자</h4>
@@ -49,15 +56,9 @@
 	                      </div>
                      </div>
                   </div>
-                  <div class="col-md-10">
-                     <div class="col-md-4 detailed">
-                        <div>
-                          <iframe src = "index.html" style="width:100%;height:330px;"></iframe>
-                        </div>
-                        <h3>시험명 : ${param.exam_paper_name}</h3>
-                        
-                     </div>
-                    <div class="col-md-8 detailed">
+                  <div class="col-md-1">
+                  </div>
+                  <div class="col-md-9">
                     <%-- 폼 양식 시작 --%>        
                      
                          <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>                         
@@ -65,6 +66,11 @@
                          <input type="hidden" id="class_num" name="class_num" value="${class_num}"/>
                          <input type="hidden" id="class_name" name="class_name" value="${class_name}"/> 
 						 <input type="hidden" id="memberarray2" name="memberarray2" />
+						 
+						 <div class="form-group">
+                          <label class="control-label col-md-2">시험명</label>
+                            <div class="col-md-5 col-xs-11"><p>${param.exam_paper_name}</p></div>
+                        </div>
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
                             <div class="col-md-5 col-xs-11">
@@ -120,20 +126,17 @@
                           <br>
                           <br>
                           <br>
-                                              <div class="col-md-12">
-                      <div class="col-md-2">
-                      </div>
-                      <div class="col-md-3">
-                        <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
-                      </div>
-                      <div class="col-md-2">
-                      </div>
-                      <input type="hidden" id="memberlistbox" name="memberlistbox"/>
-                      <div class="col-md-4">
-
-                        <button class="btn btn-primary btn-lg btn-block" id="examManagementBtn" type="button" onclick="check()">시험 일정 등록</button>
-                      </div>
-                    </div></div></div>
+                     </div>
+	                     <div class="col-md-12 examScheduleBtnDiv">
+	                       <se:authorize access="hasRole('ROLE_TEACHER')">
+	                        <button type="button" class="btn btn-second" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
+	                        </se:authorize>
+	                          <se:authorize access="hasRole('ROLE_ADMIN')">
+	                        <button type="button" class="btn btn-second" onclick="location.href='${pageContext.request.contextPath}/admin/examManagement.do'">취소</button>
+	                        </se:authorize>
+	                      <input type="hidden" id="memberlistbox" name="memberlistbox"/>
+	                        <button class="btn btn-theme" id="examManagementBtn" type="button" onclick="check()">시험 일정 등록</button>
+	                    </div>
                         </form>
                         <%-- 폼 양식 끝 --%>
 
@@ -232,15 +235,18 @@ function check(){
 	}else {
 		swal({
 			  title: "시험 일정 등록하시겠습니까?",
-			  icon: "warning",
+			  icon: "info",
 			  buttons: true,
 			  dangerMode: true
 			}).then((willDelete) => {
 			  if (willDelete) {
-			    swal("일정이 등록 되었습니다.", {
-			      icon: "success"
-			    });
-			    document.getElementById("examScheduleRegistForm").submit();
+				  swal({
+				       title: "등록이 완료되었습니다.",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+						 document.getElementById("examScheduleRegistForm").submit();
+				});
 			  } else {
 			  }
 		});

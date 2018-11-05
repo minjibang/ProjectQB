@@ -46,7 +46,7 @@
 												<h4>${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
-									                    <th><i class="fa fa-bullhorn"></i>학생목록</th>
+									                    <th id="studentListTh"><i class="fa fa-bullhorn">&nbsp;</i>학생목록</th>
 									                  </tr>
 									                </thead>
 									                <tbody>									                
@@ -68,7 +68,7 @@
 								
 								<%-- 선택 학생 정보 영역 시작 --%>
 								<div class="col-lg-10">
-									<h3 id="studentListName">${studentList[0].member_name}(${studentList[0].member_id})</h3>
+									<h3 id="studentListName">&nbsp;&nbsp;${studentList[0].member_name}(${studentList[0].member_id})</h3>
 									<h4 id="studentListEmail">이메일 : ${studentList[0].member_email}</h4>
 									<h4 id="studentListPhone">핸드폰 : ${studentList[0].member_phone}</h4>
 
@@ -119,7 +119,7 @@
 												<h4 id="tab2_className">${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
-									                    <th><i class="fa fa-bullhorn"></i>학생목록</th>
+									                    <th id="studentListTh"><i class="fa fa-bullhorn"></i>학생목록</th>
 									                  </tr>
 									                </thead>
 									                <tbody>									                

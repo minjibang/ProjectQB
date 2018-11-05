@@ -70,9 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from exam_paper where member_id = #{param1} and exam_paper_status = true and exam_paper_enable = true order by exam_paper_num desc
 </select>
 <!-- 내 임시시헙지 리스트 뿌려주기 -->
-<select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto">
+<!-- <select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto" parameterType="String">
 	select * from exam_paper where member_id = #{param1} and exam_paper_status = false order by exam_paper_num desc
-</select>
+</select> -->
 
 <!-- 시험 일정 리스트 뿌려주기 -->
 <select id="examScheduleList" resultType="onet.com.vo.ExamInfoDto">
@@ -292,7 +292,33 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 
 </select>
 
+<select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto" >
+	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} limit #{begin}, 4
+</select>
 
+<select id="exampaperlistClass" resultType="onet.com.vo.ExamPaperDto">
+	select * from exam_paper where exam_paper_status=1 and member_id=#{member_id} limit #{begin}, 4 
+</select>
+
+<select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
+	select ep.exam_paper_num, ep.exam_paper_name, ep.member_id, ep.exam_paper_desc, ep.exam_paper_status, m.class_name 
+	from exam_paper ep left outer join member m 
+	on (ep.member_id = m.member_id)
+	<include refid="teacherExampapersearch"></include>
+	limit #{begin}, 4
+</select>
+
+<sql id="teacherExampapersearch">
+	<if test="searchType=='all'">
+		where ep.exam_paper_name like concat('%',#{keyword},'%') or m.class_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+	</if>
+	<if test='searchType =="n"'>
+		where m.class_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+	</if>
+	<if test='searchType =="p"'>
+		where ep.exam_paper_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+	</if>
+</sql>
 
 </mapper>
 

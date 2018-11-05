@@ -124,10 +124,10 @@ public class TeacherService {
 		return result;	
 	}
 	//내임시시험지 리스트
-	public List<ExamPaperDto> myTempExamList(String member_id){
+	public List<ExamPaperDto> myTempExamList(String member_id, int begin){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamPaperDto> result = dao.myTempExamList(member_id);
-		return result;	
+		List<ExamPaperDto> result = dao.myTempExamList(member_id, begin);
+		return result;
 	}
 	
 	//시험등록 일정리스트
@@ -296,7 +296,7 @@ public class TeacherService {
 	public int teacherExamMemberDelete(int exam_info_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.teacherExamMemberDelete(exam_info_num);
-		
+		System.out.println("서비스에서 result 값: >>>> " + result);
 		return result;
 	}
 	
@@ -309,7 +309,17 @@ public class TeacherService {
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
+	public List<ExamPaperDto> exampaperlistClass(String member_id, int begin){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamPaperDto> result = dao.exampaperlistClass(member_id, begin);
+		return result;
+	}
 	
+	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin, String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		List<ExamPaperDto> result = dao.exampaperSearch(searchType, keyword, begin, member_id);
+		return result;
+	}
 	
 	
 }

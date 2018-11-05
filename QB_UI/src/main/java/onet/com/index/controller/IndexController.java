@@ -72,7 +72,7 @@ public class IndexController {
 		String mailto = dto.getMember_email();
 		String member_id = dto.getMember_id();
 		String pwd = indexService.sendMail(mailto,"loginfail");
-		dto.setMember_pwd(pwd);
+		dto.setMember_pwd(this.bCryptPasswordEncoder.encode(pwd));
 		dto.setMember_id(member_id);
 		int re = indexService.pwdSearch(dto);
 		String result = "";

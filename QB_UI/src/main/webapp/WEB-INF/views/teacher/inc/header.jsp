@@ -65,6 +65,7 @@ $(document).ready(function(){
   <script type="text/javascript">
 
     var wsUri ="ws://localhost:8090/qb/count.do";
+
     
 
     function send_message() {
@@ -86,26 +87,21 @@ $(document).ready(function(){
    
     function onOpen(evt) 
     {
-       websocket.send("${username}");
+    	websocket.send("${username}");
     }
     
     function onMessage(evt) {
+
     	
    	 	$('#message').html(evt.data);
-    	
-    	
+
     }
     function onError(evt) {
     	
     }
 
 	
-    $(function(){
-    	send_message();
-    });
-		
-	
-
+  
 	$(document).ready(function(){
 		send_message();
 		
@@ -113,7 +109,6 @@ $(document).ready(function(){
    			url:"../common/memberCheck.do",
    			type:"get",
    			success:function(data){
-   				console.log(data[0].member_name + "//" + data[0].class_name);
    				$('#className').text(data[0].class_name);
    				$('#memberName').text(data[0].member_name);
    			},

@@ -1,6 +1,8 @@
 ﻿package onet.com.admin.controller;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -12,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -37,7 +40,9 @@ import onet.com.vo.ClassDto;
 import onet.com.vo.Class_chartDto;
 import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
@@ -1194,5 +1199,204 @@ public class AdminController {
 			model.addAttribute("wrongQuestionCount", wrongQuestionCount);
 					
 			return "exam.student.pastExamPaper";
+		}
+		
+		//11.05민지 시험일정 수정
+		@RequestMapping("examInfoIUpdate.do")
+		public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
+			
+			System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
+			System.out.println("memberarray2값>>"+memberarray2+"<<");
+			
+			String [] memberchecklist= memberarray2.split(",");
+			
+			int result = teacherService.examInfoIUpdate(dto);
+			
+			if(result > 0) {
+				System.out.println("exam_info_num>>" + exam_info_num + "   <<");
+				int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
+				if(result2>0) {
+					System.out.println("수정할때 학생 리스트 삭제 성공");
+					String memberid="";
+					int result3;
+					for(int i = 0; i<=memberchecklist.length-1;i++) {
+						
+						 memberid = memberchecklist[i];
+						ExamMemberDto exammemberdto = new ExamMemberDto();
+						System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+						List<ExamInfoDto> list= teacherService.classExamList(exam_info_num);
+						int papernum= list.get(0).getExam_paper_num();
+						System.out.println("papernum  >>  "+ papernum + " <<");
+						List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
+						int infonum = examinfolist.size()-1;
+						System.out.println(examinfolist.toString());
+						int infonum2 = examinfolist.get(infonum).getExam_info_num();
+			
+						System.out.println("examinfolist>>>" + infonum2+ "    <<");
+						exammemberdto.setExam_info_num(infonum2);
+						exammemberdto.setMember_id(memberid);
+						result3=teacherService.examMemberInsert(exammemberdto);
+						
+						if(result3>0) {
+							System.out.println("수정할때 체크리스트 insert 성공");
+						}else {
+							System.out.println("체크리스트 insert 실패");
+					}
+					}
+					
+				}else {
+					System.out.println("수정할때 학생 리스트 삭제 실패");
+				}
+				
+			}else {
+				System.out.println("수정실패");
+			}
+			
+			return "redirect:examManagement.do";
+		}
+		/*11.05 민지 시험일정 삭제 관리자에서*/
+		/* 민지 - 18.10.23 시험 일정 삭제 시작 */
+		@RequestMapping(value = "teacherExamSchedultDelete.do", method = RequestMethod.POST)
+		public @ResponseBody String teacherExamSchedultDelete(@RequestParam("exam_info_num") int exam_info_num, @RequestParam("currentDate") int currentDate, @RequestParam("removeData") int removeData) //@RequestBody (비동기: 객체 형태로 받아요) 
+		{	
+			
+			/*deptService.insertDept(dto);
+			return dto.toString();*/
+			String result2="";
+			if(currentDate>removeData) {
+				System.out.println("지난시험지울거다");
+				result2="n";
+			}else {
+				int result = teacherService.teacherExamSchedultDelete(exam_info_num);
+				result2 = String.valueOf(result);
+				
+			}
+			System.out.println(">>>>>>"+result2);
+			return result2;
+			
+		}
+		/* 민지 - 18.10.23 시험 일정 삭제 끝 */
+		
+		/*민지 11.05 시험지 무한스크롤*/
+		// ajax로 클래스 목록 가져오기  
+		//@RequestMapping(value="adminMainView.do")
+/*		public @ResponseBody List<ExamPaperDto> exampaperlistClass(int begin) {
+			
+			System.out.println("begin : " + begin);
+			List<ExamPaperDto> classList = adminService.exampaperlistClass(begin);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("classList", classList);
+		
+			return classList;
+		}*/
+		
+		// ajax로 검색한 클래스 목록 가져오기 
+		@RequestMapping(value="exampaperlistClass.do")
+		public @ResponseBody ModelAndView exampaperSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
+				@RequestParam("begin") int begin){
+			
+		
+			
+			System.out.println("searchType : " + searchType);  
+			System.out.println("keyword : " + keyword);
+			System.out.println("begin : " + begin);
+			
+			List<ExamPaperDto> classList = null;
+
+			if(searchType.equals("all")) {
+				System.out.println("all list컨트롤러탔구연");
+				
+				classList = adminService.exampaperlistClass(begin);
+				System.out.println("classList항목 >>>>>>" + classList);
+			} else {
+				System.out.println("검색했을때 컨트롤러 타야댄다");
+				classList = adminService.exampaperSearch(searchType, keyword, begin);
+			}
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.admin.examManagement_admin_ajax");
+			mv.addObject("classList", classList);
+		
+			return mv;
+		}
+		//시험등록
+		
+		//11.05 민지 시험일정탭 무한스크롤
+
+	@RequestMapping(value="examinfolistClass.do")
+		public @ResponseBody ModelAndView examinfolistClass(@RequestParam("searchType2") String searchType2, @RequestParam("keyword") String keyword,
+				@RequestParam("begin") int begin){
+			
+			System.out.println("시험일정searchType : " + searchType2);  
+			System.out.println("시험일정keyword : " + keyword);
+			System.out.println("시험일정begin : " + begin);
+			
+			List<ExamInfoDto> classList = null;
+
+			if(searchType2.equals("all")) {
+				System.out.println("all list컨트롤러탔구연");
+				
+				classList = adminService.examinfolistClass(begin);
+				System.out.println("classList항목 >>>>>>" + classList);
+			} else {
+				System.out.println("검색했을때 컨트롤러 타야댄다");
+				classList = adminService.examinfoSearch(searchType2, keyword, begin);
+			}
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
+			mv.addObject("classList", classList);
+		
+			return mv;
+		}
+		/*민지:10.18 시험등록 */
+		@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
+		public  String examInfoInsert(ExamInfoDto dto,String memberarray2,int exam_paper_num ,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
+			System.out.println("시험등록컨트롤러들어옴");
+			System.out.println("memberarray2값>>"+memberarray2+"<<");
+			
+			String [] memberchecklist= memberarray2.split(",");
+			int checkresult;
+			int result = 0;
+			String viewpage="";
+			
+			result=teacherService.examInfoInsert(dto);
+			if(result > 0) {
+				System.out.println("시험등록성공");
+				String class_name = dto.getClass_name();
+				System.out.println(class_name);
+		
+				String url = URLEncoder.encode(class_name, "UTF-8");
+				String memberid="";
+				for(int i = 0; i<=memberchecklist.length-1;i++) {
+					
+					 memberid = memberchecklist[i];
+					ExamMemberDto exammemberdto = new ExamMemberDto();
+					System.out.println("memberid>>>>>"+memberid+" <<<<<<");
+					List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
+					int infonum = examinfolist.size()-1;
+					System.out.println(examinfolist.toString());
+					int infonum2 = examinfolist.get(infonum).getExam_info_num();
+		
+					System.out.println("examinfolist>>>" + infonum2+ "    <<");
+					exammemberdto.setExam_info_num(infonum2);
+					exammemberdto.setMember_id(memberid);
+					checkresult=teacherService.examMemberInsert(exammemberdto);
+					
+					if(checkresult>0) {
+						System.out.println("체크리스트 insert 성공");
+					}else {
+						System.out.println("체크리스트 insert 실패");
+					
+				}
+				}
+				viewpage = "redirect:examManagement.do";
+
+			}else {
+				System.out.println("시험등록 실패");
+				
+			}
+			return viewpage;
 		}
 }
