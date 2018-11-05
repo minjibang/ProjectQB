@@ -156,6 +156,7 @@ function confirmPwd() {
 		pwdcheck = true;
 
 	}
+	pwdcheck = true;
 }
 function confirmPwd2() {
 	var pwd = document.getElementById("passwordChange");

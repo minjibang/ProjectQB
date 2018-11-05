@@ -101,6 +101,7 @@ public class IndexController {
 		String viewpage="";
 		
 		dto.setMember_pwd(this.bCryptPasswordEncoder.encode(dto.getMember_pwd()));
+		System.out.println("========="+dto.getMember_pwd()+"============");
 		result = indexService.insertMember(dto);
 		
 		
