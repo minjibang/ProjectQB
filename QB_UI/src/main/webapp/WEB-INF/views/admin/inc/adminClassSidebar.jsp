@@ -20,7 +20,7 @@
           <!-- 강사  -->
           <li class="sub-menu">
             <a href="">
-              <span>관리자 클래스상세보기 </span>
+              <span>____클래스 (db에서 클래스이름 출력) </span>
              </a>
           </li>
           <li class="sub-menu">
