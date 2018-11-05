@@ -537,6 +537,18 @@ public class AdminService {
 		return list;
 	}
 	
-
+	/*11.05 민지 시험일정 검색 */
+	public List<ExamInfoDto> examinfolistClass(int begin){
+		System.out.println("service로 들어옴 : " + begin);
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamInfoDto> result = dao.examinfolistClass(begin);
+		
+		return result;
+	}
+	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamInfoDto> result = dao.examinfoSearch(searchType2, keyword, begin);
+		return result;
+	}
 	
 }
