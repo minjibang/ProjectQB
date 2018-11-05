@@ -11,6 +11,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+
 <link
 	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css"
 	rel="stylesheet">
@@ -72,7 +75,11 @@
 															<h4 class="miri" id="${myexamPaperList.exam_paper_num}"
 																data-target="#exam_preview" data-toggle="modal">
 																<strong>${myexamPaperList.exam_paper_name}</strong>
+																<se:authorize access="hasRole('ROLE_ADMIN')">
+																<span>&nbsp;&nbsp;( 작성자 : ${myexamPaperList.member_id } )</span>
+															</se:authorize>
 															</h4>
+															
 															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
 
 															
@@ -88,8 +95,10 @@
 																	id="${myexamPaperList.exam_paper_num}"
 																	class="btn btn-theme buttonGroup"
 																	onclick="updateExamCheck()">시험지수정</button>
-																<button type="button" class="btn btn-theme buttonGroup"
+																	<se:authorize access="hasRole('ROLE_TEACHER')">
+																	<button type="button" class="btn btn-theme buttonGroup"
 																	onclick="location.href='examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
+																	</se:authorize>																
 																<input type="hidden" id="hidden_class_num"
 																	value='${param.class_num}'>
 															</div>
@@ -255,7 +264,7 @@ $(document).ready(function(){
 		var exam_paper_num = $(this).attr('id');
 		
 			 $.ajax({
-				  url : "examMiri.do",
+				  url : "../teacher/examMiri.do",
 				  type:'GET',
 				  data : {
 					  'exam_paper_num' : exam_paper_num
