@@ -154,9 +154,9 @@ function confirmPwd() {
 		pwddiv.innerHTML = "안전한 비밀번호입니다.";
 		pwddiv.style.color = 'dodgerblue';
 		pwdcheck = true;
-
 	}
 }
+
 function confirmPwd2() {
 	var pwd = document.getElementById("passwordChange");
 	var pwdcheck = document.getElementById("passwordChangeConfirm");

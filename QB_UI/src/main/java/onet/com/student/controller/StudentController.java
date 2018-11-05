@@ -54,10 +54,12 @@ public class StudentController {
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
 	@RequestMapping("examScheduleDetail.do")
-	public String examScheduleDetail(Model model, int exam_info_num) {
-		
+	public String examScheduleDetail(Model model, Principal principal,int exam_info_num) {
+		String member_id=principal.getName();
 		ExamInfoDto dto = commonService.examScheduleDetail(exam_info_num);
+		int check=studentService.checkExamMember(member_id, exam_info_num);
 		model.addAttribute("dto", dto);
+		model.addAttribute("check", check);
 		
 		return "common.student.exam.examScheduleDetail";
 	}
@@ -208,16 +210,16 @@ public class StudentController {
 			class_name="임시";
 		}
 		//클래스 번호로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(student_name, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
-		model.addAttribute("studentId", student_name);
+		model.addAttribute("studentId", member_id);
 		
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_name, class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(member_id, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		
 		return "student.gradeManage";

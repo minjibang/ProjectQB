@@ -425,37 +425,43 @@ public class TeacherController {
 	
 	/*양회준 18.10.11 학생&성적관리 추가 */
 	//학생정보 불러오기
-	@RequestMapping("studentInfo.do")
+	@RequestMapping("studentInfo.do")//line 434 null값 에러 고쳐야함
 	public String studentInfo(Model model, Principal principal){
 		//양회준 10-24
 		String member_id = principal.getName();
 		String class_num = null;
+		String student_id;
+		String class_name;
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
-		String student_name = studentList.get(0).getMember_name();
-		String class_name = studentList.get(0).getClass_name();
+		try {
+			student_id = studentList.get(0).getMember_id();
+			class_name = studentList.get(0).getClass_name();
+		}catch(Exception e) {
+			student_id = "없음";
+			class_name = "없음";
+		}
 		//첫번째 학생의 데이터로 차트 가져오기
-		Map<String, Object> chart = commonService.studentChartInfo(studentList.get(0).getMember_name(), class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(student_id, class_name);
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		model.addAttribute("studentList",studentList);
 		model.addAttribute("classChart",classChart);
 		model.addAttribute("studentChart",studentChart);
 		//학생 개인 성적확인
-		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(studentList.get(0).getMember_name(), class_name);
+		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(student_id, class_name);
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
-		System.out.println(studentExamScoreList.get(0).getScore_list().toString());
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		
 		return "common.teacher.grade.studentInfo";
 	}
 	
 	@RequestMapping(value="studentChartInfo.do", method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_name") String member_name,
+	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		Map<String, Object> chart = commonService.studentChartInfo(member_name, class_name);
+		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
 	}
@@ -691,10 +697,10 @@ public class TeacherController {
 	}
 	//양회준 10-25 학생&성적관리 학생개인 성적확인
 	@RequestMapping(value="studentExamScoreInfo.do", method=RequestMethod.POST)
-	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_name") String member_name,
+	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
-		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_name, class_name);
+		List<StudentExamScoreInfo> result = commonService.studentExamScoreInfo(member_id, class_name);
 		return result;
 	}
 	

@@ -360,7 +360,7 @@ $(document).ready(function(){
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
-	
+	var memberId=studentArr[0].member_id;
 	var memberName=studentArr[0].member_name;
 	var className=studentArr[0].class_name;
 	//tab2AjaxData
@@ -371,7 +371,7 @@ $(document).ready(function(){
 			type:"post",
 			url:"studentExamScoreInfo.do",
 			data:{
-				"member_name":memberName,
+				"member_id":memberId,
 				"class_name":className
 				},
 			datatype:"json",
@@ -440,7 +440,6 @@ $(document).ready(function(){
 		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
         "processing":true,
 		"ajax": {
-           url: 'adminMemberAjax.do',
            method: "post",
            url:"classRank.do",
 			data:{"exam_info_name":function(){ return examInfoName}},
@@ -453,6 +452,36 @@ $(document).ready(function(){
 			{data: "score_chart_rank" }       
 			]
 	});
+	var studentPerGrade=$('#studentPerGrade').DataTable({
+		"ordering":true,
+		"paging": true,
+		"ordering":true,
+		"searching": true,
+		"bLengthChange" : false,
+		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
+		dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+        buttons:[
+        	{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [':visible' ]
+                }
+            },
+        	{
+	            extend:'excelHtml5',
+	            exportOptions:{
+	            	columns:[':visible']
+	            	}
+            },
+        	{
+	        	extend:'pdfHtml5',
+	        	exportOptions:{
+	        		columns:[':visible']
+	        		}
+        	},
+        	'colvis'
+        ]
+	})
 	
 	//학생 목록 선택 이벤트-tab1
 	$(".studentListMembers").click(function(){		
@@ -471,13 +500,13 @@ $(document).ready(function(){
 		$("#studentListEmail").text("이메일 : "+studentArr[memberIndex].member_email);
 		$("#studentListPhone").text("핸드폰 : "+studentArr[memberIndex].member_phone);
 		//ajax 차트 요청할 parameter
-		memberName=studentArr[memberIndex].member_name;
+		memberId=studentArr[memberIndex].member_id;
 		className=studentArr[memberIndex].class_name;
 		//비동기 실행
 		$.ajax({
 			type:"post",
 			url:"studentChartInfo.do",
-			data:{"member_name":memberName,
+			data:{"member_id":memberId,
 				"class_name":className
 				},
 			datatype:"json",
@@ -513,7 +542,7 @@ $(document).ready(function(){
 		//학생 목록의 인덱스 가져오기
 		var memberIndex=$(".tab2studentListMembers").index(this);
 		//ajax 시험 정보 요청할 parameter
-		memberName=studentArr[memberIndex].member_name;
+		memberId=studentArr[memberIndex].member_id;
 		className=studentArr[memberIndex].class_name;
 		
 		tab2Ajax();
