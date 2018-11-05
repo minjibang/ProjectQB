@@ -18,6 +18,18 @@ public class Score_chartDto {
 	private float avg_score;
 	private int start;
 	private int end;
+	
+	//양회준11.5추가
+	private String comment;
+	
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
 	public int getStart() {
 		return start;

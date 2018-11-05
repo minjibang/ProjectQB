@@ -28,7 +28,7 @@
 
 						<div class="col-lg-5 examImgDiv">
 							<img id="examImg"
-								src="${pageContext.request.contextPath}/img/friends/fr-02.jpg">
+								src="${pageContext.request.contextPath}/img/friends/testImg.jpg">
 							<h3>${dto.exam_info_name}</h3>
 							<br> <br> <br>
 						</div>
@@ -140,7 +140,7 @@
 				/* }  */ // 권한이 학생이라면 if문 종료 괄호
 				
 			} else {
-				alert("시험이 종료되었습니다.")
+				swal("시험이 종료되었습니다."); 
 			}
 		});
 		
@@ -185,12 +185,6 @@
 		var examEndMinutesRound = Math.floor(eMinutes);
 		var eSeconds = (examEndTime-nowTime)/1000-(24*60*60*examEndDaysRound)-(60*60*examEndHoursRound)-(60*examEndMinutesRound);
 		var examEndSecondsRound = Math.round(eSeconds);
-		console.log("테스트:"+examStartSecondsRound);
-		console.log("테스트:"+examEndSecondsRound);
-		console.log("테스트:"+eSeconds);
-		console.log(typeof(examEndDaysRound));
-		console.log("examEndDaysRound : "+examEndDaysRound);
-		console.log("examStartDaysRound : "+examStartDaysRound);
 		
 		if(examStartDaysRound >= 0){
 			$('#daysRound').html("시험 시작까지 "+examStartDaysRound+"일");

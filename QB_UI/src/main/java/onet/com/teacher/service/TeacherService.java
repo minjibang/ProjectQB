@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import onet.com.common.dao.CommonDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
@@ -321,7 +323,17 @@ public class TeacherService {
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
-	
-	
+	//양회준 11.5 코멘트 추가
+	public @ResponseBody int studentInfoCommentUpdate(String member_id, int exam_info_num, String comment) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.studentInfoCommentUpdate(member_id,exam_info_num,comment);
+		return result;
+	}
+	//양회준 11.5 코멘트 취소
+	public @ResponseBody String studentInfoCommentCancel(String member_id, int exam_info_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		String comment = dao.studentInfoCommentCancel(member_id,exam_info_num);
+		return comment;
+	}
 	
 }

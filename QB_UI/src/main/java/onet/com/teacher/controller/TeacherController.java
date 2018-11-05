@@ -836,4 +836,19 @@ public class TeacherController {
 					
 			return "exam.student.pastExamPaper";
 		}
+		
+		//양회준 11.5 코멘트 추가
+		@RequestMapping("studentInfoCommentUpdate.do")
+		public @ResponseBody int studentInfoCommentUpdate(@RequestParam("member_id") String member_id,
+				@RequestParam("exam_info_num") int exam_info_num,@RequestParam("comment") String comment) {			
+			int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, comment);
+			return result;
+		}
+		//양회준 11.5 코멘트 취소
+		@RequestMapping("studentInfoCommentCancel.do")
+		public @ResponseBody String studentInfoCommentCancel(@RequestParam("member_id") String member_id,
+				@RequestParam("exam_info_num") int exam_info_num) {			
+			String comment = teacherService.studentInfoCommentCancel(member_id, exam_info_num);
+			return comment;
+		}
 }
