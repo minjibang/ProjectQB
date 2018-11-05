@@ -850,7 +850,7 @@ public class TeacherController {
 			return result;
 		}
 		//양회준 11.5 코멘트 취소
-		@RequestMapping("studentInfoCommentCancel.do")
+		@RequestMapping(value="studentInfoCommentCancel.do", produces = "application/text; charset=utf8")
 		public @ResponseBody String studentInfoCommentCancel(@RequestParam("member_id") String member_id,
 				@RequestParam("exam_info_num") int exam_info_num) {			
 			String comment = teacherService.studentInfoCommentCancel(member_id, exam_info_num);

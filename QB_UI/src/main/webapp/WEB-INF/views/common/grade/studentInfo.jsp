@@ -396,7 +396,7 @@ $(document).ready(function(){
 				},
 			datatype:"json",
 			success:function(data, status){
-				console.log(data);
+
 				tab2AjaxData=data;
 				var studentExamScoreSrc = "";
 				$("#studentExamTable").empty();
@@ -409,7 +409,7 @@ $(document).ready(function(){
 					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
 					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
 					studentExamScoreSrc += '<p>'+smCtgr+'</p>';
-					studentExamScoreSrc += '<span>강사님 : </span><span class="commnet">수고하셨습니다.</span></td>'
+					studentExamScoreSrc += '<span>강사님 : </span><span class="comment">'+element.comment+'</span></td>'
 					studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
@@ -423,6 +423,8 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+	/* 양회준 11.5 코멘트 관련 시작*/
 	$(document).on('click', '.ExamCommentBtn', function(){
 		$(this).attr("disabled", "true");
 		var comment=$(this).parent().prev().prev().children().eq(3).text();
@@ -468,13 +470,12 @@ $(document).ready(function(){
  	   				member_id: memberId,
  	   				exam_info_num: examInfoNum
  	   				},
- 	   		success: function(data){
- 	   			console.log(data.comment);
- 	   		console.log(data);
-				chk.html(data);
+ 	   		success: function(data,status){
+				chk.text(data);
  	   		}
  	   	});
 	})
+	/* 양회준 11.5 코멘트 관련 끝*/
 	
 	//tab2AjaxData 가져오기 실행
 	tab2Ajax();	
@@ -597,7 +598,7 @@ $(document).ready(function(){
 				functionChart();
 			},
 			error:function(error, status){
-				console.log("실패2:"+status);
+
 			}
 		});		
 	});
@@ -656,7 +657,6 @@ $(document).ready(function(){
 		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
 		var getId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
 		var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val()+"&member_id="+getId;
-		console.log(popUrl);
 		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
 		window.open(popUrl, "지난 시험보기",popOption);		
 	});
@@ -921,7 +921,6 @@ $(document).ready(function(){
 				});					
 			},
 			error:function(error){
-				console.log("실패3:"+status);
 			}
 		});
 	}

@@ -16,8 +16,18 @@ public class StudentExamScoreInfo {
 	String sm_category_code;
 	String sm_category_name;
 	ArrayList<String> smCtgrName;
+	//양회준 11.5 comment 추가
+	private String comment;
 	
 	
+	
+	
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public ArrayList<String> getSmCtgrName() {
 		return smCtgrName;
 	}

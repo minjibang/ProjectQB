@@ -295,12 +295,13 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 
 </select>
 <!-- 양회준 11.5 강사 코멘트 수정 및 취소 -->
-<update id="studentInfoCommentUpdate" parameterType="String">
-	update score_chart set comment=#{param3} where member_id=#{param1} and exam_info_num=#{param2}
-</update>
-<select id="studentInfoCommentCancel" resultType="String">
-	select comment from score_chart where member_id=#{param1} and exam_info_num=#{param2}
-</select>
+	<update id="studentInfoCommentUpdate" parameterType="String">
+		update score_chart set comment=#{param3} where member_id=#{param1} and exam_info_num=#{param2}
+	</update>
+	<select id="studentInfoCommentCancel" resultType="String">
+		select comment from score_chart where member_id=#{param1} and exam_info_num=#{param2}
+	</select>
+
 </mapper>
 
 
