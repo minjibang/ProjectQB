@@ -188,6 +188,7 @@
 															<td class="view-message inbox-small-cells">
 																<button type="button" id="pastExamBtn"class="btn btn-round btn-info pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
 																<button type="button" id="ExamCommentBtn"class="btn btn-round btn-info ExamCommentBtn" value="">답변등록</button>
+
 															</td>
 														</tr>
 														</c:forEach>
@@ -640,7 +641,9 @@ $(document).ready(function(){
 				studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
+				
 				studentExamScoreSrc += '<button type="button" id="pastExamBtn"class="btn btn-round btn-info pastExamBtn" value='+element.exam_info_num+'>성적확인</button></td></tr>';
+
 			}
 		});
 		$("#studentExamTable").append(studentExamScoreSrc);

@@ -10,9 +10,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.common.dao.CommonDao;
 import onet.com.teacher.dao.TeacherDao;
@@ -365,11 +363,16 @@ public class CommonService {
 		return result;
 	}
 	
+	@Transactional
 	public int noticeDelete(NoticeDto dto) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int cDelete = dao.noticeFromCommentDelete(dto);
-		int result = dao.noticeDelete(dto);
-		System.out.println("2" + result);
+		int result = 0;
+		try {
+			dao.noticeFromCommentDelete(dto);
+			result = dao.noticeDelete(dto);
+		}catch(Exception e) {
+			throw e;
+		}
 		return result;
 	}	
 
@@ -443,19 +446,44 @@ public class CommonService {
 			return result;
 		}
 	   
+	   @Transactional
 	   public int sendMessageDelete(String sendDeleteHiddenArray) {
 			CommonDao dao = sqlsession.getMapper(CommonDao.class);
 			int sendDeleteHiddenArrayInt = Integer.parseInt(sendDeleteHiddenArray);
-			int result = dao.sendMessageDelete(sendDeleteHiddenArrayInt);
-			
+			int result = 0;
+			try {
+				result = dao.sendMessageDelete(sendDeleteHiddenArrayInt);
+				if(result > 0) {
+					 MessageDto dto = dao.MessageDeleteCheck(sendDeleteHiddenArrayInt);
+					 int rCheck = dto.getReceive_check();
+					 int sCheck = dto.getSend_check();
+					 if(rCheck > 0 && sCheck > 0) {
+						dao.messageRealDelete(sendDeleteHiddenArrayInt);
+					 }
+				}
+			}catch(Exception e) {
+				throw e;
+			}
 			return result;
 		}
 	   
 	   public int receiveMessageDelete(String receiveDeleteHiddenArray) {
 			CommonDao dao = sqlsession.getMapper(CommonDao.class);
 			int receiveDeleteHiddenArrayInt = Integer.parseInt(receiveDeleteHiddenArray);
-			int result = dao.receiveMessageDelete(receiveDeleteHiddenArrayInt);
-			
+			int result = 0;
+			try {
+				result = dao.receiveMessageDelete(receiveDeleteHiddenArrayInt);
+				if(result > 0) {
+					 MessageDto dto = dao.MessageDeleteCheck(receiveDeleteHiddenArrayInt);
+					 int rCheck = dto.getReceive_check();
+					 int sCheck = dto.getSend_check();
+					 if(rCheck > 0 && sCheck > 0) {
+						dao.messageRealDelete(receiveDeleteHiddenArrayInt);
+					 }
+				}
+			}catch(Exception e) {
+				throw e;
+			}
 			return result;
 		}
 	   
@@ -475,6 +503,7 @@ public class CommonService {
 		      
 		return result;
 	}
+	
 	//민지 10.31 메시지 체크
 	
 	

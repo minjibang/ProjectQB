@@ -4,23 +4,6 @@
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link href="${pageContext.request.contextPath}/css/noticeView.css"
 	rel="stylesheet">
-<style>
-#replyAddBtn{
-	width:100%;
-	height:100px;
-}
-#replyArea{
-	width:100%;
-	height:100px;
-}
-.img{
-	width:100px;
-	height:100px;
-}
-.detach{
-	margin-left: -15px;
-}
-</style>
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -245,7 +228,7 @@ $(document).ready(function(){
 		
  	   		
 		if($(this).text()=='댓글'&&count==0){
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-8'><input type='text' class='replyInput'>&nbsp;&nbsp;<a class='replyAdd'><i class='fa fa-plus-square'></i> 등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');	
 			count=1;
 		}else if($(this).text()=='취소'){
@@ -255,7 +238,7 @@ $(document).ready(function(){
 		}else if($(this).text()=='댓글'&&count==1){
 			$('.commcomm').prev().children().eq(2).children().eq(0).html('<i class="fa fa-reply"></i>댓글');
 			$('.commcomm').remove();
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-8'><input type='text' class='replyInput'>&nbsp;&nbsp;<a class='replyAdd'><i class='fa fa-plus-square'></i> 등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');
 			count=1;
 		}
@@ -290,7 +273,7 @@ $(document).ready(function(){
 	$(document).on('click','.replyReply',function(){
 		
 		if($(this).text()=='댓글'&&count==0){
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' style=width:500px;><a class='replyReplyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-8'><input type='text' class='replyInput'>&nbsp;&nbsp;<a class='replyReplyAdd'><i class='fa fa-plus-square'></i> 등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');
 			count=1;
 		}else if($(this).text()=='취소'){
@@ -301,7 +284,7 @@ $(document).ready(function(){
 		}else if($(this).text()=='댓글'&&count==1){
 			$('.commcomm').prev().children().eq(2).children().eq(0).html('<i class="fa fa-reply"></i>댓글');
 			$('.commcomm').remove();
-			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-3'><input type='text' class='replyInput' maxlength='40' required style=width:500px;><a class='replyAdd'><i class='fa fa-plus-square'></i>등록</a></div></div>");
+			$(this).parent().parent().after("<div class='row noticeView_Comments_2 noticeContent commcomm'><div class='col-sm-8'><input type='text' class='replyInput'>&nbsp;&nbsp;<a class='replyAdd'><i class='fa fa-plus-square'></i> 등록</a></div></div>");
 			$(this).html('<i class="fa fa-share"></i>취소');
 			count=1;
 		}
