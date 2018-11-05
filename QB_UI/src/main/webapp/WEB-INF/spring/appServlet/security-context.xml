@@ -49,7 +49,7 @@
                                     on m.member_id = r.member_id
                                     where m.member_id = ?
             " />
-            <!-- <security:password-encoder ref="bCryptPasswordEncoder" /> -->
+            <security:password-encoder ref="bCryptPasswordEncoder" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 	<bean id="loginSuccessHandler"
