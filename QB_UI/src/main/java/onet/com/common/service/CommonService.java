@@ -39,6 +39,11 @@ public class CommonService {
 	private SqlSession sqlsession;
 	
    /*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
+	public List<MemberDto> member(String member_id) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> result = dao.member(member_id);
+		return result;
+	}
 	public List<NoticeDto> teacher_student_Main(String member_id) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		NoticeDto dto = new NoticeDto();
@@ -105,11 +110,10 @@ public class CommonService {
 	}
 	/*양회준 - 10.15 내정보 끝 */
 
-	public int memberDrop(String member_id, String member_pwd)
+	public String memberDrop(String member_id)
 			throws ClassNotFoundException, SQLException, IOException {
-		System.out.println("droptestAjax");
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		int result = commonDao.memberDrop(member_id, member_pwd);
+		String result = commonDao.memberDrop(member_id);
 		
 		return result;
 	}

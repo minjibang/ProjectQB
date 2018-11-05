@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <link
 	href="${pageContext.request.contextPath}/css/examScheduleRegist.css"
 	rel="stylesheet">
@@ -124,7 +125,12 @@
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-3">
+                       <se:authorize access="hasRole('ROLE_TEACHER')">
                         <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
+                        </se:authorize>
+                          <se:authorize access="hasRole('ROLE_ADMIN')">
+                        <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/admin/examManagement.do'">취소</button>
+                        </se:authorize>
                       </div>
                       <div class="col-md-2">
                       </div>
@@ -232,15 +238,18 @@ function check(){
 	}else {
 		swal({
 			  title: "시험 일정 등록하시겠습니까?",
-			  icon: "warning",
+			  icon: "info",
 			  buttons: true,
 			  dangerMode: true
 			}).then((willDelete) => {
 			  if (willDelete) {
-			    swal("일정이 등록 되었습니다.", {
-			      icon: "success"
-			    });
-			    document.getElementById("examScheduleRegistForm").submit();
+				  swal({
+				       title: "등록이 완료되었습니다.",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+						 document.getElementById("examScheduleRegistForm").submit();
+				});
 			  } else {
 			  }
 		});

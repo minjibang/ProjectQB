@@ -24,6 +24,7 @@ import onet.com.vo.StudentExamScoreInfo;
 
 public interface CommonDao {
 	   /*한결 - 메인페이지 데이터 뿌리기 10.10*/
+	   public List<MemberDto> member(String member_id);
 	   public List<NoticeDto> notice(String member_id);
 	   public List<Exam_infoDto> exam_info(String member_id);
 	   /* 끝 */
@@ -43,7 +44,7 @@ public interface CommonDao {
 	public int myPageUpdate(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
 	public int myPageDrop(MemberDto memberDto)  throws ClassNotFoundException, SQLException;
 	
-	public int memberDrop(String member_id, String member_pwd) throws ClassNotFoundException, SQLException;
+	public String memberDrop(String member_id) throws ClassNotFoundException, SQLException;
 	
 	/*양회준 - 10.15 내 정보 수정 끝*/
 
