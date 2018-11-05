@@ -66,9 +66,9 @@ public class MainPageController {
 	
 	// ajax로 클래스 목록 가져오기  
 	//@RequestMapping(value="adminMainView.do")
-	public @ResponseBody ModelAndView adminMainView(int begin) {
+/*	public @ResponseBody ModelAndView adminMainView(int begin) {
 		
-		/*System.out.println("begin : " + begin);*/
+		System.out.println("begin : " + begin);
 		List<ClassDto> classList = adminMainPageService.adminMainView(begin);
 		
 		ModelAndView mv = new ModelAndView();
@@ -76,7 +76,7 @@ public class MainPageController {
 		mv.addObject("classList", classList);
 	
 		return mv;
-	}
+	}*/
 	
 	// ajax로 검색한 클래스 목록 가져오기 
 	@RequestMapping(value="adminMainView.do")

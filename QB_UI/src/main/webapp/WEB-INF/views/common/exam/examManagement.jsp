@@ -33,7 +33,7 @@
 							<li><a data-toggle="tab" href="#tempExamPaper"
 								class="contact-map">임시 저장된 시험지 </a></li>
 							<li><a data-toggle="tab" href="#examSchedule"
-								class="contact-map">시험 일정 </a></li>
+								class="contact-map" id="examinfotab">시험 일정 </a></li>
 						</ul>
 
 					</div>
@@ -74,13 +74,6 @@
 										</div>
 
 										<hr>
-										
-												<div id="examlistView2">
-												
-												</div>
-
-
-
 									</div>
 									<!-- 내 시험지 div 끝 -->
 									
@@ -109,7 +102,8 @@
 
 												<!-- 시험지 하나의 div 시작 -->
 												<div id="examTempPaperDiv">
-													<c:forEach items="${myTempExamList}" var="myTempExamList">
+												<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+													<%-- <c:forEach items="${myTempExamList}" var="myTempExamList">
 														<!-- 시험지 한 개 시작 -->
 														<div class="exam-paper-name">
 															<h4 id="exam_paper_name">
@@ -135,7 +129,7 @@
 															</div>
 															<hr>
 														</div>
-													</c:forEach>
+													</c:forEach> --%>
 												</div>
 											</div>
 										</form>
@@ -164,9 +158,9 @@
 													id="searchType2" name="searchType2">
 													<option value="all">전체</option>
 													<option value="n">클래스명</option>
-													<option value="t">시험명</option>
+													<option value="p">시험명</option>
 												</select> <input type="text" class="form-control searchRightBtnDiv"
-													placeholder="검색어를 입력" id="keyword" name="keyword">
+													placeholder="검색어를 입력" id="keyword2" name="keyword2">
 												<button type="button" class="btn btn-theme searchRightBtn"
 													id="searchBtn2">검색</button>
 												<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
@@ -174,45 +168,7 @@
 										</form>
 										
 										<hr>
-										<form action="" method="post" id="pickExamScheduleForm">
-											<div class="col-lg-12">
-												<!-- 시험 일정 하나의 div 시작 -->
-												<div id="examScheduleDiv">
-													<c:forEach items="${examScheduleList}"
-														var="examScheduleList">
-														<div class="exam_info_name">
-															<h4>
-																<strong>${examScheduleList.exam_info_name}</strong>
-															</h4>
-															<div class="view-schedule text-center">
-																<p>시험 날짜 : ${examScheduleList.exam_info_date}</p>
-																<p>시험 시간 : ${examScheduleList.exam_info_start} ~
-																	${examScheduleList.exam_info_end}</p>
-																<p>[${examScheduleList.exam_info_time}]</p>
-																<p>응시 대상 : ${examScheduleList.exam_info_member}</p>
-																<p>클래스명 : ${examScheduleList.class_name}</p>
-																<button type="button"
-																	id="${examScheduleList.exam_info_num}"
-																	name="deleteExamScheduleBtn"
-																	class="btn btn-theme04 buttonGroup"
-																	onclick="deleteExamInfo()"
-																	value="${examScheduleList.exam_info_date}">삭제</button>
-
-																<button type="button" class="btn btn-theme buttonGroup"
-																	onclick="location.href='examScheduleUpdate.do?exam_info_num=${examScheduleList.exam_info_num}&exam_info_name=${examScheduleList.exam_info_name}'">시험
-																	일정 수정</button>
-
-																<input type="hidden" id="hidden_class_num"
-																	value='${param.class_num}'>
-															</div>
-															<br> <br>
-															<hr>
-														</div>
-													</c:forEach>
-
-												</div>
-											</div>
-										</form>
+										
 										<!-- /col-md-12 -->
 									</div>
 									<!-- /row -->
@@ -221,6 +177,13 @@
 
 								</div>
 								<!-- 시험 일정 tab 끝 -->
+								<div class="row mt">
+									<div class="col-lg-12">
+										<div id="examlistView2">
+										
+										</div>
+									</div>
+								</div>
 							</div>
 							<!-- /tab-content -->
 
@@ -257,11 +220,24 @@ var classParam = {
 		"searchType" : "all",
 		"keyword" : "all",
 }
+var tempExam = {
+		"begin" : 0,
+		"searchType" : "all",
+		"keyword" : "all",
+}
+
+var classParam2 = {
+		"begin" : 0,
+		"searchType2" : "all",
+		"keyword" : "all",
+}
 
 $(document).ready(function(){
 	//무한 스크롤
 	examlistClass(classParam);
+	imsiSaveExam(tempExam);
 	var lastScrollTop = 0;
+	
 	
 	$(window).scroll(function(){
 		var currentScrollTop = $(window).scrollTop();
@@ -272,7 +248,12 @@ $(document).ready(function(){
 	        	 //scrollTop + windowHeight + 30 > documentHeight
 	        	 
 				classParam.begin += 4;
+				tempExam.begin += 4;
 				examlistClass(classParam);
+				imsiSaveExam(tempExam);
+			
+				
+
 				console.log("begin : " + classParam.begin +"번부터");
 			 }
 		  }
@@ -305,7 +286,44 @@ $(document).ready(function(){
 		
 	});
 	
+	$('#searchBtn2').click(function(){  // search 버튼을 눌렀을 때는 json 데이터의 내용을 변경시켜서 파라미터로 보내기 
+		
+		classParam2.begin = 0; 
+		classParam2.searchType2= $("#searchType2").val();
+		classParam2.keyword = $("#keyword2").val();
+		$('#examlistView2').empty();
+		examinfolistClass(classParam2);
+		
+	});
+	
+	
+	
+	
 });
+
+$('#examinfotab').click(function(){
+	var lastScrollTop = 0;
+	examinfolistClass(classParam2);
+	$(window).scroll(function(){
+		var currentScrollTop = $(window).scrollTop();
+		if( currentScrollTop - lastScrollTop > 0 ){
+	            // 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
+	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) -10 ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
+	        	 
+	        	 //scrollTop + windowHeight + 30 > documentHeight
+	        	 
+					classParam2.begin += 2;
+					examinfolistClass(classParam2);
+				
+				console.log("begin : " + classParam2.begin +"번부터");
+			 }
+		  }
+	});
+
+	
+	
+});
+
 	//클래스 목록 가져오는 ajax
 	function examlistClass(classParam){
 		$.ajax({
@@ -321,7 +339,39 @@ $(document).ready(function(){
 			}
 		});
 	}
-		
+
+	
+	function imsiSaveExam(tempExam){
+		$.ajax({
+			url : "myTempExamList.do",
+			type : 'GET',
+			dataType : "html",
+			data : tempExam,
+			success : function(data){	
+				$('#examTempPaperDiv').append(data);
+				}
+		});
+	}
+				
+	function examinfolistClass(classParam2){
+		$.ajax({
+			url : "examinfolistClass.do",
+			type : 'GET',
+			dataType : "html",
+			data : classParam2,
+			success : function(data){	
+				$('#examlistView2').append(data);
+
+			},
+			error : function(error) {
+				console.log("===========실패");
+			}
+		});
+	}
+
+	
+	
+
 	function printpage(){
 		
 		var divContents = $('.book').html();

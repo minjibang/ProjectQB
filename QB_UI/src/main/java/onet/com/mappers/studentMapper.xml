@@ -123,6 +123,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where m.member_id = #{param1}
 	order by sc.exam_info_num desc
 </select>
+
 <!-- 양회준 11.5 수정 -->
 <select id="searchPastExamKeyword" resultType="onet.com.vo.ExamInfoDto">
 	<!-- select * from exam_info

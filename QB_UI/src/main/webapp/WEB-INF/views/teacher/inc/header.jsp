@@ -101,12 +101,7 @@ $(document).ready(function(){
     }
 
 	
-    $(function(){
-    	send_message();
-    });
-		
-	
-
+  
 	$(document).ready(function(){
 		send_message();
 		
@@ -114,7 +109,6 @@ $(document).ready(function(){
    			url:"../common/memberCheck.do",
    			type:"get",
    			success:function(data){
-   				console.log(data[0].member_name + "//" + data[0].class_name);
    				$('#className').text(data[0].class_name);
    				$('#memberName').text(data[0].member_name);
    			},

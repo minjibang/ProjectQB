@@ -2,6 +2,8 @@ package onet.com.teacher.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
@@ -51,7 +53,7 @@ public interface TeacherDao {
 	/*--성태용 시작--*/
 	public List<QuestionDto> questionSearch(String lgsearchtype, String mdsearchtype, String smsearchtype, String leveltype, String questiontype, String keyword);
 	public List<ExamPaperDto> myExamPaperList(String member_id);
-	public List<ExamPaperDto> myTempExamList(String member_id);
+	public List<ExamPaperDto> myTempExamList(@Param("member_id") String member_id, @Param("begin") int begin);
 	public List<ExamInfoDto> examScheduleList(String member_id);
 	public List<ExamInfoDto> examScheduleList2(int exam_paper_num);
 	public int deleteExam(int exam_paper_num);
@@ -90,6 +92,7 @@ public interface TeacherDao {
 	/*쪽지 보내기*/
 	public String sendMessage(String user_name);
 	
+	public List<ExamPaperDto> exampaperlistClass(@Param("member_id") String member_id, @Param("begin") int begin);
 	/*민지 - 10.29 받은쪽지  끝*/
 	
 	//양회준 11.5 코멘트 추가
@@ -97,4 +100,6 @@ public interface TeacherDao {
 	//양회준 11.5 코멘트 취소
 	public String studentInfoCommentCancel(String member_id, int exam_info_num);
 	
+	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
+		
 }

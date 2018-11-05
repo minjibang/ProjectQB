@@ -33,3 +33,8 @@
     .table-inbox tr td:first-child {
         width:30%;
     }
+    
+    #studentListTh {
+        padding: 5px;
+    	text-align: center;
+    }

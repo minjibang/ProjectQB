@@ -153,3 +153,18 @@
 	display: inline-block;
 	width: 48%;
 }
+
+.loadingImgDiv {
+    position:absolute;
+    z-index:9999; 
+    background:#f0f0f0; 
+    filter:alpha(opacity=50); 
+    opacity:alpha*0.5; 
+    margin:auto; 
+    padding:0; 
+}
+
+#loadingImg {
+
+}
+
