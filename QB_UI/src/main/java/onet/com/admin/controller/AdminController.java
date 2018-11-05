@@ -1,8 +1,6 @@
 ﻿package onet.com.admin.controller;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -14,9 +12,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,15 +33,11 @@ import onet.com.student.service.StudentService;
 import onet.com.teacher.service.TeacherService;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
-
-import onet.com.vo.CommentDto;
-
 import onet.com.vo.Class_chartDto;
-
+import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
-import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.MessageDto;
 import onet.com.vo.NoticeDto;
@@ -69,6 +63,9 @@ public class AdminController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	/*양회준 10.14 관리자 메인 시작*/
 	@RequestMapping("adminMain.do")
@@ -616,9 +613,10 @@ public class AdminController {
 	/*현이 18.10.09 관리자 마이페이지 끝*/
 	
 	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
-	public String myPageUpdate(MemberDto memberDto)
-			throws IOException, ClassNotFoundException, SQLException {
+	public String myPageUpdate(MemberDto memberDto) throws IOException, ClassNotFoundException, SQLException {
 		String url = "redirect:myPage.do";
+		System.out.println("정보수정==============");
+		memberDto.setMember_pwd(this.bCryptPasswordEncoder.encode(memberDto.getMember_pwd()));
 		try {
 			url = commonService.myPageUpdate(memberDto);
 		} catch (Exception e) {

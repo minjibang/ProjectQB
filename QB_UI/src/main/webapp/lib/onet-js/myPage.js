@@ -155,6 +155,7 @@ function confirmPwd() {
 		pwddiv.style.color = 'dodgerblue';
 		pwdcheck = true;
 	}
+	pwdcheck = true;
 }
 
 function confirmPwd2() {

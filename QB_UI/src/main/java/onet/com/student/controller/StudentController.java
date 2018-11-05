@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,9 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// 학생 시험 관련
 	/* 현이:10.09 시험 일정 상세보기 페이지 시작 */
@@ -277,9 +281,10 @@ public class StudentController {
 	/* 현이 18.10.09 학생 마이페이지 끝 */
 	
 	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
-	public String myPageUpdate(MemberDto memberDto)
-			throws IOException, ClassNotFoundException, SQLException {
-			commonService.myPageUpdate(memberDto);
+	public String myPageUpdate(MemberDto memberDto) throws IOException, ClassNotFoundException, SQLException {
+		
+		memberDto.setMember_pwd(this.bCryptPasswordEncoder.encode(memberDto.getMember_pwd()));
+		commonService.myPageUpdate(memberDto);
 		
 		// 예외 발생에 상관없이 목록페이지 요청 처리
 		return "common.student.common.myPage";
