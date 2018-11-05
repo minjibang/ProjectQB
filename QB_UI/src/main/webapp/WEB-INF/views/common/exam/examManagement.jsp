@@ -75,53 +75,9 @@
 												id="searchBtn">검색</button>
 											<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 										</div>
-
-										<hr>
-										
-												<div id="examlistView2">
-												
+										<hr>										
+												<div id="examlistView2">											
 												</div>
-												<!-- 시험지 하나의 div 시작 -->
-												<div id="myExamPaperDiv">
-													<c:forEach items="${myexamPaperList}" var="myexamPaperList">
-														<!-- 시험지 한 개 시작 -->
-														<div class="exam-paper-name">
-															<h4 class="miri" id="${myexamPaperList.exam_paper_num}"
-																data-target="#exam_preview" data-toggle="modal">
-																<strong>${myexamPaperList.exam_paper_name}</strong>
-																<se:authorize access="hasRole('ROLE_ADMIN')">
-																<span>&nbsp;&nbsp;( 작성자 : ${myexamPaperList.member_id } )</span>
-															</se:authorize>
-															</h4>
-															
-															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myexamPaperList.exam_paper_desc}
-
-															
-															<div class="pdf_download text-right">
-																<a href="#">PDF 다운로드 <img
-																	src="../img/file-download.png"></a>
-																<button type="button"
-																	id="${myexamPaperList.exam_paper_num}"
-																	class="btn btn-theme04 buttonGroup"
-																	onclick="deleteExamCheck()"
-																	value="${myexamPaperList.exam_paper_name }">삭제</button>
-																<button type="button"
-																	id="${myexamPaperList.exam_paper_num}"
-																	class="btn btn-theme buttonGroup"
-																	onclick="updateExamCheck()">시험지수정</button>
-																	<se:authorize access="hasRole('ROLE_TEACHER')">
-																	<button type="button" class="btn btn-theme buttonGroup"
-																	onclick="location.href='examScheduleRegist.do?exam_paper_num=${myexamPaperList.exam_paper_num}&exam_paper_name=${myexamPaperList.exam_paper_name}'">시험등록</button>
-																	</se:authorize>																
-																<input type="hidden" id="hidden_class_num"
-																	value='${param.class_num}'>
-															</div>
-															<hr>
-														</div>
-													</c:forEach>
-												</div>
-											</div>
-										</form>
 									</div>
 									<!-- 내 시험지 div 끝 -->
 									

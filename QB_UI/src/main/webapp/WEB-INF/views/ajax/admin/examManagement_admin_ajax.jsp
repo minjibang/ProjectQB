@@ -39,3 +39,24 @@
 		</div>
 	</form>
 </c:forEach>
+
+<script>
+$(document).ready(function(){
+	$('.miri').click(function(){
+		var exam_paper_num = $(this).attr('id');
+		
+			 $.ajax({
+				  url : "../teacher/examMiri.do",
+				  type:'GET',
+				  data : {
+					  'exam_paper_num' : exam_paper_num
+				  },
+				  dataType:"html",
+				  success:function(data){
+					  $('.book').html(data);
+				  }
+			   });
+	   });
+
+});
+</script>
