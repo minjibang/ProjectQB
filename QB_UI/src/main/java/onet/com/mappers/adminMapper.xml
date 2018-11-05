@@ -27,7 +27,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ep.exam_paper_name like concat('%',#{param2},'%')
 	</if>
 </sql>
-
+<sql id="adminexaminfosearch">
+	<if test="param1=='all'">
+		where exam_info_name like concat('%',#{param2},'%') or class_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="n"'>
+		where class_name like concat('%',#{param2},'%')
+	</if>
+	<if test='param1 =="p"'>
+		where exam_info_name like concat('%',#{param2},'%')
+	</if>
+</sql>
 <select id="adminMainView" parameterType="int" resultType="onet.com.vo.ClassDto">
 	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
 	ifnull(count(m.member_id) , 0) as class_student_count
@@ -488,4 +498,17 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	<include refid="adminexampapersearch"></include>
 	limit #{param3}, 4
 </select> 
+
+<!-- 민지 11.05시험일정 검색 -->
+
+<select id="examinfolistClass" parameterType="int" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info limit #{begin}, 2
+</select>	
+
+<select id="examinfoSearch" resultType="onet.com.vo.ExamInfoDto">
+	select *
+	from exam_info
+	<include refid="adminexaminfosearch"></include>
+	limit #{param3}, 2
+</select>  
 </mapper>

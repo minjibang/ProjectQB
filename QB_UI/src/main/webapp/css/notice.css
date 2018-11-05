@@ -16,6 +16,10 @@
 }
 .notice_name{
 	width:45%;
+	cursor:pointer;
+}
+.exam_info_name{
+	cursor:pointer;
 }
 
 .table-inbox-notice-wrap {
