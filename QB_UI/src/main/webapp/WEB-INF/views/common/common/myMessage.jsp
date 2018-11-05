@@ -16,14 +16,38 @@
 .textarea{
 	resize: none;
 }
-.th{
+.th1{
 	text-align: center;
+	width:80px;
+}
+.th2{
+	text-align: center;
+	width:100px;
+}
+.th3{
+	text-align:center;
+	width:200px;
+}
+.th4{
+	text-align: center;
+	width:100px;
+}
+.th5{
+	text-align: center;
+	width:80px;
 }
 .to{
 	color:orange;
 }
 .sendMessageDelete{
-	font-size: 13px;
+	font-size: 14px;
+	color: red;
+	cursor: pointer;
+}
+.receiveMessageDelete{
+	font-size: 14px;
+	color: red;
+	cursor: pointer;
 }
 #message_content{
 	resize:none;
@@ -184,16 +208,15 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
-                                      <a class="sendMessageDelete">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash-o"></i>&nbsp;삭제</a>
                                       <input type="hidden" id="sendDeleteHidden" name="sendDeleteHidden" />
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll2">&nbsp;전체선택</th>
-                                                <th class="th">보낸사람</th>
-                                                <th class="th">제목</th>
-                                                <th class="th">받는사람</th>
-                                                <th class="th">받은날짜</th>
+                                                <th class="th1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="mail-checkbox" id="agreeAll2">&nbsp;전체선택</th>
+                                                <th class="th2">보낸사람</th>
+                                                <th class="th3">제목</th>
+                                                <th class="th4">받는사람</th>
+                                                <th class="th5">받은날짜</th>
                                              </tr>
                                           </thead>
                                           <tbody>
@@ -235,6 +258,7 @@
 
                                           </tbody>
                                        </table>
+                                       <a class="sendMessageDelete"><i class="fa fa-trash-o"></i>&nbsp;삭제</a>
                                     </div>
                                  </div>
                               </div>
@@ -255,16 +279,15 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
-                                    <a class="receiveMessageDelete">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash-o"></i>&nbsp;삭제</a>
                                       <input type="hidden" id="receiveDeleteHidden" name="receiveDeleteHidden" />	
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th"><input type="checkbox" class="mail-checkbox" id="agreeAll3">&nbsp;전체선택</th>
-                                                <th class="th">보낸사람</th>
-                                                <th class="th">제목</th>
-                                                <th class="th">받는사람</th>
-                                                <th class="th">보낸날짜</th>
+                                                <th class="th1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="mail-checkbox" id="agreeAll3">&nbsp;전체선택</th>
+                                                <th class="th2">보낸사람</th>
+                                                <th class="th3">제목</th>
+                                                <th class="th4">받는사람</th>
+                                                <th class="th5">보낸날짜</th>
                                              </tr>
                                           </thead>
                                           <tbody>
@@ -294,6 +317,7 @@
 
                                           </tbody>
                                        </table>
+                                       <a class="receiveMessageDelete"><i class="fa fa-trash-o"></i>&nbsp;삭제</a>
                                     </div>
                                  </div>
                               </div>
@@ -338,7 +362,7 @@
                                                    <se:authorize access="hasRole('ROLE_STUDENT')">
                                                       <c:forEach items="${classTeacherList}" var="classTeacherList">
                                                       <li id="messageSelect"><div>
-                                                       <div class="checkbox" id="checkboxName" style="text-align: left;">
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:130px;">
                                                         <label>
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;" checked/>
                                                             <img
@@ -353,7 +377,7 @@
                                                     <se:authorize access="hasRole('ROLE_ADMIN')">
                                                       <c:forEach items="${teacherList}" var="teacherList">
                                                       <li id="messageSelect"><div>
-                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px;" >
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:150px;" >
                                                         <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${teacherList.member_id}"style="position:relative;"/>
                                                             <img
@@ -372,7 +396,7 @@
                                                 <div class="form-group">
                                                    <textarea class="form-control" name=message_content
                                                       id="message_content" placeholder="Your Message"
-                                                      rows="21" cols="15" data-rule="required"
+                                                      rows="21" cols="10" data-rule="required"
                                                       data-msg="Please write something for us"></textarea>
                                                 </div>
                                                 <div class="sent-message">Your message has been

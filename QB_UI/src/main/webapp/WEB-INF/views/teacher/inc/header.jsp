@@ -58,7 +58,8 @@ $(document).ready(function(){
 	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
 
   <script type="text/javascript">
-    var wsUri ="ws://192.168.0.137:8090/qb/count.do";
+
+    var wsUri ="ws://192.168.0.18:8090/qb/count.do";
     
 
     function send_message() {
@@ -84,18 +85,22 @@ $(document).ready(function(){
     }
     
     function onMessage(evt) {
-
-    	$('#message').html(evt.data);
-    		
+    	
+   	 	$('#message').html(evt.data);
+    	
+    	
     }
     function onError(evt) {
     	
     }
-	$(document).ready(function(){
-		send_message();
-	});
+	
+    $(function(){
+    	send_message();
+    });
+		
+	
 
-	</script>
+	</script> 
 </se:authorize>  
 
 
