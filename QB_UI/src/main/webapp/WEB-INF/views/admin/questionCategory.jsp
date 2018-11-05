@@ -371,9 +371,9 @@
 								<table id="table_lgCategory">
 									<thead>
 										<tr>
-											<th>대분류코드</th>
-											<th>대분류 [언어]</th>
-											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<th class="thwidth1">대분류코드</th>
+											<th class="thwidth2">대분류 [언어]</th>
+											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
 									<tbody id="list1body">
@@ -407,9 +407,9 @@
 								<table id="table_mdCategory">
 									<thead>
 										<tr>
-											<th>중분류코드</th>
-											<th>중분류 [과목]</th>
-											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<th class="thwidth1">중분류코드</th>
+											<th class="thwidth2">중분류 [과목]</th>
+											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
 									<tbody id="list2body">
@@ -444,9 +444,9 @@
 								<table id="table_smCategory">
 									<thead>
 										<tr>
-											<th class="smWidth">소분류코드</th>
-											<th>소분류 [주제]</th>
-											<th>&nbsp;&nbsp;&nbsp;&nbsp;관리&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<th class="thwidth1">소분류코드</th>
+											<th class="thwidth2">소분류 [주제]</th>
+											<th class="thwidth3">관리</th>
 										</tr>
 									</thead>
 									<tbody id="list3body">
