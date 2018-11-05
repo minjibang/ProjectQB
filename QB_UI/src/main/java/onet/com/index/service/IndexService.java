@@ -63,19 +63,19 @@ public class IndexService {
 			this.velocityEngine = velocityEngine;
 		}
 
-		public String sendMail(String mailto,String command) {
+		public String sendMail(String mailto,String command, String member_id) {
 			
 			Mail mail = new Mail();
-			mail.setCompany("NodeJS");// 회사명
+			mail.setCompany("QBQB");// 회사명
 			mail.setMailFrom("bitcamp109");// 송신메일
 			mail.setMailTo(mailto);// 수신메일
 			String randomNum = this.randomNum();
 			String randomPwd = this.randomPwd(); 
 			if (command == "join") {
-				mail.setMailSubject("이메일 인증");// 메일제목
+				mail.setMailSubject("[QB]이메일 인증 안내 메일입니다.");// 메일제목
 				mail.setTemplateName("jointemplate.vm");// 메일내용
 			} else {
-				mail.setMailSubject("임시 비밀번호");// 메일제목
+				mail.setMailSubject("[QB]임시 비밀번호를 안내해드립니다.");// 메일제목
 				mail.setTemplateName("logintemplate.vm");// 메일내용
 			}
 
@@ -94,8 +94,12 @@ public class IndexService {
 
 				
 				VelocityContext velocityContext = new VelocityContext();
-				velocityContext.put("firstName", "홍길동");
-				velocityContext.put("id", "bit1004");
+				
+					
+				velocityContext.put("firstName", member_id);
+				
+
+				
 				velocityContext.put("company", mail.getCompany());
 				velocityContext.put("mailFrom", mail.getMailFrom());
 				velocityContext.put("randomNum", randomNum);

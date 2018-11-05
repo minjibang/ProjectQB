@@ -49,7 +49,7 @@
 		$.ajax({
             type : 'post',
             url : '${pageContext.request.contextPath}/index/mail.do',
-            data : {mailto:$('#member_email').val()},
+            data : {mailto:$('#member_email').val(),member_id:$('#member_id').val()},
             success : function(data) {
             	swal({
 			    	title:"EMAIL로 인증번호가 발송되었습니다.",
