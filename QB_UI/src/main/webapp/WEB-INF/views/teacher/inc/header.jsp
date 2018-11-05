@@ -65,6 +65,7 @@ $(document).ready(function(){
   <script type="text/javascript">
 
     var wsUri ="ws://localhost:8090/qb/count.do";
+
     
 
     function send_message() {
@@ -86,14 +87,14 @@ $(document).ready(function(){
    
     function onOpen(evt) 
     {
-       websocket.send("${username}");
+    	websocket.send("${username}");
     }
     
     function onMessage(evt) {
+
     	
    	 	$('#message').html(evt.data);
-    	
-    	
+
     }
     function onError(evt) {
     	
