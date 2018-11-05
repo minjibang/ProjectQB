@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.common.dao.CommonDao;
 import onet.com.teacher.dao.TeacherDao;
@@ -38,6 +39,11 @@ public class CommonService {
 	private SqlSession sqlsession;
 	
    /*한결 - 10.10 강사 메인페이지 백그라운드 시작*/
+	public List<MemberDto> member(String member_id) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<MemberDto> result = dao.member(member_id);
+		return result;
+	}
 	public List<NoticeDto> teacher_student_Main(String member_id) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		NoticeDto dto = new NoticeDto();
@@ -104,11 +110,10 @@ public class CommonService {
 	}
 	/*양회준 - 10.15 내정보 끝 */
 
-	public int memberDrop(String member_id, String member_pwd)
+	public String memberDrop(String member_id)
 			throws ClassNotFoundException, SQLException, IOException {
-		System.out.println("droptestAjax");
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
-		int result = commonDao.memberDrop(member_id, member_pwd);
+		String result = commonDao.memberDrop(member_id);
 		
 		return result;
 	}
@@ -362,11 +367,16 @@ public class CommonService {
 		return result;
 	}
 	
+	@Transactional
 	public int noticeDelete(NoticeDto dto) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int cDelete = dao.noticeFromCommentDelete(dto);
-		int result = dao.noticeDelete(dto);
-		System.out.println("2" + result);
+		int result = 0;
+		try {
+			dao.noticeFromCommentDelete(dto);
+			result = dao.noticeDelete(dto);
+		}catch(Exception e) {
+			throw e;
+		}
 		return result;
 	}	
 
@@ -440,19 +450,44 @@ public class CommonService {
 			return result;
 		}
 	   
+	   @Transactional
 	   public int sendMessageDelete(String sendDeleteHiddenArray) {
 			CommonDao dao = sqlsession.getMapper(CommonDao.class);
 			int sendDeleteHiddenArrayInt = Integer.parseInt(sendDeleteHiddenArray);
-			int result = dao.sendMessageDelete(sendDeleteHiddenArrayInt);
-			
+			int result = 0;
+			try {
+				result = dao.sendMessageDelete(sendDeleteHiddenArrayInt);
+				if(result > 0) {
+					 MessageDto dto = dao.MessageDeleteCheck(sendDeleteHiddenArrayInt);
+					 int rCheck = dto.getReceive_check();
+					 int sCheck = dto.getSend_check();
+					 if(rCheck > 0 && sCheck > 0) {
+						dao.messageRealDelete(sendDeleteHiddenArrayInt);
+					 }
+				}
+			}catch(Exception e) {
+				throw e;
+			}
 			return result;
 		}
 	   
 	   public int receiveMessageDelete(String receiveDeleteHiddenArray) {
 			CommonDao dao = sqlsession.getMapper(CommonDao.class);
 			int receiveDeleteHiddenArrayInt = Integer.parseInt(receiveDeleteHiddenArray);
-			int result = dao.receiveMessageDelete(receiveDeleteHiddenArrayInt);
-			
+			int result = 0;
+			try {
+				result = dao.receiveMessageDelete(receiveDeleteHiddenArrayInt);
+				if(result > 0) {
+					 MessageDto dto = dao.MessageDeleteCheck(receiveDeleteHiddenArrayInt);
+					 int rCheck = dto.getReceive_check();
+					 int sCheck = dto.getSend_check();
+					 if(rCheck > 0 && sCheck > 0) {
+						dao.messageRealDelete(receiveDeleteHiddenArrayInt);
+					 }
+				}
+			}catch(Exception e) {
+				throw e;
+			}
 			return result;
 		}
 	   
@@ -472,5 +507,9 @@ public class CommonService {
 		      
 		return result;
 	}
+	
+	
+	
+	
 	//민지 10.31 메시지 체크
 }

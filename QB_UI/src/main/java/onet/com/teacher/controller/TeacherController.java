@@ -309,8 +309,6 @@ public class TeacherController {
 			} else if(dto2.getQuestion_type().equals("단답형")) {
 				adminService.insertQuestion(dto2, request);
 			}
-			System.out.println("오는가?2");
-//			adminService.insertQuestion(dto2, request);
 			return "redirect:questionManagement.do";
 	}
 		
@@ -496,10 +494,14 @@ public class TeacherController {
 	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
 	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
 			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
-		System.out.println("intoAjax");
-		System.out.println(member_id);
-		System.out.println(member_pwd);
-		int result = commonService.memberDrop(member_id, member_pwd);		
+		int result;
+		String pwd = commonService.memberDrop(member_id);		
+		 if(bCryptPasswordEncoder.matches(member_pwd, pwd)){
+			 result = 1; //비빌번호 일치
+		 }else {
+			 result = 0; //비밀번호 불일치
+		 }
+		
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/

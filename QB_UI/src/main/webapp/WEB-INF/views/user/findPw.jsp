@@ -23,7 +23,7 @@
 			
 			<div id="remember">
 				<a class="" href="${pageContext.request.contextPath}/login.jsp"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> 로그인 페이지 </a> / 
-				<a class="" href="${pageContext.request.contextPath}/index/idSearch.do"><i class="fa fa-key"></i> 비밀번호 찾기 </a>
+				<a class="" href="${pageContext.request.contextPath}/index/idSearch.do"><i class="fa fa-key"></i> 아이디 찾기 </a>
 			</div>
 			</div>
 			<br>

@@ -17,6 +17,7 @@
 
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/jquery-ui.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -46,7 +47,7 @@
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
 								<select class="form-control searchRightBtnDiv" id="searchType" name="searchType">
-									<option value="all">전체</option>
+									<option value="all">전체 보기</option>
 									<option value="n">클래스명</option>
 									<option value="t">강사</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
@@ -61,7 +62,7 @@
 							aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<form action="classInsert.do" class="form-horizontal style-form" method="post" onsubmit="return classCheck()">
+									<form action="classInsert.do" id="insertClassForm" class="form-horizontal style-form" method="post" onsubmit="return classCheck()">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
@@ -125,7 +126,6 @@
 													<label class="col-sm-2 col-sm-2 control-label">클래스명</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control" id="class_name_update" name="class_name" required>
-														<div id="classdiv"></div>
 													</div>
 												</div>
 												<div class="form-group">
@@ -203,13 +203,12 @@
 </section>
 
 <script>
-var classcheck = true;	//	왜 false?
-var classParam = {
+		
+var classParam = {	
 		"begin" : 0,
 		"searchType" : "all",
 		"keyword" : "all",
 }
-
 
 $(document).ready(function(){
 	
@@ -217,23 +216,24 @@ $(document).ready(function(){
 	var lastScrollTop = 0;
 	
 	// 무한 스크롤 
-	$(window).scroll(function(){
+	$(window).scroll(function(){	// ① 스크롤 이벤트 최초 발생
+		
 		var currentScrollTop = $(window).scrollTop();
 		if( currentScrollTop - lastScrollTop > 0 ){
-	            // 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
-	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
-				classParam.begin += 4;
+	        // 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
+	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면  if( scrollTop + windowHeight + 30 > documentHeight )
+				classParam.begin += 8;
 				adminMainClass(classParam);
-				console.log("begin : " + classParam.begin +"번부터");
+				//console.log("begin : " + classParam.begin +"번부터");
 			 }
 		  }
 	});
 	
 	
-	$('#searchBtn').click(function(){  // search 버튼을 눌렀을 때는 json 데이터의 내용을 변경시켜서 파라미터로 보내기 
+	$('#searchBtn').click(function(){  
 		
 		classParam.begin = 0; 
-		classParam.searchtype = $("#searchType").val();
+		classParam.searchType = $("#searchType").val();
 		classParam.keyword = $("#keyword").val();
 		$('#classlistView').empty();
 		
@@ -252,7 +252,7 @@ $(document).ready(function(){
 			dataType : "html",
 			data : classParam,
 			success : function(data){	
-				$('#classlistView').before(data);
+				$('#classlistView').append(data);
 			},
 			error : function(error) {
 				console.log("===========실패");
@@ -260,29 +260,49 @@ $(document).ready(function(){
 		});
 	}
 
+
+	var classcheck = false;	
 	function classCheck() {
 		if(classcheck == false){
-			alert("클래스 명을 확인해주세요");
-			document.getElementById("class_name").focus();
+			swal("클래스 명을 확인해주세요");
+			$("#class_name").focus();
 			return false;
 		}else{
-			var classconfirm = confirm("클래스 생성 하시겠습니까");
+			swal({
+				  title: "클래스를 생성하시겠습니까?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true
+				}).then((willDelete) => {
+				  if (willDelete) {
+				    swal("클래스가 생성되었습니다.", {
+				      icon: "success"
+				    });
+				    $('#insertClassForm').submit();
+				  } else {
+				  }
+			});	
+			
+			
+			/* 
+			
+			var classconfirm = confirm("클래스 생성 하시겠습니까?");
 			if(classconfirm == true){
 				return true;
 			}else{
 				return false;
-			}
+			} */
 		}
 	}
 
 	function confirmClass() {
 		
-		var val = document.getElementById("class_name").value;
-		var iddiv = document.getElementById("classdiv");
+		var val = $("#class_name").val();
+		var iddiv = $("#classdiv");
 		if (val == "") {
-			classdiv.innerHTML = "클래스를 입력해주세요";
-			iddiv.style.color = 'green';
-			idcheck = false;
+			iddiv.html("클래스를 입력해주세요.");
+			$('#classdiv').css("color", "green");
+			classcheck = false;
 
 		} else {
 			$.ajax({
@@ -293,12 +313,12 @@ $(document).ready(function(){
 				dataType : 'json',
 				success : function(data) {
 					if (data.result == true) {
-						classdiv.innerHTML = "사용가능한 클래스 입니다.";
-						classdiv.style.color = 'blue';
+						iddiv.html("사용가능한 클래스 입니다.");
+						$('#classdiv').css("color", "green");
 						classcheck = true;
 					} else {
-						classdiv.innerHTML = "사용 불가능한 클래스 입니다.";
-						classdiv.style.color = "red";
+						iddiv.html("사용 불가능한 클래스 입니다.");
+						$('#classdiv').css("color", "red");
 						classcheck = false;
 					}
 				}

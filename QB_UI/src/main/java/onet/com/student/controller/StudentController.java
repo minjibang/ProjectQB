@@ -304,7 +304,7 @@ public class StudentController {
           model.addAttribute("receiveMessage", receiveMessage);
           model.addAttribute("sendMessage", sendMessage);
           model.addAttribute("member_id", member_id);
-       return "common.teacher.common.myMessage";
+       return "common.student.common.myMessage";
     }
 	
 	
@@ -326,10 +326,14 @@ public class StudentController {
 	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
 	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
 			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
-		System.out.println("intoAjax");
-		System.out.println(member_id);
-		System.out.println(member_pwd);
-		int result = commonService.memberDrop(member_id, member_pwd);		
+		int result;
+		String pwd = commonService.memberDrop(member_id);		
+		 if(bCryptPasswordEncoder.matches(member_pwd, pwd)){
+			 result = 1; //비빌번호 일치
+		 }else {
+			 result = 0; //비밀번호 불일치
+		 }
+		
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/

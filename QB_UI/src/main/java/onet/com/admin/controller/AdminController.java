@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -616,7 +617,6 @@ public class AdminController {
 	@RequestMapping(value = "myPage.do", method = RequestMethod.POST)
 	public String myPageUpdate(MemberDto memberDto) throws IOException, ClassNotFoundException, SQLException {
 		String url = "redirect:myPage.do";
-		System.out.println("정보수정==============");
 		memberDto.setMember_pwd(this.bCryptPasswordEncoder.encode(memberDto.getMember_pwd()));
 		try {
 			url = commonService.myPageUpdate(memberDto);
@@ -643,11 +643,15 @@ public class AdminController {
 	/* 양회준 10.16 내정보 비밀번호 확인 시작*/
 	@RequestMapping(value="memberDrop.do", method=RequestMethod.POST)
 	public @ResponseBody int memberDrop(@RequestParam("member_id") String member_id, 
-			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException {
-		System.out.println("intoAjax");
-		System.out.println(member_id);
-		System.out.println(member_pwd);
-		int result = commonService.memberDrop(member_id, member_pwd);		
+			@RequestParam("member_pwd") String member_pwd) throws IOException, ClassNotFoundException, SQLException { 
+		int result;
+		String pwd = commonService.memberDrop(member_id);		
+		 if(bCryptPasswordEncoder.matches(member_pwd, pwd)){
+			 result = 1; //비빌번호 일치
+		 }else {
+			 result = 0; //비밀번호 불일치
+		 }
+		
 		return result;
 	}
 	/* 양회준 10.16 내정보 비밀번호 확인 끝*/
@@ -807,7 +811,12 @@ public class AdminController {
 	
 	@RequestMapping("selectLgList.do")
 	public ModelAndView selectLgList(String lgCode) {
-		List<CategoryDto> list1 = adminService.selectLgList(lgCode);
+		List<CategoryDto> list1 = null;
+		if(lgCode.trim().equals("전체조회")) {
+			list1 = adminService.selectTotalLgList();
+		}else {
+			list1 = adminService.selectLgList(lgCode);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax");
 		mv.addObject("list1", list1);
@@ -817,7 +826,12 @@ public class AdminController {
 
 	@RequestMapping("selectMdList.do")
 	public ModelAndView selectMgList(String lgCode) {
-		List<CategoryDto> list2 = adminService.selectMdList(lgCode);
+		List<CategoryDto> list2 = null;
+		if(lgCode.trim().equals("전체조회")) {
+			list2 = adminService.selectTotalMdList();	
+		}else {
+			list2 = adminService.selectMdList(lgCode);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax2");
 		mv.addObject("list2", list2);
@@ -826,7 +840,12 @@ public class AdminController {
 	
 	@RequestMapping("selectSmList.do")
 	public ModelAndView selectSmList(String lgCode) {
-		List<CategoryDto> list3 = adminService.selectSmList(lgCode);
+		List<CategoryDto> list3 = null;
+		if(lgCode.trim().equals("전체조회")) {
+			list3 = adminService.selectTotalSmList();	
+		}else {
+			list3 = adminService.selectSmList(lgCode);
+		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax3");
 		mv.addObject("list3", list3);

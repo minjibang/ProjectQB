@@ -5,14 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.admin.dao.AdminDao">
 <!-- 태용 시작 -->
 <sql id="search">
-	<if test="searchtype ==''">
-		where c.class_name like concat('%',#{keyword},'%') or c.teacher_name like concat('%',#{keyword},'%')
+	<if test="param1 =='all'">
+		where c.class_name like concat('%',#{param2},'%') or c.teacher_name like concat('%',#{param2},'%')
 	</if>
-	<if test='searchtype =="n"'>
-		where c.class_name like concat('%',#{keyword},'%')
+	<if test='param1 =="n"'>
+		where c.class_name like concat('%',#{param2},'%')
 	</if>
-	<if test='searchtype =="t"'>
-		where c.teacher_name like concat('%',#{keyword},'%')
+	<if test='param1 =="t"'>
+		where c.teacher_name like concat('%',#{param2},'%')
 	</if>
 </sql>
 
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where c.class_enable = 1
 	group by c.class_name
 	order by c.class_start_date
-	limit #{begin}, 4
+	limit #{begin}, 8
 </select>	
 
 <select id="classSearch" resultType="onet.com.vo.ClassDto">
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="search"></include>
 	group by c.class_name
 	order by c.class_start_date 
-	limit #{begin}, 4
+	limit #{param3}, 8
 </select>
 
 <insert id="classInsert" parameterType="onet.com.vo.ClassDto">
@@ -461,6 +461,19 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	where class_name = #{param1}
 </update>
 <!-- 현이 11.02 adminMain 페이지 끝 -->
+<select id="selectTotalLgList" resultType="onet.com.vo.CategoryDto">
+	select * from question_lg_category
+</select>
+
+<select id="selectTotalMdList" resultType="onet.com.vo.CategoryDto">
+	select * from question_md_category
+</select>
+
+<select id="selectTotalSmList" resultType="onet.com.vo.CategoryDto">
+	select * from question_sm_category
+</select>
+
+
 
 <!-- 민지 11.05 시험지 검색 -->
 <select id="exampaperlistClass" parameterType="int" resultType="onet.com.vo.ExamPaperDto">
