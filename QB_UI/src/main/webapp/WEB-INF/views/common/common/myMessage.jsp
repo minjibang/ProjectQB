@@ -18,10 +18,10 @@
 }
 .th1{
 	text-align: center;
-	width:80px;
+	width:100px;
 }
 .th2{
-	text-align: center;
+	
 	width:100px;
 }
 .th3{
@@ -29,12 +29,12 @@
 	width:200px;
 }
 .th4{
-	text-align: center;
+	
 	width:100px;
 }
 .th5{
 	text-align: center;
-	width:80px;
+	width:100px;
 }
 .to{
 	color:orange;
@@ -51,6 +51,20 @@
 }
 #message_content{
 	resize:none;
+	border-radius: 4px;
+}
+.textareadiv{
+	margin-left: -30px;
+}
+.newMessageAll{
+	background: #8C8C8C;
+	
+}
+#allchoose{
+	color: #5D5D5D;
+}
+.allchooseicon{
+	color:orange;
 }
 </style>
 <script
@@ -212,7 +226,7 @@
                                        <table class="table table-inbox table-hover" id="sendMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="mail-checkbox" id="agreeAll2">&nbsp;전체선택</th>
+                                                <th class="th1">&nbsp;&nbsp;&nbsp;<input type="checkbox" class="mail-checkbox" id="agreeAll2">&nbsp;전체선택</th>
                                                 <th class="th2">보낸사람</th>
                                                 <th class="th3">제목</th>
                                                 <th class="th4">받는사람</th>
@@ -283,7 +297,7 @@
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
-                                                <th class="th1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" class="mail-checkbox" id="agreeAll3">&nbsp;전체선택</th>
+                                                <th class="th1">&nbsp;&nbsp;&nbsp;<input type="checkbox" class="mail-checkbox" id="agreeAll3">&nbsp;전체선택</th>
                                                 <th class="th2">보낸사람</th>
                                                 <th class="th3">제목</th>
                                                 <th class="th4">받는사람</th>
@@ -335,12 +349,12 @@
                                     <input type="hidden" id="messagemember" name="messagemember" />
                                     <div class="row">
                                        <div class="col-md-12">
-                                          <div class="col-md-2">
-                                             <section class="panel" style="width:150px; height:500px; overflow-y:auto;">
+                                          <div class="col-md-3">
+                                             <section class="panel" style="width:200px; height:482px; overflow-y:auto;">
                                                 <div class="panel-body grey-panel">
                                                    <div>
-                                                      <label class="btn btn-compose"> <i
-                                                         class="fa fa-pencil"></i>전체선택 <input type="checkbox"
+                                                      <label class="btn btn-compose newMessageAll"> <i
+                                                         class="fa fa-user allchooseicon"></i><strong id="allchoose">전체선택</strong><input type="checkbox"
                                                          class="checkbox form-control" id="agreeAll" />
                                                       </label>
                                                    </div>
@@ -348,11 +362,11 @@
                                                    <se:authorize access="hasRole('ROLE_TEACHER')">
                                                       <c:forEach items="${classMemberList}" var="classMemberList">
                                                       <li id="messageSelect"><div>
-                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px;" >
+                                                       <div class="checkbox" id="checkboxName" style="text-align: left; width:110px; height:15px;" >
                                                         <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
                                                             <img
-                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+                                                               src="${pageContext.request.contextPath}/img/friends/student.png"
                                                                class="img-circle" width="25">${classMemberList.member_name}
                                                                </label>
                                                                </div>
@@ -393,24 +407,24 @@
                                              </section>
                                           </div>
                                           <div class="col-md-8">
-                                                <div class="form-group">
+                                                <div class="form-group textareadiv">
                                                    <textarea class="form-control" name=message_content
                                                       id="message_content" placeholder="Your Message"
-                                                      rows="21" cols="10" data-rule="required"
+                                                      rows="23" cols="10" data-rule="required"
                                                       data-msg="Please write something for us"></textarea>
                                                 </div>
                                                 <div class="sent-message">Your message has been
                                                    sent. Thank you!</div>
                                                    <se:authorize access="hasRole('ROLE_STUDENT')">
-                                                <button type="button"  onclick="check()"class="btn btn-large btn-primary">전송</button>
+                                                <button type="button"  onclick="check()"class="btn btn-large btn-primary" style="margin-left: -30px; width:80px;">전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_TEACHER')">
-                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary" style="margin-left: -30px; width:80px;">전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_ADMIN')">
-                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary">전송</button>
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary" style="margin-left: -30px; width:80px;">전송</button>
                                                 </se:authorize>
-                                                <button class="btn btn-theme04" type="button">취소</button>
+                                                <button class="btn btn-theme04" type="button" style="width:80px;">취소</button>
                                           </div>
                                        </div>
                                     </div>

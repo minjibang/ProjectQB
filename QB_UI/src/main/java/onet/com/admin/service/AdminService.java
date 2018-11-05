@@ -24,6 +24,8 @@ import onet.com.admin.dao.AdminDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
+import onet.com.vo.ExamInfoDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
@@ -502,6 +504,39 @@ public class AdminService {
 		
 		return teacherList;
 	}
+
+	/*11.05 민지 시험지 검색 */
+	public List<ExamPaperDto> exampaperlistClass(int begin){
+		System.out.println("service로 들어옴 : " + begin);
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.exampaperlistClass(begin);
+		
+		return result;
+	}
+	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin){
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<ExamPaperDto> result = dao.exampaperSearch(searchType, keyword, begin);
+		return result;
+	}
+
+	public List<CategoryDto> selectTotalLgList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> list = dao.selectTotalLgList();
+		return list;
+	}
 	
+	public List<CategoryDto> selectTotalMdList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> list = dao.selectTotalMdList();
+		return list;
+	}
+	
+	public List<CategoryDto> selectTotalSmList() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<CategoryDto> list = dao.selectTotalSmList();
+		return list;
+	}
+	
+
 	
 }

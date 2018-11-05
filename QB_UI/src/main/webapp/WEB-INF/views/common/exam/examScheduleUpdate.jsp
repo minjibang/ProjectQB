@@ -7,11 +7,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <link
    href="${pageContext.request.contextPath}/css/examScheduleUpdate.css"
    rel="stylesheet">
  <script
    src="${pageContext.request.contextPath}/lib/onet-js/examScheduleUpdate.js"></script> 
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <section id="main-content">
   <section class="wrapper-low site-min-height">
   
@@ -22,7 +24,7 @@
               <div id="updateExam" class="tab-pane">
                 <div class="row">
                   <div class="col-md-12">
-                   <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" onsubmit="return check()">         
+                   <form action="examInfoIUpdate.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post">         
                      <h2><strong>시험 일정 수정</strong></h2>
                     <div class="col-md-2" id="examScheduleUpdateMember">
                        <div class="invite-row">
@@ -130,14 +132,17 @@
                                               <div class="col-md-12">
                       <div class="col-md-2">
                       </div>
-                      <div class="col-md-3">
+                      <se:authorize access="hasRole('ROLE_TEACHER')">
                         <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
-                      </div>
+                        </se:authorize>
+                          <se:authorize access="hasRole('ROLE_ADMIN')">
+                        <button type="button" class="btn btn-second btn-lg" onclick="location.href='${pageContext.request.contextPath}/admin/examManagement.do'">취소</button>
+                        </se:authorize>
                       <div class="col-md-2">
                       </div>
                       <div class="col-md-4">
 
-                        <button class="btn btn-primary btn-lg btn-block" id="examUpdateBtn">시험 일정 수정</button>
+                        <button class="btn btn-primary btn-lg btn-block" id="examUpdateBtn" type="button" onclick="check()">시험 일정 수정</button>
                       </div>
                    </div>
                     </c:forEach>
@@ -234,12 +239,25 @@ function check(){
       alert("학생을 선택하세요.");
       return false;
    }else {
-      var insertconfirm = confirm("시험일정을 수정하시겠습니까?");
-      if(insertconfirm == true){
-         return true;
-      }else{
-         return false;
-      }
+      	swal({
+      		 title: "시험 일정을 수정하시겠습니까?",
+			  icon: "info",
+			  buttons: true,
+			  dangerMode: true
+		}).then((willDelete) => {
+		  if (willDelete) {
+			  
+				swal({
+				       title: "수정이 완료되었습니다.",
+					   text: "",
+					   icon:"success"
+					}).then(function() {
+						document.getElementById("examScheduleRegistForm").submit();
+				});
+		    
+		  } else {
+		  }
+	});
    }
    
 

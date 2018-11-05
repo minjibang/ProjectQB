@@ -296,7 +296,7 @@ public class TeacherService {
 	public int teacherExamMemberDelete(int exam_info_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.teacherExamMemberDelete(exam_info_num);
-		
+		System.out.println("서비스에서 result 값: >>>> " + result);
 		return result;
 	}
 	
