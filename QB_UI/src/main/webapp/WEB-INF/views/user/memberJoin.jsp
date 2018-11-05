@@ -12,7 +12,7 @@
 			<h2 class="form-login-heading">회원 가입</h2>
 			<div class="login-wrap">
 				<label>ID</label> <input type="text" class="form-control"
-					placeholder="아이디를 입력해주세요" autofocus name="member_id" id="member_id"
+					placeholder="아이디를 입력해주세요(최소 5글자)" autofocus name="member_id" id="member_id"
 					onblur="confirmId()">
 				<div id="iddiv"></div>
 				<label>PASSWORD</label> <input type="password" class="form-control"
@@ -39,8 +39,8 @@
 				</button>
 				<br> <br> <label>인증번호 입력</label> 
 				<input type="text" class="form-control" placeholder="인증번호를 입력해주세요" id="textmail" autofocus>
-				<br> <label>휴대전화</label> <input type="text" class="form-control" placeholder="휴대폰 번호를 입력해주세요" pattern="(010)-\d{3,4}-\d{4}" autofocus name="member_phone" required>
-				<div>( - 를 포함한 010-0000-0000 의 형식으로 입력해주세요)</div>
+				<br> <label>휴대전화</label> <input type="text" class="form-control" placeholder="휴대폰 번호를 입력해주세요" pattern="01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})" autofocus name="member_phone" required>
+				<div>(숫자, - 를 포함한 숫자만 입력하세요.)</div>
 
 
 
@@ -117,14 +117,19 @@
 	});
 
 	function confirmId() {
-		var val = document.getElementById("member_id").value;
+		var val = $("#member_id").val();
 		var iddiv = document.getElementById("iddiv");
+		
 		if (val == "") {
 			iddiv.innerHTML = "아이디를 입력해주세요";
 			iddiv.style.color = 'green';
 			idcheck = false;
 
-		} else {
+		}else if(val.length < 5){
+			iddiv.innerHTML = "최소 5글자 이상 입력해주세요";
+			iddiv.style.color = 'green';
+			idcheck = false;
+		}else {
 			$.ajax({
 				url : 'joinCheckId.do',
 				data : {
