@@ -23,6 +23,9 @@
 .fileDeletebtn{
 	height:32px;
 }
+#notice_name{
+	width:100%;
+}
 </style>
 <!-- 강사 공지사항 글쓰기 -->
 <section id="main-content">
