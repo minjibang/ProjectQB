@@ -76,11 +76,7 @@
     }
     
 
-    $(function(){
-    	send_message()
-    });
-
-    $(document).ready(function(){
+        $(document).ready(function(){
     	   send_message();
     	   
     	   $.ajax({

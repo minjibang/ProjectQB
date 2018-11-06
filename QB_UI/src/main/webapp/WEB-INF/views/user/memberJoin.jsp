@@ -29,7 +29,7 @@
                     </c:forEach>
 				</select> <br> <label>이름</label> <input type="text"
 					class="form-control" placeholder="이름을 입력해주세요"
-					pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name"
+					pattern="([a-z, A-Z, 가-힣]){2,}" autofocus name="member_name" id="member_name"
 					required>
 				<label>E-mail</label><br> <input type="text"
 					class="form-control authText" placeholder="이메일을 입력해주세요"
@@ -97,23 +97,28 @@
 	var mailtonumber;
 	
 	$('#mailtoBtn').click(function() {
-		$.ajax({
-			type : 'post',
-			url : '${pageContext.request.contextPath}/index/mail.do',
-			data : {
-				mailto : $('#mailto').val()
-			},
-			success : function(data) {
-				alert(data);
-				mailtonumber = data;
-				mailcheck = true;
-			},
-			error : function(error) {
-				alert("인증 메일 전송 실패");
-				console.log(error);
-				console.log(error.status);
-			}
-		});
+		
+			
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/index/mail.do',
+				data : {
+					mailto : $('#mailto').val(),
+					member_id : $('#member_id').val()
+				},
+				success : function(data) {
+					alert(data);
+					mailtonumber = data;
+					mailcheck = true;
+				},
+				error : function(error) {
+					alert("인증 메일 전송 실패");
+					console.log(error);
+					console.log(error.status);
+				}
+			});
+
+		
 	});
 
 	function confirmId() {

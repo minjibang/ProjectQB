@@ -44,12 +44,27 @@
 	
 	var mailtoNum;
 	var result;
-
+	
 	$('#mailtoBtn').click(function(){
+		var member_id = $('#member_id').val();
+		var member_email = $('#member_email').val();
+		if(member_id =="" || member_id == null){
+			swal({
+		    	title:"ID를 입력해주세요",
+		    	text:"ID 미입력시 비밀번호를 찾을 수 없습니다",
+		    	icon:"info",
+		    }); 
+		}else if(member_email == "" || member_email == null){
+			swal({
+		    	title:"Email을 입력해주세요",
+		    	text:"Email 미입력시 비밀번호를 찾을 수 없습니다.",
+		    	icon:"info",
+		    });
+		}else{
 		$.ajax({
-            type : 'post',
+			type : 'post',
             url : '${pageContext.request.contextPath}/index/mail.do',
-            data : {mailto:$('#member_email').val()},
+            data : {mailto:$('#member_email').val(), member_id:member_id},
             success : function(data) {
             	swal({
 			    	title:"EMAIL로 인증번호가 발송되었습니다.",
@@ -67,6 +82,7 @@
             }
             
          });
+		}
 	});
 	
 	/* 인증번호가 틀렸을 때 유효성 */
