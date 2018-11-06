@@ -11,6 +11,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se"
+   uri="http://www.springframework.org/security/tags"%>	
 <link
 	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css"
 	rel="stylesheet">
@@ -231,11 +233,17 @@ var classParam2 = {
 		"searchType2" : "all",
 		"keyword" : "all",
 }
+var role = "${role}";
 
 $(document).ready(function(){
 	//무한 스크롤
-	examlistClass(classParam);
+	
+	if(role == 'ROLE_TEACHER'){
 	imsiSaveExam(tempExam);
+	}
+	examlistClass(classParam);	
+	
+	
 	var lastScrollTop = 0;
 	
 	
@@ -246,12 +254,14 @@ $(document).ready(function(){
 	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) -10 ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
 	        	 
 	        	 //scrollTop + windowHeight + 30 > documentHeight
+	        	
 	        	 
 				classParam.begin += 4;
-				tempExam.begin += 4;
-				examlistClass(classParam);
-				imsiSaveExam(tempExam);
-			
+	        	examlistClass(classParam);
+				if(role == 'ROLE_TEACHER'){
+					tempExam.begin += 4;
+					imsiSaveExam(tempExam);
+				}
 				
 
 				console.log("begin : " + classParam.begin +"번부터");
@@ -326,6 +336,20 @@ $('#examinfotab').click(function(){
 
 	//클래스 목록 가져오는 ajax
 	function examlistClass(classParam){
+	if(role == 'ROLE_TEACHER'){
+		$.ajax({
+			url : "exampaperlistClass.do",
+			type : 'GET',
+			dataType : "html",
+			data : classParam,
+			success : function(data){	
+				$('#examlistView').append(data);
+			},
+			error : function(error) {
+				console.log("===========실패");
+			}
+		});
+	}else{
 		$.ajax({
 			url : "exampaperlistClass.do",
 			type : 'GET',
@@ -339,8 +363,8 @@ $('#examinfotab').click(function(){
 			}
 		});
 	}
-
 	
+	}
 	function imsiSaveExam(tempExam){
 		$.ajax({
 			url : "myTempExamList.do",

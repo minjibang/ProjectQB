@@ -320,6 +320,10 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	</if>
 </sql>
 
+<select id="examManagementRoleCheck" resultType="String">
+	select role_code from member_role where member_id=#{member_id}
+</select>
+
 </mapper>
 
 

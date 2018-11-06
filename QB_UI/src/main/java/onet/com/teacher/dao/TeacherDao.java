@@ -97,6 +97,6 @@ public interface TeacherDao {
 	
 	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
 	
-	
+	public String examManagementRoleCheck(String member_id);
 	
 }
