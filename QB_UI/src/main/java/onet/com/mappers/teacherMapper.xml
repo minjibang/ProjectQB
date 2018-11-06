@@ -293,30 +293,49 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 </select>
 
 <select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto" >
-	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} limit #{begin}, 4
-</select>
-
-<select id="exampaperlistClass" resultType="onet.com.vo.ExamPaperDto">
-	select * from exam_paper where exam_paper_status=1 and member_id=#{member_id} limit #{begin}, 4 
+	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} order by exam_paper_num desc limit #{begin}, 4
 </select>
 
 <select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
 	select ep.exam_paper_num, ep.exam_paper_name, ep.member_id, ep.exam_paper_desc, ep.exam_paper_status, m.class_name 
 	from exam_paper ep left outer join member m 
 	on (ep.member_id = m.member_id)
+	where ep.exam_paper_status=1 and m.member_id=#{member_id}
 	<include refid="teacherExampapersearch"></include>
+	order by exam_paper_num desc
 	limit #{begin}, 4
 </select>
 
 <sql id="teacherExampapersearch">
 	<if test="searchType=='all'">
-		where ep.exam_paper_name like concat('%',#{keyword},'%') or m.class_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+		<if test='keyword != ""'>
+			and (ep.exam_paper_name like concat('%',#{keyword},'%') or ep.exam_paper_desc like concat('%',#{keyword},'%'))
+		</if>
 	</if>
 	<if test='searchType =="n"'>
-		where m.class_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+		and ep.exam_paper_name like concat('%',#{keyword},'%')
 	</if>
 	<if test='searchType =="p"'>
-		where ep.exam_paper_name like concat('%',#{keyword},'%') and m.member_id=#{member_id}
+		and ep.exam_paper_desc like concat('%',#{keyword},'%')
+	</if>
+</sql>
+
+<select id="examinfoSearch" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
+	<include refid="teacherexaminfosearch"></include>
+	order by exam_info_date desc
+	limit #{begin}, 2
+</select>  
+
+<sql id="teacherexaminfosearch">
+	<if test="searchType2=='all'">
+		and (exam_info_name like concat('%',#{keyword},'%') or class_name like concat('%',#{keyword},'%'))
+	</if>
+	<if test='searchType2 =="n"'>
+		and class_name like concat('%',#{keyword},'%')
+	</if>
+	<if test='searchType2 =="p"'>
+		and exam_info_name like concat('%',#{keyword},'%')
 	</if>
 </sql>
 

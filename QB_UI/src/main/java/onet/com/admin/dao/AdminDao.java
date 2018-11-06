@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import onet.com.vo.CategoryDto;
 import onet.com.vo.ClassDto;
 import onet.com.vo.ExamInfoDto;
@@ -172,8 +174,7 @@ public interface AdminDao {
 	
 
 	//민지 11.05 시험 검색
-	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin);
-	public List<ExamPaperDto> exampaperlistClass(int begin);
+	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin);
 
 	public List<CategoryDto> selectTotalLgList();
 	
@@ -182,7 +183,6 @@ public interface AdminDao {
 	public List<CategoryDto> selectTotalSmList();
 	
 	//민지11.05 시험일정검색
-	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin);
-	public List<ExamInfoDto> examinfolistClass(int begin);
+	public List<ExamInfoDto> examinfoSearch(@Param("searchType2") String searchType2, @Param("keyword") String keyword, @Param("begin") int begin);
 }
 

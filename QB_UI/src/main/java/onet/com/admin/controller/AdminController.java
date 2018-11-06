@@ -1296,23 +1296,9 @@ public class AdminController {
 		public @ResponseBody ModelAndView exampaperSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
 				@RequestParam("begin") int begin){
 			
-		
-			
-			System.out.println("searchType : " + searchType);  
-			System.out.println("keyword : " + keyword);
-			System.out.println("begin : " + begin);
-			
 			List<ExamPaperDto> classList = null;
-
-			if(searchType.equals("all")) {
-				System.out.println("all list컨트롤러탔구연");
-				
-				classList = adminService.exampaperlistClass(begin);
-				System.out.println("classList항목 >>>>>>" + classList);
-			} else {
-				System.out.println("검색했을때 컨트롤러 타야댄다");
-				classList = adminService.exampaperSearch(searchType, keyword, begin);
-			}
+			
+			classList = adminService.exampaperSearch(searchType, keyword, begin);
 			
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("ajax.admin.examManagement_admin_ajax");
@@ -1328,21 +1314,9 @@ public class AdminController {
 		public @ResponseBody ModelAndView examinfolistClass(@RequestParam("searchType2") String searchType2, @RequestParam("keyword") String keyword,
 				@RequestParam("begin") int begin){
 			
-			System.out.println("시험일정searchType : " + searchType2);  
-			System.out.println("시험일정keyword : " + keyword);
-			System.out.println("시험일정begin : " + begin);
-			
 			List<ExamInfoDto> classList = null;
 
-			if(searchType2.equals("all")) {
-				System.out.println("all list컨트롤러탔구연");
-				
-				classList = adminService.examinfolistClass(begin);
-				System.out.println("classList항목 >>>>>>" + classList);
-			} else {
-				System.out.println("검색했을때 컨트롤러 타야댄다");
-				classList = adminService.examinfoSearch(searchType2, keyword, begin);
-			}
+			classList = adminService.examinfoSearch(searchType2, keyword, begin);
 			
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");

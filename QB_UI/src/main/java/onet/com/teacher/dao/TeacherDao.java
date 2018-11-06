@@ -71,6 +71,7 @@ public interface TeacherDao {
 	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score);
 	public ExamPaperDto examNameDesc(int exam_paper_num);
 	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num);
+	public List<ExamInfoDto> examinfoSearch(@Param("searchType2") String searchType2, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
 	
 	/*--성태용 끝--*/
 	
@@ -96,7 +97,6 @@ public interface TeacherDao {
 	/*쪽지 보내기*/
 	public String sendMessage(String user_name);
 	
-	public List<ExamPaperDto> exampaperlistClass(@Param("member_id") String member_id, @Param("begin") int begin);
 	/*민지 - 10.29 받은쪽지  끝*/
 	
 	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
