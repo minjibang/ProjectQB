@@ -41,6 +41,7 @@ import onet.com.vo.CommentDto;
 import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamPaperDoQuestionDto;
+import onet.com.vo.ExamPaperDto;
 import onet.com.vo.Exam_infoDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.MessageDto;
@@ -843,4 +844,6 @@ public class TeacherController {
 					
 			return "exam.student.pastExamPaper";
 		}
+		// ajax로 검색한 클래스 목록 가져오기 
+				
 }

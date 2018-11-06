@@ -101,12 +101,7 @@ $(document).ready(function(){
     }
 
 	
-    $(function(){
-    	send_message();
-    });
-		
-	
-
+  
 	$(document).ready(function(){
 		send_message();
 		
