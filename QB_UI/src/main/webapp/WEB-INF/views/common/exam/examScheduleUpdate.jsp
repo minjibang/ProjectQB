@@ -207,14 +207,31 @@ function check(){
    var end_m = end.substring(3);
    
    
-   
-   
+	var examDate = $('#exam_info_date').val();
+	var date = new Date(); 
+	var year = date.getFullYear(); 
+	var month = new String(date.getMonth()+1); 
+	var day = new String(date.getDate()); 
+
+	// 한자리수일 경우 0을 채워준다. 
+	if(month.length == 1){ 
+	  month = "0" + month; 
+	} 
+	if(day.length == 1){ 
+	  day = "0" + day; 
+	} 
+
+
    if(start_hour > end_hour){
       timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
       timeinfodiv.style.color = 'red';
       
       return false;
-   }else if(start_hour == end_hour){
+   }else if((todaydate==examDate)&& (Number(date.getHours()) > Number(start_hour))){
+		timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
+		timeinfodiv.style.color = 'red';
+		return false;
+	}else if(start_hour == end_hour){
       if(start_m > end_m){
          timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";
          timeinfodiv.style.color = 'red';
