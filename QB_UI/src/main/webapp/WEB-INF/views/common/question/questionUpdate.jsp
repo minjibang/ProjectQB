@@ -228,7 +228,7 @@
 												>보기 개수: 5개</option>
 											</select>
 											
-											<p class="warning_text">주의 - 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
+											<p class="warning_text"><i class="fa fa-exclamation-triangle"></i> 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
 											
 										</div><!-- /questionChoiceSub2 -->
 										<!-- 1번 보기 -->

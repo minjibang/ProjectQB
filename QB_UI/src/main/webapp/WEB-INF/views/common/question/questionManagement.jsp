@@ -148,6 +148,8 @@
 										value="" style="display: none">
 									</h3>
 									
+									<a id="searchHelp" style="cursor:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
+									
 									<hr>
 
 									<select id="question_lg_category" class="form-control myQuestionSelectCategory"
@@ -354,7 +356,7 @@
 														<option id="howManyChoices5" value="5">보기 개수: 5개</option>
 														
 													</select> 
-													<p class="warning_text">주의 - 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
+													<p class="warning_text"><i class="fa fa-exclamation-triangle"></i> 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
 													
 													
 													<!-- 1번 보기 -->
