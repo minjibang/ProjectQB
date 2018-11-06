@@ -235,7 +235,17 @@ function check(){
    }else if(memberarray==""){
       alert("학생을 선택하세요.");
       return false;
-   }else {
+   }else if($('#exam_info_member').val()==""){
+		swal("응시대상을 입력하세요.", {
+		      icon: "info"
+		    });
+		return false;
+	}else if($('#exam_info_desc').val()==""){
+		swal("설명 입력하세요.", {
+		      icon: "info"
+		    });
+		return false;
+	}else {
       	swal({
       		 title: "시험 일정을 수정하시겠습니까?",
 			  icon: "info",
