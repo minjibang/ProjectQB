@@ -315,6 +315,7 @@ public class TeacherService {
 	public @ResponseBody int studentInfoCommentUpdate(String member_id, int exam_info_num, String comment) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.studentInfoCommentUpdate(member_id,exam_info_num,comment);
+		System.out.println("서비스 돌아오나?:"+result);
 		return result;
 	}
 	//양회준 11.5 코멘트 취소

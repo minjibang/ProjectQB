@@ -848,8 +848,12 @@ public class TeacherController {
 		//양회준 11.5 코멘트 추가
 		@RequestMapping("studentInfoCommentUpdate.do")
 		public @ResponseBody int studentInfoCommentUpdate(@RequestParam("member_id") String member_id,
-				@RequestParam("exam_info_num") int exam_info_num,@RequestParam("comment") String comment) {			
+				@RequestParam("exam_info_num") int exam_info_num,@RequestParam("comment") String comment) {
+			System.out.println("들어오나?:"+member_id);
+			System.out.println("들어오나?:"+exam_info_num);
+			System.out.println("들어오나?:"+comment);
 			int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, comment);
+			System.out.println("돌아오나?:"+result);
 			return result;
 		}
 		//양회준 11.5 코멘트 취소

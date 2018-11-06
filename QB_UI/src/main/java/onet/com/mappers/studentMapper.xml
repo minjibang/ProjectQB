@@ -117,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="searchStudentName" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-	select m.member_name, sc.exam_info_num, sc.`comment`
+	select m.member_name, sc.exam_info_num, sc.comment
 	from member m join score_chart sc
 	on m.member_id=sc.member_id
 	where m.member_id = #{param1}

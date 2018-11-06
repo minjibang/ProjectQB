@@ -84,7 +84,13 @@
 		});
 
 		$(document).on('click','.ExamCommentBtn',function(){
-			$(this).parent().prev().prev().children().eq(2).toggle();
+			//var comment=$(this).parent().prev().prev().children().eq(2).toggle();
+			var comment=$(this).val();
+			swal({
+				title:"시험평가", 
+				text:comment,
+				button:"확인"
+				});			
 		});
 		
 	});	//	document.ready 끝 
