@@ -46,7 +46,11 @@
 		$.ajax({
             type : 'post',
             url : '${pageContext.request.contextPath}/index/mail.do',
-            data : {mailto:$('#member_email').val()},
+            data : {
+            	mailto:$('#member_email').val(),
+            	command:"findId",
+            	member_id:$('#member_name').val()
+            	},
             success : function(data) {
             	swal({
 			    	title:"EMAIL로 인증번호가 발송되었습니다.",
