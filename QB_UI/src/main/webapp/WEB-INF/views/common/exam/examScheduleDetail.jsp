@@ -112,8 +112,15 @@
 		$('#examBtn').click(function() {
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
 				
+				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
+				var popOption = "width='1920px', height=1080px'";
+				
+				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
+				window.open(popUrl, "지난 시험보기", popOption);
+				
+				
 				/* if(권한이 학생이라면){ */
-					$.ajax({
+					<%-- $.ajax({
 						url : "searchStudentAnswer.do",
 						type : 'get',
 						data : {
@@ -137,7 +144,7 @@
 								window.open(popUrl, "지난 시험보기", popOption);
 							}
 						}
-					});
+					}); --%>
 				/* }  */ // 권한이 학생이라면 if문 종료 괄호
 				
 			} else {

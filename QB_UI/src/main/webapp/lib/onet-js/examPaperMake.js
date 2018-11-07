@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
    
    /*미리보기*/
    $('#miriBtn').click(function(){
-      var miriselected = new Array();
+     /* var miriselected = new Array();
       var miricount = 0;
       var mirilength = Math.round($('#sortable>li').length/2);
       var change = "mirileft";
@@ -76,7 +76,19 @@ jQuery(document).ready(function() {
          +$(this).find("#questiontitle").html());
          
          miricount++;
-      });   
+      });   */
+	   var mirilength = Math.round($('#sortable>li').length);
+	   $('.book').children().remove();
+	   $("#sortable>li").each(function(index){
+		   if(index == 0){
+			   $(".book").append("<div id='page'>");
+		   }
+		   $("#page").append("<span>"+(index+1)+" . </span>"+$(this).find("#questiontitle").html());
+		   if(index == 1){
+			   $(".book").append("</div>");
+		   }
+	   });
+	   
    })
    
    /*선택문제 삭제 + 문제 수 -카운트 / 점수 -카운트*/

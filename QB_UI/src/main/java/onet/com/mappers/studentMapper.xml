@@ -5,34 +5,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.student.dao.StudentDao">
 
 <!-- 10.19 현이 학생 답안지 제출 시작 -->
-<insert id="examAnswerInsert" parameterType="onet.com.vo.Student_answerDto">
-	insert into student_answer(member_id, exam_info_num, question_num, exam_question_seq, student_answer_choice, student_answer_status)
-	values(#{member_id}, #{exam_info_num}, #{question_num}, #{exam_question_seq}, #{student_answer_choice}, #{student_answer_status})
-</insert>
+<update id="examAnswerInsert" parameterType="onet.com.vo.Student_answerDto">
+	update student_answer 
+	set 
+		student_answer_choice = #{student_answer_choice}, 
+		student_answer_status = #{student_answer_status} 
+	where 
+		member_id = #{member_id} and 
+		exam_info_num = #{exam_info_num} and 
+		question_num = #{question_num} and 
+		exam_question_seq = #{exam_question_seq}  
+</update>
 
 <select id="searchAnswer" parameterType="int" resultType="String">
 	select question_answer from question where question_num = #{question_num}
 </select>
 
-<insert id="score_chartInsert">
-	insert into score_chart (member_id, exam_info_num, score_chart_score, score_chart_rank, class_name)
-	values (#{param1}, #{param2}, 
-	(
-		select 
-		IFNULL(sum(exam_question_score), 0)
-		from exam_question
-		where 
-		question_num in 
-		(select question_num from student_answer 
-			where student_answer_status = 1 
-			and member_id = #{param1}
-			and exam_info_num = #{param2}
-		)
-		and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2})
-	),
-	0, 
-	(select class_name from member where member_id = #{param1})); 
-</insert>
+<update id="score_chartInsert" parameterType="onet.com.vo.Score_chartDto">
+	update score_chart 
+	set
+		score_chart_score =
+		(select 
+			IFNULL(sum(exam_question_score), 0)
+			from exam_question
+			where 
+			question_num in 
+			(select question_num from student_answer 
+				where student_answer_status = 1 
+				and member_id = #{param1}
+				and exam_info_num = #{param2}
+			)
+			and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2})) 
+	where member_id = #{param1}
+	and exam_info_num = #{param2};
+</update>
 
 <select id="selectRank" parameterType="int" resultType="onet.com.vo.Score_chartDto">
 	select member_id, score_chart_score, rank() over(order by score_chart_score desc) as score_chart_rank 
@@ -52,13 +58,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where exam_info_num = #{param2};
 </update>
 
-<select id="countClassChart" parameterType="int" resultType="int">
+<!-- <select id="countClassChart" parameterType="int" resultType="int">
 	select count(*) 
 	from class_chart
 	where exam_info_num = #{exam_info_num}
-</select>
+</select> -->
 
-<insert id="class_chartInsert">
+<!-- <insert id="class_chartInsert">
 	insert into class_chart (class_name, exam_info_num, class_chart_avg)
 	values(
 	(select class_name from member where member_id=#{param1}), 
@@ -68,18 +74,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	group by exam_info_num
 	having exam_info_num = #{param2})
 	);
-</insert>
+</insert> -->
 
 <update id="class_chartUpdate">
 	update class_chart 
 	set 
-	class_name = (select class_name from member where member_id=#{param1}), 
-	exam_info_num = #{param2}, 
-	class_chart_avg = 	(select avg(score_chart_score) 
-						from score_chart
-						group by exam_info_num
-						having exam_info_num = #{param2})
-	where exam_info_num = #{param2};
+		class_chart_avg = 
+			(select avg(score_chart_score)
+			from score_chart
+			group by exam_info_num
+			having exam_info_num = #{param2})
+	where 
+		class_name = (select class_name from member where member_id=#{param1}) and
+		exam_info_num = #{param2}
 </update>
 
 <select id="selectQuestion" parameterType="int" resultType="int">

@@ -5,14 +5,18 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import onet.com.vo.ClassDto;
+import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Question_levelDto;
+import onet.com.vo.Score_chartDto;
+import onet.com.vo.Student_answerDto;
 
 public interface TeacherDao {
 	/*한결*/
@@ -67,6 +71,7 @@ public interface TeacherDao {
 	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score);
 	public ExamPaperDto examNameDesc(int exam_paper_num);
 	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num);
+	public List<ExamInfoDto> examinfoSearch(@Param("searchType2") String searchType2, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
 	
 	/*--성태용 끝--*/
 	
@@ -92,7 +97,6 @@ public interface TeacherDao {
 	/*쪽지 보내기*/
 	public String sendMessage(String user_name);
 	
-	public List<ExamPaperDto> exampaperlistClass(@Param("member_id") String member_id, @Param("begin") int begin);
 	/*민지 - 10.29 받은쪽지  끝*/
 	
 	//양회준 11.5 코멘트 추가
@@ -101,5 +105,13 @@ public interface TeacherDao {
 	public String studentInfoCommentCancel(String member_id, int exam_info_num);
 	
 	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
-		
+
+	public String examManagementRoleCheck(String member_id);
+
+	// 11.06 현이 시험일정 등록 시 학생 답안지, 성적, 클래스성적 테이블 초기 데이터 입력  
+	public List<ExamQuestionDto> selectExamQuestion(int exam_paper_num);
+	public int initializeStudentAnswer(Student_answerDto student_answerDto);
+	public int initializeScoreChart(Score_chartDto scoreDto);
+	public int initializeClassChart(Class_chartDto classScoreDto);
+			
 }

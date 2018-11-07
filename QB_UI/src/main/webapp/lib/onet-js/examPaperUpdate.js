@@ -14,7 +14,7 @@ function updateExamBtn(num){
 		.then((willDelete) => {
 		  if (willDelete) {
 			  $.ajax({
-					url : "updateExamCheck.do",
+					url : "../teacher/updateExamCheck.do",
 					type : "get",
 					dataType : "json",
 					data : {
@@ -24,7 +24,7 @@ function updateExamBtn(num){
 						if(data == 1){
 							//그냥 수정하는 부분
 							$.ajax({
-								url : "examquestionsdelete.do",
+								url : "../teacher/examquestionsdelete.do",
 								type : "get",
 								data : {
 									"exam_paper_num" : exam_paper_num,
@@ -39,7 +39,7 @@ function updateExamBtn(num){
 										var exam_question_score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() //문제 배점
 										
 										$.ajax({
-											url : "examquestionsinsert.do",
+											url : "../teacher/examquestionsinsert.do",
 											type : "get",
 											dataType : "json",
 											data : {
@@ -65,22 +65,21 @@ function updateExamBtn(num){
 						}else{
 							//시험지 enable 0으로 update후 시험지 새로 생성하는 부분
 							$.ajax({
-								url : "examPaperUpdateInsert.do",
+								url : "../teacher/examPaperUpdateInsert.do",
 								type : "get",
 								data : {
 									"exam_paper_num" : exam_paper_num,
 									"exam_paper_name" : exam_name,
 									"exam_paper_desc" : exam_desc
 								},
-								success : function(exampapernum){
-										alert("여기까지 넘어왔는데========"+exampapernum)
+								success : function(exampapernum){				
 										$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 										var question_num = $(this).val();   //문제 번호
 										var exam_question_seq = Number(index+1) //문제 배치 번호
 										var exam_question_score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() //문제 배점
 									
 									$.ajax({
-											url : "examquestionsinsert.do",
+											url : "../teacher/examquestionsinsert.do",
 											type : "get",
 											dataType : "json",
 											data : {

@@ -221,6 +221,22 @@ public class TestManageController {
 		
 		return mv;
 	}
+	//시험지 일정리스트 뿌려주기
+	@RequestMapping("examinfolistClass.do")
+	public @ResponseBody ModelAndView examinfolistClass(@RequestParam("searchType2") String searchType2, @RequestParam("keyword") String keyword,
+			@RequestParam("begin") int begin, Principal principal){
+		
+		String member_id = principal.getName();
+		List<ExamInfoDto> classList = null;
+
+		classList = teacherService.examinfoSearch(searchType2, keyword, begin, member_id);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
+		mv.addObject("classList", classList);
+	
+		return mv;
+	}
 	
 	/*성태용 끝*/
 	
@@ -495,15 +511,10 @@ public class TestManageController {
 			@RequestParam("begin") int begin, Principal principal){
 		
 		List<ExamPaperDto> classList = null;
-		String member_id = principal.getName();
-		if(searchType.equals("all")) {
-			classList = teacherService.exampaperlistClass(member_id,begin);
 		
-			// null일때 처리 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		}else {
-			System.out.println("검색했을때 컨트롤러 타야댄다");
-			classList = teacherService.exampaperSearch(searchType, keyword, begin, member_id);
-		}
+		String member_id = principal.getName();
+		
+		classList = teacherService.exampaperSearch(searchType, keyword, begin, member_id);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.examManagement_admin_ajax");
@@ -519,10 +530,12 @@ public class TestManageController {
 	      
 	      List<ExamPaperDto> myexamPaperList;
 	      List<ExamInfoDto> examScheduleList;
+	      String role;
 	      
 	      myexamPaperList = teacherService.myExamPaperList(member_id);         
 	      examScheduleList = teacherService.examScheduleList(member_id);
-	      
+	      role = teacherService.examManagementRoleCheck(member_id);
+	      model.addAttribute("role", role);
 	      model.addAttribute("myexamPaperList", myexamPaperList);
 	      model.addAttribute("examScheduleList", examScheduleList);
 	      

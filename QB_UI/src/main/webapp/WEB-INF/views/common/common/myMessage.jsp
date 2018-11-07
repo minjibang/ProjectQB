@@ -14,57 +14,57 @@
    color:red;
 }
 .textarea{
-	resize: none;
+   resize: none;
 }
 .th1{
-	text-align: center;
-	width:100px;
+   text-align: center;
+   width:100px;
 }
 .th2{
-	
-	width:100px;
+   
+   width:100px;
 }
 .th3{
-	text-align:center;
-	width:200px;
+   text-align:center;
+   width:200px;
 }
 .th4{
-	
-	width:100px;
+   
+   width:100px;
 }
 .th5{
-	text-align: center;
-	width:100px;
+   text-align: center;
+   width:100px;
 }
 .to{
-	color:orange;
+   color:orange;
 }
 .sendMessageDelete{
-	font-size: 14px;
-	color: red;
-	cursor: pointer;
+   font-size: 14px;
+   color: red;
+   cursor: pointer;
 }
 .receiveMessageDelete{
-	font-size: 14px;
-	color: red;
-	cursor: pointer;
+   font-size: 14px;
+   color: red;
+   cursor: pointer;
 }
 #message_content{
-	resize:none;
-	border-radius: 4px;
+   resize:none;
+   border-radius: 4px;
 }
 .textareadiv{
-	margin-left: -30px;
+   margin-left: -30px;
 }
 .newMessageAll{
-	background: #8C8C8C;
-	
+   background: #8C8C8C;
+   
 }
 #allchoose{
-	color: #5D5D5D;
+   color: #5D5D5D;
 }
 .allchooseicon{
-	color:orange;
+   color:orange;
 }
 </style>
 <script
@@ -175,7 +175,7 @@
                         <img src="img/ui-zac.jpg" alt="">
                         <span class="to">To&nbsp;&nbsp;</span><strong class="receiver"></strong>
                      </div>
-	
+   
                   </div>
                </div>
                <div class="view-mail">
@@ -236,7 +236,7 @@
                                           <tbody>
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
 
-                                             	<tr class="${receiveMessage.message_num}" >
+                                                <tr class="${receiveMessage.message_num}" >
                                                    <td class="inbox-small-cells"><input name="chk2"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
                                                    <td class="view-message " id="${receiveMessage.message_content}">${receiveMessage.send_member_id}</td>
@@ -293,7 +293,7 @@
                               <div class="table-inbox-wrap ">
                                  <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
-                                      <input type="hidden" id="receiveDeleteHidden" name="receiveDeleteHidden" />	
+                                      <input type="hidden" id="receiveDeleteHidden" name="receiveDeleteHidden" />   
                                        <table class="table table-inbox table-hover" id="receiveMessageTable">
                                           <thead>
                                              <tr>
@@ -450,21 +450,21 @@
 $(document).ready(function(){
 
 
-	$(document).on('click','.receiveBtn',function(){
-		 var text = $(this).prev().attr('id');	
-		 var sendMan = $(this).prev().text();
-		 var date = $(this).parent().children().eq(4).text();
-		 
+   $(document).on('click','.receiveBtn',function(){
+       var text = $(this).prev().attr('id');   
+       var sendMan = $(this).prev().text();
+       var date = $(this).parent().children().eq(4).text();
+       
          $('.messageReceive').html(""+sendMan+"");
          $('.date').html(""+date+"");
          $('.messageText').html(""+text+"")
-	});
-	
+   });
+   
       
       $(document).on('click','.sendBtn',function(){
-    	 var text = $(this).prev().attr('id');	
- 		 var receiveMan = $(this).next().text();
- 		 var date = $(this).parent().children().eq(4).text();
+        var text = $(this).prev().attr('id');   
+        var receiveMan = $(this).next().text();
+        var date = $(this).parent().children().eq(4).text();
           $('.messageSender').html(""+receiveMan+"");
           $('.date').html(""+date+"");
           $('.messageText').html(""+text+"")
@@ -517,7 +517,7 @@ function check_t(){
          dangerMode: true
       });
    document.getElementById("message_content").value='';
-   websocket.send(data);
+   socket.send(data);
      
    }
       };
@@ -557,7 +557,7 @@ function check_t(){
                 dangerMode: true
              });
           document.getElementById("message_content").value='';
-          websocket.send(data); 
+          socket.send(data); 
             
           }
              };
@@ -565,9 +565,9 @@ function check_t(){
 
    
            
-	$('.message_content_row').click(function(){
-		 $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>");
-		var message_num=window.event.target.id;
+   $('.message_content_row').click(function(){
+       $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>");
+      var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
 
@@ -580,14 +580,14 @@ function check_t(){
              if(data>0){
                alert('message_check 성공');
              }else{
-            	 alert('2');
+                alert('2');
              }
-        	 
+            
             
          }
       });
       
-	});
+   });
    
    
    
@@ -595,107 +595,107 @@ function check_t(){
    
    
    $('.sendMessageDelete').click(function(){
-	   
-	   var sendMessageDeleterarray = new Array();
-	      $("input:checkbox[name=chk2]:checked").each(function(){
-	     	  sendMessageDeleterarray.push($(this).val());
-	      });
-			if(sendMessageDeleterarray == ""){
-				swal({
-		            title : "삭제 실패",
-		            text:"삭제할 쪽지를 선택하세요",
-		            icon : "warning",
-		         });
-			}else{
-		  
-	       document.getElementById("sendDeleteHidden").setAttribute('value',sendMessageDeleterarray);
-	   	   var data ={ 'sendDeleteHidden':$('#sendDeleteHidden').val()};
-	   
-	   	   $.ajax({
-	           url : "sendMessageDelete.do",
-	           type : "post",
-	           dataType : "html",
-	           data : data,
-	           success : function(data){
-	        	  if(data>0){
-	            	  swal({
-					       title: "삭제성공",
-						   text: "선택된 받은쪽지가 삭제되었다",
-						   icon:"info"
-						}).then(function() {
-						    window.location = "myMessage.do";
-						});
-	              }
-	           }
-	        });
-			}	   
+      
+      var sendMessageDeleterarray = new Array();
+         $("input:checkbox[name=chk2]:checked").each(function(){
+             sendMessageDeleterarray.push($(this).val());
+         });
+         if(sendMessageDeleterarray == ""){
+            swal({
+                  title : "삭제 실패",
+                  text:"삭제할 쪽지를 선택하세요",
+                  icon : "warning",
+               });
+         }else{
+        
+          document.getElementById("sendDeleteHidden").setAttribute('value',sendMessageDeleterarray);
+            var data ={ 'sendDeleteHidden':$('#sendDeleteHidden').val()};
+      
+            $.ajax({
+              url : "sendMessageDelete.do",
+              type : "post",
+              dataType : "html",
+              data : data,
+              success : function(data){
+                if(data>0){
+                    swal({
+                      title: "삭제성공",
+                     text: "선택된 받은쪽지가 삭제되었다",
+                     icon:"info"
+                  }).then(function() {
+                      window.location = "myMessage.do";
+                  });
+                 }
+              }
+           });
+         }      
    });
    
    $('.receiveMessageDelete').click(function(){
-	   
-	   var receiveMessageDeleterarray = new Array();
-	      $("input:checkbox[name=chk3]:checked").each(function(){
-	     	  receiveMessageDeleterarray.push($(this).val());
-	      });
-	      if(receiveMessageDeleterarray == ""){
-	    	  swal({
-		            title : "삭제 실패",
-		            text:"삭제할 쪽지를 선택하세요",
-		            icon : "warning",
-		         });
-	      }else{
-	    	  
-	       document.getElementById("receiveDeleteHidden").setAttribute('value',receiveMessageDeleterarray);
-	   	   var data ={ 'receiveDeleteHidden':$('#receiveDeleteHidden').val()};
-	   	   $.ajax({
-	           url : "receiveMessageDelete.do",
-	           type : "post",
-	           dataType : "html",
-	           data : data,
-	           success : function(data){
-	        	  if(data>0){
-	            	  swal({
-					       title: "삭제성공",
-						   text: "선택된 받은쪽지가 삭제되었다",
-						   icon:"info"
-						}).then(function() {
-						    window.location = "myMessage.do";
-						});
-	              }
-	           }
-	        });
-	      }
+      
+      var receiveMessageDeleterarray = new Array();
+         $("input:checkbox[name=chk3]:checked").each(function(){
+             receiveMessageDeleterarray.push($(this).val());
+         });
+         if(receiveMessageDeleterarray == ""){
+            swal({
+                  title : "삭제 실패",
+                  text:"삭제할 쪽지를 선택하세요",
+                  icon : "warning",
+               });
+         }else{
+            
+          document.getElementById("receiveDeleteHidden").setAttribute('value',receiveMessageDeleterarray);
+            var data ={ 'receiveDeleteHidden':$('#receiveDeleteHidden').val()};
+            $.ajax({
+              url : "receiveMessageDelete.do",
+              type : "post",
+              dataType : "html",
+              data : data,
+              success : function(data){
+                if(data>0){
+                    swal({
+                      title: "삭제성공",
+                     text: "선택된 받은쪽지가 삭제되었다",
+                     icon:"info"
+                  }).then(function() {
+                      window.location = "myMessage.do";
+                  });
+                 }
+              }
+           });
+         }
    });
    
    $('.messageBtn').click(function(){
-	  var text = $('.messageReceive').text();
-	  $('#MessageModal').modal('hide');
-	  $('.MessageReplyModal').val(text);
-	  $('#MessageReplyModal').modal();
-	  $('.receiver').html(text);
+     var text = $('.messageReceive').text();
+     $('#MessageModal').modal('hide');
+     $('.MessageReplyModal').val(text);
+     $('#MessageReplyModal').modal();
+     $('.receiver').html(text);
    });
    
    $('.send').click(function(){
-	  var text = $('.textarea').val();
-	  var sender = $('.receiver').text();
-	  $.ajax({
+     var text = $('.textarea').val();
+     var sender = $('.receiver').text();
+     $.ajax({
           url : "replyMessage.do",
           type : "post",
           dataType : "html",
           data : {text:text, sender:sender},
           success : function(data){
-       	  if(data>0){
-           	  swal({
-				       title: "답장성공",
-					   text: "",
-					   icon:"info"
-					}).then(function() {
-					    window.location = "myMessage.do";
-					});
+            if(data>0){
+                swal({
+                   title: "답장성공",
+                  text: "",
+                  icon:"info"
+               }).then(function() {
+                   window.location = "myMessage.do";
+               });
              }
           }
        });
-	  
+     
    });
   
    

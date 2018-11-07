@@ -17,45 +17,6 @@
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
 
-<!-- 문제 삭제 모달창 시작 -->	
-		<div class="modal fade" id="singleDeleteModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true"
-					data-modal-id="">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">문제 삭제</h4>
-								<!-- modal-header 끝 -->
-							</div>
-							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
-							<h5>문제 제출자 또는 다른 사용자가 해당 문제를 사용하여 <br>
-							 시험지 생성 또는 시험지 임시저장 했을 경우 <br>
-							 그 문제는 삭제/수정이 불가능합니다.
-							 </h5>
-							</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-									
-										<button id="singleDeleteConfirmBtn" name="deletebtn" class="btn btn-theme" 
-										value="" data-dismiss="modal" aria-label="Close">
-										확인</button>
-										<button class="btn btn-theme04" type="button" data-dismiss="modal">
-										취소</button>
-										
-									</div>
-								</div>
-							</div>
-							<!-- modal-content 끝 -->
-						</div>
-						<!-- modal-dialog 끝 -->
-					</div>
-				</div>
-<!-- 문제 삭제 모달창 끝 -->	
-
-
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -66,26 +27,25 @@
 						<div class="row">
 							<div class="col-lg-12 ">
 							<form class="formNewQuestion" action="insertQuestion.do" enctype="multipart/form-data"
-								method="post" onsubmit="return check()">
+								method="post" id="updateForm">
 								
 							<!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 시작 -->
 							 <c:forEach items="${qdto}" var="qdto">
 							 <c:forEach items="${qcat}" var="qcat">
-							 <input type="text" id="qdto_question_num" name="qdto_question_num" style="display: none" value="${qdto.question_num}">
-							 <input type="text" name="qdto_question_answer" style="display: none" value="${qdto.question_answer}">
+							 <input type="hidden" id="qdto_question_num" name="qdto_question_num" value="${qdto.question_num}">
+							 <input type="hidden" name="qdto_question_answer" value="${qdto.question_answer}">
 							 <c:forEach items="${cdto}" var="cdto">
-							 <input type="text" name="cdto_question_num" style="display: none" value="${cdto.question_num}">  
-							 <input type="text" name="cdto_question_choice_num" style="display: none" value="${cdto.question_choice_num}">  
-							 <input type="text" name="cdto_question_choice_content" style="display: none" value="${cdto.question_choice_content}">
+							 <input type="hidden" name="cdto_question_num" value="${cdto.question_num}">  
+							 <input type="hidden" name="cdto_question_choice_num" value="${cdto.question_choice_num}">  
+							 <input type="hidden" name="cdto_question_choice_content" value="${cdto.question_choice_content}">
 							 </c:forEach>
-							 <input type="text" name="qcat_smCatCode" style="display: none" value="${qcat.sm_category_code}">  
-							 <input type="text" name="qcat_mdCatCode" style="display: none" value="${qcat.md_category_code}">  
-							 <input type="text" name="qcat_lgCatCode" style="display: none" value="${qcat.lg_category_code}"> 
+							 <input type="hidden" name="qcat_smCatCode" value="${qcat.sm_category_code}">  
+							 <input type="hidden" name="qcat_mdCatCode" value="${qcat.md_category_code}">  
+							 <input type="hidden" name="qcat_lgCatCode" value="${qcat.lg_category_code}"> 
 							
 							 <!-- select 메뉴와 radio button에서 값 비교후 기존 정보 선택을 위한 hidden input들 끝 -->
 							 	
-								<input type="text" name="member_id"
-								value="${qdto.member_id}" style="display: none">
+							<input type="hidden" name="member_id" value="${qdto.member_id}">
 								<h3 id="h3id">문제 수정</h3>
 								<hr>
 								<h4>
@@ -145,23 +105,19 @@
 							</h4>
 							<span class="radio quesCategorybig"> 
 							<label class="questionChoiceRadioButton">
-								
 								 <input type="radio" name="question_type" id="question_type_1"
-								 value="객관식" 
-								
+								 value="객관식" onclick="questionType('questionChoice');"
 								 	<c:if test="${qdto.question_type eq '객관식'}">checked</c:if>
-								
 								 >객관식
-								
-							</label> &nbsp;&nbsp; 
+							</label> &nbsp;&nbsp;
+							
 							<label class="questionChoiceRadioButton"> 
 								<input type="radio" name="question_type" id="question_type_2"
-								value="단답형" 
-								
+								value="단답형" onclick="questionType('questionShortAnswer');"
 							 		<c:if test="${qdto.question_type eq '단답형'}">checked</c:if>
-								
 								>단답형
 							</label>
+							
 							</span>
 							<hr>
 							<div class="form-group" id="questionMoonje">
@@ -211,24 +167,25 @@
 											<i class="fa fa-angle-right"></i>객관식 보기 입력
 										</h4>
 										
-											<select id="howManyChoices" class="form-control"
-												name="howManyChoices">
-												<option value="10" selected disabled>보기 개수 선택</option> 
-												<option value="2"
+											<select id="howManyChoices" class="form-control" name="howManyChoices">
+												<option id="howManyChoices1" value="1" disabled
+												<c:if test="${fn:length(cdto) eq 0}"> selected </c:if>
+												>보기 개수 선택</option>
+												<option id="howManyChoices2" value="2"
 												<c:if test="${fn:length(cdto) eq 2}"> selected </c:if>
 												>보기 개수: 2개</option>
-												<option value="3"
+												<option id="howManyChoices3" value="3"
 												<c:if test="${fn:length(cdto) eq 3}"> selected </c:if>
 												>보기 개수: 3개</option>
-												<option value="4"
+												<option id="howManyChoices4" value="4"
 												<c:if test="${fn:length(cdto) eq 4}"> selected </c:if>
 												>보기 개수: 4개</option>
-												<option value="5"
+												<option id="howManyChoices5" value="5"
 												<c:if test="${fn:length(cdto) eq 5}"> selected </c:if>
 												>보기 개수: 5개</option>
 											</select>
 											
-											<p class="warning_text">주의 - 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
+											<p class="warning_text"><i class="fa fa-exclamation-triangle"></i> 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
 											
 										</div><!-- /questionChoiceSub2 -->
 										<!-- 1번 보기 -->
@@ -262,12 +219,10 @@
 								취소</button>
 								
 							<button type="button" id="deleteQuestionBtn" name="deleteQuestionBtn"
-								class="btn btn-theme04 buttonGroup quesCategory" data-toggle="modal"
-								data-target="#singleDeleteModal"
-								data-modal-id="${question.question_num}">
+								class="btn btn-theme04 buttonGroup quesCategory deleteQuestionBtn" value="${qdto.question_num }">
 								<i class="fa fa-trash-o"></i>문제 삭제</button>
 								
-							<button type="submit"
+							<button type="button"
 								class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 								수정 완료</button>
 						</c:forEach>
@@ -298,26 +253,20 @@
 <script>
 
 $(document).ready(function() {
-		
-	
 		var _choiceInput1 ="<div id='QCNPlus_1'><b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' id='question_choice_content1' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_1' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[0]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif' /> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(1)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
-
 		var _choiceInput2 ="<div id='QCNPlus_2'><b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' id='question_choice_content2' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_2' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[1]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif' /> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(2)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
-		
 		var _choiceInput3 ="<div id='QCNPlus_3'><b><input type='text' name='question_choice_num' value='3' style='display: none'>3.</b> <input type='text' name='question_choice_content' id='question_choice_content3' class='form-control-inline' placeholder='3번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_3' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[2]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif' /> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(3)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
-
 		var _choiceInput4 ="<div id='QCNPlus_4'><b><input type='text' name='question_choice_num' value='4' style='display: none'>4.</b> <input type='text' name='question_choice_content' id='question_choice_content4' class='form-control-inline' placeholder='4번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_4' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[3]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif' /> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(4)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
-		
 		var _choiceInput5 ="<div id='QCNPlus_5'><b><input type='text' name='question_choice_num' value='5' style='display: none'>5.</b> <input type='text' name='question_choice_content' id='question_choice_content5' class='form-control-inline' placeholder='5번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_5' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[4]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif' /> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(5)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
-		
+
 		var _answerBtn1 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio" name="question_answer" value="1"  > 1번 </label>&nbsp;&nbsp;'
 		var _answerBtn2 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio2" name="question_answer" value="2"  >2번 </label>&nbsp;&nbsp;'
 		var _answerBtn3 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio3" name="question_answer" value="3"  >3번 </label>&nbsp;&nbsp;'
 		var _answerBtn4 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio4" name="question_answer" value="4"  >4번 </label>&nbsp;&nbsp;'
 		var _answerBtn5 ='<label class="questionChoiceRadioButton"> <input type="radio" id="questionAnswerRadio5" name="question_answer" value="5"  >5번 </label>&nbsp;&nbsp;'
 		var _questionType = $("input[type=radio][name=question_type]:checked").val();
-		var qdto_question_answer = $("input[type=text][name=qdto_question_answer]").val();
-		
+		var qdto_question_answer = $("input[type=hidden][name=qdto_question_answer]").val();
+
 		if ($.trim(_questionType) == "단답형"){
 			$('#choiceInput').remove();
 			document.all["questionChoice"].style.display = 'none'; // 안보이게
@@ -362,7 +311,6 @@ $(document).ready(function() {
 						$('#questionAnswerRadio2').prop("checked",true);
 					}
 					
-					
 				}
 			if (document.getElementById("howManyChoices").value == "3") {
 				var cdto_qcc1 = document.getElementsByName("cdto_question_choice_content")[0].value;
@@ -370,9 +318,7 @@ $(document).ready(function() {
 				var cdto_qcc3 = document.getElementsByName("cdto_question_choice_content")[2].value;
 				
 					$('#choiceInput').append(_choiceInput1);
-					
 					$('#choiceInput').append(_choiceInput2);
-					
 					$('#choiceInput').append(_choiceInput3);
 					
 					$('#answerChoiceText').append(_answerBtn1);
@@ -397,15 +343,10 @@ $(document).ready(function() {
 				var cdto_qcc2 = document.getElementsByName("cdto_question_choice_content")[1].value;
 				var cdto_qcc3 = document.getElementsByName("cdto_question_choice_content")[2].value;
 				var cdto_qcc4 = document.getElementsByName("cdto_question_choice_content")[3].value;
-					
 					$('#choiceInput').append(_choiceInput1);
-					
 					$('#choiceInput').append(_choiceInput2);
-					
 					$('#choiceInput').append(_choiceInput3);
-					
 					$('#choiceInput').append(_choiceInput4);
-					
 					$('#answerChoiceText').append(_answerBtn1);
 					$('#answerChoiceText').append(_answerBtn2);
 					$('#answerChoiceText').append(_answerBtn3);
@@ -436,13 +377,9 @@ $(document).ready(function() {
 				var cdto_qcc5 = document.getElementsByName("cdto_question_choice_content")[4].value;
 				
 					$('#choiceInput').append(_choiceInput1);
-					
 					$('#choiceInput').append(_choiceInput2);
-					
 					$('#choiceInput').append(_choiceInput3);
-					
 					$('#choiceInput').append(_choiceInput4);
-					
 					$('#choiceInput').append(_choiceInput5);
 				
 					$('#answerChoiceText').append(_answerBtn1);
@@ -471,7 +408,6 @@ $(document).ready(function() {
 					if($.trim(qdto_question_answer) == "5"){
 						$('#questionAnswerRadio5').prop("checked",true);
 					}
-					
 				}
 		}
 	

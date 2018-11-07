@@ -8,7 +8,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/websocket  
-        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+        http://www.springframework.org/schema/websocket/spring-websocket.xsd
+        http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -37,24 +38,18 @@
 	<context:component-scan base-package="onet.com.common.service"/>
 
 
-	<!-- <websocket:handlers>
-		<websocket:mapping path="/count.do" handler="loginHandler"/>
-	</websocket:handlers>
 	
-	<beans:bean id="loginHandler" class="socket.LoginSocketHandler"/> -->
-	
-	<beans:bean class="onet.com.file.downloadController.DownloadController"/>
-	<beans:bean id="download" class="onet.com.file.downloadController.DownloadView"/>
-	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>   
 
 	
-	<websocket:handlers allowed-origins="*">
+
+	 <websocket:handlers>
         <websocket:mapping path="/count.do" handler="myHandler"/>
+        <websocket:handshake-interceptors>
+           <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
     </websocket:handlers>
     
-	<beans:bean id="myHandler" class="socket.LoginSocketHandler"/>
-
-
+   <beans:bean id="myHandler" class="socket.LoginSocketHandler"/>
 
 
 </beans:beans>

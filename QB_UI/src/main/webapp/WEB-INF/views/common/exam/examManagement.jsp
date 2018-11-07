@@ -11,6 +11,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="se"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
+>>>>>>> master
 <link
 	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css"
 	rel="stylesheet">
@@ -28,12 +33,23 @@
 					<div class="panel-heading">
 
 						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a data-toggle="tab" href="#overview">내
-									시험지 </a></li>
+							<li class="active"><a data-toggle="tab" href="#overview">
+							<se:authorize access="hasRole('ROLE_TEACHER')">
+							내 시험지 
+							</se:authorize> 
+							<se:authorize access="hasRole('ROLE_ADMIN')">
+							시험지 관리
+							</se:authorize>
+							</a></li>
+							<se:authorize access="hasRole('ROLE_TEACHER')">
 							<li><a data-toggle="tab" href="#tempExamPaper"
 								class="contact-map">임시 저장된 시험지 </a></li>
+							</se:authorize>
 							<li><a data-toggle="tab" href="#examSchedule"
-								class="contact-map" id="examinfotab">시험 일정 </a></li>
+								class="contact-map" id="examinfotab"> 시험 일정 <se:authorize
+										access="hasRole('ROLE_ADMIN')">관리
+							</se:authorize>
+							</a></li>
 						</ul>
 
 					</div>
@@ -42,10 +58,11 @@
 					<!-- 시험지 모달 -->
 					<div id="exam_preview" class="modal fade">
 						<div class="fix">
-								<a href="#" class="print" onclick="printpage()" title="Print page">Print page</a> 
-								<a href="#" class="close" title="Close print preview" data-dismiss="modal">Close</a>
+							<a href="#" class="print" onclick="printpage()"
+								title="Print page">Print page</a> <a href="#" class="close"
+								title="Close print preview" data-dismiss="modal">Close</a>
 						</div>
-						<div class="modal-dialog">							
+						<div class="modal-dialog">
 							<div class="book"></div>
 						</div>
 					</div>
@@ -64,8 +81,14 @@
 											<select class="form-control searchRightBtnDiv"
 												id="searchType" name="searchType">
 												<option value="all">전체</option>
+												<se:authorize access="hasRole('ROLE_ADMIN')">
 												<option value="n">클래스명</option>
 												<option value="p">시험지명</option>
+												</se:authorize>
+												<se:authorize access="hasRole('ROLE_TEACHER')">
+												<option value="n">제목</option>
+												<option value="p">설명</option>
+												</se:authorize>
 											</select> <input type="text" class="form-control searchRightBtnDiv"
 												placeholder="검색어를 입력" id="keyword" name="keyword">
 											<button type="button" class="btn btn-theme searchRightBtn"
@@ -76,14 +99,12 @@
 										<hr>
 									</div>
 									<!-- 내 시험지 div 끝 -->
-									
+
 								</div>
 								<!-- /col-md-12 -->
 								<div class="row mt">
 									<div class="col-lg-12">
-										<div id="examlistView">
-										
-										</div>
+										<div id="examlistView"></div>
 									</div>
 								</div>
 							</div>
@@ -102,7 +123,7 @@
 
 												<!-- 시험지 하나의 div 시작 -->
 												<div id="examTempPaperDiv">
-												<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+													<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 													<%-- <c:forEach items="${myTempExamList}" var="myTempExamList">
 														<!-- 시험지 한 개 시작 -->
 														<div class="exam-paper-name">
@@ -166,9 +187,9 @@
 												<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 											</div>
 										</form>
-										
+
 										<hr>
-										
+
 										<!-- /col-md-12 -->
 									</div>
 									<!-- /row -->
@@ -179,9 +200,7 @@
 								<!-- 시험 일정 tab 끝 -->
 								<div class="row mt">
 									<div class="col-lg-12">
-										<div id="examlistView2">
-										
-										</div>
+										<div id="examlistView2"></div>
 									</div>
 								</div>
 							</div>
@@ -218,7 +237,7 @@ var classcheck = true;	//	왜 false?
 var classParam = {
 		"begin" : 0,
 		"searchType" : "all",
-		"keyword" : "all",
+		"keyword" : "",
 }
 var tempExam = {
 		"begin" : 0,
@@ -229,13 +248,19 @@ var tempExam = {
 var classParam2 = {
 		"begin" : 0,
 		"searchType2" : "all",
-		"keyword" : "all",
+		"keyword" : "",
 }
+var role = "${role}";
 
 $(document).ready(function(){
 	//무한 스크롤
-	examlistClass(classParam);
+	
+	if(role == 'ROLE_TEACHER'){
 	imsiSaveExam(tempExam);
+	}
+	examlistClass(classParam);	
+	
+	
 	var lastScrollTop = 0;
 	
 	
@@ -246,12 +271,14 @@ $(document).ready(function(){
 	         if ($(window).scrollTop() >= ($(document).height() - $(window).height()) -10 ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
 	        	 
 	        	 //scrollTop + windowHeight + 30 > documentHeight
+	        	
 	        	 
 				classParam.begin += 4;
-				tempExam.begin += 4;
-				examlistClass(classParam);
-				imsiSaveExam(tempExam);
-			
+	        	examlistClass(classParam);
+				if(role == 'ROLE_TEACHER'){
+					tempExam.begin += 4;
+					imsiSaveExam(tempExam);
+				}
 				
 
 				console.log("begin : " + classParam.begin +"번부터");
@@ -295,10 +322,6 @@ $(document).ready(function(){
 		examinfolistClass(classParam2);
 		
 	});
-	
-	
-	
-	
 });
 
 $('#examinfotab').click(function(){
@@ -326,6 +349,20 @@ $('#examinfotab').click(function(){
 
 	//클래스 목록 가져오는 ajax
 	function examlistClass(classParam){
+	if(role == 'ROLE_TEACHER'){
+		$.ajax({
+			url : "exampaperlistClass.do",
+			type : 'GET',
+			dataType : "html",
+			data : classParam,
+			success : function(data){	
+				$('#examlistView').append(data);
+			},
+			error : function(error) {
+				console.log("===========실패");
+			}
+		});
+	}else{
 		$.ajax({
 			url : "exampaperlistClass.do",
 			type : 'GET',
@@ -339,8 +376,8 @@ $('#examinfotab').click(function(){
 			}
 		});
 	}
-
 	
+	}
 	function imsiSaveExam(tempExam){
 		$.ajax({
 			url : "myTempExamList.do",

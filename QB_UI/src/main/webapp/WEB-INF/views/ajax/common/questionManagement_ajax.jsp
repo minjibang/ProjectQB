@@ -17,6 +17,7 @@
 				class="questionDiv col-lg-12 questionDiv_${question.question_num }">
 				
 				<div class="col-lg-2">
+					
 					${question.md_category_name}<br> ${question.sm_category_name }<br>
 					난이도: ${question.level_name}<br> 
 					정답률:${question.question_correct_ratio}%<br> 출제자:
@@ -55,15 +56,13 @@
 				</div>
 				<div class="col-lg-1">
 					<button type="button" id="updateMyQuestionBtn" name="updateMyQuestionBtn" 
-					class="btn btn-theme buttonGroup " data-toggle="modal"
-					data-target="#singleUpdateModal" 
-					data-modal-id="${question.question_num}">
+					class="btn btn-theme buttonGroup updateMyQuestionBtn"
+					value="${question.question_num}">
 					<i class="fa fa-pencil"></i> 수정</button>
 					
 					<button type="button" id="deleteMyQuestionBtn" name="deleteMyQuestionBtn"
-					class="btn btn-theme04 buttonGroup " data-toggle="modal"
-					data-target="#singleDeleteModal"
-					data-modal-id="${question.question_num}">
+					class="btn btn-theme04 buttonGroup deleteMyQuestionBtn"
+					value="${question.question_num}">
 					<i class="fa fa-trash-o"></i> 삭제</button>
 					
 				</div>

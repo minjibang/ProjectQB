@@ -30,8 +30,8 @@ public interface StudentDao {
 	public int updateCorrectRatio(int question_num);	
 	
 	// 클래스 성적 테이블 insert, update 
-	public int countClassChart(int exam_info_num);
-	public int class_chartInsert(String member_id, int exam_info_num);
+	// public int countClassChart(int exam_info_num);
+	// public int class_chartInsert(String member_id, int exam_info_num);
 	public int class_chartUpdate(String member_id, int exam_info_num);
 	/* 10.19 현이 학생 답안지 제출 끝 */
 	
