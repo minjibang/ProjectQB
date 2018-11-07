@@ -112,39 +112,15 @@
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
 				
 				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-				var popOption = "width='1920px', height=1080px'";
+				
+				var width = $(window).width();
+				var height = $(window).height();
+				// var popOption = "width="+ width +", height=" + height + ", left=0, top=0";  
+				var popOption = "width="+ screen.availWidth +", height=" + screen.availHeight + ", left=0, top=0"; 
+				//console.log("popOption22 : " + popOption);	
 				
 				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
 				window.open(popUrl, "지난 시험보기", popOption);
-				
-				
-				/* if(권한이 학생이라면){ */
-					<%-- $.ajax({
-						url : "searchStudentAnswer.do",
-						type : 'get',
-						data : {
-							'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
-							'student_answer_status' : "all"
-						},
-						success : function(data) {
-							if(data.length > 0 ){
-									swal("\n이미 시험에 응시하셨습니다."); 
-							} else if (data.length == 0){
-								//var popupX = (window.screen.width / 2) - (200 / 2);
-								// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-								//var popupY= (window.screen.height /2) - (300 / 2);
-								// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-								//window.open('', '', 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-								
-								var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-								var popOption = "width='1920px', height=1080px'";
-								
-								window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
-								window.open(popUrl, "지난 시험보기", popOption);
-							}
-						}
-					}); --%>
-				/* }  */ // 권한이 학생이라면 if문 종료 괄호
 				
 			} else {
 				alert("시험이 종료되었습니다.")
