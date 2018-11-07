@@ -863,5 +863,18 @@ public class TeacherController {
 			return comment;
 		}
 		// ajax로 검색한 클래스 목록 가져오기 
-		
+	
+		@RequestMapping("headerMessage.do")
+		public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
+			
+			 String member_id = principal.getName();
+			 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+
+			 ModelAndView mv = new ModelAndView();
+			 mv.setViewName("ajax.common.receiveMessage_ajax");
+			 mv.addObject("receiveMessage", receiveMessage);
+
+			return mv;
+
+		}
 }

@@ -288,15 +288,17 @@ public class AdminController {
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
 	@RequestMapping("headerMessage.do")
-	public @ResponseBody List<MessageDto> headerMessage(Model model, Principal principal) {
+	public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
 		
 		 String member_id = principal.getName();
 		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-	
-		   model.addAttribute("receiveMessage", receiveMessage);
 
-		
-		return receiveMessage;
+		 ModelAndView mv = new ModelAndView();
+		 mv.setViewName("ajax.common.receiveMessage_ajax");
+		 mv.addObject("receiveMessage", receiveMessage);
+
+		return mv;
+
 	}
 
 	

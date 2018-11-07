@@ -658,5 +658,17 @@ public class StudentController {
 				return result;
 			}
 		   
+			@RequestMapping("headerMessage.do")
+			public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
+				
+				 String member_id = principal.getName();
+				 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 
+				 ModelAndView mv = new ModelAndView();
+				 mv.setViewName("ajax.common.receiveMessage_ajax");
+				 mv.addObject("receiveMessage", receiveMessage);
+
+				return mv;
+
+			}
 }

@@ -13,9 +13,9 @@
 
 
 <!-- jquery UI -->
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-  
+
 <!-- Favicons -->
 <link href="img/favicon.png" rel="icon">
 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -29,7 +29,8 @@
 	href="${pageContext.request.contextPath}/lib/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <%-- 회준 css 시작 --%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
 <%-- <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/bootstrap-datepicker/css/datepicker.css" />
 <link rel="stylesheet" type="text/css"
@@ -44,40 +45,53 @@
 	href="${pageContext.request.contextPath}/lib/bootstrap-datetimepicker/css/datertimepicker.css" />
 --%>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/zabuto_calendar.css"> 
-	
+	href="${pageContext.request.contextPath}/css/zabuto_calendar.css">
 
-	
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- <link rel="stylesheet" href="/resources/demos/style.css">	**에러 **  -->
-  
-  
+
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css">	**에러 **  -->
+
+
 <%-- <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" /> --%>
 <link href="${pageContext.request.contextPath}/css/style.css"
 	type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/style-responsive.css"
 	type="text/css" rel="stylesheet" />
-	
-	
+
+<!-- 현이 로딩 이미지 css 시작 -->
+<link href="${pageContext.request.contextPath}/css/loading.css"
+	rel="stylesheet">
+
 <!-- 재훈 - summernote 관련 css  시작  -->
-<link href="${pageContext.request.contextPath}/lib/summernote/summernote.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/lib/summernote/summernote.css"
+	rel="stylesheet">
 <!-- 재훈 - summernote 관련 css 끝  -->
 
 <script
 	src="${pageContext.request.contextPath}/lib/chart-master/Chart.js"></script>
 
 <!-- DataTables 관련 -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/buttons.dataTables.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/buttons.dataTables.css">
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
-	<section id="container"> <!-- 헤더 부분 --> 
-		<tiles:insertAttribute name="header" /> <!-- 사이드바 부분 --> 
-		<tiles:insertAttribute name="sidebar" /> <!-- 컨텐츠 부분 --> 
-		<tiles:insertAttribute name="content" /> <!-- 푸터부분 --> 
-	</section>
+	<!-- 로딩 이미지 -->
+	<div class="loadingDiv loadingDisplay">
+		<img src="${pageContext.request.contextPath}/img/loading2.gif"
+			alt="loadingImage" class="loadingImg">
+	</div>
+	<section id="container"> <!-- 헤더 부분 --> <tiles:insertAttribute
+		name="header" /> <!-- 사이드바 부분 --> <tiles:insertAttribute
+		name="sidebar" /> <!-- 컨텐츠 부분 --> <tiles:insertAttribute
+		name="content" /> <!-- 푸터부분 --> </section>
+
 	<tiles:insertAttribute name="footer" />
 	<!-- js placed at the end of the document so the pages load faster -->
 	<%--  <script src="${pageContext.request.contextPath}/lib/jquery/jquery.min.js"></script> --%>
@@ -95,20 +109,23 @@
 		src="${pageContext.request.contextPath}/lib/jquery.sparkline.js"></script>
 	<!--common script for all pages-->
 	<script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
-<%-- 	<script type="text/javascript"
+	<%-- 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script> --%>
-<%-- 	<script type="text/javascript"
+	<%-- 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script> --%>
 	<!--script for this page-->
 	<script src="${pageContext.request.contextPath}/lib/sparkline-chart.js"></script>
 	<script src="${pageContext.request.contextPath}/lib/zabuto_calendar.js"></script>
 
-<!-- 재훈 - summernote 관련 js 시작  -->
-	<script src="${pageContext.request.contextPath}/lib/summernote/summernote.js"></script>
-    <script src="${pageContext.request.contextPath}/lib/summernote/lang/summernote-ko-KR.js"></script>
-<!-- 재훈 - summernote 관련 js 끝  -->
+	<!-- 재훈 - summernote 관련 js 시작  -->
+	<script
+		src="${pageContext.request.contextPath}/lib/summernote/summernote.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/lib/summernote/lang/summernote-ko-KR.js"></script>
+	<!-- 재훈 - summernote 관련 js 끝  -->
 
-<script type="application/javascript">
+	<script type="application/javascript">
+		
 		
 	$(document).ready(function() {
       $("#date-popover").popover({
@@ -224,32 +241,42 @@
       console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
   
+	
 	</script>
 
-	 <!-- 재훈 - 문제 만들기 페이지 시작-->
-	 <script type="text/javascript">
-	  $(function() {
-	    $('.summernote1').summernote({
-	      height: 300,          // 기본 높이값
-	      minHeight: null,      // 최소 높이값(null은 제한 없음)
-	      maxHeight: null,      // 최대 높이값(null은 제한 없음)
-	      focus: true,          // 페이지가 열릴때 포커스를 지정함
-	      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
-	    });
-	    
-	    $('.summernote2').summernote({
-		      height: 100, // 기본 높이값
-		     
-		      minHeight: null,      // 최소 높이값(null은 제한 없음)
-		      maxHeight: null,      // 최대 높이값(null은 제한 없음)
-		      focus: true,          // 페이지가 열릴때 포커스를 지정함
-		      lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
-		    });
-	  });
+	<!-- 재훈 - 문제 만들기 페이지 시작-->
+	<script type="text/javascript">
+		$(function() {
+			$('.summernote1').summernote({
+				height : 300, // 기본 높이값
+				minHeight : null, // 최소 높이값(null은 제한 없음)
+				maxHeight : null, // 최대 높이값(null은 제한 없음)
+				focus : true, // 페이지가 열릴때 포커스를 지정함
+				lang : 'ko-KR' // 한국어 지정(기본값은 en-US)
+			});
+
+			$('.summernote2').summernote({
+				height : 100, // 기본 높이값
+
+				minHeight : null, // 최소 높이값(null은 제한 없음)
+				maxHeight : null, // 최대 높이값(null은 제한 없음)
+				focus : true, // 페이지가 열릴때 포커스를 지정함
+				lang : 'ko-KR' // 한국어 지정(기본값은 en-US)
+			});
+			
+			$(this).ajaxStart(function() {
+				$('.loadingDisplay').show();
+			});
+			$(this).ajaxStop(function() {
+				setTimeout(function(){
+					$('.loadingDisplay').hide();
+				}, 300);
+			});
+		});
 	</script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-		
+
 	<!-- 양회준 11.3 데이터테이블 추가기능 -->
 	<script type="text/javascript" charset="utf8"
 		src="${pageContext.request.contextPath}/lib/datatables/dataTables.buttons.js"></script>
@@ -292,6 +319,6 @@
 
 	<script
 		src="${pageContext.request.contextPath}/lib/advanced-form-components.js"></script>
-	
+
 </body>
 </html>
