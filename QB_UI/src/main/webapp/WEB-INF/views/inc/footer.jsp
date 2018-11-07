@@ -10,6 +10,7 @@
         <a href="index.html#" class="go-top">
           <i class="fa fa-angle-up"></i>
           </a>
+        <input type="text" id="sendMessage"><button type="button" class="btn btn-theme"></button>  
       </div>
     </footer>
     <!--footer end-->
