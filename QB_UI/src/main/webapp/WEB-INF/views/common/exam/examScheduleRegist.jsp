@@ -35,7 +35,7 @@
                 <div class="row">
                  <div class="col-md-12">
                  <form action="examInfoInsert.do" id="examScheduleRegistForm" class="form-horizontal style-form" method="post" >   
-                    <div class="col-md-2" id="examScheduleUpdateMember">
+                    <div class="col-md-3" id="examScheduleUpdateMember">
 	                    <div class="invite-row">
 	                      <h4 class="pull-left">응시대상자</h4>
 	                    </div>
@@ -48,7 +48,7 @@
 	                        <ul class="chat-available-user" id ="checkboxNameUl">
 	                          <div class="checkbox" id="checkboxName">
 	                            <label>
-	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}">(${classMemberList.member_id })${classMemberList.member_name}
+	                            	<input type="checkbox"  name="chk" id="chk" value="${classMemberList.member_id}">${classMemberList.member_name}<br>(${classMemberList.member_id })
 	                            </label>
 	                          </div>
 	                        </ul>
@@ -58,7 +58,7 @@
                   </div>
                   <div class="col-md-1">
                   </div>
-                  <div class="col-md-9">
+                  <div class="col-md-8">
                     <%-- 폼 양식 시작 --%>        
                      
                          <input type="hidden" id="exam_paper_name" name="exam_info_name" value="${param.exam_paper_name}"/>                         
@@ -69,12 +69,12 @@
 						 
 						 <div class="form-group">
                           <label class="control-label col-md-2">시험명</label>
-                            <div class="col-md-5 col-xs-11"><p>${param.exam_paper_name}</p></div>
+                            <div class="col-lg-8"><p id="examName">${param.exam_paper_name}</p></div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
-                            <div class="col-md-5 col-xs-11">
-                            <p><input type="text" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" readonly required></p>
+                            <div class="col-lg-5">
+                            <p><input type="text" style="width:65%;" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16" readonly required></p>
                              
                               <span class="help-block">날짜를 선택하세요</span>
                             </div>
@@ -105,7 +105,7 @@
                         <!--timepicker group end-->
                           <div class="form-group">
                             <label class="control-label col-md-2"  style="margin-right:15px;" id="examtimelabel">시험시간</label>
-                            <input style="width:20%;" id="exam_info_time" class="form-control"  type="text" name="exam_info_time"  readonly >
+                            <input style="width:24%;" id="exam_info_time" class="form-control"  type="text" name="exam_info_time"  readonly >
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">종료알림</label>
@@ -113,13 +113,13 @@
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">응시대상</label>
-                              <div class="col-md-10 col-xs-11">
+                              <div class="col-md-10 col-xs-11 examInfoTextBox">
                                 <input type="text" class="form-control" placeholder="응시대상을 입력하세요" id="exam_info_member" name="exam_info_member" required>
                               </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-2">설명</label>
-                              <div class="col-md-10 col-xs-10">
+                              <div class="col-md-10 col-xs-10 examInfoTextBox">
                                 <textarea rows="3" class="form-control" placeholder="설명을 입력하세요" id="exam_info_desc" name="exam_info_desc" required></textarea>
                               </div>
                           </div>
