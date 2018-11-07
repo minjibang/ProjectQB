@@ -2,10 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="se"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
 	<!-- main inc -->
 <!--header start-->
 <header class="header black-bg">
@@ -106,16 +102,9 @@
 			url:"headerMessage.do",
 			type:"get",
 			success:function(data){
-				for(var i = 0; i <data.length;i++){
-					if(data[i].message_check==0){
-						console.log(data[i].message_content);
-						$('#minji').children().eq(1).append("<li><a href='${pageContext.request.contextPath}/admin/myMessage.do'><span class='subject'><span class='from'></span><span class='time'></span><span class='message' id='headermessagecontent'>"+data[i].message_content+"</span></a></li>");
-		             
-					}
-						
-				}
+				$('#minji').children().eq(2).html(data);
 				
-				 
+				
 			},
 			err:function(err){
 				console.log('err입니다');
