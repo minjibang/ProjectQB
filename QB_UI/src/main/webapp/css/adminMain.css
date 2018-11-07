@@ -20,6 +20,12 @@
 	background: #87bfd3;
 }
 
+.weather-4:hover, .weather-4:focus, .weather-4:active,
+	.open .dropdown-toggle.weather-4 {
+	color: #fff;
+	background-color: #408aa5;
+}
+
 .QB_classroom {
 	margin-top:15px;
 	width:100px;
