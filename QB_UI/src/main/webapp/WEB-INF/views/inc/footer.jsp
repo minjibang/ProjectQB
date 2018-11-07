@@ -23,24 +23,6 @@
   <script type="text/javascript">
     var socket = null;
     
-/*     function check(){
- 	   var username='teacher';
-        var message_content=$('#text').val();
-        var receive_member_id='student';
-        
-        
-        var data=new Array();
-        data[0]=username;
-        data[1]=message_content;
-        data[2]=receive_member_id;
-         swal({
-              title : "전송성공",
-              icon : "success",
-              dangerMode: true
-           });
-        document.getElementById("text").value='';
-        socket.send(data); } */
-    
     function send_message() {
         websocket = new WebSocket("ws://192.168.0.103:8090/qb/count.do");
         socket = websocket;
