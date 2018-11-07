@@ -179,7 +179,7 @@
                   </div>
                </div>
                <div class="view-mail">
-                  <textarea rows="10" cols="75" class="textarea"></textarea>
+                  <textarea rows="10" cols="75" class="textarea" style="width:480px;"></textarea>
                </div>
             </div>
          </div>
@@ -187,7 +187,7 @@
             <div class="form-group">
                <div class="col-lg-offset-2 col-lg-10">
                   <button class="btn btn-theme04 send" type="button" >전송</button>
-                  <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+                  <button class="btn btn-danger" type="button" data-dismiss="modal" style="margin-right:20px;">취소</button>
                </div>
             </div>
          </div>

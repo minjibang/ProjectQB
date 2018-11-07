@@ -557,7 +557,7 @@ public class StudentController {
 	        }else {
 	            System.out.println("메시지 체크 실패");
 	        }
-	        return 0;
+	        return result;
 
 	    }
 
