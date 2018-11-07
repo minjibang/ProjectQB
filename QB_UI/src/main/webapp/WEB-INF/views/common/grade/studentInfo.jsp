@@ -301,7 +301,6 @@
 															<thead>
 																<tr>
 																	<th>학생 이름</th>
-																	<c:set var="title" value=""/>
 																		<c:forEach items="${classChart}" var="subject">
 																		<th id="${subject.exam_info_name}">${subject.exam_info_name}</th>
 																		</c:forEach>
@@ -312,15 +311,14 @@
 																<c:forEach items="${studentExamScoreList}" var="tablelist">
 																<tr>
 																	<td>${tablelist.member_name}</td>
-																	<c:forEach items="${tablelist.score_list}" var="subjectScore" varStatus="chk">
-																		<c:choose>
-																		<c:when test="${classChart[chk.index].exam_info_name}==${subjectScore.key}">
-																			<td>${subjectScore.key}//${subjectScore.value}</td>
-																		</c:when>
-																		<c:otherwise>
-																			<td>미응시//${classChart[chk.index].exam_info_name}//${subjectScore.key}</td>
-																		</c:otherwise>
-																		</c:choose>
+																	<c:forEach items="${classChart}" var="subjectScore" varStatus="chk">
+																	<td>
+																		<c:forEach items="${tablelist.score_list}" var="inner" varStatus="innerchk">																		
+																		<c:if test="${classChart[chk.index].exam_info_name eq inner.key}">
+																			${inner.value}//${inner.key}
+																		</c:if>
+																		</c:forEach>
+																	</td>
 																	</c:forEach>
 																	<td>${tablelist.avg_score}</td>
 																</tr>
