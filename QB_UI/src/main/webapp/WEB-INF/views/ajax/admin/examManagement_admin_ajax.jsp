@@ -15,8 +15,7 @@
 					<!-- 시험지 한 개 시작 -->
 					<div class="exam-paper-name">
 		
-						<h4 class="miri" id="${classlist.exam_paper_num}"
-							data-target="#exam_preview" data-toggle="modal">
+						<h4 >
 							<strong>${classlist.exam_paper_name}</strong>
 							<se:authorize access="hasRole('ROLE_ADMIN')">
 							<span> ( 출제자 : ${classlist.member_id } / ${classlist.class_name } )</span>
@@ -25,7 +24,8 @@
 						<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${classlist.exam_paper_desc}
 
 						<div class="pdf_download text-right">
-							<a href="#">PDF 다운로드 <img src="../img/file-download.png"></a>
+							<a href="#" class="miri" id="${classlist.exam_paper_num}"
+							data-target="#exam_preview" data-toggle="modal">시험지 미리보기<img src="../img/file-download.png"></a>
 							<button type="button" id="${classlist.exam_paper_num}"
 								class="btn btn-theme04 buttonGroup" onclick="deleteExamCheck()"
 								value="${classlist.exam_paper_name }">삭제</button>

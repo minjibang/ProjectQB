@@ -58,20 +58,24 @@
 							</div>
 							<div class="col-lg-6">
 								<h3>시험 출제 문항</h3>
+								<hr>
 								<div id="makeExamFirstRowText">
+								
 									<c:set var="sum" value="0" />
 									<c:forEach items="${examquestion}" var="examquestion">
 										<c:set var="sum"
 											value="${sum + examquestion.exam_question_score }" />
 									</c:forEach>
 									<div>
-										출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span>
+										출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span><br>
+										
 									</div>
 									<br>
 									<div>
 										현재 총 배점 : <span id="qcore"><c:out value="${sum }" /></span> /
 										100
 									</div>
+									
 								</div>
 								<hr>
 							</div>

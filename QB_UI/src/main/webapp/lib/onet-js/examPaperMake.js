@@ -15,42 +15,80 @@ jQuery(document).ready(function() {
       /*선택한 애들의 순서 지정할 배열 생성*/
       var selected = new Array();
       
-      
-      if($('#sortable input[name="checkbox[]"]').length == 0){
-    	  /*오른쪽 선택문제가 아무것도 없을 때 >> 최초 선택문제 출제시*/
+      /*오른쪽 선택문제에 데이터가 있을 때 경고문*/
+	  var chkArray = [];
+	  var alQuestionName = "";
+	  $('#sortable input[name="checkbox[]"]').each(function(){
+		 chkArray.push($(this).val()); 
+		 console.log($(this).val());
+	  });
+	  for(i=0;i<chkArray.length;i++){
+		  $('.questions input[name="checkbox[]"]:checked').each(function() {
+			 if(chkArray[i] == $(this).val()){
+				 alQuestionName = alQuestionName + $(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text() + "\n";
+			 }
+		  });
+	  }
+	  console.log(alQuestionName);
+	  
+	  $('.questions input[name="checkbox[]"]:checked').each(function() {
+
+		 if(alQuestionName !=""){
+			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목 : "+alQuestionName);
+			  
+		  }
+		  
+	         selected.push("<li><div class='row'>" 
+	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
+	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
+	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
+	                     "onchange='plusqcore()' /><hr></div></div></li>");
+	         
+	         sortable_li_num++;
+		  
+		  
+	   });
+      /*if($('#sortable input[name="checkbox[]"]').length == 0){
+    	  오른쪽 선택문제가 아무것도 없을 때 >> 최초 선택문제 출제시
     	  $('.questions input[name="checkbox[]"]:checked').each(function() {
     	         selected.push("<li><div class='row'>" 
     	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
     	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
     	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
     	                     "onchange='plusqcore()' /><hr></div></div></li>");
-    	         /*문제 수 +1*/
+
     	         sortable_li_num++;
     	      });
       }else{
-    	  /*오른쪽 선택문제에 데이터가 있을 때 경고문*/
+    	  오른쪽 선택문제에 데이터가 있을 때 경고문
     	  var chkArray = [];
+    	  var alQuestionName = "";
     	  $('#sortable input[name="checkbox[]"]').each(function(){
     		 chkArray.push($(this).val()); 
     	  });
     	  for(i=0;i<chkArray.length;i++){
     		  $('.questions input[name="checkbox[]"]:checked').each(function() {
     			 if(chkArray[i] == $(this).val()){
-    				 swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목 : "+$(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text());
+    				 alQuestionName = alQuestionName + $(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text() + " ";
     			 }
     		  });
     	  }
+    	  console.log(alQuestionName);
     	  
     	  $('.questions input[name="checkbox[]"]:checked').each(function() {
+    		  if(alQuestionName != ""){
+    			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목 : "+alQuestionName);
+    			  alQuestionName = "";
+    		  }
  	         selected.push("<li><div class='row'>" 
  	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
  	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
  	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
  	                     "onchange='plusqcore()' /><hr></div></div></li>");
- 	         /*문제 수 +1*/
+ 	         
  	         sortable_li_num++;
  	      });
-      }
+      }*/
 
       $('.task-list').append(selected);
       $('input[name="checkbox[]"]:checked').prop('checked',false);
