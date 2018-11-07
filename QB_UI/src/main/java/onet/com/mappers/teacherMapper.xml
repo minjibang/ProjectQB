@@ -331,11 +331,8 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	<if test="searchType2=='all'">
 		and (exam_info_name like concat('%',#{keyword},'%') or class_name like concat('%',#{keyword},'%'))
 	</if>
-	<if test='searchType2 =="n"'>
-		and class_name like concat('%',#{keyword},'%')
-	</if>
-	<if test='searchType2 =="p"'>
-		and exam_info_name like concat('%',#{keyword},'%')
+	<if test='date_from != ""'>
+		and (select exam_info_date between #{date_from} and #{date_to})
 	</if>
 </sql>
 
