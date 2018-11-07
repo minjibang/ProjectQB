@@ -20,7 +20,7 @@
           <!-- 강사  -->
           <li class="sub-menu">
             <a href="">
-              <span>____클래스 (db에서 클래스이름 출력) </span>
+              <span id="className"></span>
              </a>
           </li>
           <li class="sub-menu">
@@ -46,4 +46,7 @@
         <!-- sidebar menu end-->
       </div>
     </aside>
+    
 <!--sidebar end-->
+
+

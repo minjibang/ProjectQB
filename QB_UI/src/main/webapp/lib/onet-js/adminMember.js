@@ -40,7 +40,7 @@ $(document).ready(function(){
             {data: "member_phone" },
             {data: "role_desc" },
             {data: "member_enable" },
-            {defaultContent:"<button type='button' class='btn btn-info'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
+            {defaultContent:"<button type='button' class='btn btn-theme'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
         ],
         dom: 'Bfrtip',//DataTables 출력기능 및 옵션
         buttons:[

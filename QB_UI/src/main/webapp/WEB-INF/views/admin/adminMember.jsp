@@ -238,7 +238,7 @@
 							</select>
 							<input type="text" class="form-control searchControl" 
 								   id="searchBox" name="searchBox" placeholder="검색어를 입력하세요">
-							<button type="button" class="btn btn-info btn-theme" id="memberSearchBtn">새로고침</button>
+							<button type="button" class="btn btn-theme" id="memberSearchBtn">새로고침</button>
 						</div>
 								<div class="row">
 									<div id="div_adminMember" class="col-md-12">
