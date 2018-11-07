@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 
 <!--header start-->
@@ -40,23 +40,25 @@
 </header>
 <script>
 $(document).ready(function(){
-   $('#noticeWrite_btn').click(function(){
-      var class_name2 = $('#noticeWrite_btn').val();
-      location.href="noticeWrite.do?class_name=" + class_name2;
-   });
-   $('#noticeWrite_btnAdmin').click(function(){
-      var adminClass_name = $('#noticeWrite_btnAdmin').val();
-      location.href="noticeWrite.do?class_name=" + adminClass_name;
-   });
+	$('#noticeWrite_btn').click(function(){
+		var class_name2 = $('#noticeWrite_btn').val();
+		location.href="noticeWrite.do?class_name=" + class_name2;
+	});
+	$('#noticeWrite_btnAdmin').click(function(){
+		var adminClass_name = $('#noticeWrite_btnAdmin').val();
+		location.href="noticeWrite.do?class_name=" + adminClass_name;
+	});
 });
-$.ajax({
-      url:"../common/memberCheck.do",
-      type:"get",
-      success:function(data){
-         $('#className').text(data[0].class_name);
-         $('#memberName').text(data[0].member_name);
-      },
-      error:function(xml){
-      }
-   });
+	$.ajax({
+		url:"../common/memberCheck.do",
+		type:"get",
+		success:function(data){
+			$('#className').text(data[0].class_name);
+			$('#memberName').text(data[0].member_name);
+		},
+		error:function(xml){
+		}
+	});
 </script>
+
+
