@@ -15,14 +15,15 @@ public class ExamInfoDto {
 	private int class_num;
 	
 	//양회준 11.5
-	private String comment;
+	private String score_chart_comment;
 	
 	
-	public String getComment() {
-		return comment;
+	
+	public String getScore_chart_comment() {
+		return score_chart_comment;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setScore_chart_comment(String score_chart_comment) {
+		this.score_chart_comment = score_chart_comment;
 	}
 	public int getExam_info_num() {
 		return exam_info_num;

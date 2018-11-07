@@ -124,7 +124,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="searchStudentName" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-	select m.member_name, sc.exam_info_num, sc.comment
+	select m.member_name, sc.exam_info_num, sc.score_chart_comment
 	from member m join score_chart sc
 	on m.member_id=sc.member_id
 	where m.member_id = #{param1}
@@ -138,7 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and (exam_info_name like concat('%', #{param2}, '%') || exam_info_desc like concat('%', #{param2}, '%'))
 	order by exam_info_num desc -->
 	select ei.exam_info_num, ei.exam_paper_num, ei.class_name, ei.exam_info_name, ei.exam_info_desc, ei.exam_info_member,
-	ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, sc.comment
+	ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, sc.score_chart_comment
 	from member m join exam_info ei join score_chart sc
 	on m.member_id=sc.member_id and ei.exam_info_num=sc.exam_info_num
 	where m.member_id=#{param1}

@@ -37,7 +37,7 @@
 							var html = "";
 							html += '<tr class="exam_line"><td class="pastExamTd">';
 							html += '<h3>' + data[index].exam_info_name + '</h3>';
-							html += '<span>'+ data[index].exam_info_desc +'</span><div class="examComment"><strong>강사님 : '+data[index].comment+'</strong></div>';
+							html += '<span>'+ data[index].exam_info_desc +'</span><div class="examComment"><strong>강사님 : '+data[index].score_chart_comment+'</strong></div>';
 							html += '</td><td class="pastExamTd"><div>시험 날짜 : ';
 							html += data[index].exam_info_date;
 							html += '</div><div>시험 시간 : ';
@@ -45,7 +45,7 @@
 							html += '</div><div>[' + data[index].exam_info_time + ']</div></td>';
 							html += '<td class="btn_td">';
 							html += '<button class="btn btn-theme pastExamBtn" id="" value="'+data[index].exam_info_num+'">다시 보기</button> ';
-							html += '<button class="btn btn-theme ExamCommentBtn" id="" value="'+data[index].comment+'">평가 보기</button>';
+							html += '<button class="btn btn-theme ExamCommentBtn" id="" value="'+data[index].score_chart_comment+'">평가 보기</button>';
 							html += '<input type="hidden" value="'+data[index].exam_info_date+'_'+data[index].exam_info_end+'"/>';
 							html += '</td></tr>';
 							
@@ -84,7 +84,6 @@
 		});
 
 		$(document).on('click','.ExamCommentBtn',function(){
-			//var comment=$(this).parent().prev().prev().children().eq(2).toggle();
 			var comment=$(this).val();
 			swal({
 				title:"시험평가", 
@@ -129,7 +128,7 @@
 										<td class="pastExamTd">
 											<h3>${examInfo.exam_info_name}</h3> 
 											<div>${examInfo.exam_info_desc}</div>
-											<div class="examComment"><strong>강사님 : ${member_comment[status.index].comment}</strong></div>
+											<div class="examComment"><strong>강사님 : ${member_comment[status.index].score_chart_comment}</strong></div>
 										</td>
 										<td class="pastExamTd">
 											<div>시험 날짜 : ${examInfo.exam_info_date}</div>
@@ -138,7 +137,7 @@
 										</td>
 										<td class="btn_td">
 											<button class="btn btn-theme pastExamBtn" id="" value="${examInfo.exam_info_num}">다시 보기</button>
-											<button class="btn btn-theme ExamCommentBtn" id="" value="${member_comment[status.index].comment}">평가 보기</button>
+											<button class="btn btn-theme ExamCommentBtn" id="" value="${member_comment[status.index].score_chart_comment}">평가 보기</button>
 											<input type="hidden" value="${examInfo.exam_info_date}_${examInfo.exam_info_end}"/>
 										</td>
 									</tr>

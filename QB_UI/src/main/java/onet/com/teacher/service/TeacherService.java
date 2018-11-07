@@ -323,9 +323,9 @@ public class TeacherService {
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
 	//양회준 11.5 코멘트 추가
-	public @ResponseBody int studentInfoCommentUpdate(String member_id, int exam_info_num, String comment) {
+	public @ResponseBody int studentInfoCommentUpdate(String member_id, int exam_info_num, String score_chart_comment) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		int result = dao.studentInfoCommentUpdate(member_id,exam_info_num,comment);
+		int result = dao.studentInfoCommentUpdate(member_id,exam_info_num,score_chart_comment);
 		System.out.println("서비스 돌아오나?:"+result);
 		return result;
 	}

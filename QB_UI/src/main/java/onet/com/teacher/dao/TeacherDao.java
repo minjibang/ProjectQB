@@ -102,7 +102,7 @@ public interface TeacherDao {
 	/*민지 - 10.29 받은쪽지  끝*/
 	
 	//양회준 11.5 코멘트 추가
-	public int studentInfoCommentUpdate(String member_id, int exam_info_num, String comment);
+	public int studentInfoCommentUpdate(String member_id, int exam_info_num, String score_chart_comment);
 	//양회준 11.5 코멘트 취소
 	public String studentInfoCommentCancel(String member_id, int exam_info_num);
 	

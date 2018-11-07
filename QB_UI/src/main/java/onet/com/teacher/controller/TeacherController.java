@@ -424,9 +424,6 @@ public class TeacherController {
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
 	
 	
-
-	
-	
 	/*양회준 18.10.11 학생&성적관리 추가 */
 	//학생정보 불러오기
 	@RequestMapping("studentInfo.do")//line 434 null값 에러 고쳐야함
@@ -456,9 +453,6 @@ public class TeacherController {
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
-		for(Score_chartDto data:studentExamScoreList) {
-			System.out.println("test순서: "+data.getMember_name()+" "+data.getScore_list());
-		}
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		
 		return "common.teacher.grade.studentInfo";
@@ -469,7 +463,9 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
-		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		//List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
+		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
 	}
 	
@@ -842,12 +838,8 @@ public class TeacherController {
 		//양회준 11.5 코멘트 추가
 		@RequestMapping("studentInfoCommentUpdate.do")
 		public @ResponseBody int studentInfoCommentUpdate(@RequestParam("member_id") String member_id,
-				@RequestParam("exam_info_num") int exam_info_num,@RequestParam("comment") String comment) {
-			System.out.println("들어오나?:"+member_id);
-			System.out.println("들어오나?:"+exam_info_num);
-			System.out.println("들어오나?:"+comment);
-			int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, comment);
-			System.out.println("돌아오나?:"+result);
+				@RequestParam("exam_info_num") int exam_info_num,@RequestParam("score_chart_comment") String score_chart_comment) {
+			int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, score_chart_comment);
 			return result;
 		}
 		//양회준 11.5 코멘트 취소

@@ -293,6 +293,7 @@ public class CommonService {
 	public Map<String, Object> studentChartInfo(String member_id, String class_name){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		List<Score_chartDto> studentChart = dao.studentChartInfo(member_id);
+		
 		List<Class_chartDto> classChart = dao.classChartInfo(class_name);
 		Map<String, Object> chart = new HashMap<String, Object>();
 		chart.put("studentName", studentChart);
@@ -328,8 +329,7 @@ public class CommonService {
 			//score.clear();
 			for(Score_chartDto data2 : scorelist) {				
 				if(data.getMember_id().equals(data2.getMember_id())) {//아이디가 같을 경우 점수를 map 대입
-					score.put(data2.getExam_info_name(), data2.getScore_chart_score());
-					System.out.print(" "+data2.getExam_info_name()+"/"+data2.getScore_chart_score());					
+					score.put(data2.getExam_info_name(), data2.getScore_chart_score());								
 				}
 			}
 			System.out.println("");

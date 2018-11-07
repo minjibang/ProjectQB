@@ -362,9 +362,13 @@ $(document).ready(function(){
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );
 	 
+	 var t = "걁";
+	 console.log(t.charCodeAt(0));
+	 
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
+	var chartClassStudentDatas = new Array();
 	var chartLabels = new Array();
 	var chartStudentLabels = new Array();
 	var spreadScore;
@@ -376,10 +380,12 @@ $(document).ready(function(){
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
 		chartStudentLabels.push("${studentChart.exam_info_name}");
+		chartClassStudentDatas.push("${studentChart.class_chart_avg}");
+		
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
-		chartClassDatas.push("${classChart.class_chart_avg}");
 		chartLabels.push("${classChart.exam_info_name}");
+		chartClassDatas.push("${classChart.class_chart_avg}");
 	</c:forEach>
 	
 	
@@ -424,7 +430,7 @@ $(document).ready(function(){
 					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
 					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
 					studentExamScoreSrc += '<p>'+smCtgr+'</p>';
-					studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.comment+'</span></td>'
+					studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
 					studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
@@ -451,7 +457,7 @@ $(document).ready(function(){
 		swal({
 			text: '평가를 입력해 주세요.',
 			content: {
-				element:"input",				  
+				element:"input",
 				attributes:{value:text}
 				},
 				buttons:['취소','등록!']
@@ -460,7 +466,7 @@ $(document).ready(function(){
   				if (!name) throw null; 
   				
   				$(this).parent().prev().prev().children().eq(3).text(name);
-  				return fetch('studentInfoCommentUpdate.do?member_id='+memberId+'&exam_info_num='+examInfoNum+'&comment='+name);
+  				return fetch('studentInfoCommentUpdate.do?member_id='+memberId+'&exam_info_num='+examInfoNum+'&score_chart_comment='+name);
   			})  			
   			.then(result => {
   			  return result;
@@ -574,6 +580,8 @@ $(document).ready(function(){
 		//가져온 차트데이터 담을 배열(학생점수, 반평균, 과목)	
 		chartStudentDatas = [];
 		chartClassDatas = [];
+		chartClassStudentDatas = [];
+		chartStudentLabels = [];
 		chartLabels = [];		
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
@@ -589,6 +597,7 @@ $(document).ready(function(){
 		memberId=studentArr[memberIndex].member_id;
 		className=studentArr[memberIndex].class_name;
 		//비동기 실행
+		
 		$.ajax({
 			type:"post",
 			url:"studentChartInfo.do",
@@ -600,6 +609,8 @@ $(document).ready(function(){
 				//넘어온 map객체의 학생차트정보
 				$(data.studentName).each(function(index, element){					
 					chartStudentDatas.push(element.score_chart_score);
+					chartStudentLabels.push(element.exam_info_name);
+					chartClassStudentDatas.push(element.class_chart_avg);
 				});
 				//넘어온 map객체의 클래스차트정보
 				$(data.className).each(function(index, element){
@@ -611,7 +622,8 @@ $(document).ready(function(){
 			error:function(error, status){
 
 			}
-		});		
+		});
+		
 	});
 	//학생목록 이벤트 종료
 	
@@ -650,7 +662,7 @@ $(document).ready(function(){
 				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
 				studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
 				studentExamScoreSrc += '<p>'+smCtgr+'</p>';
-				studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.comment+'</span></td>'
+				studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
 				studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
@@ -742,7 +754,7 @@ $(document).ready(function(){
 		  type: 'line',
 		  // The data for our dataset
 		  data: {
-		      labels: chartLabels,
+		      labels: chartStudentLabels,
 		      datasets: [
 		        {
 		          label: "반 평균 성적",
@@ -750,7 +762,7 @@ $(document).ready(function(){
 		          borderColor: 'rgb(255, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
-		          data: chartClassDatas,
+		          data: chartClassStudentDatas,
 		      },
 		      {
 		          label: "학생 성적",

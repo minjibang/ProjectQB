@@ -25,7 +25,27 @@ public class Score_chartDto {
 	
 	//양회준11.5추가
 	private HashMap<String, Integer> score_list;
-	private String comment;
+	private String score_chart_comment;
+	private double class_chart_avg;
+	
+	
+	
+	public double getClass_chart_avg() {
+		return class_chart_avg;
+	}
+
+	public void setClass_chart_avg(double class_chart_avg) {
+		this.class_chart_avg = class_chart_avg;
+	}
+
+	public String getScore_chart_comment() {
+		return score_chart_comment;
+	}
+
+	public void setScore_chart_comment(String score_chart_comment) {
+		this.score_chart_comment = score_chart_comment;
+	}
+
 	private String exam_info_desc;
 	
 	
@@ -46,13 +66,6 @@ public class Score_chartDto {
 		this.exam_info_desc = exam_info_desc;
 	}
 
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
 
 	public int getStart() {
 		return start;
