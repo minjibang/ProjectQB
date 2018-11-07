@@ -13,7 +13,7 @@
 									<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}&class_name=${classlist.class_name}">
 										<!-- <h1>JAVA</h1> -->
 										<div class="row classDiv">
-											<img src="${pageContext.request.contextPath}/img/oneT_Design/classroom.png" alt="QB_classroom" class="QB_classroom" /></a>
+											<img src="${pageContext.request.contextPath}/img/oneT_Design/classroom.png" alt="QB_classroom" class="QB_classroom" />
 											<div class="classDivOverFlow">
 												${classlist.class_name}
 											</div>
@@ -36,10 +36,9 @@
 													<i class="fa fa-users classUsersIcon"></i> ${classlist.class_student_count}명
 												</p>
 											</div>
-										<!-- </div> -->
-									</div>
-								</div>
-							<!-- </form> -->
+											<!-- </div> -->
+									</div> <!-- info -->
+								</div><!-- </form> -->
 						<!-- </div> -->
 						<!-- <div class="overlay"></div> -->
 					<!-- </div> -->
