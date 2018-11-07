@@ -456,6 +456,9 @@ public class TeacherController {
 		model.addAttribute("studentExamScoreInfo",studentExamScoreInfo);
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
+		for(Score_chartDto data:studentExamScoreList) {
+			System.out.println("test순서: "+data.getMember_name()+" "+data.getScore_list());
+		}
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
 		
 		return "common.teacher.grade.studentInfo";
@@ -864,4 +867,5 @@ public class TeacherController {
 			return comment;
 		}
 		// ajax로 검색한 클래스 목록 가져오기 
+		
 }

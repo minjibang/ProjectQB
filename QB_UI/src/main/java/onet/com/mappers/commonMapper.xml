@@ -247,7 +247,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 양회준 10-29 학생&성적관리 클래스통계 학생별 성적표 -->
 <select id="studentExamScoreList" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 	<![CDATA[
-	select m.member_id, m.member_name, ei.exam_info_num, sc.score_chart_score, sc.class_name 
+	select m.member_id, m.member_name, ei.exam_info_num, ei.exam_info_name, sc.score_chart_score, sc.class_name 
 	from score_chart sc join member m join exam_info ei
 	on sc.member_id=m.member_id and sc.exam_info_num = ei.exam_info_num
 	where sc.class_name = #{class_name}

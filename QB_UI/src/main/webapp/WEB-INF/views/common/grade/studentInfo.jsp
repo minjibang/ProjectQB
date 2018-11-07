@@ -301,8 +301,9 @@
 															<thead>
 																<tr>
 																	<th>학생 이름</th>
+																	<c:set var="title" value=""/>
 																		<c:forEach items="${classChart}" var="subject">
-																		<th>${subject.exam_info_name}</th>
+																		<th id="${subject.exam_info_name}">${subject.exam_info_name}</th>
 																		</c:forEach>
 																	<th>평균</th>
 																</tr>
@@ -311,15 +312,21 @@
 																<c:forEach items="${studentExamScoreList}" var="tablelist">
 																<tr>
 																	<td>${tablelist.member_name}</td>
-																	<c:forEach items="${tablelist.score_list}" var="subjectScore">
-																		<td>${subjectScore}</td>
+																	<c:forEach items="${tablelist.score_list}" var="subjectScore" varStatus="chk">
+																		<c:choose>
+																		<c:when test="${classChart[chk.index].exam_info_name}==${subjectScore.key}">
+																			<td>${subjectScore.key}//${subjectScore.value}</td>
+																		</c:when>
+																		<c:otherwise>
+																			<td>미응시//${classChart[chk.index].exam_info_name}//${subjectScore.key}</td>
+																		</c:otherwise>
+																		</c:choose>
 																	</c:forEach>
 																	<td>${tablelist.avg_score}</td>
 																</tr>
 																</c:forEach>
 															</tbody>
 														</table>
-
 													</div>
 												</div>
 											</div>
@@ -426,59 +433,6 @@ $(document).ready(function(){
 		});
 	}
 	
-	/* 양회준 11.5 코멘트 관련 시작*/
-	/* 
-	$(document).on('click', '.ExamCommentBtn', function(){
-		$(this).attr("disabled", "true");
-		var comment=$(this).parent().prev().prev().children().eq(3).text();
-		$(this).parent().prev().prev().children().eq(3).html('<input type="text" value="'+comment+'">&nbsp;&nbsp;<a class="update"><i class="fa fa-pencil""></i>수정</a>&nbsp;&nbsp;<a class="updateCancel"><i class="fa fa-ban"></i>취소</a>');		
-	})
-	$(document).on('click', '.update', function(){		
-		$(this).parent().parent().next().next().children().eq(1).removeAttr("disabled");		
-		var updt = $(this).prev().val();
-		var chk=$(this).prev().parent()
-		
-		var examInfoNum=$(this).parent().parent().next().next().children().eq(0).val();
-
-		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
-		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
-		var memberId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
-		
-		$.ajax({
- 	   		type : "post",
- 	   		url : "studentInfoCommentUpdate.do",
- 	   		data : {
- 	   				member_id: memberId,
- 	   				exam_info_num: examInfoNum,
- 	   				comment:updt},
- 	   		success: function(data){
-				chk.text(updt);
- 	   		}
- 	   	});
-	})
-	$(document).on('click', '.updateCancel', function(){		
-		$(this).parent().parent().next().next().children().eq(1).removeAttr("disabled");
-		
-		var examInfoNum=$(this).parent().parent().next().next().children().eq(0).val();
-
-		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
-		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
-		var memberId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
-		
-		var chk=$(this).prev().prev().parent();
-		$.ajax({
- 	   		type : "post",
- 	   		url : "studentInfoCommentCancel.do",
- 	   		data : {
- 	   				member_id: memberId,
- 	   				exam_info_num: examInfoNum
- 	   				},
- 	   		success: function(data,status){
-				chk.text(data);
- 	   		}
- 	   	});
-	})
-	 */
 	$(document).on('click', '.ExamCommentBtn', function(){
 		$(this).parent().parent().next().next().children().eq(1).removeAttr("disabled");
 		var text=$(this).parent().prev().prev().children().eq(3).text();
@@ -487,14 +441,12 @@ $(document).ready(function(){
 		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
 		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
 		var memberId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
-		console.log("text:"+text);
-		console.log("아이디:"+memberId);
-		console.log("시험번호:"+examInfoNum);
+		
 		swal({
 			text: '평가를 입력해 주세요.',
 			content: {
 				element:"input",				  
-				attributes:{placeholder:text}
+				attributes:{value:text}
 				},
 				buttons:['취소','등록!']
 			})

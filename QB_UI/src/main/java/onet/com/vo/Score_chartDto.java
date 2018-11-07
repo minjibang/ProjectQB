@@ -1,6 +1,7 @@
 package onet.com.vo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Score_chartDto {
 
@@ -14,7 +15,7 @@ public class Score_chartDto {
 	private String class_name;
 	// 양회준10.24추가 
 	private String exam_info_name;
-	private ArrayList<Integer> score_list;
+	
 	private float avg_score;
 	private int start;
 	private int end;
@@ -23,8 +24,27 @@ public class Score_chartDto {
 	private String member_name;
 	
 	//양회준11.5추가
+	private HashMap<String, Integer> score_list;
 	private String comment;
+	private String exam_info_desc;
 	
+	
+
+	public HashMap<String, Integer> getScore_list() {
+		return score_list;
+	}
+
+	public void setScore_list(HashMap<String, Integer> score_list) {
+		this.score_list = score_list;
+	}
+
+	public String getExam_info_desc() {
+		return exam_info_desc;
+	}
+
+	public void setExam_info_desc(String exam_info_desc) {
+		this.exam_info_desc = exam_info_desc;
+	}
 
 	public String getComment() {
 		return comment;
@@ -68,13 +88,6 @@ public class Score_chartDto {
 
 	public void setExam_info_name(String exam_info_name) {
 		this.exam_info_name = exam_info_name;
-	}
-	public ArrayList<Integer> getScore_list() {
-		return score_list;
-	}
-
-	public void setScore_list(ArrayList<Integer> score_list) {
-		this.score_list = score_list;
 	}
 	public float getAvg_score() {
 		return avg_score;

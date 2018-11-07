@@ -15,7 +15,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%-- <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleDetail.js"></script> --%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ko.js"></script>
 
 
 <section id="main-content">
@@ -90,7 +91,7 @@
 							<button class="btn btn-theme03" id="examBtn">시험시작</button>
 							</c:if>
 							<c:if test="${check==0}">
-							<p>응시 대상자가 아닙니다.</p>
+							<h2>응시 대상자가 아닙니다.</h2>
 							</c:if>
 						</se:authorize>
 							
@@ -152,19 +153,11 @@
 		var time1 = exam_info_date.split('-');
 		var time2 = exam_info_start.split(':');
 		var time3 = exam_info_end.split(':');
-					
-		var exam_info_date='${dto.exam_info_date}';
-		var exam_info_start='${dto.exam_info_start}';
-		var exam_info_end='${dto.exam_info_end}';
-		
-		var time1 = exam_info_date.split('-');
-		var time2 = exam_info_start.split(':');
-		var time3 = exam_info_end.split(':');
 		
 		var nowTime = new Date();
 		var examStartTime = new Date(time1[0],time1[1]-1,time1[2],time2[0],time2[1],time2[2]);
 		var examEndTime = new Date(time1[0],time1[1]-1,time1[2],time3[0],time3[1],time3[2]);
-		
+				
 		var dDays = (examStartTime-nowTime)/1000/60/60/24;
 		var examStartDaysRound = Math.floor(dDays);
 		// 시작시간까지 원하는 날짜, 시간 정확하게 초단위까지 기입.

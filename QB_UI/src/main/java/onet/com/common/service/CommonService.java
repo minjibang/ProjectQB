@@ -324,14 +324,16 @@ public class CommonService {
 		List<Score_chartDto> scorelist= commonDao.studentExamScoreList(class_name);//과목별 점수
 		List<Score_chartDto> avglist= commonDao.studentExamScoreAvg(class_name);//평균점수
 		for(Score_chartDto data : avglist) {
-			ArrayList<Integer> score = new ArrayList<Integer>();
+			HashMap<String, Integer> score = new HashMap<String, Integer>();
 			//score.clear();
 			for(Score_chartDto data2 : scorelist) {				
-				if(data.getMember_id().equals(data2.getMember_id())) {//아이디가 같을 경우 점수를 리스트 대입
-					score.add(data2.getScore_chart_score());
+				if(data.getMember_id().equals(data2.getMember_id())) {//아이디가 같을 경우 점수를 map 대입
+					score.put(data2.getExam_info_name(), data2.getScore_chart_score());
+					System.out.print(" "+data2.getExam_info_name()+"/"+data2.getScore_chart_score());					
 				}
 			}
-			data.setScore_list(score);//점수리스트를 평균리스트에 대입			
+			System.out.println("");
+			data.setScore_list(score);;//점수리스트를 평균리스트에 대입			
 		}
 		return avglist;
 	}
