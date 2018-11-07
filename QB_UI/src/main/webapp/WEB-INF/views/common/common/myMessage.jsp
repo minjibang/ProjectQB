@@ -245,7 +245,7 @@
                                                    </td>
                                                    <c:choose>
                                                    <c:when test="${receiveMessage.message_check == 0}">
-
+																	
                                                    <td class="view-message  inbox-small-cells">나</td>
                                                    </c:when>
                                                    <c:otherwise>
@@ -566,6 +566,7 @@ function check_t(){
    
            
    $('.message_content_row').click(function(){
+	   var username='${member_id}';
        $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>");
       var message_num=window.event.target.id;
       var message_check={'message_check':1,
@@ -579,6 +580,7 @@ function check_t(){
          success : function(data){
              if(data>0){
                alert('message_check 성공');
+               socket.send(username);
              }else{
                 alert('2');
              }
