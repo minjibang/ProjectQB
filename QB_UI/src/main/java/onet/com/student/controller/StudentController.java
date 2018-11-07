@@ -658,5 +658,19 @@ public class StudentController {
 				return result;
 			}
 		   
-
+			@RequestMapping("headerMessage.do")
+			public @ResponseBody List<MessageDto> headerMessage(Model model, Principal principal) {
+				
+				 String member_id = principal.getName();
+				 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			
+				   model.addAttribute("receiveMessage", receiveMessage);
+				   for(int i=0; i<receiveMessage.size(); i++) {
+			        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+			        	  String sendManName = commonService.nameSearch(sendManId);
+			        	  receiveMessage.get(i).setMember_name(sendManName);
+			          }
+				
+				return receiveMessage;
+			}
 }
