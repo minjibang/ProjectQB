@@ -365,7 +365,7 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 </insert>
 <insert id="initializeScoreChart" parameterType="onet.com.vo.Student_answerDto">
 	insert into score_chart
-	values(#{member_id}, #{exam_info_num}, #{score_chart_score}, #{score_chart_rank}, #{class_name})
+	values(#{member_id}, #{exam_info_num}, #{score_chart_score}, #{score_chart_rank}, #{class_name}, '수고하셨습니다.')
 </insert>
 <insert id="initializeClassChart" parameterType="onet.com.vo.Class_chartDto">
 	insert into class_chart

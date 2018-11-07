@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and member_id = #{param1}
 				and exam_info_num = #{param2}
 			)
-			and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2})) 
+			and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2}))
 	where member_id = #{param1}
 	and exam_info_num = #{param2};
 </update>
