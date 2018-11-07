@@ -40,7 +40,7 @@ $(document).ready(function(){
             {data: "member_phone" },
             {data: "role_desc" },
             {data: "member_enable" },
-            {defaultContent:"<button type='button' class='btn btn-info'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
+            {defaultContent:"<button type='button' class='btn btn-theme'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
         ],
         dom: 'Bfrtip',//DataTables 출력기능 및 옵션
         buttons:[
@@ -248,10 +248,11 @@ $(function(){
    					  title: "수정 되었습니다",
    					  text: "",
    					  icon:"success"
-   				  }).then(function() {   					  
+   				  }).then(function() {
+   					$("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(1).text(_param.class_name);
    					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(4).text(_param.member_email);
    					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(5).text(_param.member_phone);
-   					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(6).text(_param.role_code);
+   					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(6).text(_param.role_desc);
    					  $("#UpdateModal").modal("hide");
    				  });
    			  },

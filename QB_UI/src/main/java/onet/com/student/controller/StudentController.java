@@ -150,9 +150,9 @@ public class StudentController {
 		// 10.23 현이 추가 
 		String member_id = principal.getName();
 		List<ExamInfoDto> examInfoList = studentService.searchPastExam(member_id);
-		String member_name = studentService.searchStudentName(member_id);
+		List<Score_chartDto> member_comment = studentService.searchStudentName(member_id);
 		model.addAttribute("examInfoList", examInfoList);
-		model.addAttribute("member_name", member_name);
+		model.addAttribute("member_comment", member_comment);
 
 		return "student.pastExam";
 	}

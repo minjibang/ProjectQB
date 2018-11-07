@@ -114,6 +114,8 @@
 	    	text: "확인 후 로그인해주세요",
 	    	icon:"info",
 	    	button:"Confirm",
+	    }).then(function(){
+	    	location.href="http://localhost:8090/qb/"
 	    });
 	}else if(result == "false"){
 		swal({

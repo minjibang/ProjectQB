@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import onet.com.common.dao.CommonDao;
 import onet.com.admin.dao.AdminDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ClassDto;
@@ -232,9 +234,9 @@ public class TeacherService {
 		return result;
 	}
 	
-	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin, String member_id){
+	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin, String member_id,String date_from,String date_to){		
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamInfoDto> result = dao.examinfoSearch(searchType2, keyword, begin, member_id);
+		List<ExamInfoDto> result = dao.examinfoSearch(searchType2, keyword, begin, member_id, date_from, date_to);
 		return result;
 	}
 	
@@ -320,6 +322,20 @@ public class TeacherService {
 	}
 	/*민지 - 10.22 시험일정 수정 끝*/
 	
+	//양회준 11.5 코멘트 추가
+	public @ResponseBody int studentInfoCommentUpdate(String member_id, int exam_info_num, String score_chart_comment) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		int result = dao.studentInfoCommentUpdate(member_id,exam_info_num,score_chart_comment);
+		System.out.println("서비스 돌아오나?:"+result);
+		return result;
+	}
+	//양회준 11.5 코멘트 취소
+	public @ResponseBody String studentInfoCommentCancel(String member_id, int exam_info_num) {
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		String comment = dao.studentInfoCommentCancel(member_id,exam_info_num);
+		return comment;
+	}
+
 	public List<ExamPaperDto> exampaperSearch(String searchType, String keyword, int begin, String member_id){
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		List<ExamPaperDto> result = dao.exampaperSearch(searchType, keyword, begin, member_id);
@@ -376,5 +392,4 @@ public class TeacherService {
 		String result = dao.examManagementRoleCheck(member_id);
 		return result;
 	}
-	
 }

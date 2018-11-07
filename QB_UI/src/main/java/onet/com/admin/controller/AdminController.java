@@ -292,7 +292,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name, Principal principal) { 
+	public String adminClassMain(Model model, String class_name, String class_num, Principal principal) { 
 		List<NoticeDto> notice;
 		String date="";
 		notice=commonService.admin_Main(class_name);
@@ -305,6 +305,7 @@ public class AdminController {
 			model.addAttribute("notice", notice);
 		}
 		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
 		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -349,9 +350,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("noticeWrite.do")
-	public String noticeWrite(String class_name, Model model) {
-		model.addAttribute("class_name",class_name);
+	public String noticeWrite(String class_name, String class_num, Model model) {
 		
+		model.addAttribute("class_num", class_num);
+		model.addAttribute("class_name",class_name);
 		return "common.adminClass.admin.notice.noticeWrite";
 	}
 
@@ -1324,52 +1326,5 @@ public class AdminController {
 		
 			return mv;
 		}
-		/*민지:10.18 시험등록 */
-		@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-		public  String examInfoInsert(ExamInfoDto dto,String memberarray2,int exam_paper_num ,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-			
-			String [] memberchecklist= memberarray2.split(",");
-			int checkresult;
-			int result = 0;
-			String viewpage="";
-			
-			result=teacherService.examInfoInsert(dto);
-			if(result > 0) {
-				//System.out.println("시험등록성공");
-				String class_name = dto.getClass_name();
-				//System.out.println(class_name);
 		
-				String url = URLEncoder.encode(class_name, "UTF-8");
-				String memberid="";
-				int infonum2 = 0; 
-				
-				for(int i = 0; i<=memberchecklist.length-1;i++) {
-					
-					memberid = memberchecklist[i];
-					ExamMemberDto exammemberdto = new ExamMemberDto();
-					List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
-					int infonum = examinfolist.size()-1;
-					//System.out.println(examinfolist.toString());
-					infonum2 = examinfolist.get(infonum).getExam_info_num();
-		
-					//System.out.println("examinfolist>>>" + infonum2+ "    <<");
-					exammemberdto.setExam_info_num(infonum2);
-					exammemberdto.setMember_id(memberid);
-					checkresult=teacherService.examMemberInsert(exammemberdto);
-					
-					/*if(checkresult>0) {
-						System.out.println("체크리스트 insert 성공");
-					} else {
-						System.out.println("체크리스트 insert 실패");
-					}*/
-				}
-				
-				// 학상 답안지 초기화 insert 
-				int initializeResult = teacherService.initializeStudentAnswer(memberchecklist, infonum2, exam_paper_num, dto.getClass_name());	
-				viewpage = "redirect:examManagement.do";
-			} else {
-				System.out.println("시험등록 실패");
-			}
-			return viewpage;
-		}
 }

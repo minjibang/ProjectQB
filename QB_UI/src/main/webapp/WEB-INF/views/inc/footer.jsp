@@ -25,7 +25,9 @@
     var socket = null;
     
     function send_message() {
+
         websocket = new WebSocket("ws://192.168.0.18:8090/qb/count.do");
+
         socket = websocket;
         websocket.onopen = function(evt) {
         	console.log("connect");

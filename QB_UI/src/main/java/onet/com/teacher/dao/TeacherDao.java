@@ -71,7 +71,9 @@ public interface TeacherDao {
 	public int examquestionsinsert(int exam_paper_num,int question_num,int exam_question_seq,int exam_question_score);
 	public ExamPaperDto examNameDesc(int exam_paper_num);
 	public List<ExamQuestionListDto> examQuestionList(int exam_paper_num);
-	public List<ExamInfoDto> examinfoSearch(@Param("searchType2") String searchType2, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
+	public List<ExamInfoDto> examinfoSearch(@Param("searchType2") String searchType2, @Param("keyword") String keyword, @Param("begin") int begin, 
+			@Param("member_id") String member_id,@Param("date_from") String date_from, @Param("date_to") String date_to);
+	
 	
 	/*--성태용 끝--*/
 	
@@ -99,8 +101,12 @@ public interface TeacherDao {
 	
 	/*민지 - 10.29 받은쪽지  끝*/
 	
-	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
+	//양회준 11.5 코멘트 추가
+	public int studentInfoCommentUpdate(String member_id, int exam_info_num, String score_chart_comment);
+	//양회준 11.5 코멘트 취소
+	public String studentInfoCommentCancel(String member_id, int exam_info_num);
 	
+	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
 
 	public String examManagementRoleCheck(String member_id);
 
@@ -109,7 +115,5 @@ public interface TeacherDao {
 	public int initializeStudentAnswer(Student_answerDto student_answerDto);
 	public int initializeScoreChart(Score_chartDto scoreDto);
 	public int initializeClassChart(Class_chartDto classScoreDto);
-	
-
-	
+			
 }

@@ -292,6 +292,15 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 
 </select>
 
+<!-- 양회준 11.5 강사 코멘트 수정 및 취소 -->
+	<update id="studentInfoCommentUpdate" parameterType="String">
+		update score_chart set score_chart_comment=#{param3} where member_id=#{param1} and exam_info_num=#{param2}
+	</update>
+	<select id="studentInfoCommentCancel" resultType="String">
+		select comment from score_chart where member_id=#{param1} and exam_info_num=#{param2}
+	</select>
+
+
 <select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto" >
 	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} order by exam_paper_num desc limit #{begin}, 4
 </select>
@@ -331,11 +340,8 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	<if test="searchType2=='all'">
 		and (exam_info_name like concat('%',#{keyword},'%') or class_name like concat('%',#{keyword},'%'))
 	</if>
-	<if test='searchType2 =="n"'>
-		and class_name like concat('%',#{keyword},'%')
-	</if>
-	<if test='searchType2 =="p"'>
-		and exam_info_name like concat('%',#{keyword},'%')
+	<if test='date_from != ""'>
+		and (select exam_info_date between #{date_from} and #{date_to})
 	</if>
 </sql>
 

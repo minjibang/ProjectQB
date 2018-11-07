@@ -19,13 +19,6 @@
 	rel="stylesheet">
 
 
-
-
-
-<!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
-<!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
-
-<!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -34,31 +27,27 @@
 					<div class="panel-heading">
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active">
-							
-							<!-- 관리자일 경우  "문제 관리" / 강사일 경우 버튼이 "내 문제함"-->
-							<se:authorize access="hasRole('ROLE_ADMIN')">
-							<a data-toggle="tab" href="#overview"> 문제 관리 </a>
-							</se:authorize>
-							<se:authorize access="hasRole('ROLE_TEACHER')">
-							<a data-toggle="tab" href="#overview"> 내 문제함 </a>
-							</se:authorize>
-							
+								<!-- 관리자일 경우  "문제 관리" / 강사일 경우 버튼이 "내 문제함"-->
+								<se:authorize access="hasRole('ROLE_ADMIN')">
+								<a data-toggle="tab" href="#overview"> 문제 관리 </a>
+								</se:authorize>
+								<se:authorize access="hasRole('ROLE_TEACHER')">
+								<a data-toggle="tab" href="#overview"> 내 문제함 </a>
+								</se:authorize>
 							</li>
 							<li>
 								<a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a>
 							</li>
-						</ul>
-					</div>
-
-				<!-- /panel-heading -->
-				<div class="panel-body">
-					<div class="tab-content">
-						<div id="overview" class="tab-pane active">
-							<div class="row">
-								<div class="col-lg-12">
-
-									<h3 id="h3id">
+						</ul><!--  /nav nav-tabs nav-justified -->
+					</div><!-- panel-heading -->
+					
+					<div class="panel-body">
+						<div class="tab-content">
+							<div id="overview" class="tab-pane active">
+								<div class="row">
+									<div class="col-lg-12">
 									
+									<h3 id="h3id">
 									<!--  관리자일 경우 "문제 관리"/ 강사일 경우 "내 문제함" -->
 									<se:authorize access="hasRole('ROLE_ADMIN')">
 									 문제 관리
@@ -71,34 +60,31 @@
 										<input type="text" name="question_num" id="question_num"
 										value="" style="display: none">
 									</h3>
-									
-									<a id="searchHelp" style="cursor:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
-									
 									<hr>
-
 									<select id="question_lg_category" class="form-control myQuestionSelectCategory"
-										name="lg_category_name" data-toggle="tooltip" data-placement="top" 
+										name="lg_category_name" data-toggle="tooltip" data-placement="top"
 										title="대분류 선택 시 해당 대분류에 속하는 중분류를 선택할 수 있습니다.">
 										<option value="" selected disabled>대분류 선택</option>
 										<c:forEach items="${lgCatList}" var="lgCatList">
 											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
 										</c:forEach>
-									</select> 
+									</select>
 									
 									<select id="question_md_category" class="form-control myQuestionSelectCategory"
-										name="md_category_name"data-toggle="tooltip" data-placement="top" 
-										title="대분류 선택 시 해당 대분류에 속하는 중분류를 선택할 수 있습니다.">
+										name="md_category_name" data-toggle="tooltip" data-placement="top"
+										title="대분류를 먼저 선택해 주세요. ">
 										<option value="">중분류 선택</option>
-									</select> 
+									</select>
 									
 									<select id="question_sm_category" class="form-control myQuestionSelectCategory"
-										name="sm_category_name"data-toggle="tooltip" data-placement="top" 
-										title="중분류 선택 시 해당 중분류에 속하는 소분류를 선택할 수 있습니다. ">
+										name="sm_category_name" data-toggle="tooltip" data-placement="top"
+										title="중분류를 먼저 선택해 주세요. ">
 										<option value="">소분류 선택</option>
-									</select> 
+									</select>
 									
-									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type"data-toggle="tooltip" data-placement="top" 
-										title="난이도별 검색을 원하시면 선택해주세요. 선택하지 않을 시에는 전체 난이도에서 검색됩니다.">
+									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type"
+									data-toggle="tooltip" data-placement="top"
+										title="난이도를 선택해주세요. ">
 										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
 											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
@@ -106,8 +92,9 @@
 									</select> 
 									
 									<select class="form-control myQuestionSelectCategory" 
-									id="questiontype" name="questionType"data-toggle="tooltip" data-placement="top" 
-										title="문제타입별 검색을 원하시면 선택해주세요. 선택하지 않을 시에는 전체 문제타입에서 검색됩니다.">
+									id="questiontype" name="questionType"
+									data-toggle="tooltip" data-placement="top"
+										title="문제타입을 선택해주세요. ">
 										<option value="">문제타입</option>
 										<option value="">전체</option>
 										<option value="객관식">객관식</option>
@@ -124,38 +111,27 @@
 										<input type="text"
 										class="form-control myQuestionTextField pull-right"
 										id="keyword" placeholder="키워드를 입력하세요.">
-
-								</div>
-								<!-- /detailed -->
-							</div>
-							<hr>
-
-							<div class="row content-panel" id="myQuestionPanel">
-								<form action="" method="post" id="pickQuestionForm" onsubmit="return false;">
-					                           
-					                           <!-- 문제 하나의 div 시작 -->
-					                           <div id="myQuestions"> 
-													
-					                           </div>
-					                           <!-- 문제 하나의 div 끝 -->
-					            </form>
-							</div>
-							
-						 <p> 페이징 처리 들어갈 자리 </p>
-						</div>
+									
+									<a id="searchHelp" style="cursoer:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
+																		
+									</div><!-- col-lg-12 -->
+								</div><!-- row -->
+								<hr>
+								<div class="row content-panel" id="myQuestionPanel">
+									<form action="" method="post" id="pickQuestionForm" onsubmit="return false;">
+										<div id="myQuestions"> 
+												<!-- 문제 하나의 div	-->
+					                    </div>
+									</form> <!-- pickQuestionForm -->
+								</div> <!-- myQuestionPanel -->
+							</div> <!-- overview -->
 						
-						<!-- /OVERVIEW -->
-						<!-- 정원 추가 끝 -->
-
-
-<!--#####################      새로운 문제 만들기 탭 시작               ##################### -->
-<!--%%%%%%%%%%%%%%%%%%%%%      재훈 18.10.10 추가 시작             %%%%%%%%%%%%%%%%%%%%%%-->
-<!--%%%%%%%%%%%%%%%%%%%%%      회준 18.10.12 수정 시작             %%%%%%%%%%%%%%%%%%%%%%-->
-						<div id="newQuestion" class="tab-pane">
+							
+							<div id="newQuestion" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-12">
 									<form class="formNewQuestion" action="insertQuestion.do" enctype="multipart/form-data"
-										method="post" id="insertQuestionForm">
+										method="post" onsubmit="return check()">
 										
 										<input type="text" name="member_id"
 										value="${memberDto.member_id}" style="display: none">
@@ -217,14 +193,14 @@
 															style="max-width: 400px; max-height: 250px; line-height: 20px;">
 														</div>
 														<span>
-															<span class="btn btn-theme02 btn-file btn_question_image">
+															<span class="btn btn-theme02 btn-file">
 																<span class="fileupload-new">
 																	<i class="fa fa-paperclip"></i>image
 																</span> 
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_file" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
+																<input type="file" name="question_file" class="default"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(0)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -273,14 +249,13 @@
 
 													</h4>
 													<select id="howManyChoices" class="form-control" name="howManyChoices">
-														<option id="howManyChoices1" value="1" disabled>보기 개수 선택</option>
+														<option id="howManyChoices1" value="1">보기개수 선택</option>
 														<option id="howManyChoices2" value="2">보기 개수: 2개</option>
 														<option id="howManyChoices3" value="3">보기 개수: 3개</option>
 														<option id="howManyChoices4" value="4" selected>보기 개수: 4개</option>
 														<option id="howManyChoices5" value="5">보기 개수: 5개</option>
 														
-													</select> 
-													<p class="warning_text"><i class="fa fa-exclamation-triangle"></i> 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
+													</select> <br> <br>
 													
 													
 													<!-- 1번 보기 -->
@@ -304,7 +279,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[0]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
+																<input type="file" name="question_choice_files[0]" class="default"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(1)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -331,7 +306,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[1]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
+																<input type="file" name="question_choice_files[1]" class="default"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(2)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -355,7 +330,7 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[2]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
+																<input type="file" name="question_choice_files[2]" class="default"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(3)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
@@ -379,12 +354,39 @@
 																<span class="fileupload-exists">
 																	<i class="fa fa-undo"></i>Change
 																</span> 
-																<input type="file" name="question_choice_files[3]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/>
+																<input type="file" name="question_choice_files[3]" class="default"/>
 															</span>
 															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(4)" data-dismiss="fileupload">
 															<i class="fa fa-trash-o"></i>Remove</span>
 														</span>
 													</span></div>
+													
+													
+													<!-- 5번 보기 -->
+													<!-- <div id="QCNPlus_5">
+													<b><input type="text" name="question_choice_num"
+														value="5" style="display: none">5.</b>
+													   <input type="text" name="question_choice_content" id="question_choice_content5"
+														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
+													   <span class="fileupload fileupload-new QCN_5" data-provides="fileupload">
+														<div class="fileupload-preview fileupload-exists thumbnail"
+															style="max-width: 300px; max-height: 180px; line-height: 20px;">
+														</div>
+														<span>
+															<span class="btn btn-theme02 btn-file">
+																<span class="fileupload-new">
+																	<i class="fa fa-paperclip"></i>image
+																</span> 
+																<span class="fileupload-exists">
+																	<i class="fa fa-undo"></i>Change
+																</span> 
+																<input type="file" name="question_choice_files[4]" class="default"/>
+															</span>
+															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload">
+															<i class="fa fa-trash-o"></i>Remove</span>
+														</span>
+													</span></div> -->
+													
 													
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
@@ -404,9 +406,9 @@
 										</div>
 										<!--문제 내용, 정답, 보기 입력 종료 -->
 										<hr>
-										<button type="reset" id="btn_Reset" class="btn btn-secondary quesCategory">
+										<button type="reset" class="btn btn-secondary quesCategory">
 										입력 취소</button>
-										<button type="button" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
+										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										
 									</form>
@@ -421,14 +423,17 @@
 
 
 							</div><!-- /tab-content -->
-						</div><!-- /panel-body -->
-					</div><!-- /row -->
-				</div><!-- /container -->
-			</div><!-- /col-lg-12 -->
-		</div><!-- /row mt -->
-	</section><!-- /wrapper -->
-</section><!-- /MAIN CONTENT -->
-<!--main content end-->
+						</div><!-- tab-content -->
+					</div><!-- panel-body -->
+				</div> <!-- row content-panel -->
+			</div> <!-- col-lg-12 -->
+		</div><!--  row-mt -->
+	</section><!-- wrapper site-min-height -->
+</section> <!-- main-content -->
+							
+<!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
+<!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
+
 
 <script
 	src="${pageContext.request.contextPath}/lib/onet-js/questionManagement.js"

@@ -436,9 +436,6 @@ public class TeacherController {
 	/* 양회준 10.15 내정보 탈퇴 끝*/	
 	
 	
-
-	
-	
 	/*양회준 18.10.11 학생&성적관리 추가 */
 	//학생정보 불러오기
 	@RequestMapping("studentInfo.do")//line 434 null값 에러 고쳐야함
@@ -478,7 +475,9 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
-		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		//List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
+		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
 	}
 	
@@ -847,6 +846,21 @@ public class TeacherController {
 					
 			return "exam.student.pastExamPaper";
 		}
+		
+		//양회준 11.5 코멘트 추가
+		@RequestMapping("studentInfoCommentUpdate.do")
+		public @ResponseBody int studentInfoCommentUpdate(@RequestParam("member_id") String member_id,
+				@RequestParam("exam_info_num") int exam_info_num,@RequestParam("score_chart_comment") String score_chart_comment) {
+			int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, score_chart_comment);
+			return result;
+		}
+		//양회준 11.5 코멘트 취소
+		@RequestMapping(value="studentInfoCommentCancel.do", produces = "application/text; charset=utf8")
+		public @ResponseBody String studentInfoCommentCancel(@RequestParam("member_id") String member_id,
+				@RequestParam("exam_info_num") int exam_info_num) {			
+			String comment = teacherService.studentInfoCommentCancel(member_id, exam_info_num);
+			return comment;
+		}
 		// ajax로 검색한 클래스 목록 가져오기 
-				
+		
 }

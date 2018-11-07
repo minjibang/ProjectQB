@@ -117,7 +117,8 @@
 </section> <!-- /main-content -->
 
 <script>
-
+	var class_num = ${class_num};
+		
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
 		location.href="noticeWrite.do?class_name=" + class_name2;
@@ -125,7 +126,7 @@
 	
 	$('#noticeWrite_btnAdmin').click(function(){
 		var adminClass_name = $('#noticeWrite_btnAdmin').val();
-		location.href="noticeWrite.do?class_name=" + adminClass_name;
+		location.href="noticeWrite.do?class_name=" + adminClass_name + "&class_num=" + class_num;
 	});
 	
 </script>
