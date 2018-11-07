@@ -182,36 +182,40 @@
 	 	$('#examPaperSubmit').click(function(){
 	 		
 	 		var questionCount = ${questionCount};
+	 		var checkUnSolved = 0; 
+	 		
 	 		for(var i = 0; i < questionCount; i++){   
 	 			// console.log(i + " : " + $('input[name="student_answer['+i+'].student_answer_choice"]:checked').length);
 	 			if($('input[name="student_answer['+i+'].student_answer_choice"]:checked').length == 0 ||  
-	 					$('.ques_choice input[type="text"]').val() == ""){	//	문제를 모두 풀지 않았을 때 
-	 				if(confirm("문제를 모두 풀지 않았습니다. \n제출하시겠습니까? ")){
-	 					$('#answerForm').target = opener.name;
-	 					$('#answerForm').submit();
-	 	 	            if (opener != null) {
-	 		                opener.insert = null;
-	 		                self.close();
-	 		            }
-	 	 	        break;
-	 				} else {
-	 					return false;
-	 				}
-	 			} else {  
-	 				if(confirm("시험을 제출하시겠습니까?")){   	//	문제를 모두 풀었을 때 
-	 					$('#answerForm').target = opener.name;
-	 					$('#answerForm').submit();
-	 	 	            if (opener != null) {
-	 		                opener.insert = null;
-	 		                self.close();
-	 		            } 
-	 	 	        break;    
-	 				} else {
-	 					return false;
-	 				}
+	 					$('.ques_choice input[type="text"]').val() == ""){
+	 				checkUnSolved += 1;
 	 			}
-	 		} 
-
+	 		}
+	 		
+	 		if(checkUnSolved == 0){
+	 			if(confirm("시험을 제출하시겠습니까?")){   	//	문제를 모두 풀었을 때 
+					$('#answerForm').target = opener.name;
+					$('#answerForm').submit();
+	 	            if (opener != null) {
+		                opener.insert = null;
+		                self.close();
+		            } 
+				} else {
+					return false;
+				} 
+	 		} else {
+	 			if(confirm("문제를 모두 풀지 않았습니다. \n제출하시겠습니까? ")){
+ 					$('#answerForm').target = opener.name;
+ 					$('#answerForm').submit();
+ 					if (opener != null) {
+ 		                opener.insert = null;
+ 		                self.close();
+ 		            }
+ 				} else {
+ 					return false;
+ 				}
+	 		}
+	 		
 		});  // 제출 버튼 눌렀을 때 스크립트 종료 부분
 		
 		// 시험 시간 5분 전 알람 
@@ -229,10 +233,6 @@
                 self.close();
             } 
 		}, remain_time); 
-		
-		
-		
-		
 	});  // document.ready 종료 
 </script>
 </head>

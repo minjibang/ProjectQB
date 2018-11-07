@@ -416,13 +416,13 @@
                                                 <div class="sent-message">Your message has been
                                                    sent. Thank you!</div>
                                                    <se:authorize access="hasRole('ROLE_STUDENT')">
-                                                <button type="button"  onclick="check()"class="btn btn-large btn-primary" style="margin-left: -30px; width:80px;">전송</button>
+                                                <button type="button"  onclick="check()"class="btn btn-large btn-theme" style="margin-left: -30px; width:80px;">전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_TEACHER')">
-                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary" style="margin-left: -30px; width:80px;">전송</button>
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-theme" style="margin-left: -30px; width:80px;">전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_ADMIN')">
-                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-primary" style="margin-left: -30px; width:80px;">전송</button>
+                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-theme" style="margin-left: -30px; width:80px;">전송</button>
                                                 </se:authorize>
                                                 <button class="btn btn-theme04" type="button" style="width:80px;">취소</button>
                                           </div>
