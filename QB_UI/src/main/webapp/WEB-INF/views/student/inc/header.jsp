@@ -39,46 +39,10 @@
 	</div>
 </header>
 <!--header end-->
-<se:authorize access="isAuthenticated()">
-		<se:authentication property="principal.username" var="username"/>
-	
-	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
+
     <script type="text/javascript">
-
-    
-
-    
-    function send_message() {
-    	var wsUri ="ws://192.168.0.18:8090/qb/count.do"
-        websocket = new WebSocket(wsUri);
-        
-        websocket.onopen = function(evt) {
-            onOpen(evt);
-        };
-        websocket.onmessage = function(evt) {
-            onMessage(evt);
-        };
-        websocket.onerror = function(evt) {
-            onError(evt);
-        };
-    }
-
-    function onOpen(evt) 
-    {
-       websocket.send("${username}");
-    }
-    
-    function onMessage(evt) {
-    	$('#message').html(evt.data);
-    }
-    function onError(evt) {
-    	
-    }
-    
-
         $(document).ready(function(){
-    	   send_message();
-    	   
+    	
     	   $.ajax({
    			url:"../common/memberCheck.do",
    			type:"get",
@@ -92,7 +56,4 @@
    		});
 
     });
-    
         </script>
-
-  </se:authorize> 

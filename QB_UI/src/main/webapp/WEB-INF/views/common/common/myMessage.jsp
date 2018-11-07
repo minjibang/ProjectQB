@@ -517,7 +517,7 @@ function check_t(){
          dangerMode: true
       });
    document.getElementById("message_content").value='';
-   websocket.send(data);
+   socket.send(data);
      
    }
       };
@@ -557,7 +557,7 @@ function check_t(){
                 dangerMode: true
              });
           document.getElementById("message_content").value='';
-          websocket.send(data); 
+          socket.send(data); 
             
           }
              };
