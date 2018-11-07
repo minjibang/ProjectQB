@@ -371,5 +371,10 @@ public class TeacherService {
 		return 0;
 	}
 	
+	public String examManagementRoleCheck(String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		String result = dao.examManagementRoleCheck(member_id);
+		return result;
+	}
 	
 }

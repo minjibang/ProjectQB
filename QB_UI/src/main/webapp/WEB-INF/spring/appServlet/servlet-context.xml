@@ -8,7 +8,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/websocket  
-        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+        http://www.springframework.org/schema/websocket/spring-websocket.xsd
+        http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -40,6 +41,7 @@
 	
 
 	
+
 	 <websocket:handlers>
         <websocket:mapping path="/count.do" handler="myHandler"/>
         <websocket:handshake-interceptors>
@@ -48,5 +50,6 @@
     </websocket:handlers>
     
    <beans:bean id="myHandler" class="socket.LoginSocketHandler"/>
+
 
 </beans:beans>

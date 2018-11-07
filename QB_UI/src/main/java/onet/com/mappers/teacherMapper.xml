@@ -339,6 +339,12 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	</if>
 </sql>
 
+
+<select id="examManagementRoleCheck" resultType="String">
+	select role_code from member_role where member_id=#{member_id}
+</select>
+
+
 <!-- 11.06 현이 시험일정 등록 시 학생 답안지, 성적, 클래스성적 테이블 초기 데이터 입력 -->
 <select id="selectExamQuestion" parameterType="int" resultType="onet.com.vo.ExamQuestionDto">
 	select question_num, exam_question_seq 
@@ -359,6 +365,7 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	insert into class_chart
 	values(#{class_name}, #{exam_info_num}, #{class_chart_avg})
 </insert>
+
 </mapper>
 
 
