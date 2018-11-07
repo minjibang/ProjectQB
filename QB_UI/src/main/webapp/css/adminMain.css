@@ -46,7 +46,6 @@
 
 .weather-4 .info i {
 	font-size: 15px;
-	color: #c2c2c2;
 	margin-bottom: 3px;
 	margin-top: 5px;
 }
@@ -60,7 +59,6 @@
 	margin-left: 10px;
 	margin-right: 10px;
 	/* margin-bottom: 16px; */
-	color: #a2a2a2;
 	font-size: 15px;
 	font-weight: 700;
 }
@@ -116,7 +114,6 @@
 
 .centered {
 	font-weight: 700;
-	color: #a2a2a2;
 }
 
 .classBtnDiv {
