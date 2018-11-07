@@ -313,11 +313,16 @@
 																	<td>${tablelist.member_name}</td>
 																	<c:forEach items="${classChart}" var="subjectScore" varStatus="chk">
 																	<td>
+																	<c:set var="score" value="0"/>
 																		<c:forEach items="${tablelist.score_list}" var="inner" varStatus="innerchk">																		
-																		<c:if test="${classChart[chk.index].exam_info_name eq inner.key}">
-																			${inner.value}//${inner.key}
+																		<c:if test="${classChart[chk.index].exam_info_name eq inner.key}">																			
+																			${inner.value}
+																			<c:set var="score" value="${inner.value}"/>
 																		</c:if>
 																		</c:forEach>
+																	<c:if test="${score==0}">
+																	미응시대상
+																	</c:if>	
 																	</td>
 																	</c:forEach>
 																	<td>${tablelist.avg_score}</td>
@@ -356,10 +361,12 @@ $(document).ready(function(){
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );
+	 
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
 	var chartLabels = new Array();
+	var chartStudentLabels = new Array();
 	var spreadScore;
 	//시험번호
 	var examInfoNum = "${classChart[0].exam_info_num}";
@@ -368,6 +375,7 @@ $(document).ready(function(){
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
+		chartStudentLabels.push("${studentChart.exam_info_name}");
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
 		chartClassDatas.push("${classChart.class_chart_avg}");
