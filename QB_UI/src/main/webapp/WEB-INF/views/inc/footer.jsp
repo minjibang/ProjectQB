@@ -25,7 +25,10 @@
     var socket = null;
     
     function send_message() {
-        websocket = new WebSocket("ws://192.168.0.103:8090/qb/count.do");
+
+
+        websocket = new WebSocket("ws://192.168.0.18:8090/qb/count.do");
+
         socket = websocket;
         websocket.onopen = function(evt) {
         	console.log("connect");
@@ -38,6 +41,7 @@
         websocket.onmessage = function(evt) {
            console.log('messge:' +evt);
            $('#message').html(evt.data);
+           $('#message2').html(evt.data);
            
         };
         websocket.onerror = function(evt) {

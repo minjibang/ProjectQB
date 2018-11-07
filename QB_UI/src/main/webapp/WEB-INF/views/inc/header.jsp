@@ -7,8 +7,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 	<!-- main inc -->
-	
-	
 <!--header start-->
 <header class="header black-bg">
 	<se:authorize access="hasRole('ROLE_ADMIN')">
@@ -21,14 +19,16 @@
 		<c:set var="ats" value="student"/>
 	</se:authorize>
 	
-    <!--logo start-->
-    <a href="${pageContext.request.contextPath}/${ats }/${ats }Main.do" class="logo">
+    <div class="headerdiv">
+    <div class="headerdivleft">
+    <a href="${pageContext.request.contextPath}/${ats }/${ats }Main.do">
     <img src="${pageContext.request.contextPath}/img/logo1.png" alt="QB_logo" class="QB_logo" style="height:45px;"/>
     </a>
+    </div>
 	<!-- 로고 후보:logo1.png // logo22.png // logo 33.png 각각 테스트 해보고 마음에 드는걸로 결정.
                             다른 아이디어 (색깔 등등) 있으면 적극 수렴. -->
     <!--logo end-->
-
+	<div class="headerdivright">
     <div class="top-menu">
         <ul class="nav pull-right top-menu">
             <!-- 정원 -->
@@ -42,16 +42,46 @@
                     <li id="header_inbox_bar">
                     <a href="${pageContext.request.contextPath}/${ats }/myMessage.do"> 
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-theme" id="message"></span>
+                    <span class="badge bg-theme" id="message"style="background-color:red;"></span>
                     </a></li>
                     <li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/${ats }/myPage.do"> 
                     <i class="fa fa-user"></i>
                     </a></li>
+                    <!-- 드롭 -->
+                              <li id="header_inbox_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+              <i class="fa fa-envelope-o"></i>
+              <span class="badge bg-theme" id="message2"style="background-color:red;" ></span>
+              </a>
+            <ul class="dropdown-menu extended inbox" id="minji">
+                 <div class="notify-arrow notify-arrow-green"></div>
+              <li>
+                <p class="green">You have new messages</p>
+              </li>
+              <%-- <li>
+                <a href="${pageContext.request.contextPath}/admin/myMessage.do">
+                  <span class="subject">
+                  <span class="from"></span>
+                  <span class="time"></span>
+                  </span>
+                  <span class="message" id="headermessagecontent">
+                  </span>
+                  </a>
+              </li> --%>
+              <li>
+                <a href="${pageContext.request.contextPath}/admin/myMessage.do">모든 쪽지 보기</a>
+              </li>
+            </ul>
+          </li>
+               <!-- 드롭ㅡㅌ -->     
+                    
                 </ul>
             </div>
             <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
             <!--  -->
         </ul>
+    </div>
+    </div>
     </div>
 </header>
 <!--header end-->
@@ -70,6 +100,27 @@
 			error:function(xml){
 				
 			}
+		});
+		
+		$.ajax({
+			url:"headerMessage.do",
+			type:"get",
+			success:function(data){
+				for(var i = 0; i <data.length;i++){
+					if(data[i].message_check==0){
+						console.log(data[i].message_content);
+						$('#minji').children().eq(1).append("<li><a href='${pageContext.request.contextPath}/admin/myMessage.do'><span class='subject'><span class='from'></span><span class='time'></span><span class='message' id='headermessagecontent'>"+data[i].message_content+"</span></a></li>");
+		             
+					}
+						
+				}
+				
+				 
+			},
+			err:function(err){
+				console.log('err입니다');
+			}
+			
 		});
 	});
 	</script>

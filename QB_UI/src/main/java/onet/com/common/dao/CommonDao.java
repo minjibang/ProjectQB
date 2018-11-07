@@ -144,5 +144,9 @@ public interface CommonDao {
     public MessageDto MessageDeleteCheck(int message_num);
     
     public int messageRealDelete(int message_num);
+    
+    public String nameSearch(String sendManId);
+    
+    public String nameSearch2(String receiveManId);
 }
 
