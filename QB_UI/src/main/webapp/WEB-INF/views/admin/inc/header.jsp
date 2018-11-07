@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!--header start-->
 <header class="header black-bg">
     
@@ -24,11 +25,39 @@
                     <li id="header_inbox_bar">
                     <a href="${pageContext.request.contextPath}/admin/myMessage.do"> 
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-theme" id="message"></span>
+                    <span class="badge bg-theme" id="message"style="background-color:red;"></span>
                     </a></li>
                     <li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/admin/myPage.do"> 
                     <i class="fa fa-user"></i>
                     </a></li>
+                    <!-- 드롭 -->
+                              <li id="header_inbox_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+              <i class="fa fa-envelope-o"></i>
+              <span class="badge bg-theme" id="message2"style="background-color:red;" ></span>
+              </a>
+            <ul class="dropdown-menu extended inbox" id="minji">
+                 <div class="notify-arrow notify-arrow-green"></div>
+              <li>
+                <p class="green">You have new messages</p>
+              </li>
+              <%-- <li>
+                <a href="${pageContext.request.contextPath}/admin/myMessage.do">
+                  <span class="subject">
+                  <span class="from"></span>
+                  <span class="time"></span>
+                  </span>
+                  <span class="message" id="headermessagecontent">
+                  </span>
+                  </a>
+              </li> --%>
+              <li>
+                <a href="${pageContext.request.contextPath}/admin/myMessage.do">모든 쪽지 보기</a>
+              </li>
+            </ul>
+          </li>
+               <!-- 드롭ㅡㅌ -->     
+                    
                 </ul>
             </div>
             <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
@@ -53,6 +82,27 @@
 			error:function(xml){
 				
 			}
+		});
+		
+		$.ajax({
+			url:"headerMessage.do",
+			type:"get",
+			success:function(data){
+				for(var i = 0; i <data.length;i++){
+					if(data[i].message_check==0){
+						console.log(data[i].message_content);
+						$('#minji').children().eq(1).append("<li><a href='${pageContext.request.contextPath}/admin/myMessage.do'><span class='subject'><span class='from'></span><span class='time'></span><span class='message' id='headermessagecontent'>"+data[i].message_content+"</span></a></li>");
+		             
+					}
+						
+				}
+				
+				 
+			},
+			err:function(err){
+				console.log('err입니다');
+			}
+			
 		});
 	});
 

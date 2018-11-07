@@ -276,7 +276,17 @@ public class AdminController {
 		return "common.admin.common.myMessage";
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
+	@RequestMapping("headerMessage.do")
+	public @ResponseBody List<MessageDto> headerMessage(Model model, Principal principal) {
+		
+		 String member_id = principal.getName();
+		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 	
+		   model.addAttribute("receiveMessage", receiveMessage);
+
+		
+		return receiveMessage;
+	}
 
 	
 	

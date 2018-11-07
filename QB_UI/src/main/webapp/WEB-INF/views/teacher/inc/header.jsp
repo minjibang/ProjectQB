@@ -26,7 +26,7 @@
                <li id="header_inbox_bar">
                <a href="${pageContext.request.contextPath}/teacher/myMessage.do"> 
                <i class="fa fa-envelope-o"></i>
-               <span class="badge bg-theme" id="message"></span>
+               <span class="badge bg-theme" id="message" style="background-color:red;"></span>
                </a></li>
                <li id="header_inbox_bar"><a href="${pageContext.request.contextPath}/teacher/myPage.do"> <i
                      class="fa fa-user"></i>

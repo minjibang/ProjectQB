@@ -38,6 +38,7 @@
         websocket.onmessage = function(evt) {
            console.log('messge:' +evt);
            $('#message').html(evt.data);
+           $('#message2').html(evt.data);
            
         };
         websocket.onerror = function(evt) {
