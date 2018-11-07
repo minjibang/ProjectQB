@@ -138,9 +138,7 @@ public interface CommonDao {
 	
 	public int receiveMessageDelete(int message_num);
 	
-	public int replyMessage(MessageDto dto);
-	
-    //메시지 체크
+	//메시지 체크
     public int message_check(MessageDto dto);
     
     public MessageDto MessageDeleteCheck(int message_num);

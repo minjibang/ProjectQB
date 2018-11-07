@@ -101,11 +101,15 @@ public interface TeacherDao {
 	
 	public List<ExamPaperDto> exampaperSearch(@Param("searchType") String searchType, @Param("keyword") String keyword, @Param("begin") int begin, @Param("member_id") String member_id);
 	
+
+	public String examManagementRoleCheck(String member_id);
+
 	// 11.06 현이 시험일정 등록 시 학생 답안지, 성적, 클래스성적 테이블 초기 데이터 입력  
 	public List<ExamQuestionDto> selectExamQuestion(int exam_paper_num);
 	public int initializeStudentAnswer(Student_answerDto student_answerDto);
 	public int initializeScoreChart(Score_chartDto scoreDto);
 	public int initializeClassChart(Class_chartDto classScoreDto);
 	
+
 	
 }

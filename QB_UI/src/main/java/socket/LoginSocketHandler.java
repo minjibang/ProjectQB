@@ -63,8 +63,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
       System.out.println("핸들러로 넘어간값>>"+message.getPayload());
       
       String data=message.getPayload();
-
-      
+      System.out.println("_________________________" + data);
       
       if(data.contains(",")) {
          String[] data2 = data.split(",");
@@ -99,7 +98,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
          
          
          if(result>0) {
-        	 WebSocketSession receiveSession = userSessions.get(data2[2]);  
+         WebSocketSession receiveSession = userSessions.get(data2[2]);  
          System.out.println("핸들러에서 쪽지보냈따");
          receiveSession.sendMessage(new TextMessage(dao.count_receive_note(data2[2])));
          
@@ -110,8 +109,9 @@ public class LoginSocketHandler extends TextWebSocketHandler {
          
       }
       else {
+    	  WebSocketSession receiveSession = userSessions.get(senderId);
+    	  receiveSession.sendMessage(new TextMessage(dao.count_receive_note(senderId)));
          System.out.println("처음에 불러왔따");
-         session.sendMessage(new TextMessage(dao.count_receive_note(session.getPrincipal().getName()))); 
       }
       
       

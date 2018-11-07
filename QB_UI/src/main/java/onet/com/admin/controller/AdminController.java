@@ -1097,17 +1097,6 @@ public class AdminController {
 	}
 
 
-	    
-    
-	 @RequestMapping("replyMessage.do")
-		public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
-			MessageDto dto = new MessageDto();
-			dto.setMessage_content(text);
-			dto.setReceive_member_id(sender);
-			dto.setSend_member_id(principal.getName());
-			int result = commonService.replyMessage(dto);
-			return result;
-		}
 	
 	 @RequestMapping("sendMessageDelete.do")
 		public @ResponseBody int sendMessageDelete(String sendDeleteHidden) {
