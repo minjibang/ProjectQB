@@ -252,12 +252,13 @@ public class AdminController {
 
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
-	 @RequestMapping("myMessage.do")
+	@RequestMapping("myMessage.do")
 	   public String myMessage(Model model, Principal principal) {
 	       String member_id = principal.getName();
 	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+	          
 	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 	          for(int i=0; i<receiveMessage.size(); i++) {
 	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
@@ -270,7 +271,7 @@ public class AdminController {
 	          for(int i=0; i<sendMessage.size(); i++) {
 	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
 	        	  sendMessage.get(i).setMessage_date(date);
-	        	  String receiveManId = sendMessage.get(i).getSend_member_id();
+	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
 	        	  String receiveManName = commonService.nameSearch2(receiveManId);
 	        	  sendMessage.get(i).setMember_name(receiveManName);
 	          }
@@ -281,6 +282,7 @@ public class AdminController {
 	          model.addAttribute("receiveMessage", receiveMessage);
 	          model.addAttribute("sendMessage", sendMessage);
 	          model.addAttribute("member_id", member_id);
+		
 	          
 		return "common.admin.common.myMessage";
 	}
