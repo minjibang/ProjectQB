@@ -21,14 +21,16 @@
 		<c:set var="ats" value="student"/>
 	</se:authorize>
 	
-    <!--logo start-->
-    <a href="${pageContext.request.contextPath}/${ats }/${ats }Main.do" class="logo">
+    <div class="headerdiv">
+    <div class="headerdivleft">
+    <a href="${pageContext.request.contextPath}/${ats }/${ats }Main.do">
     <img src="${pageContext.request.contextPath}/img/logo1.png" alt="QB_logo" class="QB_logo" style="height:45px;"/>
     </a>
+    </div>
 	<!-- 로고 후보:logo1.png // logo22.png // logo 33.png 각각 테스트 해보고 마음에 드는걸로 결정.
                             다른 아이디어 (색깔 등등) 있으면 적극 수렴. -->
     <!--logo end-->
-
+	<div class="headerdivright">
     <div class="top-menu">
         <ul class="nav pull-right top-menu">
             <!-- 정원 -->
@@ -52,6 +54,8 @@
             <li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
             <!--  -->
         </ul>
+    </div>
+    </div>
     </div>
 </header>
 <!--header end-->
