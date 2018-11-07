@@ -64,19 +64,19 @@ public class IndexService {
 		}
 
 		public String sendMail(String mailto,String command, String member_id) {
-			
+			System.out.println("*********************************************"+command+"*********************************************"+command+"*********************************************");
 			Mail mail = new Mail();
 			mail.setCompany("QBQB");// 회사명
 			mail.setMailFrom("bitcamp109");// 송신메일
 			mail.setMailTo(mailto);// 수신메일
 			String randomNum = this.randomNum();
 			String randomPwd = this.randomPwd();
-			if (command == "join") {
-				mail.setMailSubject("[QB]이메일 인증 안내 메일입니다.");// 메일제목
-				mail.setTemplateName("jointemplate.vm");// 메일내용
-			} else {
+			if (command.equals("findPw")) {
 				mail.setMailSubject("[QB]임시 비밀번호를 안내해드립니다.");// 메일제목
 				mail.setTemplateName("logintemplate.vm");// 메일내용
+			} else {
+				mail.setMailSubject("[QB]이메일 인증 안내 메일입니다.");// 메일제목
+				mail.setTemplateName("jointemplate.vm");// 메일내용
 			}
 
 			// SimpleMailMessage message = new SimpleMailMessage();
@@ -95,6 +95,7 @@ public class IndexService {
 				
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("firstName", member_id);
+				velocityContext.put("id", null);
 				velocityContext.put("company", mail.getCompany());
 				velocityContext.put("mailFrom", mail.getMailFrom());
 				velocityContext.put("randomNum", randomNum);
@@ -117,10 +118,10 @@ public class IndexService {
 			}
 
 			mailSender.send(message);
-			if (command == "join") {
-				return randomNum;
-			}else {
+			if (command.equals("findPw")) {
 				return randomPwd;
+			}else {
+				return randomNum;
 			}
 			
 		}

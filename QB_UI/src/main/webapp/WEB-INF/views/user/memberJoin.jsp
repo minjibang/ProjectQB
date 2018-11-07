@@ -104,6 +104,7 @@
 				url : '${pageContext.request.contextPath}/index/mail.do',
 				data : {
 					mailto : $('#mailto').val(),
+					command : "join",
 					member_id : $('#member_id').val()
 				},
 				success : function(data) {

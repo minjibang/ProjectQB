@@ -110,6 +110,12 @@ button.buttonGroup {
 }
 /* 현이 teacherMyExamPaper.jsp 시험지 만들기  css 시작 */
 
+.miri span{
+	font-size: 15px;
+}
+
+
+
 /* 한결 시험지 미리보기 */
 #examBox{
 	border-right: 1px solid black;
