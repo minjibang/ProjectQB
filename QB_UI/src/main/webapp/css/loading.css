@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.loadingDiv {
+	/*position: relative;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0; */
+    position: fixed;
+    background: rgba(0,0,0,0.1); /*not in ie */
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 18% 18% 18% 28%;
+    opacity: 0.7;
+    z-index: 99999999;
+}
+
+#loadingImg {
+	/* position: absolute;
+	left: 50%;
+	top: 50%; */
+}
+
+.loadingDisplay {
+	display: none;
+}

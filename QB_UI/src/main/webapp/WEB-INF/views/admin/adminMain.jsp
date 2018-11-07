@@ -265,8 +265,16 @@ $(document).ready(function(){
 			type : 'GET',
 			dataType : "html",
 			data : classParam,
-			success : function(data){	
-				$('#classlistView').append(data);
+			/* beforeSend : function(){
+				$('.loadingDisplay').show();
+			}, 
+			complete : function(){
+				setTimeout(function(){
+					$('.loadingDisplay').hide();
+				}, 300);
+			}, */
+			success : function(data){
+					$('#classlistView').append(data);	
 			},
 			error : function(error) {
 				console.log("===========실패");
