@@ -1,4 +1,4 @@
-/*회준*/
+/*�쉶以�*/
 
 
 .wrapper-low {
@@ -17,14 +17,13 @@
 }
 
 .weather-4 {
-	background: #4ECDC4;
+	background: #87bfd3;
 }
 
-.weather-4 i {
-	color: white;
-	margin-top: 40px;
-	margin-bottom: 15px;
-	font-size: 70px;
+.QB_classroom {
+	margin-top:15px;
+	width:100px;
+	height:100px;
 }
 
 .weather-4 .info {
@@ -60,7 +59,7 @@
 	font-weight: 700;
 }
 
-/* 현이 */
+/* �쁽�씠 */
 .searchRowDiv {
 	margin-bottom: 10px;
     margin-top: -10px;
@@ -89,7 +88,7 @@
 	margin-bottom: 5px;
 }
 
-/* 현이 css 추가 */
+/* �쁽�씠 css 異붽� */
 .classDiv {
 	padding-bottom: 30px;
 }

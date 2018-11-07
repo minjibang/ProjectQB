@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 import onet.com.admin.dao.AdminDao;
 import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.ClassDto;
+import onet.com.vo.Class_chartDto;
 import onet.com.vo.ExamInfoDto;
 import onet.com.vo.ExamMemberDto;
 import onet.com.vo.ExamPaperDto;
+import onet.com.vo.ExamQuestionDto;
 import onet.com.vo.ExamQuestionListDto;
 import onet.com.vo.MemberDto;
 import onet.com.vo.QuestionDto;
 import onet.com.vo.Question_choiceDto;
 import onet.com.vo.Question_levelDto;
+import onet.com.vo.Score_chartDto;
+import onet.com.vo.Student_answerDto;
 
 @Service
 public class TeacherService {
@@ -322,5 +326,55 @@ public class TeacherService {
 		return result;
 	}
 	
+	
+	// 시험 등록시 테이블 초기화 
+	public int initializeStudentAnswer(String[] memberchecklist, int infonum2, int exam_paper_num, String class_name) {
+		
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		
+		// student_answer 학생 답안지 초기화 
+		List<ExamQuestionDto> examQuestionList = dao.selectExamQuestion(exam_paper_num);
+		int initializeResult = 0;
+		for(String member_id : memberchecklist) {
+			Student_answerDto answerDto = new Student_answerDto(); 
+			answerDto.setMember_id(member_id);
+			for(ExamQuestionDto questionDto : examQuestionList) {
+				answerDto.setExam_info_num(infonum2);
+				answerDto.setQuestion_num(questionDto.getQuestion_num());
+				answerDto.setExam_question_seq(questionDto.getExam_question_seq());
+				answerDto.setStudent_answer_choice(null);  
+				answerDto.setStudent_answer_status(0);
+				initializeResult += dao.initializeStudentAnswer(answerDto);
+			}
+		}
+		
+		// scoreChart 초기화 
+		int initializeResult2 = 0;
+		for(String member_id : memberchecklist) {
+			Score_chartDto scoreDto = new Score_chartDto();
+			scoreDto.setMember_id(member_id);
+			scoreDto.setExam_info_num(infonum2);
+			scoreDto.setScore_chart_score(0);
+			scoreDto.setScore_chart_rank(0);
+			scoreDto.setClass_name(class_name);
+			initializeResult2 += dao.initializeScoreChart(scoreDto);
+		}
+		
+		// classChart 초기화 
+		int initializeResult3 = 0;
+		Class_chartDto classScoreDto = new Class_chartDto();
+		classScoreDto.setClass_name(class_name);
+		classScoreDto.setExam_info_num(infonum2);
+		classScoreDto.setClass_chart_avg(0);
+		initializeResult3 = dao.initializeClassChart(classScoreDto);
+		
+		return 0;
+	}
+	
+	public String examManagementRoleCheck(String member_id){
+		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
+		String result = dao.examManagementRoleCheck(member_id);
+		return result;
+	}
 	
 }

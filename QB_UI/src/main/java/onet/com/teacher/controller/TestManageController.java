@@ -530,10 +530,12 @@ public class TestManageController {
 	      
 	      List<ExamPaperDto> myexamPaperList;
 	      List<ExamInfoDto> examScheduleList;
+	      String role;
 	      
 	      myexamPaperList = teacherService.myExamPaperList(member_id);         
 	      examScheduleList = teacherService.examScheduleList(member_id);
-	      
+	      role = teacherService.examManagementRoleCheck(member_id);
+	      model.addAttribute("role", role);
 	      model.addAttribute("myexamPaperList", myexamPaperList);
 	      model.addAttribute("examScheduleList", examScheduleList);
 	      

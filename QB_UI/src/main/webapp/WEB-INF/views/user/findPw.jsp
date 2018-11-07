@@ -64,7 +64,11 @@
 		$.ajax({
 			type : 'post',
             url : '${pageContext.request.contextPath}/index/mail.do',
-            data : {mailto:$('#member_email').val(), member_id:member_id},
+            data : {
+            	mailto:$('#member_email').val(),
+            	command:"join", 
+            	member_id:member_id
+            	},
             success : function(data) {
             	swal({
 			    	title:"EMAIL로 인증번호가 발송되었습니다.",
@@ -110,6 +114,8 @@
 	    	text: "확인 후 로그인해주세요",
 	    	icon:"info",
 	    	button:"Confirm",
+	    }).then(function(){
+	    	location.href="http://localhost:8090/qb/"
 	    });
 	}else if(result == "false"){
 		swal({

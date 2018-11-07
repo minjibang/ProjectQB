@@ -336,6 +336,33 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	</if>
 </sql>
 
+
+<select id="examManagementRoleCheck" resultType="String">
+	select role_code from member_role where member_id=#{member_id}
+</select>
+
+
+<!-- 11.06 현이 시험일정 등록 시 학생 답안지, 성적, 클래스성적 테이블 초기 데이터 입력 -->
+<select id="selectExamQuestion" parameterType="int" resultType="onet.com.vo.ExamQuestionDto">
+	select question_num, exam_question_seq 
+	from exam_question
+	where exam_paper_num = #{param1} 
+	order by exam_question_seq
+</select>
+<insert id="initializeStudentAnswer" parameterType="onet.com.vo.Student_answerDto">
+	insert into student_answer(member_id, exam_info_num, question_num, exam_question_seq, student_answer_choice, student_answer_status) 
+	values 
+	(#{member_id}, #{exam_info_num}, #{question_num}, #{exam_question_seq}, #{student_answer_choice}, #{student_answer_status})
+</insert>
+<insert id="initializeScoreChart" parameterType="onet.com.vo.Student_answerDto">
+	insert into score_chart
+	values(#{member_id}, #{exam_info_num}, #{score_chart_score}, #{score_chart_rank}, #{class_name})
+</insert>
+<insert id="initializeClassChart" parameterType="onet.com.vo.Class_chartDto">
+	insert into class_chart
+	values(#{class_name}, #{exam_info_num}, #{class_chart_avg})
+</insert>
+
 </mapper>
 
 

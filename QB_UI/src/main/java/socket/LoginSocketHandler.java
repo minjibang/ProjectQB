@@ -2,11 +2,16 @@ package socket;
 
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,21 +29,23 @@ import onet.com.vo.MessageDto;
 public class LoginSocketHandler extends TextWebSocketHandler {
 
 	 private Logger logger = LoggerFactory.getLogger(LoginSocketHandler.class);
-
+	
+	 private List<WebSocketSession> users = new ArrayList<>();
+	 Map<String, WebSocketSession> userSessions = new HashMap<>();
 	
    @Autowired
    SqlSession sqlsession;
-
    
    @Override
    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    SessionMaps.getAlarmusers();
+  
    System.out.println("연결됐다");
-    super.afterConnectionEstablished(session);
+   
    System.out.println("연결된 사용자 id>>"+session.getPrincipal().getName());
    System.out.println("연결된 사용자의 세션값 >> " + session.getId());
-
-
+   users.add(session);
+  
+   userSessions.put(session.getPrincipal().getName(), session);
    }
 
 
@@ -51,13 +58,12 @@ public class LoginSocketHandler extends TextWebSocketHandler {
       
       System.out.println("메시지 보냈다.");
       TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-      this.logger.info(message.getPayload());
+      String senderId = session.getPrincipal().getName();
 
       System.out.println("핸들러로 넘어간값>>"+message.getPayload());
       
       String data=message.getPayload();
-
-      
+      System.out.println("_________________________" + data);
       
       if(data.contains(",")) {
          String[] data2 = data.split(",");
@@ -66,6 +72,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
          System.out.println("data2[1]>>>>"+ data2[1]);
          System.out.println("data2[2]>>>>"+ data2[2]);
          if(data2.length>3) {
+        
             for(int i =2; i <= data2.length-1; i++) {
                dto.setSend_member_id(data2[0]);
                dto.setMessage_content(data2[1]);
@@ -75,8 +82,10 @@ public class LoginSocketHandler extends TextWebSocketHandler {
                
                
                if(result>0) {
+            	WebSocketSession receiveSession = userSessions.get(data2[i]);  
+            	
                System.out.println("핸들러에서 쪽지보냈따");
-               session.sendMessage(new TextMessage(dao.count_receive_note(data2[i])));
+               receiveSession.sendMessage(new TextMessage(dao.count_receive_note(data2[i])));
                
                }
             }
@@ -89,8 +98,9 @@ public class LoginSocketHandler extends TextWebSocketHandler {
          
          
          if(result>0) {
+         WebSocketSession receiveSession = userSessions.get(data2[2]);  
          System.out.println("핸들러에서 쪽지보냈따");
-         session.sendMessage(new TextMessage(dao.count_receive_note(data2[0])));
+         receiveSession.sendMessage(new TextMessage(dao.count_receive_note(data2[2])));
          
          
          
@@ -99,8 +109,9 @@ public class LoginSocketHandler extends TextWebSocketHandler {
          
       }
       else {
+    	  WebSocketSession receiveSession = userSessions.get(senderId);
+    	  receiveSession.sendMessage(new TextMessage(dao.count_receive_note(senderId)));
          System.out.println("처음에 불러왔따");
-         session.sendMessage(new TextMessage(dao.count_receive_note(session.getPrincipal().getName()))); 
       }
       
       
@@ -114,12 +125,11 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 
    }
 
+   
    @Override
    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
       
-      SessionMaps.getAlarmusers().remove(session.getId());
       System.out.println("연결끊었다.");
-      super.afterConnectionClosed(session, status);
    }
 
 }

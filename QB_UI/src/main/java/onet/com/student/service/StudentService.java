@@ -31,8 +31,10 @@ public class StudentService {
 	public int examAnswerInsert(Student_answerDtoList answerList) {
 		
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		int result = 0;
 		
+		
+		// student_answer 테이블 update 
+		int result = 0;
 		List<Student_answerDto> items = answerList.getStudent_answer();
 		for(Student_answerDto item : items) {
 			int question_num = item.getQuestion_num();
@@ -46,37 +48,32 @@ public class StudentService {
 	         } else {
 	            item.setStudent_answer_status(1);
 	         }
-			result += dao.examAnswerInsert(item);	//	student_answer 테이블 insert 
+			result += dao.examAnswerInsert(item);	//	student_answer 테이블 update 
 		}
 		
 		
 		String member_id = answerList.getStudent_answer().get(0).getMember_id();
 		int exam_info_num= answerList.getStudent_answer().get(0).getExam_info_num();
 		
-		
-		// 문제 정답률 insert
+		// 문제 정답률 update
 		List<Integer> selectQuestion = dao.selectQuestion(exam_info_num);
 		int correctRatioResult = 0;
 		for(Integer aQuestion : selectQuestion) {
 			int question_num = aQuestion.intValue();
 			correctRatioResult += dao.updateCorrectRatio(question_num);
 		} 
-		// System.out.println("correctRatioResult 의 결과값(정답률) : "+correctRatioResult);
 		
 		
 		// 학생 - 성적 차트 테이블 insert
 		int scoreResult = dao.score_chartInsert(member_id, exam_info_num);	//	랭크  학생 성적 제외한 입력 
-		
 		List<Score_chartDto> chartList = dao.selectRank(exam_info_num);		//	rank 함수로 rank를 구해서 dto 리스트에 넣어줌
 		int updateScoreResult = dao.updateRank(chartList, exam_info_num);	//  위의 함수로 구한 rank 리스트를 다중행 업데이트함
-		//System.out.println("updateScoreResult : " + updateScoreResult);
 		
 		// 클래스 성적 차트 테이블 insert 
-		if(dao.countClassChart(exam_info_num) > 0 ) {	// 클래스 차트가 있다면 update, 없다면 insert 
-			int classScoreResult = dao.class_chartUpdate(member_id, exam_info_num);
-		} else {
-			int classScoreResult = dao.class_chartInsert(member_id, exam_info_num);
-		}
+		int classScoreResult = dao.class_chartUpdate(member_id, exam_info_num);
+		
+		System.out.println("성적 제출 후 값 프린트>> student_anwser : " + result + ", 정답률 : " + correctRatioResult +
+				", 성적테이블 : " + scoreResult + ", 랭크 : " + updateScoreResult + " , 클래스 성적 : " + classScoreResult);
 		
 		return result;
 	}
