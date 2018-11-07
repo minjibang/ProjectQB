@@ -507,7 +507,21 @@ public class CommonService {
 		return result;
 	}
 	
-	//민지 10.31 메시지 체크
+
+	public String nameSearch(String sendManId) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String result = dao.nameSearch(sendManId);
+		      
+		return result;
+	}
+	
+	public String nameSearch2(String receiveManId) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String result = dao.nameSearch2(receiveManId);
+		      
+		return result;
+	}
+
 	
 	
 }

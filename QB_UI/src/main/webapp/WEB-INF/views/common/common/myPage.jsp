@@ -44,66 +44,66 @@
                         <form role="form" id="memberModifyFrm"class="form-horizontal formArrayHyunyi" method="post" action="myPage.do">
                         <%-- 아이디 --%>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">아이디</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">아이디</label>
+                            <div class="col-lg-7">
                               <input type="text" id="modify_member_id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 기존 비밀번호 --%>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">기존 비밀번호</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">기존 비밀번호</label>
+                            <div class="col-lg-7">
                               <input type="password" placeholder="기존 비밀번호를 입력해주세요." id="modify_member_pwd" class="form-control" name="member_pwd">
                             </div>
                           </div>
                           <%-- 비밀번호 변경 --%>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">비밀번호 변경
+                            <label class="col-lg-4 control-label">비밀번호 변경
                              <input type="checkbox" class="ez-checkbox" id="passwordChangeChk" style="height: auto">
                             </label>                           
-                            <div class="col-lg-8">
+                            <div class="col-lg-7">
                               <input type="password" placeholder="새 비밀번호를 입력해주세요." class="form-control" id="passwordChange" name="member_pwd" onblur="confirmPwd()" disabled>
                             </div>
-                            <div class="col-lg-offset-3 col-lg-8" id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
+                            <div class="col-lg-offset-4 col-lg-7" id="pwddiv"></div> <%-- 비밀번호 유효성 결과 출력 --%>
                           </div>
                           	
                         <%-- 비밀번호 확인 --%>  	
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">비밀번호 확인</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">비밀번호 확인</label>
+                            <div class="col-lg-7">
                               <input type="password" placeholder="새 비밀번호를 한번 더 입력해주세요." id="passwordChangeConfirm" class="form-control" onblur="confirmPwd2()" disabled>
                             </div>
-                            <div class="col-lg-offset-3 col-lg-8" id="pwdcheckdiv"></div> <%-- 비밀번호 일치 결과 출력 --%>
+                            <div class="col-lg-offset-4 col-lg-7" id="pwdcheckdiv"></div> <%-- 비밀번호 일치 결과 출력 --%>
                           </div>
                           
                          <%-- 이름 --%> 
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">이름</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">이름</label>
+                            <div class="col-lg-7">
                               <input type="text" placeholder="name" class="form-control" name="member_name" readonly value="${memberDto.member_name}">
                             </div>
                           </div>  
                           <%-- 핸드폰 --%>      
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">핸드폰</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">핸드폰</label>
+                            <div class="col-lg-7">
                               <input type="text" placeholder="HP" id="country" class="form-control" name="member_phone" value="${memberDto.member_phone}">
                             </div>
                           </div>
                           <%-- 이메일 변경 --%>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label"><p style="display: inline-block">이메일 변경</p>
+                            <label class="col-lg-4 control-label"><p style="display: inline-block">이메일 변경</p>
                               <input type="checkbox" class="ez-checkbox" id="emailChangeChk" style="height: auto">
                             </label>
-                            <div class="col-lg-8">
+                            <div class="col-lg-7">
                                   <input type="text" placeholder="email" id="member_email" class="form-control inlineTextField" name="member_email" value="${memberDto.member_email}" readonly>
                                   <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeRquestBtn" disabled>인증번호 요청</button> 
                             </div>
                           </div>
                           <%-- 인증번호 --%>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">인증번호</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">인증번호</label>
+                            <div class="col-lg-7">
                                   <input type="text" placeholder="인증번호" class="form-control inlineTextField" id="emailCodeCheck" disabled>
                                   <button class="btn btn-theme myPageBtnControl" type="button" id="emailCodeCheckBtn" disabled>인증번호 확인</button>
                             </div>
@@ -133,15 +133,15 @@
                         <form role="form" class="form-horizontal formArrayHyunyi" id="memberDropFrm" action="myPageDrop.do">
                           <%-- 아이디 --%>
                           <div class="form-group">  
-                            <label class="col-lg-3 control-label">아이디</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">아이디</label>
+                            <div class="col-lg-7">
                               <input type="text" id="drop_member_id" class="form-control" name="member_id" readonly value="${memberDto.member_id}">
                             </div>
                           </div>
                           <%-- 비밀번호 --%>
                           <div class="form-group">
-                            <label class="col-lg-3 control-label">비밀번호</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-4 control-label">비밀번호</label>
+                            <div class="col-lg-7">
                               <input type="password" placeholder="비밀번호를 입력해주세요." id="drop_member_pwd" class="form-control" name="member_pwd">
                             </div>
                           </div>
