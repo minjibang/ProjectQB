@@ -228,9 +228,9 @@ public class TeacherService {
 		return result;
 	}
 	
-	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin, String member_id){
+	public List<ExamInfoDto> examinfoSearch(String searchType2, String keyword, int begin, String member_id,String date_from,String date_to){		
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
-		List<ExamInfoDto> result = dao.examinfoSearch(searchType2, keyword, begin, member_id);
+		List<ExamInfoDto> result = dao.examinfoSearch(searchType2, keyword, begin, member_id, date_from, date_to);
 		return result;
 	}
 	

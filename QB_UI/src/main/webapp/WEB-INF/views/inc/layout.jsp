@@ -270,8 +270,8 @@
 	<!-- 테이블 관련 end -->
 
 	<!--script for this page-->
-	<%-- <script
-		src="${pageContext.request.contextPath}/lib/jquery-ui-1.9.2.custom.min.js"></script> --%>
+	<script
+		src="${pageContext.request.contextPath}/lib/jquery-ui-1.9.2.custom.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 	<%-- <script type="text/javascript"

@@ -22,6 +22,14 @@
 	href="${pageContext.request.contextPath}/css/teacherExamManagement.css"
 	rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- dateficker -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 <!--main content start-->
 
 <section id="main-content">
@@ -73,11 +81,8 @@
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_myExam" class="col-md-12">
-										<a href="examPaperMake.do" class="examPaper-insert"> <img
-											src="../img/material-icon.png"> <strong>새 시험지
-												만들기</strong></a>
-										<div class="searchRowRightDiv">
-											<select class="form-control searchRightBtnDiv"
+									<div class="searchtitle">
+									<select class="form-control searchRightBtnDiv"
 												id="searchType" name="searchType">
 												<option value="all">전체</option>
 												<se:authorize access="hasRole('ROLE_ADMIN')">
@@ -92,6 +97,15 @@
 												placeholder="검색어를 입력" id="keyword" name="keyword">
 											<button type="button" class="btn btn-theme searchRightBtn"
 												id="searchBtn">검색</button>
+												
+									</div>
+									<div>
+										<a href="examPaperMake.do" class="examPaper-insert"> <img
+											src="../img/material-icon.png"> <strong>새 시험지
+												만들기</strong></a>
+									</div>
+										<div class="searchRowRightDiv">
+											
 											<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 										</div>
 
@@ -122,34 +136,7 @@
 
 												<!-- 시험지 하나의 div 시작 -->
 												<div id="examTempPaperDiv">
-													<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-													<%-- <c:forEach items="${myTempExamList}" var="myTempExamList">
-														<!-- 시험지 한 개 시작 -->
-														<div class="exam-paper-name">
-															<h4 id="exam_paper_name">
-																<strong>${myTempExamList.exam_paper_name}</strong>
-															</h4>
-															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myTempExamList.exam_paper_desc}
-
-
-
-															
-															<div class="pdf_download text-right">
-																<a href="#">PDF 다운로드 <img
-																	src="../img/file-download.png"></a>
-																<button type="button"
-																	id="${myTempExamList.exam_paper_num}"
-																	class="btn btn-theme04 buttonGroup"
-																	onclick="deleteTempExamCheck()">삭제</button>
-																<button type="button" class="btn btn-theme buttonGroup"
-																	onclick="location.href='tempUpdateExamView.do?exam_paper_num=${myTempExamList.exam_paper_num}&exam_paper_name=${myTempExamList.exam_paper_name}'">시험지
-																	수정</button>
-																<input type="hidden" id="hidden_class_num"
-																	value='${param.class_num}'>
-															</div>
-															<hr>
-														</div>
-													</c:forEach> --%>
+													
 												</div>
 											</div>
 										</form>
@@ -169,20 +156,29 @@
 									</div>
 
 									<div id="div_examSchedule" class="col-md-12">
-										<form class="insertForm">
-											<a href="" class="exam-insert"> <img
-												src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새
-													시험 일정 등록</strong></a>
-											<div class="searchRowRightDiv">
+									<div class="searchtitle">							
+										<se:authorize access="hasRole('ROLE_TEACHER')">
+										<input type="text" name="datefilter" id="fromtodate" class="form-control searchRightBtnDiv" placeholder="날짜 입력"/>
+										</se:authorize>
+										<se:authorize access="hasRole('ROLE_ADMIN')">
 												<select class="form-control searchRightBtnDiv"
 													id="searchType2" name="searchType2">
 													<option value="all">전체</option>
 													<option value="n">클래스명</option>
 													<option value="p">시험명</option>
-												</select> <input type="text" class="form-control searchRightBtnDiv"
-													placeholder="검색어를 입력" id="keyword2" name="keyword2">
-												<button type="button" class="btn btn-theme searchRightBtn"
-													id="searchBtn2">검색</button>
+												</select> 
+										</se:authorize>
+										<input type="text" class="form-control searchRightBtnDiv"
+											placeholder="검색어를 입력" id="keyword2" name="keyword2">										
+										<button type="button" class="btn btn-theme searchRightBtn"
+											id="searchBtn2">검색</button>
+									</div>
+										<form class="insertForm">
+											<a href="" class="exam-insert"> <img
+												src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새
+													시험 일정 등록</strong></a>
+											<div class="searchRowRightDiv">
+												
 												<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 											</div>
 										</form>
@@ -241,16 +237,36 @@ var classParam = {
 var tempExam = {
 		"begin" : 0,
 		"searchType" : "all",
-		"keyword" : "all",
+		"keyword" : "",
 }
 
 var classParam2 = {
 		"begin" : 0,
 		"searchType2" : "all",
 		"keyword" : "",
+		"date_from" : "",
+		"date_to" : ""
 }
 
 $(document).ready(function(){
+	
+	$('input[name="datefilter"]').daterangepicker({
+	      autoUpdateInput: false,
+	      locale: {
+	          cancelLabel: 'Clear'
+	      }
+	  });
+
+	  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+	      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
+	      
+	      
+	  });
+
+	  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+	      $(this).val('');
+	  });
+	
 	//무한 스크롤
 	examlistClass(classParam);
 	imsiSaveExam(tempExam);
@@ -269,10 +285,6 @@ $(document).ready(function(){
 				tempExam.begin += 4;
 				examlistClass(classParam);
 				imsiSaveExam(tempExam);
-			
-				
-
-				console.log("begin : " + classParam.begin +"번부터");
 			 }
 		  }
 	});
@@ -305,12 +317,27 @@ $(document).ready(function(){
 	});
 	
 	$('#searchBtn2').click(function(){  // search 버튼을 눌렀을 때는 json 데이터의 내용을 변경시켜서 파라미터로 보내기 
-		
-		classParam2.begin = 0; 
-		classParam2.searchType2= $("#searchType2").val();
+		if($('#fromtodate').val()){
+			var fromtodate = $("#fromtodate").val();
+			var strArray = fromtodate.split('~');
+			var date_from = strArray[0].trim();
+			var date_to = strArray[1].trim();	
+			
+			classParam2.date_from = date_from;
+			classParam2.date_to = date_to;
+		}else{
+			classParam2.date_from = "";
+			classParam2.date_to = "";
+		}
+ 		if($("#searchType2").val()){
+ 			classParam2.searchType2= $("#searchType2").val();
+ 		}
+ 		
+ 		classParam2.begin = 0;
 		classParam2.keyword = $("#keyword2").val();
+		
 		$('#examlistView2').empty();
-		examinfolistClass(classParam2);
+		examinfolistClass(classParam2); 
 		
 	});
 });
@@ -328,8 +355,6 @@ $('#examinfotab').click(function(){
 	        	 
 					classParam2.begin += 2;
 					examinfolistClass(classParam2);
-				
-				console.log("begin : " + classParam2.begin +"번부터");
 			 }
 		  }
 	});
@@ -357,7 +382,7 @@ $('#examinfotab').click(function(){
 	
 	function imsiSaveExam(tempExam){
 		$.ajax({
-			url : "myTempExamList.do",
+			url : "../teacher/myTempExamList.do",
 			type : 'GET',
 			dataType : "html",
 			data : tempExam,
@@ -367,7 +392,7 @@ $('#examinfotab').click(function(){
 		});
 	}
 				
-	function examinfolistClass(classParam2){
+	function examinfolistClass(classParam2){		
 		$.ajax({
 			url : "examinfolistClass.do",
 			type : 'GET',
@@ -382,9 +407,6 @@ $('#examinfotab').click(function(){
 			}
 		});
 	}
-
-	
-	
 
 	function printpage(){
 		
