@@ -1,13 +1,13 @@
 package onet.com.student.service;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import onet.com.common.dao.CommonDao;
 import onet.com.student.dao.StudentDao;
@@ -28,52 +28,53 @@ public class StudentService {
 	private SqlSession sqlsession;
 	
 	/* 10.19 현이 학생 답안지 제출 시작 */ 
+	@Transactional
 	public int examAnswerInsert(Student_answerDtoList answerList) {
 		
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		
-		
-		// student_answer 테이블 update 
 		int result = 0;
-		List<Student_answerDto> items = answerList.getStudent_answer();
-		for(Student_answerDto item : items) {
-			int question_num = item.getQuestion_num();
-			String answer = dao.searchAnswer(question_num);		//	정답 찾아와서 answer_status 비교 후 입력 
+		
+		try {
+			// student_answer 테이블 update 
+			result = 0;
+			List<Student_answerDto> items = answerList.getStudent_answer();
+			for(Student_answerDto item : items) {
+				int question_num = item.getQuestion_num();
+				String answer = dao.searchAnswer(question_num);		//	정답 찾아와서 answer_status 비교 후 입력 
+				
+				if((item.getStudent_answer_choice() == null) || (!(item.getStudent_answer_choice().equals(answer)))) {   //   오답
+		            item.setStudent_answer_status(0);
+		            if(item.getStudent_answer_choice() == "") {
+		            	item.setStudent_answer_choice(null);
+		            }
+		         } else {
+		            item.setStudent_answer_status(1);
+		         }
+				result += dao.examAnswerInsert(item);
+			}
 			
-			if((item.getStudent_answer_choice() == null) || (!(item.getStudent_answer_choice().equals(answer)))) {   //   오답
-	            item.setStudent_answer_status(0);
-	            if(item.getStudent_answer_choice() == "") {
-	            	item.setStudent_answer_choice(null);
-	            }
-	         } else {
-	            item.setStudent_answer_status(1);
-	         }
-			result += dao.examAnswerInsert(item);	//	student_answer 테이블 update 
+			String member_id = answerList.getStudent_answer().get(0).getMember_id();
+			int exam_info_num= answerList.getStudent_answer().get(0).getExam_info_num();
+			
+			// 문제 정답률 update
+			List<Integer> selectQuestion = dao.selectQuestion(exam_info_num);
+			int correctRatioResult = 0;
+			for(Integer aQuestion : selectQuestion) {
+				int question_num = aQuestion.intValue();
+				correctRatioResult += dao.updateCorrectRatio(question_num);
+			} 
+			
+			// 학생 - 성적 차트 테이블 insert
+			int scoreResult = dao.score_chartInsert(member_id, exam_info_num);	//	랭크  학생 성적 제외한 입력 
+			List<Score_chartDto> chartList = dao.selectRank(exam_info_num);		//	rank 함수로 rank를 구해서 dto 리스트에 넣어줌
+			int updateScoreResult = dao.updateRank(chartList, exam_info_num);	//  위의 함수로 구한 rank 리스트를 다중행 업데이트함
+			
+			// 클래스 성적 차트 테이블 insert 
+			int classScoreResult = dao.class_chartUpdate(member_id, exam_info_num);
+			
+		} catch (Exception e) {
+			throw e;	//	예외 발생하면 자동 rollback 
 		}
-		
-		
-		String member_id = answerList.getStudent_answer().get(0).getMember_id();
-		int exam_info_num= answerList.getStudent_answer().get(0).getExam_info_num();
-		
-		// 문제 정답률 update
-		List<Integer> selectQuestion = dao.selectQuestion(exam_info_num);
-		int correctRatioResult = 0;
-		for(Integer aQuestion : selectQuestion) {
-			int question_num = aQuestion.intValue();
-			correctRatioResult += dao.updateCorrectRatio(question_num);
-		} 
-		
-		
-		// 학생 - 성적 차트 테이블 insert
-		int scoreResult = dao.score_chartInsert(member_id, exam_info_num);	//	랭크  학생 성적 제외한 입력 
-		List<Score_chartDto> chartList = dao.selectRank(exam_info_num);		//	rank 함수로 rank를 구해서 dto 리스트에 넣어줌
-		int updateScoreResult = dao.updateRank(chartList, exam_info_num);	//  위의 함수로 구한 rank 리스트를 다중행 업데이트함
-		
-		// 클래스 성적 차트 테이블 insert 
-		int classScoreResult = dao.class_chartUpdate(member_id, exam_info_num);
-		
-		System.out.println("성적 제출 후 값 프린트>> student_anwser : " + result + ", 정답률 : " + correctRatioResult +
-				", 성적테이블 : " + scoreResult + ", 랭크 : " + updateScoreResult + " , 클래스 성적 : " + classScoreResult);
 		
 		return result;
 	}
