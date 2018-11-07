@@ -753,15 +753,6 @@ public class TeacherController {
 		return result;
 	}
 	
-	@RequestMapping("replyMessage.do")
-	public @ResponseBody int replyMessage(Model model, Principal principal, String text, String sender) {
-		MessageDto dto = new MessageDto();
-		dto.setMessage_content(text);
-		dto.setReceive_member_id(sender);
-		dto.setSend_member_id(principal.getName());
-		int result = commonService.replyMessage(dto);
-		return result;
-	}
 	    
     @RequestMapping("message_check.do")
     public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {

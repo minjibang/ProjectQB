@@ -571,7 +571,7 @@ function check_t(){
       var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
-
+		
          $.ajax({
          url : "message_check.do",
          type : "get",
@@ -678,26 +678,21 @@ function check_t(){
    });
    
    $('.send').click(function(){
-     var text = $('.textarea').val();
+	 var text = $('.textarea').val();
      var sender = $('.receiver').text();
-     $.ajax({
-          url : "replyMessage.do",
-          type : "post",
-          dataType : "html",
-          data : {text:text, sender:sender},
-          success : function(data){
-            if(data>0){
-                swal({
-                   title: "답장성공",
-                  text: "",
-                  icon:"info"
-               }).then(function() {
-                   window.location = "myMessage.do";
-               });
-             }
-          }
-       });
-     
+     var username='${member_id}';
+     var data = new Array();
+     data[0]=username;
+     data[1]=text;
+     data[2]=sender;
+     swal({
+         title: "답장성공",
+        text: "",
+        icon:"info"
+     }).then(function() {
+  	   window.location = "myMessage.do";
+     });
+     socket.send(data);
    });
   
    
