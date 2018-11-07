@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
    <!-- main inc -->
+
 <!--header start-->
 <header class="header black-bg">
    <se:authorize access="hasRole('ROLE_ADMIN')">
@@ -83,33 +85,36 @@
 <!--header end-->
 
 <script type="text/javascript">
-   $(document).ready(function(){
-      $.ajax({
-         url:"../common/memberCheck.do",
-         type:"get",
-         success:function(data){
-            if(data[0].class_name != "null"){
-               $('#className').text(data[0].class_name);   
-            }
-            $('#memberName').text(data[0].member_name);
-         },
-         error:function(xml){
-            
-         }
-      });
-      
-      $.ajax({
-         url:"headerMessage.do",
-         type:"get",
-         success:function(data){
-            $('#minji').children().eq(2).html(data);
-            
-            
-         },
-         err:function(err){
-            console.log('err입니다');
-         }
-         
-      });
-   });
-   </script>
+
+	$(document).ready(function(){
+		$.ajax({
+			url:"../common/memberCheck.do",
+			type:"get",
+			success:function(data){
+				if(data[0].class_name != "null"){
+					$('#className').text(data[0].class_name);	
+				}
+				$('#memberName').text(data[0].member_name);
+			},
+			error:function(xml){
+				
+			}
+		});
+		
+		$.ajax({
+			url:"headerMessage.do",
+			type:"get",
+			success:function(data){
+				$('#minji').children().eq(2).html(data);
+				
+				
+			},
+			err:function(err){
+				console.log('err입니다');
+			}
+			
+		});
+	});
+	</script>
+
+

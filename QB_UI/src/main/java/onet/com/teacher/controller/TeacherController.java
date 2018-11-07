@@ -865,18 +865,16 @@ public class TeacherController {
 		// ajax로 검색한 클래스 목록 가져오기 
 	
 		@RequestMapping("headerMessage.do")
-		public @ResponseBody List<MessageDto> headerMessage(Model model, Principal principal) {
+		public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
 			
 			 String member_id = principal.getName();
 			 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-		
-			   model.addAttribute("receiveMessage", receiveMessage);
-			   for(int i=0; i<receiveMessage.size(); i++) {
-		        	  String sendManId = receiveMessage.get(i).getSend_member_id();
-		        	  String sendManName = commonService.nameSearch(sendManId);
-		        	  receiveMessage.get(i).setMember_name(sendManName);
-		          }
-			
-			return receiveMessage;
+
+			 ModelAndView mv = new ModelAndView();
+			 mv.setViewName("ajax.common.receiveMessage_ajax");
+			 mv.addObject("receiveMessage", receiveMessage);
+
+			return mv;
+
 		}
 }
