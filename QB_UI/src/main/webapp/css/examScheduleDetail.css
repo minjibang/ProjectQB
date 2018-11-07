@@ -5,11 +5,16 @@
 }
 
 .examImgDiv img {
-	width: 300px;
+	width: 220px;
 }
 
 .examImgDiv img h3 {
 	padding-top: 10px;
+}
+
+#examInfoName{
+	margin-left:40px;
+	margin-right:40px;
 }
 
 #clockImg {

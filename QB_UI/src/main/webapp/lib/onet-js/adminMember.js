@@ -248,10 +248,11 @@ $(function(){
    					  title: "수정 되었습니다",
    					  text: "",
    					  icon:"success"
-   				  }).then(function() {   					  
+   				  }).then(function() {
+   					$("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(1).text(_param.class_name);
    					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(4).text(_param.member_email);
    					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(5).text(_param.member_phone);
-   					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(6).text(_param.role_code);
+   					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(6).text(_param.role_desc);
    					  $("#UpdateModal").modal("hide");
    				  });
    			  },

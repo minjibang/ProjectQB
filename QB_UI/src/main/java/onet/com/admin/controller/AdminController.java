@@ -252,27 +252,36 @@ public class AdminController {
 
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
-	@RequestMapping("myMessage.do")
-	public String myMessage(Model model, Principal principal) {
-		
-		 String member_id = principal.getName();
-		 String date = "";
-		 List<MemberDto> teacherList = adminService.teacherList();
-		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-		   for(int i=0; i<receiveMessage.size(); i++) {
-		    	  date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
-		    	 receiveMessage.get(i).setMessage_date(date);
-		   }
-		   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-		   for(int i=0; i<sendMessage.size(); i++) {
-		    	  date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
-		    	  sendMessage.get(i).setMessage_date(date);
-		   }
-		   model.addAttribute("teacherList", teacherList);
-		   model.addAttribute("receiveMessage", receiveMessage);
-		   model.addAttribute("sendMessage", sendMessage);
-		   model.addAttribute("member_id", member_id);
-		
+	 @RequestMapping("myMessage.do")
+	   public String myMessage(Model model, Principal principal) {
+	       String member_id = principal.getName();
+	       System.out.println("아이디:"+member_id);
+	       MessageDto dto = new MessageDto();
+	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+	          for(int i=0; i<receiveMessage.size(); i++) {
+	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+	        	  receiveMessage.get(i).setMessage_date(date);
+	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+	        	  String sendManName = commonService.nameSearch(sendManId);
+	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          }
+	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	          for(int i=0; i<sendMessage.size(); i++) {
+	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	        	  sendMessage.get(i).setMessage_date(date);
+	        	  String receiveManId = sendMessage.get(i).getSend_member_id();
+	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          }
+	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
+	          
+	          model.addAttribute("classMemberList", classMemberList);
+	          model.addAttribute("classTeacherList",classTeacherList);
+	          model.addAttribute("receiveMessage", receiveMessage);
+	          model.addAttribute("sendMessage", sendMessage);
+	          model.addAttribute("member_id", member_id);
+	          
 		return "common.admin.common.myMessage";
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
@@ -293,7 +302,7 @@ public class AdminController {
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name, Principal principal) { 
+	public String adminClassMain(Model model, String class_name, String class_num, Principal principal) { 
 		List<NoticeDto> notice;
 		String date="";
 		notice=commonService.admin_Main(class_name);
@@ -306,6 +315,7 @@ public class AdminController {
 			model.addAttribute("notice", notice);
 		}
 		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
 		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -313,9 +323,11 @@ public class AdminController {
 	
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
-		
-		// 10.23 현이 추가 (TeacherController에서 가져옴) 
 		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		 for(int i=0; i<result.size(); i++) {
+	    	 String date = result.get(i).getNotice_date().substring(0, result.get(i).getNotice_date().length()-5);
+	    	 result.get(i).setNotice_date(date);
+	      }
 		List<CommentDto> comment = commonService.comment(class_name, notice_num);
 		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
 		if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() != null) {
@@ -348,9 +360,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("noticeWrite.do")
-	public String noticeWrite(String class_name, Model model) {
-		model.addAttribute("class_name",class_name);
+	public String noticeWrite(String class_name, String class_num, Model model) {
 		
+		model.addAttribute("class_num", class_num);
+		model.addAttribute("class_name",class_name);
 		return "common.adminClass.admin.notice.noticeWrite";
 	}
 
@@ -1323,52 +1336,5 @@ public class AdminController {
 		
 			return mv;
 		}
-		/*민지:10.18 시험등록 */
-		@RequestMapping(value="examInfoInsert.do", method =  RequestMethod.POST)
-		public  String examInfoInsert(ExamInfoDto dto,String memberarray2,int exam_paper_num ,HttpServletResponse response) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
-			
-			String [] memberchecklist= memberarray2.split(",");
-			int checkresult;
-			int result = 0;
-			String viewpage="";
-			
-			result=teacherService.examInfoInsert(dto);
-			if(result > 0) {
-				//System.out.println("시험등록성공");
-				String class_name = dto.getClass_name();
-				//System.out.println(class_name);
 		
-				String url = URLEncoder.encode(class_name, "UTF-8");
-				String memberid="";
-				int infonum2 = 0; 
-				
-				for(int i = 0; i<=memberchecklist.length-1;i++) {
-					
-					memberid = memberchecklist[i];
-					ExamMemberDto exammemberdto = new ExamMemberDto();
-					List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(exam_paper_num);
-					int infonum = examinfolist.size()-1;
-					//System.out.println(examinfolist.toString());
-					infonum2 = examinfolist.get(infonum).getExam_info_num();
-		
-					//System.out.println("examinfolist>>>" + infonum2+ "    <<");
-					exammemberdto.setExam_info_num(infonum2);
-					exammemberdto.setMember_id(memberid);
-					checkresult=teacherService.examMemberInsert(exammemberdto);
-					
-					/*if(checkresult>0) {
-						System.out.println("체크리스트 insert 성공");
-					} else {
-						System.out.println("체크리스트 insert 실패");
-					}*/
-				}
-				
-				// 학상 답안지 초기화 insert 
-				int initializeResult = teacherService.initializeStudentAnswer(memberchecklist, infonum2, exam_paper_num, dto.getClass_name());	
-				viewpage = "redirect:examManagement.do";
-			} else {
-				System.out.println("시험등록 실패");
-			}
-			return viewpage;
-		}
 }

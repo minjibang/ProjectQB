@@ -57,7 +57,7 @@
 												<a href="teacherMain.do" class="btn btn-info">취소</a>
 											</se:authorize>
 											<se:authorize access="hasRole('ROLE_ADMIN')">
-												<a href="teacherMain.do?class_num=" class="btn btn-info">취소</a>
+												<a href="adminClassMain.do?class_num=${class_num}&class_name=${class_name}" class="btn btn-info">취소</a>
 											</se:authorize>
 										</td>
 									</tr>

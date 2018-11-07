@@ -200,11 +200,10 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 학생 차트 정보 -->
 <select id="studentChartInfo" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 	<![CDATA[
-	select * 
-	from score_chart sc JOIN member m join exam_info ei
-	ON sc.member_id = m.member_id and sc.exam_info_num = ei.exam_info_num
-	where m.member_id=#{member_id} and sc.class_name = 
-	(select class_name from member where member_id=#{member_id})
+	select sc.member_id, m.member_id, sc.exam_info_num, ei.exam_info_name, sc.score_chart_score, cc.class_chart_avg
+	from score_chart sc join class_chart cc join exam_info ei join member m
+	on sc.exam_info_num = cc.exam_info_num and sc.exam_info_num=ei.exam_info_num and sc.member_id=m.member_id
+	where sc.member_id=#{member_id} and sc.class_name=(select class_name from member where member_id=#{member_id})
 	and (ei.exam_info_date < sysdate())
 	order by m.member_name, sc.exam_info_num asc
 	]]>
@@ -224,10 +223,10 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 양회준 10-25 학생&성적관리 학생개인 성적확인 -->
 <select id="studentExamScoreInfo" parameterType="String" resultType="onet.com.vo.StudentExamScoreInfo">
 	<![CDATA[
-	SELECT DISTINCT sa.exam_info_num, ei.exam_info_name, ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, 
-	ep.exam_paper_desc, m.member_name
-	FROM student_answer sa JOIN exam_info ei JOIN exam_paper ep JOIN member m
-	ON sa.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num and sa.member_id=m.member_id
+	SELECT DISTINCT sc.exam_info_num, sc.score_chart_comment, ei.exam_info_name, ei.exam_info_date, ei.exam_info_start, 
+	ei.exam_info_end, ei.exam_info_time, ep.exam_paper_desc, m.member_name
+	FROM score_chart sc JOIN exam_info ei JOIN exam_paper ep JOIN member m
+	ON sc.exam_info_num=ei.exam_info_num and ei.exam_paper_num = ep.exam_paper_num and sc.member_id=m.member_id
 	WHERE m.member_id = #{param1} and ei.class_name = #{param2} and (ei.exam_info_date < sysdate())
 	order by exam_info_num desc
 	]]>
@@ -247,7 +246,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 양회준 10-29 학생&성적관리 클래스통계 학생별 성적표 -->
 <select id="studentExamScoreList" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 	<![CDATA[
-	select m.member_id, m.member_name, ei.exam_info_num, sc.score_chart_score, sc.class_name 
+	select m.member_id, m.member_name, ei.exam_info_num, ei.exam_info_name, sc.score_chart_score, sc.class_name 
 	from score_chart sc join member m join exam_info ei
 	on sc.member_id=m.member_id and sc.exam_info_num = ei.exam_info_num
 	where sc.class_name = #{class_name}
@@ -309,7 +308,9 @@ select * from member where class_name=(select class_name from member where membe
 
 <!-- 쪽지 리스트 -->
 <select id="receiveMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
-   select * from message where receive_member_id=#{member_id} and receive_check=0
+   select ms.message_num, ms.send_member_id, ms.receive_member_id, ms.message_content, ms.message_date, 
+   ms.message_check, ms.send_check, ms.receive_check, m.member_name from message ms inner join member m on 
+   ms.receive_member_id = m.member_id where receive_member_id=#{member_id} and receive_check=0
 </select>
 
 <select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
@@ -352,4 +353,13 @@ select * from member where class_name=(select class_name from member where membe
 <delete id="messageRealDelete" parameterType="int">
 	delete from message where message_num=#{message_num}
 </delete>
+
+<select id="nameSearch" parameterType="String" resultType="String">
+	select member_name from member where member_id=#{sendManId}
+</select>
+
+<select id="nameSearch2" parameterType="String" resultType="String">
+	select member_name from member where member_id=#{receiveManId}
+</select>
+
 </mapper>

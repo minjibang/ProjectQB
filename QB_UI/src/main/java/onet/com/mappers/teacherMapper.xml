@@ -292,6 +292,15 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 
 </select>
 
+<!-- 양회준 11.5 강사 코멘트 수정 및 취소 -->
+	<update id="studentInfoCommentUpdate" parameterType="String">
+		update score_chart set score_chart_comment=#{param3} where member_id=#{param1} and exam_info_num=#{param2}
+	</update>
+	<select id="studentInfoCommentCancel" resultType="String">
+		select comment from score_chart where member_id=#{param1} and exam_info_num=#{param2}
+	</select>
+
+
 <select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto" >
 	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} order by exam_paper_num desc limit #{begin}, 4
 </select>
@@ -356,7 +365,7 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 </insert>
 <insert id="initializeScoreChart" parameterType="onet.com.vo.Student_answerDto">
 	insert into score_chart
-	values(#{member_id}, #{exam_info_num}, #{score_chart_score}, #{score_chart_rank}, #{class_name})
+	values(#{member_id}, #{exam_info_num}, #{score_chart_score}, #{score_chart_rank}, #{class_name}, '수고하셨습니다.')
 </insert>
 <insert id="initializeClassChart" parameterType="onet.com.vo.Class_chartDto">
 	insert into class_chart

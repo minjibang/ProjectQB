@@ -15,7 +15,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%-- <script
 	src="${pageContext.request.contextPath}/lib/onet-js/examScheduleDetail.js"></script> --%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/ko.js"></script>
 
 
 <section id="main-content">
@@ -28,8 +29,8 @@
 
 						<div class="col-lg-5 examImgDiv">
 							<img id="examImg"
-								src="${pageContext.request.contextPath}/img/friends/fr-02.jpg">
-							<h3>${dto.exam_info_name}</h3>
+								src="${pageContext.request.contextPath}/img/oneT_Design/exam_paper.png">
+							<h3 id="examInfoName">${dto.exam_info_name}</h3>
 							<br> <br> <br>
 						</div>
 						<div class="col-lg-7">
@@ -90,7 +91,7 @@
 							<button class="btn btn-theme03" id="examBtn">시험시작</button>
 							</c:if>
 							<c:if test="${check==0}">
-							<p>응시 대상자가 아닙니다.</p>
+							<h2>응시 대상자가 아닙니다.</h2>
 							</c:if>
 						</se:authorize>
 							
@@ -112,42 +113,18 @@
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
 				
 				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-				var popOption = "width='1920px', height=1080px'";
+				
+				var width = $(window).width();
+				var height = $(window).height();
+				// var popOption = "width="+ width +", height=" + height + ", left=0, top=0";  
+				var popOption = "width="+ screen.availWidth +", height=" + screen.availHeight + ", left=0, top=0"; 
+				//console.log("popOption22 : " + popOption);	
 				
 				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
 				window.open(popUrl, "지난 시험보기", popOption);
 				
-				
-				/* if(권한이 학생이라면){ */
-					<%-- $.ajax({
-						url : "searchStudentAnswer.do",
-						type : 'get',
-						data : {
-							'exam_info_num' : <%=request.getParameter("exam_info_num")%>,
-							'student_answer_status' : "all"
-						},
-						success : function(data) {
-							if(data.length > 0 ){
-									swal("\n이미 시험에 응시하셨습니다."); 
-							} else if (data.length == 0){
-								//var popupX = (window.screen.width / 2) - (200 / 2);
-								// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-								//var popupY= (window.screen.height /2) - (300 / 2);
-								// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-								//window.open('', '', 'status=no, height=300, width=200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-								
-								var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-								var popOption = "width='1920px', height=1080px'";
-								
-								window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
-								window.open(popUrl, "지난 시험보기", popOption);
-							}
-						}
-					}); --%>
-				/* }  */ // 권한이 학생이라면 if문 종료 괄호
-				
 			} else {
-				alert("시험이 종료되었습니다.")
+				swal("시험이 종료되었습니다."); 
 			}
 		});
 		
@@ -159,19 +136,11 @@
 		var time1 = exam_info_date.split('-');
 		var time2 = exam_info_start.split(':');
 		var time3 = exam_info_end.split(':');
-					
-		var exam_info_date='${dto.exam_info_date}';
-		var exam_info_start='${dto.exam_info_start}';
-		var exam_info_end='${dto.exam_info_end}';
-		
-		var time1 = exam_info_date.split('-');
-		var time2 = exam_info_start.split(':');
-		var time3 = exam_info_end.split(':');
 		
 		var nowTime = new Date();
 		var examStartTime = new Date(time1[0],time1[1]-1,time1[2],time2[0],time2[1],time2[2]);
 		var examEndTime = new Date(time1[0],time1[1]-1,time1[2],time3[0],time3[1],time3[2]);
-		
+				
 		var dDays = (examStartTime-nowTime)/1000/60/60/24;
 		var examStartDaysRound = Math.floor(dDays);
 		// 시작시간까지 원하는 날짜, 시간 정확하게 초단위까지 기입.
@@ -192,12 +161,6 @@
 		var examEndMinutesRound = Math.floor(eMinutes);
 		var eSeconds = (examEndTime-nowTime)/1000-(24*60*60*examEndDaysRound)-(60*60*examEndHoursRound)-(60*examEndMinutesRound);
 		var examEndSecondsRound = Math.round(eSeconds);
-		console.log("테스트:"+examStartSecondsRound);
-		console.log("테스트:"+examEndSecondsRound);
-		console.log("테스트:"+eSeconds);
-		console.log(typeof(examEndDaysRound));
-		console.log("examEndDaysRound : "+examEndDaysRound);
-		console.log("examStartDaysRound : "+examStartDaysRound);
 		
 		if(examStartDaysRound >= 0){
 			$('#daysRound').html("시험 시작까지 "+examStartDaysRound+"일");

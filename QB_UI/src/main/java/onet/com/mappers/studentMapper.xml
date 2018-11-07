@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and member_id = #{param1}
 				and exam_info_num = #{param2}
 			)
-			and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2})) 
+			and exam_paper_num = (select exam_paper_num from exam_info where exam_info_num = #{param2}))
 	where member_id = #{param1}
 	and exam_info_num = #{param2};
 </update>
@@ -120,17 +120,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="searchPastExam" parameterType="String" resultType="onet.com.vo.ExamInfoDto">
 	select * from exam_info
 	where exam_info_num in (select distinct exam_info_num from student_answer where member_id=#{param1})
+	order by exam_info_num desc
 </select>
 
-<select id="searchStudentName" parameterType="String" resultType="String">
-	select member_name from member
-	where member_id = #{param1}
+<select id="searchStudentName" parameterType="String" resultType="onet.com.vo.Score_chartDto">
+	select m.member_name, sc.exam_info_num, sc.score_chart_comment
+	from member m join score_chart sc
+	on m.member_id=sc.member_id
+	where m.member_id = #{param1}
+	order by sc.exam_info_num desc
 </select>
 
+<!-- 양회준 11.5 수정 -->
 <select id="searchPastExamKeyword" resultType="onet.com.vo.ExamInfoDto">
-	select * from exam_info
+	<!-- select * from exam_info
 	where (exam_info_num in (select distinct exam_info_num from student_answer where member_id=#{param1}))
 	and (exam_info_name like concat('%', #{param2}, '%') || exam_info_desc like concat('%', #{param2}, '%'))
+	order by exam_info_num desc -->
+	select ei.exam_info_num, ei.exam_paper_num, ei.class_name, ei.exam_info_name, ei.exam_info_desc, ei.exam_info_member,
+	ei.exam_info_date, ei.exam_info_start, ei.exam_info_end, ei.exam_info_time, sc.score_chart_comment
+	from member m join exam_info ei join score_chart sc
+	on m.member_id=sc.member_id and ei.exam_info_num=sc.exam_info_num
+	where m.member_id=#{param1}
+	and (ei.exam_info_name like concat('%', #{param2}, '%') || ei.exam_info_desc like concat('%', #{param2}, '%'))
+	order by ei.exam_info_num desc
 </select>	
 <!-- 10.23 현이 학생 지난 시험 보기 끝 -->
 
