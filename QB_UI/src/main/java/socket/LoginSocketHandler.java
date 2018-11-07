@@ -63,7 +63,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
       System.out.println("핸들러로 넘어간값>>"+message.getPayload());
       
       String data=message.getPayload();
-      
+      System.out.println("_________________________" + data);
       
       if(data.contains(",")) {
          String[] data2 = data.split(",");

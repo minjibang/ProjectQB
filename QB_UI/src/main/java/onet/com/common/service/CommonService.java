@@ -491,11 +491,7 @@ public class CommonService {
 			return result;
 		}
 	   
-	   public int replyMessage(MessageDto dto) {
-			CommonDao dao = sqlsession.getMapper(CommonDao.class);
-			int result = dao.replyMessage(dto);
-			return result;
-		}
+	
 	    
 	//민지10.31메시지 체크
 	public int message_check(int message_check, int message_num) {

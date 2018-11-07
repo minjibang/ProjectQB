@@ -226,14 +226,14 @@ public class TestManageController {
 
 	// 시험지 일정리스트 뿌려주기
 	@RequestMapping("examinfolistClass.do")
-	public @ResponseBody ModelAndView examinfolistClass(@RequestParam("searchType2") String searchType2,
-			@RequestParam("keyword") String keyword, @RequestParam("begin") int begin, Principal principal) {
-
+	public @ResponseBody ModelAndView examinfolistClass(@RequestParam("searchType2") String searchType2, @RequestParam("keyword") String keyword,
+			@RequestParam("begin") int begin, @RequestParam("date_from") String date_from, @RequestParam("date_to") String date_to,
+			Principal principal){
+		
 		String member_id = principal.getName();
 		List<ExamInfoDto> classList = null;
 
-		classList = teacherService.examinfoSearch(searchType2, keyword, begin, member_id);
-
+		classList = teacherService.examinfoSearch(searchType2, keyword, begin, member_id, date_from, date_to);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
 		mv.addObject("classList", classList);
@@ -494,13 +494,12 @@ public class TestManageController {
 
 		List<ExamPaperDto> myTempExamList = null;
 		String member_id = principal.getName();
-		if (searchType.equals("all")) {
-			myTempExamList = teacherService.myTempExamList(member_id, begin);
-
-			// null일때 처리
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		}
-
+		
+		if(searchType.equals("all")) {
+			myTempExamList = teacherService.myTempExamList(member_id,begin);
+		
+		} 
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.teacher.examManagement_Imsi_teacher_ajax");
 		mv.addObject("myTempExamList", myTempExamList);

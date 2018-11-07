@@ -28,8 +28,8 @@
 
 						<div class="col-lg-5 examImgDiv">
 							<img id="examImg"
-								src="${pageContext.request.contextPath}/img/friends/fr-02.jpg">
-							<h3>${dto.exam_info_name}</h3>
+								src="${pageContext.request.contextPath}/img/oneT_Design/exam_paper.png">
+							<h3 id="examInfoName">${dto.exam_info_name}</h3>
 							<br> <br> <br>
 						</div>
 						<div class="col-lg-7">
