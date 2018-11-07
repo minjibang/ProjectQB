@@ -504,6 +504,19 @@ public class CommonService {
 		return result;
 	}
 	
+	public String nameSearch(String sendManId) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String result = dao.nameSearch(sendManId);
+		      
+		return result;
+	}
+	
+	public String nameSearch2(String receiveManId) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String result = dao.nameSearch2(receiveManId);
+		      
+		return result;
+	}
 	
 	
 	

@@ -40,15 +40,7 @@
 </header>
 <script>
 $(document).ready(function(){
-	$('#noticeWrite_btn').click(function(){
-		var class_name2 = $('#noticeWrite_btn').val();
-		location.href="noticeWrite.do?class_name=" + class_name2;
-	});
-	$('#noticeWrite_btnAdmin').click(function(){
-		var adminClass_name = $('#noticeWrite_btnAdmin').val();
-		location.href="noticeWrite.do?class_name=" + adminClass_name;
-	});
-});
+
 	$.ajax({
 		url:"../common/memberCheck.do",
 		type:"get",
@@ -59,6 +51,8 @@ $(document).ready(function(){
 		error:function(xml){
 		}
 	});
+});
+
 </script>
 
 

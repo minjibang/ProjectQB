@@ -309,7 +309,9 @@ select * from member where class_name=(select class_name from member where membe
 
 <!-- 쪽지 리스트 -->
 <select id="receiveMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
-   select * from message where receive_member_id=#{member_id} and receive_check=0
+   select ms.message_num, ms.send_member_id, ms.receive_member_id, ms.message_content, ms.message_date, 
+   ms.message_check, ms.send_check, ms.receive_check, m.member_name from message ms inner join member m on 
+   ms.receive_member_id = m.member_id where receive_member_id=#{member_id} and receive_check=0
 </select>
 
 <select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
@@ -352,4 +354,13 @@ select * from member where class_name=(select class_name from member where membe
 <delete id="messageRealDelete" parameterType="int">
 	delete from message where message_num=#{message_num}
 </delete>
+
+<select id="nameSearch" parameterType="String" resultType="String">
+	select member_name from member where member_id=#{sendManId}
+</select>
+
+<select id="nameSearch2" parameterType="String" resultType="String">
+	select member_name from member where member_id=#{receiveManId}
+</select>
+
 </mapper>

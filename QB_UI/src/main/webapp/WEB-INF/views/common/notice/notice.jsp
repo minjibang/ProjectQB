@@ -128,9 +128,6 @@
 		location.href="noticeWrite.do?class_name=" + adminClass_name;
 	});
 	
-	
-
-
 </script>
 
  

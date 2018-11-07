@@ -85,8 +85,8 @@
                <div class="mail-sender">
                   <div class="row">
                      <div class="col-md-8">
-                        <img src="img/ui-zac.jpg" alt=""> <strong
-                           class="messageReceive"></strong><span class="to"> To </span> <strong>Me</strong>
+                        <img src="img/ui-zac.jpg" alt=""> <input type="hidden"
+                           class="messageReceive"><strong class="receiverName"></strong><span class="to"> To </span> <strong>Me</strong>
                      </div>
 
                      <div class="col-md-4">
@@ -175,7 +175,7 @@
                         <img src="img/ui-zac.jpg" alt="">
                         <span class="to">To&nbsp;&nbsp;</span><strong class="receiver"></strong>
                      </div>
-   
+   						<!-- <input type="hidden" class="receiver"> -->
                   </div>
                </div>
                <div class="view-mail">
@@ -236,10 +236,10 @@
                                           <tbody>
                                              <c:forEach items="${receiveMessage}" var="receiveMessage">
 
-                                                <tr class="${receiveMessage.message_num}" >
+                                                <tr class="${receiveMessage.message_num}" id="${receiveMessage.send_member_id}">
                                                    <td class="inbox-small-cells"><input name="chk2"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${receiveMessage.message_num}"></td>
-                                                   <td class="view-message " id="${receiveMessage.message_content}">${receiveMessage.send_member_id}</td>
+                                                   <td class="view-message " id="${receiveMessage.message_content}">${receiveMessage.member_name}</td>
                                                    <td class="view-message receiveBtn message_content_row " data-toggle="modal" 
                                                       data-target="#MessageModal1" id="${receiveMessage.message_num}" >${receiveMessage.message_content}
                                                    </td>
@@ -306,14 +306,14 @@
                                           </thead>
                                           <tbody>
                                              <c:forEach items="${sendMessage}" var="sendMessage">
-                                                <tr>
+                                                <tr id="${sendMessage.receive_member_id}">
                                                    <td class="inbox-small-cells"><input name="chk3"
                                                       type="checkbox" class="mail-checkbox" style="margin-left:30px;" value="${sendMessage.message_num}"></td>
                                                    <td class="view-message" id="${sendMessage.message_content}"><a href="mail_view.html">나</a></td>
                                                    <td class="view-message sendBtn subject" data-toggle="modal"
                                                       data-target="#MessageModal2" id="${sendMessage.message_num}">
                                                       ${sendMessage.message_content}</td>
-                                                   <td class="view-message  inbox-small-cells">${sendMessage.receive_member_id}</td>
+                                                   <td class="view-message  inbox-small-cells">${sendMessage.member_name}</td>
                                                    <td class="view-message  text-right">${sendMessage.message_date}</td>
                                                 </tr>
                                              </c:forEach>
@@ -452,10 +452,12 @@ $(document).ready(function(){
 
    $(document).on('click','.receiveBtn',function(){
        var text = $(this).prev().attr('id');   
-       var sendMan = $(this).prev().text();
+       var sendManId = $(this).parent().attr('id');
        var date = $(this).parent().children().eq(4).text();
+       var sendManName = $(this).prev().text();
        
-         $('.messageReceive').html(""+sendMan+"");
+         $('.messageReceive').val(sendManId);
+         $('.receiverName').html(sendManName);
          $('.date').html(""+date+"");
          $('.messageText').html(""+text+"")
    });
@@ -546,7 +548,6 @@ function check_t(){
           var message_content=$('#message_content').val();
           var receive_member_id=$('#teacher_id').val();
           
-          
           var data=new Array();
           data[0]=username;
           data[1]=message_content;
@@ -590,11 +591,6 @@ function check_t(){
       });
       
    });
-   
-   
-   
-   
-   
    
    $('.sendMessageDelete').click(function(){
       
@@ -670,7 +666,7 @@ function check_t(){
    });
    
    $('.messageBtn').click(function(){
-     var text = $('.messageReceive').text();
+     var text = $('.messageReceive').val();
      $('#MessageModal').modal('hide');
      $('.MessageReplyModal').val(text);
      $('#MessageReplyModal').modal();
