@@ -341,10 +341,6 @@ select * from member where class_name=(select class_name from member where membe
 	update message set send_check=1 where message_num=#{message_num}
 </update>
 
-<insert id="replyMessage" parameterType="onet.com.vo.MessageDto">
-	insert into message(send_member_id, receive_member_id, message_content) values(#{send_member_id}, #{receive_member_id}, #{message_content})
-</insert>
-
 <update id="message_check" parameterType="int">
 	 update message set message_check=#{message_check} where message_num=#{message_num}
 </update>
