@@ -62,7 +62,8 @@
 									</h3>
 									<hr>
 									<select id="question_lg_category" class="form-control myQuestionSelectCategory"
-										name="lg_category_name">
+										name="lg_category_name" data-toggle="tooltip" data-placement="top"
+										title="대분류 선택 시 해당 대분류에 속하는 중분류를 선택할 수 있습니다.">
 										<option value="" selected disabled>대분류 선택</option>
 										<c:forEach items="${lgCatList}" var="lgCatList">
 											<option value="${lgCatList.lg_category_code}">${lgCatList.lg_category_name}</option>
@@ -70,16 +71,20 @@
 									</select>
 									
 									<select id="question_md_category" class="form-control myQuestionSelectCategory"
-										name="md_category_name">
+										name="md_category_name" data-toggle="tooltip" data-placement="top"
+										title="대분류를 먼저 선택해 주세요. ">
 										<option value="">중분류 선택</option>
 									</select>
 									
 									<select id="question_sm_category" class="form-control myQuestionSelectCategory"
-										name="sm_category_name">
+										name="sm_category_name" data-toggle="tooltip" data-placement="top"
+										title="중분류를 먼저 선택해 주세요. ">
 										<option value="">소분류 선택</option>
 									</select>
 									
-									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type">
+									<select class="form-control myQuestionSelectCategory" name="level_code" id="level_type"
+									data-toggle="tooltip" data-placement="top"
+										title="난이도를 선택해주세요. ">
 										<option value="">난이도</option>
 										<c:forEach items="${quesLevelList}" var="quesLevelList">
 											<option value="${quesLevelList.level_code}">${quesLevelList.level_name}</option>
@@ -87,7 +92,9 @@
 									</select> 
 									
 									<select class="form-control myQuestionSelectCategory" 
-									id="questiontype" name="questionType">
+									id="questiontype" name="questionType"
+									data-toggle="tooltip" data-placement="top"
+										title="문제타입을 선택해주세요. ">
 										<option value="">문제타입</option>
 										<option value="">전체</option>
 										<option value="객관식">객관식</option>

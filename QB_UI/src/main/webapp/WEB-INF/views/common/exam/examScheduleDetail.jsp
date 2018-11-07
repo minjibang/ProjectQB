@@ -28,8 +28,8 @@
 
 						<div class="col-lg-5 examImgDiv">
 							<img id="examImg"
-								src="${pageContext.request.contextPath}/img/friends/fr-02.jpg">
-							<h3>${dto.exam_info_name}</h3>
+								src="${pageContext.request.contextPath}/img/oneT_Design/exam_paper.png">
+							<h3 id="examInfoName">${dto.exam_info_name}</h3>
 							<br> <br> <br>
 						</div>
 						<div class="col-lg-7">
@@ -112,7 +112,7 @@
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
 				
 				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-				var popOption = "width='1920px', height=1080px'";
+				var popOption = "width='100%', height='100%'";
 				
 				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
 				window.open(popUrl, "지난 시험보기", popOption);

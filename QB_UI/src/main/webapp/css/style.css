@@ -495,6 +495,7 @@ ul.sidebar-menu li a.active i {
 	/* max-width:1280px; */
 	min-height: 45px;
 	padding: 0 320px;
+	/* padding: 0 220px;  */     /* 확대시연용 패딩.브라우저상에서 110%로 확대했을경우 사용.*/
 	
 }
 
