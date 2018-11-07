@@ -13,7 +13,7 @@
 									<a class="fancybox" href="adminClassMain.do?class_num=${classlist.class_num}&class_name=${classlist.class_name}">
 										<!-- <h1>JAVA</h1> -->
 										<div class="row classDiv">
-											<i class="fa fa-desktop"></i>
+											<img src="${pageContext.request.contextPath}/img/oneT_Design/classroom.png" alt="QB_classroom" class="QB_classroom" /></a>
 											<div class="classDivOverFlow">
 												${classlist.class_name}
 											</div>
@@ -31,7 +31,7 @@
 													<input type="hidden" name="teacher_name" value="${classlist.teacher_name}"/>
 													<input type="hidden" name="class_start_date" value="${classlist.class_start_date}"/>
 													<input type="hidden" name="class_end_date" value="${classlist.class_end_date}"/>
-													<button type="button" class="btn btn-primary btn-xs updateClass" data-toggle="modal" data-target="#classupdate"><i class="fa fa-pencil btnIcon"></i></button>
+													<button type="button" class="btn btn-theme btn-xs updateClass" data-toggle="modal" data-target="#classupdate"><i class="fa fa-pencil btnIcon"></i></button>
 													<button type="button" class="btn btn-danger btn-xs deleteClass" data-toggle="modal" data-target="#classDelete"><i class="fa fa-trash-o btnIcon"></i></button>
 													<i class="fa fa-users classUsersIcon"></i> ${classlist.class_student_count}명
 												</p>
