@@ -64,32 +64,14 @@ public class MainPageController {
 		return map;
 	}
 	
-	// ajax로 클래스 목록 가져오기  
-	//@RequestMapping(value="adminMainView.do")
-/*	public @ResponseBody ModelAndView adminMainView(int begin) {
-		
-		System.out.println("begin : " + begin);
-		List<ClassDto> classList = adminMainPageService.adminMainView(begin);
-		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.admin.adminMain_ajax");
-		mv.addObject("classList", classList);
-	
-		return mv;
-	}*/
-	
-	// ajax로 검색한 클래스 목록 가져오기 
+	// ajax 클래스 목록 가져오기 
 	@RequestMapping(value="adminMainView.do")
 	public @ResponseBody ModelAndView classSearch(@RequestParam("searchType") String searchType, @RequestParam("keyword") String keyword,
 			@RequestParam("begin") int begin){
 		
 		List<ClassDto> classList = null;
 		
-		if(searchType.equals("all")) {
-			classList = adminMainPageService.adminMainView(begin);
-		} else if(searchType.equals("n") || searchType.equals("t")){
-			classList = adminMainPageService.classSearch(searchType, keyword, begin);
-		}
+		classList = adminMainPageService.adminMainView(searchType, keyword, begin);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.adminMain_ajax");

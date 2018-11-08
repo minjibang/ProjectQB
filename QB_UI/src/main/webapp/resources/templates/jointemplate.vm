@@ -91,22 +91,22 @@ img {
 
 <body width="100%" bgcolor="#ffffff" style="margin: 0; mso-line-height-rule: exactly; background-color: #ffffff; ">
 
-<table style="background-color: #585858; width:60%; height: 400px; padding:30px; color: aliceblue">
+<table style="background-color: #889093; width:60%; height: 400px; padding:30px; color: #eee">
     <tr>
         <td style="width:50%; margin:10px; font-size: 17px; font-family: 'Book Antiqua', sans-serif;">
-            <h1 style="color: aliceblue; text-align:center;">이메일 인증</h1><br>
+            <h1 style="text-align:center;">이메일 인증</h1><br>
             안녕하세요 <b>${firstName}</b>님,<br>저희 <b>${company}</b>를 이용해 주셔서<br> 진심으로 감사합니다.<br><br>
-            <b style="color:aqua">'인증 번호'</b>를 입력하신 후 진행해주세요<br>
+            <b style="color:#063f54">'인증 번호'</b>를 입력하신 후 진행해주세요<br>
             앞으로 더욱 발전하는 <b>${company}</b>가 되도록 하겠습니다.<br>
             감사합니다.<br><br>
 
         </td>
         <td style="margin:10px; background-image: url('https://cdn.pixabay.com/photo/2017/10/24/01/54/mail-2883236_1280.png');background-size: 100% 100%;">
             <div style="font-size: 58px; height:43%; text-align: center;">
-                    <span style="margin: 10px 0;font-family: 'Impact', sans-serif;">QB</span><span style="margin: 10px 0; color:aqua;font-family: 'Impact', sans-serif;">QB</span><br />
+                    <span style="margin: 10px 0;font-family: 'Impact', sans-serif;">QB</span><span style="margin: 10px 0; color:#063f54;font-family: 'Impact', sans-serif;">QB</span><br />
             </div>
             <div style="margin:auto; padding:10px; width:60%; text-align: center; border-top:2px solid black; border-bottom: 2px solid black; font-size:16px;font-family: 'Book Antiqua', sans-serif;">
-                인증번호 : <b style="color:aqua; font-size: 20px;">${randomNum}</b>
+                인증번호 : <b style="color:#063f54; font-size: 20px;">${randomNum}</b>
             </div>
 
         </td>

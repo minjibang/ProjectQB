@@ -83,9 +83,8 @@
 </head>
 <body>
 	<!-- 로딩 이미지 -->
-	<div class="loadingDiv loadingDisplay">
-		<img src="${pageContext.request.contextPath}/img/loading2.gif"
-			alt="loadingImage" class="loadingImg">
+	<div class="loadingDiv loadingDisplay"> 
+		<img src="${pageContext.request.contextPath}/img/loading6.gif" alt="loadingImage" class="loadingImg"> 
 	</div>
 	<section id="container"> <!-- 헤더 부분 --> <tiles:insertAttribute
 		name="header" /> <!-- 사이드바 부분 --> <tiles:insertAttribute
@@ -264,7 +263,7 @@
 				lang : 'ko-KR' // 한국어 지정(기본값은 en-US)
 			});
 			
-			$(this).ajaxStart(function() {
+			$(this).ajaxStart(function() {  // ajax 실행 시 로딩 이미지를 보여줌
 				$('.loadingDisplay').show();
 			});
 			$(this).ajaxStop(function() {
