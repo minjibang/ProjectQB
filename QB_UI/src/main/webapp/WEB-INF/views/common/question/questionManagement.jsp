@@ -112,7 +112,7 @@
 										class="form-control myQuestionTextField pull-right"
 										id="keyword" placeholder="키워드를 입력하세요.">
 									
-									<a id="searchHelp" style="cursoer:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
+									<a id="searchHelp" style="cursor:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
 																		
 									</div><!-- col-lg-12 -->
 								</div><!-- row -->
