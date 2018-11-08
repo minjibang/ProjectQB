@@ -404,6 +404,10 @@ public class CommonService {
 	   public List<MessageDto> receiveMessage(String member_id){
 		   CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		   List<MessageDto> result = dao.receiveMessage(member_id);
+		   String sendManId = result.get(0).getSend_member_id();
+		   for(int i=0; i<result.size(); i++) {
+			   result.get(i).setMember_name(dao.nameSearch(sendManId));
+		   }
 		   return result;
 	   }
 

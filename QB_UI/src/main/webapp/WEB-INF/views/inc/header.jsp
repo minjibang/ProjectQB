@@ -30,6 +30,7 @@
     <div class="top-menu">
         <ul class="nav pull-right top-menu">
             <!-- 정원 -->
+
 					<div class="nav notify-row" id="top_menu">
 						<ul class="nav top-menu">
 							<li><span id="className"></span> <span id="memberName"></span><span>(${pageContext.request.userPrincipal.name})</span>
