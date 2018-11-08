@@ -6,6 +6,7 @@
  */
 
 $(document).ready(function(){
+	
 	//영준 - 관리자 회원관리 DataTable
 	//양회준 10.31-관리자 회원관리 DataTable 수정
 	var memberTable=$('#adminMemberTable').DataTable( {
@@ -65,6 +66,7 @@ $(document).ready(function(){
         	'colvis'
         ]
     } );
+		
 	//양회준 10.31 DataTable 검색 구현
 	//권한 검색
 	$("#searchRole").on("change", function(){
@@ -422,4 +424,8 @@ $(function(){
 			});
 		}		
 	});
+	$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+    } );
+
 })

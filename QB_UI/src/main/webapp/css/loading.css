@@ -6,7 +6,7 @@
     height: 100%;
     width: 100%;
     text-align: center;
-    padding: 22% 18% 18% 28%;
+    padding: 22% 17.5% 18% 28%;
     opacity: 0.8;
     z-index: 99999999;
 }
@@ -15,7 +15,7 @@
 	/* position: absolute;
 	left: 50%;
 	top: 50%; */
-	width: 120px;
+	width: 130px;
 }
 
 .loadingDisplay {

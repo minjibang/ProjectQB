@@ -186,9 +186,10 @@
 																시험 시간 : ${studentExamScoreInfo.exam_info_start}~${studentExamScoreInfo.exam_info_end }</p>
 																<p>(${studentExamScoreInfo.exam_info_time })</p></td>
 															<td class="view-message inbox-small-cells">
-																<button type="button" id="pastExamBtn"class="btn btn-info mt pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
-																<button type="button" id="ExamCommentBtn"class="btn btn-info mt ExamCommentBtn" value="">평가등록</button>
-
+																<button type="button" id="pastExamBtn"class="btn btn-theme mt pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
+																
+																<button type="button" id="ExamCommentBtn"class="btn btn-theme mt ExamCommentBtn" value="">평가등록</button>
+																
 															</td>
 														</tr>
 														</c:forEach>
@@ -313,16 +314,14 @@
 																	<td>${tablelist.member_name}</td>
 																	<c:forEach items="${classChart}" var="subjectScore" varStatus="chk">
 																	<td>
-																	<c:set var="score" value="0"/>
+																	<c:set var="score" value="-1"/>
 																		<c:forEach items="${tablelist.score_list}" var="inner" varStatus="innerchk">																		
 																		<c:if test="${classChart[chk.index].exam_info_name eq inner.key}">																			
 																			${inner.value}
 																			<c:set var="score" value="${inner.value}"/>
 																		</c:if>
 																		</c:forEach>
-																	<c:if test="${score==0}">
-																	미응시대상
-																	</c:if>	
+																	<c:if test="${score==-1}">미응시대상</c:if>	
 																	</td>
 																	</c:forEach>
 																	<td>${tablelist.avg_score}</td>
@@ -400,8 +399,7 @@ $(document).ready(function(){
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
 		chartStudentLabels.push("${studentChart.exam_info_name}");
-		chartClassStudentDatas.push("${studentChart.class_chart_avg}");
-		
+		chartClassStudentDatas.push("${studentChart.class_chart_avg}");		
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
 		chartLabels.push("${classChart.exam_info_name}");
@@ -454,14 +452,13 @@ $(document).ready(function(){
 					studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-info mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
-					studentExamScoreSrc += '<button type="button" id="ExamCommentBtn" class="btn btn-info mt ExamCommentBtn" value="">평가등록</button></td></tr>';
+					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-theme mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
+					studentExamScoreSrc += "<button type='button' id='ExamCommentBtn' class='btn btn-theme mt ExamCommentBtn' value=''>평가등록</button></td></tr>";
 				});
 				$("#studentExamTable").append(studentExamScoreSrc);	
 				$(".testIcon").each(function(){
 					var testIcon = $(this);	
-					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
-					console.log(testIcon);
+					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;					
 					for(var i=0;i<10;i++){
 						switch(code){
 							case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
@@ -696,14 +693,14 @@ $(document).ready(function(){
 				studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-				studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-info mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
-				studentExamScoreSrc += '<button type="button" id="ExamCommentBtn" class="btn btn-info mt ExamCommentBtn" value="">평가등록</button></td></tr>';
+				studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-theme mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
+				studentExamScoreSrc += "<button type='button' id='ExamCommentBtn' class='btn btn-theme mt ExamCommentBtn' value=''>평가등록</button></td></tr>";
 
 			}
 		});
 		$(".testIcon").each(function(){
 			var testIcon = $(this);	
-			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;
 			console.log(testIcon);
 			for(var i=0;i<10;i++){
 				switch(code){

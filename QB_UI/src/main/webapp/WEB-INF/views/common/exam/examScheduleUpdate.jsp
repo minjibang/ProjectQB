@@ -185,20 +185,16 @@
 function check(){
    
    /*체크박스 값 설정*/
-
    var memberarray = new Array();
    $("input:checkbox[name=chk]:checked").each(function(){
       memberarray.push($(this).val());
-   });
-    console.log("memberarray>>"+memberarray+"<<");
-    
+   });    
     document.getElementById("memberarray2").setAttribute('value',memberarray);
-    console.log("memberarray2>>"+$('#memberarray2').val()+"<<");
     
    /*체크박스 값 설정 끝*/
    
    var date2 = $('#exam_info_date').val();
-   console.log("date값>>"+date2);
+
    var timeinfodiv = document.getElementById("timeinfo");
    
    var datecheck = false;
@@ -217,8 +213,9 @@ function check(){
 	var date = new Date(); 
 	var year = date.getFullYear(); 
 	var month = new String(date.getMonth()+1); 
-	var day = new String(date.getDate()); 
-
+	var day = new String(date.getDate());
+	var todaydate=year+"-"+month+"-"+day;
+	
 	// 한자리수일 경우 0을 채워준다. 
 	if(month.length == 1){ 
 	  month = "0" + month; 
@@ -226,7 +223,6 @@ function check(){
 	if(day.length == 1){ 
 	  day = "0" + day; 
 	} 
-
 
    if(start_hour > end_hour){
       timeinfodiv.innerHTML = "시간설정을 다시 해주세요.";

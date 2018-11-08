@@ -115,12 +115,16 @@ $(document).ready(function(){
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
+	var chartClassStudentDatas = new Array();
 	var chartLabels = new Array();
+	var chartStudentLabels = new Array();
 	var chartMyRank = new Array();
 	
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
+		chartStudentLabels.push("${studentChart.exam_info_name}");
+		chartClassStudentDatas.push("${studentChart.class_chart_avg}");		
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
 		chartClassDatas.push("${classChart.class_chart_avg}");
@@ -128,9 +132,9 @@ $(document).ready(function(){
 	</c:forEach>
 	
 	<c:forEach items="${studentChart}" var="studentChart">
-	chartMyRank.push("${studentChart.member_id}");
-	chartMyRank.push("${studentChart.exam_info_num}");
-	chartMyRank.push("${studentChart.score_chart_rank}");
+		chartMyRank.push("${studentChart.member_id}");
+		chartMyRank.push("${studentChart.exam_info_num}");
+		chartMyRank.push("${studentChart.score_chart_rank}");
 	</c:forEach>
 	
 	console.log("chartStudentDatas:" + chartStudentDatas);
@@ -220,11 +224,9 @@ $(document).ready(function(){
 		//반/학생 평균 선 차트 시작
 		var ctx = document.getElementById('line1').getContext('2d');
 		var chart = new Chart(ctx, {
-		  // The type of chart we want to create
 		  type: 'line',
-		  // The data for our dataset
 		  data: {
-		      labels: chartLabels,
+		      labels: chartStudentLabels,
 		      datasets: [
 		        {
 		          label: "내 성적",
@@ -232,7 +234,7 @@ $(document).ready(function(){
 		          borderColor: 'rgb(255, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
-		          data: chartStudentDatas,
+		          data: chartClassStudentDatas,
 		      },
 		      {
 		          label: "반 평균 성적",
@@ -240,7 +242,7 @@ $(document).ready(function(){
 		          borderColor: 'rgb(122, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
-		          data: chartClassDatas,
+		          data: chartStudentDatas,
 		        }
 		      ]
 		    },

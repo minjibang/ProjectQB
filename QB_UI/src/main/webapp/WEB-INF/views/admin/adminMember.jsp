@@ -245,7 +245,7 @@
 										<table id="adminMemberTable" class="display">
 											<thead>
 												<tr>
-													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;&nbsp;전체 선택</th>
+													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;전체선택</th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>
