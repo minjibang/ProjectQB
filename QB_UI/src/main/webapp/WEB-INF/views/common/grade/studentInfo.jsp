@@ -224,11 +224,12 @@
 											<%-- 반평균 막대 차트 --%>
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
-													<h4>
-														<i class="fa fa-angle-right"></i> 각 시험 평균
+													<h4 id="classChartName">
+														<i class="fa fa-angle-right"></i> 각 시험 평균+표준편차
 													</h4>
 													<div class="btn-group pull-right">
 														<select id="selectChart" class="form-control selectChart" name="selectChart">
+															<option value="classAvgStd">각 시험 평균+표준편차</option>
 															<option value="classAvg">각 시험 평균</option>															
 															<option value="classStd">각 시험 표준편차</option>		
 															
@@ -243,7 +244,7 @@
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
 													<h4>
-														<i class="fa fa-angle-right"></i> 반 등수
+														<i class="fa fa-angle-right"></i> 시험별 반 등수
 													</h4>
 													<div class="btn-group pull-right">
 														<select id="searchExam" class="form-control searchControl"
@@ -885,7 +886,7 @@ $(document).ready(function(){
 	//클래스 통계화면 첫 차트 시작
 		var stdDatas = new Array();
 		<c:forEach items="${std}" var="std">
-			stdDatas.push(${std});
+			stdDatas.push(Math.round(${std}*100)/100);
 		</c:forEach>
 		
 		var classChart = document.getElementById('bar2').getContext('2d');
@@ -963,23 +964,198 @@ $(document).ready(function(){
 		});
 	});
 	// 각 시험 차트 선택
+	
 	$("#selectChart").change(function() {
 		$("#selectChart option:selected").each(function () {
 			var examchart=$("#selectChart option:selected").val();
-			
+			var title=$("#classChartName");
 			if(examchart=="classAvg"){
-				console.log(stdDatas);
-				myBarChart.clear();
-				var myNewChart = new Chart(classChart, { type: 'line', data: [{
-					label: "각 시험 표준편차",
-					backgroundColor: 'rgb(169, 99, 132)',
-					borderColor: 'rgb(169, 99, 132)',
-					data: stdDatas
-				}], options: {} });
+				title.html("<i class='fa fa-angle-right'></i> 각 시험 평균");
+				myBarChart.destroy();
+				var classChart = document.getElementById('bar2').getContext('2d');
+				var myNewChart = new Chart(classChart, 
+						{ type: 'bar',
+							data: {
+								labels: chartLabels,
+								datasets: [
+									{
+										label: "각 시험 평균",
+										backgroundColor: 'rgb(255, 99, 132)',
+										borderColor: 'rgb(255, 99, 132)',
+										data: chartClassDatas
+									}
+								]
+							},
+							options:{
+								layout: {
+									padding: {
+										left: 10,
+										right: 10,
+										top: 10,
+										bottom: 30
+									}
+								},
+								scales: {
+							    	 xAxes: [{
+							    	     ticks: {
+							    	       callback: function(value) {
+							    	         if (value.length > 4) {
+							    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+							    	        	} else {
+							    	           	return value
+							    	        	}
+							    	        },
+							    	      }
+							    	    }]/* ,
+									yAxes: [{
+										ticks: {
+											max: 100,
+											min: 0,
+											stepSize: 20
+										}
+									}] */
+								},
+							       tooltips: {
+							    	    enabled: true,
+							    	    mode: 'label',
+							    	    callbacks: {
+							    	      title: function(tooltipItems, data) {
+							    	        var idx = tooltipItems[0].index;
+							    	        return data.labels[idx];
+							    	      }
+							    	    }
+							    	  }			
+							}});
+			}else if(examchart=="classStd"){
+				title.html("<i class='fa fa-angle-right'></i> 각 시험 표준편차");
+				myBarChart.destroy();
+				var classChart = document.getElementById('bar2').getContext('2d');
+				var myNewChart = new Chart(classChart, { 
+					type: 'line', 
+					data: {
+						labels: chartLabels,
+						datasets: [
+							{
+								label: "각 시험 표준편차",
+								backgroundColor: 'rgb(169, 99, 132)',
+								borderColor: 'rgb(169, 99, 132)',
+								data: stdDatas,
+								fill:false,
+								lineTension:0
+							}						
+						]
+					},
+					options:{
+						layout: {
+							padding: {
+								left: 10,
+								right: 10,
+								top: 10,
+								bottom: 30
+							}
+						},
+						scales: {
+					    	 xAxes: [{
+					    	     ticks: {
+					    	       callback: function(value) {
+					    	         if (value.length > 4) {
+					    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+					    	        	} else {
+					    	           	return value
+					    	        	}
+					    	        },
+					    	      }
+					    	    }]/* ,
+							yAxes: [{
+								ticks: {
+									max: 100,
+									min: 0,
+									stepSize: 20
+								}
+							}] */
+						},
+					       tooltips: {
+					    	    enabled: true,
+					    	    mode: 'label',
+					    	    callbacks: {
+					    	      title: function(tooltipItems, data) {
+					    	        var idx = tooltipItems[0].index;
+					    	        return data.labels[idx];
+					    	      }
+					    	    }
+					    	  }			
+					}
+				
+				
+				});
 			}else{
-				console.log(chartClassDatas);
-				myBarChart.clear();
-				var myNewChart = new Chart(classChart, { type: 'bar', data: chartClassDatas, options: {} });
+				title.html("<i class='fa fa-angle-right'></i> 각 시험 평균+표준편차");
+				myBarChart.destroy();
+				var classChart = document.getElementById('bar2').getContext('2d');
+				var myNewChart = new Chart(classChart, {
+					type: 'bar',
+					data: {
+						labels: chartLabels,
+						datasets: [
+							{
+								label: "각 시험 표준편차",
+								backgroundColor: 'rgb(169, 99, 132)',
+								borderColor: 'rgb(169, 99, 132)',
+								data: stdDatas,
+								fill:false,
+								lineTension:0,
+								type:'line'
+							},
+							{
+								label: "각 시험 평균",
+								backgroundColor: 'rgb(255, 99, 132)',
+								borderColor: 'rgb(255, 99, 132)',
+								data: chartClassDatas
+							}
+						
+						]
+					},
+					options:{
+						layout: {
+							padding: {
+								left: 10,
+								right: 10,
+								top: 10,
+								bottom: 30
+							}
+						},
+						scales: {
+					    	 xAxes: [{
+					    	     ticks: {
+					    	       callback: function(value) {
+					    	         if (value.length > 4) {
+					    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+					    	        	} else {
+					    	           	return value
+					    	        	}
+					    	        },
+					    	      }
+					    	    }],
+							yAxes: [{
+								ticks: {
+									max: 100,
+									min: 0,
+									stepSize: 20
+								}
+							}]
+						},
+					       tooltips: {
+					    	    enabled: true,
+					    	    mode: 'label',
+					    	    callbacks: {
+					    	      title: function(tooltipItems, data) {
+					    	        var idx = tooltipItems[0].index;
+					    	        return data.labels[idx];
+					    	      }
+					    	    }
+					    	  }			
+					}
+				});
 			}
 		});
 	});
@@ -1005,7 +1181,7 @@ $(document).ready(function(){
 			success:function(data){
 				var ctx = document.getElementById('line2').getContext('2d');
 				var myBarChart = new Chart(ctx, {
-				    type: 'line',
+				    type: 'bar',
 				    
 				    data: {
 				      labels: ["0~10", "11~20", "21~30", "31~40", "41~50", "51~60", 
@@ -1013,10 +1189,10 @@ $(document).ready(function(){
 				      datasets: [
 				        {
 				          label: className,
-				          backgroundColor: 'rgb(196, 128, 96)',
+				          backgroundColor: 'rgb(255, 99, 132)',
 				          borderColor: 'rgb(255, 99, 132)',
-				          lineTension: 0 ,
-				          fill : false,
+				          //lineTension: 0 ,
+				          //fill : false,
 				          data: data,
 				        }
 				      ]
