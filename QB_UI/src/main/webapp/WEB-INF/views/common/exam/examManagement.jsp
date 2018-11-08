@@ -248,6 +248,8 @@ var role = "${role}";
 
 $(document).ready(function(){
 	
+	$('#keyword').focus();
+	
 	$('input[name="datefilter"]').daterangepicker({
 	      autoUpdateInput: false,
 	      locale: {
