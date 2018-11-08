@@ -127,11 +127,7 @@
 							<!-- 임시 저장된 시험지 tab 시작-->
 							<div id="tempExamPaper" class="tab-pane">
 								<div class="row">
-									<div id="div_tempExam" class="col-md-12">
-										<a href="examPaperMake.do" class="examPaper-insert"> <img
-											src="../img/material-icon.png"> <strong>새 시험지
-												만들기</strong></a>
-										<hr>
+									<div id="div_tempExam" class="col-md-12">										
 										<form action="" method="post" id="pickMyExamPaperForm">
 											<div class="col-lg-12">
 
