@@ -872,8 +872,13 @@ public class TeacherController {
 
 			 ModelAndView mv = new ModelAndView();
 			 mv.setViewName("ajax.common.receiveMessage_ajax");
+		       for(int i=0; i<receiveMessage.size(); i++) {
+		        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+		        	  String sendManName = commonService.nameSearch(sendManId);
+		        	  receiveMessage.get(i).setMember_name(sendManName);
+		          }
 			 mv.addObject("receiveMessage", receiveMessage);
-
+			 
 			return mv;
 
 		}
