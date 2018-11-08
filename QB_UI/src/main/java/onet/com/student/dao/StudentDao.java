@@ -64,6 +64,9 @@ public interface StudentDao {
 	
 	//양회준 11.2 시험 응시 목록 체크
 	public int checkExamMember(String member_id, int exam_info_num);
+	
+	// 현이 11.8 오늘 시험 체크 
+	public ExamInfoDto selectTodayExam(String member_id);
 
 }
 
