@@ -489,7 +489,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	where ep.exam_paper_status=1
 	<include refid="adminexampapersearch"></include>
 	order by exam_paper_num desc
-	limit #{begin}, 4
+	limit #{begin}, 5
 </select> 
 
 <!-- 민지 11.05시험일정 검색 -->
@@ -498,6 +498,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select * from exam_info
 	<include refid="adminexaminfosearch"></include>
 	order by exam_info_date desc
-	limit #{begin}, 2
+	limit #{begin}, 3
 </select>  
 </mapper>
