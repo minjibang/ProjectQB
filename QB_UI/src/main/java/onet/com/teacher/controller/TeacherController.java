@@ -83,6 +83,8 @@ public class TeacherController {
 	      }
 	      List<MemberDto> boardNull = commonService.boardNull(member_id);
 	      String noticeCheck = boardNull.get(0).getClass_name();
+	      String class_num = commonService.classNum(member_id);
+	      model.addAttribute("class_num", class_num);
 	      model.addAttribute("noticeCheck", noticeCheck);
 	      model.addAttribute("notice", notice);
 	      model.addAttribute("member_id", member_id);

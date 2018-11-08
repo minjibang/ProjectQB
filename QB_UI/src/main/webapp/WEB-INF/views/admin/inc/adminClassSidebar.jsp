@@ -19,8 +19,8 @@
           
           <!-- 강사  -->
           <li class="sub-menu">
-            <a href="">
-              <span id="className"></span>
+            <a href="${pageContext.request.contextPath}/admin/adminClassMain.do?class_num=${param.class_num}&class_name=${param.class_name}">
+              <span id="className"><strong>${param.class_name}</strong></span>
              </a>
           </li>
           <li class="sub-menu">

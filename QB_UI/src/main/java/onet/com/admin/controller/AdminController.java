@@ -1393,6 +1393,14 @@ public class AdminController {
 		
 			return mv;
 		}
+
+	//11.08 about us 페이지
+		@RequestMapping("aboutUs.do")
+		public String aboutUs(Model model) {
+			
+			return "admin.aboutUs";
+		}
+
 	//양회준 11.5 코멘트 추가
 	@RequestMapping("studentInfoCommentUpdate.do")
 	public @ResponseBody int studentInfoCommentUpdate(@RequestParam("member_id") String member_id,

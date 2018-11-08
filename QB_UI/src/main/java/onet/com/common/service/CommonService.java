@@ -532,6 +532,11 @@ public class CommonService {
 		return result;
 	}
 
+	public String classNum(String member_id) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		String result = dao.classNum(member_id);
+		return result;
+	}
 	
 	
 }

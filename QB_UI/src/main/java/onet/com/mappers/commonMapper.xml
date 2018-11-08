@@ -378,4 +378,8 @@ select * from member where class_name=(select class_name from member where membe
 	select member_name from member where member_id=#{receiveManId}
 </select>
 
+<select id="classNum" parameterType="String" resultType="String">
+	select class_num from class where class_name=(select class_name from member where member_id=#{member_id})
+</select>
+
 </mapper>
