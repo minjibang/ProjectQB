@@ -55,7 +55,7 @@ h3.logo span {
 </head>
 <body>	
 	<c:forEach items="${examquestion}" var="examquestion" varStatus="status">	
-	<c:if test="${status.index eq 0 || status.index%8 eq 0}">
+	<c:if test="${status.index eq 0 || status.index%6 eq 0}">
 		<div id="page">
 		<c:if test="${status.index eq 0 }">
 			<div id="all">
@@ -93,7 +93,7 @@ h3.logo span {
 				</c:if>
 			</c:forEach>				
 		</table>
-	<c:if test="${status.index%8 eq 7 }">
+	<c:if test="${status.index%6 eq 5 }">
 	</div><div class="endline"></div><br style="height:0; line-height:0">
 	</c:if>
 	</c:forEach>

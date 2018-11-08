@@ -184,7 +184,9 @@ $('#emailCodeRquestBtn').click(function() {
 		type : 'post',
 		url : $('#contextPath').val()+"/index/mail.do",
 		data : {
-			mailto : $('#member_email').val()
+			mailto : $('#member_email').val(),
+			command : "mailCheck",
+			member_id : $('input[name="member_name"]').val()
 		},
 		success : function(data) {
 			swal("성공!", "메일로 인증번호가 전송되었습니다!"+data, "success");
