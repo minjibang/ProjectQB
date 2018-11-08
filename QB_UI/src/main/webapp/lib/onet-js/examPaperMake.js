@@ -118,6 +118,11 @@ jQuery(document).ready(function() {
 	   $('#saveEQScore').val(questionScore);
 
 	   $('#pickQuestionTempSaveModal').modal(); 
+	   
+	 //boot모달 포커스	   
+		$('#pickQuestionTempSaveModal').on('shown.bs.modal', function () {
+		    $('#tempexamname').focus();
+		})
    });
    
    /*점수가 100점일때 그리고 배점에 빈칸이 없을 떄 시험지생성 활성화*/
@@ -137,8 +142,12 @@ jQuery(document).ready(function() {
 	   }else{
 		   swal("각 문제의 배점 및 총 배점을 확인해주세요.\n총 배점이 100점일때만 시험지를 생성할 수 있습니다.\n");
 	   }
-	   
+	 //boot모달 포커스
+	   $('#makeExamSubmitModal').on('shown.bs.modal', function () {
+		    $('#exam_name').focus();
+		})
    });
+   
    
 });
 
@@ -208,6 +217,7 @@ function insertEP(examName, examDesc, examPStatus){
      "exam_paper_desc":examDesc,
      "exam_paper_status":examPStatus
      },
+     global:false,
    success:function(epnum){
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 	         var questionNum = $(this).val();
@@ -222,6 +232,7 @@ function insertEP(examName, examDesc, examPStatus){
 	               "exam_question_seq":EQSeq,
 	               "exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
 	            },
+	            global:false,
 	            success:function(data){
 
 	            }
@@ -256,6 +267,7 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
           "exam_paper_desc":examDesc,
           "exam_paper_status":examPStatus
        },
+       global:false,
        success:function(data){
     	   $.ajax({
              url:"../teacher/examQuestionDelete.do",
@@ -280,6 +292,7 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
                             "exam_question_seq":EQSeq,
                             "exam_question_score":Score
                          },
+                         global:false,
                          success:function(data){
                             
                             

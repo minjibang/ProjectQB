@@ -256,7 +256,7 @@
 											시험지 이름 <input type="text"
 												class="form-control exam-paper-name"
 												placeholder="시험지 이름을 입력하세요." name="exam_paper_name"
-												value="${exam_paper_name}"> <br> 시험지 설명
+												value="${exam_paper_name}" id="tempexamname"> <br> 시험지 설명
 											<textarea type="textarea"
 												class="form-control exam-paper-desc"
 												placeholder="시험지 설명을 입력하세요." name="exam_question_desc">${exam_paper_desc }</textarea>
@@ -294,7 +294,7 @@
 										<div class="modal-body">
 
 											시험지 이름 <input type="text" class="form-control createEPaper"
-												placeholder="시험지 이름을 입력하세요." name="exam_paper_name"><br>
+												placeholder="시험지 이름을 입력하세요." name="exam_paper_name" id="exam_name"><br>
 											시험지 설명
 											<textarea type="textarea" class="form-control createEPDesc"
 												placeholder="시험지 설명을 입력하세요." name="exam_paper_desc"></textarea>
