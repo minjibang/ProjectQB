@@ -122,7 +122,7 @@
                           </div>
                           <div class="form-group">
                             <label class="control-label col-lg-2">종료알림</label>
-                              <label class="control-label col-lg-5">시험 종료 5분 전에 시스템에서 응시자 전원에게 알림을 보냅니다.</label>
+                              <label class="control-label col-lg-8">시험 종료 5분 전에 시스템에서 응시자 전원에게 알림을 보냅니다.</label>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-lg-2">응시대상</label>
