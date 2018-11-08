@@ -16,7 +16,6 @@
 	src="${pageContext.request.contextPath}/lib/onet-js/pastExam.js"></script> --%> <!-- 일단은 주석처리, 나중에 script 파일로 빼기 -->
 <script>
 	$(document).ready(function(){
-		
 		$('#search_btn').click(function(){
 			$.ajax({
 				url : 'searchPastExamKeyword.do',
@@ -28,9 +27,7 @@
 						var html = "";
 						html += '<h3>검색 결과가 없습니다. </h3>';
 						$('#last_exam_table').append(html);
-						
 						return false;
-						
 					} else {
 						$('#last_exam_table').empty();
 						$.each(data, function(index, entry){	
@@ -59,10 +56,7 @@
 		$(document).on('click', '.pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트
 			
 			var now = new Date().getTime();  //  현재 시간을 timestamp으로 계산
-			
 			var examEndTime = $(this).siblings().val();		//	시험 종료 시간을 timestamp 으로 계산
-			
-			console.log("examEndTime : " + examEndTime);
 			
 			var year = examEndTime.substr(0, 4);
 			var month = examEndTime.substr(5, 2);
@@ -72,12 +66,10 @@
 			
 			var examEndTimeTs = new Date(year, month-1, day, hour, minute).getTime();
 			
-			
-			
 			 /* if( examEndTimeTs < now ){ */  // 지난 시험 열람 가능
 				var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val();
-				var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
-				window.open(popUrl, "지난 시험보기",popOption); 
+				var popOption = "width="+ screen.availWidth +", height=" + screen.availHeight + ", left=0, top=0"; 
+				window.open(popUrl, "지난 시험보기", popOption); 
 			 /* } else if ( examEndTimeTs > now ){	//	시험 응시 시간이 지나지 않았다면 응시 불가능
 				swal("\n시험 시간이 종료되고 열람이 가능합니다.");
 			 }  */
