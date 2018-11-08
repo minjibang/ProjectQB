@@ -113,16 +113,9 @@
 			if(examStartDaysRound<0 && examEndDaysRound>=0){
 				
 				var popUrl = "examPaperDo2.do?exam_info_num=${dto.exam_info_num}";
-				
-				var width = $(window).width();
-				var height = $(window).height();
-				// var popOption = "width="+ width +", height=" + height + ", left=0, top=0";  
-				var popOption = "width="+ screen.availWidth +", height=" + screen.availHeight + ", left=0, top=0"; 
-				//console.log("popOption22 : " + popOption);	
-				
+				var popOption = "width="+ screen.availWidth +", height=" + screen.availHeight + ", left=0, top=0";
 				window.name = "examScheduleDetail";	//	부모창의 이름을 지정해줌
 				window.open(popUrl, "지난 시험보기", popOption);
-				
 			} else {
 				swal("시험이 종료되었습니다."); 
 			}
