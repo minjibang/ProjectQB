@@ -15,7 +15,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
->>>>>>> master
 <link
 	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css"
 	rel="stylesheet">
@@ -440,6 +439,7 @@ $('#examinfotab').click(function(){
         printWindow.print();
 	}
 	function updateExamCheck() {
+		/* event.stopPropagation(); *///중복클릭 방지 코드
 		var exam_paper_num = window.event.target.id;
 
 		$.ajax({
