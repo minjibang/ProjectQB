@@ -326,8 +326,6 @@ public class AdminController {
 					
 				long diffs = endtime.getTime() - begintime.getTime();
 				long diffmin = diffs / (1000*60);
-				System.out.println("분차이>>"+diffmin);
-				
 	        	if(sendday.equals(currentday)) {
 	        		if(diffmin==0) {
 	        			receiveMessage.get(i).setMessage_date("방금 도착");
@@ -337,7 +335,6 @@ public class AdminController {
 	        		
 	        		
 	        	}else {
-	        		System.out.println("날짜가 다를때  차이 >> "+diffdays);
 	        		receiveMessage.get(i).setMessage_date(diffdays+"일 전 도착");
 	        	}
 	        	   
