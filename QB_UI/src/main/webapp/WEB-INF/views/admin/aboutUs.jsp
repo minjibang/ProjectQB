@@ -93,6 +93,10 @@ footer {
  background-color: #555555;
  color: white;
 }
+.img{
+width:100px; 
+border-radius:50px;
+}
 </style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -106,6 +110,8 @@ footer {
 					</header>
 				</div>
 				
+			
+            	
 				<nav class="nav">
 					<ul>
 						<li><input type="button" class="button button5"

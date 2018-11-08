@@ -148,5 +148,7 @@ public interface CommonDao {
     public String nameSearch(String sendManId);
     
     public String nameSearch2(String receiveManId);
+    
+    public String classNum(String member_id);
 }
 

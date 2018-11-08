@@ -117,7 +117,9 @@
 </section> <!-- /main-content -->
 
 <script>
+	
 	var class_num = ${class_num};
+
 		
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
