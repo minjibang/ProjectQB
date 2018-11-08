@@ -264,6 +264,14 @@ $(document).ready(function(){
 			type : 'GET',
 			dataType : "html",
 			data : classParam,
+			/* beforeSend : function(){
+				$('.loadingDisplay').show();
+			}, 
+			complete : function(){
+				setTimeout(function(){
+					$('.loadingDisplay').hide();
+				}, 300);
+			}, */
 			success : function(data){
 				$('#classlistView').append(data);
 				$(".classDivOverFlow").each(function(){
@@ -276,14 +284,7 @@ $(document).ready(function(){
 						}
 					}
 				});
-			/* beforeSend : function(){
-				$('.loadingDisplay').show();
-			}, 
-			complete : function(){
-				setTimeout(function(){
-					$('.loadingDisplay').hide();
-				}, 300);
-			}, */
+			
 			},
 			error : function(error) {
 				console.log("===========실패");
