@@ -188,10 +188,8 @@ function check(){
 	$("input:checkbox[name=chk]:checked").each(function(){
 		memberarray.push($(this).val());
 	});
-    console.log("memberarray>>"+memberarray+"<<");
     
     document.getElementById("memberarray2").setAttribute('value',memberarray);
-    console.log("memberarray2>>"+$('#memberarray2').val()+"<<");
     
 	/*체크박스 값 설정 끝*/
 	
