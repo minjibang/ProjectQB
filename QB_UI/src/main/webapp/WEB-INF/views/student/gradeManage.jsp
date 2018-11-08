@@ -229,17 +229,17 @@ $(document).ready(function(){
 		      labels: chartStudentLabels,
 		      datasets: [
 		        {
-		          label: "내 성적",
-		          backgroundColor: 'rgb(255, 99, 132)',
-		          borderColor: 'rgb(255, 99, 132)',
+		          label: "반 평균 성적",
+		          backgroundColor: 'rgb(122, 99, 132)',
+		          borderColor: 'rgb(122, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
 		          data: chartClassStudentDatas,
 		      },
 		      {
-		          label: "반 평균 성적",
-		          backgroundColor: 'rgb(122, 99, 132)',
-		          borderColor: 'rgb(122, 99, 132)',
+		          label: "내 성적",
+		          backgroundColor: 'rgb(255, 99, 132)',
+		          borderColor: 'rgb(255, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
 		          data: chartStudentDatas,
