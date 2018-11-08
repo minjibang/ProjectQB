@@ -278,7 +278,9 @@ public class AdminController {
 	        	  sendMessage.get(i).setMember_name(receiveManName);
 	          }
 	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
+	          List<MemberDto> teacherList = adminService.teacherList();
 	          
+	          model.addAttribute("teacherList", teacherList);
 	          model.addAttribute("classMemberList", classMemberList);
 	          model.addAttribute("classTeacherList",classTeacherList);
 	          model.addAttribute("receiveMessage", receiveMessage);
@@ -296,6 +298,13 @@ public class AdminController {
 		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 
 		 ModelAndView mv = new ModelAndView();
+		 for(int i=0; i<receiveMessage.size(); i++) {
+			 if(receiveMessage.get(i).getMessage_content().length()>12) {
+				 String receiveSize = receiveMessage.get(i).getMessage_content().substring(0, 11);
+				 String receiveSize2 = receiveSize + "...";
+				 receiveMessage.get(i).setMessage_content(receiveSize2);
+			 }
+		 }
 		 mv.setViewName("ajax.common.receiveMessage_ajax");
 		 Date today = new Date();
 		 SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
@@ -1384,5 +1393,11 @@ public class AdminController {
 		
 			return mv;
 		}
-		
+	//양회준 11.5 코멘트 추가
+	@RequestMapping("studentInfoCommentUpdate.do")
+	public @ResponseBody int studentInfoCommentUpdate(@RequestParam("member_id") String member_id,
+			@RequestParam("exam_info_num") int exam_info_num,@RequestParam("score_chart_comment") String score_chart_comment) {
+		int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, score_chart_comment);
+		return result;
+	}
 }

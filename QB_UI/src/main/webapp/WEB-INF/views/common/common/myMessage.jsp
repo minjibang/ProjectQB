@@ -8,10 +8,12 @@
    rel="stylesheet">
 <style>
 .receiveBtn {
-   color: blue;
+   color: #3163C9;
+   text-decoration: underline;
 }
 .sendBtn{
-   color:red;
+   color: #3163C9;
+   text-decoration: underline;
 }
 .textarea{
    resize: none;
@@ -71,7 +73,9 @@ width:80px;
 margin-left:0px;
 margin-right:15px;
 }
-
+.s{
+margin-right: -2px;
+}
 
 </style>
 <script
@@ -387,7 +391,7 @@ margin-right:15px;
                                                         <label>
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;" checked/>
                                                             <img
-                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+                                                               src="${pageContext.request.contextPath}/img/friends/teacher2.jpeg"
                                                                class="img-circle" width="25">${classTeacherList.member_name}
                                                                </label>
                                                                </div>
@@ -402,8 +406,8 @@ margin-right:15px;
                                                         <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${teacherList.member_id}"style="position:relative;"/>
                                                             <img
-                                                               src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-                                                               class="img-circle" width="25">${teacherList.member_name}
+                                                               src="${pageContext.request.contextPath}/img/friends/teacher2.jpeg"
+                                                               class="img-circle" width="25"> ${teacherList.member_name}
                                                                </label>
                                                                </div>
                                                          </div></li>
@@ -423,15 +427,14 @@ margin-right:15px;
                                                 <div class="sent-message">Your message has been
                                                    sent. Thank you!</div>
                                                    <se:authorize access="hasRole('ROLE_STUDENT')">
-                                                <button type="button"  onclick="check()" class="btn btn-large btn-theme msgBtn pull-right" >전송</button>
+                                                <button type="button"  onclick="check()" class="btn btn-large btn-theme msgBtn pull-right s" >전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_TEACHER')">
-                                                <button type="button"  onclick="check_t()" class="btn btn-large btn-theme msgBtn pull-right" >전송</button>
+                                                <button type="button"  onclick="check_t()" class="btn btn-large btn-theme msgBtn pull-right s" >전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_ADMIN')">
-                                                <button type="button"  onclick="check_t()" class="btn btn-large btn-theme msgBtn pull-right" >전송</button>
+                                                <button type="button"  onclick="check_t()" class="btn btn-large btn-theme msgBtn pull-right s" >전송</button>
                                                 </se:authorize>
-                                                <button class="btn btn-theme04 msgBtn pull-right" type="button">취소</button>
                                           </div>
                                        </div>
                                     </div>
