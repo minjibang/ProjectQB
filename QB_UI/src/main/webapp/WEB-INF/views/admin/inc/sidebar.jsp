@@ -37,6 +37,12 @@
               <span>시험 관리</span>
               </a>
           </li>
+          <li class="sub-menu">
+            <a href="${pageContext.request.contextPath}/common/apiInfo.do">
+              <i class="fa fa-desktop"></i>
+              <span>자격증 시험 일정</span>
+              </a>
+          </li>
           
           <!-- 관리자 end -->
          </ul>
