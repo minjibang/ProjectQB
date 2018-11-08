@@ -186,7 +186,7 @@ margin-right: -2px;
                         <img src="img/ui-zac.jpg" alt="">
                         <span class="to">To&nbsp;&nbsp;</span><strong class="receiver"></strong>
                      </div>
-   						<!-- <input type="hidden" class="receiver"> -->
+                     <!-- <input type="hidden" class="receiver"> -->
                   </div>
                </div>
                <div class="view-mail">
@@ -256,7 +256,7 @@ margin-right: -2px;
                                                    </td>
                                                    <c:choose>
                                                    <c:when test="${receiveMessage.message_check == 0}">
-																	
+                                                   
                                                    <td class="view-message  inbox-small-cells">나</td>
                                                    </c:when>
                                                    <c:otherwise>
@@ -577,12 +577,12 @@ function check_t(){
    
            
    $('.message_content_row').click(function(){
-	   var username='${member_id}';
+      var username='${member_id}';
        $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>");
       var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
-		
+      
          $.ajax({
          url : "message_check.do",
          type : "get",
@@ -593,6 +593,7 @@ function check_t(){
                alert('message_check 성공');
                socket.send(username);
                $.ajax({
+
        			url:"headerMessage.do",
        			type:"get",
        			success:function(data){
@@ -605,6 +606,7 @@ function check_t(){
        			}
        			
        		});
+
              }else{
                 alert('2');
              }
@@ -697,7 +699,7 @@ function check_t(){
    });
    
    $('.send').click(function(){
-	 var text = $('.textarea').val();
+    var text = $('.textarea').val();
      var sender = $('.receiver').text();
      var username='${member_id}';
      var data = new Array();
@@ -709,7 +711,7 @@ function check_t(){
         text: "",
         icon:"info"
      }).then(function() {
-  	   window.location = "myMessage.do";
+        window.location = "myMessage.do";
      });
      socket.send(data);
    });

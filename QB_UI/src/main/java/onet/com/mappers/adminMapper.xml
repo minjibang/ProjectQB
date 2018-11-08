@@ -5,14 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="onet.com.admin.dao.AdminDao">
 <!-- 태용 시작 -->
 <sql id="search">
-	<if test="param1 =='all'">
-		where c.class_name like concat('%',#{param2},'%') or c.teacher_name like concat('%',#{param2},'%')
+	<if test="searchType =='all'">
+		and (c.class_name like concat('%',#{keyword},'%') or c.teacher_name like concat('%',#{keyword},'%'))
 	</if>
-	<if test='param1 =="n"'>
-		where c.class_name like concat('%',#{param2},'%')
+	<if test='searchType =="ing"'>
+		and (select now() between c.class_start_date and c.class_end_date)
+		and (c.class_name like concat('%',#{keyword},'%') or c.teacher_name like concat('%',#{keyword},'%'))
 	</if>
-	<if test='param1 =="t"'>
-		where c.teacher_name like concat('%',#{param2},'%')
+	<if test='searchType =="end"'>
+		and c.class_end_date &lt; now()
+		and (c.class_name like concat('%',#{keyword},'%') or c.teacher_name like concat('%',#{keyword},'%'))
 	</if>
 </sql>
 
@@ -42,27 +44,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </where>
 </sql>
-<select id="adminMainView" parameterType="int" resultType="onet.com.vo.ClassDto">
+<select id="adminMainView" resultType="onet.com.vo.ClassDto">
 	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
 	ifnull(count(m.member_id) , 0) as class_student_count
 	from class c left outer join member m 
 	on (m.class_name = c.class_name)
 	where c.class_enable = 1
+	<include refid="search"></include>
 	group by c.class_name
 	order by c.class_start_date
 	limit #{begin}, 8
 </select>	
-
-<select id="classSearch" resultType="onet.com.vo.ClassDto">
-	select c.class_num, c.class_name, c.teacher_name, c.class_start_date, c.class_end_date, c.class_enable, 
-	ifnull(count(m.member_id) , 0) as class_student_count
-	from class c left outer join member m 
-	on (m.class_name = c.class_name)
-	<include refid="search"></include>
-	group by c.class_name
-	order by c.class_start_date 
-	limit #{param3}, 8
-</select>
 
 <insert id="classInsert" parameterType="onet.com.vo.ClassDto">
 	insert into class(class_name, teacher_name, class_start_date, class_end_date, class_enable) values(#{class_name}, #{teacher_name}, #{class_start_date}, #{class_end_date}, 1);
@@ -497,7 +489,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	where ep.exam_paper_status=1
 	<include refid="adminexampapersearch"></include>
 	order by exam_paper_num desc
-	limit #{begin}, 4
+	limit #{begin}, 5
 </select> 
 
 <!-- 민지 11.05시험일정 검색 -->
@@ -506,6 +498,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select * from exam_info
 	<include refid="adminexaminfosearch"></include>
 	order by exam_info_date desc
-	limit #{begin}, 2
+	limit #{begin}, 3
 </select>  
 </mapper>

@@ -11,11 +11,11 @@
 			<li>
 			<a href='${pageContext.request.contextPath}/admin/myMessage.do'>
 			<span class='photo'><img src="${pageContext.request.contextPath}/img/friends/teacher2.jpeg"></span>
-			<span class='subject'></span>
+			<span class='subject'>
 			<span class='from'>${receiveMessage.member_name}</span>
-			<span class='time'></span>
+			<span class='time'>${receiveMessage.message_date}</span>
 			<span class='message' id='headermessagecontent'>${receiveMessage.message_content}</span>
-			
+			</span>
 			</a>
 			</li>
 		</c:when>
@@ -25,7 +25,7 @@
 		 <a href="${pageContext.request.contextPath}/admin/myMessage.do">모든 쪽지 보기</a>
 		 </li>		
 </se:authorize>				
-				
+
 <se:authorize access="hasRole('ROLE_TEACHER')">
 <c:forEach items="${receiveMessage}" var="receiveMessage">
 	<c:choose>
@@ -33,11 +33,11 @@
 			<li>
 			<a href='${pageContext.request.contextPath}/admin/myMessage.do'>
 			<span class='photo'><img src="${pageContext.request.contextPath}/img/friends/student.png"></span>
-			<span class='subject'></span>
+			<span class='subject'>
 			<span class='from'>${receiveMessage.member_name}</span>
-			<span class='time'></span>
+			<span class='time'>${receiveMessage.message_date}</span>
 			<span class='message' id='headermessagecontent'>${receiveMessage.message_content}</span>
-			
+			</span>
 			</a>
 			</li>
 		</c:when>
@@ -55,11 +55,11 @@
 			<li>
 			<a href='${pageContext.request.contextPath}/admin/myMessage.do'>
 			<span class='photo'><img src="${pageContext.request.contextPath}/img/friends/teacher2.jpeg"></span>
-			<span class='subject'></span>
+			<span class='subject'>
 			<span class='from'>${receiveMessage.member_name}</span>
-			<span class='time'></span>
+			<span class='time'>${receiveMessage.message_date}</span>
 			<span class='message' id='headermessagecontent'>${receiveMessage.message_content}</span>
-			
+			</span>
 			</a>
 			</li>
 		</c:when>
@@ -69,5 +69,8 @@
 		 <a href="${pageContext.request.contextPath}/student/myMessage.do">모든 쪽지 보기</a>
 		 </li>		
 </se:authorize>					
+
+				
+
 				
 			

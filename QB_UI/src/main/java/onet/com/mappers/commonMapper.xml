@@ -337,7 +337,7 @@ select * from member where class_name=(select class_name from member where membe
 </update>
 
 <update id="sendMessageDelete" parameterType="int">
-	update message set receive_check=1 where message_num=#{message_num} 
+	update message set receive_check=1, message_check=1 where message_num=#{message_num} 
 </update>
 
 <update id="receiveMessageDelete" parameterType="int">
