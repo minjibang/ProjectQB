@@ -37,7 +37,6 @@
               <span>시험 관리</span>
               </a>
           </li>
-          
           <!-- 관리자 end -->
          </ul>
         <!-- sidebar menu end-->

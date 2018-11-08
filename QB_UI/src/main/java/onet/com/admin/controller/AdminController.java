@@ -1393,5 +1393,10 @@ public class AdminController {
 		
 			return mv;
 		}
-		
+	//11.08 about us 페이지
+		@RequestMapping("aboutUs.do")
+		public String aboutUs(Model model) {
+			
+			return "admin.aboutUs";
+		}
 }
