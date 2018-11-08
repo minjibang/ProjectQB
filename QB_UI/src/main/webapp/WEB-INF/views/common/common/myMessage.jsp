@@ -64,8 +64,15 @@
    color: #5D5D5D;
 }
 .allchooseicon{
-   color:orange;
+   color: #444444;
 }
+.msgBtn{
+width:80px;
+margin-left:0px;
+margin-right:15px;
+}
+
+
 </style>
 <script
    src="${pageContext.request.contextPath}/lib/onet-js/myMessage.js"></script>
@@ -175,7 +182,7 @@
                         <img src="img/ui-zac.jpg" alt="">
                         <span class="to">To&nbsp;&nbsp;</span><strong class="receiver"></strong>
                      </div>
-   						<!-- <input type="hidden" class="receiver"> -->
+                     <!-- <input type="hidden" class="receiver"> -->
                   </div>
                </div>
                <div class="view-mail">
@@ -245,7 +252,7 @@
                                                    </td>
                                                    <c:choose>
                                                    <c:when test="${receiveMessage.message_check == 0}">
-																	
+                                                   
                                                    <td class="view-message  inbox-small-cells">나</td>
                                                    </c:when>
                                                    <c:otherwise>
@@ -350,7 +357,7 @@
                                     <div class="row">
                                        <div class="col-md-12">
                                           <div class="col-md-3">
-                                             <section class="panel" style="width:200px; height:482px; overflow-y:auto;">
+                                             <section class="panel" style="width:200px; height:424px; overflow-y:auto;">
                                                 <div class="panel-body grey-panel">
                                                    <div>
                                                       <label class="btn btn-compose newMessageAll"> <i
@@ -361,7 +368,7 @@
                                                    <ul class="nav nav-pills nav-stacked mail-nav">
                                                    <se:authorize access="hasRole('ROLE_TEACHER')">
                                                       <c:forEach items="${classMemberList}" var="classMemberList">
-                                                      <li id="messageSelect"><div>
+                                                      <li id="messageSelect" class="messageSelect"><div>
                                                        <div class="checkbox" id="checkboxName" style="text-align: left; width:110px; height:15px;" >
                                                         <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classMemberList.member_id}"style="position:relative;"/>
@@ -375,7 +382,7 @@
                                                    </se:authorize>
                                                    <se:authorize access="hasRole('ROLE_STUDENT')">
                                                       <c:forEach items="${classTeacherList}" var="classTeacherList">
-                                                      <li id="messageSelect"><div>
+                                                      <li id="messageSelect" class="messageSelect"><div>
                                                        <div class="checkbox" id="checkboxName" style="text-align: left; width:130px;">
                                                         <label>
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${classTeacherList.member_id}"style="position:relative;" checked/>
@@ -390,7 +397,7 @@
                                                    </se:authorize>
                                                     <se:authorize access="hasRole('ROLE_ADMIN')">
                                                       <c:forEach items="${teacherList}" var="teacherList">
-                                                      <li id="messageSelect"><div>
+                                                      <li id="messageSelect" class="messageSelect"><div>
                                                        <div class="checkbox" id="checkboxName" style="text-align: left; width:150px;" >
                                                         <label style="padding-left:0px;">
                                                         <input type="checkbox" class="checkbox form-control"id="agree" name="chk" value="${teacherList.member_id}"style="position:relative;"/>
@@ -408,23 +415,23 @@
                                           </div>
                                           <div class="col-md-8">
                                                 <div class="form-group textareadiv">
-                                                   <textarea class="form-control" name=message_content
-                                                      id="message_content" placeholder="Your Message"
-                                                      rows="23" cols="10" data-rule="required"
+                                                   <textarea class="form-control" name="message_content"
+                                                      id="message_content" placeholder="메세지를 입력하세요"
+                                                      rows="20" cols="10" data-rule="required"
                                                       data-msg="Please write something for us"></textarea>
                                                 </div>
                                                 <div class="sent-message">Your message has been
                                                    sent. Thank you!</div>
                                                    <se:authorize access="hasRole('ROLE_STUDENT')">
-                                                <button type="button"  onclick="check()"class="btn btn-large btn-theme" style="margin-left: -30px; width:80px;">전송</button>
+                                                <button type="button"  onclick="check()" class="btn btn-large btn-theme msgBtn pull-right" >전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_TEACHER')">
-                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-theme" style="margin-left: -30px; width:80px;">전송</button>
+                                                <button type="button"  onclick="check_t()" class="btn btn-large btn-theme msgBtn pull-right" >전송</button>
                                                 </se:authorize>
                                                 <se:authorize access="hasRole('ROLE_ADMIN')">
-                                                <button type="button"  onclick="check_t()"class="btn btn-large btn-theme" style="margin-left: -30px; width:80px;">전송</button>
+                                                <button type="button"  onclick="check_t()" class="btn btn-large btn-theme msgBtn pull-right" >전송</button>
                                                 </se:authorize>
-                                                <button class="btn btn-theme04" type="button" style="width:80px;">취소</button>
+                                                <button class="btn btn-theme04 msgBtn pull-right" type="button">취소</button>
                                           </div>
                                        </div>
                                     </div>
@@ -567,12 +574,12 @@ function check_t(){
    
            
    $('.message_content_row').click(function(){
-	   var username='${member_id}';
+      var username='${member_id}';
        $(this).next().html("나&nbsp;&nbsp;<i class='fa fa-check-square'></i></td>");
       var message_num=window.event.target.id;
       var message_check={'message_check':1,
                      'message_num':message_num};
-		
+      
          $.ajax({
          url : "message_check.do",
          type : "get",
@@ -582,6 +589,21 @@ function check_t(){
              if(data>0){
                alert('message_check 성공');
                socket.send(username);
+               $.ajax({
+
+       			url:"headerMessage.do",
+       			type:"get",
+       			success:function(data){
+       				$('#minji').children().eq(2).html(data);
+       				
+       				
+       			},
+       			err:function(err){
+       				console.log('err입니다');
+       			}
+       			
+       		});
+
              }else{
                 alert('2');
              }
@@ -674,7 +696,7 @@ function check_t(){
    });
    
    $('.send').click(function(){
-	 var text = $('.textarea').val();
+    var text = $('.textarea').val();
      var sender = $('.receiver').text();
      var username='${member_id}';
      var data = new Array();
@@ -686,7 +708,7 @@ function check_t(){
         text: "",
         icon:"info"
      }).then(function() {
-  	   window.location = "myMessage.do";
+        window.location = "myMessage.do";
      });
      socket.send(data);
    });

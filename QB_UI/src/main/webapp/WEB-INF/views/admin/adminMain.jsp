@@ -257,7 +257,6 @@ $(document).ready(function(){
 		
 }); // document.ready 종료 
 
-
 	//클래스 목록 가져오는 ajax
 	function adminMainClass(classParam){
 		$.ajax({
@@ -265,10 +264,11 @@ $(document).ready(function(){
 			type : 'GET',
 			dataType : "html",
 			data : classParam,
-			success : function(data){	
+			success : function(data){
 				$('#classlistView').append(data);
 				$(".classDivOverFlow").each(function(){
-					var code = ($(this).text().trim().charCodeAt(0)+$(this).text().trim().charCodeAt(2)+$(this).text().trim().charCodeAt(4))%7;
+					var charVal = $(this).text().trim();
+					var code = (charVal.charCodeAt(0)+charVal.charCodeAt(2)+charVal.charCodeAt(4))%7;
 					var img=$(this).prev().children().eq(0);
 					for(var i=0;i<12;i++){
 						switch(code){
@@ -276,6 +276,14 @@ $(document).ready(function(){
 						}
 					}
 				});
+			/* beforeSend : function(){
+				$('.loadingDisplay').show();
+			}, 
+			complete : function(){
+				setTimeout(function(){
+					$('.loadingDisplay').hide();
+				}, 300);
+			}, */
 			},
 			error : function(error) {
 				console.log("===========실패");

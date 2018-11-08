@@ -27,7 +27,8 @@
 }
 
 .QB_classroom {
-	margin-top:15px;
+	margin-top:22px;
+	margin-bottom:8px;
 	width:100px;
 	height:100px;
 }
@@ -95,6 +96,7 @@
 /* �쁽�씠 css 異붽� */
 .classDiv {
 	padding-bottom: 30px;
+	padding-top: 18px;
 }
 
 .classDivOverFlow {

@@ -82,13 +82,14 @@
                         </div>
                         <div class="form-group">
                           <label class="control-label col-md-2">날짜</label>
-                            <div class="col-lg-5">
-                             <input type="text" style="width:65%;" class="form-control form-control-inline" name="exam_info_date" id="exam_info_date"  size="16"  value="${classExamList.exam_info_date}" readonly required>
-                              <span class="help-block">날짜를 선택하세요</span>
+                            <div class="col-lg-8">
+                             <input type="text" class="form-control form-control-inline"
+                              name="exam_info_date" id="exam_info_date"  size="16"  value="${classExamList.exam_info_date}" readonly required>
+                              
                             </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-md-2">시간</label>
+                          <label class="control-label col-lg-2">시간</label>
                             <div class="col-lg-4">
                               <div class="input-group bootstrap-timepicker">
                                 <input style="z-index:0;" type="text" class="form-control timepicker-default" id="exam_info_start" name="exam_info_start" onchange="checktime()" value="${classExamList.exam_info_start}" required>
@@ -97,38 +98,42 @@
                                    <button  style="z-index:0;" class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
                               </div>
-                              <label class="control-label">부터</label>
+                              <label class="control-label pull-right">시작</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4">
                               <div class="input-group bootstrap-timepicker">
                                 <input style="z-index:0;" type="text" class="form-control timepicker-default" id="exam_info_end" name="exam_info_end" onchange="checktime()" value="${classExamList.exam_info_end}"required>
                                   <span class="input-group-btn">
                                     <button style="z-index:0;"  class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
                                   </span>
                               </div>
-                              <label class="control-label">까지</label>
+                              <label class="control-label pull-right">종료</label>
                             </div>
                             <div id="timeinfo"></div>
                           </div>
                         <!--timepicker group end-->
                           <div class="form-group">
-                            <label class="control-label col-md-2"  style="margin-right:15px;" id="examtimelabel">시험시간</label>
-                            <input style="width:24%;" id="exam_info_time" class="form-control"  type="text" name="exam_info_time"  value="${classExamList.exam_info_time}" readonly >
+                          <div class="col-lg-2">
+                            <label class="control-label"  style="margin-right:15px;" id="examtimelabel">시험시간</label>
+                          </div>
+                          <div class="col-lg-8">
+                            <input  id="exam_info_time" class="form-control"  type="text" name="exam_info_time"  value="${classExamList.exam_info_time}" readonly >
+                          </div>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-2">종료알림</label>
-                              <label class="control-label col-md-5">5분</label>
+                            <label class="control-label col-lg-2">종료알림</label>
+                              <label class="control-label col-lg-5">시험 종료 5분 전에 시스템에서 응시자 전원에게 알림을 보냅니다.</label>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-2">응시대상</label>
-                              <div class="col-md-10 col-xs-11 examInfoTextBox">
-                                <input type="text" class="form-control" placeholder="응시대상을 입력하세요" id="exam_info_member" name="exam_info_member"  value="${classExamList.exam_info_member}" required>
+                            <label class="control-label col-lg-2">응시대상</label>
+                              <div class="col-lg-8 examInfoTextBox">
+                                <input type="text" class="form-control" placeholder="이곳에 입력된 응시 대상자는 학생들의 시험 일정에 표시됩니다." id="exam_info_member" name="exam_info_member"  value="${classExamList.exam_info_member}" required>
                               </div>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-2">설명</label>
-                              <div class="col-md-10 col-xs-10 examInfoTextBox">
-                                <textarea rows="3" class="form-control" placeholder="설명을 입력하세요" id="exam_info_desc" name="exam_info_desc" required>${classExamList.exam_info_desc}</textarea>
+                            <label class="control-label col-lg-2">설명</label>
+                              <div class="col-lg-8 examInfoTextBox">
+                                <textarea rows="3" class="form-control" placeholder="이 시험에 대한 설명을 입력해주세요." id="exam_info_desc" name="exam_info_desc" required>${classExamList.exam_info_desc}</textarea>
                               </div>
                           </div>
                           <br>
@@ -139,13 +144,14 @@
                         </form>
                         <%-- 폼 양식 끝 --%>
 						<div class="col-md-12 examScheduleBtnDiv">
+						<button class="btn btn-theme pull-right" id="examUpdateBtn" type="button" onclick="check()">시험 일정 수정</button>
                       <se:authorize access="hasRole('ROLE_TEACHER')">
-                        <button type="button" class="btn btn-second" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
+                        <button type="button" class="btn btn-second pull-right" onclick="location.href='${pageContext.request.contextPath}/teacher/examManagement.do'">취소</button>
                         </se:authorize>
                           <se:authorize access="hasRole('ROLE_ADMIN')">
-                        <button type="button" class="btn btn-second" onclick="location.href='${pageContext.request.contextPath}/admin/examManagement.do'">취소</button>
+                        <button type="button" class="btn btn-second pull-right" onclick="location.href='${pageContext.request.contextPath}/admin/examManagement.do'">취소</button>
                         </se:authorize>
-                        <button class="btn btn-theme" id="examUpdateBtn" type="button" onclick="check()">시험 일정 수정</button>
+                      
                    </div>
                       </div>
                     </div>

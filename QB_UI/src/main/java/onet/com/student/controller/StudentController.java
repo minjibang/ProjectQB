@@ -298,12 +298,13 @@ public class StudentController {
 		return "common.student.common.myPage";
 	}
 	
-	 @RequestMapping("myMessage.do")
+	@RequestMapping("myMessage.do")
 	   public String myMessage(Model model, Principal principal) {
 	       String member_id = principal.getName();
 	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+	          
 	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 	          for(int i=0; i<receiveMessage.size(); i++) {
 	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
@@ -316,7 +317,7 @@ public class StudentController {
 	          for(int i=0; i<sendMessage.size(); i++) {
 	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
 	        	  sendMessage.get(i).setMessage_date(date);
-	        	  String receiveManId = sendMessage.get(i).getSend_member_id();
+	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
 	        	  String receiveManName = commonService.nameSearch2(receiveManId);
 	        	  sendMessage.get(i).setMember_name(receiveManName);
 	          }
@@ -327,6 +328,7 @@ public class StudentController {
 	          model.addAttribute("receiveMessage", receiveMessage);
 	          model.addAttribute("sendMessage", sendMessage);
 	          model.addAttribute("member_id", member_id);
+		
 	          
        return "common.student.common.myMessage";
     }
@@ -656,5 +658,17 @@ public class StudentController {
 				return result;
 			}
 		   
+			@RequestMapping("headerMessage.do")
+			public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
+				
+				 String member_id = principal.getName();
+				 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 
+				 ModelAndView mv = new ModelAndView();
+				 mv.setViewName("ajax.common.receiveMessage_ajax");
+				 mv.addObject("receiveMessage", receiveMessage);
+
+				return mv;
+
+			}
 }
