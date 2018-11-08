@@ -13,7 +13,7 @@
 					<i class="fa fa-pencil"></i>
 				</button>
 				<button type="button" class="btn btn-danger" id="deletebtnmd"
-					name="deletebtnmd" data-toggle="modal" data-target="#DeleteModalmd">
+					name="deletebtnmd">
 					<i class="fa fa-trash-o"></i>
 				</button>
 			</td>
@@ -36,14 +36,5 @@ $("button[name='updatebtnmd']").click(function(){
 	}
 	</c:forEach>
 	$('#UpdateSelectLgCatSearch').val(lgSelectCode);
-});
-
-$("button[name='deletebtnmd']").click(function(){
-	action='modify';
-	type='PUT';
-	var row =$(this).parent().parent();
-	var tr = row.children();
- 	var mdDeleteCode=tr.eq(0).text();
- 	$('#deleteMdBtn').val(mdDeleteCode);
 });
 </script>
