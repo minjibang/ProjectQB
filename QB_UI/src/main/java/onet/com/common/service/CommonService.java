@@ -357,6 +357,12 @@ public class CommonService {
 		}
 		return spreadList;
 	}
+	//양회준 11.8 학생&성적관리.클래스통계.표준편차
+	public List<Double> classExamSTD(String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Double> std = dao.classExamSTD(class_name);
+		return std;
+	}
 
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);

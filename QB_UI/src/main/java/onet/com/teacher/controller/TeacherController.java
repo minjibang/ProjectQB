@@ -469,6 +469,10 @@ public class TeacherController {
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
+		//표준편차
+		List<Double> std = new ArrayList<Double>();
+		std = commonService.classExamSTD(class_name);
+		model.addAttribute("std",std);
 		
 		return "common.teacher.grade.studentInfo";
 	}
@@ -478,7 +482,6 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
-		//List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
@@ -488,7 +491,6 @@ public class TeacherController {
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		System.out.println("과연 반 등수는? : " + classRank);
 		return classRank;
 	}
 	/* 영준 10.26 반 등수 끝 */

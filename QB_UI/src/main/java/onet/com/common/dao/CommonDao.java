@@ -110,6 +110,8 @@ public interface CommonDao {
 
 	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
 	public int studentScoreSpread(int exam_info_num, String class_name, int start, int end);
+	//양회준 11.8 학생&성적관리.클래스통계.표준편차
+	public List<Double> classExamSTD(String class_name);
 
 	//민지 10.26 강사 - 쪽지 리스트 
 	public List<MemberDto> classMemeberList(String member_id);

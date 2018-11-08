@@ -200,7 +200,8 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 학생 차트 정보 -->
 <select id="studentChartInfo" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 	<![CDATA[
-	select sc.member_id, m.member_id, sc.exam_info_num, ei.exam_info_name, sc.score_chart_score, cc.class_chart_avg
+	select sc.member_id, m.member_id, sc.exam_info_num, ei.exam_info_name, sc.score_chart_score, 
+	sc.score_chart_rank, cc.class_chart_avg
 	from score_chart sc join class_chart cc join exam_info ei join member m
 	on sc.exam_info_num = cc.exam_info_num and sc.exam_info_num=ei.exam_info_num and sc.member_id=m.member_id
 	where sc.member_id=#{member_id} and sc.class_name=(select class_name from member where member_id=#{member_id})
@@ -264,6 +265,19 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	and (ei.exam_info_date < sysdate())
 	group by sc.member_id
 	order by m.member_name, sc.exam_info_num asc
+	]]>
+</select>
+
+<!-- 양회준 11-8 학생&성적관리 클래스통계 표준편차 -->
+<select id="classExamSTD" parameterType="String" resultType="double">
+	<![CDATA[
+	select std(score_chart_score) as std
+	from score_chart sc join exam_info ei
+	on sc.exam_info_num = ei.exam_info_num
+	where sc.class_name= #{class_name} 
+	and (ei.exam_info_date < sysdate())
+	group by sc.exam_info_num
+	order by sc.exam_info_num asc
 	]]>
 </select>
 
