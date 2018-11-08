@@ -320,9 +320,7 @@
 																			<c:set var="score" value="${inner.value}"/>
 																		</c:if>
 																		</c:forEach>
-																	<c:if test="${score==0}">
-																	미응시대상
-																	</c:if>	
+																	<c:if test="${score==0}">미응시대상</c:if>	
 																	</td>
 																	</c:forEach>
 																	<td>${tablelist.avg_score}</td>
@@ -400,8 +398,7 @@ $(document).ready(function(){
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
 		chartStudentLabels.push("${studentChart.exam_info_name}");
-		chartClassStudentDatas.push("${studentChart.class_chart_avg}");
-		
+		chartClassStudentDatas.push("${studentChart.class_chart_avg}");		
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
 		chartLabels.push("${classChart.exam_info_name}");
@@ -460,7 +457,7 @@ $(document).ready(function(){
 				$("#studentExamTable").append(studentExamScoreSrc);	
 				$(".testIcon").each(function(){
 					var testIcon = $(this);	
-					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;
 					console.log(testIcon);
 					for(var i=0;i<10;i++){
 						switch(code){
@@ -703,7 +700,7 @@ $(document).ready(function(){
 		});
 		$(".testIcon").each(function(){
 			var testIcon = $(this);	
-			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;
 			console.log(testIcon);
 			for(var i=0;i<10;i++){
 				switch(code){

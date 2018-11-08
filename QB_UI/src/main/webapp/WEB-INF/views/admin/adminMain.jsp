@@ -276,8 +276,8 @@ $(document).ready(function(){
 				$('#classlistView').append(data);
 				$(".classDivOverFlow").each(function(){
 					var charVal = $(this).text().trim();
-					var code = (charVal.charCodeAt(0)+charVal.charCodeAt(2)+charVal.charCodeAt(4))%7;
-					var img=$(this).prev().children().eq(0);
+					var code = (charVal.charCodeAt(0)+charVal.charCodeAt(2)+charVal.charCodeAt(4))%12;					
+					var img=$(this).prev();
 					for(var i=0;i<12;i++){
 						switch(code){
 							case i: img.attr("src","${pageContext.request.contextPath}/img/classIcon/classicon"+i+".png"); break;
