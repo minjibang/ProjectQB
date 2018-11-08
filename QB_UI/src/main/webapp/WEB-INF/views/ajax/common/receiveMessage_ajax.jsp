@@ -8,8 +8,8 @@
 			<li>
 			<a href='${pageContext.request.contextPath}/admin/myMessage.do'>
 			<span class='subject'>
-			<span class='from'></span>
-			<span class='time'></span>
+			<span class='from'>${receiveMessage.member_name}</span>
+			<span class='time'>${receiveMessage.message_date}</span>
 			<span class='message' id='headermessagecontent'>${receiveMessage.message_content}</span>
 			</span>
 			</a>
@@ -19,7 +19,10 @@
 </c:forEach>
 				
 				
-				
+<script>
+
+
+</script>				
 				
 				
 			
