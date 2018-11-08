@@ -48,9 +48,9 @@
 							<div class="col-lg-8 searchRowRightDiv">
 								<select class="form-control searchRightBtnDiv" id="searchType"
 									name="searchType">
-									<option value="all">전체 보기</option>
-									<option value="n">클래스명</option>
-									<option value="t">강사</option>
+									<option value="all">전체 강의</option>
+									<option value="ing">수강중 강의</option>
+									<option value="end">지난 강의</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
 									placeholder="검색어를 입력" id="keyword" name="keyword">
 								<button type="button" class="btn btn-theme searchRightBtn"
@@ -221,7 +221,7 @@
 var classParam = {	
 		"begin" : 0,
 		"searchType" : "all",
-		"keyword" : "all",
+		"keyword" : "",
 }
 
 $(document).ready(function(){
@@ -249,6 +249,19 @@ $(document).ready(function(){
 		classParam.begin = 0; 
 		classParam.searchType = $("#searchType").val();
 		classParam.keyword = $("#keyword").val();
+		$('#classlistView').empty();
+		
+		adminMainClass(classParam);
+		
+	});
+	
+	$('#searchType').change(function() {
+		
+		$("#keyword").val("");
+		$("#keyword").focus();
+		classParam.begin = 0;
+		classParam.searchType = $("#searchType").val();
+		classParam.keyword = "";
 		$('#classlistView').empty();
 		
 		adminMainClass(classParam);
