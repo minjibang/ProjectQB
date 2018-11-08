@@ -1,50 +1,43 @@
-﻿<%-- 
-	@JSP:questionManagement.jsp
-	@DATE:2018-10-12
-	@Author:양회준
-	@Desc:새로운 문제 만들기 및 수정(스토리보드 34 of 41)
- --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!-- accept="image/jpg, image/jpeg, image/png, image/gif" -->
-
-<!-- 2018.10.10 정원 내 문제함 UI 추가 -->
 <link
 	href="${pageContext.request.contextPath}/css/questionManagement.css"
 	rel="stylesheet">
-
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
 			<div class="col-lg-12">
-				<div class="row content-panel">
+				<div class="row content-panel div_table">
 					<div class="panel-heading">
+					
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active">
 								<!-- 관리자일 경우  "문제 관리" / 강사일 경우 버튼이 "내 문제함"-->
 								<se:authorize access="hasRole('ROLE_ADMIN')">
-								<a data-toggle="tab" href="#overview"> 문제 관리 </a>
+									<a data-toggle="tab" href="#overview"> 문제 관리 </a>
 								</se:authorize>
 								<se:authorize access="hasRole('ROLE_TEACHER')">
-								<a data-toggle="tab" href="#overview"> 내 문제함 </a>
+									<a data-toggle="tab" href="#overview"> 내 문제함 </a>
 								</se:authorize>
 							</li>
 							<li>
 								<a data-toggle="tab" href="#newQuestion" class="contact-map">새 문제 만들기</a>
 							</li>
 						</ul><!--  /nav nav-tabs nav-justified -->
+					
 					</div><!-- panel-heading -->
 					
 					<div class="panel-body">
 						<div class="tab-content">
 							<div id="overview" class="tab-pane active">
 								<div class="row">
+						
 									<div class="col-lg-12">
 									
 									<h3 id="h3id">
@@ -112,20 +105,20 @@
 										class="form-control myQuestionTextField pull-right"
 										id="keyword" placeholder="키워드를 입력하세요.">
 									
-									<a id="searchHelp" style="cursoer:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
+									<a id="searchHelp" style="cursor:pointer"><i class="fa fa-info-circle"></i> 문제 검색 도움말 </a>
 																		
 									</div><!-- col-lg-12 -->
-								</div><!-- row -->
+									
+								</div> <!-- row -->
 								<hr>
-								<div class="row content-panel" id="myQuestionPanel">
-									<form action="" method="post" id="pickQuestionForm" onsubmit="return false;">
+								
+								<div class="" id="myQuestionPanel">
 										<div id="myQuestions"> 
 												<!-- 문제 하나의 div	-->
 					                    </div>
-									</form> <!-- pickQuestionForm -->
 								</div> <!-- myQuestionPanel -->
+								
 							</div> <!-- overview -->
-						
 							
 							<div id="newQuestion" class="tab-pane">
 							<div class="row">
@@ -361,33 +354,6 @@
 														</span>
 													</span></div>
 													
-													
-													<!-- 5번 보기 -->
-													<!-- <div id="QCNPlus_5">
-													<b><input type="text" name="question_choice_num"
-														value="5" style="display: none">5.</b>
-													   <input type="text" name="question_choice_content" id="question_choice_content5"
-														class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요.">
-													   <span class="fileupload fileupload-new QCN_5" data-provides="fileupload">
-														<div class="fileupload-preview fileupload-exists thumbnail"
-															style="max-width: 300px; max-height: 180px; line-height: 20px;">
-														</div>
-														<span>
-															<span class="btn btn-theme02 btn-file">
-																<span class="fileupload-new">
-																	<i class="fa fa-paperclip"></i>image
-																</span> 
-																<span class="fileupload-exists">
-																	<i class="fa fa-undo"></i>Change
-																</span> 
-																<input type="file" name="question_choice_files[4]" class="default"/>
-															</span>
-															<span class="btn btn-theme04 fileupload-exists" onclick="deleteImg(5)" data-dismiss="fileupload">
-															<i class="fa fa-trash-o"></i>Remove</span>
-														</span>
-													</span></div> -->
-													
-													
 													</div> <!-- choicesInput 끝 -->
 												</div><!--객관식 보기 내용 입력 종료 -->
 
@@ -414,25 +380,16 @@
 									</form>
 								</div>
 								<!-- 문제만들기 패널 종료 -->
+								</div>
 								<!-- /form-panel -->
 							</div>
-
-							<!--%%%%%%%%%%%%%%%%%%%%%     회준 18.10.12 수정 끝         %%%%%%%%%%%%%%%%%%%%%-->
-							<!--%%%%%%%%%%%%%%%%%%%%%     재훈 18.10.10 추가 끝         %%%%%%%%%%%%%%%%%%%%%-->
-
-
-
-							</div><!-- /tab-content -->
-						</div><!-- tab-content -->
-					</div><!-- panel-body -->
-				</div> <!-- row content-panel -->
-			</div> <!-- col-lg-12 -->
-		</div><!--  row-mt -->
+						</div> <!-- tab-content -->
+					</div> <!-- panel-body -->
+				</div><!-- row content-panel div_table -->
+			</div><!-- col-lg-12 -->
+		</div><!-- row mt -->
 	</section><!-- wrapper site-min-height -->
-</section> <!-- main-content -->
-							
-<!-- 2018.10.10 재훈 새 문제 만들기 UI 추가 -->
-<!-- 2018.10.12 회준 새 문제 만들기 UI 추가 -->
+</section><!-- main-content -->
 
 
 <script
@@ -446,8 +403,6 @@
 			var filechk=$("input[type=file]").val();
 			console.log(filechk);
 		});
-		
-		
 		
 		$('#question_lg_category')
 				.change(

@@ -127,11 +127,7 @@
 							<!-- 임시 저장된 시험지 tab 시작-->
 							<div id="tempExamPaper" class="tab-pane">
 								<div class="row">
-									<div id="div_tempExam" class="col-md-12">
-										<a href="examPaperMake.do" class="examPaper-insert"> <img
-											src="../img/material-icon.png"> <strong>새 시험지
-												만들기</strong></a>
-										<hr>
+									<div id="div_tempExam" class="col-md-12">										
 										<form action="" method="post" id="pickMyExamPaperForm">
 											<div class="col-lg-12">
 
@@ -252,6 +248,8 @@ var role = "${role}";
 
 $(document).ready(function(){
 	
+	$('#keyword').focus();
+	
 	$('input[name="datefilter"]').daterangepicker({
 	      autoUpdateInput: false,
 	      locale: {
@@ -289,10 +287,10 @@ $(document).ready(function(){
 	        	 //scrollTop + windowHeight + 30 > documentHeight
 	        	
 	        	 
-				classParam.begin += 4;
+				classParam.begin += 5;
 	        	examlistClass(classParam);
 				if(role == 'ROLE_TEACHER'){
-					tempExam.begin += 4;
+					tempExam.begin += 5;
 					imsiSaveExam(tempExam);
 				}
 				
@@ -364,7 +362,7 @@ $('#examinfotab').click(function(){
 	        	 
 	        	 //scrollTop + windowHeight + 30 > documentHeight
 	        	 
-					classParam2.begin += 2;
+					classParam2.begin += 3;
 					examinfolistClass(classParam2);
 			 }
 		  }
@@ -451,6 +449,7 @@ $('#examinfotab').click(function(){
 			data : {
 				'exam_paper_num' : exam_paper_num
 			},
+			global:false,
 			success : function(data){
 				if(data == 1){
 					location.href = "updateExamView.do?exam_paper_num=" + exam_paper_num;		
@@ -482,13 +481,14 @@ $('#examinfotab').click(function(){
 						data : {
 							'exam_paper_num' : exam_paper_num
 						},
+						global:false,
 						success : function(data) {
 							if (data == 1) {
 								swal({
 									title : "삭제완료",
 									icon : "success",
 								});
-								$('#' + exam_paper_num).parent().remove();
+								$('#' + exam_paper_num).parent().parent().parent().parent().remove();
 								
 							} else if (data == 2) {
 								swal({
@@ -496,7 +496,7 @@ $('#examinfotab').click(function(){
 									text : "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
 									icon : "success",
 								});
-								$('#' + exam_paper_num).parent().remove();
+								$('#' + exam_paper_num).parent().parent().parent().parent().remove();
 							} else {
 								swal({
 									title : "삭제불가",
@@ -534,6 +534,7 @@ $('#examinfotab').click(function(){
 						data : {
 							'exam_paper_num' : exam_paper_num
 						},
+						global:false,
 						success : function(data) {
 							swal({
 								title : "삭제완료",

@@ -302,17 +302,17 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 
 
 <select id="myTempExamList" resultType="onet.com.vo.ExamPaperDto" >
-	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} order by exam_paper_num desc limit #{begin}, 4
+	select * from exam_paper where exam_paper_status=0 and member_id=#{member_id} order by exam_paper_num desc limit #{begin}, 5
 </select>
 
 <select id="exampaperSearch" resultType="onet.com.vo.ExamPaperDto">
 	select ep.exam_paper_num, ep.exam_paper_name, ep.member_id, ep.exam_paper_desc, ep.exam_paper_status, m.class_name 
 	from exam_paper ep left outer join member m 
 	on (ep.member_id = m.member_id)
-	where ep.exam_paper_status=1 and m.member_id=#{member_id}
+	where ep.exam_paper_status=1 and m.member_id=#{member_id} and ep.exam_paper_enable=1
 	<include refid="teacherExampapersearch"></include>
 	order by exam_paper_num desc
-	limit #{begin}, 4
+	limit #{begin}, 5
 </select>
 
 <sql id="teacherExampapersearch">
@@ -333,7 +333,7 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
 	<include refid="teacherexaminfosearch"></include>
 	order by exam_info_date desc
-	limit #{begin}, 2
+	limit #{begin}, 3
 </select>  
 
 <sql id="teacherexaminfosearch">

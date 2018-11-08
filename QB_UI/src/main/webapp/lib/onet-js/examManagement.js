@@ -37,6 +37,7 @@ function deleteExamInfo(){
 	   			  url : "teacherExamSchedultDelete.do",
 	   			  dataType : "text",
 	   			  data:{'exam_info_num':exam_info_num,'currentDate':currentDate,'removeData':removeData},
+	   			  global:false,
 	   			  success : function(data){
 	   				  if(data=="n"){
 	     					swal({

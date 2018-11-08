@@ -13,7 +13,7 @@
 					<i class="fa fa-pencil"></i>
 				</button>
 				<button type="button" class="btn btn-danger" id="deletebtnlg"
-					name="deletebtnlg" data-toggle="modal" data-target="#DeleteModal">
+					name="deletebtnlg">
 					<i class="fa fa-trash-o"></i>
 				</button>
 			</td>
@@ -30,15 +30,5 @@ $("button[name='updatebtnlg']").click(function(){
 	$('#lgCode').val(lgCatCode_modal);
 	$('#lgName').val(lgCatName_modal);
 	$('#updateLgBtn').val(lgCatName_modal);
-});
-
-$("button[name='deletebtnlg']").click(function(){
-	action='modify';
-	type='PUT';
-	var row =$(this).parent().parent();
-	var tr = row.children();
- 	var lgDeleteCode=tr.eq(0).text();
- 	$('#deleteLgBtn').val(lgDeleteCode);
- 
 });
 </script>

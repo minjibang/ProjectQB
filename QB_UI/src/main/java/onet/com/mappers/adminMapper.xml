@@ -417,28 +417,28 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </select>
 
 <select id="selectLgList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
-	select lg_category_code, lg_category_name from question_lg_category where lg_category_code = #{lg_category_code}
+   select lg_category_code, lg_category_name from question_lg_category where lg_category_code = #{lg_category_code}  order by length(lg_category_code) asc, lg_category_code asc
 </select>
 
 <select id="selectMdList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
-	select lg_category_code, md_category_code, md_category_name from question_md_category where lg_category_code = #{lg_category_code}
+	select lg_category_code, md_category_code, md_category_name from question_md_category where lg_category_code = #{lg_category_code} order by length(md_category_code) asc, md_category_code asc
 </select>
 
 <select id="selectSmList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
 	select md_category_code, sm_category_code, sm_category_name from question_sm_category
-	where md_category_code = ANY(select md_category_code from question_md_category where lg_category_code = #{lg_category_code})
+	where md_category_code = ANY(select md_category_code from question_md_category where lg_category_code = #{lg_category_code}) order by length(sm_category_code) asc, sm_category_code asc
 </select>
 
 <select id="selectMdRealList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
-	select md_category_code, md_category_name from question_md_category where md_category_code = #{md_category_code}
+	select md_category_code, md_category_name from question_md_category where md_category_code = #{md_category_code} order by length(lg_category_code) asc, lg_category_code asc
 </select>
 
 <select id="selectSmRealList" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
-	select sm_category_code, sm_category_name from question_sm_category where md_category_code = #{md_category_code}
+	select sm_category_code, sm_category_name from question_sm_category where md_category_code = #{md_category_code} order by length(md_category_code) asc, md_category_code asc
 </select>
 
 <select id="selectSmRealList2" parameterType="onet.com.vo.CategoryDto" resultType="onet.com.vo.CategoryDto">
-	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code}
+	select sm_category_code, sm_category_name from question_sm_category where sm_category_code = #{sm_category_code} order by length(sm_category_code) asc, sm_category_code asc
 </select>
 <!-- 양회준-10.26-추가수정 시작  -->
 <!-- 내시험지 리스트 뿌려주기 -->
@@ -468,15 +468,15 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 </update>
 <!-- 현이 11.02 adminMain 페이지 끝 -->
 <select id="selectTotalLgList" resultType="onet.com.vo.CategoryDto">
-	select * from question_lg_category
+	select * from question_lg_category order by length(lg_category_code) asc, lg_category_code asc
 </select>
 
 <select id="selectTotalMdList" resultType="onet.com.vo.CategoryDto">
-	select * from question_md_category
+	select * from question_md_category order by length(md_category_code) asc, md_category_code asc
 </select>
 
 <select id="selectTotalSmList" resultType="onet.com.vo.CategoryDto">
-	select * from question_sm_category
+	select * from question_sm_category order by length(sm_category_code) asc, sm_category_code asc
 </select>
 
 
@@ -489,7 +489,7 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	where ep.exam_paper_status=1
 	<include refid="adminexampapersearch"></include>
 	order by exam_paper_num desc
-	limit #{begin}, 4
+	limit #{begin}, 5
 </select> 
 
 <!-- 민지 11.05시험일정 검색 -->
@@ -498,6 +498,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select * from exam_info
 	<include refid="adminexaminfosearch"></include>
 	order by exam_info_date desc
-	limit #{begin}, 2
+	limit #{begin}, 3
 </select>  
 </mapper>

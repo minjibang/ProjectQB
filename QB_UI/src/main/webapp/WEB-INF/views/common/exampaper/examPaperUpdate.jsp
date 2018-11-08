@@ -156,57 +156,11 @@
                         <!-- 한결 - 10.10 시험지 미리보기 페이지 추가-->
                         <button class="btn btn-theme" data-target="#exam_preview"
                            data-toggle="modal" id="miriBtn">시험지 미리보기</button>
-                        <div id="exam_preview" class="modal fade modal_preview">
-                           <div class="modal-dialog" style="width: 70%;">
-                              <!-- 임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.-->
-                              <div class="row mt">
-                                 <div class="col-lg-12">
-                                    <div class="">
-                                       <div class="row content-panel">
-                                          <div id="timerblock">
-                                             <h3 class="mb exampaneldetailsubject">
-                                                <i class="fa fa-angle-right"></i> 비트캠프109기-JAVA기본
-                                             </h3>
-
-                                          </div>
-
-                                          <hr>
-                                          
-                                          
-                                          <!-- 미리보기  -->
-                                          <div class="panel-body">
-                                             <div class="row content-panel exampaneldetailed">
-                                                <div class="col-lg-6" id="examBox"
-                                                   style="border-right: 1px solid black;">
-                                                   
-                                                   <div id="mirileft" style="text-align: left; padding-top: 10px;">
-                                                      
-                                                   </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                   <div id="miriright" style="text-align: left;">
-                                                      
-                                                   </div>
-                                                   
-                                                </div>
-
-                                             </div>
-                                             <button
-                                                class="btn btn-large btn-primary exampaneldetailBtn"
-                                                data-dismiss="modal">확인</button>
-                                          </div>
-                                          
-                                          <!-- 미리보기  끝 -->
-                                          
-                                          
-                                       </div>
-                                    </div>
-                                 </div>
-
-                              </div>
-
-                           </div>
-                        </div>
+                        <div id="exam_preview" class="modal fade">
+									<div class="modal-dialog">
+										<div class="book"></div>
+									</div>
+								</div>
                         <input type="button" class="btn btn-theme" value="시험지 수정"
                         id="makeExamSubmitModalBtn">
                      </div>

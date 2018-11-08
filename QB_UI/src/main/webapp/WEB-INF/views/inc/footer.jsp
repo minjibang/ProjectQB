@@ -12,9 +12,14 @@
         <a href="index.html#" class="go-top">
           <i class="fa fa-angle-up"></i>
           </a>
+          <se:authorize access="hasRole('ROLE_ADMIN')">
+		<a href="${pageContext.request.contextPath}/admin/aboutUs.do"> 
+			<i class="fa fa-gittip"></i> <span>소개</span>
+		</a>
+	</se:authorize>
       </div>
-     
-    </footer>
+	
+</footer>
     <!--footer end-->
 
 
