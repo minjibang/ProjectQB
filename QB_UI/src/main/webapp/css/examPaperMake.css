@@ -95,7 +95,7 @@
 
 /*태용 시작*/
 
-#page{
+.page{
 	width: 793px;
   	height: 1122px;
 	column-count : 2;
@@ -105,13 +105,15 @@
 	margin: 1cm auto;
 	padding: 2cm;
 	border-radius: 5px;
+	text-align:left;
 }
-#page table {
+.page table {
 	margin-bottom : 50px;
 	margin-right : 20px;
 	margin-left : 5px;
+	padding-left: 10px;
 }
-#page table tr:first-child td{
+.page table tr:first-child td{
 	font-weight: bold;
 }
 td {

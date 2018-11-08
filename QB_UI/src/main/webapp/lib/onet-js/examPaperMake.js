@@ -116,15 +116,24 @@ jQuery(document).ready(function() {
          miricount++;
       });   */
 	   var mirilength = Math.round($('#sortable>li').length);
+	   var pageCount = 0;
 	   $('.book').children().remove();
 	   $("#sortable>li").each(function(index){
-		   if(index == 0){
-			   $(".book").append("<div id='page'>");
+		   if(index == 0 || index%6 == 0){
+			   
+			   
+			   if(index != 0){
+				   pageCount++;
+			   }
+			   $(".book").append("<div class='page' id='page"+pageCount+"'>");
+			   
 		   }
-		   $("#page").append("<span>"+(index+1)+" . </span>"+$(this).find("#questiontitle").html());
-		   if(index == 1){
+		   $('#page'+pageCount).append("<span>"+(index+1)+" . </span>"+$(this).find("#questiontitle").html() + "<br><br>");
+		   if(index%6 == 5){
 			   $(".book").append("</div>");
+			   
 		   }
+		   
 	   });
 	   
    })
