@@ -10,31 +10,29 @@ jQuery(document).ready(function() {
    
    /*선택문제 출제 + 문제 수 +카운트*/
    $('#pickQuestionBtn').click(function(){
-      /*문제 수*/
+      
       var sortable_li_num = $('#qnum').text();
-      /*선택한 애들의 순서 지정할 배열 생성*/
+     
       var selected = new Array();
       
-      /*오른쪽 선택문제에 데이터가 있을 때 경고문*/
+      
 	  var chkArray = [];
 	  var alQuestionName = "";
 	  $('#sortable input[name="checkbox[]"]').each(function(){
 		 chkArray.push($(this).val()); 
-		 console.log($(this).val());
 	  });
 	  for(i=0;i<chkArray.length;i++){
 		  $('.questions input[name="checkbox[]"]:checked').each(function() {
 			 if(chkArray[i] == $(this).val()){
-				 alQuestionName = alQuestionName + $(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text() + "\n";
+				 alQuestionName = alQuestionName +$(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text() + "\n";
 			 }
 		  });
 	  }
-	  console.log(alQuestionName);
 	  
 	  $('.questions input[name="checkbox[]"]:checked').each(function() {
 
 		 if(alQuestionName !=""){
-			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목 : "+alQuestionName);
+			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목  : \n"+alQuestionName);
 			  
 		  }
 		  
@@ -48,73 +46,16 @@ jQuery(document).ready(function() {
 		  
 		  
 	   });
-      /*if($('#sortable input[name="checkbox[]"]').length == 0){
-    	  오른쪽 선택문제가 아무것도 없을 때 >> 최초 선택문제 출제시
-    	  $('.questions input[name="checkbox[]"]:checked').each(function() {
-    	         selected.push("<li><div class='row'>" 
-    	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
-    	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
-    	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
-    	                     "onchange='plusqcore()' /><hr></div></div></li>");
-
-    	         sortable_li_num++;
-    	      });
-      }else{
-    	  오른쪽 선택문제에 데이터가 있을 때 경고문
-    	  var chkArray = [];
-    	  var alQuestionName = "";
-    	  $('#sortable input[name="checkbox[]"]').each(function(){
-    		 chkArray.push($(this).val()); 
-    	  });
-    	  for(i=0;i<chkArray.length;i++){
-    		  $('.questions input[name="checkbox[]"]:checked').each(function() {
-    			 if(chkArray[i] == $(this).val()){
-    				 alQuestionName = alQuestionName + $(this).parents('.qnumdiv').siblings('#questiontitle').find('b').text() + " ";
-    			 }
-    		  });
-    	  }
-    	  console.log(alQuestionName);
-    	  
-    	  $('.questions input[name="checkbox[]"]:checked').each(function() {
-    		  if(alQuestionName != ""){
-    			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목 : "+alQuestionName);
-    			  alQuestionName = "";
-    		  }
- 	         selected.push("<li><div class='row'>" 
- 	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
- 	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
- 	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
- 	                     "onchange='plusqcore()' /><hr></div></div></li>");
- 	         
- 	         sortable_li_num++;
- 	      });
-      }*/
 
       $('.task-list').append(selected);
       $('input[name="checkbox[]"]:checked').prop('checked',false);
       
-      /*이동한 문제수 만큼 문제 개수 카운트*/
+      
       $('#qnum').text(sortable_li_num);
    });
    
    /*미리보기*/
    $('#miriBtn').click(function(){
-     /* var miriselected = new Array();
-      var miricount = 0;
-      var mirilength = Math.round($('#sortable>li').length/2);
-      var change = "mirileft";
-      
-      $('#miriright').children().remove();
-      $('#mirileft').children().remove();
-      $("#sortable>li").each(function(index){
-         if(mirilength == index){
-            change ="miriright"
-         }
-         $('#'+change).append("<span>"+(index+1)+". </span>"
-         +$(this).find("#questiontitle").html());
-         
-         miricount++;
-      });   */
 	   var mirilength = Math.round($('#sortable>li').length);
 	   var pageCount = 0;
 	   $('.book').children().remove();
@@ -140,17 +81,17 @@ jQuery(document).ready(function() {
    
    /*선택문제 삭제 + 문제 수 -카운트 / 점수 -카운트*/
    $('#pickQuestionDeleteBtn').click(function(){
-      /*문제 수 / 점수값 가져오기*/
+      
       var sortable_li_num = $('#qnum').text();
       var qc = Number($('#qcore').text());
       
-      /*체크된 애들만 실행*/
+      
       $('#sortable input[name="checkbox[]"]:checked').each(function() {
-         /*선택문제 삭제부분*/
+         
          $(this).closest("li").remove();
          sortable_li_num--;
          
-         /*점수 -카운트*/
+         
          qc = qc - Number($(this).parents('.qnumdiv').siblings(".qscore").children("#insertedQScore").val());
       });
       $('#qnum').text(sortable_li_num);
@@ -171,9 +112,6 @@ jQuery(document).ready(function() {
 		   questionScore += $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() + ", ";
 		   questionIndex += (index+1) + ", ";
 	   });
-	   console.log("문제 번호 : "+questionNum);
-	   console.log("배점 : " +questionScore);
-	   console.log("문제 순서 : " + questionIndex);
 	   
 	   $('#saveQNum').val(questionNum);
 	   $('#saveEQSeq').val(questionIndex);
@@ -271,14 +209,9 @@ function insertEP(examName, examDesc, examPStatus){
      "exam_paper_status":examPStatus
      },
    success:function(epnum){
-	   console.log(epnum);
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-	         console.log("   시험지 번호 = " + epnum);
-	         console.log("   문제번호 = "+$(this).val());
 	         var questionNum = $(this).val();
-	         console.log("   문제 배치번호 = " + (Number(index) + 1));
 	         var EQSeq=(Number(index) + 1);
-	         console.log("   점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
 	         $.ajax({
 	            url:"../teacher/examQuestionInsert.do",
 	            type:"get",
@@ -290,13 +223,11 @@ function insertEP(examName, examDesc, examPStatus){
 	               "exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
 	            },
 	            success:function(data){
-	               console.log(data);
-	               
+
 	            }
 	         });
-	         console.log("여기까지 시험지 번호를 받아와서 시험지 문제에 넣는 과정~ 이 여러번 나와야 함.");
 	      });         
-	         /*내 시험지로 이동*/
+	         
 	         if(examPStatus==1){
 	        	 swal({
 				       title: "시험지가 생성되었습니다.",
@@ -335,14 +266,10 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
                 },
              success:function(Qnum){
             	 $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-                   console.log("시험지 번호 = " + data);
-                   console.log("문제번호 = "+$(this).val());
                    var questionNum = $(this).val();
-                   console.log("문제 배치번호 = " + index + 1);
                    var EQSeq=(Number(index) + 1);
-                   console.log("점수 = "+$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val());
                    var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
-                      /*insert자리*/
+                      
                       $.ajax({
                          url:"../teacher/examQuestionInsert.do",
                          type:"get",
@@ -354,7 +281,6 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
                             "exam_question_score":Score
                          },
                          success:function(data){
-                            console.log(data);
                             
                             
                          }
@@ -363,15 +289,11 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
              }
           });
     	   if(examPStatus==1){
-    		 /*강사라면 밑으로 가고*/
-  	         location.href="examManagement.do";
-  	         /*location.href=$('.dpn_EPN').val()+"/teacher/examManagement.do";*/
-  	         /*관리자면 어디로 가나?*/
-  	         
-  	         }else{
-  	        	 $('#pickQuestionTempSaveModal').modal('hide'); 
-  				 swal("임시 저장되었습니다.");
-  	         }
+  	         	location.href="examManagement.do";
+  	       }else{
+  	        	$('#pickQuestionTempSaveModal').modal('hide'); 
+  				swal("임시 저장되었습니다.");
+  	       }
        },
        error:function(xml){
           swal("업데이트 에러입니다.");

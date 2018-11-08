@@ -39,23 +39,17 @@
 							<div class="col-lg-4">
 								<button class="btn btn-theme" data-toggle="modal"
 									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
-								<!-- <select class="form-control" id="searchClassTerm" name="searchClassTerm">
-									<option value="allClass">전체 클래스 보기</option>
-									<option value="nowClass">현재 수강중인 클래스 보기</option>
-									<option value="pastClass">지난 클래스 보기</option>
-								</select>	 -->
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
 								<select class="form-control searchRightBtnDiv" id="searchType"
 									name="searchType">
-									<option value="all">전체 보기</option>
-									<option value="n">클래스명</option>
-									<option value="t">강사</option>
+									<option value="all">전체 강의</option>
+									<option value="ing">수강중 강의</option>
+									<option value="end">지난 강의</option>
 								</select> <input type="text" class="form-control searchRightBtnDiv"
 									placeholder="검색어를 입력" id="keyword" name="keyword">
 								<button type="button" class="btn btn-theme searchRightBtn"
 									id="searchBtn">검색</button>
-								<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 							</div>
 						</div>
 
@@ -221,7 +215,7 @@
 var classParam = {	
 		"begin" : 0,
 		"searchType" : "all",
-		"keyword" : "all",
+		"keyword" : "",
 }
 
 $(document).ready(function(){
@@ -254,7 +248,19 @@ $(document).ready(function(){
 		adminMainClass(classParam);
 		
 	});
+	
+	$('#searchType').change(function() {
 		
+		$("#keyword").val("");
+		$("#keyword").focus();
+		classParam.begin = 0;
+		classParam.searchType = $("#searchType").val();
+		classParam.keyword = "";
+		$('#classlistView').empty();
+		
+		adminMainClass(classParam);
+		
+	});
 }); // document.ready 종료 
 
 	//클래스 목록 가져오는 ajax
@@ -264,14 +270,6 @@ $(document).ready(function(){
 			type : 'GET',
 			dataType : "html",
 			data : classParam,
-			/* beforeSend : function(){
-				$('.loadingDisplay').show();
-			}, 
-			complete : function(){
-				setTimeout(function(){
-					$('.loadingDisplay').hide();
-				}, 300);
-			}, */
 			success : function(data){
 				$('#classlistView').append(data);
 				$(".classDivOverFlow").each(function(){
