@@ -89,12 +89,12 @@ public class StudentService {
 		return examInfoList;
 	}
 	
-	public String searchStudentName(String member_id) {
+	public List<Score_chartDto> searchStudentName(String member_id) {
 		
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		String member_name = dao.searchStudentName(member_id);
+		List<Score_chartDto> member_comment = dao.searchStudentName(member_id);
 		
-		return member_name;
+		return member_comment;
 	}
 	
 	public List<ExamInfoDto> searchPastExamKeyword(String member_id, String keyword){

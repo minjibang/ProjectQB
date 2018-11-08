@@ -39,11 +39,6 @@
 							<div class="col-lg-4">
 								<button class="btn btn-theme" data-toggle="modal"
 									data-target="#myModal" id="makeNewClassBtn">새 클래스 개설하기</button>
-								<!-- <select class="form-control" id="searchClassTerm" name="searchClassTerm">
-									<option value="allClass">전체 클래스 보기</option>
-									<option value="nowClass">현재 수강중인 클래스 보기</option>
-									<option value="pastClass">지난 클래스 보기</option>
-								</select>	 -->
 							</div>
 							<div class="col-lg-8 searchRowRightDiv">
 								<select class="form-control searchRightBtnDiv" id="searchType"
@@ -55,7 +50,6 @@
 									placeholder="검색어를 입력" id="keyword" name="keyword">
 								<button type="button" class="btn btn-theme searchRightBtn"
 									id="searchBtn">검색</button>
-								<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 							</div>
 						</div>
 
@@ -267,9 +261,7 @@ $(document).ready(function(){
 		adminMainClass(classParam);
 		
 	});
-	
 }); // document.ready 종료 
-
 
 	//클래스 목록 가져오는 ajax
 	function adminMainClass(classParam){
@@ -278,8 +270,19 @@ $(document).ready(function(){
 			type : 'GET',
 			dataType : "html",
 			data : classParam,
-			success : function(data){	
+			success : function(data){
 				$('#classlistView').append(data);
+				$(".classDivOverFlow").each(function(){
+					var charVal = $(this).text().trim();
+					var code = (charVal.charCodeAt(0)+charVal.charCodeAt(2)+charVal.charCodeAt(4))%7;
+					var img=$(this).prev().children().eq(0);
+					for(var i=0;i<12;i++){
+						switch(code){
+							case i: img.attr("src","${pageContext.request.contextPath}/img/classIcon/classicon"+i+".png"); break;
+						}
+					}
+				});
+			
 			},
 			error : function(error) {
 				console.log("===========실패");

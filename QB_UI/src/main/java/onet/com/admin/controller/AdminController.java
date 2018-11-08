@@ -253,37 +253,60 @@ public class AdminController {
 	
 	/*민지 18.10.10 메시지 페이지 시작*/
 	@RequestMapping("myMessage.do")
-	public String myMessage(Model model, Principal principal) {
+	   public String myMessage(Model model, Principal principal) {
+	       String member_id = principal.getName();
+	       System.out.println("아이디:"+member_id);
+	       MessageDto dto = new MessageDto();
+	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+	          
+	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+	          for(int i=0; i<receiveMessage.size(); i++) {
+	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+	        	  receiveMessage.get(i).setMessage_date(date);
+	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+	        	  String sendManName = commonService.nameSearch(sendManId);
+	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          }
+	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	          for(int i=0; i<sendMessage.size(); i++) {
+	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	        	  sendMessage.get(i).setMessage_date(date);
+	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          }
+	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
+	          
+	          model.addAttribute("classMemberList", classMemberList);
+	          model.addAttribute("classTeacherList",classTeacherList);
+	          model.addAttribute("receiveMessage", receiveMessage);
+	          model.addAttribute("sendMessage", sendMessage);
+	          model.addAttribute("member_id", member_id);
 		
-		 String member_id = principal.getName();
-		 String date = "";
-		 List<MemberDto> teacherList = adminService.teacherList();
-		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-		   for(int i=0; i<receiveMessage.size(); i++) {
-		    	  date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
-		    	 receiveMessage.get(i).setMessage_date(date);
-		   }
-		   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-		   for(int i=0; i<sendMessage.size(); i++) {
-		    	  date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
-		    	  sendMessage.get(i).setMessage_date(date);
-		   }
-		   model.addAttribute("teacherList", teacherList);
-		   model.addAttribute("receiveMessage", receiveMessage);
-		   model.addAttribute("sendMessage", sendMessage);
-		   model.addAttribute("member_id", member_id);
-		
+	          
 		return "common.admin.common.myMessage";
 	}
 	/*민지 18.10.10 메시지 페이지 끝*/
-	
+	@RequestMapping("headerMessage.do")
+	public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
+		
+		 String member_id = principal.getName();
+		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+
+		 ModelAndView mv = new ModelAndView();
+		 mv.setViewName("ajax.common.receiveMessage_ajax");
+		 mv.addObject("receiveMessage", receiveMessage);
+
+		return mv;
+
+	}
 
 	
 	
 	// 관리자 클래스 상세보기  - 공지사항
 	//10.15민지
 	@RequestMapping("adminClassMain.do")
-	public String adminClassMain(Model model, String class_name, Principal principal) { 
+	public String adminClassMain(Model model, String class_name, String class_num, Principal principal) { 
 		List<NoticeDto> notice;
 		String date="";
 		notice=commonService.admin_Main(class_name);
@@ -296,6 +319,7 @@ public class AdminController {
 			model.addAttribute("notice", notice);
 		}
 		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
 		List<ExamInfoDto> exam_info = commonService.admin_exam_info(class_name);
 		model.addAttribute("exam_info", exam_info);
 		return "common.adminClass.admin.notice.notice";
@@ -303,9 +327,11 @@ public class AdminController {
 	
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
-		
-		// 10.23 현이 추가 (TeacherController에서 가져옴) 
 		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+		 for(int i=0; i<result.size(); i++) {
+	    	 String date = result.get(i).getNotice_date().substring(0, result.get(i).getNotice_date().length()-5);
+	    	 result.get(i).setNotice_date(date);
+	      }
 		List<CommentDto> comment = commonService.comment(class_name, notice_num);
 		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
 		if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() != null) {
@@ -338,9 +364,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("noticeWrite.do")
-	public String noticeWrite(String class_name, Model model) {
-		model.addAttribute("class_name",class_name);
+	public String noticeWrite(String class_name, String class_num, Model model) {
 		
+		model.addAttribute("class_num", class_num);
+		model.addAttribute("class_name",class_name);
 		return "common.adminClass.admin.notice.noticeWrite";
 	}
 

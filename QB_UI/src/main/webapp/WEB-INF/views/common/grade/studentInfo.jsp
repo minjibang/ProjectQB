@@ -119,7 +119,7 @@
 												<h4 id="tab2_className">${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
-									                    <th id="studentListTh"><i class="fa fa-bullhorn"></i>학생목록</th>
+									                    <th id="studentListTh"><i class="fa fa-bullhorn">&nbsp;</i>학생목록</th>
 									                  </tr>
 									                </thead>
 									                <tbody>									                
@@ -157,18 +157,38 @@
 													<tbody id="studentExamTable">
 														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
 														<tr class="unread">															
-															<td class="view-message  dont-show"><img
+															<td class="view-message dont-show"><img
 																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																	class="img-thumbnail" width="150"></td>
+																	class="img-thumbnail testIcon" width="150"></td>
 															<td class="view-message "><h3 class="tab2_examPaper">${studentExamScoreInfo.exam_info_name}</h3>
-																	<p><c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach></p></td>
-															<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 :
+																<p><c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach></p>
+																<p>수고하셨습니다.</p>
+															<!-- 코멘트 범위 -->
+																<div>
+																	<p>수고하셨습니다.</p>
+																</div>
+																<%-- <div class="row noticeView_Comments_1 noticeContent comment_number" id="${comment.comment_num}">
+																	<div class="col-sm-3">
+																		<strong id="${studentExamScoreInfo.exam_info_num}">선생님</strong><br>
+																	</div>
+																	<div class="col-sm-6 content">${comment.comment_content}</div>
+																	<div class="col-sm-3">&nbsp;&nbsp;
+																		<c:if test="${name eq 선생님}">
+																			<a class="update"><i class="fa fa-pencil" id="${comment.comment_num}"></i>수정</a>&nbsp;
+																		</c:if>
+																	</div>
+																</div> --%>
+															<!-- 코멘트 범위 -->
+															</td>
+															<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 :
 																	${studentExamScoreInfo.exam_info_date }</p>
 																<p class="tab2_examTime">
 																시험 시간 : ${studentExamScoreInfo.exam_info_start}~${studentExamScoreInfo.exam_info_end }</p>
 																<p>(${studentExamScoreInfo.exam_info_time })</p></td>
 															<td class="view-message inbox-small-cells">
-																<button type="button" id="pastExamBtn"class="btn btn-theme pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
+																<button type="button" id="pastExamBtn"class="btn btn-info mt pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
+																<button type="button" id="ExamCommentBtn"class="btn btn-info mt ExamCommentBtn" value="">평가등록</button>
+
 															</td>
 														</tr>
 														</c:forEach>
@@ -282,7 +302,7 @@
 																<tr>
 																	<th>학생 이름</th>
 																		<c:forEach items="${classChart}" var="subject">
-																		<th>${subject.exam_info_name}</th>
+																		<th id="${subject.exam_info_name}">${subject.exam_info_name}</th>
 																		</c:forEach>
 																	<th>평균</th>
 																</tr>
@@ -291,15 +311,25 @@
 																<c:forEach items="${studentExamScoreList}" var="tablelist">
 																<tr>
 																	<td>${tablelist.member_name}</td>
-																	<c:forEach items="${tablelist.score_list}" var="subjectScore">
-																		<td>${subjectScore}</td>
+																	<c:forEach items="${classChart}" var="subjectScore" varStatus="chk">
+																	<td>
+																	<c:set var="score" value="0"/>
+																		<c:forEach items="${tablelist.score_list}" var="inner" varStatus="innerchk">																		
+																		<c:if test="${classChart[chk.index].exam_info_name eq inner.key}">																			
+																			${inner.value}
+																			<c:set var="score" value="${inner.value}"/>
+																		</c:if>
+																		</c:forEach>
+																	<c:if test="${score==0}">
+																	미응시대상
+																	</c:if>	
+																	</td>
 																	</c:forEach>
 																	<td>${tablelist.avg_score}</td>
 																</tr>
 																</c:forEach>
 															</tbody>
 														</table>
-
 													</div>
 												</div>
 											</div>
@@ -324,15 +354,43 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <%--ChartJS 차트 경로--%>
 <script src="${pageContext.request.contextPath}/lib/onet-js/studentInfo.js" type="text/javascript"></script>
+<!-- SweetAlert CDN -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+$(".studentListMembers").each(function(){
+	var name = $(this).text().trim();
+	var code=name.charCodeAt(1)%13;
+	var img=$(this).children();	
+	for(var i=0;i<14;i++){
+		switch(code){
+			case i: img.attr("src","${pageContext.request.contextPath}/img/portrait/portrait"+i+".png"); break;
+		}
+	}
+});
+$(".tab2studentListMembers").each(function(){
+	var name = $(this).text().trim();
+	var code=name.charCodeAt(1)%13;
+	var img=$(this).children();	
+	for(var i=0;i<14;i++){
+		switch(code){
+			case i: img.attr("src","${pageContext.request.contextPath}/img/portrait/portrait"+i+".png"); break;
+		}
+	}
+});
+
+
 $(document).ready(function(){
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );
+
+	 
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
 	var chartClassDatas = new Array();
+	var chartClassStudentDatas = new Array();
 	var chartLabels = new Array();
+	var chartStudentLabels = new Array();
 	var spreadScore;
 	//시험번호
 	var examInfoNum = "${classChart[0].exam_info_num}";
@@ -341,10 +399,13 @@ $(document).ready(function(){
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
+		chartStudentLabels.push("${studentChart.exam_info_name}");
+		chartClassStudentDatas.push("${studentChart.class_chart_avg}");
+		
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
-		chartClassDatas.push("${classChart.class_chart_avg}");
 		chartLabels.push("${classChart.exam_info_name}");
+		chartClassDatas.push("${classChart.class_chart_avg}");
 	</c:forEach>
 	
 	
@@ -376,7 +437,7 @@ $(document).ready(function(){
 				},
 			datatype:"json",
 			success:function(data, status){
-				console.log(data);
+
 				tab2AjaxData=data;
 				var studentExamScoreSrc = "";
 				$("#studentExamTable").empty();
@@ -386,21 +447,82 @@ $(document).ready(function(){
 						smCtgr += name+'&nbsp;&nbsp;';
 					});
 					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail testIcon" width="150"></td>';
 					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
-					studentExamScoreSrc += '<p>'+smCtgr+'</p></td>';
-					studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
+					studentExamScoreSrc += '<p>'+smCtgr+'</p>';
+					studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
+					studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-theme pastExamBtn" value="'+element.exam_info_num+'">성적확인</button></td></tr>';		
+					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-info mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
+					studentExamScoreSrc += '<button type="button" id="ExamCommentBtn" class="btn btn-info mt ExamCommentBtn" value="">평가등록</button></td></tr>';
 				});
-				$("#studentExamTable").append(studentExamScoreSrc);			
+				$("#studentExamTable").append(studentExamScoreSrc);	
+				$(".testIcon").each(function(){
+					var testIcon = $(this);	
+					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+					console.log(testIcon);
+					for(var i=0;i<10;i++){
+						switch(code){
+							case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
+						}
+					}
+				});
 			},
 			error:function(error, status){
 				console.log("실패1:"+status);
 			}
 		});
 	}
+	
+	$(document).on('click', '.ExamCommentBtn', function(){
+		$(this).parent().parent().next().next().children().eq(1).removeAttr("disabled");
+		var text=$(this).parent().prev().prev().children().eq(3).text();
+		var examInfoNum=$(this).prev().val();
+		
+		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
+		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
+		var memberId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
+		
+		swal({
+			text: '평가를 입력해 주세요.',
+			content: {
+				element:"input",
+				attributes:{value:text}
+				},
+				buttons:['취소','등록!']
+			})
+			.then(name => {				
+  				if (!name) throw null; 
+  				
+  				$(this).parent().prev().prev().children().eq(3).text(name);
+  				return fetch('studentInfoCommentUpdate.do?member_id='+memberId+'&exam_info_num='+examInfoNum+'&score_chart_comment='+name);
+  			})  			
+  			.then(result => {
+  			  return result;
+  			})		 
+  			.then(result => {
+			 
+			if (!result) {
+				return swal("등록이 실패되었습니다.");
+			} 
+  			  swal({
+  			    title: "등록 성공",
+  			    text: "답변 등록이 성공했습니다.",
+  			    icon: "success",
+  			  });
+  			})
+  			.catch(err => {
+  				console.log(err);
+  			  if (err) {
+  			    swal("등록 실패", "The AJAX request failed!", "error");
+  			  } else {
+  			    swal.stopLoading();
+  			    swal.close();
+  			  }
+  			});
+		})
+	/* 양회준 11.5 코멘트 관련 끝*/
 	
 	//tab2AjaxData 가져오기 실행
 	tab2Ajax();	
@@ -488,6 +610,8 @@ $(document).ready(function(){
 		//가져온 차트데이터 담을 배열(학생점수, 반평균, 과목)	
 		chartStudentDatas = [];
 		chartClassDatas = [];
+		chartClassStudentDatas = [];
+		chartStudentLabels = [];
 		chartLabels = [];		
 		//클릭한 목록의 학생이름 가져오기 & 출력
 		var memberName=$(this).text().trim();
@@ -503,6 +627,7 @@ $(document).ready(function(){
 		memberId=studentArr[memberIndex].member_id;
 		className=studentArr[memberIndex].class_name;
 		//비동기 실행
+		
 		$.ajax({
 			type:"post",
 			url:"studentChartInfo.do",
@@ -514,6 +639,8 @@ $(document).ready(function(){
 				//넘어온 map객체의 학생차트정보
 				$(data.studentName).each(function(index, element){					
 					chartStudentDatas.push(element.score_chart_score);
+					chartStudentLabels.push(element.exam_info_name);
+					chartClassStudentDatas.push(element.class_chart_avg);
 				});
 				//넘어온 map객체의 클래스차트정보
 				$(data.className).each(function(index, element){
@@ -523,9 +650,10 @@ $(document).ready(function(){
 				functionChart();
 			},
 			error:function(error, status){
-				console.log("실패2:"+status);
+
 			}
-		});		
+		});
+		
 	});
 	//학생목록 이벤트 종료
 	
@@ -561,13 +689,26 @@ $(document).ready(function(){
 					smCtgr += name+'&nbsp;&nbsp;';
 				});
 				studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail testIcon" width="150"></td>';
 				studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
-				studentExamScoreSrc += '<p>'+smCtgr+'</p></td>';
-				studentExamScoreSrc += '<td class="view-message  text-right"><p class="tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
+				studentExamScoreSrc += '<p>'+smCtgr+'</p>';
+				studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
+				studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
 				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
 				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-				studentExamScoreSrc += '<button type="btn-theme btn-theme">성적확인</button></td></tr>';
+				studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-info mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
+				studentExamScoreSrc += '<button type="button" id="ExamCommentBtn" class="btn btn-info mt ExamCommentBtn" value="">평가등록</button></td></tr>';
+
+			}
+		});
+		$(".testIcon").each(function(){
+			var testIcon = $(this);	
+			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+			console.log(testIcon);
+			for(var i=0;i<10;i++){
+				switch(code){
+					case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
+				}
 			}
 		});
 		$("#studentExamTable").append(studentExamScoreSrc);
@@ -580,7 +721,6 @@ $(document).ready(function(){
 		var getAreaEnd =$("#tab2_studentName").text().indexOf(")");
 		var getId=$("#tab2_studentName").text().substring(getAreaStart+1, getAreaEnd);
 		var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val()+"&member_id="+getId;
-		console.log(popUrl);
 		var popOption = "width=1000px, resizable=no, location=no, left=50px, top=100px";
 		window.open(popUrl, "지난 시험보기",popOption);		
 	});
@@ -654,7 +794,7 @@ $(document).ready(function(){
 		  type: 'line',
 		  // The data for our dataset
 		  data: {
-		      labels: chartLabels,
+		      labels: chartStudentLabels,
 		      datasets: [
 		        {
 		          label: "반 평균 성적",
@@ -662,7 +802,7 @@ $(document).ready(function(){
 		          borderColor: 'rgb(255, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
-		          data: chartClassDatas,
+		          data: chartClassStudentDatas,
 		      },
 		      {
 		          label: "학생 성적",
@@ -845,7 +985,6 @@ $(document).ready(function(){
 				});					
 			},
 			error:function(error){
-				console.log("실패3:"+status);
 			}
 		});
 	}

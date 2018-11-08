@@ -38,10 +38,10 @@
 						<c:forEach items="${question_choice}" var="question_choice">
 							<c:if test="${question_choice.question_num eq question.question_num}">
 								<c:if test="${question_choice.question_choice_image ne null }">
-									<p>${question_choice.question_choice_num}. ${question_choice.question_choice_content} <br><img src="${pageContext.request.contextPath}/upload/question/${question_choice.question_choice_image}" alt="NoImg" class="questionChoiceImg" /></p>
+									<p>${question_choice.question_choice_num})&nbsp; ${question_choice.question_choice_content} <br><img src="${pageContext.request.contextPath}/upload/question/${question_choice.question_choice_image}" alt="NoImg" class="questionChoiceImg" /></p>
 								</c:if>
 								<c:if test="${question_choice.question_choice_image eq null }">
-									<p>${question_choice.question_choice_num}. ${question_choice.question_choice_content}</p>
+									<p>${question_choice.question_choice_num})&nbsp; ${question_choice.question_choice_content}</p>
 								</c:if>
 							</c:if>
 						</c:forEach>

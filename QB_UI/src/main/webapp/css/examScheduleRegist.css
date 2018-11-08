@@ -1,16 +1,20 @@
-/* 
-	@CSS:examScheduleRegist.css 파일 추가
-	@DATE:2018-10-18
-	@Author:유영준
-	@Desc:강사-시험 일정 등록(스토리보드 28 of 41)
-*/
 
 	.checkName{
-	
-	width:150px;
-      height:350px;
+	  width:180px;
+      height:550px;
       overflow:auto;
-      
+    }
+    
+    #examName{
+    font-size:20px;
+    }
+    
+    .invite-row{
+    width:180px;
+    }
+    
+    .examInfoTextBox{
+    width:67%;
     }
     
 	.wrapper-low {

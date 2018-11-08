@@ -85,6 +85,10 @@ public class StudentController {
 		   String member_id = principal.getName();
 		      System.out.println(member_id);
 		      List<NoticeDto> notice = commonService.teacher_student_Main(member_id);
+		      for(int i=0; i<notice.size(); i++) {
+		    	 String date = notice.get(i).getNotice_date().substring(0, notice.get(i).getNotice_date().length()-5);
+		    	 notice.get(i).setNotice_date(date);
+		      }
 		      List<MemberDto> boardNull = commonService.boardNull(member_id);
 		      System.out.println(boardNull);
 		    	model.addAttribute("boardNull", boardNull);
@@ -97,36 +101,40 @@ public class StudentController {
 	   /*한결 10월 12일 학생메인페이지 끝*/
 
 	/* 재훈:10.08 게시판 글 상세보기 페이지 시작 */
-	@RequestMapping("noticeDetail.do")
-	public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
-		List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
-		List<CommentDto> comment = commonService.comment(class_name, notice_num);
-		List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
-		if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() != null) {
-			String file1 = result.get(0).getNotice_file1();
-			int index1 = file1.indexOf("_");
-			String originFileName1 = file1.substring(index1+1);
-			String file2 = result.get(0).getNotice_file2();
-			int index2 = file2.indexOf("_");
-			String originFileName2 = file2.substring(index2+1);
-			model.addAttribute("originFileName1",originFileName1);
-			model.addAttribute("originFileName2",originFileName2);
-		}else if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() == null) {
-			String file1 = result.get(0).getNotice_file1();
-			int index1 = file1.indexOf("_");
-			String originFileName1 = file1.substring(index1+1);
-			model.addAttribute("originFileName1",originFileName1);
-		}else if(result.get(0).getNotice_file1() == null && result.get(0).getNotice_file2() != null) {
-			String file2 = result.get(0).getNotice_file2();
-			int index2 = file2.indexOf("_");
-			String originFileName2 = file2.substring(index2+1);
-			model.addAttribute("originFileName2",originFileName2);
-		}
-		String name = principal.getName();
-		model.addAttribute("result", result);
-		model.addAttribute("comment", comment);
-		model.addAttribute("commentGroup", commentGroup);
-		model.addAttribute("name", name);
+	   @RequestMapping("noticeDetail.do")
+		public String noticeDetail(Model model, String class_name, int notice_num, Principal principal) {
+			List<NoticeDto> result = commonService.noticeDetail(class_name, notice_num);
+			 for(int i=0; i<result.size(); i++) {
+		    	 String date = result.get(i).getNotice_date().substring(0, result.get(i).getNotice_date().length()-5);
+		    	 result.get(i).setNotice_date(date);
+		      }
+			List<CommentDto> comment = commonService.comment(class_name, notice_num);
+			List<CommentDto> commentGroup = commonService.commentGroup(class_name, notice_num);
+			if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() != null) {
+				String file1 = result.get(0).getNotice_file1();
+				int index1 = file1.indexOf("_");
+				String originFileName1 = file1.substring(index1+1);
+				String file2 = result.get(0).getNotice_file2();
+				int index2 = file2.indexOf("_");
+				String originFileName2 = file2.substring(index2+1);
+				model.addAttribute("originFileName1",originFileName1);
+				model.addAttribute("originFileName2",originFileName2);
+			}else if(result.get(0).getNotice_file1() != null && result.get(0).getNotice_file2() == null) {
+				String file1 = result.get(0).getNotice_file1();
+				int index1 = file1.indexOf("_");
+				String originFileName1 = file1.substring(index1+1);
+				model.addAttribute("originFileName1",originFileName1);
+			}else if(result.get(0).getNotice_file1() == null && result.get(0).getNotice_file2() != null) {
+				String file2 = result.get(0).getNotice_file2();
+				int index2 = file2.indexOf("_");
+				String originFileName2 = file2.substring(index2+1);
+				model.addAttribute("originFileName2",originFileName2);
+			}
+			String name = principal.getName();
+			model.addAttribute("result", result);
+			model.addAttribute("comment", comment);
+			model.addAttribute("commentGroup", commentGroup);
+			model.addAttribute("name", name);
 		return "common.student.notice.noticeDetail";
 	}
 	/* 재훈:10.08 게시판 글 상세보기 페이지 끝 */
@@ -142,9 +150,9 @@ public class StudentController {
 		// 10.23 현이 추가 
 		String member_id = principal.getName();
 		List<ExamInfoDto> examInfoList = studentService.searchPastExam(member_id);
-		String member_name = studentService.searchStudentName(member_id);
+		List<Score_chartDto> member_comment = studentService.searchStudentName(member_id);
 		model.addAttribute("examInfoList", examInfoList);
-		model.addAttribute("member_name", member_name);
+		model.addAttribute("member_comment", member_comment);
 
 		return "student.pastExam";
 	}
@@ -291,19 +299,37 @@ public class StudentController {
 	}
 	
 	@RequestMapping("myMessage.do")
-    public String myMessage(Model model, Principal principal) {
-       String member_id = principal.getName();
-       System.out.println("아이디:"+member_id);
-          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
-          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
-          
-          model.addAttribute("classMemberList", classMemberList);
-          model.addAttribute("classTeacherList",classTeacherList);
-          model.addAttribute("receiveMessage", receiveMessage);
-          model.addAttribute("sendMessage", sendMessage);
-          model.addAttribute("member_id", member_id);
+	   public String myMessage(Model model, Principal principal) {
+	       String member_id = principal.getName();
+	       System.out.println("아이디:"+member_id);
+	       MessageDto dto = new MessageDto();
+	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
+	          
+	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+	          for(int i=0; i<receiveMessage.size(); i++) {
+	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+	        	  receiveMessage.get(i).setMessage_date(date);
+	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+	        	  String sendManName = commonService.nameSearch(sendManId);
+	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          }
+	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	          for(int i=0; i<sendMessage.size(); i++) {
+	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	        	  sendMessage.get(i).setMessage_date(date);
+	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          }
+	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
+	          
+	          model.addAttribute("classMemberList", classMemberList);
+	          model.addAttribute("classTeacherList",classTeacherList);
+	          model.addAttribute("receiveMessage", receiveMessage);
+	          model.addAttribute("sendMessage", sendMessage);
+	          model.addAttribute("member_id", member_id);
+		
+	          
        return "common.student.common.myMessage";
     }
 	
@@ -632,5 +658,17 @@ public class StudentController {
 				return result;
 			}
 		   
+			@RequestMapping("headerMessage.do")
+			public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) {
+				
+				 String member_id = principal.getName();
+				 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 
+				 ModelAndView mv = new ModelAndView();
+				 mv.setViewName("ajax.common.receiveMessage_ajax");
+				 mv.addObject("receiveMessage", receiveMessage);
+
+				return mv;
+
+			}
 }
