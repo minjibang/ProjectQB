@@ -30,7 +30,7 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/admin/studentInfo.do?class_num=${param.class_num}">
+            <a href="${pageContext.request.contextPath}/admin/studentInfo.do?class_num=${param.class_num}&class_name=${param.class_name}">
               <i class="fa fa-desktop"></i>
               <span>학생 & 성적관리</span>
               </a>
