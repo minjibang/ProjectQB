@@ -254,7 +254,7 @@ $(document).ready(function(){
 		adminMainClass(classParam);
 		
 	});
-	
+		
 }); // document.ready 종료 
 
 
@@ -267,6 +267,15 @@ $(document).ready(function(){
 			data : classParam,
 			success : function(data){	
 				$('#classlistView').append(data);
+				$(".classDivOverFlow").each(function(){
+					var code = ($(this).text().trim().charCodeAt(0)+$(this).text().trim().charCodeAt(2)+$(this).text().trim().charCodeAt(4))%7;
+					var img=$(this).prev().children().eq(0);
+					for(var i=0;i<12;i++){
+						switch(code){
+							case i: img.attr("src","${pageContext.request.contextPath}/img/classIcon/classicon"+i+".png"); break;
+						}
+					}
+				});
 			},
 			error : function(error) {
 				console.log("===========실패");
