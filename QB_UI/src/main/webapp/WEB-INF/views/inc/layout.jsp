@@ -83,8 +83,8 @@
 </head>
 <body>
 	<!-- 로딩 이미지 -->
-	<div class="loadingDiv loadingDisplay"> 
-		<img src="${pageContext.request.contextPath}/img/loading6.gif" alt="loadingImage" class="loadingImg"> 
+	<div class="loadingDiv loadingDisplay">
+		<img src="${pageContext.request.contextPath}/img/loading2.gif" alt="loadingImage" class="loadingImg">
 	</div>
 	<section id="container"> <!-- 헤더 부분 --> <tiles:insertAttribute
 		name="header" /> <!-- 사이드바 부분 --> <tiles:insertAttribute
@@ -124,6 +124,7 @@
 	<!-- 재훈 - summernote 관련 js 끝  -->
 
 	<script type="application/javascript">
+		
 		
 		
 	$(document).ready(function() {
@@ -241,6 +242,7 @@
     }
   
 	
+	
 	</script>
 
 	<!-- 재훈 - 문제 만들기 페이지 시작-->
@@ -262,12 +264,12 @@
 				focus : true, // 페이지가 열릴때 포커스를 지정함
 				lang : 'ko-KR' // 한국어 지정(기본값은 en-US)
 			});
-			
-			$(this).ajaxStart(function() {  // ajax 실행 시 로딩 이미지를 보여줌
+
+			$(this).ajaxStart(function() { // ajax 실행 시 로딩 이미지를 보여줌
 				$('.loadingDisplay').show();
 			});
 			$(this).ajaxStop(function() {
-				setTimeout(function(){
+				setTimeout(function() {
 					$('.loadingDisplay').hide();
 				}, 300);
 			});
