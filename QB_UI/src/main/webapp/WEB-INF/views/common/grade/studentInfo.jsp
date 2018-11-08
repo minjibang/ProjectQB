@@ -632,6 +632,7 @@ $(document).ready(function(){
 				"class_name":className
 				},
 			datatype:"json",
+			global: false,
 			success:function(data, status){
 				//넘어온 map객체의 학생차트정보
 				$(data.studentName).each(function(index, element){					
