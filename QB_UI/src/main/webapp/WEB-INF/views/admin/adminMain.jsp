@@ -254,9 +254,8 @@ $(document).ready(function(){
 		adminMainClass(classParam);
 		
 	});
-	
+		
 }); // document.ready 종료 
-
 
 	//클래스 목록 가져오는 ajax
 	function adminMainClass(classParam){
@@ -274,7 +273,18 @@ $(document).ready(function(){
 				}, 300);
 			}, */
 			success : function(data){
-					$('#classlistView').append(data);	
+				$('#classlistView').append(data);
+				$(".classDivOverFlow").each(function(){
+					var charVal = $(this).text().trim();
+					var code = (charVal.charCodeAt(0)+charVal.charCodeAt(2)+charVal.charCodeAt(4))%7;
+					var img=$(this).prev().children().eq(0);
+					for(var i=0;i<12;i++){
+						switch(code){
+							case i: img.attr("src","${pageContext.request.contextPath}/img/classIcon/classicon"+i+".png"); break;
+						}
+					}
+				});
+			
 			},
 			error : function(error) {
 				console.log("===========실패");

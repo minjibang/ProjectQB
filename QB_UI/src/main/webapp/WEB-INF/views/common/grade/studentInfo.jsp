@@ -119,7 +119,7 @@
 												<h4 id="tab2_className">${studentList[0].class_name}</h4>
 									                <thead>
 									                  <tr>
-									                    <th id="studentListTh"><i class="fa fa-bullhorn"></i>학생목록</th>
+									                    <th id="studentListTh"><i class="fa fa-bullhorn">&nbsp;</i>학생목록</th>
 									                  </tr>
 									                </thead>
 									                <tbody>									                
@@ -157,9 +157,9 @@
 													<tbody id="studentExamTable">
 														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
 														<tr class="unread">															
-															<td class="view-message  dont-show"><img
+															<td class="view-message dont-show"><img
 																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
-																	class="img-thumbnail" width="150"></td>
+																	class="img-thumbnail testIcon" width="150"></td>
 															<td class="view-message "><h3 class="tab2_examPaper">${studentExamScoreInfo.exam_info_name}</h3>
 																<p><c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach></p>
 																<p>수고하셨습니다.</p>
@@ -357,13 +357,33 @@
 <!-- SweetAlert CDN -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+$(".studentListMembers").each(function(){
+	var name = $(this).text().trim();
+	var code=name.charCodeAt(1)%13;
+	var img=$(this).children();	
+	for(var i=0;i<14;i++){
+		switch(code){
+			case i: img.attr("src","${pageContext.request.contextPath}/img/portrait/portrait"+i+".png"); break;
+		}
+	}
+});
+$(".tab2studentListMembers").each(function(){
+	var name = $(this).text().trim();
+	var code=name.charCodeAt(1)%13;
+	var img=$(this).children();	
+	for(var i=0;i<14;i++){
+		switch(code){
+			case i: img.attr("src","${pageContext.request.contextPath}/img/portrait/portrait"+i+".png"); break;
+		}
+	}
+});
+
+
 $(document).ready(function(){
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );
-	 
-	 var t = "걁";
-	 console.log(t.charCodeAt(0));
+
 	 
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
@@ -427,7 +447,7 @@ $(document).ready(function(){
 						smCtgr += name+'&nbsp;&nbsp;';
 					});
 					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail testIcon" width="150"></td>';
 					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
 					studentExamScoreSrc += '<p>'+smCtgr+'</p>';
 					studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
@@ -437,7 +457,17 @@ $(document).ready(function(){
 					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-info mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
 					studentExamScoreSrc += '<button type="button" id="ExamCommentBtn" class="btn btn-info mt ExamCommentBtn" value="">평가등록</button></td></tr>';
 				});
-				$("#studentExamTable").append(studentExamScoreSrc);			
+				$("#studentExamTable").append(studentExamScoreSrc);	
+				$(".testIcon").each(function(){
+					var testIcon = $(this);	
+					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+					console.log(testIcon);
+					for(var i=0;i<10;i++){
+						switch(code){
+							case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
+						}
+					}
+				});
 			},
 			error:function(error, status){
 				console.log("실패1:"+status);
@@ -659,7 +689,7 @@ $(document).ready(function(){
 					smCtgr += name+'&nbsp;&nbsp;';
 				});
 				studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail" width="150"></td>';
+				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail testIcon" width="150"></td>';
 				studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
 				studentExamScoreSrc += '<p>'+smCtgr+'</p>';
 				studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
@@ -669,6 +699,16 @@ $(document).ready(function(){
 				studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-info mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
 				studentExamScoreSrc += '<button type="button" id="ExamCommentBtn" class="btn btn-info mt ExamCommentBtn" value="">평가등록</button></td></tr>';
 
+			}
+		});
+		$(".testIcon").each(function(){
+			var testIcon = $(this);	
+			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%5;
+			console.log(testIcon);
+			for(var i=0;i<10;i++){
+				switch(code){
+					case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
+				}
 			}
 		});
 		$("#studentExamTable").append(studentExamScoreSrc);
