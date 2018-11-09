@@ -538,7 +538,7 @@ public class TeacherController {
 		
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : "+ file1);
+		//System.out.println("file1 : "+ file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -551,7 +551,7 @@ public class TeacherController {
 		
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
+		//System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -671,8 +671,8 @@ public class TeacherController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : " + file1);
-		System.out.println("file2 : " + file2);
+		//System.out.println("file1 : " + file1);
+		//System.out.println("file2 : " + file2);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -706,7 +706,7 @@ public class TeacherController {
 			commonService.updateNoBoardList(dto);
 		}
 		
-		System.out.println("테스트");
+		//System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
