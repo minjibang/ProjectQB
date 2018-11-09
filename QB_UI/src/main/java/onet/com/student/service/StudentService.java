@@ -197,6 +197,15 @@ public class StudentService {
 		
 		return check;		
 	}
+	
+	// 현이 11.08 오늘 시험 체크 
+	public ExamInfoDto selectTodayExam(String member_id) {
+		
+		StudentDao dao = sqlsession.getMapper(StudentDao.class);
+		ExamInfoDto todayExamDto = dao.selectTodayExam(member_id);
+		
+		return todayExamDto;
+	}
 
 
 

@@ -93,6 +93,29 @@ footer {
  background-color: #555555;
  color: white;
 }
+.img{
+width:100px; 
+border-radius:50px;
+}
+.sub1{
+   width:39px;
+   border-radius:10px;
+   font-size: 9px;
+   height:15px;
+   background: #A50000;
+   color:white;
+}
+.sub2{
+   width:15px;
+   border-radius:50px;
+   font-size: 9px;
+   height:15px;
+   background: #2F9D27;
+   color:white;
+}
+.bus{
+color:#0169ce;
+}
 </style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -101,21 +124,26 @@ footer {
 				<div class="panel-heading">
 					<header class="panel-heading wht-bg">
 						<h4 class="gen-case">
-							<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;소개
+							<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;오시는 길
 						</h4>
 					</header>
 				</div>
-				    <img src="${pageContext.request.contextPath}/img/logo1.png" alt="QB_logo" class="QB_logo" style="width:500px;height:100px;"/>
-				<nav class="nav">
-					<ul>
-						<li><input type="button" class="button button5"
-							value="비트캠프_서초점" id="gang"></li>
-					</ul>
-				</nav>
-				<article class="article">
+				<div style="margin-left:50px;">
+					<h4 style="margin-left:0px;">비트캠프 서초점</h4>
+					<br>
+					<p>주소 : 서울시 서초구 서초동 1327-15 비트아카데미빌딩 404호</p>
+					<p>전화 : 02-3486-9600</p>
+				</div>
+				<article class="article" style="margin-left:35px; padding-top:20px;padding-bottom:150px;">
 					<!-- 구글 맵 출력 태그 -->
-					<div id="map" ></div>
-					  <!-- 구글맵 API 키 -->
+					<div id="map" style="width:760px; height:350px;" ></div>
+					<p>강남역5번 출구로 나와 직진 → 삼성화재 건물(빨간색건물) 에서 우회전 후 직진</p>
+					<hr style="width:760px; margin-left:0px;">
+					<p style="font-weight: bold;display:inline-block;">주변 지하철역</p> &nbsp;&nbsp;<p style="display:inline-block;"class="sub1">신분당선</p><p style="display:inline-block; color:#0169ce;">신분당선(강남)</p>
+					&nbsp;&nbsp;<p style="display:inline-block;"class="sub2">&nbsp;&nbsp;2</p><p style="display:inline-block; color:#0169ce;">2호선강(강남)</p>
+					<div>
+					<p style="font-weight: bold;display:inline-block;">주변 버스정류장</p> &nbsp;&nbsp;<p class="bus"style="display:inline-block;">강남역티월드 (22-654)  강남역도시에빛 (22-600)  신분당선강남역 (22-010)</p>
+					</div>  <!-- 구글맵 API 키 -->
    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsXbEQ9aeugj_K1kmEVToG1-9ZZE-E9Js
 "></script>
   </article> 
