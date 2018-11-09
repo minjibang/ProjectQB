@@ -371,6 +371,13 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	insert into class_chart
 	values(#{class_name}, #{exam_info_num}, #{class_chart_avg})
 </insert>
+<!-- 11.09 현이 시험 등록시 학생에게 문자 보내기 -->
+<select id="selectExamInfo" parameterType="int" resultType="onet.com.vo.ExamInfoDto">
+	select * from exam_info where exam_info_num = #{param1}
+</select>
+<select id="selectMember" parameterType="String" resultType="onet.com.vo.MemberDto">
+	select * from member where member_id = #{param1}
+</select>
 
 </mapper>
 
