@@ -105,7 +105,7 @@ footer {
 						</h4>
 					</header>
 				</div>
-				
+				    <img src="${pageContext.request.contextPath}/img/logo1.png" alt="QB_logo" class="QB_logo" style="width:500px;height:100px;"/>
 				<nav class="nav">
 					<ul>
 						<li><input type="button" class="button button5"
