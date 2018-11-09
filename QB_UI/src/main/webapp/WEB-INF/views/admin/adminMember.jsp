@@ -106,100 +106,6 @@
 					</div>
 				</div>
 			</div>
-				<!-- DeleteModal -->
-				<!-- <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">삭제 확인</h4>
-								modal-header 끝
-							</div>
-							<div class="modal-body">정말 삭제하시겠습니까?</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button type="button" id="deleteMemberBtn" name="deletebtn" class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal" value="">예
-										<input type="hidden" id="role_code" name="role_code" 
-											   value="일반회원" />
-										<input type="hidden" id="member_enable" name="member_enable" 
-											   value="0" />	
-										</button>
-										
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">아니오</button>
-											
-									</div>
-								</div>
-							</div>
-							modal-content 끝
-						</div>
-						modal-dialog 끝
-					</div>
-					DeleteModal 끝
-				</div> -->
-				
-				<!-- 선택 회원 일괄 학생등록 Modal 시작 -->
-				<!-- <div class="modal fade" id="InsertMemberModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">등록 확인</h4>
-								modal-header 끝
-							</div>
-							<div class="modal-body">정말 등록하시겠습니까?</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button id="insertMembersPermit" class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal">예</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">아니오</button>
-									</div>
-								</div>
-							</div>
-							modal-content 끝
-						</div>
-						modal-dialog 끝
-					</div>
-					선택 회원 일괄 학생등록 Modal 끝
-				</div> -->
-				
-				<!-- 선택 회원 일괄 삭제 Modal 시작 -->
-				<!-- <div class="modal fade" id="DeleteMemberModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">삭제 확인</h4>
-								modal-header 끝
-							</div>
-							<div class="modal-body">정말 삭제하시겠습니까?</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button id="deleteMembersPermit" class="btn btn-theme" data-toggle="modal"
-											data-dismiss="modal">예</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">아니오</button>
-									</div>
-								</div>
-							</div>
-							modal-content 끝
-						</div>
-						modal-dialog 끝
-					</div>
-					선택 회원 일괄 삭제 Modal 끝
-				</div> -->
-				
 				<!-- <div class="showback"> -->
 				<div class="row content-panel">
 					<div class="panel-heading">
@@ -245,7 +151,7 @@
 										<table id="adminMemberTable" class="display">
 											<thead>
 												<tr>
-													<th><input type="checkbox" id="checkall" name="checkall">&nbsp;전체선택</th>
+													<th>전체<input type="checkbox" id="checkall" name="checkall"></th>
 													<th class="class_name">클래스</th>
 													<th class="member_id">아이디</th>
 													<th class="member_name">이름</th>

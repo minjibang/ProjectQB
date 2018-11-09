@@ -304,10 +304,23 @@ select * from member where class_name=(select class_name from member where membe
 	on sc.exam_info_num=ei.exam_info_num
 	where (sc.score_chart_score between ${param3} and ${param4}) and sc.class_name=#{param2} and ei.exam_info_num=#{param1}
 </select>
+<!-- 양회준 11.9 학생.성적관리.도넛차트 -->
+<select id="studentExamRightRatio" resultType="onet.com.vo.ChartCategory">
+<![CDATA[
+	select qsc.sm_category_name as category, count(qsc.sm_category_name) as count
+	from student_answer sa join question q join question_sm_category qsc join question_md_category qmc join member m join exam_info ei
+	on sa.question_num=q.question_num and q.sm_category_code=qsc.sm_category_code 
+	and qsc.md_category_code = qmc.md_category_code and sa.member_id=m.member_id and sa.exam_info_num=ei.exam_info_num
+	where sa.member_id=#{member_id} and m.class_name=#{class_name} and ei.exam_info_date<sysdate()
+	group by qsc.sm_category_name
+]]>
+</select>
+
+
+
 <select id="count_receive_note" parameterType="String" resultType="String">
 	select count(*) from message where receive_member_id=#{member_id}
 </select>
-
 
 <select id="classTeacherList" parameterType="String" resultType="onet.com.vo.MemberDto">
  select member_id, member_name from member where member_id=(

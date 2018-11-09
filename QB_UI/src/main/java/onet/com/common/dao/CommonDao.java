@@ -2,12 +2,14 @@ package onet.com.common.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 
 import onet.com.vo.CommentDto;
 
 import onet.com.vo.CategoryDto;
-
+import onet.com.vo.ChartCategory;
 import onet.com.vo.Class_chartDto;
 
 import onet.com.vo.ExamInfoDto;
@@ -112,6 +114,8 @@ public interface CommonDao {
 	public int studentScoreSpread(int exam_info_num, String class_name, int start, int end);
 	//양회준 11.8 학생&성적관리.클래스통계.표준편차
 	public List<Double> classExamSTD(String class_name);
+	//양회준 11.9 학생.성적관리.도넛차트	
+	public List<ChartCategory> studentExamRightRatio(@Param("member_id")String member_id, @Param("class_name")String class_name);
 
 	//민지 10.26 강사 - 쪽지 리스트 
 	public List<MemberDto> classMemeberList(String member_id);

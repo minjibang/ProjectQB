@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
+import onet.com.vo.ChartCategory;
 import onet.com.vo.Class_chartDto;
 import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
@@ -233,6 +234,9 @@ public class StudentController {
 		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(member_id, class_name);
 		model.addAttribute("studentExamScoreInfo", studentExamScoreInfo);
 
+		// 양회준 11.9 학생.성적관리.도넛차트.시험본 카테고리별 문제 수
+		List<ChartCategory> answer=commonService.studentExamRightRatio(member_id, class_name);
+		model.addAttribute("answer", answer);
 		return "student.gradeManage";
 	}
 

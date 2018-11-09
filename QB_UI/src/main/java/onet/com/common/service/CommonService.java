@@ -17,7 +17,7 @@ import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CommentDto;
 
 import onet.com.vo.CategoryDto;
-
+import onet.com.vo.ChartCategory;
 import onet.com.vo.Class_chartDto;
 
 import onet.com.vo.ExamInfoDto;
@@ -363,6 +363,16 @@ public class CommonService {
 		List<Double> std = dao.classExamSTD(class_name);
 		return std;
 	}
+	//양회준 11.9 학생.성적관리.도넛차트
+	public List<ChartCategory> studentExamRightRatio(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<ChartCategory> answer = dao.studentExamRightRatio(member_id, class_name);
+		for(ChartCategory data:answer) {
+			System.out.println(data.getCategory()+"//"+data.getCount());
+		}
+		return answer;
+	}
+	
 
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);

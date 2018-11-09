@@ -584,11 +584,11 @@ $(document).ready(function(){
 	var studentPerGrade=$('#studentPerGrade').DataTable({
 		"ordering":true,
 		"paging": true,
-		"ordering":true,
 		"searching": true,
-		"bLengthChange" : false,
-		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
-		dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+		"LengthChange" : true,
+		"lengthMenu": [[10,30,-1],[10,30,"All"]],
+		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},		
+		dom: 'Bfrtlip',//DataTables 출력기능 및 옵션 위치설정
         buttons:[
         	{
                 extend: 'copyHtml5',
@@ -799,7 +799,6 @@ $(document).ready(function(){
 		    	      }
 		    	    }
 		    	  },		       
-		       
 		    }
 		});
 		//각 시험 성적 바 차트 끝
@@ -817,8 +816,6 @@ $(document).ready(function(){
 		          label: "반 평균 성적",
 		          backgroundColor: 'rgb(255, 99, 132)',
 		          borderColor: 'rgb(255, 99, 132)',
-		          //fill : false,
-		          //lineTension : 0,
 		          data: chartClassStudentDatas,
 		      },
 		      {
@@ -944,7 +941,7 @@ $(document).ready(function(){
 								position:'right',
 								ticks: {
 									max: 30,
-									min: 10,
+									min: 0,
 									stepSize: 10
 								}
 							},
@@ -1182,12 +1179,18 @@ $(document).ready(function(){
 	$("#searchSpread").change(function() {
 		examInfoNum=$("#searchSpread option:selected").val();
 		examInfoTitle=$("#searchSpread option:selected").text();
+		console.log(examInfoTitle);
 		$("#line2").remove();
 		$("#divline2").append('<canvas id="line2" height="300"></canvas>');
 		spreadChart(examInfoTitle);
 	});
 	
 	function spreadChart(){
+		if(examInfoTitle=="시험 목록"){
+			var ctx = document.getElementById('line2').getContext('2d');
+			ctx.font="30px Arial";
+			ctx.fillText("과목을 선택해주세요.", 10, 75);
+		}else{
 	//점수별 학생분포
 		$.ajax({
 			type:"post",
@@ -1232,6 +1235,7 @@ $(document).ready(function(){
 			error:function(error){
 			}
 		});
+		}
 	}
 })
 </script>

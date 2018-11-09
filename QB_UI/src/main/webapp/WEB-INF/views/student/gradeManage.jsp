@@ -39,7 +39,7 @@
 									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
-												<i class="fa fa-angle-right"></i> 시험별 내 성적
+												<i class="fa fa-angle-right"></i> 분야별 문제 수
 											</h4>
 											<div class="panel-body text-center">
 												<canvas id="bar1" height="300" width="400"></canvas>
@@ -137,11 +137,6 @@ $(document).ready(function(){
 		chartMyRank.push("${studentChart.score_chart_rank}");
 	</c:forEach>
 	
-	console.log("chartStudentDatas:" + chartStudentDatas);
-	console.log("chartClassDatas:" + chartClassDatas);
-	console.log("chartLabels:" + chartLabels);
-	console.log("chartMyRank:" + chartMyRank);
-	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
 	//학생목록 배열에 jstl값 담기		
@@ -157,23 +152,45 @@ $(document).ready(function(){
 	var memberId=studentArr[0].member_id;
 	var className=studentArr[0].class_name;
 	
+	var category = new Array();
+	var ctgrCount = new Array();
+	
+	<c:forEach items="${answer}" var="ctgr">
+		category.push("${ctgr.category}");
+		ctgrCount.push("${ctgr.count}");
+	</c:forEach>
+	
+	function getRandomColor() {
+	    var letters = '0123456789ABCDEF'.split('');
+	    var color = '#';
+	    for (var i = 0; i < 6; i++ ) {
+	        color += letters[Math.floor(Math.random() * 16)];
+	    }
+	    return color;
+	}
+	function getRandomColorEachEmployee(count) {
+        var data =[];
+        for (var i = 0; i < count; i++) {
+            data.push(getRandomColor());
+        }
+        return data;
+    }
+	
 	//첫 화면 차트	
-	functionChart();
-
+	functionChart();	
+	
 	//첫화면 차트
 	function functionChart(){
 		//각 시험 성적 바 차트 시작				
 		var ctx = document.getElementById('bar1').getContext('2d');
 		var myBarChart = new Chart(ctx, {
-		    type: 'bar',
+		    type: 'doughnut',
 		    data: {
-		      labels: chartLabels,
+		      labels: category,
 		      datasets: [
 		        {
-		          label: "내 성적",
-		          backgroundColor: 'rgb(255, 99, 132)',
-		          borderColor: 'rgb(255, 99, 132)',
-		          data: chartStudentDatas,
+		          data: ctgrCount,
+		          backgroundColor:getRandomColorEachEmployee(ctgrCount.length)
 		        }
 		      ]
 		    },
@@ -185,38 +202,7 @@ $(document).ready(function(){
 		              top: 10,
 		              bottom: 10
 		          }
-		      },
-		      scales: {
-		    	 xAxes: [{
-		    	     ticks: {
-		    	       callback: function(value) {
-		    	         if (value.length > 4) {
-		    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
-		    	        	} else {
-		    	           	return value
-		    	        	}
-		    	        },
-		    	      }
-		    	    }],
-		         yAxes: [{
-		         	ticks: {
-		             	max: 100,
-		             	min: 0,
-		             	stepSize: 10
-		         		}
-		     		}]
-		       },
-		       
-		       tooltips: {
-		    	    enabled: true,
-		    	    mode: 'label',
-		    	    callbacks: {
-		    	      title: function(tooltipItems, data) {
-		    	        var idx = tooltipItems[0].index;
-		    	        return data.labels[idx];
-		    	      }
-		    	    }
-		    	  },
+		      }		      
 		    }
 		});
 		//각 시험 성적 바 차트 끝
@@ -224,22 +210,20 @@ $(document).ready(function(){
 		//반/학생 평균 선 차트 시작
 		var ctx = document.getElementById('line1').getContext('2d');
 		var chart = new Chart(ctx, {
-		  type: 'line',
+		  type: 'bar',
 		  data: {
 		      labels: chartStudentLabels,
 		      datasets: [
 		        {
 		          label: "반 평균 성적",
-		          backgroundColor: 'rgb(122, 99, 132)',
-		          borderColor: 'rgb(122, 99, 132)',
-		          fill : false,
-		          lineTension : 0,
+		          backgroundColor: 'rgb(255, 99, 132)',
+		          borderColor: 'rgb(255, 99, 132)',
 		          data: chartClassStudentDatas,
 		      },
 		      {
-		          label: "내 성적",
-		          backgroundColor: 'rgb(255, 99, 132)',
-		          borderColor: 'rgb(255, 99, 132)',
+		          label: "학생 성적",
+		          backgroundColor: 'rgb(122, 99, 132)',
+		          borderColor: 'rgb(122, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
 		          data: chartStudentDatas,
@@ -248,7 +232,6 @@ $(document).ready(function(){
 		    },
 		    options: {
 		        scale: {
-		        	
 		            ticks: {
 		              beginAtZero:true,
 		                min:0,
@@ -264,7 +247,7 @@ $(document).ready(function(){
 		            }
 		        },
 		        scales: {
-		        	xAxes: [{
+			    	 xAxes: [{
 			    	     ticks: {
 			    	       callback: function(value) {
 			    	         if (value.length > 4) {
@@ -275,26 +258,25 @@ $(document).ready(function(){
 			    	        },
 			    	      }
 			    	    }],
-			    	    
 		          yAxes: [{
-		           		ticks: {
-		               		max: 100,
-		               		min: 0,
-		               		stepSize: 10
-		          			}
-		      			}]
+		           ticks: {
+		               max: 100,
+		               min: 0,
+		               stepSize: 10
+		           }
+		       }]
 		         },
+			       tooltips: {
+			    	    enabled: true,
+			    	    mode: 'label',
+			    	    callbacks: {
+			    	      title: function(tooltipItems, data) {
+			    	        var idx = tooltipItems[0].index;
+			    	        return data.labels[idx];
+			    	      }
+			    	    }
+			    	  },		         
 		        
-		      	  tooltips: {
-		 		    	enabled: true,
-		 		        mode: 'label',
-		 		    	callbacks: {
-		 		    	      title: function(tooltipItems, data) {
-		 		    	      var idx = tooltipItems[0].index;
-		 		    	      return data.labels[idx]; 
-		 		    	      }
-		 		    	   }
-		 		    	}
 		    }
 		});
 		//반/학생 평균 선 차트 끝
