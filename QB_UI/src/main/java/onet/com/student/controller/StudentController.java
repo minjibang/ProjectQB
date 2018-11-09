@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.json.JSONArray;
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
 import onet.com.vo.Class_chartDto;
@@ -95,8 +96,9 @@ public class StudentController {
 		model.addAttribute("exam_info", exam_info);
 
 		// 오늘 시험이 있을 경우 팝업창 띄워줌
-		ExamInfoDto todayExamDto = studentService.selectTodayExam(member_id);
-		model.addAttribute("todayExamDto", todayExamDto);
+		/*List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
+		JSONArray jsonArray = JSONArray.fromObject(todayExamDto);
+		model.addAttribute("todayExamDto", jsonArray);*/
 
 		return "common.student.notice.notice";
 	}

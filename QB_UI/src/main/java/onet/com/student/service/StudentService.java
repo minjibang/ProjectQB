@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import onet.com.common.dao.CommonDao;
 import onet.com.student.dao.StudentDao;
 import onet.com.vo.ExamInfoDto;
@@ -199,13 +201,13 @@ public class StudentService {
 	}
 	
 	// 현이 11.08 오늘 시험 체크 
-	public ExamInfoDto selectTodayExam(String member_id) {
+	/*public List<ExamInfoDto> selectTodayExam(String member_id) {
 		
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
-		ExamInfoDto todayExamDto = dao.selectTodayExam(member_id);
+		List<ExamInfoDto> todayExamDto = dao.selectTodayExam(member_id);
 		
 		return todayExamDto;
-	}
+	}*/
 
 
 

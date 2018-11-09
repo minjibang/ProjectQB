@@ -418,7 +418,7 @@ public class TeacherService {
 		String message = "[시험 일정 안내]\n시험명  : " + examInfoDto.getExam_info_name() + "\n일정 : " + examInfoDto.getExam_info_date() + " " 
 							+ examInfoDto.getExam_info_start() + " ~ " + examInfoDto.getExam_info_end()
 							+ "\n\n 화이팅입니다!";	//	문자 메시지 내용 
-		System.out.println("메시지 최종본  : \n" + message);
+		//System.out.println("메시지 최종본  : \n" + message);
 		
 		// 시험에 등록된 학생들의 번호 끌고옴
 		String phoneNumberAll = "";
@@ -427,7 +427,7 @@ public class TeacherService {
 			phoneNumberAll += memberDto.getMember_phone() + ", ";
 		}
 		String phoneNumber = phoneNumberAll.substring(0, phoneNumberAll.length()-2);
-		System.out.println("phoneNumber 최종본 : \n" + phoneNumber);
+		//System.out.println("phoneNumber 최종본 : \n" + phoneNumber);
 		
 		/*
 		 * 서버에서 받은 API_KEY, API_SECRET를 입력해주세요.
