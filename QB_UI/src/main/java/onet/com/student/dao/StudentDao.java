@@ -66,7 +66,7 @@ public interface StudentDao {
 	public int checkExamMember(String member_id, int exam_info_num);
 	
 	// 현이 11.8 오늘 시험 체크 
-	public ExamInfoDto selectTodayExam(String member_id);
+	public List<ExamInfoDto> selectTodayExam(String member_id);
 
 }
 
