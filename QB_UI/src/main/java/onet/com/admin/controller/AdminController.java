@@ -477,7 +477,23 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험지 관련 
 	@RequestMapping("examPaperMake.do")
-	public String examPaperMake(){
+	public String examPaperMake(Model model){
+		/* 문제 카테고리 */
+		List<CategoryDto> list1;
+		list1 = adminService.lgCategoryList();
+		model.addAttribute("list1", list1);
+
+		List<CategoryDto> list2;
+		list2 = adminService.mdCategoryList();
+		model.addAttribute("list2", list2);
+
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		List<CategoryDto> levellist;
+		levellist = adminService.questionLevelList();
+		model.addAttribute("levellist",levellist);
 		
 		return "common.admin.exampaper.examPaperMake";
 	}

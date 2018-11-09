@@ -106,7 +106,6 @@
 									</div>
 										<div class="searchRowRightDiv">
 											
-											<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 										</div>
 
 										<hr>
@@ -175,7 +174,6 @@
 													시험 일정 등록</strong></a>
 											<div class="searchRowRightDiv">
 												
-												<!-- <button type="button" class="btn btn-theme searchRightBtn" id="pastClassBtn">지난 클래스 보기</button> -->
 											</div>
 										</form>
 

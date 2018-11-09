@@ -30,25 +30,25 @@ jQuery(document).ready(function() {
 	  }
 	  
 	  $('.questions input[name="checkbox[]"]:checked').each(function() {
-
 		 if(alQuestionName !=""){
-			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목  : \n"+alQuestionName);
-			  
-		  }
-		  
-	         selected.push("<li><div class='row'>" 
-	               + $(this).parents(".qnumdiv").parents(".questionDiv").html()
-	               + "<hr><div class='col-lg-12 qscore'>배점:&nbsp; <input type='number' " +
+			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목  : \n"+alQuestionName);			  
+		  }		  
+	         selected.push("<li><div class=questionDivRight>" 
+	               + $(this).parents().parents().html()
+	               + "</div><div class='qscore'>배점:&nbsp; <input type='number' " +
 	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
-	                     "onchange='plusqcore()' /><hr></div></div></li>");
-	         
+	                     "onchange='plusqcore()' /></div></li>");	         
 	         sortable_li_num++;
 		  
-		  
 	   });
+	  //input클릭 줄복 방지
+	  $("input").click(function () {
+		  event.stopPropagation();
+	  });
 
-      $('.task-list').append(selected);
+      $('#sortable').append(selected);
       $('input[name="checkbox[]"]:checked').prop('checked',false);
+      $(".questionDiv").removeClass('active');
       
       
       $('#qnum').text(sortable_li_num);

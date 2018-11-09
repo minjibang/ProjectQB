@@ -26,7 +26,7 @@
 									<hr>
 									<select class="form-control makeExamSelectCategory"
 										name="question_lg_category" id="question_lg_category">
-										<option value="">대분류</option>
+										<option value="">대분류</option>										
 										<c:forEach items="${list1}" var="lgCategoryList">
 											<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
 										</c:forEach>
@@ -99,10 +99,9 @@
 
 							<!-- 화면의 오른 쪽, 시험 출제 문항 부분이다  -->
 							<div class="col-lg-6" id="rightMakeExamDiv">
-								<!--  시험문제 배치 드래그 앤 드롭-->
-								<form aciton="" method="post" id="makeExamForm">
+								<!--  시험문제 배치 드래그 앤 드롭-->								
 									<div class="task-content">
-										<ul id="sortable" class="task-list selectedBox">
+										<ul id="sortable" class="selectedBox">
 											<c:forEach items="${examquestion}" var="examquestion">
 												<li>
 													<div class='row'>
@@ -182,57 +181,7 @@
 										<div class="book"></div>
 									</div>
 								</div>
-								<!--  <div id="exam_preview" class="modal fade modal_preview">
-                           <div class="modal-dialog" style="width: 70%;">
-                              임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.
-                              <div class="row mt">
-                                 <div class="col-lg-12">
-                                    <div class="">
-                                       <div class="row content-panel">
-                                          <div id="timerblock">
-                                             <h3 class="mb exampaneldetailsubject">
-                                                <i class="fa fa-angle-right"></i> 비트캠프109기-JAVA기본
-                                             </h3>
-
-                                          </div>
-
-                                          <hr>
-                                          
-                                          
-                                          미리보기 
-                                          <div class="panel-body">
-                                             <div class="row content-panel exampaneldetailed">
-                                                <div class="col-lg-6" id="examBox"
-                                                   style="border-right: 1px solid black;">
-                                                   
-                                                   <div id="mirileft" style="text-align: left; padding-top: 10px;">
-                                                      
-                                                   </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                   <div id="miriright" style="text-align: left;">
-                                                      
-                                                   </div>
-                                                   
-                                                </div>
-
-                                             </div>
-                                             <button
-                                                class="btn btn-large btn-primary exampaneldetailBtn"
-                                                data-dismiss="modal">확인</button>
-                                          </div>
-                                          
-                                          미리보기  끝
-                                          
-                                          
-                                       </div>
-                                    </div>
-                                 </div>
-
-                              </div>
-
-                           </div>
-                        </div> -->
+							
 								<input type="button" class="btn btn-theme" value="시험지 생성"
 									id="makeExamSubmitModalBtn">
 							</div>
@@ -327,95 +276,93 @@
 <!-- /wrapper -->
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
-						$.ajax({
-							url : "questionListView.do",
-							type : 'GET',
-							dataType : "html",
-							success : function(data) {
-								$('#questions').html(data);
-							},
-							error : function(error) {
-								console.log("===========실패");
-							}
-						});
-						$('#question_lg_category')
-								.change(
-										function() {
-											$('#question_md_category')
-													.children(
-															'option:not(:first)')
-													.remove();
-											$('#question_sm_category')
-													.children(
-															'option:not(:first)')
-													.remove();
-											<c:forEach items="${list2}" var="mdlist">
-											if (document
-													.getElementById("question_lg_category").value == "${mdlist.lg_category_code}") {
-												$('#question_md_category')
-														.append(
-																"<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
-											}
-											</c:forEach>
-										});
+	$.ajax({
+		url : "questionListView.do",
+		type : 'GET',
+		dataType : "html",
+		success : function(data) {
+			$('#questions').html(data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
+	});
 
-						$('#question_md_category')
-								.change(
-										function() {
-											$('#question_sm_category')
-													.children(
-															'option:not(:first)')
-													.remove();
-											<c:forEach items="${list3}" var="smlist">
-											if (document
-													.getElementById("question_md_category").value == "${smlist.md_category_code}") {
-												$('#question_sm_category')
-														.append(
-																"<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
-											}
-											</c:forEach>
-										});
-						$('#questionsearch')
-								.click(
-										function() {
-											var lgsearchtype = document
-													.getElementById("question_lg_category").value;
-											var mdsearchtype = document
-													.getElementById("question_md_category").value;
-											var smsearchtype = document
-													.getElementById("question_sm_category").value;
-											var leveltype = document
-													.getElementById("level_type").value;
-											var questiontype = document
-													.getElementById("questiontype").value;
-											var keyword = $("#keyword").val();
+	
+	$('#question_lg_category').change(function() {
+		console.log("testsetset");
+		$('#question_md_category').children('option:not(:first)').remove();
+		$('#question_sm_category').children('option:not(:first)').remove();
+		<c:forEach items="${list2}" var="mdlist">
+		if (document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}") {
+			$('#question_md_category')
+					.append(
+							"<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
+		}
+		</c:forEach>
+	});
 
-											console.log(keyword);
+	$('#question_md_category').change(function() {
+		$('#question_sm_category')
+				.children(
+						'option:not(:first)')
+				.remove();
+		<c:forEach items="${list3}" var="smlist">
+		if (document
+				.getElementById("question_md_category").value == "${smlist.md_category_code}") {
+			$('#question_sm_category')
+					.append(
+							"<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
+		}
+		</c:forEach>
+	});
+	$('#questionsearch').click(function() {
+		var lgsearchtype = document
+				.getElementById("question_lg_category").value;
+		var mdsearchtype = document
+				.getElementById("question_md_category").value;
+		var smsearchtype = document
+				.getElementById("question_sm_category").value;
+		var leveltype = document
+				.getElementById("level_type").value;
+		var questiontype = document
+				.getElementById("questiontype").value;
+		var keyword = $("#keyword").val();
 
-											$
-													.ajax({
-														url : "questionSearch.do",
-														type : 'GET',
-														data : {
-															'lgsearchtype' : lgsearchtype,
-															'mdsearchtype' : mdsearchtype,
-															'smsearchtype' : smsearchtype,
-															'leveltype' : leveltype,
-															'questiontype' : questiontype,
-															'keyword' : keyword
-														},
-														dataType : "html",
-														success : function(data) {
-															$('#questions')
-																	.html(data);
-														}
-													});
-										});
-					})
+		console.log(keyword);
+
+		$
+				.ajax({
+					url : "../teacher/questionSearch.do",
+					type : 'GET',
+					data : {
+						'lgsearchtype' : lgsearchtype,
+						'mdsearchtype' : mdsearchtype,
+						'smsearchtype' : smsearchtype,
+						'leveltype' : leveltype,
+						'questiontype' : questiontype,
+						'keyword' : keyword
+					},
+					dataType : "html",
+					success : function(data) {
+						$('#questions')
+								.html(data);
+					}
+				});
+	});
+	$(document).on('click', '.questionDiv', function(){
+		var tt = $(this).children().children().eq(0);
+		$(this).toggleClass("active");
+		tt.prop('checked', !(tt.is(':checked')));
+	});
+	$(document).on('click', '.questionDivRight', function(){
+		var tt = $(this).children().children().eq(0);
+		$(this).toggleClass("active");
+		tt.prop('checked', !(tt.is(':checked')));
+	});
+});
 </script>
 
 <!-- /MAIN CONTENT -->

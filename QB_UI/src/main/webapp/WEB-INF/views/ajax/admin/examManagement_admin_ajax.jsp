@@ -6,9 +6,7 @@
 
 	<c:forEach items="${classList}" var="classlist">
 		<div class="col-lg-12">
-			<!-- 시험지 하나의 div 시작 -->
-			<div id="myExamPaperDiv">
-					<!-- 시험지 한 개 시작 -->
+	
 					<div class="exam-paper-name">
 						<h4 >
 							<strong>${classlist.exam_paper_name}</strong>
@@ -36,7 +34,6 @@
 						<hr>
 					</div>
 			</div>
-		</div>
 </c:forEach>
 
 <script>
