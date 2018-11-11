@@ -237,21 +237,21 @@ public class StudentController {
 		model.addAttribute("studentExamScoreInfo", studentExamScoreInfo);
 
 		// 양회준 11.9 학생.성적관리.도넛차트.시험본 카테고리별 문제 수
-		List<ChartCategory> answer=commonService.studentExamRightRatio(member_id, class_name);
-		model.addAttribute("answer", answer);
+		List<ChartCategory> smRatio=commonService.studentExamScRatio(member_id, class_name);
+		model.addAttribute("smRatio", smRatio);
+		List<ChartCategory> mdRatio=commonService.studentExamMdRatio(member_id, class_name);
+		model.addAttribute("mdRatio", mdRatio);
+		
 		return "student.gradeManage";
 	}
 
-	// 학생 & 성적관리 - 개별차트부르기
+	// 학생 & 성적관리 - 개별차트부르기 - ???
 	@RequestMapping(value = "studentChartInfo.do", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
 			@RequestParam("class_name") String class_name) {
 		// 양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
-		for (Class_chartDto data : studentChart) {
-			System.out.println("과연" + data.getExam_info_name());
-		}
 		return chart;
 	}
 
@@ -266,7 +266,7 @@ public class StudentController {
 	}
 	/* 영준 10.26 반 등수 끝 */
 
-	// 학생 성적관리 학생개인 성적확인
+	// 학생 성적관리 학생개인 성적확인 - ???
 	@RequestMapping(value = "studentExamScoreInfo.do", method = RequestMethod.POST)
 	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
 			@RequestParam("class_name") String class_name) {

@@ -364,15 +364,16 @@ public class CommonService {
 		return std;
 	}
 	//양회준 11.9 학생.성적관리.도넛차트
-	public List<ChartCategory> studentExamRightRatio(String member_id, String class_name){
+	public List<ChartCategory> studentExamScRatio(String member_id, String class_name){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<ChartCategory> answer = dao.studentExamRightRatio(member_id, class_name);
-		for(ChartCategory data:answer) {
-			System.out.println(data.getCategory()+"//"+data.getCount());
-		}
+		List<ChartCategory> answer = dao.studentExamScRatio(member_id, class_name);
 		return answer;
 	}
-	
+	public List<ChartCategory> studentExamMdRatio(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<ChartCategory> answer = dao.studentExamMdRatio(member_id, class_name);
+		return answer;
+	}
 
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);

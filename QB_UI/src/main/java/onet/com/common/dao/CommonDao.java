@@ -115,8 +115,9 @@ public interface CommonDao {
 	//양회준 11.8 학생&성적관리.클래스통계.표준편차
 	public List<Double> classExamSTD(String class_name);
 	//양회준 11.9 학생.성적관리.도넛차트	
-	public List<ChartCategory> studentExamRightRatio(@Param("member_id")String member_id, @Param("class_name")String class_name);
-
+	public List<ChartCategory> studentExamScRatio(@Param("member_id")String member_id, @Param("class_name")String class_name);
+	public List<ChartCategory> studentExamMdRatio(@Param("member_id")String member_id, @Param("class_name")String class_name);
+	
 	//민지 10.26 강사 - 쪽지 리스트 
 	public List<MemberDto> classMemeberList(String member_id);
 

@@ -113,12 +113,12 @@
 <script>
 $(document).ready(function(){
 	//차트 데이터 담을 배열
-	var chartStudentDatas = new Array();
-	var chartClassDatas = new Array();
-	var chartClassStudentDatas = new Array();
-	var chartLabels = new Array();
+	var chartStudentDatas = new Array();	
+	var chartClassStudentDatas = new Array();	
 	var chartStudentLabels = new Array();
 	var chartMyRank = new Array();
+	//var chartClassDatas = new Array();
+	//var chartLabels = new Array();
 	
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
@@ -126,16 +126,17 @@ $(document).ready(function(){
 		chartStudentLabels.push("${studentChart.exam_info_name}");
 		chartClassStudentDatas.push("${studentChart.class_chart_avg}");		
 	</c:forEach>
-	<c:forEach items="${classChart}" var="classChart">
+	
+	/* <c:forEach items="${classChart}" var="classChart">
 		chartClassDatas.push("${classChart.class_chart_avg}");
 		chartLabels.push("${classChart.exam_info_name}");
-	</c:forEach>
+	</c:forEach> */
 	
-	<c:forEach items="${studentChart}" var="studentChart">
+	/* <c:forEach items="${studentChart}" var="studentChart">
 		chartMyRank.push("${studentChart.member_id}");
 		chartMyRank.push("${studentChart.exam_info_num}");
 		chartMyRank.push("${studentChart.score_chart_rank}");
-	</c:forEach>
+	</c:forEach> */
 	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
@@ -143,23 +144,31 @@ $(document).ready(function(){
 	<c:forEach items="${studentList}" var="studentList">
 		var json=new Object();
 		json.member_id="${studentList.member_id}";
-		json.member_email="${studentList.member_email}";
-		json.member_name="${studentList.member_name}";
-		json.member_phone="${studentList.member_phone}";
+		//json.member_email="${studentList.member_email}";
+		//json.member_name="${studentList.member_name}";
+		//json.member_phone="${studentList.member_phone}";
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
 	var memberId=studentArr[0].member_id;
 	var className=studentArr[0].class_name;
 	
-	var category = new Array();
-	var ctgrCount = new Array();
-	
-	<c:forEach items="${answer}" var="ctgr">
-		category.push("${ctgr.category}");
-		ctgrCount.push("${ctgr.count}");
+	//소분류배열
+	var smCategory = new Array();
+	var smCtgrCount = new Array();	
+	<c:forEach items="${smRatio}" var="smCtgr">
+		smCategory.push("${smCtgr.category}");
+		smCtgrCount.push("${smCtgr.count}");
+	</c:forEach>
+	//중분류배열
+	var mdCategory = new Array();
+	var mdCtgrCount = new Array();	
+	<c:forEach items="${mdRatio}" var="mdCtgr">
+		mdCategory.push("${mdCtgr.category}");
+		mdCtgrCount.push("${mdCtgr.count}");
 	</c:forEach>
 	
+	//도넛차트 색 랜덤추출
 	function getRandomColor() {
 	    var letters = '0123456789ABCDEF'.split('');
 	    var color = '#';
@@ -168,6 +177,7 @@ $(document).ready(function(){
 	    }
 	    return color;
 	}
+	//도넛차트 색 랜덤적용
 	function getRandomColorEachEmployee(count) {
         var data =[];
         for (var i = 0; i < count; i++) {
@@ -181,19 +191,27 @@ $(document).ready(function(){
 	
 	//첫화면 차트
 	function functionChart(){
-		//각 시험 성적 바 차트 시작				
+		//도넛 차트 시작				
 		var ctx = document.getElementById('bar1').getContext('2d');
 		var myBarChart = new Chart(ctx, {
 		    type: 'doughnut',
-		    data: {
-		      labels: category,
+		    data: {		      
 		      datasets: [
 		        {
-		          data: ctgrCount,
-		          backgroundColor:getRandomColorEachEmployee(ctgrCount.length)
+		          data: smCtgrCount,
+		          backgroundColor:getRandomColorEachEmployee(smCtgrCount.length),
+		          label:'소분류',
+		          labels:smCategory
+		        },
+		        {
+		          data: mdCtgrCount,
+		          backgroundColor:getRandomColorEachEmployee(mdCtgrCount.length),
+		          label:'중분류',
+		          labels:mdCategory
 		        }
 		      ]
 		    },
+		    
 		    options:{
 		      layout: {
 		          padding: {
@@ -202,12 +220,21 @@ $(document).ready(function(){
 		              top: 10,
 		              bottom: 10
 		          }
-		      }		      
+		      },
+		      tooltips: {
+		          callbacks: {
+		              label: function(tooltipItem, data) {
+		              var dataset = data.datasets[tooltipItem.datasetIndex];
+		              var index = tooltipItem.index;
+		              return dataset.label+"/"+dataset.labels[index] + ': ' + dataset.data[index];
+		            }
+		          }
+		    	}
 		    }
 		});
 		//각 시험 성적 바 차트 끝
 		
-		//반/학생 평균 선 차트 시작
+		//반/학생 평균 바 차트 시작
 		var ctx = document.getElementById('line1').getContext('2d');
 		var chart = new Chart(ctx, {
 		  type: 'bar',
