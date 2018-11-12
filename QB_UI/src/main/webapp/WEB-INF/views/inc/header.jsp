@@ -43,8 +43,7 @@
 
 							<!-- 드롭 -->
 							<li id="header_inbox_bar" class="dropdown"><a
-								data-toggle="dropdown" class="dropdown-toggle"
-								href="index.html#"> <i class="fa fa-envelope-o"></i> <span
+								data-toggle="dropdown" class="dropdown-toggle msg"> <i class="fa fa-envelope-o"></i> <span
 									class="badge bg-theme" id="message2"
 									style="background-color: red;"></span>
 							</a>
@@ -111,6 +110,23 @@
 
 		});
 	});
+	
+	$(document).on('click','.msg',function(){
+		$.ajax({
+			url : "headerMessage.do",
+			type : "get",
+			global:false,
+			success : function(data) {
+				$('#minji').children().eq(2).html(data);
+
+			},
+			err : function(err) {
+				console.log('err입니다');
+			}
+
+		});
+	});
+	
 </script>
 
 
