@@ -10,7 +10,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/studentInfo.css" rel="stylesheet">
-
+<style>
+.studentListMembers{
+	cursor:pointer;
+}
+.tab2studentListMembers{
+	cursor:pointer;
+}
+</style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -53,7 +60,7 @@
 												<c:forEach items="${studentList}" var="studentList">												
 								                  <tr>
 								                    <td id="${studentList.member_id}" class="studentListMembers">
-								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+								                      <img src=""
 															class="img-circle" width="25"> ${studentList.member_name}
 								                    </td>
 								                   </tr>												
@@ -81,7 +88,7 @@
 														<h4>
 															<i class="fa fa-angle-right"></i> 각 시험 성적
 														</h4>
-														<div class="panel-body text-center">
+														<div id="divbar1" class="panel-body text-center">
 															<canvas id="bar1" height="300" width="400"></canvas>
 														</div>
 													</div>
@@ -93,7 +100,7 @@
 													<h4>
 														<i class="fa fa-angle-right"></i> 반/학생 평균 비교
 													</h4>
-													<div class="panel-body text-center">
+													<div id="divline1" class="panel-body text-center">
 														<canvas id="line1" height="300" width="400"></canvas>
 													</div>
 												</div>
@@ -126,7 +133,7 @@
 												<c:forEach items="${studentList}" var="studentList">												
 								                  <tr>
 								                    <td id="${studentList.member_id}" class="tab2studentListMembers">
-								                      <img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+								                      <img src=""
 															class="img-circle" width="25"> ${studentList.member_name}
 								                    </td>
 								                   </tr>
@@ -158,7 +165,7 @@
 														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
 														<tr class="unread">															
 															<td class="view-message dont-show"><img
-																	src="${pageContext.request.contextPath}/img/friends/fr-05.jpg"
+																	src=""
 																	class="img-thumbnail testIcon" width="150"></td>
 															<td class="view-message "><h3 class="tab2_examPaper">${studentExamScoreInfo.exam_info_name}</h3>
 																<p><c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach></p>
@@ -210,17 +217,23 @@
 							<h3><i class="fa fa-angle-right"></i> ${studentList[0].class_name}</h3>
 							<div class="row">
 								<%-- 클래스 학생 표/차트 시작 --%>
-								<div class="col-lg-12">
-																		
+								<div class="col-lg-12">	
 										<div class="row">
 										
 											<%-- 반평균 막대 차트 --%>
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
-													<h4>
-														<i class="fa fa-angle-right"></i> 각 시험 평균
+													<h4 id="classChartName">
+														<i class="fa fa-angle-right"></i> 각 시험 평균 및 표준편차
 													</h4>
-													<div class="panel-body text-center">
+													<div class="btn-group pull-right">
+														<select id="selectChart" class="form-control selectChart" name="selectChart">
+															<option value="classAvgStd">각 시험 평균 및 표준편차</option>
+															<option value="classAvg">각 시험 평균</option>															
+															<option value="classStd">각 시험 표준편차</option>																
+														</select>
+													</div>
+													<div id="divbar2" class="panel-body text-center">
 														<canvas id="bar2" height="200"></canvas>
 													</div>
 												</div>
@@ -229,7 +242,7 @@
 											<div class="col-lg-6">
 												<div class="content-panel pnHeight">
 													<h4>
-														<i class="fa fa-angle-right"></i> 반 등수
+														<i class="fa fa-angle-right"></i> 시험별 반 등수
 													</h4>
 													<div class="btn-group pull-right">
 														<select id="searchExam" class="form-control searchControl"
@@ -282,8 +295,8 @@
 															</c:forEach>
 														</select>
 													</div>
-													<div class="panel-body text-center">
-														<canvas id="line2" height=75%></canvas>
+													<div id="divline2" class="panel-body">
+														<canvas id="line2" height="300"></canvas>
 													</div>
 												</div>
 											</div>
@@ -297,8 +310,7 @@
 														<i class="fa fa-angle-right"></i> 학생별 성적표
 													</h4>
 													<div class="panel-body text-center">
-														<table id="studentPerGrade" class="display"
-															style="width: 100%">
+														<table id="studentPerGrade" class="display" style="width: 100%">
 															<thead>
 																<tr>
 																	<th>학생 이름</th>
@@ -382,10 +394,10 @@ $(document).ready(function(){
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );
-
 	 
 	//차트 데이터 담을 배열
 	var chartStudentDatas = new Array();
+	var chartStudentRanks = new Array();
 	var chartClassDatas = new Array();
 	var chartClassStudentDatas = new Array();
 	var chartLabels = new Array();
@@ -399,7 +411,8 @@ $(document).ready(function(){
 	<c:forEach items="${studentChart}" var="studentChart">
 		chartStudentDatas.push("${studentChart.score_chart_score}");
 		chartStudentLabels.push("${studentChart.exam_info_name}");
-		chartClassStudentDatas.push("${studentChart.class_chart_avg}");		
+		chartClassStudentDatas.push("${studentChart.class_chart_avg}");	
+		chartStudentRanks.push("${studentChart.score_chart_rank}");
 	</c:forEach>
 	<c:forEach items="${classChart}" var="classChart">
 		chartLabels.push("${classChart.exam_info_name}");
@@ -510,7 +523,6 @@ $(document).ready(function(){
   			  });
   			})
   			.catch(err => {
-  				console.log(err);
   			  if (err) {
   			    swal("등록 실패", "The AJAX request failed!", "error");
   			  } else {
@@ -525,8 +537,6 @@ $(document).ready(function(){
 	tab2Ajax();	
 	//첫 화면 차트	
 	functionChart();
-	//두번째 화면 차트
-	functionChart2();	
 	//점수분포 차트
 	spreadChart();
 	
@@ -574,11 +584,11 @@ $(document).ready(function(){
 	var studentPerGrade=$('#studentPerGrade').DataTable({
 		"ordering":true,
 		"paging": true,
-		"ordering":true,
 		"searching": true,
-		"bLengthChange" : false,
-		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},
-		dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+		"LengthChange" : true,
+		"lengthMenu": [[10,30,-1],[10,30,"All"]],
+		"language": {"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"},		
+		dom: 'Bfrtlip',//DataTables 출력기능 및 옵션 위치설정
         buttons:[
         	{
                 extend: 'copyHtml5',
@@ -606,6 +616,7 @@ $(document).ready(function(){
 	$(".studentListMembers").click(function(){		
 		//가져온 차트데이터 담을 배열(학생점수, 반평균, 과목)	
 		chartStudentDatas = [];
+		chartStudentRanks=[];
 		chartClassDatas = [];
 		chartClassStudentDatas = [];
 		chartStudentLabels = [];
@@ -637,6 +648,7 @@ $(document).ready(function(){
 				//넘어온 map객체의 학생차트정보
 				$(data.studentName).each(function(index, element){					
 					chartStudentDatas.push(element.score_chart_score);
+					chartStudentRanks.push(element.score_chart_rank);
 					chartStudentLabels.push(element.exam_info_name);
 					chartClassStudentDatas.push(element.class_chart_avg);
 				});
@@ -645,6 +657,11 @@ $(document).ready(function(){
 					chartLabels.push(element.exam_info_name);
 					chartClassDatas.push(element.class_chart_avg);					
 				});
+				$("#bar1").remove();
+				$("#divbar1").append('<canvas id="bar1" height="300" width="400"></canvas>');
+				$("#line1").remove();
+				$("#divline1").append('<canvas id="line1" height="300" width="400"></canvas>');
+				
 				functionChart();
 			},
 			error:function(error, status){
@@ -698,18 +715,17 @@ $(document).ready(function(){
 				studentExamScoreSrc += "<button type='button' id='ExamCommentBtn' class='btn btn-theme mt ExamCommentBtn' value=''>평가등록</button></td></tr>";
 
 			}
-		});
+		});		
+		$("#studentExamTable").append(studentExamScoreSrc);
 		$(".testIcon").each(function(){
 			var testIcon = $(this);	
 			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;
-			console.log(testIcon);
 			for(var i=0;i<10;i++){
 				switch(code){
 					case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
 				}
 			}
 		});
-		$("#studentExamTable").append(studentExamScoreSrc);
 	})
 		
 	/*지난 시험지 보기*/
@@ -725,18 +741,22 @@ $(document).ready(function(){
 	
 	//첫화면 차트
 	function functionChart(){
-		//각 시험 성적 바 차트 시작				
+		//각 시험 성적 바 차트 시작	
 		var ctx = document.getElementById('bar1').getContext('2d');
+		ctx.canvas.height = $('#divbar1').height();
+		ctx.canvas.width = $('#divbar1').width();
 		var myBarChart = new Chart(ctx, {
-		    type: 'bar',
+		    type: 'line',
 		    data: {
-		      labels: chartLabels,
+		      labels: chartStudentLabels,
 		      datasets: [
 		        {
-		          label: "반 평균",
-		          backgroundColor: 'rgb(255, 99, 132)',
-		          borderColor: 'rgb(255, 99, 132)',
-		          data: chartClassDatas
+		          label: "학생 등수",
+		          backgroundColor: '#ffa366',
+		          borderColor: '#ffa366',
+		          fill:false,
+		          lineTension : 0,
+		          data: chartStudentRanks
 		        }
 		      ]
 		    },
@@ -762,13 +782,12 @@ $(document).ready(function(){
 			    	      }
 			    	    }],
 		    	
-		        yAxes: [{
+		         yAxes: [{
 		         ticks: {
-		             max: 100,
-		             min: 0,
-		             stepSize: 10
+		        	 min:1,
+		             reverse: true
 		         }
-		     }]
+		     }] 
 		       },
 		       tooltips: {
 		    	    enabled: true,
@@ -780,17 +799,16 @@ $(document).ready(function(){
 		    	      }
 		    	    }
 		    	  },		       
-		       
 		    }
 		});
 		//각 시험 성적 바 차트 끝
 		
 		//반/학생 평균 선 차트 시작
 		var ctx = document.getElementById('line1').getContext('2d');
+		ctx.canvas.height = $('#divline1').height();
+		ctx.canvas.width = $('#divline1').width();
 		var chart = new Chart(ctx, {
-		  // The type of chart we want to create
-		  type: 'line',
-		  // The data for our dataset
+		  type: 'bar',
 		  data: {
 		      labels: chartStudentLabels,
 		      datasets: [
@@ -798,8 +816,6 @@ $(document).ready(function(){
 		          label: "반 평균 성적",
 		          backgroundColor: 'rgb(255, 99, 132)',
 		          borderColor: 'rgb(255, 99, 132)',
-		          fill : false,
-		          lineTension : 0,
 		          data: chartClassStudentDatas,
 		      },
 		      {
@@ -866,20 +882,36 @@ $(document).ready(function(){
 	//첫화면 차트
 	
 	//클래스 통계화면 첫 차트 시작
-	function functionChart2(){
-		var ctx = document.getElementById('bar2').getContext('2d');
-		var myBarChart = new Chart(ctx, {
+		var stdDatas = new Array();
+		<c:forEach items="${std}" var="std">
+			stdDatas.push(Math.round(${std}*100)/100);
+		</c:forEach>
+		
+		var classChart = document.getElementById('bar2').getContext('2d');
+		var myBarChart = new Chart(classChart, {
 			type: 'bar',
 			data: {
 				labels: chartLabels,
 				datasets: [
 					{
+						label: "각 시험 표준편차",
+						yAxisID: 'std',
+						backgroundColor: 'rgb(169, 99, 132)',
+						borderColor: 'rgb(169, 99, 132)',
+						data: stdDatas,
+						fill:false,
+						lineTension:0,
+						type:'line'						
+					},
+					{
 						label: "각 시험 평균",
+						yAxisID: 'avg',
 						backgroundColor: 'rgb(255, 99, 132)',
 						borderColor: 'rgb(255, 99, 132)',
-						data: chartClassDatas,
+						data: chartClassDatas
 					}
-					]
+				
+				]
 			},
 			options:{
 				layout: {
@@ -902,13 +934,27 @@ $(document).ready(function(){
 			    	        },
 			    	      }
 			    	    }],
-					yAxes: [{
-						ticks: {
-							max: 100,
-							min: 0,
-							stepSize: 10
-						}
-					}]
+			    	    yAxes: [
+							{
+								id:'std',
+								type:'linear',
+								position:'right',
+								ticks: {
+									max: 30,
+									min: 0,
+									stepSize: 10
+								}
+							},
+							{
+							id:'avg',
+							type:'linear',
+							position:'left',
+							ticks: {
+								max: 100,
+								min: 0,
+								stepSize: 20
+							}
+						}]
 				},
 			       tooltips: {
 			    	    enabled: true,
@@ -919,10 +965,10 @@ $(document).ready(function(){
 			    	        return data.labels[idx];
 			    	      }
 			    	    }
-			    	  },				
+			    	  }			
 			}
 		});
-	} //클래스 통계화면 첫 차트 끝
+	 //클래스 통계화면 첫 차트 끝
 	
 	// 시험문제 목록 선택 시작
 	$("#searchExam").change(function() {
@@ -931,17 +977,220 @@ $(document).ready(function(){
 			rankTable.ajax.reload();
 		});
 	});
+	// 각 시험 차트 선택
 	
-	
-	//양회준 10.29 점수별 학생분포
-	$("#searchSpread").change(function() {
-		$("#searchSpread option:selected").each(function () {
-			examInfoNum=$("#searchSpread option:selected").val();
-			spreadChart();
+	$("#selectChart").change(function() {
+		$("#selectChart option:selected").each(function () {
+			var examchart=$("#selectChart option:selected").val();
+			var title=$("#classChartName");
+			$("#bar2").remove();
+			$("#divbar2").append('<canvas id="bar2" height="200"></canvas>');
+			if(examchart=="classAvg"){
+				title.html("<i class='fa fa-angle-right'></i> 각 시험 평균");
+				var classChart = document.getElementById('bar2').getContext('2d');
+				var myNewChart = new Chart(classChart, 
+						{ type: 'bar',
+							data: {
+								labels: chartLabels,
+								datasets: [
+									{
+										label: "각 시험 평균",
+										backgroundColor: 'rgb(255, 99, 132)',
+										borderColor: 'rgb(255, 99, 132)',
+										data: chartClassDatas
+									}
+								]
+							},
+							options:{
+								layout: {
+									padding: {
+										left: 10,
+										right: 10,
+										top: 10,
+										bottom: 30
+									}
+								},
+								scales: {
+							    	 xAxes: [{
+							    	     ticks: {
+							    	       callback: function(value) {
+							    	         if (value.length > 4) {
+							    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+							    	        	} else {
+							    	           	return value
+							    	        	}
+							    	        },
+							    	      }
+							    	    }]
+								},
+							       tooltips: {
+							    	    enabled: true,
+							    	    mode: 'label',
+							    	    callbacks: {
+							    	      title: function(tooltipItems, data) {
+							    	        var idx = tooltipItems[0].index;
+							    	        return data.labels[idx];
+							    	      }
+							    	    }
+							    	  }			
+							}});
+			}else if(examchart=="classStd"){
+				title.html("<i class='fa fa-angle-right'></i> 각 시험 표준편차");
+				var classChart = document.getElementById('bar2').getContext('2d');
+				var myNewChart = new Chart(classChart, { 
+					type: 'line', 
+					data: {
+						labels: chartLabels,
+						datasets: [
+							{
+								label: "각 시험 표준편차",
+								backgroundColor: 'rgb(169, 99, 132)',
+								borderColor: 'rgb(169, 99, 132)',
+								data: stdDatas,
+								fill:false,
+								lineTension:0
+							}						
+						]
+					},
+					options:{
+						layout: {
+							padding: {
+								left: 10,
+								right: 10,
+								top: 10,
+								bottom: 30
+							}
+						},
+						scales: {
+					    	 xAxes: [{
+					    	     ticks: {
+					    	       callback: function(value) {
+					    	         if (value.length > 4) {
+					    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+					    	        	} else {
+					    	           	return value
+					    	        	}
+					    	        },
+					    	      }
+					    	    }]
+						},
+					       tooltips: {
+					    	    enabled: true,
+					    	    mode: 'label',
+					    	    callbacks: {
+					    	      title: function(tooltipItems, data) {
+					    	        var idx = tooltipItems[0].index;
+					    	        return data.labels[idx];
+					    	      }
+					    	    }
+					    	  }			
+					}
+				
+				
+				});
+			}else{
+				title.html("<i class='fa fa-angle-right'></i> 각 시험 평균 및 표준편차");
+				var classChart = document.getElementById('bar2').getContext('2d');
+				var myNewChart = new Chart(classChart, {
+					type: 'bar',
+					data: {
+						labels: chartLabels,
+						datasets: [
+							{
+								label: "각 시험 표준편차",
+								yAxisID: 'std',
+								backgroundColor: 'rgb(169, 99, 132)',
+								borderColor: 'rgb(169, 99, 132)',
+								data: stdDatas,
+								fill:false,
+								lineTension:0,
+								type:'line'
+							},		
+							{
+								label: "각 시험 평균",
+								yAxisID: 'avg',
+								backgroundColor: 'rgb(255, 99, 132)',
+								borderColor: 'rgb(255, 99, 132)',
+								data: chartClassDatas								
+							}											
+						]
+					},
+					options:{
+						layout: {
+							padding: {
+								left: 10,
+								right: 10,
+								top: 10,
+								bottom: 30
+							}
+						},
+						scales: {
+					    	 xAxes: [{
+					    	     ticks: {
+					    	       callback: function(value) {
+					    	         if (value.length > 4) {
+					    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
+					    	        	} else {
+					    	           	return value
+					    	        	}
+					    	        },
+					    	      }
+					    	    }],
+							yAxes: [
+								{
+									id:'std',
+									type:'linear',
+									position:'right',
+									ticks: {
+										max: 30,
+										min: 10,
+										stepSize: 10
+									}
+								},
+								{
+								id:'avg',
+								type:'linear',
+								position:'left',
+								ticks: {
+									max: 100,
+									min: 0,
+									stepSize: 20
+								}
+							}]
+						},
+				       tooltips: {
+				    	    enabled: true,
+				    	    mode: 'label',
+				    	    callbacks: {
+				    	      title: function(tooltipItems, data) {
+				    	        var idx = tooltipItems[0].index;
+				    	        return data.labels[idx];
+				    	      }
+				    	    }
+				    	  }			
+					}
+				});
+			}
 		});
 	});
 	
+	//양회준 10.29 점수별 학생분포
+	var examInfoTitle="${studentChart[0].exam_info_name}";
+	$("#searchSpread").change(function() {
+		examInfoNum=$("#searchSpread option:selected").val();
+		examInfoTitle=$("#searchSpread option:selected").text();
+		console.log(examInfoTitle);
+		$("#line2").remove();
+		$("#divline2").append('<canvas id="line2" height="300"></canvas>');
+		spreadChart(examInfoTitle);
+	});
+	
 	function spreadChart(){
+		if(examInfoTitle=="시험 목록"){
+			var ctx = document.getElementById('line2').getContext('2d');
+			ctx.font="30px Arial";
+			ctx.fillText("과목을 선택해주세요.", 10, 75);
+		}else{
 	//점수별 학생분포
 		$.ajax({
 			type:"post",
@@ -951,26 +1200,26 @@ $(document).ready(function(){
 				"class_name":className				  
 				},
 			datatype:"json",
-			success:function(data){
+			success:function(data){				
 				var ctx = document.getElementById('line2').getContext('2d');
+				ctx.canvas.width = $("#divline2").width(); 
+			    ctx.canvas.parentNode.style.height = '350px';
 				var myBarChart = new Chart(ctx, {
-				    type: 'line',
-				    
+				    type: 'bar',				    
 				    data: {
 				      labels: ["0~10", "11~20", "21~30", "31~40", "41~50", "51~60", 
 				    	  "61~70", "71~80", "81~90", "91~100"],
 				      datasets: [
 				        {
-				          label: className,
-				          backgroundColor: 'rgb(196, 128, 96)',
-				          borderColor: 'rgb(255, 99, 132)',
-				          lineTension: 0 ,
-				          fill : false,
+				          label: examInfoTitle,
+				          backgroundColor: '#ffa366',
+				          borderColor: '#ffa366',
 				          data: data,
 				        }
 				      ]
 				    },
 				    options:{
+				    maintainAspectRatio:false,
 				      layout: {
 				          padding: {
 				              left: 10,
@@ -978,13 +1227,15 @@ $(document).ready(function(){
 				              top: 10,
 				              bottom: 10
 				          }
-				      }
+				      },
+				    scales:{yAxes: [{ticks: {stepSize: 1 }}]}				       
 				    }
-				});					
+				});
 			},
 			error:function(error){
 			}
 		});
+		}
 	}
 })
 </script>

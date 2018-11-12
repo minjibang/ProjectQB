@@ -129,31 +129,9 @@
 <!-- gritter 스크립트 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-    	
-    	// 오늘 날짜에 시험이 하나만 있을 때 조회 가능 
-    	/* var exam_info_name = "${todayExamDto.exam_info_name}";
-    	var exam_info_date = "${todayExamDto.exam_info_date}"; 
-    	var exam_info_start = "${todayExamDto.exam_info_start}"; 
-    	var exam_info_end = "${todayExamDto.exam_info_end}";  
-    	
-	      var unique_id = $.gritter.add({
-	        title: '오늘 시험이 있습니다!',
-	        text: exam_info_name,
-	        text2: exam_info_date + "  " + exam_info_start + " ~ " + exam_info_end, 
-	        image: '${pageContext.request.contextPath}/img/testIcon/testicon1.png',
-	        class_name: 'my-sticky-class'
-	      });
-	
-	      return false;  */
-    });
-</script>
 <script>
 	
 	var class_num = ${class_num};
-
-
 		
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();

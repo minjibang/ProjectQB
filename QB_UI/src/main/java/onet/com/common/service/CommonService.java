@@ -17,7 +17,7 @@ import onet.com.teacher.dao.TeacherDao;
 import onet.com.vo.CommentDto;
 
 import onet.com.vo.CategoryDto;
-
+import onet.com.vo.ChartCategory;
 import onet.com.vo.Class_chartDto;
 
 import onet.com.vo.ExamInfoDto;
@@ -357,6 +357,23 @@ public class CommonService {
 		}
 		return spreadList;
 	}
+	//양회준 11.8 학생&성적관리.클래스통계.표준편차
+	public List<Double> classExamSTD(String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<Double> std = dao.classExamSTD(class_name);
+		return std;
+	}
+	//양회준 11.9 학생.성적관리.도넛차트
+	public List<ChartCategory> studentExamScRatio(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<ChartCategory> answer = dao.studentExamScRatio(member_id, class_name);
+		return answer;
+	}
+	public List<ChartCategory> studentExamMdRatio(String member_id, String class_name){
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		List<ChartCategory> answer = dao.studentExamMdRatio(member_id, class_name);
+		return answer;
+	}
 
 	public List<NoticeDto> noticeUpdateList(NoticeDto dto) {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
@@ -419,7 +436,6 @@ public class CommonService {
 	   
 	   //민지 쪽지 1029
 	   public List<MemberDto> classTeacherList(String member_id) {
-		   System.out.println("강사강사강사강사서비스");
 		      CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		      
 		      List<MemberDto> result = dao.classTeacherList(member_id);

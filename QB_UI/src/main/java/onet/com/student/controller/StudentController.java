@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.json.JSONArray;
 import onet.com.common.service.CommonService;
 import onet.com.student.service.StudentService;
+import onet.com.vo.ChartCategory;
 import onet.com.vo.Class_chartDto;
 import onet.com.vo.CommentDto;
 import onet.com.vo.ExamInfoDto;
@@ -95,8 +97,9 @@ public class StudentController {
 		model.addAttribute("exam_info", exam_info);
 
 		// 오늘 시험이 있을 경우 팝업창 띄워줌
-		ExamInfoDto todayExamDto = studentService.selectTodayExam(member_id);
-		model.addAttribute("todayExamDto", todayExamDto);
+		/*List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
+		JSONArray jsonArray = JSONArray.fromObject(todayExamDto);
+		model.addAttribute("todayExamDto", jsonArray);*/
 
 		return "common.student.notice.notice";
 	}
@@ -233,19 +236,22 @@ public class StudentController {
 		List<StudentExamScoreInfo> studentExamScoreInfo = commonService.studentExamScoreInfo(member_id, class_name);
 		model.addAttribute("studentExamScoreInfo", studentExamScoreInfo);
 
+		// 양회준 11.9 학생.성적관리.도넛차트.시험본 카테고리별 문제 수
+		List<ChartCategory> smRatio=commonService.studentExamScRatio(member_id, class_name);
+		model.addAttribute("smRatio", smRatio);
+		List<ChartCategory> mdRatio=commonService.studentExamMdRatio(member_id, class_name);
+		model.addAttribute("mdRatio", mdRatio);
+		
 		return "student.gradeManage";
 	}
 
-	// 학생 & 성적관리 - 개별차트부르기
+	// 학생 & 성적관리 - 개별차트부르기 - ???
 	@RequestMapping(value = "studentChartInfo.do", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> studentChartInfo(@RequestParam("member_id") String member_id,
 			@RequestParam("class_name") String class_name) {
 		// 양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
-		for (Class_chartDto data : studentChart) {
-			System.out.println("과연" + data.getExam_info_name());
-		}
 		return chart;
 	}
 
@@ -260,7 +266,7 @@ public class StudentController {
 	}
 	/* 영준 10.26 반 등수 끝 */
 
-	// 학생 성적관리 학생개인 성적확인
+	// 학생 성적관리 학생개인 성적확인 - ???
 	@RequestMapping(value = "studentExamScoreInfo.do", method = RequestMethod.POST)
 	public @ResponseBody List<StudentExamScoreInfo> studentExamScoreInfo(@RequestParam("member_id") String member_id,
 			@RequestParam("class_name") String class_name) {

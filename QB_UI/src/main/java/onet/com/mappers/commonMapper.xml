@@ -200,7 +200,8 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 <!-- 학생 차트 정보 -->
 <select id="studentChartInfo" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 	<![CDATA[
-	select sc.member_id, m.member_id, sc.exam_info_num, ei.exam_info_name, sc.score_chart_score, cc.class_chart_avg
+	select sc.member_id, m.member_id, sc.exam_info_num, ei.exam_info_name, sc.score_chart_score, 
+	sc.score_chart_rank, cc.class_chart_avg
 	from score_chart sc join class_chart cc join exam_info ei join member m
 	on sc.exam_info_num = cc.exam_info_num and sc.exam_info_num=ei.exam_info_num and sc.member_id=m.member_id
 	where sc.member_id=#{member_id} and sc.class_name=(select class_name from member where member_id=#{member_id})
@@ -267,6 +268,19 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	]]>
 </select>
 
+<!-- 양회준 11-8 학생&성적관리 클래스통계 표준편차 -->
+<select id="classExamSTD" parameterType="String" resultType="double">
+	<![CDATA[
+	select std(score_chart_score) as std
+	from score_chart sc join exam_info ei
+	on sc.exam_info_num = ei.exam_info_num
+	where sc.class_name= #{class_name} 
+	and (ei.exam_info_date < sysdate())
+	group by sc.exam_info_num
+	order by sc.exam_info_num asc
+	]]>
+</select>
+
 <!-- 영준 10.25 - 반 등수 추가 시작 -->
 <select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
 SELECT m.member_name, score_chart_rank
@@ -290,10 +304,34 @@ select * from member where class_name=(select class_name from member where membe
 	on sc.exam_info_num=ei.exam_info_num
 	where (sc.score_chart_score between ${param3} and ${param4}) and sc.class_name=#{param2} and ei.exam_info_num=#{param1}
 </select>
+<!-- 양회준 11.9 학생.성적관리.도넛차트 -->
+<select id="studentExamScRatio" resultType="onet.com.vo.ChartCategory">
+<![CDATA[
+	select qsc.sm_category_name as category, count(qsc.sm_category_name) as count
+	from student_answer sa join question q join question_sm_category qsc join question_md_category qmc join member m join exam_info ei
+	on sa.question_num=q.question_num and q.sm_category_code=qsc.sm_category_code 
+	and qsc.md_category_code = qmc.md_category_code and sa.member_id=m.member_id and sa.exam_info_num=ei.exam_info_num
+	where sa.member_id=#{member_id} and m.class_name=#{class_name} and ei.exam_info_date<sysdate()
+	group by qsc.sm_category_name
+]]>
+</select>
+<!-- 양회준 11.11 학생.성적관리.도넛차트 -->
+<select id="studentExamMdRatio" resultType="onet.com.vo.ChartCategory">
+<![CDATA[
+	select qmc.md_category_name as category, count(qmc.md_category_name) as count
+	from student_answer sa join question q join question_sm_category qsc join question_md_category qmc join member m join exam_info ei
+	on sa.question_num=q.question_num and q.sm_category_code=qsc.sm_category_code 
+	and qsc.md_category_code = qmc.md_category_code and sa.member_id=m.member_id and sa.exam_info_num=ei.exam_info_num
+	where sa.member_id=#{member_id} and m.class_name=#{class_name} and ei.exam_info_date<sysdate()
+	group by qmc.md_category_name
+]]>
+</select>
+
+
+
 <select id="count_receive_note" parameterType="String" resultType="String">
 	select count(*) from message where receive_member_id=#{member_id}
 </select>
-
 
 <select id="classTeacherList" parameterType="String" resultType="onet.com.vo.MemberDto">
  select member_id, member_name from member where member_id=(

@@ -471,6 +471,10 @@ public class TeacherController {
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
+		//표준편차
+		List<Double> std = new ArrayList<Double>();
+		std = commonService.classExamSTD(class_name);
+		model.addAttribute("std",std);
 		
 		return "common.teacher.grade.studentInfo";
 	}
@@ -480,7 +484,6 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
-		//List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
@@ -490,7 +493,6 @@ public class TeacherController {
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		System.out.println("과연 반 등수는? : " + classRank);
 		return classRank;
 	}
 	/* 영준 10.26 반 등수 끝 */
@@ -536,7 +538,7 @@ public class TeacherController {
 		
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : "+ file1);
+		//System.out.println("file1 : "+ file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -549,7 +551,7 @@ public class TeacherController {
 		
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
+		//System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -669,8 +671,8 @@ public class TeacherController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : " + file1);
-		System.out.println("file2 : " + file2);
+		//System.out.println("file1 : " + file1);
+		//System.out.println("file2 : " + file2);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -704,7 +706,7 @@ public class TeacherController {
 			commonService.updateNoBoardList(dto);
 		}
 		
-		System.out.println("테스트");
+		//System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
