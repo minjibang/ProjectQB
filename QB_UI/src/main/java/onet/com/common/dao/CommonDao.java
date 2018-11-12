@@ -161,5 +161,7 @@ public interface CommonDao {
     public int receiveMessageCheck(String member_id);
     
     public int sendMessageCheck(String member_id);
+    
+  
 }
 
