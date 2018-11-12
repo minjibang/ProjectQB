@@ -41,7 +41,6 @@
 		<property name="url" value="jdbc:mariadb://192.168.0.101:3306/onet_qb?allowMultiQueries=true"></property>
 		<property name="username" value="onetuser"></property>
 		<property name="password" value="1004"></property>
-<<<<<<< HEAD
 	</bean>  -->
 
 

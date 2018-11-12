@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
-<title>Welcome Bitcamp</title>
+<title>Welcome QB</title>
 
 
 <!-- jquery UI -->
