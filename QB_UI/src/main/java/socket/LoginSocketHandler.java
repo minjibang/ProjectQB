@@ -93,6 +93,9 @@ public class LoginSocketHandler extends TextWebSocketHandler {
             }
          }else {
          StudentDao sdao = sqlsession.getMapper(StudentDao.class);
+         dto.setSend_member_id(data2[0]);
+         dto.setMessage_content(data2[1]);
+         dto.setReceive_member_id(data2[2]);
          int result = sdao.sendTeacherMessage(dto);
          
          WebSocketSession receiveSession = userSessions.get(data2[2]);

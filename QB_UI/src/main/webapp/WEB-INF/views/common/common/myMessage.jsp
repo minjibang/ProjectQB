@@ -590,7 +590,6 @@ function check_t(){
          data : message_check,
          success : function(data){
              if(data>0){
-               alert('message_check 성공');
                socket.send(username);
                $.ajax({
 
@@ -608,7 +607,7 @@ function check_t(){
              });
 
              }else{
-                alert('2');
+              
              }
             
             
@@ -702,6 +701,13 @@ function check_t(){
     var text = $('.textarea').val();
      var sender = $('.receiver').text();
      var username='${member_id}';
+     if(text == ""){
+    	 swal({
+             title : "전송 실패",
+             text:"내용을 반드시 입력해주세요",
+             icon : "warning",
+          });
+     }else{
      var data = new Array();
      data[0]=username;
      data[1]=text;
@@ -714,6 +720,7 @@ function check_t(){
         window.location = "myMessage.do";
      });
      socket.send(data);
+     }
    });
   
    
