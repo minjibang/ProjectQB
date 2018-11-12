@@ -201,13 +201,13 @@ public class StudentService {
 	}
 	
 	// 현이 11.08 오늘 시험 체크 
-	/*public List<ExamInfoDto> selectTodayExam(String member_id) {
+	public List<ExamInfoDto> selectTodayExam(String member_id) {
 		
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
 		List<ExamInfoDto> todayExamDto = dao.selectTodayExam(member_id);
 		
 		return todayExamDto;
-	}*/
+	}
 
 
 

@@ -97,9 +97,9 @@ public class StudentController {
 		model.addAttribute("exam_info", exam_info);
 
 		// 오늘 시험이 있을 경우 팝업창 띄워줌
-		/*List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
+		List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
 		JSONArray jsonArray = JSONArray.fromObject(todayExamDto);
-		model.addAttribute("todayExamDto", jsonArray);*/
+		model.addAttribute("todayExamDto", jsonArray);
 
 		return "common.student.notice.notice";
 	}
@@ -201,13 +201,6 @@ public class StudentController {
 		return studentAnswerList;
 	}
 
-	/* 시험일정 > 시험응시 활성화 */
-	@RequestMapping("examPaperDo.do")
-	public String examPaperDo() { // 현재 examPaperDo2 로 매핑 중
-
-		return "exam.student.examPaperDo";
-	}
-	/* 한결 10.12 지난 시험보기 및 시험응시 페이지 로드 끝 */
 
 	/* %%%%%%%%%%%%%%%%%%%%% 재훈 학생 성적관리 backend 시작 %%%%%%%%%%%%%%%%%%%%%% */
 	/* 양회준 18.10.11 학생 성적관리 시작 */
