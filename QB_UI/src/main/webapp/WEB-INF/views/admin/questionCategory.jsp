@@ -258,93 +258,7 @@
 		<!-- 소분류 수정 모달창 끝 -->	
 		
 		<!-- 대분류 삭제 모달창 시작 -->	
-		<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">대분류 삭제</h4>
-								<!-- modal-header 끝 -->
-							</div>
-							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
-							<h5>해당 정보를 참조하는 하위 정보가 있으면 삭제가 제한됩니다</h5>
-							</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button id="deleteLgBtn" name="deletebtn" class="btn btn-theme" value="">확인</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">취소</button>
-									</div>
-								</div>
-							</div>
-							<!-- modal-content 끝 -->
-						</div>
-						<!-- modal-dialog 끝 -->
-					</div>
-				</div>
-			<!-- 대분류 삭제 모달창 끝 -->	
-				
-			<!-- 중분류 삭제 모달창 시작 -->	
-				<div class="modal fade" id="DeleteModalmd" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">중분류 삭제</h4>
-								<!-- modal-header 끝 -->
-							</div>
-							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
-							<h5>해당 정보를 참조하는 하위 정보가 있으면 삭제가 제한됩니다</h5>
-							</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button id="deleteMdBtn" name="deletebtn" class="btn btn-theme" value="">확인</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">취소</button>
-									</div>
-								</div>
-							</div>
-							<!-- modal-content 끝 -->
-						</div>
-						<!-- modal-dialog 끝 -->
-					</div>
-				</div>
-			<!-- 중분류 삭제 모달창 끝 -->
-			
-			<!-- 소분류 삭제 모달창 시작 -->
-			<div class="modal fade" id="DeleteModalsm" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">소분류 삭제</h4>
-								<!-- modal-header 끝 -->
-							</div>
-							<div class="modal-body"><h4>정말 삭제하시겠습니까?</h4><br>
-							<h5>해당 정보를 참조하는 하위 정보가 있으면 삭제가 제한됩니다</h5>
-							</div>
-							<div class="modal-footer">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-10">
-										<button id="deleteSmBtn" name="deletebtn" class="btn btn-theme" value="">확인</button>
-										<button class="btn btn-theme04" type="button"
-											data-dismiss="modal">취소</button>
-									</div>
-								</div>
-							</div>
-							<!-- modal-content 끝 -->
-						</div>
-						<!-- modal-dialog 끝 -->
-					</div>
-				</div>
+		
 			<!-- 소분류 삭제 모달창 끝 -->
 			
 		<div class="row mt">
@@ -368,7 +282,7 @@
 								</select>
 								<button type="button" class="btn btn-theme add"
 									data-toggle="modal" data-target="#lgCatModal">대분류 추가</button>
-								<table id="table_lgCategory">
+								 <table id="table_lgCategory">
 									<thead>
 										<tr>
 											<th class="thwidth1">대분류<br>코드</th>
@@ -387,7 +301,7 @@
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger" id="deletebtnlg" name="deletebtnlg"
-													data-toggle="modal" data-target="#DeleteModal">
+													value="">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -423,7 +337,7 @@
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger" id="deletebtnmd" name="deletebtnmd"
-													data-toggle="modal" data-target="#DeleteModalmd">
+													value="">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -460,7 +374,7 @@
 														<i class="fa fa-pencil"></i>
 													</button>
 													<button type="button" class="btn btn-danger" id="deletebtnsm" name="deletebtnsm"
-													data-toggle="modal" data-target="#DeleteModalsm">
+													value="">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -493,6 +407,7 @@ $('#lgCatAddBtn').click(function(){
 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath}/admin/lgCatAdd.do',
+		global:false,
 		data:{lgCatAdd:$('#lgCatAdd').val()},
 		dataType:'json',
 		success:function(data){
@@ -524,6 +439,7 @@ $('#mdCatAddBtn').click(function(){
 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath}/admin/mdCatAdd.do',
+		global:false,
 		data:{selectLgCat:$('#selectLgCategory option:selected').val(), mdCatAdd:$('#mdCatAdd').val() },
 		dataType:'json',
 		success:function(data){
@@ -557,6 +473,7 @@ $('#smCatAddBtn').click(function(){
 	$.ajax({
 		type:'post',
 		url:'${pageContext.request.contextPath}/admin/smCatAdd.do',
+		global:false,
 		data:{selectMdCat:$('#selectMdCategory option:selected').val(), smCatAdd:$('#smCatAdd').val() },
 		success:function(data){
 			if(data.result == "중복"){
@@ -598,6 +515,7 @@ function selectLgCatSearch(){
 			$.ajax({
 	   			  type : "post",
 	   			  url : "${pageContext.request.contextPath}/admin/selectLgList.do",
+	   			  global:false,
 	   			  data:{lgCode:$('#selectLgCatSearch').val()},
 	   			  dataType:"html",
 	   			  success : function(data){
@@ -605,6 +523,7 @@ function selectLgCatSearch(){
 	   				 	$.ajax({
 	   						type:"post",
 	   						url:"${pageContext.request.contextPath}/admin/selectMdList.do",
+	   						global:false,
 	   				 		data:{lgCode:$('#selectLgCatSearch').val()},
 	   				 		dataType:"html",
 	   				 		success:function(data){
@@ -612,6 +531,7 @@ function selectLgCatSearch(){
 			   				 		$.ajax({
 				   						type:"post",
 				   						url:"${pageContext.request.contextPath}/admin/selectSmList.do",
+				   						global:false,
 				   				 		data:{lgCode:$('#selectLgCatSearch').val()},
 				   				 		dataType:"html",
 				   				 		success:function(data){
@@ -639,6 +559,7 @@ function selectMdCatSearch(){
 			$.ajax({
 					type:"post",
 					url:"${pageContext.request.contextPath}/admin/selectMdRealList.do",
+					global:false,
 			 		data:{mdCode:$('#selectMdCatSearch').val()},
 			 		dataType:"html",
 			 		success:function(data){
@@ -646,6 +567,7 @@ function selectMdCatSearch(){
 				 			$.ajax({
 								type:"post",
 								url:"${pageContext.request.contextPath}/admin/selectSmRealList.do",
+								global:false,
 						 		data:{mdCode:$('#selectMdCatSearch').val()},
 						 		dataType:"html",
 						 		success:function(data){
@@ -660,6 +582,7 @@ function selectMdCatSearch(){
 				$.ajax({
 					type:"post",
 					url:"${pageContext.request.contextPath}/admin/selectSmRealList2.do",
+					global:false,
 			 		data:{smCode:$('#selectSmCatSearch').val()},
 			 		dataType:"html",
 			 		success:function(data){
@@ -768,6 +691,7 @@ function selectMdCatSearch(){
 		$.ajax({
    			  type : "post",
    			  url : "${pageContext.request.contextPath}/admin/mdUpdate.do",
+   			  global:false,
    			  data:{mdCatCode:$('#mdCode').val(), mdCatName:$('#mdName').val(),lgSelectCode:$('#UpdateSelectLgCatSearch').val(),mdBeforeName:$('#updateMdBtn').val()},  
    			  success : function(data){
    				 if(data.result =="Notnull"){
@@ -802,6 +726,7 @@ function selectMdCatSearch(){
 		$.ajax({
    			  type : "post",
    			  url : "${pageContext.request.contextPath}/admin/smUpdate.do",
+   			  global:false,
    			  data:{smCatCode:$('#smCode').val(), smCatName:$('#smName').val(),mdSelectCode:$('#UpdateSelectMdCatSearch').val(), smBeforeName:$('#updateSmBtn').val()},  
    			  success : function(data){
    				 if(data.result =="Notnull"){
@@ -826,120 +751,160 @@ function selectMdCatSearch(){
 	
 	/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@해당 값들 가져와서 db에서 수정 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	$("button[name='deletebtnlg']").click(function(){
-		action='modify';
-		type='PUT';
+	$(document).on('click','#deletebtnlg',function(){
 		var row =$(this).parent().parent();
 		var tr = row.children();
 	 	var lgDeleteCode=tr.eq(0).text();
-	 	$('#deleteLgBtn').val(lgDeleteCode);
-	 
-	});
-	
-	$('#deleteLgBtn').click(function(){
-		<c:forEach items="${list2}" var="mdCategoryList">
-		if(document.getElementById("deleteLgBtn").value == "${mdCategoryList.lg_category_code}"){
+	 	$('#deletebtnlg').val(lgDeleteCode);
+	 	<c:forEach items="${list2}" var="mdCategoryList">
+		if(document.getElementById("deletebtnlg").value == "${mdCategoryList.lg_category_code}"){
 			result = "false"; 
 		}else{
 			result = "true";
 		}
 		</c:forEach>
-		if(result == "false"){
-			swal("해당 정보를 참조받는 중분류 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
-		}else{
-		$.ajax({
-			  type : "post",
-			  url : "${pageContext.request.contextPath}/admin/lgDelete.do",
-			  data:{lgDeleteCode:$('#deleteLgBtn').val()},  
-			  success : function(data){
-				  if((data.result)=="삭제가능"){
-						swal({
-					       title: "해당 대분류가 삭제되었습니다",
-						   text: "",
-						   icon:"success"
-						}).then(function() {
-						    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
-						});
-					  }else{
-						  swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+		swal({
+			  title:"이 문제를 삭제 하시겠습니까? ",
+			  text: "해당 대분류를 참조하는 \n " +
+				  "중분류가 있을 경우, " +
+				  "해당 대분류를 삭제할 수 없습니다. \n \n"
+				  ,
+			  icon: "warning",
+			  buttons: true,
+			})	 	
+			.then((willUpdate) => {
+				  if (willUpdate) {
+					  if(result == "false"){
+							swal("해당 정보를 참조받는 중분류 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+						}else{
+							$.ajax({
+								  type : "post",
+								  url : "${pageContext.request.contextPath}/admin/lgDelete.do",
+								  data:{lgDeleteCode:$('#deletebtnlg').val()},
+								  global:false,
+								  success : function(data){
+									  if((data.result)=="삭제가능"){
+											swal({
+										       title: "해당 대분류가 삭제되었습니다",
+											   text: "",
+											   icon:"success"
+											}).then(function() {
+											    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+											});
+										  }else{
+											  swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+										  }
+								  },
+								  error: function(error){
+									  alert("에러야!");
+								 }
+							});
+						}
+					  } else {
+					    swal("문제 삭제가 취소되었습니다.");
 					  }
-			  },
-			  error: function(error){
-				  alert("에러야!");
-			 }
-		});
-		}
+					  
+					  
+					
+					});
 	});
 	
-	$("button[name='deletebtnmd']").click(function(){
-		action='modify';
-		type='PUT';
+	
+	$(document).on('click','#deletebtnmd',function(){
 		var row =$(this).parent().parent();
 		var tr = row.children();
 	 	var mdDeleteCode=tr.eq(0).text();
-	 	$('#deleteMdBtn').val(mdDeleteCode);
+	 	$('#deletebtnmd').val(mdDeleteCode);
+	 	swal({
+			  title:"이 문제를 삭제 하시겠습니까? ",
+			  text: "해당 중분류를 참조하는 \n " +
+				  "소분류가 있을 경우, " +
+				  "해당 중분류를 삭제할 수 없습니다. \n \n"
+				  ,
+			  icon: "warning",
+			  buttons: true,
+			})	 	
+			.then((willUpdate) => {
+				  if (willUpdate) {
+					  $.ajax({
+						  type : "post",
+						  url : "${pageContext.request.contextPath}/admin/mdDelete.do",
+						  global:false,
+						  data:{mdDeleteCode:$('#deletebtnmd').val()},  
+						  success : function(data){
+							  if((data.result)=="삭제가능"){
+								swal({
+							       title: "해당 중분류가 삭제되었습니다",
+								   text: "",
+								   icon:"success"
+								}).then(function() {
+								    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+								});
+							  }else{
+								  swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+							  }
+						  },
+						  error: function(error){
+							  alert("에러야!");
+						 }
+					});
+						}else {
+					    swal("문제 삭제가 취소되었습니다.");
+					  }
+					  
+					  
+					
+					});
+	 	
 	});
 
-	$('#deleteMdBtn').click(function(){
-			/* swal("해당 정보를 참조받는 소분류 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error"); */
-		$.ajax({
-			  type : "post",
-			  url : "${pageContext.request.contextPath}/admin/mdDelete.do",
-			  data:{mdDeleteCode:$('#deleteMdBtn').val()},  
-			  success : function(data){
-				  if((data.result)=="삭제가능"){
-					swal({
-				       title: "해당 중분류가 삭제되었습니다",
-					   text: "",
-					   icon:"success"
-					}).then(function() {
-					    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
-					});
-				  }else{
-					  swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
-				  }
-			  },
-			  error: function(error){
-				  alert("에러야!");
-			 }
-		});
-		
-	});
-	
-	$("button[name='deletebtnsm']").click(function(){
-		action='modify';
-		type='PUT';
+	$(document).on('click','#deletebtnsm',function(){
 		var row =$(this).parent().parent();
 		var tr = row.children();
 	 	var smDeleteCode=tr.eq(0).text();
-	 	$('#deleteSmBtn').val(smDeleteCode);
+	 	$('#deletebtnsm').val(smDeleteCode);
+	 	swal({
+			  title:"이 문제를 삭제 하시겠습니까? ",
+			  text: "해당 소분류를 참조하는 \n " +
+				  "문제정보가 있을 경우, " +
+				  "해당 소분류를 삭제할 수 없습니다. \n \n"
+				  ,
+			  icon: "warning",
+			  buttons: true,
+			})	 	
+			.then((willUpdate) => {
+				  if (willUpdate) {
+					  $.ajax({
+						  type : "post",
+						  url : "${pageContext.request.contextPath}/admin/smDelete.do",
+						  data:{smDeleteCode:$('#deletebtnsm').val()},
+						  global:false,
+						  success : function(data){
+							  if((data.result)=="삭제가능"){
+								  swal({
+								       title: "해당 소분류가 삭제되었습니다",
+									   text: "",
+									   icon:"success"
+									}).then(function() {
+									    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
+									});
+							 	 }else{
+							 		swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
+							 	 }
+						  },
+						  error: function(error){
+							  alert("에러야!");
+						 }
+					});
+						}else {
+					    swal("문제 삭제가 취소되었습니다.");
+					  }
+							});
+	 	
+	 	
+	 	
 	});
 	
-	$('#deleteSmBtn').click(function(){
-		
-		$.ajax({
-			  type : "post",
-			  url : "${pageContext.request.contextPath}/admin/smDelete.do",
-			  data:{smDeleteCode:$('#deleteSmBtn').val()},  
-			  success : function(data){
-				  if((data.result)=="삭제가능"){
-					  swal({
-					       title: "해당 소분류가 삭제되었습니다",
-						   text: "",
-						   icon:"success"
-						}).then(function() {
-						    window.location = "${pageContext.request.contextPath}/admin/questionCategory.do";
-						});
-				 	 }else{
-				 		swal("해당 정보를 참조받는 문제 정보가 존재합니다", "하위 정보를 삭제 후 다시 시도해주세요", "error");
-				 	 }
-			  },
-			  error: function(error){
-				  alert("에러야!");
-			 }
-		});
-		
-	});
 	 
 	$(document).on('click','#resetBtn',function(){
 		/* location.href="${pageContext.request.contextPath}/admin/questionCategory.do"; */
@@ -950,6 +915,7 @@ function selectMdCatSearch(){
 		$.ajax({
 			  type : "post",
 			  url : "${pageContext.request.contextPath}/admin/selectLgList.do",
+			  global:false,
 			  data:{lgCode:"전체조회"},  
 			  success : function(data){
 				  $('#list1body').html(data); 
@@ -962,6 +928,7 @@ function selectMdCatSearch(){
 		$.ajax({
 			  type : "post",
 			  url : "${pageContext.request.contextPath}/admin/selectMdList.do",
+			  global:false,
 			  data:{lgCode:"전체조회"},  
 			  success : function(data){
 				  $('#list2body').html(data); 
@@ -974,6 +941,7 @@ function selectMdCatSearch(){
 		$.ajax({
 			  type : "post",
 			  url : "${pageContext.request.contextPath}/admin/selectSmList.do",
+			  global:false,
 			  data:{lgCode:"전체조회"},  
 			  success : function(data){
 				  $('#list3body').html(data); 
@@ -984,7 +952,8 @@ function selectMdCatSearch(){
 		});
 		
 	});
-					
+	
+	
 	
 		
 		

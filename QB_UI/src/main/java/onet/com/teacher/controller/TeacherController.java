@@ -83,6 +83,8 @@ public class TeacherController {
 	      }
 	      List<MemberDto> boardNull = commonService.boardNull(member_id);
 	      String noticeCheck = boardNull.get(0).getClass_name();
+	      String class_num = commonService.classNum(member_id);
+	      model.addAttribute("class_num", class_num);
 	      model.addAttribute("noticeCheck", noticeCheck);
 	      model.addAttribute("notice", notice);
 	      model.addAttribute("member_id", member_id);
@@ -99,28 +101,39 @@ public class TeacherController {
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 	          
-	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-	          for(int i=0; i<receiveMessage.size(); i++) {
-	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
-	        	  receiveMessage.get(i).setMessage_date(date);
-	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
-	        	  String sendManName = commonService.nameSearch(sendManId);
-	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+	          if(receiveMessageCheck > 0) {
+		          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+		          for(int i=0; i<receiveMessage.size(); i++) {
+		        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+		        	  receiveMessage.get(i).setMessage_date(date);
+		        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+		        	  String sendManName = commonService.nameSearch(sendManId);
+		        	  receiveMessage.get(i).setMember_name(sendManName);
+		          }
+		          model.addAttribute("receiveMessage", receiveMessage);
+		          }
+	          
+	          
+	          //보낸쪽지함이 null일때 처리
+	          int sendMessageCheck = commonService.sendMessageCheck(member_id);
+	          if(sendMessageCheck > 0) {
+	        	   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	 	          for(int i=0; i<sendMessage.size(); i++) {
+	 	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	 	        	  sendMessage.get(i).setMessage_date(date);
+	 	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	 	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	 	        	  sendMessage.get(i).setMember_name(receiveManName);
+	 	          }
+	          model.addAttribute("sendMessage", sendMessage);
 	          }
-	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-	          for(int i=0; i<sendMessage.size(); i++) {
-	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
-	        	  sendMessage.get(i).setMessage_date(date);
-	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
-	        	  String receiveManName = commonService.nameSearch2(receiveManId);
-	        	  sendMessage.get(i).setMember_name(receiveManName);
-	          }
+	          
+	         
 	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
 	          
 	          model.addAttribute("classMemberList", classMemberList);
 	          model.addAttribute("classTeacherList",classTeacherList);
-	          model.addAttribute("receiveMessage", receiveMessage);
-	          model.addAttribute("sendMessage", sendMessage);
 	          model.addAttribute("member_id", member_id);
 		
 			  
@@ -469,6 +482,10 @@ public class TeacherController {
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
+		//표준편차
+		List<Double> std = new ArrayList<Double>();
+		std = commonService.classExamSTD(class_name);
+		model.addAttribute("std",std);
 		
 		return "common.teacher.grade.studentInfo";
 	}
@@ -478,7 +495,6 @@ public class TeacherController {
 			@RequestParam("class_name") String class_name){
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
-		//List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		List<Score_chartDto> studentChart = (List<Score_chartDto>) chart.get("studentName");
 		List<Class_chartDto> classChart = (List<Class_chartDto>) chart.get("className");
 		return chart;
@@ -488,7 +504,6 @@ public class TeacherController {
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		System.out.println("과연 반 등수는? : " + classRank);
 		return classRank;
 	}
 	/* 영준 10.26 반 등수 끝 */
@@ -534,7 +549,7 @@ public class TeacherController {
 		
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : "+ file1);
+		//System.out.println("file1 : "+ file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -547,7 +562,7 @@ public class TeacherController {
 		
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
+		//System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -667,8 +682,8 @@ public class TeacherController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : " + file1);
-		System.out.println("file2 : " + file2);
+		//System.out.println("file1 : " + file1);
+		//System.out.println("file2 : " + file2);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -702,7 +717,7 @@ public class TeacherController {
 			commonService.updateNoBoardList(dto);
 		}
 		
-		System.out.println("테스트");
+		//System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";

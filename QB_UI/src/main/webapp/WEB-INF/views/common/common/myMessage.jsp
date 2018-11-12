@@ -63,10 +63,10 @@
    
 }
 #allchoose{
-   color: #5D5D5D;
+   color: #f1f1f1;
 }
 .allchooseicon{
-   color: #444444;
+   color: #f1f1f1;
 }
 .msgBtn{
 width:80px;
@@ -594,18 +594,18 @@ function check_t(){
                socket.send(username);
                $.ajax({
 
-       			url:"headerMessage.do",
-       			type:"get",
-       			success:function(data){
-       				$('#minji').children().eq(2).html(data);
-       				
-       				
-       			},
-       			err:function(err){
-       				console.log('err입니다');
-       			}
-       			
-       		});
+                url:"headerMessage.do",
+                type:"get",
+                success:function(data){
+                   $('#minji').children().eq(2).html(data);
+                   
+                   
+                },
+                err:function(err){
+                   console.log('err입니다');
+                }
+                
+             });
 
              }else{
                 alert('2');

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>Dashio - Bootstrap Admin Template</title>
+  <title>QBQB - ExamManagement System</title>
 
   <!-- Favicons -->
   <link href="${pageContext.request.contextPath}/img/favicon.png" rel="icon">
@@ -20,7 +20,7 @@
   <!--external css-->
   <link href="${pageContext.request.contextPath}/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/zabuto_calendar.css">
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" />
+  <%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" /> --%>
   <!-- Custom styles for this template -->
   <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/style-responsive.css" rel="stylesheet">
@@ -50,20 +50,20 @@
   <script src="${pageContext.request.contextPath}/lib/jquery.sparkline.js"></script>
   <!--common script for all pages-->
   <script src="${pageContext.request.contextPath}/lib/common-scripts.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script>
+  <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script> --%>
+  <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script> --%>
   <!--script for this page-->
   <script src="${pageContext.request.contextPath}/lib/sparkline-chart.js"></script>
   <script src="${pageContext.request.contextPath}/lib/zabuto_calendar.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    /* $(document).ready(function() {
       var unique_id = $.gritter.add({
         // (string | mandatory) the heading of the notification
-        title: 'Welcome to Dashio!',
+        title: 'Welcome to QB!',
         // (string | mandatory) the text inside the notification
-        text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo.',
+        text: 'Hello',
         // (string | optional) the image to display on the left
-        image: 'img/ui-sam.jpg',
+        image: 'img/friends/student.png',
         // (bool | optional) if you want it to fade out on its own or just sit there
         sticky: false,
         // (int | optional) the time you want it to be alive for before fading out
@@ -73,7 +73,7 @@
       });
 
       return false;
-    });
+    }); */
   </script>
   <script type="application/javascript">
     $(document).ready(function() {

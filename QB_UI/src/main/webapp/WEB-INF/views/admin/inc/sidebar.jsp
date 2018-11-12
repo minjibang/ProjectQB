@@ -43,7 +43,6 @@
               <span>자격증 시험 일정</span>
               </a>
           </li>
-          
           <!-- 관리자 end -->
          </ul>
         <!-- sidebar menu end-->

@@ -181,7 +181,7 @@
 		"language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
         },
-        "order": [[ 4, "desc" ]]
+        "order": [[ 0, "desc" ]]
 	});
 	//학생&성적관리-클래스통계
 	/* $('#studentPerGrade').DataTable({

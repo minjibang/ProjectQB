@@ -10,11 +10,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <style>
-.th{
+.th {
 	text-align: center;
 	font-size: 14px;
+}
+.subject{
+	color:#063f54;
+}
+#subject{
+	color:#063f54;
+}
+.noticebutton{
+	background:#063f54;
 }
 </style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
@@ -27,8 +37,8 @@
 					<div class="panel-content">
 						<div class="panel-heading">
 							<header class="panel-heading wht-bg">
-								<h4 class="gen-case">
-								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;공지사항</h4>
+								<h4 class="gen-case" id="subject">
+								<i class="fa fa-angle-right subject" ></i>&nbsp;&nbsp;&nbsp;공지사항</h4>
 							</header>
 						</div>
 					
@@ -65,10 +75,10 @@
 							</table>
 							<div>
 							<se:authorize access="hasRole('ROLE_TEACHER')">
-								<button id="noticeWrite_btn" class="btn btn-theme" value="${noticeCheck}">글쓰기</button>
+								<button id="noticeWrite_btn" class="btn btn-theme noticebutton" value="${noticeCheck}">글쓰기</button>
 							</se:authorize>	
 							<se:authorize access="hasRole('ROLE_ADMIN')">
-								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="${class_name}">글쓰기</button>
+								<button id="noticeWrite_btnAdmin" class="btn btn-theme noticebutton" value="${class_name}">글쓰기</button>
 							</se:authorize>	
 							</div>
 						</div><!-- panel-body -->
@@ -81,8 +91,8 @@
 					<div class="panel-content">
 						<div class="panel-heading">
 							<header class="panel-heading wht-bg">
-								<h4 class="gen-case">
-								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;시험 일정</h4>
+								<h4 class="gen-case" id="subject">
+								<i class="fa fa-angle-right subject"></i>&nbsp;&nbsp;&nbsp;시험 일정</h4>
 							</header>
 						</div>
 						<div class="panel-body">
@@ -116,7 +126,39 @@
 	</section><!-- /wrapper -->
 </section> <!-- /main-content -->
 
+<!-- gritter 스크립트 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    	
+    	// 오늘 시험이 있는 경우 우측 하단에 gritter 팝업창 띄워줌
+    	var exam_info_name;
+    	var exam_info_date;
+    	var exam_info_start;
+    	var exam_info_end; 
+        
+    	var todayExamDto = ${todayExamDto};
+    	$.each(todayExamDto, function(index, item){
+    		exam_info_name = item.exam_info_name;
+    		exam_info_date = item.exam_info_date;
+    		exam_info_start = item.exam_info_start;
+    		exam_info_end = item.exam_info_end;
+    	});
+        
+        var unique_id = $.gritter.add({
+            title: '오늘 시험이 있습니다!',
+            text: exam_info_name,
+            text2: exam_info_date + "  " + exam_info_start + " ~ " + exam_info_end, 
+            image: '${pageContext.request.contextPath}/img/testIcon/testicon1.png',
+            class_name: 'my-sticky-class'
+          });
+    
+          return false;  
+    });
+</script>
 <script>
+	
 	var class_num = ${class_num};
 		
 	$('#noticeWrite_btn').click(function(){
@@ -130,11 +172,6 @@
 	});
 	
 </script>
-
- 
-
-
-
 
 <!-- /MAIN CONTENT -->
 <!--main content end-->

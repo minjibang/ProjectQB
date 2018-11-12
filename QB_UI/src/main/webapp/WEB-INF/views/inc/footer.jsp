@@ -7,19 +7,20 @@
       <div class="text-center">
         <p>
           &copy; <strong>Team OneT</strong> of 비트캠프 서초 자바109기<br>
-               서울시 서초구 서초동 1327-15 비트아카데미빌딩 404호
         </p>
         <a href="index.html#" class="go-top">
           <i class="fa fa-angle-up"></i>
           </a>
+      <a href="${pageContext.request.contextPath}/admin/aboutUs.do"> 
+         <i class="fa fa-gittip"></i><span>오시는 길</span>
+      </a>
       </div>
-     
-    </footer>
+</footer>
     <!--footer end-->
 
 
 
-	<!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
+   <!-- 웹 소켓 사용해서 현재 몇개의 쪽지가 도착했는지 구해오기. --> 
 
   <script type="text/javascript">
     var socket = null;
@@ -27,21 +28,20 @@
     function send_message() {
 
 
-        websocket = new WebSocket("ws://192.168.0.18:8090/qb/count.do");
+        websocket = new WebSocket("ws://192.168.0.103:8090/qb/count.do");
 
         socket = websocket;
         websocket.onopen = function(evt) {
-        	console.log("connect");
+           console.log("connect");
            onOpen(evt);
         };
         websocket.close=function(evt){
-        	onClolse(evt);
-        	console.log('disconnect');
+           onClolse(evt);
+           console.log('disconnect');
         }
         websocket.onmessage = function(evt) {
            console.log('messge:' +evt);
-           $('#message').html(evt.data);
-           $('#message2').html(evt.data);
+           onMessage(evt);
            
         };
         websocket.onerror = function(evt) {
@@ -54,25 +54,25 @@
        websocket.send("${username}");
     }
     function Close(evt){
-    	
-    	websocket.close();
+       
+       websocket.close();
     }
     function onMessage(evt) {
-    	console.log("evt.data: " + evt.data);
-    	$('#message').html(evt.data);
-    	
-    		
+       console.log("evt.data: " + evt.data);
+       $('#message2').html(evt.data);
+       
+          
+
     }
     function onError(evt) {
-    	
+       
     }
     
 
-	</script>
-	<script>
-	$(document).ready(function(){
-		send_message();
-	});
+   </script>
+   <script>
+   $(document).ready(function(){
+      send_message();
+   });
 
-	</script>
-
+   </script>

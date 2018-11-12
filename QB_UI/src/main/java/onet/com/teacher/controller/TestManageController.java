@@ -296,7 +296,9 @@ public class TestManageController {
 
 			// 학상 답안지 초기화 insert
 			int initializeResult = teacherService.initializeStudentAnswer(memberchecklist, infonum2, exam_paper_num, dto.getClass_name());
-			//System.out.println("initializeResult : " + initializeResult);
+			
+			// 학생에게 시험 정보 문자 전송 완료
+			teacherService.sendExamInfoMesssage(memberchecklist, infonum2);
 
 			viewpage = "redirect:examManagement.do";
 		} else {
@@ -542,4 +544,9 @@ public class TestManageController {
 
 		return "common.teacher.exam.examManagement";
 	}
+	
+	
+	
+	
+	
 }

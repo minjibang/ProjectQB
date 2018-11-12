@@ -39,7 +39,7 @@
 									<div class="col-lg-6">
 										<div class="content-panel-lightgray">
 											<h4>
-												<i class="fa fa-angle-right"></i> 시험별 내 성적
+												<i class="fa fa-angle-right"></i> 분야별 문제 수
 											</h4>
 											<div class="panel-body text-center">
 												<canvas id="bar1" height="300" width="400"></canvas>
@@ -113,12 +113,12 @@
 <script>
 $(document).ready(function(){
 	//차트 데이터 담을 배열
-	var chartStudentDatas = new Array();
-	var chartClassDatas = new Array();
-	var chartClassStudentDatas = new Array();
-	var chartLabels = new Array();
+	var chartStudentDatas = new Array();	
+	var chartClassStudentDatas = new Array();	
 	var chartStudentLabels = new Array();
 	var chartMyRank = new Array();
+	//var chartClassDatas = new Array();
+	//var chartLabels = new Array();
 	
 	//학생목록 배열에 jstl값 담기
 	<c:forEach items="${studentChart}" var="studentChart">
@@ -126,21 +126,17 @@ $(document).ready(function(){
 		chartStudentLabels.push("${studentChart.exam_info_name}");
 		chartClassStudentDatas.push("${studentChart.class_chart_avg}");		
 	</c:forEach>
-	<c:forEach items="${classChart}" var="classChart">
+	
+	/* <c:forEach items="${classChart}" var="classChart">
 		chartClassDatas.push("${classChart.class_chart_avg}");
 		chartLabels.push("${classChart.exam_info_name}");
-	</c:forEach>
+	</c:forEach> */
 	
-	<c:forEach items="${studentChart}" var="studentChart">
+	/* <c:forEach items="${studentChart}" var="studentChart">
 		chartMyRank.push("${studentChart.member_id}");
 		chartMyRank.push("${studentChart.exam_info_num}");
 		chartMyRank.push("${studentChart.score_chart_rank}");
-	</c:forEach>
-	
-	console.log("chartStudentDatas:" + chartStudentDatas);
-	console.log("chartClassDatas:" + chartClassDatas);
-	console.log("chartLabels:" + chartLabels);
-	console.log("chartMyRank:" + chartMyRank);
+	</c:forEach> */
 	
 	//학생&성적관리 학생목록 데이터 담은 배열
 	var studentArr= new Array();
@@ -148,35 +144,74 @@ $(document).ready(function(){
 	<c:forEach items="${studentList}" var="studentList">
 		var json=new Object();
 		json.member_id="${studentList.member_id}";
-		json.member_email="${studentList.member_email}";
-		json.member_name="${studentList.member_name}";
-		json.member_phone="${studentList.member_phone}";
+		//json.member_email="${studentList.member_email}";
+		//json.member_name="${studentList.member_name}";
+		//json.member_phone="${studentList.member_phone}";
 		json.class_name="${studentList.class_name}";
 		studentArr.push(json);
 	</c:forEach>
 	var memberId=studentArr[0].member_id;
 	var className=studentArr[0].class_name;
 	
+	//소분류배열
+	var smCategory = new Array();
+	var smCtgrCount = new Array();	
+	<c:forEach items="${smRatio}" var="smCtgr">
+		smCategory.push("${smCtgr.category}");
+		smCtgrCount.push("${smCtgr.count}");
+	</c:forEach>
+	//중분류배열
+	var mdCategory = new Array();
+	var mdCtgrCount = new Array();	
+	<c:forEach items="${mdRatio}" var="mdCtgr">
+		mdCategory.push("${mdCtgr.category}");
+		mdCtgrCount.push("${mdCtgr.count}");
+	</c:forEach>
+	
+	//도넛차트 색 랜덤추출
+	function getRandomColor() {
+	    var letters = '0123456789ABCDEF'.split('');
+	    var color = '#';
+	    for (var i = 0; i < 6; i++ ) {
+	        color += letters[Math.floor(Math.random() * 16)];
+	    }
+	    return color;
+	}
+	//도넛차트 색 랜덤적용
+	function getRandomColorEachEmployee(count) {
+        var data =[];
+        for (var i = 0; i < count; i++) {
+            data.push(getRandomColor());
+        }
+        return data;
+    }
+	
 	//첫 화면 차트	
-	functionChart();
-
+	functionChart();	
+	
 	//첫화면 차트
 	function functionChart(){
-		//각 시험 성적 바 차트 시작				
+		//도넛 차트 시작				
 		var ctx = document.getElementById('bar1').getContext('2d');
 		var myBarChart = new Chart(ctx, {
-		    type: 'bar',
-		    data: {
-		      labels: chartLabels,
+		    type: 'doughnut',
+		    data: {		      
 		      datasets: [
 		        {
-		          label: "내 성적",
-		          backgroundColor: 'rgb(255, 99, 132)',
-		          borderColor: 'rgb(255, 99, 132)',
-		          data: chartStudentDatas,
+		          data: smCtgrCount,
+		          backgroundColor:getRandomColorEachEmployee(smCtgrCount.length),
+		          label:'소분류',
+		          labels:smCategory
+		        },
+		        {
+		          data: mdCtgrCount,
+		          backgroundColor:getRandomColorEachEmployee(mdCtgrCount.length),
+		          label:'중분류',
+		          labels:mdCategory
 		        }
 		      ]
 		    },
+		    
 		    options:{
 		      layout: {
 		          padding: {
@@ -186,60 +221,36 @@ $(document).ready(function(){
 		              bottom: 10
 		          }
 		      },
-		      scales: {
-		    	 xAxes: [{
-		    	     ticks: {
-		    	       callback: function(value) {
-		    	         if (value.length > 4) {
-		    	          	return value.substr(0, 4) + '...'; //차트라벨 4글자 이후에 ... 처리
-		    	        	} else {
-		    	           	return value
-		    	        	}
-		    	        },
-		    	      }
-		    	    }],
-		         yAxes: [{
-		         	ticks: {
-		             	max: 100,
-		             	min: 0,
-		             	stepSize: 10
-		         		}
-		     		}]
-		       },
-		       
-		       tooltips: {
-		    	    enabled: true,
-		    	    mode: 'label',
-		    	    callbacks: {
-		    	      title: function(tooltipItems, data) {
-		    	        var idx = tooltipItems[0].index;
-		    	        return data.labels[idx];
-		    	      }
-		    	    }
-		    	  },
+		      tooltips: {
+		          callbacks: {
+		              label: function(tooltipItem, data) {
+		              var dataset = data.datasets[tooltipItem.datasetIndex];
+		              var index = tooltipItem.index;
+		              return dataset.label+"/"+dataset.labels[index] + ': ' + dataset.data[index];
+		            }
+		          }
+		    	}
 		    }
 		});
 		//각 시험 성적 바 차트 끝
 		
-		//반/학생 평균 선 차트 시작
+		//반/학생 평균 바 차트 시작
 		var ctx = document.getElementById('line1').getContext('2d');
 		var chart = new Chart(ctx, {
-		  type: 'line',
+		  type: 'bar',
 		  data: {
 		      labels: chartStudentLabels,
 		      datasets: [
 		        {
 		          label: "반 평균 성적",
-		          backgroundColor: 'rgb(122, 99, 132)',
-		          borderColor: 'rgb(122, 99, 132)',
-		          fill : false,
-		          lineTension : 0,
+		          backgroundColor: 'rgb(255, 99, 132)',
+		          borderColor: 'rgb(255, 99, 132)',
 		          data: chartClassStudentDatas,
 		      },
 		      {
-		          label: "내 성적",
-		          backgroundColor: 'rgb(255, 99, 132)',
-		          borderColor: 'rgb(255, 99, 132)',
+		          label: "학생 성적",
+		          backgroundColor: 'rgb(122, 99, 132)',
+		          borderColor: 'rgb(122, 99, 132)',
 		          fill : false,
 		          lineTension : 0,
 		          data: chartStudentDatas,
@@ -248,7 +259,6 @@ $(document).ready(function(){
 		    },
 		    options: {
 		        scale: {
-		        	
 		            ticks: {
 		              beginAtZero:true,
 		                min:0,
@@ -264,7 +274,7 @@ $(document).ready(function(){
 		            }
 		        },
 		        scales: {
-		        	xAxes: [{
+			    	 xAxes: [{
 			    	     ticks: {
 			    	       callback: function(value) {
 			    	         if (value.length > 4) {
@@ -275,26 +285,25 @@ $(document).ready(function(){
 			    	        },
 			    	      }
 			    	    }],
-			    	    
 		          yAxes: [{
-		           		ticks: {
-		               		max: 100,
-		               		min: 0,
-		               		stepSize: 10
-		          			}
-		      			}]
+		           ticks: {
+		               max: 100,
+		               min: 0,
+		               stepSize: 10
+		           }
+		       }]
 		         },
+			       tooltips: {
+			    	    enabled: true,
+			    	    mode: 'label',
+			    	    callbacks: {
+			    	      title: function(tooltipItems, data) {
+			    	        var idx = tooltipItems[0].index;
+			    	        return data.labels[idx];
+			    	      }
+			    	    }
+			    	  },		         
 		        
-		      	  tooltips: {
-		 		    	enabled: true,
-		 		        mode: 'label',
-		 		    	callbacks: {
-		 		    	      title: function(tooltipItems, data) {
-		 		    	      var idx = tooltipItems[0].index;
-		 		    	      return data.labels[idx]; 
-		 		    	      }
-		 		    	   }
-		 		    	}
 		    }
 		});
 		//반/학생 평균 선 차트 끝
