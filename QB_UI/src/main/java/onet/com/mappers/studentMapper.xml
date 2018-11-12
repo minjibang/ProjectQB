@@ -180,7 +180,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <select id="selectStudentAnswer" resultType="onet.com.vo.Student_answerQuesDto">
-	select * 
+	select a.member_id, a.exam_info_num, a.question_num, a.exam_question_seq, ifnull(a.student_answer_choice, "") as student_answer_choice, a.student_answer_status,
+	q.question_type, q.question_name, q.question_img, q.question_answer, q.question_correct_ratio, q.question_select_count, q.sm_category_code, q.level_code 
 	from student_answer a join question q
 	on a.question_num = q.question_num
 	where a.member_id = #{param1}
@@ -188,7 +189,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="selectStudentWrongAnswer" resultType="onet.com.vo.Student_answerQuesDto">
-	select * 
+	select a.member_id, a.exam_info_num, a.question_num, a.exam_question_seq, ifnull(a.student_answer_choice, "") as student_answer_choice, a.student_answer_status,
+	q.question_type, q.question_name, q.question_img, q.question_answer, q.question_correct_ratio, q.question_select_count, q.sm_category_code, q.level_code
 	from student_answer a join question q
 	on a.question_num = q.question_num
 	where a.member_id = #{param1}
