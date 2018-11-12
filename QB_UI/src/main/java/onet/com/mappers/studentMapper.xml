@@ -259,6 +259,6 @@ select * from score_chart s join member m on (s.member_id = m.member_id) where m
 	select * from exam_info
 	where exam_info_date = curdate()
 	and class_name = (select class_name from member where member_id = #{param1}) 
+	order by exam_info_start desc
 </select>
-
 </mapper>

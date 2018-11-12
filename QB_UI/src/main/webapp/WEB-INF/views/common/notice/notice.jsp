@@ -129,9 +129,37 @@
 <!-- gritter 스크립트 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    	
+    	// 오늘 시험이 있는 경우 우측 하단에 gritter 팝업창 띄워줌
+    	var exam_info_name;
+    	var exam_info_date;
+    	var exam_info_start;
+    	var exam_info_end; 
+        
+    	var todayExamDto = ${todayExamDto};
+    	$.each(todayExamDto, function(index, item){
+    		exam_info_name = item.exam_info_name;
+    		exam_info_date = item.exam_info_date;
+    		exam_info_start = item.exam_info_start;
+    		exam_info_end = item.exam_info_end;
+    	});
+        
+        var unique_id = $.gritter.add({
+            title: '오늘 시험이 있습니다!',
+            text: exam_info_name,
+            text2: exam_info_date + "  " + exam_info_start + " ~ " + exam_info_end, 
+            image: '${pageContext.request.contextPath}/img/testIcon/testicon1.png',
+            class_name: 'my-sticky-class'
+          });
+    
+          return false;  
+    });
+</script>
 <script>
 	
-	var class_num = ${class_num};
+	/* var class_num = ${class_num};
 		
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
@@ -141,7 +169,7 @@
 	$('#noticeWrite_btnAdmin').click(function(){
 		var adminClass_name = $('#noticeWrite_btnAdmin').val();
 		location.href="noticeWrite.do?class_name=" + adminClass_name + "&class_num=" + class_num;
-	});
+	}); */
 	
 </script>
 
