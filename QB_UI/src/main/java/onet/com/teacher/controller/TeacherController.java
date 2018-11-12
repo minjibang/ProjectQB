@@ -883,12 +883,22 @@ public class TeacherController {
 	
 		@RequestMapping("headerMessage.do")
 		public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) throws ParseException {
-			
-			 String member_id = principal.getName();
-			 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-
+				
 			 ModelAndView mv = new ModelAndView();
+			 String member_id = principal.getName();
 			 mv.setViewName("ajax.common.receiveMessage_ajax");
+			 /*int receiveMessageHeader = commonService.receiveMessageHeader(member_id);*/
+			 int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+			 if(receiveMessageCheck > 0) {
+			 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+			 
+			 for(int i=0; i<receiveMessage.size(); i++) {
+				 if(receiveMessage.get(i).getMessage_content().length()>12) {
+					 String receiveSize = receiveMessage.get(i).getMessage_content().substring(0, 11);
+					 String receiveSize2 = receiveSize + "...";
+					 receiveMessage.get(i).setMessage_content(receiveSize2);
+				 }
+			 }
 			 Date today = new Date();
 			 SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
 			 SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
@@ -918,7 +928,6 @@ public class TeacherController {
 						
 					long diffs = endtime.getTime() - begintime.getTime();
 					long diffmin = diffs / (1000*60);
-					
 		        	if(sendday.equals(currentday)) {
 		        		if(diffmin==0) {
 		        			receiveMessage.get(i).setMessage_date("방금 도착");
@@ -932,9 +941,10 @@ public class TeacherController {
 		        	}
 		        	   
 		          }
-			 mv.addObject("receiveMessage", receiveMessage);
-			 
+		       
+		    	   mv.addObject("receiveMessage", receiveMessage); 
+			 }
 			return mv;
-
+			
 		}
 }

@@ -414,7 +414,5 @@ select * from member where class_name=(select class_name from member where membe
 	select count(*) from message where send_member_id=#{member_id} and send_check = 0
 </select>
 
-<select id="headerreceiveMessageCheck" parameterType="String" resultType="int">
-	select count(*) from message where receive_member_id=#{member_id} and message_check = 0
-</select>
+
 </mapper>

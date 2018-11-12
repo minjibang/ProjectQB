@@ -561,11 +561,7 @@ public class CommonService {
 		return result;
 	}
 	
-	public int headerreceiveMessageCheck(String member_id) {
-		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		int result = dao.headerreceiveMessageCheck(member_id);
-		System.out.println("메세지 개수 : " + result);
-		return result;
-	}
+	
+	
 	
 }

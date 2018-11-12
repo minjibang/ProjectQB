@@ -303,11 +303,15 @@ public class AdminController {
 	/*민지 18.10.10 메시지 페이지 끝*/
 	@RequestMapping("headerMessage.do")
 	public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) throws ParseException {
-		
+			
+		 ModelAndView mv = new ModelAndView();
 		 String member_id = principal.getName();
+		 mv.setViewName("ajax.common.receiveMessage_ajax");
+		 /*int receiveMessageHeader = commonService.receiveMessageHeader(member_id);*/
+		 int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+		 if(receiveMessageCheck > 0) {
 		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 		 
-		 ModelAndView mv = new ModelAndView();
 		 for(int i=0; i<receiveMessage.size(); i++) {
 			 if(receiveMessage.get(i).getMessage_content().length()>12) {
 				 String receiveSize = receiveMessage.get(i).getMessage_content().substring(0, 11);
@@ -315,7 +319,6 @@ public class AdminController {
 				 receiveMessage.get(i).setMessage_content(receiveSize2);
 			 }
 		 }
-		 mv.setViewName("ajax.common.receiveMessage_ajax");
 		 Date today = new Date();
 		 SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
 		 SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
@@ -358,10 +361,11 @@ public class AdminController {
 	        	}
 	        	   
 	          }
-		 mv.addObject("receiveMessage", receiveMessage);
-		 
+	       
+	    	   mv.addObject("receiveMessage", receiveMessage); 
+		 }
 		return mv;
-
+		
 	}
 
 	
