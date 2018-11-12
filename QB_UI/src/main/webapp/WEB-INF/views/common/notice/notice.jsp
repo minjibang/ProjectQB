@@ -159,7 +159,7 @@
 </script>
 <script>
 	
-	/* var class_num = ${class_num};
+	var class_num = ${class_num};
 		
 	$('#noticeWrite_btn').click(function(){
 		var class_name2 = $('#noticeWrite_btn').val();
@@ -169,7 +169,7 @@
 	$('#noticeWrite_btnAdmin').click(function(){
 		var adminClass_name = $('#noticeWrite_btnAdmin').val();
 		location.href="noticeWrite.do?class_name=" + adminClass_name + "&class_num=" + class_num;
-	}); */
+	});
 	
 </script>
 
