@@ -9,12 +9,10 @@
 <body>
 	<c:forEach items="${question }" var="question">
 		<div class="questions">
-			<div
-				class="questionDiv col-lg-12 questionDiv_${question.question_num }">
-				<div class="col-lg-1 qnumdiv">
+			<div class="questionDiv col-lg-12 questionDiv_${question.question_num }">
+				<div class="qnumdiv">
 					<input type="checkbox" value="${question.question_num }"
-						name="checkbox[]" />
-					<!-- value에 문제고유번호 들어간다 -->
+						name="checkbox[]" class="hidden"/>
 				</div>
 				<div class="col-lg-3 questionInfo">
 					${question.md_category_name}<br> ${question.sm_category_name }<br>
@@ -23,7 +21,7 @@
 					정답률:${question.question_correct_ratio}%<br> 출제자:
 					${question.member_id }<br>
 				</div>
-				<div class="col-lg-8" id="questiontitle">
+				<div class="col-lg-9" id="questiontitle">
 					<b>${question.question_name }</b><br> <br>
 					<div class="questionImgDiv">
 						<c:if test="${question.question_img  ne null }">
@@ -48,9 +46,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-12">
-			<hr>
 		</div>
 	</c:forEach>
 </body>

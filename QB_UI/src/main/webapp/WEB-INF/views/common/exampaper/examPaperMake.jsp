@@ -20,13 +20,13 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<h3>문항 검색</h3>
+								<hr>
 								<input type="hidden" class="dpn_EPN"
 									value="${pageContext.request.contextPath}" />
 								<div class="makeExamFirstRow">
-									<hr>
 									<select class="form-control makeExamSelectCategory"
 										name="question_lg_category" id="question_lg_category">
-										<option value="">대분류</option>
+										<option value="">대분류</option>										
 										<c:forEach items="${list1}" var="lgCategoryList">
 											<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
 										</c:forEach>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-lg-6">
 								<h3>시험 출제 문항</h3>
-								<hr>
+								<hr>						
 								<div id="makeExamFirstRowText">
 								
 									<c:set var="sum" value="0" />
@@ -99,60 +99,47 @@
 
 							<!-- 화면의 오른 쪽, 시험 출제 문항 부분이다  -->
 							<div class="col-lg-6" id="rightMakeExamDiv">
-								<!--  시험문제 배치 드래그 앤 드롭-->
-								<form aciton="" method="post" id="makeExamForm">
+								<!--  시험문제 배치 드래그 앤 드롭-->								
 									<div class="task-content">
-										<ul id="sortable" class="task-list selectedBox">
+										<ul id="sortable" class="selectedBox">
 											<c:forEach items="${examquestion}" var="examquestion">
-												<li>
-													<div class='row'>
-
-														<div class="col-lg-1 qnumdiv">
-															<input type="checkbox"
-																value="${examquestion.question_num }" name="checkbox[]"
-																id="question_num" />
-															<!-- value에 문제고유번호 들어간다 -->
+												<li class="liright">
+													<div class='questionDivRight'>															
+														<div class="qnumdiv">
+															<input type="checkbox" value="${examquestion.question_num }"
+																name="checkbox[]" class="hidden"/>
 														</div>
-														<div class="col-lg-3">
-															${examquestion.md_category_name}<br>
-															${examquestion.sm_category_name }<br> 난이도:
-															${examquestion.level_name}<br> 정답:
+														<div class="col-lg-3 questionInfo">
+															${examquestion.md_category_name}<br> ${examquestion.sm_category_name }<br>
+															난이도: ${examquestion.level_name}<br> 정답:
 															${examquestion.question_answer }<br>
 															정답률:${examquestion.question_correct_ratio}%<br> 출제자:
 															${examquestion.member_id }<br>
 														</div>
-														<div class="col-lg-8" id="questiontitle">
+														<div class="col-lg-9" id="questiontitle">
 															<b>${examquestion.question_name }</b><br> <br>
 															<div class="questionImgDiv">
 																<c:if test="${examquestion.question_img  ne null }">
 																	<img
-																		src="${pageContext.request.contextPath}/img/${examquestion.question_img }"
-																		alt="questionImg" class="questionImg" />
+																		src="${pageContext.request.contextPath}/upload/question/${examquestion.question_img }"
+																		alt="NoImg" class="questionImg" />
 																	<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 																</c:if>
 															</div>
 															<br>
 															<div>
-																<c:forEach items="${examquestion_choice}"
-																	var="examquestion_choice">
+																<c:forEach items="${examquestion_choice}" var="examquestion_choice">
 																	<c:if
 																		test="${examquestion_choice.question_num eq examquestion.question_num}">
 																		<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
 																	</c:if>
 																</c:forEach>
 															</div>
-														</div>
-														<hr>
-														<div class="col-lg-12 qscore">
-															배점:&nbsp; <input type="number"
-																class="form-control questionScoreInputTag"
-																id="insertedQScore" name="quantity"
-																value="${examquestion.exam_question_score }" min="1"
-																max="20" onchange="plusqcore()" />
-															<hr>
-														</div>
+														</div>											
 													</div>
-
+													<div class="qscore">배점:&nbsp; 
+														<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" value="${examquestion.exam_question_score }" min="1" max="20" onchange="plusqcore()"/>											
+													</div>								
 												</li>
 											</c:forEach>
 										</ul>
@@ -182,57 +169,7 @@
 										<div class="book"></div>
 									</div>
 								</div>
-								<!--  <div id="exam_preview" class="modal fade modal_preview">
-                           <div class="modal-dialog" style="width: 70%;">
-                              임시 데이터  실제 데이터는 백그라운드에서 가져와 스크립트부분에서 append방식.
-                              <div class="row mt">
-                                 <div class="col-lg-12">
-                                    <div class="">
-                                       <div class="row content-panel">
-                                          <div id="timerblock">
-                                             <h3 class="mb exampaneldetailsubject">
-                                                <i class="fa fa-angle-right"></i> 비트캠프109기-JAVA기본
-                                             </h3>
-
-                                          </div>
-
-                                          <hr>
-                                          
-                                          
-                                          미리보기 
-                                          <div class="panel-body">
-                                             <div class="row content-panel exampaneldetailed">
-                                                <div class="col-lg-6" id="examBox"
-                                                   style="border-right: 1px solid black;">
-                                                   
-                                                   <div id="mirileft" style="text-align: left; padding-top: 10px;">
-                                                      
-                                                   </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                   <div id="miriright" style="text-align: left;">
-                                                      
-                                                   </div>
-                                                   
-                                                </div>
-
-                                             </div>
-                                             <button
-                                                class="btn btn-large btn-primary exampaneldetailBtn"
-                                                data-dismiss="modal">확인</button>
-                                          </div>
-                                          
-                                          미리보기  끝
-                                          
-                                          
-                                       </div>
-                                    </div>
-                                 </div>
-
-                              </div>
-
-                           </div>
-                        </div> -->
+							
 								<input type="button" class="btn btn-theme" value="시험지 생성"
 									id="makeExamSubmitModalBtn">
 							</div>
@@ -327,95 +264,94 @@
 <!-- /wrapper -->
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
-						$.ajax({
-							url : "questionListView.do",
-							type : 'GET',
-							dataType : "html",
-							success : function(data) {
-								$('#questions').html(data);
-							},
-							error : function(error) {
-								console.log("===========실패");
-							}
-						});
-						$('#question_lg_category')
-								.change(
-										function() {
-											$('#question_md_category')
-													.children(
-															'option:not(:first)')
-													.remove();
-											$('#question_sm_category')
-													.children(
-															'option:not(:first)')
-													.remove();
-											<c:forEach items="${list2}" var="mdlist">
-											if (document
-													.getElementById("question_lg_category").value == "${mdlist.lg_category_code}") {
-												$('#question_md_category')
-														.append(
-																"<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
-											}
-											</c:forEach>
-										});
+	$.ajax({
+		url : "questionListView.do",
+		type : 'GET',
+		dataType : "html",
+		success : function(data) {
+			$('#questions').html(data);
+		},
+		error : function(error) {
+			console.log("===========실패");
+		}
+	});
 
-						$('#question_md_category')
-								.change(
-										function() {
-											$('#question_sm_category')
-													.children(
-															'option:not(:first)')
-													.remove();
-											<c:forEach items="${list3}" var="smlist">
-											if (document
-													.getElementById("question_md_category").value == "${smlist.md_category_code}") {
-												$('#question_sm_category')
-														.append(
-																"<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
-											}
-											</c:forEach>
-										});
-						$('#questionsearch')
-								.click(
-										function() {
-											var lgsearchtype = document
-													.getElementById("question_lg_category").value;
-											var mdsearchtype = document
-													.getElementById("question_md_category").value;
-											var smsearchtype = document
-													.getElementById("question_sm_category").value;
-											var leveltype = document
-													.getElementById("level_type").value;
-											var questiontype = document
-													.getElementById("questiontype").value;
-											var keyword = $("#keyword").val();
+	
+	$('#question_lg_category').change(function() {
+		console.log("testsetset");
+		$('#question_md_category').children('option:not(:first)').remove();
+		$('#question_sm_category').children('option:not(:first)').remove();
+		<c:forEach items="${list2}" var="mdlist">
+		if (document.getElementById("question_lg_category").value == "${mdlist.lg_category_code}") {
+			$('#question_md_category')
+					.append(
+							"<option value=${mdlist.md_category_code}><div class='dpn' style='display:none;' value='${mdlist.lg_category_code}'></div>${mdlist.md_category_name}</option>")
+		}
+		</c:forEach>
+	});
 
-											console.log(keyword);
+	$('#question_md_category').change(function() {
+		$('#question_sm_category')
+				.children(
+						'option:not(:first)')
+				.remove();
+		<c:forEach items="${list3}" var="smlist">
+		if (document
+				.getElementById("question_md_category").value == "${smlist.md_category_code}") {
+			$('#question_sm_category')
+					.append(
+							"<option value=${smlist.sm_category_code}>${smlist.sm_category_name}</option>")
+		}
+		</c:forEach>
+	});
+	$('#questionsearch').click(function() {
+		var lgsearchtype = document
+				.getElementById("question_lg_category").value;
+		var mdsearchtype = document
+				.getElementById("question_md_category").value;
+		var smsearchtype = document
+				.getElementById("question_sm_category").value;
+		var leveltype = document
+				.getElementById("level_type").value;
+		var questiontype = document
+				.getElementById("questiontype").value;
+		var keyword = $("#keyword").val();
 
-											$
-													.ajax({
-														url : "questionSearch.do",
-														type : 'GET',
-														data : {
-															'lgsearchtype' : lgsearchtype,
-															'mdsearchtype' : mdsearchtype,
-															'smsearchtype' : smsearchtype,
-															'leveltype' : leveltype,
-															'questiontype' : questiontype,
-															'keyword' : keyword
-														},
-														dataType : "html",
-														success : function(data) {
-															$('#questions')
-																	.html(data);
-														}
-													});
-										});
-					})
+		console.log(keyword);
+
+		$
+				.ajax({
+					url : "../teacher/questionSearch.do",
+					type : 'GET',
+					data : {
+						'lgsearchtype' : lgsearchtype,
+						'mdsearchtype' : mdsearchtype,
+						'smsearchtype' : smsearchtype,
+						'leveltype' : leveltype,
+						'questiontype' : questiontype,
+						'keyword' : keyword
+					},
+					dataType : "html",
+					success : function(data) {
+						$('#questions')
+								.html(data);
+					}
+				});
+	});
+	//시험지 만들기 클릭 디자인 토글
+	$(document).on('click', '.questionDiv', function(){
+		var tt = $(this).children().children().eq(0);
+		$(this).toggleClass("active");
+		tt.prop('checked', !(tt.is(':checked')));
+	});
+	$(document).on('click', '.questionDivRight', function(){
+		var tt = $(this).children().children().eq(0);
+		$(this).parents().toggleClass("active");
+		tt.prop('checked', !(tt.is(':checked')));
+	});
+});
 </script>
 
 <!-- /MAIN CONTENT -->
