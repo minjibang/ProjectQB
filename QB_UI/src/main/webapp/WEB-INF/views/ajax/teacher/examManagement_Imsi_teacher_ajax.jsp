@@ -8,11 +8,6 @@
 			<strong>${myTempExamList.exam_paper_name}</strong>
 		</h4>
 		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myTempExamList.exam_paper_desc}
-
-
-
-
-		
 		<div class="pdf_download text-right">
 			<a href="#">PDF 다운로드 <img src="../img/file-download.png"></a>
 			<button type="button" id="${myTempExamList.exam_paper_num}"

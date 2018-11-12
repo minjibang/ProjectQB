@@ -93,48 +93,43 @@
                            <div class="task-content">
                               <ul id="sortable" class="task-list selectedBox">
                               <c:forEach items="${examquestion}" var="examquestion">
-								<li>
-								<div class='row'>
-								
-									<div class="col-lg-1 qnumdiv">
-										 <input type="checkbox" value="${examquestion.question_num }"
-											name="checkbox[]" id="question_num"/>
-										<!-- value에 문제고유번호 들어간다 -->
-									</div>
-									<div class="col-lg-3">
-										${examquestion.md_category_name}<br> ${examquestion.sm_category_name }<br>
-										난이도: ${examquestion.level_name}<br> 정답:
-										${examquestion.question_answer }<br>
-										정답률:${examquestion.question_correct_ratio}%<br> 출제자:
-										${examquestion.member_id }<br>
-									</div>
-									<div class="col-lg-8" id="questiontitle">
-										<b>${examquestion.question_name }</b><br> <br>
-										<div class="questionImgDiv">
-											<c:if test="${examquestion.question_img  ne null }">
-												<img
-													src="${pageContext.request.contextPath}/img/${examquestion.question_img }"
-													alt="questionImg" class="questionImg" />
-												<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
-											</c:if>
+								<li class="liright">
+									<div class='questionDivRight'>															
+										<div class="qnumdiv">
+											<input type="checkbox" value="${examquestion.question_num }"
+												name="checkbox[]" class="hidden"/>
 										</div>
-										<br>
-										<div>
-											<c:forEach items="${examquestion_choice}" var="examquestion_choice">
-												<c:if
-													test="${examquestion_choice.question_num eq examquestion.question_num}">
-													<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
+										<div class="col-lg-3 questionInfo">
+											${examquestion.md_category_name}<br> ${examquestion.sm_category_name }<br>
+											난이도: ${examquestion.level_name}<br> 정답:
+											${examquestion.question_answer }<br>
+											정답률:${examquestion.question_correct_ratio}%<br> 출제자:
+											${examquestion.member_id }<br>
+										</div>
+										<div class="col-lg-9" id="questiontitle">
+											<b>${examquestion.question_name }</b><br> <br>
+											<div class="questionImgDiv">
+												<c:if test="${examquestion.question_img  ne null }">
+													<img
+														src="${pageContext.request.contextPath}/upload/question/${examquestion.question_img }"
+														alt="NoImg" class="questionImg" />
+													<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 												</c:if>
-											</c:forEach>
-										</div>
+											</div>
+											<br>
+											<div>
+												<c:forEach items="${examquestion_choice}" var="examquestion_choice">
+													<c:if
+														test="${examquestion_choice.question_num eq examquestion.question_num}">
+														<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
+													</c:if>
+												</c:forEach>
+											</div>
+										</div>											
 									</div>
-									<hr>
-									<div class="col-lg-12 qscore">배점:&nbsp; 
-										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" value="${examquestion.exam_question_score }" min="1" max="20" onchange="plusqcore()"/>
-										<hr>
-									</div>
-								</div>
-								
+									<div class="qscore">배점:&nbsp; 
+										<input type="number" class="form-control questionScoreInputTag" id="insertedQScore" name="quantity" value="${examquestion.exam_question_score }" min="1" max="20" onchange="plusqcore()"/>											
+									</div>								
 								</li>	
 							  </c:forEach>
                               </ul>
@@ -268,6 +263,17 @@ $(document).ready(function(){
 			  }
 		   });
    });
+ //시험지 만들기 클릭 디자인 토글
+	$(document).on('click', '.questionDiv', function(){
+		var tt = $(this).children().children().eq(0);
+		$(this).toggleClass("active");
+		tt.prop('checked', !(tt.is(':checked')));
+	});
+	$(document).on('click', '.questionDivRight', function(){
+		var tt = $(this).children().children().eq(0);
+		$(this).parents().toggleClass("active");
+		tt.prop('checked', !(tt.is(':checked')));
+	});
 })
 
 </script>

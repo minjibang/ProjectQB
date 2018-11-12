@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 	<c:forEach items="${classList}" var="classlist">
-		<div class="col-lg-12">
+		<div class="col-lg-12 deleteline">
 	
 					<div class="exam-paper-name">
 						<h4 >
