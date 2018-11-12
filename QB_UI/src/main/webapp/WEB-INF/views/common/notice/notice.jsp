@@ -10,9 +10,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/notice.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lib/gritter/css/jquery.gritter.css" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <style>
-.th{
+.th {
 	text-align: center;
 	font-size: 14px;
 }
@@ -116,7 +117,11 @@
 	</section><!-- /wrapper -->
 </section> <!-- /main-content -->
 
+<!-- gritter 스크립트 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter/js/jquery.gritter.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/gritter-conf.js"></script>
 <script>
+	
 	var class_num = ${class_num};
 		
 	$('#noticeWrite_btn').click(function(){
@@ -130,11 +135,6 @@
 	});
 	
 </script>
-
- 
-
-
-
 
 <!-- /MAIN CONTENT -->
 <!--main content end-->

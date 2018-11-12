@@ -115,5 +115,9 @@ public interface TeacherDao {
 	public int initializeStudentAnswer(Student_answerDto student_answerDto);
 	public int initializeScoreChart(Score_chartDto scoreDto);
 	public int initializeClassChart(Class_chartDto classScoreDto);
+	
+	// 11.09 현이 시험정보, 학생들 전화번호 받아오기 
+	public ExamInfoDto selectExamInfo(int exam_info_num);
+	public MemberDto selectMember(String member_id);
 			
 }

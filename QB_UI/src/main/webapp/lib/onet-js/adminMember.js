@@ -29,7 +29,13 @@ $(document).ready(function(){
             }
         },
         "columnDefs":[
-        	{"orderable":false, "targets":0}
+        	{"orderable":false, "targets":0, "width":"8%", className:'dt-center'},
+        	{"orderable":false, "targets":1, "width":"17%"},
+        	{"orderable":false, "targets":2, "width":"5%"},
+        	{"orderable":false, "targets":3, "width":"6%", className:'dt-center'},
+        	{"orderable":false, "targets":6, "width":"6%", className:'dt-center'},
+        	{"orderable":false, "targets":7, "width":"6%", className:'dt-center'},
+        	{"orderable":false, "targets":8, "width":"9.5%"}
         	],
         "columns":
         [
@@ -175,15 +181,11 @@ $(function(){
 
         checkbox.each(function(i) {
             
-            // checkbox.parent() : checkbox의 부모는 <td>이다.
-            // checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
         	var row =$(this).parent().parent();
     		var tr = row.children();
             
-       	    // 체크된 row의 모든 값을 배열에 담는다.
 			rowData.push(tr.text());        
             
-            // 가져온 값을 배열에 담는다.
 			tdArr.push(member_id);
 			
 			 console.log("체크된 값 : " + tr.eq(2).text());
@@ -311,44 +313,6 @@ $(function(){
 		console.log(updateStudentArr);
 		console.log(JSON.stringify(updateStudentArr));
 	});
-	/*
-	$("#insertMembersPermit").click(function(){	
-		var updateStudentArr = new Array();
-		var rowMemberAuthArr = new Array();
-		$("input[name=chk]:checked").each(function(i){
-			rowMemberId = $(this).parent().parent().children(".member_id").text().trim();
-			rowMemberAuth = $(this).parent().parent().children(".role_code").text().trim();
-			updateStudentArr.push(rowMemberId);	
-			rowMemberAuthArr.push(rowMemberAuth);
-		});
-		
-		if(rowMemberAuthArr.toString().match("학생")){
-			swal("이미 학생으로 등록된 회원이 있습니다");
-		}else{
-			jQuery.ajaxSettings.traditional = true;
-			$.ajax({
-				url : "updateStudentsAjax.do",
-				type : "post",
-				data : {
-					"updateStudentArr" : updateStudentArr
-				},
-				dataType : "text",
-				success:function(data){
-					$("input[name=chk]:checked").each(function(i){
-						rowMemberAuth = $(this).parent().parent().children(".role_code").text("학생");
-					});
-					swal("학생으로 등록 되었습니다");
-					console.log("성공한 값 : " + data);
-				},
-				error : function(error){
-					swal("에러가 발생했습니다.");
-				}
-			});
-		}
-		console.log(updateStudentArr);
-		console.log(JSON.stringify(updateStudentArr));
-		
-	});*/
 	//체크박스 값 일괄 삭제
 	$("#selectDeletebtn").click(function(){
 		var checkbox = $("input[name=chk]:checked").length;
@@ -424,8 +388,8 @@ $(function(){
 			});
 		}		
 	});
-	$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+	/*$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
         $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-    } );
+    } );*/
 
 })

@@ -20,6 +20,7 @@ function updateExamBtn(num){
 					data : {
 						'exam_paper_num' : exam_paper_num
 					},
+					global:false,
 					success : function(data){
 						if(data == 1){
 							//그냥 수정하는 부분
@@ -31,6 +32,7 @@ function updateExamBtn(num){
 									"exam_name" : exam_name,
 									"exam_desc" : exam_desc
 								},
+								global:false,
 								success:function(data){
 									
 									$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
@@ -48,6 +50,7 @@ function updateExamBtn(num){
 												"exam_question_seq" : exam_question_seq,
 												"exam_question_score" : exam_question_score
 											},
+											global:false,
 											success:function(data){
 												
 												swal({
@@ -72,6 +75,7 @@ function updateExamBtn(num){
 									"exam_paper_name" : exam_name,
 									"exam_paper_desc" : exam_desc
 								},
+								global:false,
 								success : function(exampapernum){				
 										$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 										var question_num = $(this).val();   //문제 번호
@@ -88,6 +92,7 @@ function updateExamBtn(num){
 												"exam_question_seq" : exam_question_seq,
 												"exam_question_score" : exam_question_score
 											},
+											global:false,
 											success:function(data){
 												location.href="examManagement.do";
 											}
