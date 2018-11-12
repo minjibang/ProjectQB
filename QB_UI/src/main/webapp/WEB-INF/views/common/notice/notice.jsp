@@ -17,6 +17,15 @@
 	text-align: center;
 	font-size: 14px;
 }
+.subject{
+	color:#063f54;
+}
+#subject{
+	color:#063f54;
+}
+.noticebutton{
+	background:#063f54;
+}
 </style>
 <!-- 강사, 학생 - 메인페이지 (클래스 공지사항, 시험일정) -->
 
@@ -28,8 +37,8 @@
 					<div class="panel-content">
 						<div class="panel-heading">
 							<header class="panel-heading wht-bg">
-								<h4 class="gen-case">
-								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;공지사항</h4>
+								<h4 class="gen-case" id="subject">
+								<i class="fa fa-angle-right subject" ></i>&nbsp;&nbsp;&nbsp;공지사항</h4>
 							</header>
 						</div>
 					
@@ -66,10 +75,10 @@
 							</table>
 							<div>
 							<se:authorize access="hasRole('ROLE_TEACHER')">
-								<button id="noticeWrite_btn" class="btn btn-theme" value="${noticeCheck}">글쓰기</button>
+								<button id="noticeWrite_btn" class="btn btn-theme noticebutton" value="${noticeCheck}">글쓰기</button>
 							</se:authorize>	
 							<se:authorize access="hasRole('ROLE_ADMIN')">
-								<button id="noticeWrite_btnAdmin" class="btn btn-theme" value="${class_name}">글쓰기</button>
+								<button id="noticeWrite_btnAdmin" class="btn btn-theme noticebutton" value="${class_name}">글쓰기</button>
 							</se:authorize>	
 							</div>
 						</div><!-- panel-body -->
@@ -82,8 +91,8 @@
 					<div class="panel-content">
 						<div class="panel-heading">
 							<header class="panel-heading wht-bg">
-								<h4 class="gen-case">
-								<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;시험 일정</h4>
+								<h4 class="gen-case" id="subject">
+								<i class="fa fa-angle-right subject"></i>&nbsp;&nbsp;&nbsp;시험 일정</h4>
 							</header>
 						</div>
 						<div class="panel-body">
