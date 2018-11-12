@@ -261,6 +261,8 @@ public class AdminController {
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 	          
+	          int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+	          if(receiveMessageCheck > 0) {
 	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 	          for(int i=0; i<receiveMessage.size(); i++) {
 	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
@@ -268,6 +270,8 @@ public class AdminController {
 	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
 	        	  String sendManName = commonService.nameSearch(sendManId);
 	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          }
+	          model.addAttribute("receiveMessage", receiveMessage);
 	          }
 	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
 	          for(int i=0; i<sendMessage.size(); i++) {
@@ -283,7 +287,7 @@ public class AdminController {
 	          model.addAttribute("teacherList", teacherList);
 	          model.addAttribute("classMemberList", classMemberList);
 	          model.addAttribute("classTeacherList",classTeacherList);
-	          model.addAttribute("receiveMessage", receiveMessage);
+	          
 	          model.addAttribute("sendMessage", sendMessage);
 	          model.addAttribute("member_id", member_id);
 		
@@ -296,7 +300,7 @@ public class AdminController {
 		
 		 String member_id = principal.getName();
 		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-
+		 
 		 ModelAndView mv = new ModelAndView();
 		 for(int i=0; i<receiveMessage.size(); i++) {
 			 if(receiveMessage.get(i).getMessage_content().length()>12) {

@@ -309,14 +309,20 @@ public class StudentController {
 		List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 
 		List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-		for (int i = 0; i < receiveMessage.size(); i++) {
-			String date = receiveMessage.get(i).getMessage_date().substring(0,
-					receiveMessage.get(i).getMessage_date().length() - 5);
-			receiveMessage.get(i).setMessage_date(date);
-			String sendManId = receiveMessage.get(i).getSend_member_id();
-			String sendManName = commonService.nameSearch(sendManId);
-			receiveMessage.get(i).setMember_name(sendManName);
+		if(receiveMessage.isEmpty()) {
+			
+		}else {
+			for (int i = 0; i < receiveMessage.size(); i++) {
+				String date = receiveMessage.get(i).getMessage_date().substring(0,
+						receiveMessage.get(i).getMessage_date().length() - 5);
+				receiveMessage.get(i).setMessage_date(date);
+				String sendManId = receiveMessage.get(i).getSend_member_id();
+				String sendManName = commonService.nameSearch(sendManId);
+				receiveMessage.get(i).setMember_name(sendManName);
+			}
+			model.addAttribute("receiveMessage", receiveMessage);
 		}
+		
 		List<MessageDto> sendMessage = commonService.sendMessage(member_id);
 		for (int i = 0; i < sendMessage.size(); i++) {
 			String date = sendMessage.get(i).getMessage_date().substring(0,
@@ -327,10 +333,9 @@ public class StudentController {
 			sendMessage.get(i).setMember_name(receiveManName);
 		}
 		List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
-
+		
 		model.addAttribute("classMemberList", classMemberList);
 		model.addAttribute("classTeacherList", classTeacherList);
-		model.addAttribute("receiveMessage", receiveMessage);
 		model.addAttribute("sendMessage", sendMessage);
 		model.addAttribute("member_id", member_id);
 
