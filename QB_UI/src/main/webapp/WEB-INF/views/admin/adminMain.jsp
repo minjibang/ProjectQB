@@ -359,7 +359,7 @@ $(document).ready(function(){
       .datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 3,
+        numberOfMonths: 1,
         minDate:0
       })
       .on( "change", function() {
@@ -368,7 +368,7 @@ $(document).ready(function(){
     to = $( ".class_end_date" ).datepicker({
       defaultDate: "+1w",
       changeMonth: true,
-      numberOfMonths: 3
+      numberOfMonths: 1
     })
     .on( "change", function() {
       from.datepicker( "option", "maxDate", getDate( this ) );
