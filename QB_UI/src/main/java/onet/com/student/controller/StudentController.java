@@ -97,9 +97,9 @@ public class StudentController {
 		model.addAttribute("exam_info", exam_info);
 
 		// 오늘 시험이 있을 경우 팝업창 띄워줌
-		/*List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
+		List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
 		JSONArray jsonArray = JSONArray.fromObject(todayExamDto);
-		model.addAttribute("todayExamDto", jsonArray);*/
+		model.addAttribute("todayExamDto", jsonArray);
 
 		return "common.student.notice.notice";
 	}
@@ -201,13 +201,6 @@ public class StudentController {
 		return studentAnswerList;
 	}
 
-	/* 시험일정 > 시험응시 활성화 */
-	@RequestMapping("examPaperDo.do")
-	public String examPaperDo() { // 현재 examPaperDo2 로 매핑 중
-
-		return "exam.student.examPaperDo";
-	}
-	/* 한결 10.12 지난 시험보기 및 시험응시 페이지 로드 끝 */
 
 	/* %%%%%%%%%%%%%%%%%%%%% 재훈 학생 성적관리 backend 시작 %%%%%%%%%%%%%%%%%%%%%% */
 	/* 양회준 18.10.11 학생 성적관리 시작 */
@@ -321,20 +314,26 @@ public class StudentController {
 	          model.addAttribute("receiveMessage", receiveMessage);
 	          }
 		
-		List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-		for (int i = 0; i < sendMessage.size(); i++) {
-			String date = sendMessage.get(i).getMessage_date().substring(0,
-					sendMessage.get(i).getMessage_date().length() - 5);
-			sendMessage.get(i).setMessage_date(date);
-			String receiveManId = sendMessage.get(i).getReceive_member_id();
-			String receiveManName = commonService.nameSearch2(receiveManId);
-			sendMessage.get(i).setMember_name(receiveManName);
-		}
+
+        //보낸쪽지함이 null일때 처리
+        int sendMessageCheck = commonService.sendMessageCheck(member_id);
+        if(sendMessageCheck > 0) {
+      	   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	          for(int i=0; i<sendMessage.size(); i++) {
+	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	        	  sendMessage.get(i).setMessage_date(date);
+	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          }
+        model.addAttribute("sendMessage", sendMessage);
+        }
+        
+
 		List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
 		
 		model.addAttribute("classMemberList", classMemberList);
 		model.addAttribute("classTeacherList", classTeacherList);
-		model.addAttribute("sendMessage", sendMessage);
 		model.addAttribute("member_id", member_id);
 
 		return "common.student.common.myMessage";

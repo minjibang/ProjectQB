@@ -162,6 +162,6 @@ public interface CommonDao {
     
     public int sendMessageCheck(String member_id);
     
-  
+
 }
 
