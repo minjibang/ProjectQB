@@ -3555,7 +3555,7 @@ ul.chat-available-user li a:hover {
 	padding: 0;
 	width: 100%;
 }
-
+/* 
 #sortable li {
 	padding-left: 3em;
 	font-size: 14px;
@@ -3570,12 +3570,13 @@ ul.chat-available-user li a:hover {
 
 #sortable li input[type=checkbox] {
 	margin-top: 0;
-}
+} */
 
 .ui-sortable>li {
 	padding: 15px 0 15px 35px !important;
 	position: relative;
-	background: #f5f6f8;
+	/* background: #f5f6f8; */
+	
 	margin-bottom: 2px;
 	border-bottom: none !important;
 }

@@ -36,7 +36,7 @@
 
 #leftMakeExamDiv, #rightMakeExamDiv {
 	overflow-y: scroll;
-	height: 500px;
+	height: 750px;
 }
 
 .questionRowBtnDiv {
@@ -146,11 +146,13 @@ h3.logo span {
 }
 .questionDiv.active{
 	background-image: url('../img/qcheck.png');
+	background-color: #f5f6f8;
 	background-size: 20%;
 	background-repeat: no-repeat;
 	background-position: center center;	
 }
 .questionDiv:hover{
+	background-color: #f5f6f8;
 	margin-left : 3px;
 	box-shadow: -3px 0 0 0 #408aa5; 
 }
@@ -163,16 +165,33 @@ h3.logo span {
 	overflow:hidden;
 	padding : 10px;
 	cursor : pointer;
-	border : 1px solid #F6F6F6;
 	background-image: url('');
 }
-.questionDivRight.active{
+
+#sortable {
+	list-style-type: none;
+	width: 100%;
+}
+
+#sortable li {
+	
+}
+.liright {
+	padding: 15px 0 15px 35px !important;
+	position: relative;
+	background: #ffffff;
+	border : 1px solid #F6F6F6;
+}
+.liright:hover {
+	position: relative;
+	background: #f5f6f8;
+	margin-bottom: 2px;
+	box-shadow: -3px 0 0 0 #408aa5;
+}
+.liright.active{
 	background-image: url('../img/qdelete.png');
+	background-color: #f5f6f8;
 	background-size: 20%;
 	background-repeat: no-repeat;
-	background-position: center center;	
-}
-.questionDivRight:hover{
-	margin-left : 3px;
-	box-shadow: -3px 0 0 0 #408aa5; 
+	background-position: center center;
 }

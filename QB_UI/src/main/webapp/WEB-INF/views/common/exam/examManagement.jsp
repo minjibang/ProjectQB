@@ -485,8 +485,8 @@ $('#examinfotab').click(function(){
 								swal({
 									title : "삭제완료",
 									icon : "success",
-								});
-								$('#' + exam_paper_num).parent().parent().parent().parent().remove();
+								});							
+								$('#' + exam_paper_num).closest('.deleteline').remove();
 								
 							} else if (data == 2) {
 								swal({
@@ -494,7 +494,7 @@ $('#examinfotab').click(function(){
 									text : "삭제가 완료외었습니다.학생-(지난시험보기에는 남아있음)",
 									icon : "success",
 								});
-								$('#' + exam_paper_num).parent().parent().parent().parent().remove();
+								$('#' + exam_paper_num).closest('.deleteline').remove();
 							} else {
 								swal({
 									title : "삭제불가",
@@ -516,8 +516,6 @@ $('#examinfotab').click(function(){
 	}
 	function deleteTempExamCheck() {
 		var exam_paper_num = window.event.target.id;
-		
-		
 		swal({
 			  title: "시험지를 삭제 하시겠습니까?",
 			  icon: "warning",
@@ -538,9 +536,7 @@ $('#examinfotab').click(function(){
 								title : "삭제완료",
 								icon : "success",
 							});
-							$('#' + exam_paper_num).parent().parent(".exam-paper-name")
-									.remove();
-							
+							$('#'+exam_paper_num).closest('.exam-paper-name').remove();					
 						},
 						error : function(error) {
 							console.log("===========실패");

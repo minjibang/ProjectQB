@@ -13,7 +13,6 @@
 				<div class="qnumdiv">
 					<input type="checkbox" value="${question.question_num }"
 						name="checkbox[]" class="hidden"/>
-					<!-- value에 문제고유번호 들어간다 -->
 				</div>
 				<div class="col-lg-3 questionInfo">
 					${question.md_category_name}<br> ${question.sm_category_name }<br>

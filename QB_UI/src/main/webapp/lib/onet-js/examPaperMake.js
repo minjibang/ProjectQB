@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 		 if(alQuestionName !=""){
 			  swal("같은 문제가 이미 출제되었습니다.\n"+"문제 제목  : \n"+alQuestionName);			  
 		  }		  
-	         selected.push("<li><div class=questionDivRight>" 
+	         selected.push("<li class='liright'><div class='questionDivRight'>" 
 	               + $(this).parents().parents().html()
 	               + "</div><div class='qscore'>배점:&nbsp; <input type='number' " +
 	                     "class='form-control questionScoreInputTag' id='insertedQScore' name='quantity' val='1' min='1' max='20'  " +
@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
          sortable_li_num--;
          
          
-         qc = qc - Number($(this).parents('.qnumdiv').siblings(".qscore").children("#insertedQScore").val());
+         qc = qc - Number($(this).closest('li').find('#insertedQScore').val());
       });
       $('#qnum').text(sortable_li_num);
       $('#qcore').text(qc);
@@ -105,11 +105,11 @@ jQuery(document).ready(function() {
 	   var questionScore = "";
 	   var questionIndex = "";
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-		   if($(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()==""){
-			   $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val("0");
+		   if($(this).closest('li').find('#insertedQScore').val()==""){
+			   $(this).closest('li').find('#insertedQScore').val("0");
 		   }
 		   questionNum += $(this).val() + ", ";
-		   questionScore += $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() + ", ";
+		   questionScore += $(this).closest('li').find('#insertedQScore').val() + ", ";
 		   questionIndex += (index+1) + ", ";
 	   });
 	   
@@ -131,7 +131,7 @@ jQuery(document).ready(function() {
 	   var score = [];
 	   
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
-		   var eachScore = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
+		   var eachScore = $(this).closest('li').find('#insertedQScore').val();
 		   count.push(index);
 		   if(eachScore!=""){
 			   score.push(eachScore);
@@ -213,7 +213,6 @@ function insertEP(examName, examDesc, examPStatus){
   dataType:"json",
   data:{
      "exam_paper_name":examName, 
-     
      "exam_paper_desc":examDesc,
      "exam_paper_status":examPStatus
      },
@@ -221,7 +220,7 @@ function insertEP(examName, examDesc, examPStatus){
    success:function(epnum){
 	   $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 	         var questionNum = $(this).val();
-	         var EQSeq=(Number(index) + 1);
+	         var EQSeq=(Number(index) + 1);	     
 	         $.ajax({
 	            url:"../teacher/examQuestionInsert.do",
 	            type:"get",
@@ -230,7 +229,7 @@ function insertEP(examName, examDesc, examPStatus){
 	               "exam_paper_num":epnum,
 	               "question_num":$(this).val(),
 	               "exam_question_seq":EQSeq,
-	               "exam_question_score":$(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val()
+	               "exam_question_score":$(this).closest('li').find('#insertedQScore').val()
 	            },
 	            global:false,
 	            success:function(data){
@@ -280,7 +279,7 @@ function updateEP(examPNum, examName, examDesc, examPStatus){
             	 $('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
                    var questionNum = $(this).val();
                    var EQSeq=(Number(index) + 1);
-                   var Score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val();
+                   var Score = $(this).closest('li').find('#insertedQScore').val();
                       
                       $.ajax({
                          url:"../teacher/examQuestionInsert.do",

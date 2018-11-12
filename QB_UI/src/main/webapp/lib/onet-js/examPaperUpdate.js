@@ -8,8 +8,7 @@ function updateExamBtn(num){
 	
 	swal({
 		  title: "수정을 완료하시겠습니까?",
-		  buttons: true,
-		  
+		  buttons: true,		  
 		})
 		.then((willDelete) => {
 		  if (willDelete) {
@@ -38,7 +37,7 @@ function updateExamBtn(num){
 									$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 										var question_num = $(this).val();   //문제 번호
 										var exam_question_seq = Number(index+1) //문제 배치 번호
-										var exam_question_score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() //문제 배점
+										var exam_question_score = $(this).closest('li').find('#insertedQScore').val() //문제 배점
 										
 										$.ajax({
 											url : "../teacher/examquestionsinsert.do",
@@ -80,7 +79,7 @@ function updateExamBtn(num){
 										$('.selectedBox').find('input[name="checkbox[]"]').each(function(index){
 										var question_num = $(this).val();   //문제 번호
 										var exam_question_seq = Number(index+1) //문제 배치 번호
-										var exam_question_score = $(this).parents('.qnumdiv').siblings('.qscore').find('#insertedQScore').val() //문제 배점
+										var exam_question_score =$(this).closest('li').find('#insertedQScore').val() //문제 배점
 									
 									$.ajax({
 											url : "../teacher/examquestionsinsert.do",
