@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where c.class_enable = 1
 	<include refid="search"></include>
 	group by c.class_name
-	order by c.class_start_date
+	order by c.class_start_date desc
 	limit #{begin}, 8
 </select>	
 
