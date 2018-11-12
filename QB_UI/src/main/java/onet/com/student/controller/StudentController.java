@@ -301,20 +301,18 @@ public class StudentController {
 		MessageDto dto = new MessageDto();
 		List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 
-		List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-		if(receiveMessage.isEmpty()) {
-			
-		}else {
-			for (int i = 0; i < receiveMessage.size(); i++) {
-				String date = receiveMessage.get(i).getMessage_date().substring(0,
-						receiveMessage.get(i).getMessage_date().length() - 5);
-				receiveMessage.get(i).setMessage_date(date);
-				String sendManId = receiveMessage.get(i).getSend_member_id();
-				String sendManName = commonService.nameSearch(sendManId);
-				receiveMessage.get(i).setMember_name(sendManName);
-			}
-			model.addAttribute("receiveMessage", receiveMessage);
-		}
+		int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+        if(receiveMessageCheck > 0) {
+	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+	          for(int i=0; i<receiveMessage.size(); i++) {
+	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+	        	  receiveMessage.get(i).setMessage_date(date);
+	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+	        	  String sendManName = commonService.nameSearch(sendManId);
+	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          }
+	          model.addAttribute("receiveMessage", receiveMessage);
+	          }
 		
 		List<MessageDto> sendMessage = commonService.sendMessage(member_id);
 		for (int i = 0; i < sendMessage.size(); i++) {
