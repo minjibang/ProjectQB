@@ -56,7 +56,7 @@
 		$(document).on('click', '.pastExamBtn', function(){	//	ajax로 가져온 버튼이 안 먹을 때 click 이벤트
 			
 			var now = new Date().getTime();  //  현재 시간을 timestamp으로 계산
-			var examEndTime = $(this).siblings().val();		//	시험 종료 시간을 timestamp 으로 계산
+			var examEndTime = $(this).siblings("input").val();		//	시험 종료 시간을 timestamp 으로 계산
 			
 			var year = examEndTime.substr(0, 4);
 			var month = examEndTime.substr(5, 2);
@@ -66,13 +66,13 @@
 			
 			var examEndTimeTs = new Date(year, month-1, day, hour, minute).getTime();
 			
-			 /* if( examEndTimeTs < now ){ */  // 지난 시험 열람 가능
+			 if( examEndTimeTs < now ){   // 지난 시험 열람 가능
 				var popUrl = "pastExamPaper.do?exam_info_num=" + $(this).val();
 				var popOption = "width="+ screen.availWidth +", height=" + screen.availHeight + ", left=0, top=0"; 
 				window.open(popUrl, "지난 시험보기", popOption); 
-			 /* } else if ( examEndTimeTs > now ){	//	시험 응시 시간이 지나지 않았다면 응시 불가능
+			   } else if ( examEndTimeTs > now ){	//	시험 응시 시간이 지나지 않았다면 열람 불가능
 				swal("\n시험 시간이 종료되고 열람이 가능합니다.");
-			 }  */
+			 }   
 		});
 
 		$(document).on('click','.ExamCommentBtn',function(){

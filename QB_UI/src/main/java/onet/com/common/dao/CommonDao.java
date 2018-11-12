@@ -157,5 +157,13 @@ public interface CommonDao {
     public String nameSearch2(String receiveManId);
     
     public String classNum(String member_id);
+    
+    public int receiveMessageCheck(String member_id);
+    
+    public int sendMessageCheck(String member_id);
+    
+    public int headerreceiveMessageCheck(String member_id);
+    
+    
 }
 
