@@ -887,7 +887,6 @@ public class TeacherController {
 			 ModelAndView mv = new ModelAndView();
 			 String member_id = principal.getName();
 			 mv.setViewName("ajax.common.receiveMessage_ajax");
-			 /*int receiveMessageHeader = commonService.receiveMessageHeader(member_id);*/
 			 int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
 			 if(receiveMessageCheck > 0) {
 			 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
