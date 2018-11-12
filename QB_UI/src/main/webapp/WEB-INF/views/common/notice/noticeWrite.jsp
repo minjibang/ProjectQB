@@ -18,6 +18,22 @@
 #notice_title{
 	width:100%;
 }
+.noticebutton{
+	background:#063f54;
+	width:100px;
+}
+.noticeCancelbutton{
+	background:#B9062F;
+	width:100px;
+}
+.subject{
+	color:#063f54;
+	font-weight: bold;
+	width:100px;
+}
+.sub{
+	text-align: center;
+}
 </style>
 <!-- 강사 공지사항 글쓰기 -->
 <section id="main-content">
@@ -32,17 +48,17 @@
 							<form action="noticeView.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
 								<table class="table">
 									<tr>
-										<td class="fst_td">제목</td>
+										<td class="fst_td subject">제목</td>
 										<td class="scd_td"><input type="text" id="notice_title" name="notice_name"
 											class="notice_input" placeholder="제목을 입력해주세요" required /></td>
 									</tr>
 									<tr>
-										<td class="fst_td">내용</td>
+										<td class="fst_td subject">내용</td>
 										<td class="sec_td"><textarea id="notice_content" name="notice_content" class="summernote1 notice_input" 
 												rows="20" placeholder="내용을 입력해주세요"></textarea></td>
 									</tr>
 									<tr>
-										<td class="fst_td">파일 첨부</td>
+										<td class="fst_td subject">파일 첨부</td>
 										<td>
 											<input type="file" id="txtFile1" name="files1" />
 											<input type="file" id="txtFile2" name="files2" />
@@ -50,14 +66,13 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2">
-											
-											<button type="submit" id="notice_submit" class="btn btn-info">글 등록</button>
+										<td colspan="2" class="sub">
+											<button type="submit" id="notice_submit" class="btn btn-theme noticebutton">글 등록</button>
 											<se:authorize access="hasRole('ROLE_TEACHER')">
-												<a href="teacherMain.do" class="btn btn-info">취소</a>
+												<a href="teacherMain.do" class="btn btn-theme04 noticeCancelbutton">취소</a>
 											</se:authorize>
 											<se:authorize access="hasRole('ROLE_ADMIN')">
-												<a href="adminClassMain.do?class_num=${class_num}&class_name=${class_name}" class="btn btn-info">취소</a>
+												<a href="adminClassMain.do?class_num=${class_num}&class_name=${class_name}" class="btn btn-info noticeCancelbutton">취소</a>
 											</se:authorize>
 										</td>
 									</tr>

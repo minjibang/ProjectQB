@@ -1,6 +1,7 @@
 package onet.com.index.controller;
 
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -131,4 +132,9 @@ public class IndexController {
 		return randomNum;
 	}
 
+	@RequestMapping("lockLogin.do")
+	public String lockLogin(Model model) {
+		return "home.lockLogin";
+	}
+	
 }

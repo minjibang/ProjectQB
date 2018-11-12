@@ -29,7 +29,7 @@
 		<property name="url" value="jdbc:mariadb://192.168.0.101:3306/onetuser?allowMultiQueries=true"></property>
 		<property name="username" value="onetuser"></property>
 		<property name="password" value="1004"></property>
-	</bean>   -->
+	</bean>    -->
 	
   	<!-- 실제 샘플데이터 구축 -->
 	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">

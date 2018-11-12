@@ -15,7 +15,6 @@
 			<i class="fa fa-gittip"></i><span>오시는 길</span>
 		</a>
       </div>
-	
 </footer>
     <!--footer end-->
 
@@ -27,6 +26,7 @@
     var socket = null;
     
     function send_message() {
+
 
 
         websocket = new WebSocket("ws://192.168.0.137:8090/qb/count.do");

@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 
-
 <se:authorize access="hasRole('ROLE_ADMIN')">
 <c:forEach items="${receiveMessage}" var="receiveMessage">
 	<c:choose>
@@ -31,7 +30,7 @@
 	<c:choose>
 		<c:when test="${receiveMessage.message_check == 0}">
 			<li>
-			<a href='${pageContext.request.contextPath}/admin/myMessage.do'>
+			<a href='${pageContext.request.contextPath}/teacher/myMessage.do'>
 			<span class='photo'><img src="${pageContext.request.contextPath}/img/friends/student.png"></span>
 			<span class='subject'>
 			<span class='from'>${receiveMessage.member_name}</span>
@@ -53,7 +52,7 @@
 	<c:choose>
 		<c:when test="${receiveMessage.message_check == 0}">
 			<li>
-			<a href='${pageContext.request.contextPath}/admin/myMessage.do'>
+			<a href='${pageContext.request.contextPath}/student/myMessage.do'>
 			<span class='photo'><img src="${pageContext.request.contextPath}/img/friends/teacher2.jpeg"></span>
 			<span class='subject'>
 			<span class='from'>${receiveMessage.member_name}</span>

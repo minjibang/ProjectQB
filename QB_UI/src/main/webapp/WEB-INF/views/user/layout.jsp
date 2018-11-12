@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>Dashio - Bootstrap Admin Template</title>
+  <title>QBQB - ExamManagement System</title>
 
   <!-- Favicons -->
   <link href="${pageContext.request.contextPath}/img/favicon.png" rel="icon">
@@ -56,14 +56,14 @@
   <script src="${pageContext.request.contextPath}/lib/sparkline-chart.js"></script>
   <script src="${pageContext.request.contextPath}/lib/zabuto_calendar.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    /* $(document).ready(function() {
       var unique_id = $.gritter.add({
         // (string | mandatory) the heading of the notification
-        title: 'Welcome to Dashio!',
+        title: 'Welcome to QB!',
         // (string | mandatory) the text inside the notification
-        text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo.',
+        text: 'Hello',
         // (string | optional) the image to display on the left
-        image: 'img/ui-sam.jpg',
+        image: 'img/friends/student.png',
         // (bool | optional) if you want it to fade out on its own or just sit there
         sticky: false,
         // (int | optional) the time you want it to be alive for before fading out
@@ -73,7 +73,7 @@
       });
 
       return false;
-    });
+    }); */
   </script>
   <script type="application/javascript">
     $(document).ready(function() {

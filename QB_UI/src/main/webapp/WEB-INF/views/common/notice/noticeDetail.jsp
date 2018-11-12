@@ -4,6 +4,21 @@
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link href="${pageContext.request.contextPath}/css/noticeView.css"
 	rel="stylesheet">
+<style>
+.noticeListbutton{
+	background: #063f54;
+}
+.noticeDeletebutton{
+	background: #B9062F;
+}
+.noticeUpdatebutton{
+	background: #FFB400;
+	border-color: #FFB400;
+	
+}
+
+</style>
+
 
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -140,17 +155,17 @@
 						
 						<div class="row noticeDetailBtnDiv">
 							<se:authorize access="hasRole('ROLE_TEACHER')">
-							<a href="teacherMain.do" class="btn btn-theme">글 목록</a>
+							<a href="teacherMain.do" class="btn btn-theme noticeListbutton">글 목록</a>
 							</se:authorize>
 							<se:authorize access="hasRole('ROLE_ADMIN')">
-							<a href="adminClassMain.do?class_name=${result[0].class_name}" class="btn btn-theme">글 목록</a>
+							<a href="adminClassMain.do?class_name=${result[0].class_name}" class="btn btn-theme noticeListbutton">글 목록</a>
 							</se:authorize>
 							<se:authorize access="hasRole('ROLE_STUDENT')">
-							<a href="studentMain.do" class="btn btn-theme">글 목록</a>
+							<a href="studentMain.do" class="btn btn-theme noticeListbutton">글 목록</a>
 							</se:authorize>
 							<se:authorize access="hasRole('ROLE_TEACHER') OR hasRole('ROLE_ADMIN')">
-							<button type="button" id="updateNotice"class="btn btn-theme">글 수정</button>
-							<button type="button" data-toggle="modal" data-target="#DeleteModal" class="btn btn-theme04">글 삭제</button>
+							<button type="button" id="updateNotice"class="btn btn-warning noticeUpdatebutton">글 수정</button>
+							<button type="button" data-toggle="modal" data-target="#DeleteModal" class="btn btn-theme04 noticeDeletebutton">글 삭제</button>
 							</se:authorize>
 						</div>
 

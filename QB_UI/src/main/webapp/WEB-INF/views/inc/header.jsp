@@ -2,7 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<style>
+#minji{
+	overflow: auto;
+	height:400px;
+}
+</style>
    <!-- main inc -->
 
 <!--header start-->
@@ -43,14 +48,23 @@
 									class="badge bg-theme" id="message2"
 									style="background-color: red;"></span>
 							</a>
-								<ul class="dropdown-menu extended inbox" id="minji">
+								<ul class="dropdown-menu extended inbox scrollmessage" id="minji">
 									<div class="notify-arrow notify-arrow-green"></div>
 									<li>
 										<p class="green">You have new messages</p>
 									</li>
-									<li><a
-										href="${pageContext.request.contextPath}/admin/myMessage.do">모든
-											쪽지 보기</a></li>
+									<li>
+									<se:authorize access="hasRole('ROLE_ADMIN')">
+									<a href="${pageContext.request.contextPath}/${ats }/myMessage.do">모든 쪽지 보기</a>
+									</se:authorize>
+									<se:authorize access="hasRole('ROLE_TEACHER')">
+									<a href="${pageContext.request.contextPath}/${ats }/myMessage.do">모든 쪽지 보기</a>
+									</se:authorize>
+									<se:authorize access="hasRole('ROLE_STUDENT')">
+									<a href="${pageContext.request.contextPath}/${ats }/myMessage.do">모든 쪽지 보기</a>
+									</se:authorize>
+									</li>
+									
 								</ul></li>
 							<!-- 드롭ㅡㅌ -->
 							<li id="header_inbox_bar"><a

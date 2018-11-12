@@ -26,6 +26,20 @@
 #notice_name{
 	width:100%;
 }
+.noticeUpdateButton{
+	background: #FFB400;
+	border-color: #FFB400;
+}
+
+.noticeCancelButton{
+	background: #B9062F;
+}
+.subject{
+	width:100px;
+	color:#063f54;
+	font-weight: bold;
+}
+
 </style>
 <!-- 강사 공지사항 글쓰기 -->
 <section id="main-content">
@@ -40,17 +54,17 @@
 							<form action="noticeRealUpdate.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
 								<table class="table">
 									<tr>
-										<td class="fst_td">제목</td>
+										<td class="fst_td subject">제목</td>
 										<td class="scd_td"><input type="text" id="notice_name" name="notice_name"
 											class="notice_input" value="${result[0].notice_name}"/></td>
 									</tr>
 									<tr>
-										<td class="fst_td">내용</td>
+										<td class="fst_td subject">내용</td>
 										<td class="sec_td"><textarea id="notice_content" name="notice_content" class="summernote1 notice_input" 
 												rows="20" >${result[0].notice_content}</textarea></td>
 									</tr>
 									<tr>
-										<td class="fst_td">파일 첨부</td>
+										<td class="fst_td subject">파일 첨부</td>
 										<td>
 											<c:choose>
 												<c:when test="${empty result[0].notice_file1 && empty result[0].notice_file2}">
@@ -130,12 +144,12 @@
 									</tr>
 									<tr>
 										<td colspan="2" class="sub">
-											<button type="submit" id="btnupdate" class="btn btn-info">수정</button>&nbsp;&nbsp;
+											<button type="submit" id="btnupdate" class="btn btn-warning noticeUpdateButton">수정</button>&nbsp;&nbsp;
 											<se:authorize access="hasRole('ROLE_TEACHER')">
-											<a href="teacherMain.do"><input type="button" class="btn btn-info" value="취소" /></a>
+											<a href="teacherMain.do"><input type="button" class="btn btn-theme04 noticeCancelButton" value="취소" /></a>
 											</se:authorize>
 											<se:authorize access="hasRole('ROLE_ADMIN')">
-											<a href="adminClassMain.do?class_name=${result[0].class_name}"><input type="button" class="btn btn-info" value="취소" /></a>
+											<a href="adminClassMain.do?class_name=${result[0].class_name}"><input type="button" class="btn btn-theme04 noticeCancelButton" value="취소" /></a>
 											</se:authorize>
 											<!-- <button class="btn btn-info">취소</button> -->
 										</td>
