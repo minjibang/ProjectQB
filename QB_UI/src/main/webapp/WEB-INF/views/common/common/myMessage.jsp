@@ -63,10 +63,10 @@
    
 }
 #allchoose{
-   color: #5D5D5D;
+   color: #f1f1f1;
 }
 .allchooseicon{
-   color: #444444;
+   color: #f1f1f1;
 }
 .msgBtn{
 width:80px;
