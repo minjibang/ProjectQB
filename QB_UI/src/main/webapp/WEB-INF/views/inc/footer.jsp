@@ -29,7 +29,7 @@
     function send_message() {
 
 
-        websocket = new WebSocket("ws://192.168.0.103:8090/qb/count.do");
+        websocket = new WebSocket("ws://192.168.0.137:8090/qb/count.do");
 
         socket = websocket;
         websocket.onopen = function(evt) {
