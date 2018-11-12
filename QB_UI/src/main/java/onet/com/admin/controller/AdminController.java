@@ -260,7 +260,7 @@ public class AdminController {
 	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
-	          
+	          //받은쪽지함이 null일때 처리
 	          int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
 	          if(receiveMessageCheck > 0) {
 	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
@@ -273,14 +273,21 @@ public class AdminController {
 	          }
 	          model.addAttribute("receiveMessage", receiveMessage);
 	          }
-	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-	          for(int i=0; i<sendMessage.size(); i++) {
-	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
-	        	  sendMessage.get(i).setMessage_date(date);
-	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
-	        	  String receiveManName = commonService.nameSearch2(receiveManId);
-	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          //보낸쪽지함이 null일때 처리
+	          int sendMessageCheck = commonService.sendMessageCheck(member_id);
+	          if(sendMessageCheck > 0) {
+	        	   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	 	          for(int i=0; i<sendMessage.size(); i++) {
+	 	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	 	        	  sendMessage.get(i).setMessage_date(date);
+	 	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	 	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	 	        	  sendMessage.get(i).setMember_name(receiveManName);
+	 	          }
+	          model.addAttribute("sendMessage", sendMessage);
 	          }
+	          
+	          
 	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
 	          List<MemberDto> teacherList = adminService.teacherList();
 	          
@@ -288,7 +295,6 @@ public class AdminController {
 	          model.addAttribute("classMemberList", classMemberList);
 	          model.addAttribute("classTeacherList",classTeacherList);
 	          
-	          model.addAttribute("sendMessage", sendMessage);
 	          model.addAttribute("member_id", member_id);
 		
 	          

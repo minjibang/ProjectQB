@@ -159,5 +159,7 @@ public interface CommonDao {
     public String classNum(String member_id);
     
     public int receiveMessageCheck(String member_id);
+    
+    public int sendMessageCheck(String member_id);
 }
 
