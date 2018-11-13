@@ -34,12 +34,11 @@
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
 	
-	
-
-	$.backstretch("${pageContext.request.contextPath}/img/bg-test8.jpg", {
-		speed : 500
+	$.backstretch(["${pageContext.request.contextPath}/img/bg-test6.jpg","${pageContext.request.contextPath}/img/bg-test1.jpg","${pageContext.request.contextPath}/img/bg-test9.jpg"], {
+		duration : 3000, fade:750
 	});
 	
 	var mailtoNum;

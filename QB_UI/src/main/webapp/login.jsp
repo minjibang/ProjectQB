@@ -66,8 +66,8 @@
 	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 	<script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
 	<script>
-		$.backstretch(["img/bg-test6.jpg","img/bg-test9.jpg"], {
-			duration : 5000, fade:750
+		$.backstretch(["img/bg-test6.jpg","img/bg-test1.jpg","img/bg-test9.jpg"], {
+			duration : 3000, fade:750
 		});
 
 		<c:choose>
