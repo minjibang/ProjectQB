@@ -173,7 +173,6 @@ public class AdminController {
 		@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
 		public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
 			
 			int result = adminService.updateStudentsAjax(updateStudentArr);
 			
@@ -183,7 +182,6 @@ public class AdminController {
 		@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
 		public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
 			
 			int result = adminService.deleteStudentsAjax(deleteStudentArr);
 			

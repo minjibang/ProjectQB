@@ -23,7 +23,6 @@ public class DownloadController implements ApplicationContextAware {
 
 	@RequestMapping("/file/{fileId}")
 	public ModelAndView download(@PathVariable String fileId, HttpServletResponse response) throws IOException {
-		System.out.println("옴?");
 		File downloadFile = getFile(fileId);
 		if (downloadFile == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);

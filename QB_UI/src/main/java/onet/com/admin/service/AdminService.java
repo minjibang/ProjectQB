@@ -121,7 +121,6 @@ public class AdminService {
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
-		System.out.println("무엇이 널인가");
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		//보기 이미지 파일 입력
 		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
