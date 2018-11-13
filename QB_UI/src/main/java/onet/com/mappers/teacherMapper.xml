@@ -333,7 +333,7 @@ select count(*) from message where receive_member_id=#{user_name} and message_ch
 	select * from exam_info where class_name = (select class_name from member where member_id = #{member_id})
 	<include refid="teacherexaminfosearch"></include>
 	order by exam_info_date desc
-	limit #{begin}, 3
+	limit #{begin}, 5
 </select>  
 
 <sql id="teacherexaminfosearch">

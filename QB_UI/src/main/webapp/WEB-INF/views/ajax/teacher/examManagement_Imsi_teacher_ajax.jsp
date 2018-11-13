@@ -3,11 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:forEach items="${myTempExamList}" var="myTempExamList">
 	<!-- 시험지 한 개 시작 -->
-	<div class="exam-paper-name">
+	<div class="exam-paper-name deleteline">
 		<h4 id="exam_paper_name">
 			<strong>${myTempExamList.exam_paper_name}</strong>
 		</h4>
-		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${myTempExamList.exam_paper_desc}
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i> ${myTempExamList.exam_paper_desc}
 		<div class="pdf_download text-right">
 			
 			

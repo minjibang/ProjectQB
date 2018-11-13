@@ -498,6 +498,6 @@ useGeneratedKeys="true" keyProperty="question_num" keyColumn="question_num">
 	select * from exam_info
 	<include refid="adminexaminfosearch"></include>
 	order by exam_info_date desc
-	limit #{begin}, 3
+	limit #{begin}, 5
 </select>  
 </mapper>
