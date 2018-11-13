@@ -113,7 +113,7 @@ var Script = function () {
 
         },
         events: [
-            {
+            /*{
                 title: 'All Day Event',
                 start: new Date(y, m, 1)
             },
@@ -150,7 +150,7 @@ var Script = function () {
                 start: new Date(y, m, d+1, 19, 0),
                 end: new Date(y, m, d+1, 22, 30),
                 allDay: false
-            }
+            }*/
         ]
     });
 
