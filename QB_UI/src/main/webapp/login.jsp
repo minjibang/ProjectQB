@@ -42,9 +42,9 @@
 					<br> <label>PASSWORD</label> <input type="password"
 						class="form-control" name="member_pwd" placeholder="비밀번호를 입력하세요"
 						required> <br>
-					<label class="pull-right"><span>&nbsp; &nbsp; || &nbsp; &nbsp;</span> <a href="index/pwdSearch.do">
-							비밀번호 찾기</a>
-					</label> <label class="pull-right"> <a href="index/idSearch.do">
+					<label class="pull-right"><span>&nbsp; &nbsp; / &nbsp; &nbsp;</span> <a href="index/pwdSearch.do">
+							<i class="fa fa-key"></i> 비밀번호 찾기</a>
+					</label> <label class="pull-right"> <a href="index/idSearch.do"><i class="fa fa-user"></i>
 							아이디 찾기</a>
 					</label>
 
@@ -66,8 +66,8 @@
 	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 	<script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
 	<script>
-		$.backstretch("img/bg-test8.jpg", {
-			speed : 500
+		$.backstretch(["img/bg-test6.jpg","img/bg-test9.jpg"], {
+			duration : 5000, fade:750
 		});
 
 		<c:choose>

@@ -18,12 +18,12 @@
 				<input type="text" id="member_email" name="member_email" class="form-control authText" placeholder="이메일을 입력해주세요" required>
 				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn"><i class="fa fa-envelope"></i> 인증번호&nbsp;전송</button><br><br>
 				<input type="text" id="ok" class="form-control" placeholder="인증번호 입력" required><br> 
-				<button type="submit" class="btn btn-theme confirm" ><i class="fa fa-unlock"></i>확인</button>
+				<button type="submit" class="btn btn-theme confirm" ><i class="fa fa-unlock"></i>&nbsp;확인</button>
 				<hr>
 			
 			<div id="remember">
-				<a class="" href="${pageContext.request.contextPath}/login.jsp"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> 로그인 페이지 </a> / 
-				<a class="" href="${pageContext.request.contextPath}/index/idSearch.do"><i class="fa fa-key"></i> 아이디 찾기 </a>
+				<a class="" href="${pageContext.request.contextPath}/login.jsp"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> 로그인 페이지 </a>&nbsp;&nbsp;/&nbsp;&nbsp; 
+				<a class="" href="${pageContext.request.contextPath}/index/idSearch.do"><i class="fa fa-user"></i> 아이디 찾기 </a>
 			</div>
 			</div>
 			<br>
