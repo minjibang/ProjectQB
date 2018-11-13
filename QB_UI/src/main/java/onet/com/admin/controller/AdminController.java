@@ -1441,4 +1441,16 @@ public class AdminController {
 		int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, score_chart_comment);
 		return result;
 	}
+	
+	@RequestMapping("apiInfo.do")
+	public String apiInfo(Principal principal, Model model) {
+		
+		return "common.admin.common.apiInfo";
+	}
+	@RequestMapping("apiInfomation.do")
+	public String apiInfomation(Principal principal, Model model, String class_name, String class_num ) {
+		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
+		return "common.adminClass.admin.common.apiInfo";
+	}
 }
