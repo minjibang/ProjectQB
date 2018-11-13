@@ -633,7 +633,7 @@ function check_t(){
         
           document.getElementById("sendDeleteHidden").setAttribute('value',sendMessageDeleterarray);
             var data ={ 'sendDeleteHidden':$('#sendDeleteHidden').val()};
-      
+            
             $.ajax({
               url : "sendMessageDelete.do",
               type : "post",
@@ -643,7 +643,7 @@ function check_t(){
                 if(data>0){
                     swal({
                       title: "삭제성공",
-                     text: "선택된 받은쪽지가 삭제되었다",
+                     text: "선택된 쪽지가 삭제되었습니다.",
                      icon:"info"
                   }).then(function() {
                       window.location = "myMessage.do";
@@ -679,7 +679,7 @@ function check_t(){
                 if(data>0){
                     swal({
                       title: "삭제성공",
-                     text: "선택된 받은쪽지가 삭제되었다",
+                     text: "선택된 쪽지가 삭제되었습니다.",
                      icon:"info"
                   }).then(function() {
                       window.location = "myMessage.do";
