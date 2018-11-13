@@ -29,7 +29,7 @@
 
 
 
-        websocket = new WebSocket("ws://"+document.domain+":8090/qb/count.do");
+        websocket = new WebSocket("ws://localhost:8090/qb/count.do");
 
         socket = websocket;
         websocket.onopen = function(evt) {

@@ -153,7 +153,7 @@
 							<a href="studentMain.do" class="btn btn-theme noticeListbutton">글 목록</a>
 							</se:authorize>
 							<se:authorize access="hasRole('ROLE_TEACHER') OR hasRole('ROLE_ADMIN')">
-							<button type="button" id="updateNotice"class="btn btn-warning noticeUpdatebutton">글 수정</button>
+							<button type="button" id="updateNotice"class="btn btn-info noticeUpdatebutton">글 수정</button>
 							<button type="button" data-toggle="modal" data-target="#DeleteModal" class="btn btn-theme04 noticeDeletebutton">글 삭제</button>
 							</se:authorize>
 							</div>
