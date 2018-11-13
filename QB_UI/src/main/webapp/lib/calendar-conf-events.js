@@ -62,7 +62,7 @@ var Script = function () {
 				exStart.push(obj.docregstartdt);
 				console.log(index+" || 필기시험시험원서접수종료일>>"+obj.docregenddt+"<<" );
 				var text = obj.docregenddt;
-				console.log();
+				console.log(text.substring(0,4));
 				/*console.log(text.substr(0,4)+"년 " + text.substr(5,7) +"월 "+ text.substr(8,10)+"일");*/
 				exEnd.push(obj.docregenddt);
 				console.log(index+" || 필기시험 시작일자 >> " + obj.docexamstartdt);
