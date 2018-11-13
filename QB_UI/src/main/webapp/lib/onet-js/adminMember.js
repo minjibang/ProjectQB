@@ -14,7 +14,8 @@ $(document).ready(function(){
 		"paging": true,
 		"ordering":true,
 		"searching": true,
-		"bLengthChange" : false,
+		"LengthChange" : true,
+		"lengthMenu": [[10,30,50,-1],[10,30,50,"All"]],
 		 "language": {
              "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Korean.json"
          },
@@ -49,7 +50,7 @@ $(document).ready(function(){
             {data: "member_enable" },
             {defaultContent:"<button type='button' class='btn btn-theme'id='updatebtn' name='updatebtn' data-toggle='modal'data-target='#UpdateModal'><i class='fa fa-pencil'></i></button><button type='button' class='btn btn-danger deletebtn' id='deletebtn' name='deletebtn'><i class='fa fa-trash-o'></i></button>"}
         ],
-        dom: 'Bfrtip',//DataTables 출력기능 및 옵션
+        dom: 'Bfrtlip',//DataTables 출력기능 및 옵션
         buttons:[
         	{
                 extend: 'copyHtml5',

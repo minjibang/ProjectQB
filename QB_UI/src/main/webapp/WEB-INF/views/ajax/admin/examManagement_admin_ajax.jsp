@@ -5,16 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 	<c:forEach items="${classList}" var="classlist">
-	<form action="" method="post" id="pickMyExamPaperForm">
-
-		<div class="col-lg-12">
-
-			<!-- 시험지 하나의 div 시작 -->
-			<div id="myExamPaperDiv">
-			
-					<!-- 시험지 한 개 시작 -->
+		<div class="col-lg-12 deleteline">
 					<div class="exam-paper-name">
-		
 						<h4 >
 							<strong>${classlist.exam_paper_name}</strong>
 							<se:authorize access="hasRole('ROLE_ADMIN')">
@@ -25,25 +17,27 @@
 
 						<div class="pdf_download text-right">
 							<a href="#" class="miri" id="${classlist.exam_paper_num}"
-							data-target="#exam_preview" data-toggle="modal">시험지 미리보기<img src="../img/file-download.png"></a>
-							<button type="button" id="${classlist.exam_paper_num}"
-								class="btn btn-theme04 buttonGroup" onclick="deleteExamCheck()"
-								value="${classlist.exam_paper_name }">삭제</button>
-							<button type="button" id="${classlist.exam_paper_num}"
-								class="btn btn-theme buttonGroup" onclick="updateExamCheck()">시험지수정</button>
+							data-target="#exam_preview" data-toggle="modal"><i class="fa fa-print"></i>시험지 미리보기</a>&nbsp;
+							
+							
 							<se:authorize access="hasRole('ROLE_TEACHER')">
-							<button type="button" class="btn btn-theme buttonGroup"
+							<button type="button" class="btn btn-theme buttonGroupp"
 								onclick="location.href='examScheduleRegist.do?exam_paper_num=${classlist.exam_paper_num}&exam_paper_name=${classlist.exam_paper_name}'">시험등록</button>
 							</se:authorize>
+							<button type="button" id="${classlist.exam_paper_num}"
+								class="btn btn-theme buttonGroupp" onclick="updateExamCheck()">시험지수정</button>
+							<button type="button" id="${classlist.exam_paper_num}"
+								class="btn btn-theme04 buttonGroupp" onclick="deleteExamCheck()"
+								value="${classlist.exam_paper_name }">삭제</button>
 							<input type="hidden" id="hidden_class_num"
 								value='${param.class_num}'>
 						</div>
-						<hr>
+
 					</div>
-		
 			</div>
-		</div>
-	</form>
+
+
+
 </c:forEach>
 
 <script>

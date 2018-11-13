@@ -7,7 +7,9 @@
    overflow: auto;
 }
 
-
+.msg{
+	cursor:pointer;
+}
 </style>
    <!-- main inc -->
 
@@ -44,10 +46,9 @@
 
 
 							<!-- 드롭 -->
-							<li id="header_inbox_bar" class="dropdown"><a
-								data-toggle="dropdown" class="dropdown-toggle msg"> <i class="fa fa-envelope-o"></i> <span
-									class="badge bg-theme" id="message2"
-									style="background-color: red;"></span>
+							<li id="header_inbox_bar" class="dropdown">
+							<a data-toggle="dropdown" class="dropdown-toggle msg"><i class="fa fa-envelope-o"></i> 
+							<span class="badge bg-theme" id="message2" style="background-color: red;"></span>
 							</a>
 							
 								 <ul class="dropdown-menu extended tasks-bar" id="minji">
@@ -125,7 +126,9 @@
 				$('#minji').children().eq(2).html(data);
 				var length = $('#minji').children().eq(2).children().length;
 				console.log(length);
-				if(length == 2){
+				if(length == 1){
+					$('#minji').css('height','91px');
+				}else if(length == 2){
 					$('#minji').css('height','162px');
 				}else if(length == 3){
 					$('#minji').css('height','233px');

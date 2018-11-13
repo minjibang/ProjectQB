@@ -772,7 +772,7 @@ public class TeacherController {
 	@RequestMapping("receiveMessageDelete.do")
 	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 		int result = 0;
-		System.out.println(receiveDeleteHidden);
+		System.out.println("receiveDeleteHidden : " + receiveDeleteHidden);
 		String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
 		for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
 			
@@ -887,7 +887,6 @@ public class TeacherController {
 			 ModelAndView mv = new ModelAndView();
 			 String member_id = principal.getName();
 			 mv.setViewName("ajax.common.receiveMessage_ajax");
-			 /*int receiveMessageHeader = commonService.receiveMessageHeader(member_id);*/
 			 int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
 			 if(receiveMessageCheck > 0) {
 			 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
@@ -946,5 +945,11 @@ public class TeacherController {
 			 }
 			return mv;
 			
+		}
+		
+		@RequestMapping("apiInfo.do")
+		public String apiInfo(Principal principal, Model model) {
+			
+			return "common.teacher.common.apiInfo";
 		}
 }

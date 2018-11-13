@@ -590,7 +590,6 @@ function check_t(){
          data : message_check,
          success : function(data){
              if(data>0){
-               alert('message_check 성공');
                socket.send(username);
                $.ajax({
 
@@ -608,7 +607,7 @@ function check_t(){
              });
 
              }else{
-                alert('2');
+              
              }
             
             
