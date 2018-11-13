@@ -31,11 +31,11 @@ $(document).ready(function(){
         },
         "columnDefs":[
         	{"orderable":false, "targets":0, "width":"8%", className:'dt-center'},
-        	{"orderable":false, "targets":1, "width":"17%"},
-        	{"orderable":false, "targets":2, "width":"5%"},
-        	{"orderable":false, "targets":3, "width":"6%", className:'dt-center'},
-        	{"orderable":false, "targets":6, "width":"6%", className:'dt-center'},
-        	{"orderable":false, "targets":7, "width":"6%", className:'dt-center'},
+        	{"targets":1, "width":"17%"},
+        	{"targets":2, "width":"5%"},
+        	{"targets":3, "width":"6%", className:'dt-center'},
+        	{"targets":6, "width":"6%", className:'dt-center'},
+        	{"targets":7, "width":"6%", className:'dt-center'},
         	{"orderable":false, "targets":8, "width":"9.5%"}
         	],
         "columns":

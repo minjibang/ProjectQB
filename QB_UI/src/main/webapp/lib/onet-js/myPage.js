@@ -70,6 +70,7 @@ function modifySubmit(){
 	$.ajax({
 		type: 'post',
 		url : 'memberDrop.do',
+		global:false,
 		data : {
 				"member_id" : $("#modify_member_id").val(), 
 				"member_pwd" : $("#modify_member_pwd").val()
@@ -97,6 +98,7 @@ $('#memberDropBtn').click(function() {
 	$.ajax({
 		type: 'post',
 		url : 'memberDrop.do',
+		global:false,
 		data : {
 				"member_id" : $("#drop_member_id").val(), 
 				"member_pwd" : $("#drop_member_pwd").val()
