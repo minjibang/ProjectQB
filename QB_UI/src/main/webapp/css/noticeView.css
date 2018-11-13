@@ -62,11 +62,13 @@ textarea {
 }
 #replyAddBtn{
 	width:100%;
-	height:100px;
+	height:60px;
+	border-radius: 10px;
 }
 #replyArea{
 	width:100%;
-	height:100px;
+	height:60px;
+	border-radius: 10px;
 }
 .img{
 	width:100px;
@@ -79,6 +81,7 @@ textarea {
 	width:500px;
 	height:30px;
 	display:inline-block;
+	border-radius: 5px;
 }
 .replyAdd{
 	cursor: pointer;
@@ -100,4 +103,23 @@ textarea {
 }
 .delete{
 	cursor: pointer;
+}
+.noticeListbutton{
+	background: #063f54;
+	width:100px;
+}
+.noticeDeletebutton{
+	background: #B9062F;
+	width:100px;
+}
+.noticeUpdatebutton{
+	background: #FFB400;
+	border-color: #FFB400;
+	width:100px;
+}
+.filediv{
+	margin-left: -15px;
+}
+.comcom2{
+	border-radius: 5px;	
 }

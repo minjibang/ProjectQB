@@ -4,20 +4,6 @@
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link href="${pageContext.request.contextPath}/css/noticeView.css"
 	rel="stylesheet">
-<style>
-.noticeListbutton{
-	background: #063f54;
-}
-.noticeDeletebutton{
-	background: #B9062F;
-}
-.noticeUpdatebutton{
-	background: #FFB400;
-	border-color: #FFB400;
-	
-}
-
-</style>
 
 
 <section id="main-content">
@@ -63,28 +49,30 @@
 							</p>
 								<c:choose>
 								<c:when test="${not empty result[0].notice_file1 && empty result[0].notice_file2}">
-								<span class="span">${originFileName1}</span>
-								<br>
-								<a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
+								<div class="col-sm-6 filediv">
+								<span class="span"><strong>${originFileName1}</strong></span>
+								<a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do"> 다운로드</a>
+								</div>
 								</c:when>
 								</c:choose>
 							
 								<c:choose>
 								<c:when test="${not empty result[0].notice_file2 && empty result[0].notice_file1}">
-								<br>
-								<span class="span">${originFileName2}</span>
-								<br>
-								<a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do">다운로드</a>
+								<div class="col-sm-6 filediv">
+								<span class="span"><strong>${originFileName2}</strong></span>
+								<a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do"> 다운로드</a>
+								</div>
 								</c:when>
 								</c:choose>
 								
 								<c:choose>
 								<c:when test="${not empty result[0].notice_file1 && not empty result[0].notice_file2}">
-								<br>
-								<span class="span">${originFileName1}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
-								<br>
-								<br>
-								<span class="span">${originFileName2}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do">다운로드</a>
+								<div class="col-sm-6 filediv">
+								<span class="span"><strong>${originFileName1}</strong></span>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/file/${result[0].notice_file1}.do">다운로드</a>
+								</div>
+								<div class="col-sm-6 filediv">
+								<span class="span"><strong>${originFileName2}</strong></span>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/file/${result[0].notice_file2}.do">다운로드</a>
+								</div>
 								<br>
 								</c:when>
 								</c:choose>
@@ -153,7 +141,8 @@
 						
 
 						
-						<div class="row noticeDetailBtnDiv">
+						<div class="row noticeView_Comments_2">
+							<div class="col-sm-9">
 							<se:authorize access="hasRole('ROLE_TEACHER')">
 							<a href="teacherMain.do" class="btn btn-theme noticeListbutton">글 목록</a>
 							</se:authorize>
@@ -167,6 +156,7 @@
 							<button type="button" id="updateNotice"class="btn btn-warning noticeUpdatebutton">글 수정</button>
 							<button type="button" data-toggle="modal" data-target="#DeleteModal" class="btn btn-theme04 noticeDeletebutton">글 삭제</button>
 							</se:authorize>
+							</div>
 						</div>
 
 					</div>
@@ -273,11 +263,13 @@ $(document).ready(function(){
 		$.ajax({
 			 type : "post",
 			 url : "commentReply.do",
+			 global:false,
 			 data:"notice_num="+notice_num+"&class_name="+class_name+"&comment_num="+comment_num+"&replyInput="+replyInput,  
 			 success : function(data){
 			 	   	$.ajax({
 			 	   		type : "post",
 			 	   		url : "noticeDetailAjax.do",
+			 	   		global:false,
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);
@@ -320,11 +312,13 @@ $(document).ready(function(){
 		$.ajax({
 			 type : "post",
 			 url : "commentReply.do",
+			 global:false,
 			 data:"notice_num="+notice_num+"&class_name="+class_name+"&comment_num="+comment_num+"&replyInput="+replyInput,  
 			 success : function(data){
 			 	   	$.ajax({
 			 	   		type : "post",
 			 	   		url : "noticeDetailAjax.do",
+			 	  		global:false,
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);
@@ -347,11 +341,13 @@ $(document).ready(function(){
 		$.ajax({
 			 type : "post",
 			 url : "commentInsert.do",
+			 global:false,
 			 data:"notice_num="+notice_num+"&class_name="+class_name+"&textarea="+textarea,  
 			 success : function(data){
 			 	   	$.ajax({
 			 	   		type : "post",
 			 	   		url : "noticeDetailAjax.do",
+			 	   		global:false,
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);
@@ -397,6 +393,7 @@ $(document).ready(function(){
 		$.ajax({
  	   		type : "post",
  	   		url : "noticeDetailAjax.do",
+ 	   		global:false,
  	   		data : "class_name="+class_name+"&notice_num="+notice_num,
  	   		success: function(data){
  	   				$('#list1body').html(data);
@@ -410,11 +407,13 @@ $(document).ready(function(){
 		$.ajax({
  	   		type : "post",
  	   		url : "noticeReplyUpdate.do",
+ 	   		global:false,
  	   		data : "comment_num="+comment_num+"&comment_content="+comment_content,
  	   		success: function(data){
 	 	   		$.ajax({
 		 	   		type : "post",
 		 	   		url : "noticeDetailAjax.do",
+		 	   		global:false,
 		 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 		 	   		success: function(data){
 		 	   				$('#list1body').html(data);
@@ -433,12 +432,14 @@ $(document).ready(function(){
 		 $.ajax({
 	 	   		type : "post",
 	 	   		url : "commentReplyDelete.do",
+	 	   		global:false,
 	 	   		data : "comment_num="+$('#deleteCommentNotice').val(),
 	 	   		success: function(data){
 	 	   			$('#DeleteCommentModal').modal('hide');
 	 	   			$.ajax({
 			 	   		type : "post",
 			 	   		url : "noticeDetailAjax.do",
+			 	   		global:false,
 			 	   		data : "class_name="+class_name+"&notice_num="+notice_num,
 			 	   		success: function(data){
 			 	   				$('#list1body').html(data);
