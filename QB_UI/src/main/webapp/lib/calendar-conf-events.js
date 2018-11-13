@@ -27,61 +27,126 @@ var Script = function () {
 
     /* initialize the calendar
      -----------------------------------------------------------------*/
-
+    var title = "";
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    var string = "http://openapi.q-net.or.kr/api/service/rest/InquiryTestInformationNTQSVC/getJMList?jmCd=1320&serviceKey=bE%2BMHNWc5Mt6LzYVw%2BLeZmthCrGWctkYd%2F6FOUod7Vz4BTcOaljwRzx2fuRqduyJormhYl%2BAgvIU2sZcA%2FQW%2Bw%3D%3D&_type=json";
+    /*var string = "http://openapi.q-net.or.kr/api/service/rest/InquiryTestInformationNTQSVC/getJMList?jmCd=1320&serviceKey=bE%2BMHNWc5Mt6LzYVw%2BLeZmthCrGWctkYd%2F6FOUod7Vz4BTcOaljwRzx2fuRqduyJormhYl%2BAgvIU2sZcA%2FQW%2Bw%3D%3D&_type=json";*/
+    var string = "http://openapi.q-net.or.kr/api/service/rest/InquiryTestInformationNTQSVC/getEList?serviceKey=bE%2BMHNWc5Mt6LzYVw%2BLeZmthCrGWctkYd%2F6FOUod7Vz4BTcOaljwRzx2fuRqduyJormhYl%2BAgvIU2sZcA%2FQW%2Bw%3D%3D&_type=json";
     var json;
     var exName = [];
-    var exStart = [];
-    var exEnd = [];
-    
+    var StartD;
+    var EndD;
     $.getJSON(string, function(data){
-    	if(data.body){
-			console.log("body");
-		}else if(data.response){
-			console.log("response");
-			console.log("data.response.body >> "+data.response.body);
-			console.log("일부 >> " + data.response.body.items.item);
-			console.log("확실히 나옵니다");
-			
-			$.each(data.response.body.items.item,function(index,obj){
+    	
+    	if(data.response){
+    		
+    		/*$.each(data.response.body.items.item,function(index,obj){
+				title = obj.implplannm +" "+obj.jmfldnm + " 원서접수";
+				exName.push( obj.implplannm +" "+obj.jmfldnm + " 원서접수");
+				
+				var startDate = obj.docregstartdt + "";
+				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
+				
+				var endDate = obj.docregenddt + "";
+				EndD = endDate.substr(0,4) + "-" + endDate.substr(4,2)+"-" + endDate.substr(6,2);
+	        })*/
+    		$.each(data.response.body.items.item,function(index,obj){
+				title = obj.description;
+				
+				
+				var startDate = obj.pracexamstartdt + "";
+				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
+				
+				var endDate = obj.pracpassdt + "";
+				EndD = endDate.substr(0,4) + "-" + endDate.substr(4,2)+"-" + endDate.substr(6,2);
+	        })
+    		
+    		
+			/*$.each(data.response.body.items.item,function(index,obj){
 				
 				if(index == 0){
 					json += "{";
 					console.log("{");
 				}
+				console.log("title:'"+obj.implplannm +" "+obj.jmfldnm + " 원서접수',");
+				json += "title:'"+obj.implplannm +" "+obj.jmfldnm + " 원서접수',";
+				title = obj.implplannm +" "+obj.jmfldnm + " 원서접수";
+				console.log("title >>" + title);
 				
+				var startDate = obj.docregstartdt + "";
+				console.log("start : new Date("+ startDate.substr(0,4)+","+startDate.substr(4,2)+","+ startDate.substr(6,2)+")");
+				json +="start : new Date("+ startDate.substr(0,4)+","+startDate.substr(4,2)+","+ startDate.substr(6,2)+"),";
+				sy = startDate.substr(0,4);
+				sm = startDate.substr(4,2);
+				sd = startDate.substr(6,2);
 				
-				console.log(index+" || 종목명>> "+ obj.implplannm +" "+obj.jmfldnm);
-				exName.push("title:"+obj.implplannm +" "+obj.jmfldnm);
-				console.log(obj.docregstartdt);
-				/*console.log("start : new Date("+ y+","+"m"+","+ obj.docregstartdt);*/
-				exStart.push(obj.docregstartdt);
-				console.log(index+" || 필기시험시험원서접수종료일>>"+obj.docregenddt+"<<" );
-				var text = obj.docregenddt;
-				console.log(text.substring(0,4));
-				/*console.log(text.substr(0,4)+"년 " + text.substr(5,7) +"월 "+ text.substr(8,10)+"일");*/
-				exEnd.push(obj.docregenddt);
-				console.log(index+" || 필기시험 시작일자 >> " + obj.docexamstartdt);
+				var endDate = obj.docregenddt + "";
+				console.log("end : new Date("+ endDate.substr(0,4)+","+endDate.substr(4,2)+","+ endDate.substr(6,2)+")");
+				json +="end : new Date("+ endDate.substr(0,4)+","+endDate.substr(4,2)+","+ endDate.substr(6,2)+")";
+				ey = endDate.substr(0,4);
+				em = endDate.substr(4,2);
+				ed = endDate.substr(6,2);
 				
+				exName.push("{ title:'"+obj.implplannm +" "+obj.jmfldnm + " 원서접수',"+"start : new Date("+ startDate.substr(0,4)+","+startDate.substr(4,2)+","+ startDate.substr(6,2)+"),"+"end : new Date("+ endDate.substr(0,4)+","+endDate.substr(4,2)+","+ endDate.substr(6,2)+") }");
 				if(index + 1 == data.response.body.items.item.length){
 					
 					console.log("}");
 					json += "}";
+				}else if(index + 1 != data.response.body.items.item.length){
+					console.log("}");
+					json += "},";
 				}
 	           });
-		}
-    	console.log("name >> "+exName);
+			JSON.stringify(exName);
+			console.log("jsonstinrg>>> " + exName);*/
+		
+    	/*console.log("name >> "+exName);
     	console.log("start >> " + exStart);
-    	console.log("end >> " + exEnd);
+    	console.log("end >> " + exEnd);*/
+    	/*console.log("json >>>>>>>>> "+json);
+    	console.log("exName >>>>>>>>>>>> " + exName);*/
+    	
+			$('#calendar').fullCalendar({
+		        header: {
+		            left: 'prev,next today',
+		            center: 'title',
+		            right: 'month,basicWeek,basicDay'
+		        },
+		        editable: false,
+		        titleFormat: {
+		        	   month: "yyyy년 MMMM",
+		        	   week: "yyyy년 MMM",
+		        	   day: "yyyy년 MMM d일 dddd"
+		        	   },
+		        monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+		        monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+		        dayNames: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
+		        dayNamesShort: ["일","월","화","수","목","금","토"],
+		        buttonText: {
+		        	   today : "오늘",
+		        	   month : "월별",
+		        	   week : "주별",
+		        	   day : "일별",
+		        	   },
+		        events:
+		        	
+		        [
+		        	
+		        	{
+		        		title:title,
+		        		start:StartD,
+		        		end:EndD
+		        	}
+		        ]
+		    });
+    	
+		}
     });
     
     
-    
-    $('#calendar').fullCalendar({
+    /*$('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -113,7 +178,8 @@ var Script = function () {
 
         },
         events: [
-            /*{
+        	
+            {
                 title: 'All Day Event',
                 start: new Date(y, m, 1)
             },
@@ -150,9 +216,9 @@ var Script = function () {
                 start: new Date(y, m, d+1, 19, 0),
                 end: new Date(y, m, d+1, 22, 30),
                 allDay: false
-            }*/
+            }
         ]
-    });
+    });*/
 
 
 }();
