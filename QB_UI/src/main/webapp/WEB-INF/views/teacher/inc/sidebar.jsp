@@ -30,6 +30,12 @@
               <span>시험 관리</span>
               </a>
           </li>  
+          <li class="sub-menu">
+            <a href="${pageContext.request.contextPath}/teacher/apiInfo.do">
+              <i class="fa fa-calendar"></i>
+              <span>자격증 시험 일정</span>
+              </a>
+          </li>
           <!-- 강사 end -->
          </ul>
         <!-- sidebar menu end-->

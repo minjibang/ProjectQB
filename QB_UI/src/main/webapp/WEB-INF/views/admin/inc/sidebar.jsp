@@ -38,8 +38,8 @@
               </a>
           </li>
           <li class="sub-menu">
-            <a href="${pageContext.request.contextPath}/common/apiInfo.do">
-              <i class="fa fa-desktop"></i>
+            <a href="${pageContext.request.contextPath}/admin/apiInfo.do">
+              <i class="fa fa-calendar"></i>
               <span>자격증 시험 일정</span>
               </a>
           </li>
