@@ -126,7 +126,7 @@ $(document).ready(function(){
 							deleteAuth.text("0");
 						},
 						error: function(request, status, error){
-							swal("에러에러에러에러에러");
+							swal("에러가 발생하였습니다.");
 						}
 					});
 				    swal("성공적으로 삭제하였습니다.", {
@@ -188,8 +188,6 @@ $(function(){
 			rowData.push(tr.text());        
             
 			tdArr.push(member_id);
-			
-			 console.log("체크된 값 : " + tr.eq(2).text());
         });
 	});
 
@@ -199,7 +197,6 @@ $(function(){
 	$(document).on("click","button[name='updatebtn']",function(){				
 		var tdArr=$(this).parent().parent().children();
 		rowIndex=$(this).parent().parent().index();
-		console.log("인덱스?:"+rowIndex);
 		var role_desc_modal = tdArr.eq(6).text();
 		
 		$('#cid').val(tdArr.eq(2).text());
@@ -230,8 +227,7 @@ $(function(){
 	
 	/*멤버 수정*/
 	$('#updateMemberBtn').click(function() {
-		var role_code_val=$("input[name=agree]:checked").val();	
-		console.log("여기서는?"+rowIndex);
+		var role_code_val=$("input[name=agree]:checked").val();
 		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
 				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
 				, role_code:role_code_val }
@@ -245,6 +241,7 @@ $(function(){
    			  url : "adminMemberUpdate.do",
    			  cache: false,
    			  dataType: "json",
+   			  global:false,
    			  data:_data,  
    			  processData: false,
    			  contentType: "application/json; charset=utf-8",
@@ -296,6 +293,7 @@ $(function(){
 			$.ajax({
 				url : "updateStudentsAjax.do",
 				type : "post",
+				global:false,
 				data : {
 					"updateStudentArr" : updateStudentArr
 				},
@@ -311,8 +309,6 @@ $(function(){
 				}
 			});
 		}
-		console.log(updateStudentArr);
-		console.log(JSON.stringify(updateStudentArr));
 	});
 	//체크박스 값 일괄 삭제
 	$("#selectDeletebtn").click(function(){
@@ -337,6 +333,7 @@ $(function(){
 			$.ajax({
 				url : "deleteStudentsAjax.do",
 				type : "post",
+				global:false,
 				data : {
 					"deleteStudentArr" : deleteStudentArr
 				},
@@ -373,6 +370,7 @@ $(function(){
 			$.ajax({
 				url : "deleteStudentsAjax.do",
 				type : "post",
+				global:false,
 				data : {
 					"deleteStudentArr" : deleteStudentArr
 				},

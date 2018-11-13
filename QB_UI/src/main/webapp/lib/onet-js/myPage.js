@@ -88,8 +88,6 @@ function modifySubmit(){
 		},
 		error : function(error) {
 			swal("Error!", "전송 실패!", "error");
-			console.log(error);
-			console.log(error.status);
 		}
 	});
 }
@@ -118,8 +116,12 @@ $('#memberDropBtn').click(function() {
 					  if (willDrop) {
 					    swal("성공적으로 탈퇴하였습니다.", {
 					      icon: "success",					      
+					    })
+					    .then((Chk) => {
+                            swal.setActionValue(
+                                            document.getElementById('memberDropFrm').submit()
+                                            );                                                    
 					    });
-					    document.getElementById('memberDropFrm').submit();
 					  } else {
 					    swal("탈퇴가 취소되었습니다.");
 					  }
@@ -128,8 +130,6 @@ $('#memberDropBtn').click(function() {
 		},
 		error : function(error) {
 			swal("Error!", "전송 실패!", "error");
-			console.log(error);
-			console.log(error.status);
 		}
 	});
 });
@@ -191,14 +191,12 @@ $('#emailCodeRquestBtn').click(function() {
 			member_id : $('input[name="member_name"]').val()
 		},
 		success : function(data) {
-			swal("성공!", "메일로 인증번호가 전송되었습니다!"+data, "success");
+			swal("성공!", "메일로 인증번호가 전송되었습니다!", "success");
 			mailtonumber = data;
 			mailcheck = true;
 		},
 		error : function(error) {
-			swal("실패!", "인증 메일 전송 실패!"+error.status, "error");
-			console.log(error);
-			console.log(error.status);
+			swal("실패!", "인증 메일 전송 실패!", "error");
 		}
 	});
 });

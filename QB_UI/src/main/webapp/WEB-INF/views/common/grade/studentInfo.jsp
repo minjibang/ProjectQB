@@ -10,14 +10,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/studentInfo.css" rel="stylesheet">
-<style>
-.studentListMembers{
-	cursor:pointer;
-}
-.tab2studentListMembers{
-	cursor:pointer;
-}
-</style>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -88,8 +80,8 @@
 														<h4>
 															<i class="fa fa-angle-right"></i> 각 시험 성적
 														</h4>
-														<div id="divbar1" class="panel-body text-center">
-															<canvas id="bar1" height="300" width="400"></canvas>
+														<div id="divline1" class="panel-body text-center">
+															<canvas id="line1" height="300" width="400"></canvas>
 														</div>
 													</div>
 												</div>
@@ -100,8 +92,8 @@
 													<h4>
 														<i class="fa fa-angle-right"></i> 반/학생 평균 비교
 													</h4>
-													<div id="divline1" class="panel-body text-center">
-														<canvas id="line1" height="300" width="400"></canvas>
+													<div id="divbar1" class="panel-body text-center">
+														<canvas id="bar1" height="300" width="400"></canvas>
 													</div>
 												</div>
 											</div>
@@ -174,17 +166,6 @@
 																<div>
 																	<p>수고하셨습니다.</p>
 																</div>
-																<%-- <div class="row noticeView_Comments_1 noticeContent comment_number" id="${comment.comment_num}">
-																	<div class="col-sm-3">
-																		<strong id="${studentExamScoreInfo.exam_info_num}">선생님</strong><br>
-																	</div>
-																	<div class="col-sm-6 content">${comment.comment_content}</div>
-																	<div class="col-sm-3">&nbsp;&nbsp;
-																		<c:if test="${name eq 선생님}">
-																			<a class="update"><i class="fa fa-pencil" id="${comment.comment_num}"></i>수정</a>&nbsp;
-																		</c:if>
-																	</div>
-																</div> --%>
 															<!-- 코멘트 범위 -->
 															</td>
 															<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 :
@@ -247,9 +228,9 @@
 													<div class="btn-group pull-right">
 														<select id="searchExam" class="form-control searchControl"
 																name="searchExam">
-															<option value="" >시험 목록</option>		
+															<option value="0" >시험 목록</option>		
 															<c:forEach items="${classChart}" var="classChart">
-																<option value="exam_info_name">${classChart.exam_info_name}</option>		
+																<option value="${classChart.exam_info_num}">${classChart.exam_info_name}</option>		
 															</c:forEach>
 														</select>
 													</div>
@@ -264,14 +245,6 @@
 																		<th>순위</th>
 																	</tr>
 																</thead>
-																<%-- <tbody id="classRankView">
-																	<c:forEach items="${classRank}" var="classRank">																	
-																	<tr>
-																		<td id="member_name" class="member_name">${classRank.member_name}</td>																		
-																		<td id="score_chart_rank" class="score_chart_rank">${classRank.score_chart_rank}</td>																	
-																	</tr>																	
-																	</c:forEach>
-																</tbody> --%>
 															</table>
 														</div>
 													</div>
@@ -480,7 +453,7 @@ $(document).ready(function(){
 				});
 			},
 			error:function(error, status){
-				console.log("실패1:"+status);
+				
 			}
 		});
 	}
@@ -571,16 +544,24 @@ $(document).ready(function(){
 		"ajax": {
            method: "post",
            url:"classRank.do",
-			data:{"exam_info_name":function(){ return examInfoName}},
+			data:{"exam_info_num":function(){ return examInfoNum}},
            dataSrc:"",
            xhrFields: {withCredentials: true}
 		},
 		"columns":
 			[
 			{data: "member_name" },
-			{data: "score_chart_rank" }       
+			{data: function(data){
+				if(data.score_chart_rank==0){
+					return "미응시";
+				}else{
+					return data.score_chart_rank;
+				}
+				}
+			}
 			]
-	});
+	});	
+	
 	var studentPerGrade=$('#studentPerGrade').DataTable({
 		"ordering":true,
 		"paging": true,
@@ -741,10 +722,10 @@ $(document).ready(function(){
 	
 	//첫화면 차트
 	function functionChart(){
-		//각 시험 성적 바 차트 시작	
-		var ctx = document.getElementById('bar1').getContext('2d');
-		ctx.canvas.height = $('#divbar1').height();
-		ctx.canvas.width = $('#divbar1').width();
+		//각 시험 석차 선 차트 시작	
+		var ctx = document.getElementById('line1').getContext('2d');
+		ctx.canvas.height = $('#divline1').height();
+		ctx.canvas.width = $('#divline1').width();
 		var myBarChart = new Chart(ctx, {
 		    type: 'line',
 		    data: {
@@ -784,7 +765,6 @@ $(document).ready(function(){
 		    	
 		         yAxes: [{
 		         ticks: {
-		        	 min:1,
 		             reverse: true
 		         }
 		     }] 
@@ -801,12 +781,12 @@ $(document).ready(function(){
 		    	  },		       
 		    }
 		});
-		//각 시험 성적 바 차트 끝
+		//각 시험 석차 선 차트 끝
 		
-		//반/학생 평균 선 차트 시작
-		var ctx = document.getElementById('line1').getContext('2d');
-		ctx.canvas.height = $('#divline1').height();
-		ctx.canvas.width = $('#divline1').width();
+		//반/학생 평균 바 차트 시작
+		var ctx = document.getElementById('bar1').getContext('2d');
+		ctx.canvas.height = $('#divbar1').height();
+		ctx.canvas.width = $('#divbar1').width();
 		var chart = new Chart(ctx, {
 		  type: 'bar',
 		  data: {
@@ -973,7 +953,7 @@ $(document).ready(function(){
 	// 시험문제 목록 선택 시작
 	$("#searchExam").change(function() {
 		$("#searchExam option:selected").each(function () {
-			examInfoName=$("#searchExam option:selected").text();
+			examInfoNum=$("#searchExam option:selected").val();
 			rankTable.ajax.reload();
 		});
 	});
@@ -985,7 +965,7 @@ $(document).ready(function(){
 			var title=$("#classChartName");
 			$("#bar2").remove();
 			$("#divbar2").append('<canvas id="bar2" height="200"></canvas>');
-			if(examchart=="classAvg"){
+			if(examchart=="classAvg"){//각 시험 평균
 				title.html("<i class='fa fa-angle-right'></i> 각 시험 평균");
 				var classChart = document.getElementById('bar2').getContext('2d');
 				var myNewChart = new Chart(classChart, 
@@ -1034,7 +1014,7 @@ $(document).ready(function(){
 							    	    }
 							    	  }			
 							}});
-			}else if(examchart=="classStd"){
+			}else if(examchart=="classStd"){//각 시험 표준편차
 				title.html("<i class='fa fa-angle-right'></i> 각 시험 표준편차");
 				var classChart = document.getElementById('bar2').getContext('2d');
 				var myNewChart = new Chart(classChart, { 
@@ -1088,7 +1068,7 @@ $(document).ready(function(){
 				
 				
 				});
-			}else{
+			}else{// 각 시험 평균 및 표준편차
 				title.html("<i class='fa fa-angle-right'></i> 각 시험 평균 및 표준편차");
 				var classChart = document.getElementById('bar2').getContext('2d');
 				var myNewChart = new Chart(classChart, {
@@ -1143,7 +1123,7 @@ $(document).ready(function(){
 									position:'right',
 									ticks: {
 										max: 30,
-										min: 10,
+										min: 0,
 										stepSize: 10
 									}
 								},
