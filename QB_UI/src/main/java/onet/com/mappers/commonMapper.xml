@@ -406,4 +406,13 @@ select * from member where class_name=(select class_name from member where membe
 	select class_num from class where class_name=(select class_name from member where member_id=#{member_id})
 </select>
 
+<select id="receiveMessageCheck" parameterType="String" resultType="int">
+	select count(*) from message where receive_member_id=#{member_id} and receive_check = 0
+</select>
+
+<select id="sendMessageCheck" parameterType="String" resultType="int">
+	select count(*) from message where send_member_id=#{member_id} and send_check = 0
+</select>
+
+
 </mapper>

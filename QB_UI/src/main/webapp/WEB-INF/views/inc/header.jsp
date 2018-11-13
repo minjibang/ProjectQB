@@ -4,8 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 #minji{
-	overflow: auto;
-	height:400px;
+   overflow: auto;
+}
+.msg{
+	cursor:pointer;
 }
 </style>
    <!-- main inc -->
@@ -36,17 +38,16 @@
         <ul class="nav pull-right top-menu">
             <!-- 정원 -->
 
-					<div class="nav notify-row" id="top_menu">
-						<ul class="nav top-menu">
-							<li><span id="className"></span> <span id="memberName"></span><span>(${pageContext.request.userPrincipal.name})</span>
-								님 환영합니다.&nbsp;&nbsp;</li>
+               <div class="nav notify-row" id="top_menu">
+                  <ul class="nav top-menu">
+                     <li><span id="className"></span> <span id="memberName"></span><span>(${pageContext.request.userPrincipal.name})</span>
+                        님 환영합니다.&nbsp;&nbsp;</li>
+
 
 							<!-- 드롭 -->
-							<li id="header_inbox_bar" class="dropdown"><a
-								data-toggle="dropdown" class="dropdown-toggle"
-								href="index.html#"> <i class="fa fa-envelope-o"></i> <span
-									class="badge bg-theme" id="message2"
-									style="background-color: red;"></span>
+							<li id="header_inbox_bar" class="dropdown">
+							<a data-toggle="dropdown" class="dropdown-toggle msg"><i class="fa fa-envelope-o"></i> 
+							<span class="badge bg-theme" id="message2" style="background-color: red;"></span>
 							</a>
 								<ul class="dropdown-menu extended inbox scrollmessage" id="minji">
 									<div class="notify-arrow notify-arrow-green"></div>
@@ -74,6 +75,7 @@
 						</ul>
 					</div>
 					<li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>
+
             <!--  -->
         </ul>
     </div>
@@ -83,27 +85,59 @@
 <!--header end-->
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax({
-			url : "../common/memberCheck.do",
-			type : "get",
-			success : function(data) {
-				if (data[0].class_name != "null") {
-					$('#className').text(data[0].class_name);
-				}
-				$('#memberName').text(data[0].member_name);
-			},
-			error : function(xml) {
+   $(document).ready(function() {
+      $.ajax({
+         url : "../common/memberCheck.do",
+         type : "get",
+         success : function(data) {
+            if (data[0].class_name != "null") {
+               $('#className').text(data[0].class_name);
+            }
+            $('#memberName').text(data[0].member_name);
+         },
+         error : function(xml) {
 
-			}
+         }
+      });
+
+      $.ajax({
+         url : "headerMessage.do",
+         type : "get",
+         success : function(data) {
+            $('#minji').children().eq(2).html(data);
+		    
+         },
+         err : function(err) {
+            console.log('err입니다');
+         }
+
+
 		});
-
+	});
+	
+	$(document).on('click','.msg',function(){
 		$.ajax({
 			url : "headerMessage.do",
 			type : "get",
+			global:false,
 			success : function(data) {
 				$('#minji').children().eq(2).html(data);
-
+				var length = $('#minji').children().eq(2).children().length;
+				console.log(length);
+				if(length == 1){
+					$('#minji').css('height','91px');
+				}else if(length == 2){
+					$('#minji').css('height','162px');
+				}else if(length == 3){
+					$('#minji').css('height','233px');
+				}else if(length == 4){
+					$('#minji').css('height','304px');
+				}else if(length == 5){
+					$('#minji').css('height','375px');
+				}else{
+					$('#minji').css('height','446px');
+				}
+				
 			},
 			err : function(err) {
 				console.log('err입니다');
@@ -111,6 +145,10 @@
 
 		});
 	});
+	
+	
+	
+	
+	
 </script>
-
 

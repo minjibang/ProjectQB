@@ -17,10 +17,6 @@
 	width: 20%;
 }
 
-.questionDiv {
-	margin-bottom: 30px;
-}
-
 #pickQuestionBtn {
 	margin-right: 5%;
 	width: 15%;
@@ -39,8 +35,8 @@
 }
 
 #leftMakeExamDiv, #rightMakeExamDiv {
-	overflow: scroll;
-	height: 500px;
+	overflow-y: scroll;
+	height: 750px;
 }
 
 .questionRowBtnDiv {
@@ -81,8 +77,8 @@
 }
 /* 한결 : 배점 위치 지정 */
 .qscore{
-	margin-top:10px;
-	padding-left:10px;
+	text-align : right;
+	margin : 20px;
 }
 .dpn{
 	display:none;
@@ -140,4 +136,62 @@ h3.logo span {
 }
 .right-box{
 	float : right;
+}
+.questionDiv{
+	width:100%;
+	padding : 10px;
+	cursor : pointer;
+	border : 1px solid #F6F6F6;
+	background-image: url('');
+}
+.questionDiv.active{
+	background-image: url('../img/qcheck.png');
+	background-color: #f5f6f8;
+	background-size: 20%;
+	background-repeat: no-repeat;
+	background-position: center center;	
+}
+.questionDiv:hover{
+	background-color: #f5f6f8;
+	margin-left : 3px;
+	box-shadow: -3px 0 0 0 #408aa5; 
+}
+.hidden{
+	display : none;
+}
+.questionDivRight{
+	width:100%;
+	height:auto;
+	overflow:hidden;
+	padding : 10px;
+	cursor : pointer;
+	background-image: url('');
+}
+
+#sortable {
+	list-style-type: none;
+	width: 100%;
+}
+
+#sortable li {
+	
+}
+.liright {
+	padding: 15px 0 15px 35px !important;
+	position: relative;
+	background: #ffffff;
+	border : 1px solid #F6F6F6;
+}
+.liright:hover {
+	position: relative;
+	background: #f5f6f8;
+	margin-bottom: 2px;
+	box-shadow: -3px 0 0 0 #408aa5;
+}
+.liright.active{
+	background-image: url('../img/qdelete.png');
+	background-color: #f5f6f8;
+	background-size: 20%;
+	background-repeat: no-repeat;
+	background-position: center center;
 }

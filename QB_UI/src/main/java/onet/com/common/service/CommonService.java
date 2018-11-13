@@ -548,5 +548,20 @@ public class CommonService {
 		return result;
 	}
 	
+	public int receiveMessageCheck(String member_id) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.receiveMessageCheck(member_id);
+		System.out.println("메세지 개수 : " + result);
+		return result;
+	}
+	public int sendMessageCheck(String member_id) {
+		CommonDao dao = sqlsession.getMapper(CommonDao.class);
+		int result = dao.sendMessageCheck(member_id);
+		System.out.println("메세지 개수 : " + result);
+		return result;
+	}
+	
+	
+	
 	
 }

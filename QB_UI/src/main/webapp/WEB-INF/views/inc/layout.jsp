@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
-<title>Welcome Bitcamp</title>
+<title>Welcome QB</title>
 
 
 <!-- jquery UI -->
@@ -79,6 +79,9 @@
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/buttons.dataTables.css">
+	
+<!-- hover css -->
+<link href="${pageContext.request.contextPath}/css/hover.css" rel="stylesheet" media="all">
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>

@@ -260,7 +260,9 @@ public class AdminController {
 	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
-	          
+	          //받은쪽지함이 null일때 처리
+	          int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+	          if(receiveMessageCheck > 0) {
 	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
 	          for(int i=0; i<receiveMessage.size(); i++) {
 	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
@@ -269,22 +271,30 @@ public class AdminController {
 	        	  String sendManName = commonService.nameSearch(sendManId);
 	        	  receiveMessage.get(i).setMember_name(sendManName);
 	          }
-	          List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-	          for(int i=0; i<sendMessage.size(); i++) {
-	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
-	        	  sendMessage.get(i).setMessage_date(date);
-	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
-	        	  String receiveManName = commonService.nameSearch2(receiveManId);
-	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          model.addAttribute("receiveMessage", receiveMessage);
 	          }
+	          //보낸쪽지함이 null일때 처리
+	          int sendMessageCheck = commonService.sendMessageCheck(member_id);
+	          if(sendMessageCheck > 0) {
+	        	   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	 	          for(int i=0; i<sendMessage.size(); i++) {
+	 	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	 	        	  sendMessage.get(i).setMessage_date(date);
+	 	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	 	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	 	        	  sendMessage.get(i).setMember_name(receiveManName);
+	 	          }
+	          model.addAttribute("sendMessage", sendMessage);
+	          }
+	          
+	          
 	          List<MemberDto> classTeacherList=commonService.classTeacherList(member_id);
 	          List<MemberDto> teacherList = adminService.teacherList();
 	          
 	          model.addAttribute("teacherList", teacherList);
 	          model.addAttribute("classMemberList", classMemberList);
 	          model.addAttribute("classTeacherList",classTeacherList);
-	          model.addAttribute("receiveMessage", receiveMessage);
-	          model.addAttribute("sendMessage", sendMessage);
+	          
 	          model.addAttribute("member_id", member_id);
 		
 	          
@@ -293,11 +303,15 @@ public class AdminController {
 	/*민지 18.10.10 메시지 페이지 끝*/
 	@RequestMapping("headerMessage.do")
 	public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) throws ParseException {
-		
-		 String member_id = principal.getName();
-		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-
+			
 		 ModelAndView mv = new ModelAndView();
+		 String member_id = principal.getName();
+		 mv.setViewName("ajax.common.receiveMessage_ajax");
+		 /*int receiveMessageHeader = commonService.receiveMessageHeader(member_id);*/
+		 int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+		 if(receiveMessageCheck > 0) {
+		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+		 
 		 for(int i=0; i<receiveMessage.size(); i++) {
 			 if(receiveMessage.get(i).getMessage_content().length()>12) {
 				 String receiveSize = receiveMessage.get(i).getMessage_content().substring(0, 11);
@@ -305,7 +319,6 @@ public class AdminController {
 				 receiveMessage.get(i).setMessage_content(receiveSize2);
 			 }
 		 }
-		 mv.setViewName("ajax.common.receiveMessage_ajax");
 		 Date today = new Date();
 		 SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
 		 SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
@@ -348,10 +361,11 @@ public class AdminController {
 	        	}
 	        	   
 	          }
-		 mv.addObject("receiveMessage", receiveMessage);
-		 
+	       
+	    	   mv.addObject("receiveMessage", receiveMessage); 
+		 }
 		return mv;
-
+		
 	}
 
 	
@@ -477,7 +491,23 @@ public class AdminController {
 	
 	// 관리자 클래스 상세보기 - 시험지 관련 
 	@RequestMapping("examPaperMake.do")
-	public String examPaperMake(){
+	public String examPaperMake(Model model){
+		/* 문제 카테고리 */
+		List<CategoryDto> list1;
+		list1 = adminService.lgCategoryList();
+		model.addAttribute("list1", list1);
+
+		List<CategoryDto> list2;
+		list2 = adminService.mdCategoryList();
+		model.addAttribute("list2", list2);
+
+		List<CategoryDto> list3;
+		list3=adminService.smCategoryList();
+		model.addAttribute("list3",list3);
+		
+		List<CategoryDto> levellist;
+		levellist = adminService.questionLevelList();
+		model.addAttribute("levellist",levellist);
 		
 		return "common.admin.exampaper.examPaperMake";
 	}
@@ -496,8 +526,7 @@ public class AdminController {
 		String member_id = principal.getName();
 		String class_num=request.getParameter("class_num");	
 		String student_id;
-		String class_name;
-		
+		String class_name;		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
         try {
         	student_id = studentList.get(0).getMember_id();
@@ -521,6 +550,10 @@ public class AdminController {
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
+		//표준편차
+		List<Double> std = new ArrayList<Double>();
+		std = commonService.classExamSTD(class_name);
+		model.addAttribute("std",std);
 		
 		return "common.adminClass.admin.grade.studentInfo";
 	}

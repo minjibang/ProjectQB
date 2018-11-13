@@ -97,9 +97,9 @@ public class StudentController {
 		model.addAttribute("exam_info", exam_info);
 
 		// 오늘 시험이 있을 경우 팝업창 띄워줌
-		/*List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
+		List<ExamInfoDto> todayExamDto = studentService.selectTodayExam(member_id);
 		JSONArray jsonArray = JSONArray.fromObject(todayExamDto);
-		model.addAttribute("todayExamDto", jsonArray);*/
+		model.addAttribute("todayExamDto", jsonArray);
 
 		return "common.student.notice.notice";
 	}
@@ -201,13 +201,6 @@ public class StudentController {
 		return studentAnswerList;
 	}
 
-	/* 시험일정 > 시험응시 활성화 */
-	@RequestMapping("examPaperDo.do")
-	public String examPaperDo() { // 현재 examPaperDo2 로 매핑 중
-
-		return "exam.student.examPaperDo";
-	}
-	/* 한결 10.12 지난 시험보기 및 시험응시 페이지 로드 끝 */
 
 	/* %%%%%%%%%%%%%%%%%%%%% 재훈 학생 성적관리 backend 시작 %%%%%%%%%%%%%%%%%%%%%% */
 	/* 양회준 18.10.11 학생 성적관리 시작 */
@@ -308,30 +301,39 @@ public class StudentController {
 		MessageDto dto = new MessageDto();
 		List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 
-		List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-		for (int i = 0; i < receiveMessage.size(); i++) {
-			String date = receiveMessage.get(i).getMessage_date().substring(0,
-					receiveMessage.get(i).getMessage_date().length() - 5);
-			receiveMessage.get(i).setMessage_date(date);
-			String sendManId = receiveMessage.get(i).getSend_member_id();
-			String sendManName = commonService.nameSearch(sendManId);
-			receiveMessage.get(i).setMember_name(sendManName);
-		}
-		List<MessageDto> sendMessage = commonService.sendMessage(member_id);
-		for (int i = 0; i < sendMessage.size(); i++) {
-			String date = sendMessage.get(i).getMessage_date().substring(0,
-					sendMessage.get(i).getMessage_date().length() - 5);
-			sendMessage.get(i).setMessage_date(date);
-			String receiveManId = sendMessage.get(i).getReceive_member_id();
-			String receiveManName = commonService.nameSearch2(receiveManId);
-			sendMessage.get(i).setMember_name(receiveManName);
-		}
-		List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
+		int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+        if(receiveMessageCheck > 0) {
+	          List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+	          for(int i=0; i<receiveMessage.size(); i++) {
+	        	  String date = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-5);
+	        	  receiveMessage.get(i).setMessage_date(date);
+	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+	        	  String sendManName = commonService.nameSearch(sendManId);
+	        	  receiveMessage.get(i).setMember_name(sendManName);
+	          }
+	          model.addAttribute("receiveMessage", receiveMessage);
+	          }
+		
 
+        //보낸쪽지함이 null일때 처리
+        int sendMessageCheck = commonService.sendMessageCheck(member_id);
+        if(sendMessageCheck > 0) {
+      	   List<MessageDto> sendMessage = commonService.sendMessage(member_id);
+	          for(int i=0; i<sendMessage.size(); i++) {
+	        	  String date = sendMessage.get(i).getMessage_date().substring(0, sendMessage.get(i).getMessage_date().length()-5);
+	        	  sendMessage.get(i).setMessage_date(date);
+	        	  String receiveManId = sendMessage.get(i).getReceive_member_id();
+	        	  String receiveManName = commonService.nameSearch2(receiveManId);
+	        	  sendMessage.get(i).setMember_name(receiveManName);
+	          }
+        model.addAttribute("sendMessage", sendMessage);
+        }
+        
+
+		List<MemberDto> classTeacherList = commonService.classTeacherList(member_id);
+		
 		model.addAttribute("classMemberList", classMemberList);
 		model.addAttribute("classTeacherList", classTeacherList);
-		model.addAttribute("receiveMessage", receiveMessage);
-		model.addAttribute("sendMessage", sendMessage);
 		model.addAttribute("member_id", member_id);
 
 		return "common.student.common.myMessage";
@@ -653,59 +655,70 @@ public class StudentController {
 	}
 
 	@RequestMapping("headerMessage.do")
-	public @ResponseBody ModelAndView headerMessage(Model model, Principal principal) throws ParseException {
-
-		String member_id = principal.getName();
-		List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
-
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("ajax.common.receiveMessage_ajax");
-		Date today = new Date();
-		SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
-		for (int i = 0; i < receiveMessage.size(); i++) {
-			String sendManId = receiveMessage.get(i).getSend_member_id();
-			String sendManName = commonService.nameSearch(sendManId);
-			receiveMessage.get(i).setMember_name(sendManName);
-			String sendDate = receiveMessage.get(i).getMessage_date().substring(0,
-					receiveMessage.get(i).getMessage_date().length() - 3);
-			// 보낸 날짜,시간
-			String sendday = receiveMessage.get(i).getMessage_date().substring(0, 10);
-			String sendtime = receiveMessage.get(i).getMessage_date().substring(11,
-					receiveMessage.get(i).getMessage_date().length() - 3);
-
-			// 현재 날짜, 시간
-			String currentday = day.format(today);
-			String currenttime = time.format(today);
-
-			Date begindate = day.parse(sendday);
-			Date enddate = day.parse(currentday);
-
-			long diff = enddate.getTime() - begindate.getTime();
-			long diffDays = diff / (24 * 60 * 60 * 1000);
-			String diffdays = String.valueOf(diffDays);
-
-			Date begintime = time.parse(sendtime);
-			Date endtime = time.parse(currenttime);
-
-			long diffs = endtime.getTime() - begintime.getTime();
-			long diffmin = diffs / (1000 * 60);
-
-			if (sendday.equals(currentday)) {
-				if (diffmin == 0) {
-					receiveMessage.get(i).setMessage_date("방금 도착");
-				} else {
-					receiveMessage.get(i).setMessage_date(diffmin + "분 전 도착");
-				}
-
-			} else {
-				receiveMessage.get(i).setMessage_date(diffdays + "일 전 도착");
-			}
-
-		}
-		mv.addObject("receiveMessage", receiveMessage);
-
+	public @ResponseBody ModelAndView  headerMessage(Model model, Principal principal) throws ParseException {
+			
+		 ModelAndView mv = new ModelAndView();
+		 String member_id = principal.getName();
+		 mv.setViewName("ajax.common.receiveMessage_ajax");
+		 /*int receiveMessageHeader = commonService.receiveMessageHeader(member_id);*/
+		 int receiveMessageCheck = commonService.receiveMessageCheck(member_id);
+		 if(receiveMessageCheck > 0) {
+		 List<MessageDto> receiveMessage = commonService.receiveMessage(member_id);
+		 
+		 for(int i=0; i<receiveMessage.size(); i++) {
+			 if(receiveMessage.get(i).getMessage_content().length()>12) {
+				 String receiveSize = receiveMessage.get(i).getMessage_content().substring(0, 11);
+				 String receiveSize2 = receiveSize + "...";
+				 receiveMessage.get(i).setMessage_content(receiveSize2);
+			 }
+		 }
+		 Date today = new Date();
+		 SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+		 SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
+	       for(int i=0; i<receiveMessage.size(); i++) {
+	        	  String sendManId = receiveMessage.get(i).getSend_member_id();
+	        	  String sendManName = commonService.nameSearch(sendManId);
+	        	  receiveMessage.get(i).setMember_name(sendManName);
+	        	  String sendDate = receiveMessage.get(i).getMessage_date().substring(0, receiveMessage.get(i).getMessage_date().length()-3);
+	        	  //보낸 날짜,시간
+				String sendday = receiveMessage.get(i).getMessage_date().substring(0, 10);
+				String sendtime = receiveMessage.get(i).getMessage_date().substring(11,receiveMessage.get(i).getMessage_date().length()-3);
+	      
+				//현재 날짜, 시간
+	        	  String currentday = day.format(today);
+	        	  String currenttime = time.format(today);
+	        	  
+	        	  
+	        	  Date begindate =day.parse(sendday);
+				  Date enddate = day.parse(currentday);
+				
+				  long diff = enddate.getTime()-begindate.getTime();
+				  long diffDays = diff/(24*60*60*1000);
+				String diffdays = String.valueOf(diffDays);
+				
+				Date begintime = time.parse(sendtime);
+				Date endtime = time.parse(currenttime);
+					
+				long diffs = endtime.getTime() - begintime.getTime();
+				long diffmin = diffs / (1000*60);
+	        	if(sendday.equals(currentday)) {
+	        		if(diffmin==0) {
+	        			receiveMessage.get(i).setMessage_date("방금 도착");
+	        		}else {
+	        			receiveMessage.get(i).setMessage_date(diffmin+"분 전 도착");
+	        		}
+	        		
+	        		
+	        	}else {
+	        		receiveMessage.get(i).setMessage_date(diffdays+"일 전 도착");
+	        	}
+	        	   
+	          }
+	       
+	    	   mv.addObject("receiveMessage", receiveMessage); 
+		 }
 		return mv;
+		
 	}
 
 	@RequestMapping("sendMessageDelete.do")
