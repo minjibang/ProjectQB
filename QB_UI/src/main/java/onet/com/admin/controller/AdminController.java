@@ -526,8 +526,7 @@ public class AdminController {
 		String member_id = principal.getName();
 		String class_num=request.getParameter("class_num");	
 		String student_id;
-		String class_name;
-		
+		String class_name;		
 		List<MemberDto> studentList = commonService.studentInfo(member_id, class_num);
         try {
         	student_id = studentList.get(0).getMember_id();
@@ -551,6 +550,10 @@ public class AdminController {
 		//학생 전체 성적확인
 		List<Score_chartDto> studentExamScoreList = commonService.studentExamScoreList(class_name);
 		model.addAttribute("studentExamScoreList",studentExamScoreList);
+		//표준편차
+		List<Double> std = new ArrayList<Double>();
+		std = commonService.classExamSTD(class_name);
+		model.addAttribute("std",std);
 		
 		return "common.adminClass.admin.grade.studentInfo";
 	}
@@ -1437,5 +1440,17 @@ public class AdminController {
 			@RequestParam("exam_info_num") int exam_info_num,@RequestParam("score_chart_comment") String score_chart_comment) {
 		int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, score_chart_comment);
 		return result;
+	}
+	
+	@RequestMapping("apiInfo.do")
+	public String apiInfo(Principal principal, Model model) {
+		
+		return "common.admin.common.apiInfo";
+	}
+	@RequestMapping("apiInfomation.do")
+	public String apiInfomation(Principal principal, Model model, String class_name, String class_num ) {
+		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
+		return "common.adminClass.admin.common.apiInfo";
 	}
 }

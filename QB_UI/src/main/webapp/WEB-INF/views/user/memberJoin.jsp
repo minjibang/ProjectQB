@@ -4,11 +4,11 @@
 
 <link href="${pageContext.request.contextPath}/css/Memberjoin.css"
 	rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <div id="login-page">
 	<div class="container">
-		<form class="form-signup" action="insertmember.do" method="post"
-			onsubmit="return check()">
+		<form class="form-signup" action="insertmember.do" method="post" id="joinform">
 			<h2 class="form-login-heading">회원 가입</h2>
 			<div class="login-wrap">
 				<label>ID</label> <input type="text" class="form-control"
@@ -44,7 +44,7 @@
 
 
 
-				<button class="btn btn-theme btn-block" type="submit">
+				<button class="btn btn-theme btn-block" type="button" onclick="check()">
 					<i class="fa fa-sign-in"></i> 회원 가입
 				</button>
 				<a class="pull-right"
@@ -108,12 +108,15 @@
 					member_id : $('#member_id').val()
 				},
 				success : function(data) {
-					alert(data);
+					/* alert(data); *///메일인증 확인 알럿
 					mailtonumber = data;
 					mailcheck = true;
 				},
 				error : function(error) {
-					alert("인증 메일 전송 실패");
+					swal({
+						  title: "인증 메일 전송 실패",
+						  icon: "warning"
+					});
 					console.log(error);
 					console.log(error.status);
 				}
@@ -124,16 +127,16 @@
 
 	function confirmId() {
 		var val = $("#member_id").val();
-		var iddiv = document.getElementById("iddiv");
+		var iddiv = $("#iddiv");
 		
 		if (val == "") {
-			iddiv.innerHTML = "아이디를 입력해주세요";
-			iddiv.style.color = 'green';
+			iddiv.html("아이디를 입력해주세요");
+			iddiv.css("color","green");
 			idcheck = false;
 
 		}else if(val.length < 5){
-			iddiv.innerHTML = "최소 5글자 이상 입력해주세요";
-			iddiv.style.color = 'red';
+			iddiv.html("최소 5글자 이상 입력해주세요");
+			iddiv.css("color","red");
 			idcheck = false;
 		}else {
 			$.ajax({
@@ -144,12 +147,12 @@
 				dataType : 'json',
 				success : function(data) {
 					if (data.result == true) {
-						iddiv.innerHTML = "사용가능한 아이디 입니다.";
-						iddiv.style.color = 'blue';
+						iddiv.html("사용가능한 아이디 입니다.");
+						iddiv.css("color","blue");
 						idcheck = true;
 					} else {
-						iddiv.innerHTML = "사용 불가능한 아이디 입니다.";
-						iddiv.style.color = "red";
+						iddiv.html("사용 불가능한 아이디 입니다.");
+						iddiv.css("color","red");
 						idcheck = false;
 					}
 				}
@@ -157,77 +160,92 @@
 		}
 	}
 	function confirmPwd() {
-		var pwd = document.getElementById("member_pwd");
-		var pwddiv = document.getElementById("pwddiv");
+		var pwd = $("#member_pwd");
+		var pwddiv = $("#pwddiv");
 
 		var p1 = /[0-9]/;
 		var p2 = /[a-zA-Z]/;
 		var p3 = /[~!@#$%^&*()]/;
 
-		if (!p1.test(pwd.value) || !p2.test(pwd.value) || !p3.test(pwd.value)
-				|| pwd.value.length < 8) {
+		if (!p1.test(pwd.val()) || !p2.test(pwd.val()) || !p3.test(pwd.val())
+				|| pwd.val().length < 8) {
 
-			pwddiv.innerHTML = "비밀번호는 8자 이상 숫자, 영문자, 특수문자를 포함해야 합니다.";
-			pwddiv.style.color = 'red';
+			pwddiv.html("비밀번호는 8자 이상 숫자, 영문자, 특수문자를 포함해야 합니다.");
+			pwddiv.css("color","red");
 			pwdcheck = false;
 		} else {
-			pwddiv.innerHTML = "안전";
-			pwddiv.style.color = 'blue';
+			pwddiv.html("안전");
+			pwddiv.css("color","blue");
 			pwdcheck = true;
 
 		}
-		pwdcheck = true;
 	}
 	function confirmPwd2() {
-		var pwd = document.getElementById("member_pwd");
-		var pwdcheck = document.getElementById("member_pwd_check");
-		var pwdcheckdiv = document.getElementById("pwdcheckdiv");
+		var pwd = $("#member_pwd");
+		var pwdcheck = $("#member_pwd_check");
+		var pwdcheckdiv = $("#pwdcheckdiv");
 
-		if (pwd.value != pwdcheck.value) {
-			pwdcheckdiv.innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwdcheckdiv.style.color = 'red';
+		if (pwd.val() != pwdcheck.val()) {
+			pwdcheckdiv.html("비밀번호가 일치하지 않습니다.");
+			pwdcheckdiv.css("color","red");
 			pwdcheck2 = false;
 		} else {
-			pwdcheckdiv.innerHTML = "일치";
-			pwdcheckdiv.style.color = 'blue';
+			pwdcheckdiv.html("일치");
+			pwdcheckdiv.css("color","blue");
 			pwdcheck2 = true;
 		}
 
 	}
 	function check() {
 
-		var pwd = document.getElementById("member_pwd");
-		var pwdcheck = document.getElementById("member_pwd_check");
-		var mailnumber = document.getElementById("textmail");
-		
-		console.log("======"+pwd);
-		console.log("======"+mailnumber);
+		var pwd = $("#member_pwd");
+		var mailnumber = $("#textmail");
 
 		if (idcheck == false) {
-			document.getElementById("iddiv").innerHTML = "아이디 오류(최소 5자이상/중복확인)";
-			document.getElementById("iddiv").style.color = 'red';
-			document.getElementById("member_id").focus();
+			$("#iddiv").html("아이디 오류(최소 5자이상/중복확인)");
+			$("#iddiv").css("color","red");
+			$("#member_id").focus();
 
 			return false;
 		}else if (pwdcheck == false || pwdcheck2 == false) {
-			document.getElementById("member_pwd").focus();
+			$("#member_pwd").focus();
+			swal({
+				  title: "비밀번호 형식이 맞지 않습니다.",
+				  icon: "warning"
+			});
 			return false;
 		}else if(mailcheck == false){
-			alert("메일인증을 해주세요.");
-			document.getElementById("textmail").focus();
+			swal({
+				  title: "메일인증을 해주세요.",
+				  icon: "warning"
+			});
+			$("#textmail").focus();
 			return false;
-		}else if(mailnumber.value != mailtonumber){
-			alert("인증번호가 일치하지 않습니다.");
-			document.getElementById("textmail").focus();
+		}else if(mailnumber.val() != mailtonumber){
+			swal({
+				  title: "인증번호가 일치하지 않습니다.",
+				  icon: "warning"
+			});
+			$("#textmail").focus();
 			return false;
 		}
 		else {
-			var joinconfirm = confirm("회원가입 하시겠습니까");
-			if(joinconfirm == true){
-				return true;
-			}else{
-				return false;
-			}
+			swal({
+				  title: "회원가입 하시겠습니까?",
+				  buttons: true,
+				  
+				}).then((willDelete) => {
+				  if (willDelete) {
+					  swal({
+					       title: "등록이 완료되었습니다.",
+						   text: "",
+						   icon:"success"
+						}).then(function() {
+							 $("#joinform").submit();
+					});
+				  } else {
+				  }
+			});
 		}
 	}
 </script>

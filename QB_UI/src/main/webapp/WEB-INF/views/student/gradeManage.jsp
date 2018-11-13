@@ -26,11 +26,7 @@
 								<h4 class="gen-case">
 									<i class="fa fa-angle-right"></i>&nbsp;&nbsp;성적 관리
 								</h4>
-								
-								<c:forEach items="${studentId}" var="studentId">
 									<input type="hidden" name="member_id" id="studentId" value="${studentId}" >
-								</c:forEach>
-
 							</header>
 							<!-- page start-->
 							<div id="chartjs">

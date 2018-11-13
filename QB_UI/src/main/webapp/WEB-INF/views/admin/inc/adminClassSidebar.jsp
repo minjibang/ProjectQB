@@ -35,6 +35,12 @@
               <span>학생 & 성적관리</span>
               </a>
           </li>
+          <li class="sub-menu">
+            <a href="${pageContext.request.contextPath}/admin/apiInfomation.do?class_num=${param.class_num}&class_name=${param.class_name}">
+              <i class="fa fa-calendar"></i>
+              <span>자격증 시험 일정</span>
+              </a>
+          </li>
 	          <li class="sub-menu">
 	            <a href="adminMain.do">
 	              <i class="fa fa-desktop"></i>
