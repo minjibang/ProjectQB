@@ -7,9 +7,10 @@
 
 //ChartJS
 
+
+
 // 각 시험평균 막대 차트 시작
 $(document).ready(function(){
-	
 	
 });
 
