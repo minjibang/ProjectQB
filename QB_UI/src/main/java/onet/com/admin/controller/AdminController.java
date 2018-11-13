@@ -173,7 +173,6 @@ public class AdminController {
 		@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
 		public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
 			
 			int result = adminService.updateStudentsAjax(updateStudentArr);
 			
@@ -183,7 +182,6 @@ public class AdminController {
 		@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
 		public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
 			
 			int result = adminService.deleteStudentsAjax(deleteStudentArr);
 			
@@ -1196,9 +1194,8 @@ public class AdminController {
 	 }
 	/* 영준 10.25 반 등수 시작 */
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
-		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		System.out.println("과연 반 등수는? : " + classRank);
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") int exam_info_num) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_num);
 		return classRank;
 	}
 	//양회준 10.29 학생&성적관리.클래스통계.점수별분포

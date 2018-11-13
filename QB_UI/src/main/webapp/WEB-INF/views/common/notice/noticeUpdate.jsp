@@ -3,18 +3,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>	
 <style>
-.sub{
-	text-align: center;
-}
 .img{
 	width:100px;
 	height:100px;
 }
 #txtFile1{
 	display:inline;
+	border: 2px solid #063f54;
+	border-radius: 4px;
 }
 #txtFile2{
 	display:inline;
+	border: 2px solid #063f54;
+	border-radius: 4px;
 }
 .filename{
 	display:inline-block;
@@ -29,17 +30,21 @@
 .noticeUpdateButton{
 	background: #FFB400;
 	border-color: #FFB400;
+	width:100px;
 }
 
 .noticeCancelButton{
 	background: #B9062F;
+	width:100px;
 }
 .subject{
 	width:100px;
 	color:#063f54;
 	font-weight: bold;
 }
-
+.filediv{
+	margin-left: -15px;
+}
 </style>
 <!-- 강사 공지사항 글쓰기 -->
 <section id="main-content">
@@ -79,17 +84,17 @@
 											
 											<c:choose>
 												<c:when test="${not empty result[0].notice_file1 && empty result[0].notice_file2}">
-													<div class="col-sm-6">
+													<div class="col-sm-6 filediv">
 													<span class="span"><strong>${originFileName1}&nbsp;&nbsp;</strong><a class="fileDeletebtn1"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span>
 													</div>
-													<div class="col-sm-6">
-													<span class="span">첨부된 파일이 없습니다</span>
+													<div class="col-sm-6 filediv">
+													<span class="span"><strong>첨부된 파일이 없습니다</strong></span>
 													</div>
 													<br>
-													<div class="col-sm-6">
+													<div class="col-sm-6 filediv">
 													<input type="file" id="txtFile1" class="file" name="files1" value="result[0].notice_file1"/>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 filediv">
 													<input type="file" id="txtFile2" class="file" name="files2" />
 													</div>
 												</c:when>
@@ -98,16 +103,16 @@
 											
 											<c:choose>
 												<c:when test="${not empty result[0].notice_file2 && empty result[0].notice_file1}">
-													<div class="col-sm-6">
-													<span class="span">첨부된 파일이 없습니다</span>
+													<div class="col-sm-6 filediv">
+													<span class="span"><strong>첨부된 파일이 없습니다</strong></span>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 filediv">
 													<span class="span"><strong>${originFileName2}&nbsp;&nbsp;</strong><a class="fileDeletebtn2"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 filediv">
 													<input type="file" id="txtFile1" class="file" name="files1"/>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 filediv">
 													<input type="file" id="txtFile1" class="file" name="files2" value="result[0].notice_file2"/>
 													</div>
 												</c:when>
@@ -119,10 +124,10 @@
 											
 											<c:choose>
 												<c:when test="${empty result[0].notice_file1 && empty result[0].notice_file2}">
-												<div class="col-sm-6">
+												<div class="col-sm-6 filediv">
 												<input type="file" id="txtFile1" class="file" name="files1" />
 												</div>
-												<div class="col-sm-6">
+												<div class="col-sm-6 filediv">
 												<input type="file" id="txtFile2" class="file" name="files2" />
 												</div>
 												</c:when>
@@ -131,11 +136,13 @@
 											
 											<c:choose>
 												<c:when test="${not empty result[0].notice_file1 && not empty result[0].notice_file2}">
-												<div class="col-sm-5">
-													<span class="span filename"><strong>${originFileName1}&nbsp;&nbsp;</strong><a class="fileDeletebtn1"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span><input type="file" id="txtFile1" class="file" name="files1"/>
+												<div class="col-sm-6 filediv">
+													<span class="span filename"><strong>${originFileName1}&nbsp;&nbsp;</strong><a class="fileDeletebtn1"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span>
+													<input type="file" id="txtFile1" class="file" name="files1"/>
 												</div>
-												<div class="col-sm-5">	
-													<span class="span filename"><strong>${originFileName2}&nbsp;&nbsp;</strong><a class="fileDeletebtn2"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span><input type="file" id="txtFile2" class="file" name="files2"/>
+												<div class="col-sm-6 filediv">	
+													<span class="span filename"><strong>${originFileName2}&nbsp;&nbsp;</strong><a class="fileDeletebtn2"><i class="fa fa-trash-o"></i>&nbsp;삭제</a></span>
+													<input type="file" id="txtFile2" class="file" name="files2"/>
 												</div>
 												</c:when>
 											</c:choose>
@@ -143,7 +150,8 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="sub">
+										<td class="fst_td"></td>
+										<td colspan="2">
 											<button type="submit" id="btnupdate" class="btn btn-warning noticeUpdateButton">수정</button>&nbsp;&nbsp;
 											<se:authorize access="hasRole('ROLE_TEACHER')">
 											<a href="teacherMain.do"><input type="button" class="btn btn-theme04 noticeCancelButton" value="취소" /></a>

@@ -11,12 +11,17 @@
 <style>
 #txtFile1{
 	display:inline;
+	border: 2px solid #063f54;
+	border-radius: 4px;
 }
 #txtFile2{
 	display:inline;
+	border: 2px solid #063f54;
+	border-radius: 4px;
 }
 #notice_title{
 	width:100%;
+	border-radius: 5px;
 }
 .noticebutton{
 	background:#063f54;
@@ -31,8 +36,8 @@
 	font-weight: bold;
 	width:100px;
 }
-.sub{
-	text-align: center;
+.filediv{
+	margin-left: -15px;
 }
 </style>
 <!-- 강사 공지사항 글쓰기 -->
@@ -59,14 +64,19 @@
 									</tr>
 									<tr>
 										<td class="fst_td subject">파일 첨부</td>
-										<td>
+										<td class="scd_td">
+											<div class="col-sm-6 filediv">
 											<input type="file" id="txtFile1" name="files1" />
+											</div>
+											<div class="col-sm-6 filediv">
 											<input type="file" id="txtFile2" name="files2" />
+											</div>
 											<input type="hidden" id="class_name" name="class_name" value="${class_name}">
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="sub">
+										<td class="fst_td"></td>
+										<td colspan="2">
 											<button type="submit" id="notice_submit" class="btn btn-theme noticebutton">글 등록</button>
 											<se:authorize access="hasRole('ROLE_TEACHER')">
 												<a href="teacherMain.do" class="btn btn-theme04 noticeCancelbutton">취소</a>
