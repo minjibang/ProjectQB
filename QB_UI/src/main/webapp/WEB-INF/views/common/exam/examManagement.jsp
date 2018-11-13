@@ -15,7 +15,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
->>>>>>> master
 <link
 	href="${pageContext.request.contextPath}/css/teacherMyExamPaper.css"
 	rel="stylesheet">
