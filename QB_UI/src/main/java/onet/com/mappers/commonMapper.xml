@@ -354,7 +354,7 @@ select * from member where class_name=(select class_name from member where membe
 <select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
     select ms.message_num, ms.send_member_id, ms.receive_member_id, ms.message_content, ms.message_date, 
    ms.message_check, ms.send_check, ms.receive_check, m.member_name from message ms inner join member m on 
-   ms.send_member_id = m.member_id where send_member_id=#{member_id} and receive_check=0
+   ms.send_member_id = m.member_id where send_member_id=#{member_id} and send_check=0
 </select>
 
 <update id="updateBoardListFile2" parameterType="onet.com.vo.NoticeDto">

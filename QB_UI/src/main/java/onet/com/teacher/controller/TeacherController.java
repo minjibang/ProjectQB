@@ -772,7 +772,7 @@ public class TeacherController {
 	@RequestMapping("receiveMessageDelete.do")
 	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 		int result = 0;
-		System.out.println(receiveDeleteHidden);
+		System.out.println("receiveDeleteHidden : " + receiveDeleteHidden);
 		String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
 		for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
 			
