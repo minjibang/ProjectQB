@@ -2,9 +2,7 @@
     .dataTables_filter, .dataTables_empty, .dataTables_paginate{
 	display: none;
 }
-.miri{
-	cursor:pointer;
-}
+
 .fix{
 	border: 1px solid #ccc;
     border-radius: 8px;
@@ -58,4 +56,10 @@ a.close {
 	float: right;
 	
 }
-
+.pdf_download a:hover{
+	color:#063f54;
+}
+.exam-paper-name{
+	padding:5px 0 20px 0;
+	border-bottom:1px solid #6E6E6E;
+}
