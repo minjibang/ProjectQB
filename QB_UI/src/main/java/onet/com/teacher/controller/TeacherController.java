@@ -946,4 +946,10 @@ public class TeacherController {
 			return mv;
 			
 		}
+		
+		@RequestMapping("apiInfo.do")
+		public String apiInfo(Principal principal, Model model) {
+			
+			return "common.teacher.common.apiInfo";
+		}
 }
