@@ -401,9 +401,9 @@ public class CommonService {
 	}	
 
 	// 영준 10.25 관리자, 강사 - 학생&성적관리 페이지 - 반 등수
-	public List<Score_chartDto> classRank(String exam_info_name){
+	public List<Score_chartDto> classRank(int exam_info_num){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
-		List<Score_chartDto> classRank = dao.classRank(exam_info_name);
+		List<Score_chartDto> classRank = dao.classRank(exam_info_num);
 		return classRank;
 	}
 

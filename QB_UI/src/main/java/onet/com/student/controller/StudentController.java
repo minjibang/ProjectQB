@@ -730,5 +730,11 @@ public class StudentController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("apiInfo.do")
+	public String apiInfo(Principal principal, Model model) {
+		
+		return "common.student.common.apiInfo";
+	}
 
 }

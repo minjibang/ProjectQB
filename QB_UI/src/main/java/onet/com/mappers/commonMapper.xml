@@ -205,7 +205,7 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 	from score_chart sc join class_chart cc join exam_info ei join member m
 	on sc.exam_info_num = cc.exam_info_num and sc.exam_info_num=ei.exam_info_num and sc.member_id=m.member_id
 	where sc.member_id=#{member_id} and sc.class_name=(select class_name from member where member_id=#{member_id})
-	and (ei.exam_info_date < sysdate())
+	and (ei.exam_info_date < sysdate()) and not sc.score_chart_rank=0
 	order by m.member_name, sc.exam_info_num asc
 	]]>
 </select>
@@ -283,13 +283,13 @@ select * from question qs join question_sm_category sm on (qs.sm_category_code =
 
 <!-- 영준 10.25 - 반 등수 추가 시작 -->
 <select id="classRank" parameterType="String" resultType="onet.com.vo.Score_chartDto">
-SELECT m.member_name, score_chart_rank
-FROM score_chart as sc, exam_info e, member m
-WHERE sc.exam_info_num=e.exam_info_num
-and m.member_id=sc.member_id
-and e.exam_info_name=#{exam_info_name}
-ORDER BY
-sc.score_chart_score DESC
+	SELECT m.member_name, score_chart_rank
+	FROM score_chart as sc, exam_info e, member m
+	WHERE sc.exam_info_num=e.exam_info_num
+	and m.member_id=sc.member_id
+	and e.exam_info_num=#{exam_info_num}
+	ORDER BY
+	sc.score_chart_score DESC
 </select>
 <!-- 영준 10.25 - 반 등수 추가 끝 -->
 <!-- 민지 10.26 쪽지페이지 -학생 리스트 -->
@@ -354,7 +354,7 @@ select * from member where class_name=(select class_name from member where membe
 <select id="sendMessage" parameterType="String" resultType="onet.com.vo.MessageDto">
     select ms.message_num, ms.send_member_id, ms.receive_member_id, ms.message_content, ms.message_date, 
    ms.message_check, ms.send_check, ms.receive_check, m.member_name from message ms inner join member m on 
-   ms.send_member_id = m.member_id where send_member_id=#{member_id} and receive_check=0
+   ms.send_member_id = m.member_id where send_member_id=#{member_id} and send_check=0
 </select>
 
 <update id="updateBoardListFile2" parameterType="onet.com.vo.NoticeDto">

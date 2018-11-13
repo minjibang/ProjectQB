@@ -108,7 +108,7 @@ public interface CommonDao {
 	public List<Score_chartDto> studentExamScoreAvg(String class_name);
 	
 	// 영준 10.25 관리자, 강사 - 학생&성적 관리 페이지 - 반 등수
-	public List<Score_chartDto> classRank(String exam_info_name);
+	public List<Score_chartDto> classRank(int exam_info_num);
 
 	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
 	public int studentScoreSpread(int exam_info_num, String class_name, int start, int end);

@@ -502,8 +502,8 @@ public class TeacherController {
 	
 	/* 영준 10.25 반 등수 시작 */
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
-		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_num") int exam_info_num) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_num);
 		return classRank;
 	}
 	/* 영준 10.26 반 등수 끝 */
@@ -772,7 +772,7 @@ public class TeacherController {
 	@RequestMapping("receiveMessageDelete.do")
 	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 		int result = 0;
-		System.out.println(receiveDeleteHidden);
+		System.out.println("receiveDeleteHidden : " + receiveDeleteHidden);
 		String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
 		for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
 			
@@ -945,5 +945,11 @@ public class TeacherController {
 			 }
 			return mv;
 			
+		}
+		
+		@RequestMapping("apiInfo.do")
+		public String apiInfo(Principal principal, Model model) {
+			
+			return "common.teacher.common.apiInfo";
 		}
 }

@@ -15,13 +15,12 @@
 				<button type="button" class="btn btn-theme authBtn" id="mailtoBtn"><i class="fa fa-envelope"></i> 인증번호&nbsp;전송</button><br><br>
 				<input type="text" id="ok" class="form-control" placeholder="인증번호를 입력해주세요" ><br> 
 				<div id="okdiv"></div>
-				<button type="submit" class="btn btn-theme confirm"><i class="fa fa-unlock"></i>확인</button>
+				<button type="submit" class="btn btn-theme confirm"><i class="fa fa-unlock"></i>&nbsp;확인</button>
 				<hr>
 				
 				
 				<div id="remember">
-				<a class="" href="${pageContext.request.contextPath}/login.jsp"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> 로그인 페이지</a> / 
+				<a class="" href="${pageContext.request.contextPath}/login.jsp"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-home"></i> 로그인 페이지</a>&nbsp;&nbsp;/&nbsp;&nbsp; 
 				<a class="" href="${pageContext.request.contextPath}/index/pwdSearch.do"><i class="fa fa-key"></i> 비밀번호 찾기</a>
 			</div>
 			</div>
@@ -34,10 +33,10 @@
 <!-- js placed at the end of the document so the pages load faster -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
-
-	$.backstretch("${pageContext.request.contextPath}/img/bg-test8.jpg", {
-		speed : 500
-	});
+  
+	  $.backstretch(["${pageContext.request.contextPath}/img/bg-test6.jpg","${pageContext.request.contextPath}/img/bg-test1.jpg","${pageContext.request.contextPath}/img/bg-test9.jpg"], {
+			duration : 3000, fade:750
+		});
 	var mailtoNum;
 	
 	

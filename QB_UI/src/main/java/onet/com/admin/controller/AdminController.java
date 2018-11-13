@@ -1194,9 +1194,8 @@ public class AdminController {
 	 }
 	/* 영준 10.25 반 등수 시작 */
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") String exam_info_name) {
-		List<Score_chartDto> classRank = commonService.classRank(exam_info_name);
-		System.out.println("과연 반 등수는? : " + classRank);
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") int exam_info_num) {
+		List<Score_chartDto> classRank = commonService.classRank(exam_info_num);
 		return classRank;
 	}
 	//양회준 10.29 학생&성적관리.클래스통계.점수별분포
@@ -1438,5 +1437,17 @@ public class AdminController {
 			@RequestParam("exam_info_num") int exam_info_num,@RequestParam("score_chart_comment") String score_chart_comment) {
 		int result = teacherService.studentInfoCommentUpdate(member_id, exam_info_num, score_chart_comment);
 		return result;
+	}
+	
+	@RequestMapping("apiInfo.do")
+	public String apiInfo(Principal principal, Model model) {
+		
+		return "common.admin.common.apiInfo";
+	}
+	@RequestMapping("apiInfomation.do")
+	public String apiInfomation(Principal principal, Model model, String class_name, String class_num ) {
+		model.addAttribute("class_name", class_name);
+		model.addAttribute("class_num", class_num);
+		return "common.adminClass.admin.common.apiInfo";
 	}
 }
