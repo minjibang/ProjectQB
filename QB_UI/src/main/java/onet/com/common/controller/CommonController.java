@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,8 +44,13 @@ public class CommonController {
 	
 	@RequestMapping("apiInfo.do")
 	public String apiInfo(Principal principal, Model model) {
-		String member_id = principal.getName();
-		System.out.println(member_id + " > > ㅇ");
+		
+		return "common.admin.common.apiInfo";
+	}
+	
+	@RequestMapping(value="apiInfomation.do", headers = { "Content-type=application/json" })
+	@ResponseBody
+	public  String apiInfomation(Model model) {
 		BufferedReader br;
 		try {
 			String urlstr = "http://openapi.q-net.or.kr/api/service/rest/InquiryTestInformationNTQSVC/getEList?serviceKey=YUdXCAiwaMvkv1DqJCw9aO5Zg9YoqRqY4DpL93w7pdgUSS8sE%2Fq6UVEISQdEQEsS7QrToM9y2s3y5mVVaivCHA%3D%3D&_type=json";
@@ -57,12 +63,11 @@ public class CommonController {
 			while((line = br.readLine()) != null) {
 				result = result + line +"\n";
 			}
-			System.out.println(result);
-			model.addAttribute("result",result);
+			System.out.println(result);			
+			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
-		return "common.admin.common.apiInfo";
+		return null;
 	}
 }
