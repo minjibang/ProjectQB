@@ -32,14 +32,62 @@ var Script = function () {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-
+    var string = "http://openapi.q-net.or.kr/api/service/rest/InquiryTestInformationNTQSVC/getJMList?jmCd=1320&serviceKey=bE%2BMHNWc5Mt6LzYVw%2BLeZmthCrGWctkYd%2F6FOUod7Vz4BTcOaljwRzx2fuRqduyJormhYl%2BAgvIU2sZcA%2FQW%2Bw%3D%3D&_type=json";
+    var json;
+    var exName = [];
+    var exStart = [];
+    var exEnd = [];
+    
+    $.getJSON(string, function(data){
+    	if(data.body){
+			console.log("body");
+		}else if(data.response){
+			console.log("response");
+			console.log("data.response.body >> "+data.response.body);
+			console.log("일부 >> " + data.response.body.items.item);
+			console.log("확실히 나옵니다");
+			
+			$.each(data.response.body.items.item,function(index,obj){
+				
+				if(index == 0){
+					json += "{";
+					console.log("{");
+				}
+				
+				
+				console.log(index+" || 종목명>> "+ obj.implplannm +" "+obj.jmfldnm);
+				exName.push("title:"+obj.implplannm +" "+obj.jmfldnm);
+				console.log(obj.docregstartdt);
+				/*console.log("start : new Date("+ y+","+"m"+","+ obj.docregstartdt);*/
+				exStart.push(obj.docregstartdt);
+				console.log(index+" || 필기시험시험원서접수종료일>>"+obj.docregenddt+"<<" );
+				var text = obj.docregenddt;
+				console.log();
+				/*console.log(text.substr(0,4)+"년 " + text.substr(5,7) +"월 "+ text.substr(8,10)+"일");*/
+				exEnd.push(obj.docregenddt);
+				console.log(index+" || 필기시험 시작일자 >> " + obj.docexamstartdt);
+				
+				if(index + 1 == data.response.body.items.item.length){
+					
+					console.log("}");
+					json += "}";
+				}
+	           });
+		}
+    	console.log("name >> "+exName);
+    	console.log("start >> " + exStart);
+    	console.log("end >> " + exEnd);
+    });
+    
+    
+    
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
-        editable: true,
+        editable: false,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         drop: function(date, allDay) { // this function is called when something is dropped
 
@@ -102,12 +150,6 @@ var Script = function () {
                 start: new Date(y, m, d+1, 19, 0),
                 end: new Date(y, m, d+1, 22, 30),
                 allDay: false
-            },
-            {
-                title: 'Click for Google',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: 'http://google.com/'
             }
         ]
     });
