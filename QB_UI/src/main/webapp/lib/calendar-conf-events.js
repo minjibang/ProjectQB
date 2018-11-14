@@ -38,6 +38,18 @@ var Script = function () {
     var EndD;
     var startDate;
     var endDate;
+    /*$.ajax({
+    	url:string,
+    	dataType:"jsonp",
+    	jsonpCallback: "myCallback",
+    	success:callback
+    });
+    $.getJSON(string + "&callback=?",function(data){
+    	console.log('success', data	);
+    });
+    function callback(data){
+    	console.log("송");
+    }*/
     $.getJSON(string, function(data){
     	
     	if(data.response){
@@ -106,6 +118,7 @@ var Script = function () {
     		
 		}
     });
+   
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -129,5 +142,4 @@ var Script = function () {
         	   day : "일별",
         	   }
     });
-
 }();
