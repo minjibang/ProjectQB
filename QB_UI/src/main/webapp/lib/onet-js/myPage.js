@@ -79,11 +79,27 @@ function modifySubmit(){
 			if (data == 0){
 				swal("Error!", "비밀번호가 입력되지 않았거나 일치하지 않습니다!", "error");
 			} else {
-				if(confirm("정말 수정하시겠습니까?")){
-					document.getElementById('memberModifyFrm').submit();
-				}else{
-					
-				}
+				swal({
+					  title:"수정 확인",
+					  text: "정말 수정 하시겠습니까?",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDrop) => {
+					  if (willDrop) {
+					    swal("성공적으로 수정하였습니다.", {
+					      icon: "success",					      
+					    })
+					    .then((Chk) => {
+                          swal.setActionValue(
+                                          document.getElementById('memberModifyFrm').submit()
+                                          );                                                    
+					    });
+					  } else {
+					    swal("수정이 취소되었습니다.");
+					  }
+					});				
 			}		
 		},
 		error : function(error) {
@@ -126,7 +142,7 @@ $('#memberDropBtn').click(function() {
 					    swal("탈퇴가 취소되었습니다.");
 					  }
 					});
-			}			
+			}
 		},
 		error : function(error) {
 			swal("Error!", "전송 실패!", "error");
