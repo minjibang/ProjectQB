@@ -165,11 +165,11 @@
 										<span class="radio quesCategorybig"> 
 											<label class="questionChoiceRadioButton"> 
 												<input type="radio" name="question_type" id="question_type_1"
-												value="객관식" checked onclick="questionType('questionChoice');" checked>객관식
+												value="객관식" checked >객관식
 											</label> &nbsp;&nbsp; 
 											<label class="questionChoiceRadioButton">
 												<input type="radio" name="question_type" id="question_type_2"
-												value="단답형" onclick="questionType('questionShortAnswer');">단답형
+												value="단답형">단답형
 										</label>
 										</span>
 										<hr>
