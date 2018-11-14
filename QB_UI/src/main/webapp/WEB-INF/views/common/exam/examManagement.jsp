@@ -502,7 +502,7 @@ $('#examinfotab').click(function(){
 								title : "삭제완료",
 								icon : "success",
 							});
-							$('#'+exam_paper_num).closest('.exam-paper-name').remove();					
+							$('#' + exam_paper_num).closest('.deleteline').remove();			
 						},
 						error : function(error) {
 							console.log("===========실패");
