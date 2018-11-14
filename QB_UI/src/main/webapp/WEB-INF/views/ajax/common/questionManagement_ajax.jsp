@@ -45,7 +45,7 @@
 								<p>${question_choice.question_choice_num}. &nbsp;&nbsp; ${question_choice.question_choice_content}</p>
 									<c:if test="${question_choice.question_choice_image ne null }">
 										<img
-										src="${pageContext.request.contextPath}/upload/${question_choice.question_choice_image}"
+										src="${pageContext.request.contextPath}/img/${question_choice.question_choice_image}"
 										alt="choiceImg" class="choiceImg" />
 										<!-- 문제에 이미지가 있다면 questionImgDiv 밑에 추가 -->
 									</c:if>
