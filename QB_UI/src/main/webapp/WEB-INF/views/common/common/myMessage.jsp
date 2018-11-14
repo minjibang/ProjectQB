@@ -688,15 +688,12 @@ function check_t(){
            });
          }
    });
-   
    $('.messageBtn').click(function(){
      var text = $('.messageReceive').val();
      $('#MessageModal').modal('hide');
      $('.MessageReplyModal').val(text);
      $('#MessageReplyModal').modal();
-     $('.receiver').html(text);
-   });
-   
+     $('.receiver').html(text);  });
    $('.send').click(function(){
     var text = $('.textarea').val();
      var sender = $('.receiver').text();

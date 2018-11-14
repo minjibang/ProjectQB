@@ -48,6 +48,7 @@
   <script>
     $.backstretch("img/login-bg.jpg", {
       speed: 500
+      
     });
   </script>
   <script>

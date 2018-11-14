@@ -24,14 +24,10 @@
 
   <script type="text/javascript">
     var socket = null;
-    
     function send_message() {
-
-
         websocket = new WebSocket("ws://192.168.0.103:8090/qb/count.do");
-
-
         socket = websocket;
+        
         websocket.onopen = function(evt) {
            console.log("connect");
            onOpen(evt);
@@ -42,34 +38,24 @@
         }
         websocket.onmessage = function(evt) {
            console.log('messge:' +evt);
-           onMessage(evt);
-           
+           onMessage(evt); 
         };
         websocket.onerror = function(evt) {
             onError(evt);
         };
     }
-   
-    function onOpen(evt) 
-    {
-       websocket.send("${username}");
+   function onOpen(evt) 
+    {websocket.send("${username}");
     }
     function Close(evt){
-       
        websocket.close();
     }
     function onMessage(evt) {
        console.log("evt.data: " + evt.data);
-       $('#message2').html(evt.data);
-       
-          
-
-    }
+       $('#message2').html(evt.data);}
     function onError(evt) {
        
     }
-    
-
    </script>
    <script>
    $(document).ready(function(){
