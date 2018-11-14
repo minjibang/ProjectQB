@@ -377,7 +377,7 @@ $(document).ready(function(){
 	var chartStudentLabels = new Array();
 	var spreadScore;
 	//시험번호
-	var examInfoNum = "${classChart[0].exam_info_num}";
+	var examInfoNum = "${classChart[0].exam_info_num}<c:if test='${classChart[0].exam_info_num==null}'>0</c:if>";
 	var examInfoName = "${classChart[0].exam_info_name}";
 	
 	//학생목록 배열에 jstl값 담기
@@ -1159,7 +1159,6 @@ $(document).ready(function(){
 	$("#searchSpread").change(function() {
 		examInfoNum=$("#searchSpread option:selected").val();
 		examInfoTitle=$("#searchSpread option:selected").text();
-		console.log(examInfoTitle);
 		$("#line2").remove();
 		$("#divline2").append('<canvas id="line2" height="300"></canvas>');
 		spreadChart(examInfoTitle);
