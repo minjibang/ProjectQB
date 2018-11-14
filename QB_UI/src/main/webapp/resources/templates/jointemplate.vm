@@ -91,32 +91,43 @@ img {
 
 <body width="100%" bgcolor="#ffffff" style="margin: 0; mso-line-height-rule: exactly; background-color: #ffffff; ">
 
-<table style="background-color: #889093; width:60%; height: 400px; padding:30px; color: #eee">
-    <tr>
-        <td style="width:50%; margin:10px; font-size: 17px; font-family: 'Book Antiqua', sans-serif;">
-            <h1 style="text-align:center;">이메일 인증</h1><br>
-            안녕하세요 <b>${firstName}</b>님,<br>저희 <b>${company}</b>를 이용해 주셔서<br> 진심으로 감사합니다.<br><br>
-            <b style="color:#063f54">'인증 번호'</b>를 입력하신 후 진행해주세요<br>
-            앞으로 더욱 발전하는 <b>${company}</b>가 되도록 하겠습니다.<br>
-            감사합니다.<br><br>
-
-        </td>
-        <td style="margin:10px; background-image: url('https://cdn.pixabay.com/photo/2017/10/24/01/54/mail-2883236_1280.png');background-size: 100% 100%;">
-            <div style="font-size: 58px; height:43%; text-align: center;">
-                    <span style="margin: 10px 0;font-family: 'Impact', sans-serif;">QB</span><span style="margin: 10px 0; color:#063f54;font-family: 'Impact', sans-serif;">QB</span><br />
-            </div>
-            <div style="margin:auto; padding:10px; width:60%; text-align: center; border-top:2px solid black; border-bottom: 2px solid black; font-size:16px;font-family: 'Book Antiqua', sans-serif;">
-                인증번호 : <b style="color:#063f54; font-size: 20px;">${randomNum}</b>
-            </div>
-
-        </td>
-    </tr>
-    <tr style="height: 10px;">
-        <td colspan="2" style="border-top: 1px solid white; padding-top: 7px;">
-            <span style="font-size: 12px; float: right;font-family: 'Book Antiqua', sans-serif;">&copy; Project by One_T</span>
-        </td>
-    </tr>
-</table>
+<div style="position:relative; width:60%; background-color: #f6f6f6;padding: 30px; background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); ">
+    <table bgcolor="#f6f6f6" style="width:100%; text-align: center;">
+        <tr>
+            <td colspan="2" style="padding:10px; ">
+                <div style="border:1px solid grey; border-radius: 100px; box-shadow: 10px 10px grey; width:200px; text-align: center; margin:10px 0 10px 40%;">
+                    <h1 style="padding:5px 20px;; font-size: 45px;">
+                        <span style="font-family: 'Impact', sans-serif;">QB</span><span style="margin: 10px 0; color:#063f54;font-family: 'Impact', sans-serif;">QB</span>
+                    </h1>
+                </div>
+            </td>
+            
+        </tr>
+        <tr style="font-size: 18px">
+            
+            <td style="width:50%;">
+                <div style="margin-top:10px;">
+                    안녕하세요 <b>${firstName}</b>님,<br>저희 <b>${company}</b>를 이용해 주셔서<br> 진심으로 감사합니다.<br><br>
+                    <b style="color:#063f54">'인증 번호'</b>를 입력하신 후 진행해주세요<br><br>
+                    앞으로 더욱 발전하는 <b>${company}</b>가 되도록 하겠습니다.<br>
+                    감사합니다.
+                </div>
+            </td>
+            <td style="width:50%;">
+                <div style="width:200px; border-top:1px solid black; border-bottom:1px solid black; text-align: center; padding:10px; margin-left:30%">
+                    인증 번호 : <b style="color:#063f54; font-size: 20px;">${randomNum}</b>
+                </div>
+            </td>
+            
+        </tr>
+        <tr style="">
+            <td colspan="2" style="margin:10px;">
+                <span style="font-size: 12px; float: right;font-family: 'Book Antiqua', sans-serif;">&copy; Project by One_T</span>
+            </td>
+        </tr>
+    </table>
+        
+</div>
 
 </body>
 
