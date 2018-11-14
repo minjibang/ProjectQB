@@ -1402,6 +1402,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("ajax.admin.examManagement_admin_ajax");
 			mv.addObject("classList", classList);
+			mv.addObject("begin",begin);
 		
 			return mv;
 		}
@@ -1420,6 +1421,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
 			mv.addObject("classList", classList);
+			mv.addObject("begin",begin);
 		
 			return mv;
 		}

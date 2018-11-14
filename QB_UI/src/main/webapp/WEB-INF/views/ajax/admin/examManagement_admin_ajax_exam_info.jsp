@@ -5,8 +5,14 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
-
+<c:if test="${fn:length(classList) eq 0 and begin eq 0}">
+	<div class="emptydata">
+		<img src="${pageContext.request.contextPath}/img/exam-info.png" class="img-empty">
+		<h1>등록된 시험 일정이 없습니다.</h1>
+	</div>
+</c:if>
 <c:forEach items="${classList}" var="classlist">
 	<div class="col-lg-12 deleteline">
 		<div class="div-left">

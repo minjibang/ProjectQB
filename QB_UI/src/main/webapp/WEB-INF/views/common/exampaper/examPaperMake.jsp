@@ -15,50 +15,48 @@
 	<section class="wrapper site-min-height">
 		<div class="row mt">
 			<div class="col-lg-12">
-				<div class="row content-panel">
-					<div class="panel-body">
+				<div class="row main-panel">					
 						<div class="row">
 							<div class="col-lg-6">
-								<h3>문항 검색</h3>
-								<hr>
-								<input type="hidden" class="dpn_EPN"
-									value="${pageContext.request.contextPath}" />
-								<div class="makeExamFirstRow">
-									<select class="form-control makeExamSelectCategory"
-										name="question_lg_category" id="question_lg_category">
-										<option value="">대분류</option>										
-										<c:forEach items="${list1}" var="lgCategoryList">
-											<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
-										</c:forEach>
-									</select> <select class="form-control makeExamSelectCategory"
-										name="question_md_category" id="question_md_category">
-										<option value="">중분류</option>
-									</select> <select class="form-control makeExamSelectCategory"
-										name="question_sm_category" id="question_sm_category">
-										<option value="">소분류</option>
-									</select> <select class="form-control makeExamSelectCategory"
-										name="level_type" id="level_type">
-										<option value="">난이도</option>
-										<c:forEach items="${levellist}" var="levellist">
-											<option value="${levellist.level_code}">${levellist.level_name}</option>
-										</c:forEach>
-									</select> <select class="form-control makeExamSelectCategory"
-										id="questiontype" name="questionType">
-										<option value="">문제타입</option>
-										<option value="">전체</option>
-										<option value="객관식">객관식</option>
-										<option value="단답형">단답형</option>
-									</select> <br> <input type="text"
-										class="form-control makeExamTextField"
-										placeholder="키워드를 입력하세요." id="keyword" name="keyword">
-									<input type="button" class="btn btn-theme" value="검색"
-										id="questionsearch">
-								</div>
-								<hr>
+							<div class="div-title">
+								<h3><img src="${pageContext.request.contextPath}/img/qsearch.png" class="img-size">&nbsp;&nbsp; 문항 검색</h3>							
+								<input type="hidden" class="dpn_EPN" value="${pageContext.request.contextPath}" />
+									<div class="divalign-right">
+										<select class="form-control makeExamSelectCategory"
+											name="question_lg_category" id="question_lg_category">
+											<option value="">대분류</option>										
+											<c:forEach items="${list1}" var="lgCategoryList">
+												<option value="${lgCategoryList.lg_category_code}">${lgCategoryList.lg_category_name}</option>
+											</c:forEach>
+										</select> <select class="form-control makeExamSelectCategory"
+											name="question_md_category" id="question_md_category">
+											<option value="">중분류</option>
+										</select> <select class="form-control makeExamSelectCategory"
+											name="question_sm_category" id="question_sm_category">
+											<option value="">소분류</option>
+										</select> <select class="form-control makeExamSelectCategory"
+											name="level_type" id="level_type">
+											<option value="">난이도</option>
+											<c:forEach items="${levellist}" var="levellist">
+												<option value="${levellist.level_code}">${levellist.level_name}</option>
+											</c:forEach>
+										</select> <select class="form-control makeExamSelectCategory"
+											id="questiontype" name="questionType">
+											<option value="">문제타입</option>
+											<option value="">전체</option>
+											<option value="객관식">객관식</option>
+											<option value="단답형">단답형</option>
+										</select> <br> <input type="text"
+											class="form-control makeExamTextField"
+											placeholder="키워드를 입력하세요." id="keyword" name="keyword">
+										<input type="button" class="btn btn-theme makeExamSelectCategory" value="검색"
+											id="questionsearch">
+									</div>
+								</div>					
 							</div>
 							<div class="col-lg-6">
-								<h3>시험 출제 문항</h3>
-								<hr>						
+							<div class="div-title">
+								<h3><img src="${pageContext.request.contextPath}/img/qtest.png" class="img-size">&nbsp;&nbsp;시험 출제 문항</h3>							
 								<div id="makeExamFirstRowText">
 								
 									<c:set var="sum" value="0" />
@@ -66,18 +64,15 @@
 										<c:set var="sum"
 											value="${sum + examquestion.exam_question_score }" />
 									</c:forEach>
-									<div>
-										출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span><br>
-										
-									</div>
-									<br>
-									<div>
+									<div class="">
+										출제된 문항 수 : <span id="qnum">${fn:length(examquestion)}</span>
+										<br><br>															
 										현재 총 배점 : <span id="qcore"><c:out value="${sum }" /></span> /
 										100
 									</div>
 									
 								</div>
-								<hr>
+								</div>
 							</div>
 
 						</div>
@@ -254,7 +249,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

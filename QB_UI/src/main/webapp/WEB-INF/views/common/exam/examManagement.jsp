@@ -162,10 +162,7 @@
 											placeholder="검색어를 입력" id="keyword2" name="keyword2">										
 										<button type="button" class="btn btn-theme searchRightBtn"
 											id="searchBtn2">검색</button>
-									</div>									
-											<a href="" class="exam-insert"> <img
-												src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새
-													시험 일정 등록</strong></a>																		
+									</div>																									
 									</div>
 								</div>
 								<!-- 시험 일정 tab 끝 -->
@@ -175,21 +172,12 @@
 									</div>
 								</div>
 							</div>
-							<!-- /tab-content -->
-
-							<!-- tab-panel -->
 						</div>
-						<!-- /row content-panel div_table -->
 					</div>
-
 				</div>
-				<!-- row content-panel div_table-->
 			</div>
-			<!-- col-lg-12 -->
 		</div>
-		<!-- row mt -->
 	</section>
-	<!-- wrapper site-min-height -->
 </section>
 <!-- main-content -->
 
