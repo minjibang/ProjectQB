@@ -128,7 +128,7 @@
 											<div>[${examInfo.exam_info_time}]</div>
 										</td>
 										<td class="btn_td">
-											<button class="btn btn-theme pastExamBtn" id="" value="${examInfo.exam_info_num}">다시 보기</button>
+											<button class="btn btn-theme pastExamBtn" id="" value="${examInfo.exam_info_num}">시험지</button>
 											<button class="btn btn-theme ExamCommentBtn" id="" value="${member_comment[status.index].score_chart_comment}">평가 보기</button>
 											<input type="hidden" value="${examInfo.exam_info_date}_${examInfo.exam_info_end}"/>
 										</td>

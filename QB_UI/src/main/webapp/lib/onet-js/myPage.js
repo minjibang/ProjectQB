@@ -70,6 +70,7 @@ function modifySubmit(){
 	$.ajax({
 		type: 'post',
 		url : 'memberDrop.do',
+		global:false,
 		data : {
 				"member_id" : $("#modify_member_id").val(), 
 				"member_pwd" : $("#modify_member_pwd").val()
@@ -78,17 +79,31 @@ function modifySubmit(){
 			if (data == 0){
 				swal("Error!", "비밀번호가 입력되지 않았거나 일치하지 않습니다!", "error");
 			} else {
-				if(confirm("정말 수정하시겠습니까?")){
-					document.getElementById('memberModifyFrm').submit();
-				}else{
-					
-				}
+				swal({
+					  title:"수정 확인",
+					  text: "정말 수정 하시겠습니까?",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDrop) => {
+					  if (willDrop) {
+					    swal("성공적으로 수정하였습니다.", {
+					      icon: "success",					      
+					    })
+					    .then((Chk) => {
+                          swal.setActionValue(
+                                          document.getElementById('memberModifyFrm').submit()
+                                          );                                                    
+					    });
+					  } else {
+					    swal("수정이 취소되었습니다.");
+					  }
+					});				
 			}		
 		},
 		error : function(error) {
 			swal("Error!", "전송 실패!", "error");
-			console.log(error);
-			console.log(error.status);
 		}
 	});
 }
@@ -97,6 +112,7 @@ $('#memberDropBtn').click(function() {
 	$.ajax({
 		type: 'post',
 		url : 'memberDrop.do',
+		global:false,
 		data : {
 				"member_id" : $("#drop_member_id").val(), 
 				"member_pwd" : $("#drop_member_pwd").val()
@@ -116,18 +132,20 @@ $('#memberDropBtn').click(function() {
 					  if (willDrop) {
 					    swal("성공적으로 탈퇴하였습니다.", {
 					      icon: "success",					      
+					    })
+					    .then((Chk) => {
+                            swal.setActionValue(
+                                            document.getElementById('memberDropFrm').submit()
+                                            );                                                    
 					    });
-					    document.getElementById('memberDropFrm').submit();
 					  } else {
 					    swal("탈퇴가 취소되었습니다.");
 					  }
 					});
-			}			
+			}
 		},
 		error : function(error) {
 			swal("Error!", "전송 실패!", "error");
-			console.log(error);
-			console.log(error.status);
 		}
 	});
 });
@@ -189,14 +207,12 @@ $('#emailCodeRquestBtn').click(function() {
 			member_id : $('input[name="member_name"]').val()
 		},
 		success : function(data) {
-			swal("성공!", "메일로 인증번호가 전송되었습니다!"+data, "success");
+			swal("성공!", "메일로 인증번호가 전송되었습니다!", "success");
 			mailtonumber = data;
 			mailcheck = true;
 		},
 		error : function(error) {
-			swal("실패!", "인증 메일 전송 실패!"+error.status, "error");
-			console.log(error);
-			console.log(error.status);
+			swal("실패!", "인증 메일 전송 실패!", "error");
 		}
 	});
 });

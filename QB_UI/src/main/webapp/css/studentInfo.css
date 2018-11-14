@@ -38,3 +38,9 @@
         padding: 5px;
     	text-align: center;
     }
+    .studentListMembers{
+	cursor:pointer;
+	}
+	.tab2studentListMembers{
+		cursor:pointer;
+	}

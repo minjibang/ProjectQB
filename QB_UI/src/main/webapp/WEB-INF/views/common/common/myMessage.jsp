@@ -588,6 +588,7 @@ function check_t(){
          type : "get",
          dataType : "json",
          data : message_check,
+         global:false,
          success : function(data){
              if(data>0){
                socket.send(username);
@@ -595,6 +596,7 @@ function check_t(){
 
                 url:"headerMessage.do",
                 type:"get",
+                global:false,
                 success:function(data){
                    $('#minji').children().eq(2).html(data);
                    
@@ -637,6 +639,7 @@ function check_t(){
               url : "sendMessageDelete.do",
               type : "post",
               dataType : "html",
+              global:false,
               data : data,
               success : function(data){
                 if(data>0){
@@ -673,6 +676,7 @@ function check_t(){
               url : "receiveMessageDelete.do",
               type : "post",
               dataType : "html",
+              global:false,
               data : data,
               success : function(data){
                 if(data>0){

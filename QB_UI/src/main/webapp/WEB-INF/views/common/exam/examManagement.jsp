@@ -81,34 +81,29 @@
 							<div id="overview" class="tab-pane active">
 								<div class="row">
 									<div id="div_myExam" class="col-md-12">
-									<div class="searchtitle">
-									<select class="form-control searchRightBtnDiv"
-												id="searchType" name="searchType">
-												<option value="all">전체</option>
-												<se:authorize access="hasRole('ROLE_ADMIN')">
-												<option value="n">클래스명</option>
-												<option value="p">시험지명</option>
-												</se:authorize>
-												<se:authorize access="hasRole('ROLE_TEACHER')">
-												<option value="n">제목</option>
-												<option value="p">설명</option>
-												</se:authorize>
-											</select> <input type="text" class="form-control searchRightBtnDiv"
-												placeholder="검색어를 입력" id="keyword" name="keyword">
-											<button type="button" class="btn btn-theme searchRightBtn"
-												id="searchBtn">검색</button>
-												
-									</div>
-									<div>
-										<a href="examPaperMake.do" class="examPaper-insert"> <img
-											src="../img/material-icon.png"> <strong>새 시험지
-												만들기</strong></a>
-									</div>
-										<div class="searchRowRightDiv">
-											
+										<div class="searchtitle">
+										<select class="form-control searchRightBtnDiv"
+													id="searchType" name="searchType">
+													<option value="all">전체</option>
+													<se:authorize access="hasRole('ROLE_ADMIN')">
+													<option value="n">클래스명</option>
+													<option value="p">시험지명</option>
+													</se:authorize>
+													<se:authorize access="hasRole('ROLE_TEACHER')">
+													<option value="n">제목</option>
+													<option value="p">설명</option>
+													</se:authorize>
+												</select> <input type="text" class="form-control searchRightBtnDiv"
+													placeholder="검색어를 입력" id="keyword" name="keyword">
+												<button type="button" class="btn btn-theme searchRightBtn"
+													id="searchBtn">검색</button>
+													
 										</div>
-
-										<hr>
+										<div>
+											<a href="examPaperMake.do" class="examPaper-insert"> <img
+												src="../img/material-icon.png"> <strong>새 시험지
+													만들기</strong></a>
+										</div>										
 									</div>
 									<!-- 내 시험지 div 끝 -->
 
@@ -167,24 +162,11 @@
 											placeholder="검색어를 입력" id="keyword2" name="keyword2">										
 										<button type="button" class="btn btn-theme searchRightBtn"
 											id="searchBtn2">검색</button>
-									</div>
-										<form class="insertForm">
+									</div>									
 											<a href="" class="exam-insert"> <img
 												src="${pageContext.request.contextPath}/img/material-icon.png"><strong>새
-													시험 일정 등록</strong></a>
-											<div class="searchRowRightDiv">
-												
-											</div>
-										</form>
-
-										<hr>
-
-										<!-- /col-md-12 -->
+													시험 일정 등록</strong></a>																		
 									</div>
-									<!-- /row -->
-
-									<!-- /col-md-12 -->
-
 								</div>
 								<!-- 시험 일정 tab 끝 -->
 								<div class="row mt">
@@ -243,8 +225,7 @@ var classParam2 = {
 }
 var role = "${role}";
 
-$(document).ready(function(){
-	
+$(document).ready(function(){	
 	$('#keyword').focus();
 	
 	$('input[name="datefilter"]').daterangepicker({
@@ -359,14 +340,11 @@ $('#examinfotab').click(function(){
 	        	 
 	        	 //scrollTop + windowHeight + 30 > documentHeight
 	        	 
-					classParam2.begin += 3;
+					classParam2.begin += 5;
 					examinfolistClass(classParam2);
 			 }
 		  }
-	});
-
-	
-	
+	});	
 });
 
 	//클래스 목록 가져오는 ajax

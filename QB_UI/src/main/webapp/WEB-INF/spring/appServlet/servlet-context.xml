@@ -7,7 +7,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/websocket  
+		http://www.springframework.org/schema/websocket
         http://www.springframework.org/schema/websocket/spring-websocket.xsd
         http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -21,8 +21,12 @@
         <!-- max size of file in memory (in bytes) -->
         <beans:property name="maxInMemorySize" value="-1" /> <!-- 1MB -->
         <beans:property name="defaultEncoding" value="UTF-8" /> <!-- 1MB -->
-    
     </beans:bean>
+    
+	<beans:bean class="onet.com.file.downloadController.DownloadController"/>
+    <beans:bean id="download" class="onet.com.file.downloadController.DownloadView"/>
+    <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>   
+	
 
 		<!-- controller -->
 	<context:component-scan base-package="onet.com.index.controller" />
@@ -37,11 +41,7 @@
 	<context:component-scan base-package="onet.com.admin.service"/>
 	<context:component-scan base-package="onet.com.common.service"/>
 
-
 	
-
-	
-
 	 <websocket:handlers>
         <websocket:mapping path="/count.do" handler="myHandler"/>
     </websocket:handlers>

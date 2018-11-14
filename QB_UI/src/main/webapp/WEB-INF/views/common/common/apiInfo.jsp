@@ -9,14 +9,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<link href="${pageContext.request.contextPath}/css/apiInfo.css"
-	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/lib/fullcalendar/bootstrap-fullcalendar.css"
 	rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
- 	swal("서비스 업데이트 중입니다. 하단의 큐넷시험일정 을 클릭하여 더 자세한 사항을 보실 수 있습니다.");
+ 	swal("서비스 업데이트 중입니다.\n 하단의 큐넷시험일정 을 클릭하여 더 자세한 사항을 보실 수 있습니다.");
 });
 </script>
 <style>
@@ -43,7 +40,7 @@ $(document).ready(function(){
 
 				</div>
 				<hr>
-				<span style="margin:10px; padding:10px;">&#8226; 더 자세한 사항을 보고 싶다면 <a href="http://www.q-net.or.kr/crf021.do?id=crf02103&gSite=Q&gId=&CST_ID=CRF_Stns_06">큐넷 시험 일정</a>를 클릭하여 확인하세요</span>
+				<span style="margin:10px; padding:10px;">&#8226; 더 자세한 사항을 보고 싶다면 <a href="http://www.q-net.or.kr/crf021.do?id=crf02103&gSite=Q&gId=&CST_ID=CRF_Stns_06">큐넷 자격증 시험 일정</a>를 클릭하여 확인하세요</span>
 			</div>
 			<!-- row content-panel -->
 		</div>
