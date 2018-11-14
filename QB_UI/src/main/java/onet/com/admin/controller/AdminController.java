@@ -562,9 +562,6 @@ public class AdminController {
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
-		for(Class_chartDto data : studentChart) {
-			System.out.println("과연"+data.getExam_info_name());
-		}
 		return chart;
 	}
 	//양회준 10-26 학생&성적관리 학생개인 성적확인
@@ -720,7 +717,6 @@ public class AdminController {
 	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
 	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
 		String member_id = principal.getName();
-		System.out.println("아이디 : " +member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 		return "common.admin.common.myPage";
@@ -746,7 +742,6 @@ public class AdminController {
 	public String myPageDrop(MemberDto memberDto)
 			throws IOException, ClassNotFoundException, SQLException {
 			memberDto.setMember_enable("0");
-			System.out.println(memberDto.getMember_enable());
 			commonService.myPageDrop(memberDto);
 		
 		// 예외 발생에 상관없이 목록페이지 요청 처리
@@ -785,7 +780,6 @@ public class AdminController {
 	}	
 	@RequestMapping("mdCatAdd.do")
 	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
-		System.out.println("<<<" + mdCatAdd + ">>>");
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(selectLgCat.trim()=="") {
 			map.put("result", "null");
@@ -795,7 +789,6 @@ public class AdminController {
 			return map;
 		}else {
 		String result = adminService.mdCatAdd(selectLgCat, mdCatAdd);
-		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
@@ -811,7 +804,6 @@ public class AdminController {
 			return map;
 		}else {
 		String result = adminService.smCatAdd(selectMdCat, smCatAdd);
-		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
@@ -963,7 +955,6 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax3");
 		mv.addObject("list3", list3);
-		System.out.println(list3);
 		return mv;
 	}
 	
@@ -1053,8 +1044,7 @@ public class AdminController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : " + file1);
-		System.out.println("file2 : " + file2);
+
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -1087,8 +1077,7 @@ public class AdminController {
 		}else {
 			commonService.updateNoBoardList(dto);
 		}
-		
-		System.out.println("테스트");
+
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
@@ -1194,7 +1183,7 @@ public class AdminController {
 	 }
 	/* 영준 10.25 반 등수 시작 */
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") int exam_info_num) {
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_num") int exam_info_num) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_num);
 		return classRank;
 	}
@@ -1221,12 +1210,9 @@ public class AdminController {
 	 @RequestMapping("receiveMessageDelete.do")
 		public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 			int result = 0;
-			System.out.println(receiveDeleteHidden);
 			String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
-			for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
-				
+			for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {				
 				result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
-				System.out.println(result);
 			}
 			return result;
 		}
@@ -1288,7 +1274,6 @@ public class AdminController {
 		// 10.24 현이 지난 시험지 보기 - 양회준 11.2 추가수정
 		@RequestMapping("pastExamPaper.do")
 		public String pastExamPaper(Model model, int exam_info_num, String member_id) throws ClassNotFoundException, SQLException, IOException {
-			System.out.println("지난 시험 보기:"+member_id);
 			ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
 			model.addAttribute("exam_info", exam_info);
 			
@@ -1303,10 +1288,6 @@ public class AdminController {
 		//11.05민지 시험일정 수정
 		@RequestMapping("examInfoIUpdate.do")
 		public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
-			
-			System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
-			System.out.println("memberarray2값>>"+memberarray2+"<<");
-			
 			String [] memberchecklist= memberarray2.split(",");
 			
 			int result = teacherService.examInfoIUpdate(dto);
@@ -1315,23 +1296,18 @@ public class AdminController {
 				System.out.println("exam_info_num>>" + exam_info_num + "   <<");
 				int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
 				if(result2>0) {
-					System.out.println("수정할때 학생 리스트 삭제 성공");
 					String memberid="";
 					int result3;
 					for(int i = 0; i<=memberchecklist.length-1;i++) {
 						
 						 memberid = memberchecklist[i];
 						ExamMemberDto exammemberdto = new ExamMemberDto();
-						System.out.println("memberid>>>>>"+memberid+" <<<<<<");
 						List<ExamInfoDto> list= teacherService.classExamList(exam_info_num);
 						int papernum= list.get(0).getExam_paper_num();
-						System.out.println("papernum  >>  "+ papernum + " <<");
 						List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
 						int infonum = examinfolist.size()-1;
-						System.out.println(examinfolist.toString());
 						int infonum2 = examinfolist.get(infonum).getExam_info_num();
 			
-						System.out.println("examinfolist>>>" + infonum2+ "    <<");
 						exammemberdto.setExam_info_num(infonum2);
 						exammemberdto.setMember_id(memberid);
 						result3=teacherService.examMemberInsert(exammemberdto);

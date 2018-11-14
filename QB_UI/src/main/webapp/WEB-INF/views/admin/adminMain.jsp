@@ -285,7 +285,6 @@ $(document).ready(function(){
 			
 			},
 			error : function(error) {
-				console.log("===========실패");
 			}
 		});
 	}
