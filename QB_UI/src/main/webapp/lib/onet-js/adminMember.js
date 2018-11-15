@@ -102,6 +102,7 @@ $(document).ready(function(){
 		$("#searchRole option").prop("selected", false);
 		$("#searchClassName option").prop("selected", false);
 		$("#searchMemberInfo option").prop("selected", false);
+		memberTable.ajax.reload();
 		memberTable.search("").columns().search("").draw();
 	});
 	//양회준 10.31 삭제버튼
@@ -231,8 +232,10 @@ $(function(){
 		var role_name="";
 		if(role_code_val=="ROLE_TEACHER"){
 			role_name="강사";
-		}else{
+		}else if(role_code_val=="ROLE_STUDENT"){
 			role_name="학생";
+		}else{
+			role_name="일반";
 		}
 		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
 				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
