@@ -104,10 +104,11 @@ public class MainPageController {
 	
 	/*양회준 10.29 admin 시험등록 추가 수정*/
 	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
+	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name, Principal principal) {
 		
 		List<MemberDto> classMemberList;
-		classMemberList= teacherService.classMemberList(exam_paper_num);
+		String member_id = principal.getName();
+		classMemberList= teacherService.classMemberList(exam_paper_num, member_id);
 		model.addAttribute("classMemberList", classMemberList);
 
 		ClassDto classInfo;

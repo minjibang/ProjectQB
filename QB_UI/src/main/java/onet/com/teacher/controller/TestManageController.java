@@ -246,10 +246,11 @@ public class TestManageController {
 
 	/* 민지 시작 */
 	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
+	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name, Principal principal) {
 
 		List<MemberDto> classMemberList;
-		classMemberList = teacherService.classMemberList(exam_paper_num);
+		String member_id = principal.getName();
+		classMemberList = teacherService.classMemberList(exam_paper_num, member_id);
 		model.addAttribute("classMemberList", classMemberList);
 
 		ClassDto classInfo;
