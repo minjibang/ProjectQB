@@ -44,3 +44,31 @@
 	.tab2studentListMembers{
 		cursor:pointer;
 	}
+	/* 태용	*/
+	.deleteline{
+	position:relative;
+	border-radius: 0px 10px 10px 10px;
+	padding : 10px;
+	/* background-color:#F6F6F6; */
+	margin-bottom : 10px;
+	box-shadow: 0px 0px 5px 0px grey;
+	overflow-y:auto;
+	}
+	.div-left{
+	float:left;
+	width:120px;
+	padding:10px 0px;
+	position: relative;
+	}
+	.testIcon{
+	width:100%;
+	}
+	.exam_info_name, .exam_paper_name{
+	float:left;
+	padding:0px;
+	}
+	.div-right{
+	position:absolute;
+	right:10px;
+	bottom:10px;
+	}
