@@ -1,30 +1,14 @@
-/**
- * 18.10.21 재훈 questionUpdate.js 파일 추가 
- */
-
-
-
-/*문제 수정 페이지 시작 */
-/*페이지 로드시 수정할 문제 정보 관련 함수*/
-
-/*문제 타입 (객관식, 단답형) 변경 시 정답 입력 div 변경*/
-
-
-function questionType(id){
-	if (id == "questionChoice") {
-		$('#questionChoice').append('<div id="choiceInput"> <b><input type="text" name="question_choice_num" value="1" style="display: none">1.</b><input type="text" name="question_choice_content" id="question_choice_content1" class="form-control-inline" placeholder="1번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[0]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="2" style="display: none">2.</b><input type="text" name="question_choice_content" id="question_choice_content2" class="form-control-inline" placeholder="2번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[1]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="3" style="display: none">3.</b><input type="text" name="question_choice_content" id="question_choice_content3" class="form-control-inline" placeholder="3번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail"style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[2]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="4" style="display: none">4.</b><input type="text" name="question_choice_content" id="question_choice_content4" class="form-control-inline" placeholder="4번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[3]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br><b><input type="text" name="question_choice_num" value="5" style="display: none">5.</b><input type="text" name="question_choice_content" id="question_choice_content5" class="form-control-inline" placeholder="5번 보기 내용을 입력해주세요."><span class="fileupload fileupload-new" data-provides="fileupload"><div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 180px; line-height: 20px;"></div><span><span class="btn btn-theme02 btn-file"><span class="fileupload-new"><i class="fa fa-paperclip"></i>image</span><span class="fileupload-exists"><i class="fa fa-undo"></i>Change</span><input type="file" name="question_choice_files[4]" class="default" accept="image/jpg, image/jpeg, image/png, image/gif"/></span><a href="" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i>Remove</a></span></span><br></div>');
-		document.all["questionChoice"].style.display = ''; // 보이게
-		document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
-		
-	} else {
-		document.all["questionChoice"].style.display = 'none'; // 안보이게
-		$('#choiceInput').remove();
-		document.all["questionShortAnswer"].style.display = ''; // 보이게
-	}
-}
 
 $(function() {
 		$("#question_type_1").click(function(){ 
+			document.all["questionChoice"].style.display = ''; // 보이게
+			document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
+			
+			var remove = document.getElementById("choiceInput");
+			remove.innerHTML="";
+			var remove1 = document.getElementById("answerChoiceText");
+			remove1.innerHTML="";		
+	
 	        $("#questionAnswerRadio1").attr("disabled", false);
 	        $("#questionAnswerRadio2").attr("disabled", false);
 	        $("#questionAnswerRadio3").attr("disabled", false);
@@ -37,6 +21,10 @@ $(function() {
 	   		
 	   });
        $("#question_type_2").click(function(){
+    	   
+   	    	document.all["questionChoice"].style.display = 'none'; // 안보이게
+			document.all["questionShortAnswer"].style.display = ''; // 보이게
+    	   
 			$("#questionAnswerRadio1").attr("disabled", true);
 	        $("#questionAnswerRadio2").attr("disabled", true);
 	        $("#questionAnswerRadio3").attr("disabled", true);
@@ -57,7 +45,6 @@ $('#howManyChoices').change(
 			var remove1 = document.getElementById("answerChoiceText");
 			remove.innerHTML="";
 			remove1.innerHTML="";
-						
 			var _choiceInput1 ="<div id='QCNPlus_1'><b><input type='text' name='question_choice_num' value='1' style='display: none'>1.</b> <input type='text' name='question_choice_content' id='question_choice_content1' class='form-control-inline' placeholder='1번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_1' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[0]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif'/> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(1)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
 			var _choiceInput2 ="<div id='QCNPlus_2'><b><input type='text' name='question_choice_num' value='2' style='display: none'>2.</b> <input type='text' name='question_choice_content' id='question_choice_content2' class='form-control-inline' placeholder='2번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_2' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[1]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif'/> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(2)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
 			var _choiceInput3 ="<div id='QCNPlus_3'><b><input type='text' name='question_choice_num' value='3' style='display: none'>3.</b> <input type='text' name='question_choice_content' id='question_choice_content3' class='form-control-inline' placeholder='3번 보기 내용을 입력해주세요.' > <span class='fileupload fileupload-new QCN_3' data-provides='fileupload'> <div class='fileupload-preview fileupload-exists thumbnail' style='max-width: 300px; max-height: 180px; line-height: 20px;'></div> <span>  <span class='btn btn-theme02 btn-file'> <span class='fileupload-new'> <i class='fa fa-paperclip'></i>image </span> <span class='fileupload-exists'><i class='fa fa-undo'></i>Change </span>  <input type='file' name='question_choice_files[2]' class='default' accept='image/jpg, image/jpeg, image/png, image/gif'/> </span> <span class='btn btn-theme04 fileupload-exists' onclick='deleteImg(3)' data-dismiss='fileupload'><i class='fa fa-trash-o'></i> Remove</span> </span> </span></div>"
@@ -167,9 +154,7 @@ $('#howManyChoices').change(
 /* 이미지 remove 버튼 */
 function removeImg(number){
 	console.log($(this).text());
-
 	$(this).parent().siblings(".fileupload-preview").find("img").remove();
-
 	return false
 }
 
@@ -259,7 +244,6 @@ $(document).on("click","#btnSubmit", function(){
 	var _questionChoiceContent4 = $("input[type=text][id=question_choice_content4]").val();
 	var _questionChoiceContent5 = $("input[type=text][id=question_choice_content5]").val();
 	var _shortAnswerQuestion = $("input[type=radio][name=question_type]:checked").val();
-	/*var _choiceQuantity = document.getElementById("howManyChoices").value;*/
 	var _choiceQuantity = $("#howManyChoices option:selected").val();
 	var question_num = $('#qdto_question_num').val();
 	

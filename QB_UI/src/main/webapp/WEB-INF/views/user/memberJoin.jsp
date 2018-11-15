@@ -109,6 +109,11 @@
 				},
 				success : function(data) {
 					/* alert(data); *///메일인증 확인 알럿
+					swal({
+						title:"인증번호를 발송하였습니다.",
+						icon:"info",
+						button:"Confirm"
+					});
 					mailtonumber = data;
 					mailcheck = true;
 				},
