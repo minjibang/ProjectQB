@@ -237,6 +237,7 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
 		mv.addObject("classList", classList);
+		mv.addObject("begin",begin);
 
 		return mv;
 	}
@@ -506,6 +507,7 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.teacher.examManagement_Imsi_teacher_ajax");
 		mv.addObject("myTempExamList", myTempExamList);
+		mv.addObject("begin",begin);
 
 		return mv;
 	}
@@ -523,6 +525,7 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.examManagement_admin_ajax");
 		mv.addObject("classList", classList);
+		mv.addObject("begin",begin);
 
 		return mv;
 	}

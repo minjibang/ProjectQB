@@ -1,8 +1,3 @@
-/**
- * 18.10.15 재훈 questionManagement.js 파일 추가 
- */
-
-
 
 /*내가 만든 문제 탭 - 페이지 로드시 전체문제 보여주기*/
 $(function() {
@@ -191,7 +186,7 @@ $(function() {
 /*새 문제 만들기 탭 - 문제 타입 (객관식, 단답형) 변경 시 정답 입력 div 변경 */
 
 $(function() {
-		$("#question_type_1").click(function(){ 
+		$("#question_type_1").click(function(){
 			document.all["questionChoice"].style.display = ''; // 보이게
 			document.all["questionShortAnswer"].style.display = 'none'; // 안보이게
 			
@@ -207,9 +202,9 @@ $(function() {
 	        $("#questionAnswerRadio4").attr("disabled", false);
 	        $("#questionAnswerRadio5").attr("disabled", false);
 	        $("#howManyChoices").prop("disabled", false);
+	        $("#howManyChoices").val("4").trigger("change");
 	        $("#questionType2Answer").attr("disabled", true);
 	        $("#choiceInput").attr("disabled", false);
-	        var QCF = document.getElementsByName("question_choice_files");
 	   });
 		
        $("#question_type_2").click(function(){
@@ -217,13 +212,17 @@ $(function() {
     	    document.all["questionChoice"].style.display = 'none'; // 안보이게
    			document.all["questionShortAnswer"].style.display = ''; // 보이게
    			
+   			var remove = document.getElementById("choiceInput");
+			remove.innerHTML="";
+			var remove1 = document.getElementById("answerChoiceText");
+			remove1.innerHTML="";
+   			
 			$("#questionAnswerRadio1").attr("disabled", true);
 	        $("#questionAnswerRadio2").attr("disabled", true);
 	        $("#questionAnswerRadio3").attr("disabled", true);
 	        $("#questionAnswerRadio4").attr("disabled", true);
 	        $("#questionAnswerRadio5").attr("disabled", true);
 	        $("#howManyChoices").prop("disabled", true);
-	        $("#howManyChoices5").removeAttr("selected");
 	        $("#howManyChoices1").prop("selected", "selected");
 	        
 			$("#questionType2Answer").attr("disabled", false);
@@ -329,6 +328,9 @@ $(document).on("click","#btnSubmit", function(){
 	var _choiceQuantity = $("#howManyChoices option:selected").val();
 	
 	if ($.trim(_shortAnswerQuestion) == "객관식") {
+			var filechk=$("input[type=file]").val();
+			console.log(filechk);
+		
 		/*객관식 문제 생성 유효성검사*/
 		if ($.trim(_smCategory) == "") {
 			swal("문제의 대,중,소 분류를 선택해주세요");
@@ -366,10 +368,13 @@ $(document).on("click","#btnSubmit", function(){
 					})
 					.then((willInsert) => {
 						if (willInsert){
+							alert("if문 진입");
 							$('#insertQuestionForm').submit();
 							return true;
 						}else{
-							swal("문제 등록이 취소되었습니다.")
+							swal({
+								title:"문제 등록이 취소되었습니다."
+							})
 							return false;
 						}
 					})

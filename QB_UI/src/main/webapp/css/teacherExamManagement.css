@@ -70,12 +70,24 @@ a.close {
 	float:left;
 	width:120px;
 	padding:10px 0px;
+	position: relative;
 }
-.div-left:hover{
-	background-color:#F6F6F6;
+.div-left:hover .testIcon{
+	background-color:#EAEAEA;
 	cursor : pointer;
 	opacity: 0.3;
 	transition: .5s ease;
+}
+.div-left:hover .middle{
+	opacity:1;
+	cursor : pointer;
+}
+.middle{
+	transition: .5s ease;
+  	opacity: 0;
+	position: absolute;
+	top: 25%;
+	left: 25%;	
 }
 .div-right{
 	position:absolute;
@@ -90,4 +102,15 @@ a.close {
 .testIcon{
 	width:100%;
 }
-
+.miriIcon{
+	width:70%;
+}
+.emptydata{
+	height:500px;
+	text-align:center;
+	padding: 10% 0%;
+	
+}
+.img-empty{
+	width:20%;
+}
