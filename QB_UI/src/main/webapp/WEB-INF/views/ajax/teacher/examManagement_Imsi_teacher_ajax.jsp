@@ -5,7 +5,7 @@
 
 <c:if test="${fn:length(myTempExamList) eq 0 and begin eq 0}">
 	<div class="emptydata">
-		<img src="${pageContext.request.contextPath}/img/exam-empty3.png" class="img-empty">
+		<img src="${pageContext.request.contextPath}/img/exam-empty4.png" class="img-empty">
 		<h1>임시저장된 시험지가 없습니다.</h1>
 	</div>
 </c:if>
