@@ -213,7 +213,7 @@ $(function(){
 			$("#agree_t").attr("checked", true);
 			$("#agree_s").attr("checked", false);
 		} 
-		else if(role_desc_modal == "일반회원"){
+		else if(role_desc_modal == "회원"){
 			$("#agree_t").attr("checked", false);
 			$("#agree_s").attr("checked", false);
 		} 
@@ -228,6 +228,12 @@ $(function(){
 	/*멤버 수정*/
 	$('#updateMemberBtn').click(function() {
 		var role_code_val=$("input[name=agree]:checked").val();
+		var role_name="";
+		if(role_code_val=="ROLE_TEACHER"){
+			role_name="강사";
+		}else{
+			role_name="학생";
+		}
 		var _param = {member_email:$("#cemail").val(), member_phone:$("#curl").val()
 				, member_id:$("#cid").val(), class_name:$("#class_name option:selected").text()
 				, role_code:role_code_val }
@@ -254,7 +260,7 @@ $(function(){
    					$("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(1).text(_param.class_name);
    					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(4).text(_param.member_email);
    					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(5).text(_param.member_phone);
-   					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(6).text(_param.role_desc);
+   					  $("#adminMemberTable>tbody>tr:eq("+rowIndex+")").children().eq(6).text(role_name);
    					  $("#UpdateModal").modal("hide");
    				  });
    			  },
