@@ -397,7 +397,7 @@ $('#examinfotab').click(function(){
 	function printpage(){
 		
 		var divContents = $('.book').html();
-		var printWindow = window.open('','','height=1000, width=1800');
+		var printWindow = window.open('','','height=800, width=1500');
         printWindow.document.write(divContents);
         printWindow.document.close();
         printWindow.print();
