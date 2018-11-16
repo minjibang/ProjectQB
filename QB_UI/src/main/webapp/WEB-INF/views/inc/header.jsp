@@ -51,7 +51,7 @@
 							<span class="badge bg-theme" id="message2" style="background-color: red;"></span>
 							</a>
 							
-								 <ul class="dropdown-menu extended tasks-bar" id="minji">
+								 <ul class="dropdown-menu inbox extended tasks-bar" id="minji">
               <div class="notify-arrow notify-arrow-green"></div>
 									<li>
 										<p class="green">You have new messages</p>
