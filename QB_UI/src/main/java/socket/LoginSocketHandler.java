@@ -37,12 +37,14 @@ public class LoginSocketHandler extends TextWebSocketHandler {
 
       TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
       String senderId = session.getPrincipal().getName();
+
       String data=message.getPayload();
       
       if(data.contains(",")) {
          String[] data2 = data.split(",");
          MessageDto dto = new MessageDto();
          if(data2.length>3) {
+
 
             for(int i =2; i <= data2.length-1; i++) {
                dto.setSend_member_id(data2[0]);
@@ -65,6 +67,7 @@ public class LoginSocketHandler extends TextWebSocketHandler {
          
          WebSocketSession receiveSession = userSessions.get(data2[2]);
          if(result>0 && receiveSession!=null) {
+
          receiveSession.sendMessage(new TextMessage(dao.count_receive_note(data2[2])));
          }
          }
@@ -72,12 +75,13 @@ public class LoginSocketHandler extends TextWebSocketHandler {
       else {
     	  WebSocketSession receiveSession = userSessions.get(senderId);
          receiveSession.sendMessage(new TextMessage(dao.count_receive_note(senderId)));
+
       }
    }
    @Override
    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
       
-      System.out.println("연결끊었다.");
+      
    }
 
 }

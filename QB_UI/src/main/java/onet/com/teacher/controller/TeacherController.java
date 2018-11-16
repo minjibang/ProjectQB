@@ -97,7 +97,6 @@ public class TeacherController {
 	   @RequestMapping("myMessage.do")
 	   public String myMessage(Model model, Principal principal) {
 	       String member_id = principal.getName();
-	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 	          
@@ -243,7 +242,6 @@ public class TeacherController {
 	
 	@RequestMapping("examPaperMake_questionContent.do")
 	public @ResponseBody String question_content(String num) {
-		System.out.println(num);
 		List<Question_choiceDto> question_choice;
 		
 		return null;
@@ -344,15 +342,12 @@ public class TeacherController {
 	//강사 - 문제 삭제
 		@RequestMapping("singleQuestionDelete.do")
 		public @ResponseBody Map<String,Object> singleQuestionDelete(int question_num){
-			System.out.println("컨트롤러 진입>>>>>" + question_num);
 			Map<String,Object> map = new HashMap <String,Object>();
 			int result = commonService.singleQuestionDelete(question_num);
 			
 			if(result == 0) {
-				System.out.println("컨트롤러 if문 >> result 값 0");
 				map.put("result", "삭제불가");
 			}else {
-				System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
 				map.put("result", "삭제가능");
 			}
 			return map;
@@ -361,14 +356,11 @@ public class TeacherController {
 	//강사 - 문제 수정 버튼 클릭시 확인 창 + 문제가 수정 가능한지 확인하는 기능
 		@RequestMapping("singleUpdateCheck.do")
 		public @ResponseBody Map<String,Object> singleUpdateCheck(int question_num){
-			System.out.println("singleUpdateCheck.do 컨트롤러 진입>>>>>" + question_num);
 			Map<String,Object> map = new HashMap <String,Object>();
 			int result = commonService.singleUpdateCheck(question_num);
 			if(result == 0) {
-				System.out.println("컨트롤러 if문 >> result 값 0");
 				map.put("result", "삭제불가");
 			}else {
-				System.out.println("컨트롤러 if문 >> result 값 0이 아닐때");
 				map.put("result", "삭제가능");
 			}
 			return map;
@@ -377,7 +369,6 @@ public class TeacherController {
 	//강사 - 문제 수정 페이지로 이동시 선택한 문제와 보기 정보 데이터를 출력
 		@RequestMapping("questionUpdate.do")
 		public String questionUpdate(Model model, int question_num) {
-			System.out.println("questionUpdate.do 컨트롤러 진입>>> question_num값: " +question_num);
 			
 			List<QuestionDto> qdto;
 			qdto=commonService.questionInfo(question_num);
@@ -419,7 +410,6 @@ public class TeacherController {
 	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
 		//회준 10.15
 		String member_id = principal.getName();
-		System.out.println("아이디 : " +member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 		
@@ -443,7 +433,6 @@ public class TeacherController {
 	public String myPageDrop(MemberDto memberDto)
 			throws IOException, ClassNotFoundException, SQLException {
 			memberDto.setMember_enable("0");
-			System.out.println(memberDto.getMember_enable());
 			commonService.myPageDrop(memberDto);
 		
 		// 예외 발생에 상관없이 목록페이지 요청 처리
@@ -549,7 +538,6 @@ public class TeacherController {
 		
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		//System.out.println("file1 : "+ file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -562,7 +550,6 @@ public class TeacherController {
 		
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		//System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -682,8 +669,6 @@ public class TeacherController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		//System.out.println("file1 : " + file1);
-		//System.out.println("file2 : " + file2);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -717,7 +702,6 @@ public class TeacherController {
 			commonService.updateNoBoardList(dto);
 		}
 		
-		//System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
@@ -772,12 +756,9 @@ public class TeacherController {
 	@RequestMapping("receiveMessageDelete.do")
 	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 		int result = 0;
-		System.out.println("receiveDeleteHidden : " + receiveDeleteHidden);
 		String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
 		for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
-			
 			result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
-			System.out.println(result);
 		}
 		return result;
 	}
@@ -787,11 +768,6 @@ public class TeacherController {
     public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
         MessageDto dto = new MessageDto();
         int result = commonService.message_check(message_check, message_num);
-        if(result > 0) {
-            System.out.println("메시지 체크 성공");
-        }else {
-            System.out.println("메시지 체크 실패");
-        }
         return result;
 
     }
@@ -853,7 +829,6 @@ public class TeacherController {
 		// 10.24 현이 지난 시험지 보기 - 양회준 11.2 추가수정
 		@RequestMapping("pastExamPaper.do")
 		public String pastExamPaper(Model model, int exam_info_num, String member_id) throws ClassNotFoundException, SQLException, IOException {
-			System.out.println("지난 시험 보기:"+member_id);
 			ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
 			model.addAttribute("exam_info", exam_info);
 			

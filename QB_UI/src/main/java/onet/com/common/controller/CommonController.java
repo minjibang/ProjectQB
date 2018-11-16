@@ -63,10 +63,8 @@ public class CommonController {
 			while((line = br.readLine()) != null) {
 				result = result + line +"\n";
 			}
-			System.out.println(result);			
 			
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return null;
 	}

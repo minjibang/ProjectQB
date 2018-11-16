@@ -97,7 +97,6 @@ public class CommonService {
 			throws ClassNotFoundException, SQLException, IOException {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
 		commonDao.myPageUpdate(memberDto);
-		System.out.println("test");
 		return "redirect:myPage.do";
 	}
 	//내정보 탈퇴
@@ -105,7 +104,6 @@ public class CommonService {
 			throws ClassNotFoundException, SQLException, IOException {
 		CommonDao commonDao = sqlsession.getMapper(CommonDao.class);
 		commonDao.myPageDrop(memberDto);
-		System.out.println("droptest");
 		return "redirect:myPage.do";
 	}
 	/*양회준 - 10.15 내정보 끝 */
@@ -165,7 +163,6 @@ public class CommonService {
 	public int insertBoardList(NoticeDto dto) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		String notice_num = dao.noticeNumFind(dto);
-		System.out.println(notice_num);
 		if(notice_num != null) {
 			int notice_number = Integer.parseInt(notice_num);
 			dto.setNotice_num(notice_number+1);
@@ -332,7 +329,6 @@ public class CommonService {
 					score.put(data2.getExam_info_name(), data2.getScore_chart_score());								
 				}
 			}
-			System.out.println("");
 			data.setScore_list(score);;//점수리스트를 평균리스트에 대입			
 		}
 		return avglist;
@@ -551,13 +547,11 @@ public class CommonService {
 	public int receiveMessageCheck(String member_id) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = dao.receiveMessageCheck(member_id);
-		System.out.println("메세지 개수 : " + result);
 		return result;
 	}
 	public int sendMessageCheck(String member_id) {
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		int result = dao.sendMessageCheck(member_id);
-		System.out.println("메세지 개수 : " + result);
 		return result;
 	}
 	

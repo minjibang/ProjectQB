@@ -84,9 +84,9 @@
 <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 
 <script>
-	$.backstretch("${pageContext.request.contextPath}/img/bg-test8.jpg", {
-		speed : 500
-	});
+$.backstretch(["${pageContext.request.contextPath}/img/bg-test6.jpg","${pageContext.request.contextPath}/img/bg-test1.jpg","${pageContext.request.contextPath}/img/bg-test9.jpg"], {
+	duration : 3000, fade:750
+});
 </script>
 <script>
 	var idcheck = false;

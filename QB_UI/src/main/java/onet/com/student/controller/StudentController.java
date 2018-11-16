@@ -252,9 +252,7 @@ public class StudentController {
 	@RequestMapping(value = "myRank.do", method = RequestMethod.POST)
 	public @ResponseBody List<Score_chartDto> myRank(@RequestParam("member_id") String member_id,
 			@RequestParam("exam_info_num") String exam_info_num) {
-		System.out.println("학생컨트롤러 진입 : " + member_id + exam_info_num);
 		List<Score_chartDto> myRank = studentService.myRank(member_id, exam_info_num);
-		System.out.println("과연 반 등수는? : " + myRank);
 		return myRank;
 	}
 	/* 영준 10.26 반 등수 끝 */
@@ -276,7 +274,6 @@ public class StudentController {
 	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
 		// 회준 10.15
 		String member_id = principal.getName();
-		System.out.println("아이디 : " + member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 
@@ -297,7 +294,6 @@ public class StudentController {
 	@RequestMapping("myMessage.do")
 	public String myMessage(Model model, Principal principal) {
 		String member_id = principal.getName();
-		System.out.println("아이디:" + member_id);
 		MessageDto dto = new MessageDto();
 		List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 
@@ -343,7 +339,6 @@ public class StudentController {
 	@RequestMapping("myPageDrop.do")
 	public String myPageDrop(MemberDto memberDto) throws IOException, ClassNotFoundException, SQLException {
 		memberDto.setMember_enable("0");
-		System.out.println(memberDto.getMember_enable());
 		commonService.myPageDrop(memberDto);
 
 		// 예외 발생에 상관없이 목록페이지 요청 처리
@@ -396,10 +391,8 @@ public class StudentController {
 
 		// 시험일 비교
 		if (nowdate.equals(exam_info_date)) {
-			System.out.println("현재 날짜와 시험 날짜가 동일합니다.");
 			// 시험시간 확인
 			if (examIn < 0 & 0 < examOut) {
-				System.out.println("시험시간 중입니다.");
 				model.addAttribute("exam_info", exam_info);
 
 				// 현이 10.17 추가
@@ -414,11 +407,9 @@ public class StudentController {
 
 				url = "exam.student.examPaperDo2";
 			} else {
-				System.out.println("시험시간이 끝났습니다.");
 				url = "exam.error.error403";
 			}
 		} else {
-			System.out.println("시험시간이 아닙니다.");
 			url = "exam.error.error403";
 		}
 
@@ -472,7 +463,6 @@ public class StudentController {
 
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : " + file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -485,7 +475,6 @@ public class StudentController {
 
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
 		if (fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -567,14 +556,8 @@ public class StudentController {
 	public @ResponseBody int sendTeacherMessage(Principal principal, String teacher_id, String message_content) {
 
 		String send_member_id = principal.getName();
-		System.out.println(
-				"send_member_id:" + send_member_id + "teacher_id:" + teacher_id + "message_content:" + message_content);
 		int result = studentService.sendTeacherMessage(teacher_id, message_content, send_member_id);
-		if (result > 0) {
-			System.out.println("쪽지 보내기 성공!");
-		} else {
-			System.out.println("쪽지 보내기 실패~!");
-		}
+		
 
 		return result;
 	}
@@ -584,13 +567,8 @@ public class StudentController {
 	public @ResponseBody int message_check(@RequestParam("message_check") int message_check,
 			@RequestParam("message_num") int message_num) {
 		MessageDto dto = new MessageDto();
-		System.out.println("aasdsad");
 		int result = commonService.message_check(message_check, message_num);
-		if (result > 0) {
-			System.out.println("메시지 체크 성공");
-		} else {
-			System.out.println("메시지 체크 실패");
-		}
+		
 		return result;
 
 	}
@@ -602,9 +580,7 @@ public class StudentController {
 			@RequestParam("question_answerSheet") String question_answerSheet, int begin, int rowPerPage,
 			Principal principal) throws ClassNotFoundException, SQLException, IOException {
 
-		// System.out.println("student_answer_status : " + student_answer_status);
-		// System.out.println("question_answerSheet : " + question_answerSheet);
-
+		
 		ModelAndView mav = new ModelAndView();
 
 		List<ExamPaperDoQuestionDto> questionList = null;
@@ -644,12 +620,10 @@ public class StudentController {
 	@RequestMapping("receiveMessageDelete.do")
 	public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 		int result = 0;
-		System.out.println(receiveDeleteHidden);
 		String[] receiveDeleteHiddenArray = receiveDeleteHidden.split(",");
 		for (int i = 0; i < receiveDeleteHiddenArray.length; i++) {
 
 			result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
-			System.out.println(result);
 		}
 		return result;
 	}

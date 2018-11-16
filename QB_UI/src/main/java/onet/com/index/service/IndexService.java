@@ -64,7 +64,6 @@ public class IndexService {
 		}
 
 		public String sendMail(String mailto,String command, String member_id) {
-			System.out.println("*********************************************"+command+"*********************************************"+command+"*********************************************");
 			Mail mail = new Mail();
 			mail.setCompany("QBQB");// 회사명
 			mail.setMailFrom("bitcamp109");// 송신메일
@@ -79,7 +78,6 @@ public class IndexService {
 				mail.setTemplateName("jointemplate.vm");// 메일내용
 			}
 
-			// SimpleMailMessage message = new SimpleMailMessage();
 			MimeMessage message = mailSender.createMimeMessage();
 			
 			MimeMessageHelper helper;
@@ -102,7 +100,6 @@ public class IndexService {
 				velocityContext.put("randomPwd", randomPwd);
 				
 			
-			//"./src/main/resources/templates/"
 				Template template = velocityEngine.getTemplate(mail.getTemplateName());
 				StringWriter stringWriter = new StringWriter();
 				template.merge(velocityContext, stringWriter);

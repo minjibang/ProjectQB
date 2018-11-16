@@ -52,8 +52,8 @@
             	},
             success : function(data) {
             	swal({
-			    	title:"EMAIL로 인증번호가 발송되었습니다.",
-			    	text:/* "인증번호를 확인 후 입력해주시기 바랍니다." */data,
+			    	title:"EMAIL로 인증번호가 발송되었습니다",
+			    	text: "인증번호를 확인 후 입력해주시기 바랍니다",
 			    	icon:"info",
 			    	button:"Confirm",
 			    });    
@@ -107,8 +107,8 @@
 	var result = "${result}";
 	if(result != "" && result != "false"){
 		swal({
-	    	title:"해당 정보로 확인된 ID입니다.",
-	    	text:/* "확인 후 로그인해주세요" */result,
+	    	title:"해당 정보로 확인된 ID입니다. 확인 후 로그인해주세요",
+	    	text:result,
 	    	icon:"info",
 	    	button:"Confirm",
 	    });

@@ -160,7 +160,6 @@ public class StudentService {
 	public List<Score_chartDto> myRank(String member_id, String exam_info_num){
 		StudentDao dao = sqlsession.getMapper(StudentDao.class);
 		
-		System.out.println("학생컨트롤러 진입 >> member_id: "+member_id);
 		List<Score_chartDto> myRank = dao.myRank(member_id, exam_info_num);
 		return myRank;
 	}
@@ -168,7 +167,6 @@ public class StudentService {
 	public List<MemberDto> rankStudentInfo(String member_id){
 		CommonDao dao = sqlsession.getMapper(CommonDao.class);
 		
-		System.out.println("학생컨트롤러 rankStudentInfo진입 :" + member_id);
 		List<MemberDto> rankStudentInfo = null;
 		
 		rankStudentInfo = dao.studentInfo(member_id);
