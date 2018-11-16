@@ -99,7 +99,6 @@ public class AdminService {
 			    String filename = multifile.getOriginalFilename();
 			    String path = request.getServletContext().getRealPath("/upload/question/");
 				String fpath = path + "\\" + filename;
-				System.out.println();
 		
 				if(!filename.equals("")) { //파일 쓰기
 					FileOutputStream fs = new FileOutputStream(fpath);
@@ -121,13 +120,10 @@ public class AdminService {
 		int result = 0;		
 		String[] question_choice_num;
 		String[] question_choice_content;
-		System.out.println("무엇이 널인가");
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		//보기 이미지 파일 입력
 		List<CommonsMultipartFile> qcFiles = qcDto.getQuestion_choice_files();
 		List<String> qcFilenames = new ArrayList<>(); //파일명 담아넣기 (DB Insert)
-		System.out.println("qcFiles: " + qcFiles);
-		System.out.println("qcFilenames: " + qcFilenames);
 		   if(qcFiles != null && qcFiles.size() > 0) {
 			   for(CommonsMultipartFile multifile : qcFiles) {
 				    
@@ -204,10 +200,8 @@ public class AdminService {
 	//양회준 10-22 admin 회원관리 비동기 검색
 		public List<MemberDto> memberSearchAjax(String searchRole, String searchClassName, 
 				String searchMemberInfo, String searchBox) {
-			System.out.println(searchRole+"/"+ searchClassName+"/"+ searchMemberInfo+"/"+ searchBox);
 			AdminDao dao = sqlsession.getMapper(AdminDao.class);
 			List<MemberDto> result = dao.memberSearchAjax(searchRole, searchClassName, searchMemberInfo, searchBox);		
-			System.out.println(result);
 			
 			return result;
 		}
@@ -216,7 +210,6 @@ public class AdminService {
 			AdminDao dao = sqlsession.getMapper(AdminDao.class);
 			int result=0;
 			for(String updateStudent : updateStudentArr) {
-				System.out.println("service data="+updateStudent);
 				result = dao.updateStudentsAjax(updateStudent);		
 			}				
 			return result;
@@ -226,7 +219,6 @@ public class AdminService {
 			AdminDao dao = sqlsession.getMapper(AdminDao.class);
 			int result=0;
 			for(String deleteStudent : deleteStudentArr) {
-				System.out.println("service data="+deleteStudent);
 				result = dao.deleteStudentsAjax(deleteStudent);		
 			}				
 			return result;
@@ -431,10 +423,8 @@ public class AdminService {
 		AdminDao dao = sqlsession.getMapper(AdminDao.class);
 		int result = 0;
 		List<CategoryDto> qSearch = dao.questionDeleteSearch(smDeleteCode);
-		System.out.println(qSearch);
 		CategoryDto dto = new CategoryDto();
 		dto.setSm_category_code(smDeleteCode);
-		System.out.println(qSearch);
 		if(qSearch.isEmpty()) {
 			result = dao.smDelete(dto);
 			return result;

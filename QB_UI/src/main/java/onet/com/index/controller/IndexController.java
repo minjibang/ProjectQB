@@ -50,8 +50,6 @@ public class IndexController {
 	@RequestMapping(value="idSearch.do",method=RequestMethod.POST)
 	public String idSearch(MemberDto dto, Model model) {
 		String result = indexService.idSearch(dto);
-		System.out.println(result);
-		System.out.println("ㅇㅇㅇㅇ");
 		if(result != null) {
 			model.addAttribute("result", result);
 		}else {
@@ -78,11 +76,9 @@ public class IndexController {
 		int re = indexService.pwdSearch(dto);
 		String result = "";
 		if(re > 0) {
-			System.out.println("성공");
 			result = "true";
 			model.addAttribute("result", result);
 		}else {
-			System.out.println("실패");
 			result = "false";
 			model.addAttribute("result", result);
 		}
@@ -107,10 +103,8 @@ public class IndexController {
 		
 		
 		if(result > 0) {
-			System.out.println("가입성공");
 			viewpage = "redirect:/login.jsp";
 		}else {
-			System.out.println("가입실패");
 			 viewpage = "memberjoin.do";
 		}
 		return viewpage;
@@ -128,7 +122,6 @@ public class IndexController {
 	@RequestMapping(value = "mail.do",  method = RequestMethod.POST)
 	public @ResponseBody String mail(String mailto,String command , String member_id) {
 		String randomNum = indexService.sendMail(mailto, command, member_id);// 회원가입 메일발송
-		System.out.println("randomNum>>"+randomNum);
 		return randomNum;
 	}
 

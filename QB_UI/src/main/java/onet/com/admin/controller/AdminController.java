@@ -152,7 +152,6 @@ public class AdminController {
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
 	public @ResponseBody int adminMemberDelete(@RequestParam String member_id)
 	{	
-		System.out.println(member_id);
 		int result = adminService.deleteMember(member_id);
 		return result;
 	}
@@ -173,7 +172,6 @@ public class AdminController {
 		@RequestMapping(value="updateStudentsAjax.do", method=RequestMethod.POST)
 		public @ResponseBody String updateStudentsAjax(@RequestParam("updateStudentArr") ArrayList<String> updateStudentArr) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("arraylist인데 바로 찍히네?="+updateStudentArr);
 			
 			int result = adminService.updateStudentsAjax(updateStudentArr);
 			
@@ -183,7 +181,6 @@ public class AdminController {
 		@RequestMapping(value="deleteStudentsAjax.do", method=RequestMethod.POST)
 		public @ResponseBody String deleteStudentsAjax(@RequestParam("deleteStudentArr") ArrayList<String> deleteStudentArr) 
 				throws IOException, ClassNotFoundException, SQLException {
-			System.out.println("arraylist인데 바로 찍히네?="+deleteStudentArr);
 			
 			int result = adminService.deleteStudentsAjax(deleteStudentArr);
 			
@@ -257,7 +254,6 @@ public class AdminController {
 	@RequestMapping("myMessage.do")
 	   public String myMessage(Model model, Principal principal) {
 	       String member_id = principal.getName();
-	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 	          //받은쪽지함이 null일때 처리
@@ -565,7 +561,6 @@ public class AdminController {
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
 		for(Class_chartDto data : studentChart) {
-			System.out.println("과연"+data.getExam_info_name());
 		}
 		return chart;
 	}
@@ -722,7 +717,6 @@ public class AdminController {
 	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
 	public String myPageInfo(Model model, Principal principal) throws ClassNotFoundException, SQLException {
 		String member_id = principal.getName();
-		System.out.println("아이디 : " +member_id);
 		MemberDto memberDto = commonService.myPageInfo(member_id);
 		model.addAttribute("memberDto", memberDto);
 		return "common.admin.common.myPage";
@@ -737,7 +731,6 @@ public class AdminController {
 		try {
 			url = commonService.myPageUpdate(memberDto);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		// 예외 발생에 상관없이 목록페이지 요청 처리
 		return url;
@@ -748,7 +741,6 @@ public class AdminController {
 	public String myPageDrop(MemberDto memberDto)
 			throws IOException, ClassNotFoundException, SQLException {
 			memberDto.setMember_enable("0");
-			System.out.println(memberDto.getMember_enable());
 			commonService.myPageDrop(memberDto);
 		
 		// 예외 발생에 상관없이 목록페이지 요청 처리
@@ -787,7 +779,6 @@ public class AdminController {
 	}	
 	@RequestMapping("mdCatAdd.do")
 	public @ResponseBody Map<String, Object> mdCatAdd(String selectLgCat, String mdCatAdd) {
-		System.out.println("<<<" + mdCatAdd + ">>>");
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(selectLgCat.trim()=="") {
 			map.put("result", "null");
@@ -797,7 +788,6 @@ public class AdminController {
 			return map;
 		}else {
 		String result = adminService.mdCatAdd(selectLgCat, mdCatAdd);
-		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
@@ -813,7 +803,6 @@ public class AdminController {
 			return map;
 		}else {
 		String result = adminService.smCatAdd(selectMdCat, smCatAdd);
-		System.out.println(result);
 		map.put("result", result);
 		return map;
 	}
@@ -965,7 +954,6 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.questionCategory_ajax3");
 		mv.addObject("list3", list3);
-		System.out.println(list3);
 		return mv;
 	}
 	
@@ -1009,7 +997,6 @@ public class AdminController {
 		
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : "+ file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -1022,7 +1009,6 @@ public class AdminController {
 		
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -1055,8 +1041,6 @@ public class AdminController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : " + file1);
-		System.out.println("file2 : " + file2);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -1090,7 +1074,6 @@ public class AdminController {
 			commonService.updateNoBoardList(dto);
 		}
 		
-		System.out.println("테스트");
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
@@ -1187,11 +1170,6 @@ public class AdminController {
 	    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
 	        MessageDto dto = new MessageDto();
 	        int result = commonService.message_check(message_check, message_num);
-	        if(result > 0) {
-	            System.out.println("메시지 체크 성공");
-	        }else {
-	            System.out.println("메시지 체크 실패");
-	        }
 	        return result;
 	 }
 	/* 영준 10.25 반 등수 시작 */
@@ -1223,12 +1201,10 @@ public class AdminController {
 	 @RequestMapping("receiveMessageDelete.do")
 		public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 			int result = 0;
-			System.out.println(receiveDeleteHidden);
 			String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
 			for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
 				
 				result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
-				System.out.println(result);
 			}
 			return result;
 		}
@@ -1290,7 +1266,6 @@ public class AdminController {
 		// 10.24 현이 지난 시험지 보기 - 양회준 11.2 추가수정
 		@RequestMapping("pastExamPaper.do")
 		public String pastExamPaper(Model model, int exam_info_num, String member_id) throws ClassNotFoundException, SQLException, IOException {
-			System.out.println("지난 시험 보기:"+member_id);
 			ExamInfoDto exam_info = commonService.examScheduleDetail(exam_info_num);
 			model.addAttribute("exam_info", exam_info);
 			
@@ -1306,51 +1281,35 @@ public class AdminController {
 		@RequestMapping("examInfoIUpdate.do")
 		public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
 			
-			System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
-			System.out.println("memberarray2값>>"+memberarray2+"<<");
 			
 			String [] memberchecklist= memberarray2.split(",");
 			
 			int result = teacherService.examInfoIUpdate(dto);
 			
 			if(result > 0) {
-				System.out.println("exam_info_num>>" + exam_info_num + "   <<");
 				int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
 				if(result2>0) {
-					System.out.println("수정할때 학생 리스트 삭제 성공");
 					String memberid="";
 					int result3;
 					for(int i = 0; i<=memberchecklist.length-1;i++) {
 						
 						 memberid = memberchecklist[i];
 						ExamMemberDto exammemberdto = new ExamMemberDto();
-						System.out.println("memberid>>>>>"+memberid+" <<<<<<");
 						List<ExamInfoDto> list= teacherService.classExamList(exam_info_num);
 						int papernum= list.get(0).getExam_paper_num();
-						System.out.println("papernum  >>  "+ papernum + " <<");
 						List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
 						int infonum = examinfolist.size()-1;
-						System.out.println(examinfolist.toString());
 						int infonum2 = examinfolist.get(infonum).getExam_info_num();
 			
-						System.out.println("examinfolist>>>" + infonum2+ "    <<");
 						exammemberdto.setExam_info_num(infonum2);
 						exammemberdto.setMember_id(memberid);
 						result3=teacherService.examMemberInsert(exammemberdto);
 						
-						if(result3>0) {
-							System.out.println("수정할때 체크리스트 insert 성공");
-						}else {
-							System.out.println("체크리스트 insert 실패");
-					}
+					
 					}
 					
-				}else {
-					System.out.println("수정할때 학생 리스트 삭제 실패");
 				}
 				
-			}else {
-				System.out.println("수정실패");
 			}
 			
 			return "redirect:examManagement.do";
@@ -1365,14 +1324,12 @@ public class AdminController {
 			return dto.toString();*/
 			String result2="";
 			if(currentDate>removeData) {
-				System.out.println("지난시험지울거다");
 				result2="n";
 			}else {
 				int result = teacherService.teacherExamSchedultDelete(exam_info_num);
 				result2 = String.valueOf(result);
 				
 			}
-			System.out.println(">>>>>>"+result2);
 			return result2;
 			
 		}
@@ -1452,4 +1409,5 @@ public class AdminController {
 		model.addAttribute("class_num", class_num);
 		return "common.adminClass.admin.common.apiInfo";
 	}
+	
 }
