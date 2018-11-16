@@ -263,10 +263,10 @@ public class TeacherService {
 
 	/*--성태용 끝--*/
 	/* 민지 10.12 클래스멤버 리스트, 클래스 리스트 관리 */
-	public List<MemberDto> classMemberList(int exam_paper_num) {
+	public List<MemberDto> classMemberList(int exam_paper_num, String member_id) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 
-		List<MemberDto> result = dao.classMemberList(exam_paper_num);
+		List<MemberDto> result = dao.classMemberList(exam_paper_num, member_id);
 		return result;
 	}
 
@@ -291,7 +291,6 @@ public class TeacherService {
 		dto.setExam_info_num(exam_info_num);
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.teacherExamSchedultDelete(dto);
-		System.out.println("시험일정삭제 result값 : " + result);
 		return result;
 	}
 	/* 영준 - 10.18 선생님 시험일정 삭제 끝 */
@@ -317,7 +316,6 @@ public class TeacherService {
 	public List<ExamMemberDto> classExamMemberList(int exam_info_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		ExamMemberDto dto = new ExamMemberDto();
-		System.out.println("exam_info_num >>> " + exam_info_num + "  <<");
 		dto.setExam_info_num(exam_info_num);
 		List<ExamMemberDto> result = dao.classExamMemberList(dto);
 		return result;
@@ -326,7 +324,6 @@ public class TeacherService {
 	public int teacherExamMemberDelete(int exam_info_num) {
 		TeacherDao dao = sqlsession.getMapper(TeacherDao.class);
 		int result = dao.teacherExamMemberDelete(exam_info_num);
-		System.out.println("서비스에서 result 값: >>>> " + result);
 		return result;
 	}
 

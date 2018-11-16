@@ -45,7 +45,7 @@ public interface TeacherDao {
 	
 	/*민지 - 10.18 시험등록*/
 	public int examInfoInsert(ExamInfoDto dto);
-	public List<MemberDto> classMemberList(int exam_paper_num);
+	public List<MemberDto> classMemberList(int exam_paper_num, String member_id);
 	public List<MemberDto> classMemberListUpdate(int exam_info_num);
 	public ClassDto classInfo(int exam_paper_num);
 	

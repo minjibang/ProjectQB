@@ -152,7 +152,6 @@ public class AdminController {
 	@RequestMapping(value="adminMemberDelete.do", method = RequestMethod.POST)
 	public @ResponseBody int adminMemberDelete(@RequestParam String member_id)
 	{	
-		System.out.println(member_id);
 		int result = adminService.deleteMember(member_id);
 		return result;
 	}
@@ -255,7 +254,6 @@ public class AdminController {
 	@RequestMapping("myMessage.do")
 	   public String myMessage(Model model, Principal principal) {
 	       String member_id = principal.getName();
-	       System.out.println("아이디:"+member_id);
 	       MessageDto dto = new MessageDto();
 	          List<MemberDto> classMemberList = commonService.classMemeberList(member_id);
 	          //받은쪽지함이 null일때 처리
@@ -562,6 +560,7 @@ public class AdminController {
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
+
 		return chart;
 	}
 	//양회준 10-26 학생&성적관리 학생개인 성적확인
@@ -731,7 +730,6 @@ public class AdminController {
 		try {
 			url = commonService.myPageUpdate(memberDto);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		// 예외 발생에 상관없이 목록페이지 요청 처리
 		return url;
@@ -998,7 +996,6 @@ public class AdminController {
 		
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-		System.out.println("file1 : "+ file1);
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -1011,7 +1008,6 @@ public class AdminController {
 		
 		String safeFile1 = path + savaFile1;
 		String safeFile2 = path + saveFile2;
-		System.out.println("safeFile : " + safeFile1);
 		if(fileSize1 > 0 && fileSize2 > 0) {
 			file1.transferTo(new File(safeFile1));
 			file2.transferTo(new File(safeFile2));
@@ -1044,7 +1040,6 @@ public class AdminController {
 		String class_name = dto.getClass_name();
 		MultipartFile file1 = request.getFile("files1");
 		MultipartFile file2 = request.getFile("files2");
-
 		String originFileName1 = file1.getOriginalFilename();
 		String originFileName2 = file2.getOriginalFilename();
 		long fileSize1 = file1.getSize();
@@ -1077,7 +1072,6 @@ public class AdminController {
 		}else {
 			commonService.updateNoBoardList(dto);
 		}
-
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
@@ -1174,11 +1168,6 @@ public class AdminController {
 	    public @ResponseBody int message_check(@RequestParam("message_check")int message_check,@RequestParam("message_num")int message_num) {
 	        MessageDto dto = new MessageDto();
 	        int result = commonService.message_check(message_check, message_num);
-	        if(result > 0) {
-	            System.out.println("메시지 체크 성공");
-	        }else {
-	            System.out.println("메시지 체크 실패");
-	        }
 	        return result;
 	 }
 	/* 영준 10.25 반 등수 시작 */
@@ -1288,12 +1277,12 @@ public class AdminController {
 		//11.05민지 시험일정 수정
 		@RequestMapping("examInfoIUpdate.do")
 		public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
+
 			String [] memberchecklist= memberarray2.split(",");
 			
 			int result = teacherService.examInfoIUpdate(dto);
 			
 			if(result > 0) {
-				System.out.println("exam_info_num>>" + exam_info_num + "   <<");
 				int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
 				if(result2>0) {
 					String memberid="";
@@ -1312,19 +1301,11 @@ public class AdminController {
 						exammemberdto.setMember_id(memberid);
 						result3=teacherService.examMemberInsert(exammemberdto);
 						
-						if(result3>0) {
-							System.out.println("수정할때 체크리스트 insert 성공");
-						}else {
-							System.out.println("체크리스트 insert 실패");
-					}
+					
 					}
 					
-				}else {
-					System.out.println("수정할때 학생 리스트 삭제 실패");
 				}
 				
-			}else {
-				System.out.println("수정실패");
 			}
 			
 			return "redirect:examManagement.do";
@@ -1339,14 +1320,12 @@ public class AdminController {
 			return dto.toString();*/
 			String result2="";
 			if(currentDate>removeData) {
-				System.out.println("지난시험지울거다");
 				result2="n";
 			}else {
 				int result = teacherService.teacherExamSchedultDelete(exam_info_num);
 				result2 = String.valueOf(result);
 				
 			}
-			System.out.println(">>>>>>"+result2);
 			return result2;
 			
 		}
@@ -1428,4 +1407,5 @@ public class AdminController {
 		model.addAttribute("class_num", class_num);
 		return "common.adminClass.admin.common.apiInfo";
 	}
+	
 }

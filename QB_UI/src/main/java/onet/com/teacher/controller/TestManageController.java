@@ -53,8 +53,7 @@ public class TestManageController {
 		mv.addObject("question", question);
 		mv.addObject("question_choice", question_choice);
 
-		System.out.println(mv);
-
+		
 		return mv;
 	}
 
@@ -246,10 +245,11 @@ public class TestManageController {
 
 	/* 민지 시작 */
 	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
+	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name, Principal principal) {
 
 		List<MemberDto> classMemberList;
-		classMemberList = teacherService.classMemberList(exam_paper_num);
+		String member_id = principal.getName();
+		classMemberList = teacherService.classMemberList(exam_paper_num, member_id);
 		model.addAttribute("classMemberList", classMemberList);
 
 		ClassDto classInfo;
@@ -275,10 +275,8 @@ public class TestManageController {
 
 		result = teacherService.examInfoInsert(dto);
 		if (result > 0) {
-			// System.out.println("시험등록성공");
 			String class_name = dto.getClass_name();
-			// System.out.println(class_name);
-
+			
 			String url = URLEncoder.encode(class_name, "UTF-8");
 			String memberid = "";
 			int infonum2 = 0;
@@ -303,7 +301,6 @@ public class TestManageController {
 
 			viewpage = "redirect:examManagement.do";
 		} else {
-			System.out.println("시험등록 실패");
 		}
 		return viewpage;
 	}
@@ -390,11 +387,9 @@ public class TestManageController {
 		List<ExamMemberDto> classExamMemberList;
 
 		classExamMemberList = teacherService.classExamMemberList(exam_info_num);
-		System.out.println(classExamMemberList);
 		String[] iarray = new String[classExamMemberList.size()];
 		for (int i = 0; i <= classExamMemberList.size() - 1; i++) {
 			iarray[i] = classExamMemberList.get(i).getMember_id();
-			System.out.println(iarray[i]);
 		}
 
 		model.addAttribute("classExamMemberList", iarray);
@@ -414,51 +409,35 @@ public class TestManageController {
 	@RequestMapping("examInfoIUpdate.do")
 	public String examInfoIUpdate(ExamInfoDto dto, String memberarray2, int exam_info_num) {
 
-		System.out.println("시험일정 수정 컨트롤러!!!!!!!!!!!!!!!!!");
-		System.out.println("memberarray2값>>" + memberarray2 + "<<");
-
+		
 		String[] memberchecklist = memberarray2.split(",");
 
 		int result = teacherService.examInfoIUpdate(dto);
 
 		if (result > 0) {
-			System.out.println("exam_info_num>>" + exam_info_num + "   <<");
 			int result2 = teacherService.teacherExamMemberDelete(exam_info_num);
 			if (result2 > 0) {
-				System.out.println("수정할때 학생 리스트 삭제 성공");
 				String memberid = "";
 				int result3;
 				for (int i = 0; i <= memberchecklist.length - 1; i++) {
 
 					memberid = memberchecklist[i];
 					ExamMemberDto exammemberdto = new ExamMemberDto();
-					System.out.println("memberid>>>>>" + memberid + " <<<<<<");
 					List<ExamInfoDto> list = teacherService.classExamList(exam_info_num);
 					int papernum = list.get(0).getExam_paper_num();
-					System.out.println("papernum  >>  " + papernum + " <<");
 					List<ExamInfoDto> examinfolist = teacherService.examScheduleList2(papernum);
 					int infonum = examinfolist.size() - 1;
-					System.out.println(examinfolist.toString());
 					int infonum2 = examinfolist.get(infonum).getExam_info_num();
 
-					System.out.println("examinfolist>>>" + infonum2 + "    <<");
 					exammemberdto.setExam_info_num(infonum2);
 					exammemberdto.setMember_id(memberid);
 					result3 = teacherService.examMemberInsert(exammemberdto);
 
-					if (result3 > 0) {
-						System.out.println("수정할때 체크리스트 insert 성공");
-					} else {
-						System.out.println("체크리스트 insert 실패");
-					}
+					
 				}
 
-			} else {
-				System.out.println("수정할때 학생 리스트 삭제 실패");
-			}
+			} 
 
-		} else {
-			System.out.println("수정실패");
 		}
 
 		return "redirect:examManagement.do";
@@ -479,14 +458,12 @@ public class TestManageController {
 		 */
 		String result2 = "";
 		if (currentDate > removeData) {
-			System.out.println("지난시험지울거다");
 			result2 = "n";
 		} else {
 			int result = teacherService.teacherExamSchedultDelete(exam_info_num);
 			result2 = String.valueOf(result);
 
 		}
-		System.out.println(">>>>>>" + result2);
 		return result2;
 
 	}

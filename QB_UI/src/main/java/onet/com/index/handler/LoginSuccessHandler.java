@@ -17,7 +17,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
       String url = request.getContextPath();
       String authentication2 = authentication.getAuthorities().toString();
       String authentication3 = authentication2.trim();
-      System.out.println("테스트");
       
       if (authentication3.equals("[ROLE_ADMIN]")) {
          url += "/admin/adminMain.do";
