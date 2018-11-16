@@ -236,6 +236,7 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
 		mv.addObject("classList", classList);
+		mv.addObject("begin",begin);
 
 		return mv;
 	}
@@ -244,10 +245,11 @@ public class TestManageController {
 
 	/* 민지 시작 */
 	@RequestMapping("examScheduleRegist.do")
-	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name) {
+	public String examScheduleRegist(Model model, int exam_paper_num, String exam_paper_name, Principal principal) {
 
 		List<MemberDto> classMemberList;
-		classMemberList = teacherService.classMemberList(exam_paper_num);
+		String member_id = principal.getName();
+		classMemberList = teacherService.classMemberList(exam_paper_num, member_id);
 		model.addAttribute("classMemberList", classMemberList);
 
 		ClassDto classInfo;
@@ -481,6 +483,7 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.teacher.examManagement_Imsi_teacher_ajax");
 		mv.addObject("myTempExamList", myTempExamList);
+		mv.addObject("begin",begin);
 
 		return mv;
 	}
@@ -498,6 +501,7 @@ public class TestManageController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("ajax.admin.examManagement_admin_ajax");
 		mv.addObject("classList", classList);
+		mv.addObject("begin",begin);
 
 		return mv;
 	}

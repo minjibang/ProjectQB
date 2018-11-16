@@ -50,6 +50,7 @@ public class IndexController {
 	@RequestMapping(value="idSearch.do",method=RequestMethod.POST)
 	public String idSearch(MemberDto dto, Model model) {
 		String result = indexService.idSearch(dto);
+
 		if(result != null) {
 			model.addAttribute("result", result);
 		}else {

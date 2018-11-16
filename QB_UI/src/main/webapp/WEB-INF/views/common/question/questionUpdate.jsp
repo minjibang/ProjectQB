@@ -106,14 +106,14 @@
 							<span class="radio quesCategorybig"> 
 							<label class="questionChoiceRadioButton">
 								 <input type="radio" name="question_type" id="question_type_1"
-								 value="객관식" onclick="questionType('questionChoice');"
+								 value="객관식" 
 								 	<c:if test="${qdto.question_type eq '객관식'}">checked</c:if>
 								 >객관식
 							</label> &nbsp;&nbsp;
 							
 							<label class="questionChoiceRadioButton"> 
 								<input type="radio" name="question_type" id="question_type_2"
-								value="단답형" onclick="questionType('questionShortAnswer');"
+								value="단답형" 
 							 		<c:if test="${qdto.question_type eq '단답형'}">checked</c:if>
 								>단답형
 							</label>
@@ -268,14 +268,16 @@ $(document).ready(function() {
 		var qdto_question_answer = $("input[type=hidden][name=qdto_question_answer]").val();
 
 		if ($.trim(_questionType) == "단답형"){
-			$('#choiceInput').remove();
 			document.all["questionChoice"].style.display = 'none'; // 안보이게
 			document.all["questionShortAnswer"].style.display = ''; // 보이게
+    	   
 			$("#questionAnswerRadio1").attr("disabled", true);
 	        $("#questionAnswerRadio2").attr("disabled", true);
 	        $("#questionAnswerRadio3").attr("disabled", true);
 	        $("#questionAnswerRadio4").attr("disabled", true);
 	        $("#questionAnswerRadio5").attr("disabled", true);
+	        $("#howManyChoices").prop("disabled", true);
+	        $("#howManyChoices1").prop("selected", "selected");
 			$("#questionType2Answer").attr("disabled", false);
 			$("#choiceInput").attr("disabled", true);
 			

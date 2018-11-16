@@ -123,8 +123,8 @@
 							<div id="newQuestion" class="tab-pane">
 							<div class="row">
 								<div class="col-lg-12">
-									<form class="formNewQuestion" action="insertQuestion.do" enctype="multipart/form-data"
-										method="post" onsubmit="return check()">
+									<form class="formNewQuestion" id="insertQuestionForm" action="insertQuestion.do" enctype="multipart/form-data"
+										method="post">
 										
 										<input type="text" name="member_id"
 										value="${memberDto.member_id}" style="display: none">
@@ -165,11 +165,11 @@
 										<span class="radio quesCategorybig"> 
 											<label class="questionChoiceRadioButton"> 
 												<input type="radio" name="question_type" id="question_type_1"
-												value="객관식" checked onclick="questionType('questionChoice');" checked>객관식
+												value="객관식" checked >객관식
 											</label> &nbsp;&nbsp; 
 											<label class="questionChoiceRadioButton">
 												<input type="radio" name="question_type" id="question_type_2"
-												value="단답형" onclick="questionType('questionShortAnswer');">단답형
+												value="단답형">단답형
 										</label>
 										</span>
 										<hr>
@@ -248,8 +248,8 @@
 														<option id="howManyChoices4" value="4" selected>보기 개수: 4개</option>
 														<option id="howManyChoices5" value="5">보기 개수: 5개</option>
 														
-													</select> <br> <br>
-													
+													</select>
+													<p class="warning_text"><i class="fa fa-exclamation-triangle"></i> 보기 개수 변경시 기존의 문제보기 입력값이 초기화됩니다.</p>
 													
 													<!-- 1번 보기 -->
 													<div id="choiceInput">
@@ -374,7 +374,7 @@
 										<hr>
 										<button type="reset" class="btn btn-secondary quesCategory">
 										입력 취소</button>
-										<button type="submit" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
+										<button type="button" class="btn btn-theme quesCategory pull-right" id="btnSubmit">
 										문제 등록</button>
 										
 									</form>
@@ -399,10 +399,6 @@
 <!-- 문제 분류 셀렉트메뉴 선택시 하위분류 뿌려주기, 관리자-전체문제, 강사-내가 만든 문제 스크립트 시작  -->
 <script>
 	$(document).ready(function() {
-		$('#btnSubmit').click(function(){
-			var filechk=$("input[type=file]").val();
-			console.log(filechk);
-		});
 		
 		$('#question_lg_category')
 				.change(

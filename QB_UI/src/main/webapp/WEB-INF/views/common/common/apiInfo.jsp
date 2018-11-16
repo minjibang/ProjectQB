@@ -9,15 +9,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%-- <link href="${pageContext.request.contextPath}/css/apiInfo.css"
-	rel="stylesheet"> --%>
 <link href="${pageContext.request.contextPath}/lib/fullcalendar/bootstrap-fullcalendar.css"
 	rel="stylesheet">
+
 <script type="text/javascript">
-$(document).ready(function(){
- 	swal("서비스 업데이트 중입니다.\n 하단의 큐넷시험일정 을 클릭하여 더 자세한 사항을 보실 수 있습니다.");
+$(function(){
+ 	var date = new Date();
+ 	var y = date.getFullYear();
+	$('.fc-button-next').click(function(){
+		var next = $('.fc-header-title h2').text().substr(0,4);
+		if(next == (y+1)){
+			swal((y+1) + "년 서비스 업데이트 중입니다.\n 하단의 큐넷시험일정 을 클릭하여 더 자세한 사항을 보실 수 있습니다.");
+		}
+	});
 });
+
 </script>
 <style>
 .fc-header-center h2{

@@ -151,38 +151,30 @@
 											</h4>
 										</header>
 										<div class="panel-body minimal">
-											<div class="table-inbox-wrap">
-												<table class="table table-hover">
-													<tbody id="studentExamTable">
-														<c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
-														<tr class="unread">															
-															<td class="view-message dont-show"><img
-																	src=""
-																	class="img-thumbnail testIcon" width="150"></td>
-															<td class="view-message "><h3 class="tab2_examPaper">${studentExamScoreInfo.exam_info_name}</h3>
-																<p><c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach></p>
-																<p>수고하셨습니다.</p>
-															<!-- 코멘트 범위 -->
-																<div>
-																	<p>수고하셨습니다.</p>
-																</div>
-															<!-- 코멘트 범위 -->
-															</td>
-															<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 :
-																	${studentExamScoreInfo.exam_info_date }</p>
-																<p class="tab2_examTime">
-																시험 시간 : ${studentExamScoreInfo.exam_info_start}~${studentExamScoreInfo.exam_info_end }</p>
-																<p>(${studentExamScoreInfo.exam_info_time })</p></td>
-															<td class="view-message inbox-small-cells">
-																<button type="button" id="pastExamBtn"class="btn btn-theme mt pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>
+											<div class="table-inbox-wrap" id="search-append">											
+												<%-- <c:forEach items="${studentExamScoreInfo}" var="studentExamScoreInfo">
+													<div class="col-lg-12 deleteline">
+														<div class="div-left">
+															<img src="" class="testIcon">
+														</div>
+														<div class="exam_info_name">
+															<h4>
+																<strong>${studentExamScoreInfo.exam_info_name}</strong>																
+															</h4>				
+															<p>
+																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-tag"></i>&nbsp;&nbsp;
+																<c:forEach items="${studentExamScoreInfo.smCtgrName}" var="test">${test}&nbsp;&nbsp;</c:forEach>
+															</p>
+															<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 시험 날짜 :
+																${studentExamScoreInfo.exam_info_date } ( ${studentExamScoreInfo.exam_info_start}~${studentExamScoreInfo.exam_info_end })</p>
 																
-																<button type="button" id="ExamCommentBtn"class="btn btn-theme mt ExamCommentBtn" value="">평가등록</button>
-																
-															</td>
-														</tr>
-														</c:forEach>
-													</tbody>
-												</table>
+														</div>
+														<div class="div-right">
+															<button type="button" id="pastExamBtn"class="btn btn-theme mt pastExamBtn" value="${studentExamScoreInfo.exam_info_num }">성적확인</button>																
+															<button type="button" id="ExamCommentBtn"class="btn btn-theme mt ExamCommentBtn" value="">평가등록</button>
+														</div>
+													</div>
+												</c:forEach> --%>
 											</div>
 										</div>
 									</section>
@@ -377,7 +369,7 @@ $(document).ready(function(){
 	var chartStudentLabels = new Array();
 	var spreadScore;
 	//시험번호
-	var examInfoNum = "${classChart[0].exam_info_num}";
+	var examInfoNum = "${classChart[0].exam_info_num}<c:if test='${classChart[0].exam_info_num==null}'>0</c:if>";
 	var examInfoName = "${classChart[0].exam_info_name}";
 	
 	//학생목록 배열에 jstl값 담기
@@ -411,7 +403,7 @@ $(document).ready(function(){
 	//tab2AjaxData
 	var tab2AjaxData="";
 	//tab2AjaxData 가져오기 함수
-	function tab2Ajax(){
+  	function tab2Ajax(){
 		$.ajax({
 			type:"post",
 			url:"studentExamScoreInfo.do",
@@ -424,30 +416,32 @@ $(document).ready(function(){
 
 				tab2AjaxData=data;
 				var studentExamScoreSrc = "";
-				$("#studentExamTable").empty();
+				$("#search-append").empty();
 				$(data).each(function(index, element){
 					var smCtgr="";
 					$(element.smCtgrName).each(function(index, name){ //소분류 추출
 						smCtgr += name+'&nbsp;&nbsp;';
 					});
-					studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-					studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail testIcon" width="150"></td>';
-					studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
-					studentExamScoreSrc += '<p>'+smCtgr+'</p>';
-					studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
-					studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
-					studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
-					studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-					studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-theme mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
-					studentExamScoreSrc += "<button type='button' id='ExamCommentBtn' class='btn btn-theme mt ExamCommentBtn' value=''>평가등록</button></td></tr>";
+					studentExamScoreSrc += '<div class="col-lg-12 deleteline">';
+					studentExamScoreSrc += '<div class="div-left"><img src="" class="testIcon"></div>';
+					studentExamScoreSrc += '<div class="exam_info_name">';
+					studentExamScoreSrc += '<h4><strong>'+element.exam_info_name+'</strong></h4>';
+					studentExamScoreSrc += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-tag"></i>&nbsp;&nbsp'+smCtgr+'</p>';				
+					studentExamScoreSrc += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 시험 날짜 : '+element.exam_info_date+'('+element.exam_info_start+'~'+element.exam_info_end+')';
+					studentExamScoreSrc += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</p>';
+					studentExamScoreSrc += '</div>';
+					studentExamScoreSrc += '<div class="div-right">';
+					studentExamScoreSrc += '<button type="button" id="pastExamBtn"class="btn btn-theme mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
+					studentExamScoreSrc += '<button type="button" id="ExamCommentBtn"class="btn btn-theme mt ExamCommentBtn" value="">평가등록</button>';
+					studentExamScoreSrc += '</div></div>';
 				});
-				$("#studentExamTable").append(studentExamScoreSrc);	
+				$("#search-append").append(studentExamScoreSrc);	
 				$(".testIcon").each(function(){
 					var testIcon = $(this);	
-					var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;					
-					for(var i=0;i<10;i++){
+					var code= testIcon.parents().children('.exam_info_name').children('h4').children('strong').eq(0).text().charCodeAt(1)%6;
+					for(var i=0;i<6;i++){
 						switch(code){
-							case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
+							case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/exam"+i+".png"); break;
 						}
 					}
 				});
@@ -459,8 +453,8 @@ $(document).ready(function(){
 	}
 	
 	$(document).on('click', '.ExamCommentBtn', function(){
-		$(this).parent().parent().next().next().children().eq(1).removeAttr("disabled");
-		var text=$(this).parent().prev().prev().children().eq(3).text();
+		$(this).parent().prev().children().eq(3).children().eq(1).text();
+		var text = $(this).parent().prev().children().eq(3).children().eq(1).text();
 		var examInfoNum=$(this).prev().val();
 		
 		var getAreaStart =$("#tab2_studentName").text().indexOf("(");
@@ -477,8 +471,7 @@ $(document).ready(function(){
 			})
 			.then(name => {				
   				if (!name) throw null; 
-  				
-  				$(this).parent().prev().prev().children().eq(3).text(name);
+  				$(this).parent().prev().children().eq(3).children().eq(1).text(name);
   				return fetch('studentInfoCommentUpdate.do?member_id='+memberId+'&exam_info_num='+examInfoNum+'&score_chart_comment='+name);
   			})  			
   			.then(result => {
@@ -673,8 +666,8 @@ $(document).ready(function(){
 	});
 	
 	//학생목록 이벤트 종료
-	$("#searchExamValue").keyup(function(){	
-		$("#studentExamTable").empty();
+	$("#searchExamValue").keyup(function(){
+		$("#search-append").empty();
 		var inputKey=$("#searchExamValue").val();
 		var studentExamScoreSrc="";
 		$(tab2AjaxData).each(function(index, element){
@@ -683,27 +676,28 @@ $(document).ready(function(){
 					element.exam_info_date.match(inputKey)){//시험명, 소분류, 날짜 검색
 				$(element.smCtgrName).each(function(index, name){ //소분류 추출
 					smCtgr += name+'&nbsp;&nbsp;';
-				});
-				studentExamScoreSrc += '<tr class="unread"><td class="view-message">';
-				studentExamScoreSrc += '<img src="${pageContext.request.contextPath}/img/friends/fr-05.jpg" class="img-thumbnail testIcon" width="150"></td>';
-				studentExamScoreSrc += '<td class="view-message "><h3 class="tab2_examPaper">'+element.exam_info_name+'</h3>';
-				studentExamScoreSrc += '<p>'+smCtgr+'</p>';
-				studentExamScoreSrc += '<span><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</span></td>'
-				studentExamScoreSrc += '<td class="view-message  text-right"><p class="mt tab2_examDate">시험 날짜 : '+element.exam_info_date+'</p>';
-				studentExamScoreSrc += '<p class="tab2_examTime">시험 시간 : '+element.exam_info_start+'~'+element.exam_info_end+'</p><p>('+element.exam_info_time+')</p></td>';
-				studentExamScoreSrc += '<td class="view-message  inbox-small-cells">';
-				studentExamScoreSrc += '<button type="button" id="pastExamBtn" class="btn btn-theme mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
-				studentExamScoreSrc += "<button type='button' id='ExamCommentBtn' class='btn btn-theme mt ExamCommentBtn' value=''>평가등록</button></td></tr>";
-
+				});	
+				studentExamScoreSrc += '<div class="col-lg-12 deleteline">';
+				studentExamScoreSrc += '<div class="div-left"><img src="" class="testIcon"></div>';
+				studentExamScoreSrc += '<div class="exam_info_name">';
+				studentExamScoreSrc += '<h4><strong>'+element.exam_info_name+'</strong></h4>';
+				studentExamScoreSrc += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-tag"></i>&nbsp;&nbsp'+smCtgr+'</p>';				
+				studentExamScoreSrc += '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 시험 날짜 : '+element.exam_info_date+'('+element.exam_info_start+'~'+element.exam_info_end+')';
+				studentExamScoreSrc += '<p><i class="fa fa-comment-o"></i> </span><span class="comment">'+element.score_chart_comment+'</p>';
+				studentExamScoreSrc += '</div>';
+				studentExamScoreSrc += '<div class="div-right">';
+				studentExamScoreSrc += '<button type="button" id="pastExamBtn"class="btn btn-theme mt pastExamBtn" value="'+element.exam_info_num+'">성적확인</button>';
+				studentExamScoreSrc += '<button type="button" id="ExamCommentBtn"class="btn btn-theme mt ExamCommentBtn" value="">평가등록</button>';
+				studentExamScoreSrc += '</div></div>';
 			}
 		});		
-		$("#studentExamTable").append(studentExamScoreSrc);
+		$("#search-append").append(studentExamScoreSrc);
 		$(".testIcon").each(function(){
 			var testIcon = $(this);	
-			var code=testIcon.parent().next().children().eq(0).text().charCodeAt(1)%10;
-			for(var i=0;i<10;i++){
+			var code= testIcon.parents().children('.exam_info_name').children('h4').children('strong').eq(0).text().charCodeAt(1)%6;
+			for(var i=0;i<6;i++){
 				switch(code){
-					case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/testicon"+i+".png"); break;
+					case i: testIcon.attr("src","${pageContext.request.contextPath}/img/testIcon/exam"+i+".png"); break;
 				}
 			}
 		});
@@ -1159,7 +1153,6 @@ $(document).ready(function(){
 	$("#searchSpread").change(function() {
 		examInfoNum=$("#searchSpread option:selected").val();
 		examInfoTitle=$("#searchSpread option:selected").text();
-		console.log(examInfoTitle);
 		$("#line2").remove();
 		$("#divline2").append('<canvas id="line2" height="300"></canvas>');
 		spreadChart(examInfoTitle);

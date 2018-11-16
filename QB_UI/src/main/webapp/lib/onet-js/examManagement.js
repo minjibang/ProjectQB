@@ -52,8 +52,7 @@ function deleteExamInfo(){
 							title : "삭제완료",
 							icon : "success",
 						});
-						$('#' + exam_info_num).parent().parent(".exam_info_name")
-								.remove();
+						$('#' + exam_info_num).closest('.deleteline').remove();
 	     				}
 	   			  },
 					error: function(request, status, error){

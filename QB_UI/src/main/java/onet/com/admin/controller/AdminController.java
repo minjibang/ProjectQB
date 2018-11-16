@@ -560,8 +560,7 @@ public class AdminController {
 		//양회준 10-24
 		Map<String, Object> chart = commonService.studentChartInfo(member_id, class_name);
 		List<Class_chartDto> studentChart = (List<Class_chartDto>) chart.get("className");
-		for(Class_chartDto data : studentChart) {
-		}
+
 		return chart;
 	}
 	//양회준 10-26 학생&성적관리 학생개인 성적확인
@@ -1073,7 +1072,6 @@ public class AdminController {
 		}else {
 			commonService.updateNoBoardList(dto);
 		}
-		
 		red.addAttribute("class_name", class_name);
 		red.addAttribute("notice_num", notice_num);
 		return "redirect:noticeDetail.do";
@@ -1174,7 +1172,7 @@ public class AdminController {
 	 }
 	/* 영준 10.25 반 등수 시작 */
 	@RequestMapping(value="classRank.do", method=RequestMethod.POST)
-	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_name") int exam_info_num) {
+	public @ResponseBody List<Score_chartDto> classRank(@RequestParam("exam_info_num") int exam_info_num) {
 		List<Score_chartDto> classRank = commonService.classRank(exam_info_num);
 		return classRank;
 	}
@@ -1202,8 +1200,7 @@ public class AdminController {
 		public @ResponseBody int receiveMessageDelete(String receiveDeleteHidden) {
 			int result = 0;
 			String[] receiveDeleteHiddenArray=receiveDeleteHidden.split(",");
-			for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {
-				
+			for(int i = 0; i < receiveDeleteHiddenArray.length;i++) {				
 				result = commonService.receiveMessageDelete(receiveDeleteHiddenArray[i]);
 			}
 			return result;
@@ -1280,8 +1277,7 @@ public class AdminController {
 		//11.05민지 시험일정 수정
 		@RequestMapping("examInfoIUpdate.do")
 		public String examInfoIUpdate(ExamInfoDto dto,String memberarray2, int exam_info_num) {
-			
-			
+
 			String [] memberchecklist= memberarray2.split(",");
 			
 			int result = teacherService.examInfoIUpdate(dto);
@@ -1361,6 +1357,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("ajax.admin.examManagement_admin_ajax");
 			mv.addObject("classList", classList);
+			mv.addObject("begin",begin);
 		
 			return mv;
 		}
@@ -1379,6 +1376,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("ajax.admin.examManagement_admin_ajax_exam_info");
 			mv.addObject("classList", classList);
+			mv.addObject("begin",begin);
 		
 			return mv;
 		}

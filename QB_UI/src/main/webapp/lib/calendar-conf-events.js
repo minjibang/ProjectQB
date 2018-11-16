@@ -38,6 +38,7 @@ var Script = function () {
     var EndD;
     var startDate;
     var endDate;
+
     $.getJSON(string, function(data){
     	
     	if(data.response){
@@ -47,41 +48,40 @@ var Script = function () {
 
 				startDate = obj.docregstartdt + "";
 				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
-
 				endDate = obj.docregenddt + "";
 				EndD = endDate.substr(0,4) + "-" + endDate.substr(4,2)+"-" + endDate.substr(6,2);
-
 				var PilgiEvent = {
 						title:title + " 원서 접수",
 						start:StartD,
 						end:EndD
 				}
+				
 				startDate = obj.docexamdt + "";
 				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
 				var PilgiExEvent = {
 						title:title + " 필기 시험",
 						start:StartD
 				}
+				
 				startDate = obj.docpassdt  + "";
 				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
 				var PilgiPassEvent = {
 						title:title + " 필기 시험 합격자 발표",
 						start:StartD
 				}
+				
 				startDate = obj.pracregstartdt  + "";
 				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
-
 				endDate = obj.pracregenddt + "";
 				EndD = endDate.substr(0,4) + "-" + endDate.substr(4,2)+"-" + endDate.substr(6,2);
-
 				var SilgiEvent = {
 						title:title + " 실기시험 원서접수",
 						start:StartD,
 						end:EndD
 				}
+				
 				startDate = obj.pracexamstartdt  + "";
 				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
-				
 				endDate = obj.pracexamenddt + "";
 				EndD = endDate.substr(0,4) + "-" + endDate.substr(4,2)+"-" + endDate.substr(6,2);
 				var SilgiExEvent = {
@@ -89,12 +89,14 @@ var Script = function () {
 						start:StartD,
 						end:EndD
 				}
+				
 				startDate = obj.pracpassdt  + "";
 				StartD = startDate.substr(0,4) + "-" + startDate.substr(4,2)+"-" + startDate.substr(6,2);
 				var HapEvent = {
 						title:title + " 합격자 발표 일자",
 						start:StartD
 				}
+				
 				$('#calendar').fullCalendar('renderEvent', PilgiEvent, true);
 				$('#calendar').fullCalendar('renderEvent', PilgiExEvent, true);
 				$('#calendar').fullCalendar('renderEvent', PilgiPassEvent, true);
@@ -106,6 +108,7 @@ var Script = function () {
     		
 		}
     });
+   
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -129,5 +132,4 @@ var Script = function () {
         	   day : "일별",
         	   }
     });
-
 }();

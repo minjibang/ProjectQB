@@ -144,8 +144,7 @@ color:#0169ce;
 					<div>
 					<p style="font-weight: bold;display:inline-block;">주변 버스정류장</p> &nbsp;&nbsp;<p class="bus"style="display:inline-block;">강남역티월드 (22-654)  강남역도시에빛 (22-600)  신분당선강남역 (22-010)</p>
 					</div>  <!-- 구글맵 API 키 -->
-   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsXbEQ9aeugj_K1kmEVToG1-9ZZE-E9Js
-"></script>
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsXbEQ9aeugj_K1kmEVToG1-9ZZE-E9Js"></script>
   </article> 
 			</div>
 		</div>

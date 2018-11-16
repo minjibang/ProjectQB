@@ -57,8 +57,7 @@
 	var remain_time = dayEnd-now;
 	var lose_time = now-dayStart;
 	var total_time = dayEnd-dayStart;
-	//console.log("잃은 시간:"+lose_time);
-	//console.log("토탈 타임: " + remain_time+lose_time);
+	
 	var refresh_interval = 1000;
 	var timer;
 
@@ -67,13 +66,10 @@
 			value : lose_time
 		});
 		lose_time += refresh_interval;
-		//console.log("잃은 시간:"+lose_time);
-		if (total_time < lose_time)
+		if (total_time < (lose_time+3000)){
 			clearInterval(timer);
+		}
 	}
-
-	
-	
 	
 	// 페이징 처리 위한 변수
  	var pageNo = 1;
@@ -127,7 +123,7 @@
 		
 		// 프로그레스바 script
 		$("#progressbar1").progressbar({
-			max : total_time,
+			max : total_time-3000,
 			value : lose_time
 		});
 		timer = setInterval(refresh_bar, refresh_interval);
@@ -447,9 +443,7 @@
 	  seconds = (seconds < 10) ? "0" + seconds : seconds;
 	
 	  remainPrint= hours + ":" + minutes + ":" + seconds;
-	  //console.log(remainPrint);
 	  $("#remainTime").html(remainPrint);
-	  //console.log("remain_time : "+remainTime);
 	  
 	  //남은 제한시간 0보다 작을 경우 종료
 	  if(remainTime<0){
