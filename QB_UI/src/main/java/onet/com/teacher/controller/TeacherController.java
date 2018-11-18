@@ -927,4 +927,10 @@ public class TeacherController {
 			
 			return "common.teacher.common.apiInfo";
 		}
+		//태용
+		@RequestMapping("aboutUs.do")
+		public String aboutUs(Model model) {
+			
+			return "common.teacher.common.aboutUs";
+		}
 }

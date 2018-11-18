@@ -710,5 +710,11 @@ public class StudentController {
 		
 		return "common.student.common.apiInfo";
 	}
+	//태용
+	@RequestMapping("aboutUs.do")
+	public String aboutUs(Model model) {
+		
+		return "common.student.common.aboutUs";
+	}
 
 }
