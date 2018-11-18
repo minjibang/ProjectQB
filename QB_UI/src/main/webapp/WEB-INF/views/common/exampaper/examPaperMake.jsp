@@ -126,7 +126,12 @@
 																<c:forEach items="${examquestion_choice}" var="examquestion_choice">
 																	<c:if
 																		test="${examquestion_choice.question_num eq examquestion.question_num}">
-																		<p>${examquestion_choice.question_choice_num}.${examquestion_choice.question_choice_content}</p>
+																		<c:if test="${examquestion_choice.question_choice_image ne null }">
+																			<p>${examquestion_choice.question_choice_num})&nbsp; ${examquestion_choice.question_choice_content} <br><img src="${pageContext.request.contextPath}/upload/question/${examquestion_choice.question_choice_image}" alt="NoImg" class="questionChoiceImg" /></p>
+																		</c:if>
+																		<c:if test="${examquestion_choice.question_choice_image eq null }">
+																			<p>${examquestion_choice.question_choice_num})&nbsp; ${examquestion_choice.question_choice_content}</p>
+																		</c:if>
 																	</c:if>
 																</c:forEach>
 															</div>
