@@ -301,7 +301,7 @@
 											</tr>
 												<c:if test="${questionChoice.question_choice_image ne null}">
 													<tr>
-														<td></td><td><img class="answer_choice_image" src="${pageContext.request.contextPath}/img/${questionChoice.question_choice_image}"></td>
+														<td colspan="2"><img class="answer_choice_image" src="${pageContext.request.contextPath}/img/${questionChoice.question_choice_image}"></td>
 													</tr>
 												</c:if>
 											</c:if>
